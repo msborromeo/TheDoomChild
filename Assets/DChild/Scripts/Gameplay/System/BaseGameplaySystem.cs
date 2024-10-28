@@ -40,6 +40,8 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private static WorldTypeManager m_worldTypeManager;
 
+        public static bool HasInstance => m_instance != null;
+
         #region Modules
         private static IGameplayActivatable[] m_activatableModules;
         private static IOptionalGameplaySystemModule[] m_optionalGameplaySystemModules;
@@ -84,7 +86,7 @@ namespace DChild.Gameplay.Systems
 
         public static WorldType GetCurrentWorldType()
         {
-            return m_worldTypeManager?.CurrentWorldType ?? WorldType.Underworld;
+            return m_worldTypeManager.CurrentWorldType;
         }
 
         public static void SetWorldType(Environment.Location location)
@@ -129,7 +131,30 @@ namespace DChild.Gameplay.Systems
             ClearCaches();
             PersistentDataManager.ApplySaveData(campaignSlot.dialogueSaveData, DatabaseResetOptions.KeepAllLoaded);
             LoadingHandle.SetLoadType(loadType);
-            GameSystem.LoadZone(m_campaignToLoad.sceneToLoad, true);
+            if (GameSystem.m_useGameModeValidator)
+            {
+                m_worldTypeManager.SetCurrentWorldType(m_campaignToLoad.location);
+
+                var gameMode = GameMode.Underworld;
+                switch (m_worldTypeManager.CurrentWorldType)
+                {
+                    case WorldType.Underworld:
+                        gameMode = GameMode.Underworld;
+                        break;
+                    case WorldType.Overworld:
+                        gameMode = GameMode.Overworld;
+                        break;
+                    case WorldType.ArmyBattle:
+                        gameMode = GameMode.ArmyBattle;
+                        break;
+                }
+
+                GameSystem.LoadZone(gameMode,m_campaignToLoad.sceneToLoad, true);
+            }
+            else
+            {
+                GameSystem.LoadZone(m_campaignToLoad.sceneToLoad, true);
+            }
             //Reload Items
             LoadingHandle.SceneDone += LoadGameDone;
         }

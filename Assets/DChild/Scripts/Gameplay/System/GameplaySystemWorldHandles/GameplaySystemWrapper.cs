@@ -65,13 +65,16 @@ namespace DChild.Gameplay
         public static void ClearCaches()
         {
             BaseGameplaySystem.ClearCaches();
-            if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
+            if (BaseGameplaySystem.HasInstance)
             {
-                UnderworldGameplaySubsystem.ClearCaches();
-            }
-            else
-            {
-                OverworldGameplaySubsystem.LoadGame();
+                if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
+                {
+                    UnderworldGameplaySubsystem.ClearCaches();
+                }
+                else
+                {
+                    OverworldGameplaySubsystem.LoadGame();
+                }
             }
         }
 
@@ -109,17 +112,31 @@ namespace DChild.Gameplay
 
         public static void SetInputActive(bool isActive)
         {
-            if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
+            if (BaseGameplaySystem.HasInstance)
             {
-                UnderworldGameplaySubsystem.SetInputActive(isActive);
+                if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
+                {
+                    UnderworldGameplaySubsystem.SetInputActive(isActive);
+                }
             }
         }
 
         public static void ListenToNextSceneLoad()
         {
-            if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
+            if (BaseGameplaySystem.HasInstance)
             {
-                UnderworldGameplaySubsystem.ListenToNextSceneLoad();
+
+                if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
+                {
+                    UnderworldGameplaySubsystem.ListenToNextSceneLoad();
+                }
+            }
+            else
+            {
+                if (GameSystem.CurrentGameMode == GameMode.Underworld)
+                {
+                    UnderworldGameplaySubsystem.ListenToNextSceneLoad();
+                }
             }
         }
     }

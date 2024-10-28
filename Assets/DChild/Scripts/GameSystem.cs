@@ -50,6 +50,7 @@ namespace DChild
         [SerializeField]
         private GameIntroHandler m_introHandler;
 
+        public static GameMode CurrentGameMode => m_gameModeValidator.currentGameModeSetup;
 
         public static void SetCamera(Camera camera)
         {

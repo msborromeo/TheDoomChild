@@ -23,6 +23,8 @@ namespace DChild
         private bool m_overworldGameplaySceneActive;
         private bool m_armyBattleGameplaySceneActive;
 
+        public GameMode currentGameModeSetup => m_currentGameModeSetup;
+
         public void SetupGameMode(GameMode gameMode)
         {
             if (m_baseGameplaySceneActive == false)

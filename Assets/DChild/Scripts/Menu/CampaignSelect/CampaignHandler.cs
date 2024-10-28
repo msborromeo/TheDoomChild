@@ -43,21 +43,22 @@ namespace DChild.Menu
             LoadingHandle.UnloadScenes(gameObject.scene.name);
             if (GameSystem.m_useGameModeValidator)
             {
-                var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
-                WorldTypeVar.SetCurrentWorldType(m_campaignSelect.selectedSlot.location);
+                //var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
+                //WorldTypeVar.SetCurrentWorldType(m_campaignSelect.selectedSlot.location);
 
-                switch (WorldTypeVar.CurrentWorldType)
-                {
-                    case WorldType.Underworld:
-                        GameSystem.LoadZone(GameMode.Underworld, m_campaignSelect.selectedSlot.sceneToLoad, true);
-                        break;
-                    case WorldType.Overworld:
-                        GameSystem.LoadZone(GameMode.Overworld, m_campaignSelect.selectedSlot.sceneToLoad, true);
-                        break;
-                    case WorldType.ArmyBattle:
-                        GameSystem.LoadZone(GameMode.ArmyBattle, m_campaignSelect.selectedSlot.sceneToLoad, true);
-                        break;
-                }
+                GameSystem.LoadZone(GameSystem.CurrentGameMode, m_campaignSelect.selectedSlot.sceneToLoad, true);
+                //switch (WorldTypeVar.CurrentWorldType)
+                //{
+                //    case WorldType.Underworld:
+                        
+                //        break;
+                //    case WorldType.Overworld:
+                //        GameSystem.LoadZone(GameMode.Overworld, m_campaignSelect.selectedSlot.sceneToLoad, true);
+                //        break;
+                //    case WorldType.ArmyBattle:
+                //        GameSystem.LoadZone(GameMode.ArmyBattle, m_campaignSelect.selectedSlot.sceneToLoad, true);
+                //        break;
+                //}
             }
             else
             {
