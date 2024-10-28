@@ -28,7 +28,6 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private LocationInWorldData m_overworldLocationsData;
 
-        public static event EventAction<WorldTypeArgs> OnWorldTypeChanged;
 
         public void SetCurrentWorldType(Location currentLocation)
         {
@@ -40,10 +39,6 @@ namespace DChild.Gameplay.Systems
             {
                 m_currentWorldType = WorldType.Overworld;
             }
-
-            var args = new WorldTypeArgs(m_currentWorldType);
-
-            OnWorldTypeChanged.Invoke(this, args);
         }
     }
 }

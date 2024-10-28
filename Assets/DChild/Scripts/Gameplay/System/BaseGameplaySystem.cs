@@ -4,6 +4,7 @@ using DChild.Configurations;
 using DChild.Gameplay;
 using DChild.Gameplay.Cinematics;
 using DChild.Gameplay.Combat;
+using DChild.Gameplay.Environment;
 using DChild.Gameplay.SoulSkills;
 using DChild.Gameplay.Systems;
 using DChild.Gameplay.VFX;
@@ -83,7 +84,12 @@ namespace DChild.Gameplay.Systems
 
         public static WorldType GetCurrentWorldType()
         {
-            return WorldType.Underworld;
+            return m_worldTypeManager?.CurrentWorldType ?? WorldType.Underworld;
+        }
+
+        public static void SetWorldType(Environment.Location location)
+        {
+            m_worldTypeManager.SetCurrentWorldType(location);
         }
 
         public static void ResumeGame()
@@ -169,6 +175,7 @@ namespace DChild.Gameplay.Systems
                 AssignModules();
                 m_activatableModules = GetComponentsInChildren<IGameplayActivatable>();
                 var initializables = GetComponentsInChildren<IGameplayInitializable>();
+                m_worldTypeManager = GetComponentInChildren<WorldTypeManager>();
                 for (int i = 0; i < initializables.Length; i++)
                 {
                     initializables[i].Initialize();
