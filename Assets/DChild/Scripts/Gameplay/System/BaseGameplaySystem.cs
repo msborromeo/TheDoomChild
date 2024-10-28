@@ -108,6 +108,7 @@ namespace DChild.Gameplay.Systems
             {
                 Debug.LogError(e.Message);
             }
+            SkeletonAnimationManager.Instance.UnpauseAllSpines();
         }
 
         public static void PauseGame()

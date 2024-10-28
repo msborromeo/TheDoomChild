@@ -125,7 +125,6 @@ namespace DChild.Gameplay
         {
             if (BaseGameplaySystem.HasInstance)
             {
-
                 if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
                 {
                     UnderworldGameplaySubsystem.ListenToNextSceneLoad();
