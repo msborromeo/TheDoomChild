@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class ChangePlayerLayer : MonoBehaviour
 {
@@ -15,8 +16,12 @@ public class ChangePlayerLayer : MonoBehaviour
     {
         if (collision.tag == "Hitbox")
         {
-            var zeeSorting = collision.gameObject.GetComponent<SpriteRenderer>();
-            zeeSorting.sortingOrder = m_zeeSortingLayerAfter;
+       
+           
+                var zeeSorting = collision.gameObject.GetComponent<SpriteRenderer>();
+                zeeSorting.sortingOrder = m_zeeSortingLayerAfter;
+
+            
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
