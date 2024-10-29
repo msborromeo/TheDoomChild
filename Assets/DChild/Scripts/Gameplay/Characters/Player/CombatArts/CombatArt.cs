@@ -19,6 +19,7 @@ namespace DChild.Gameplay.Characters.Players
         LightningSpear,
         IcarusWings,
         TeleportingSkull,
+        AirSlashRange,
         _Count
     }
 }
