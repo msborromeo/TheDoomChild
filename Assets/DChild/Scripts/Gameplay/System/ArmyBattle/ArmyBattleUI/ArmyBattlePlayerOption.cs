@@ -10,6 +10,9 @@ namespace DChild.Gameplay.ArmyBattle.UI
         private ArmyDamageOptionSelection m_damageSelection;
         [SerializeField]
         private ArmyBattleAttackGroupSelection m_groupSelection;
+        [SerializeField]
+        private ArmyGroupIndexHandle m_groupIndex;
+        
 
         public void Initialize(PlayerArmyController player)
         {
@@ -25,8 +28,10 @@ namespace DChild.Gameplay.ArmyBattle.UI
         public void SetAttackGroupSelection(ArmyDamageTypeOptionUI option)
         {
             var damageType = option.damageType;
+            
             m_groupSelection.SetSelectionList(m_player.controlledArmy.GetAvailableGroups(damageType));
             m_groupSelection.SetSelectionIcon(damageType);
+            m_groupIndex.SetAvailableGroups(m_player.controlledArmy.GetAvailableGroups(damageType));
             SelectCurrentAttackingGroup();
         }
 
