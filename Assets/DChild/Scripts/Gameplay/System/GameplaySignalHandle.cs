@@ -116,27 +116,21 @@ namespace DChild.Gameplay
 
             LoadingHandle.SetLoadType(loadType);
             GameplaySystem.ResumeGame();
-            if (GameSystem.m_useGameModeValidator)
-            {
-                var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
-                WorldTypeVar.SetCurrentWorldType(locationData.location);
 
-                switch (WorldTypeVar.CurrentWorldType)
-                {
-                    case WorldType.Underworld:
-                        GameSystem.LoadZone(GameMode.Underworld, locationData.sceneInfo, true, OnTransferPlayerDone);
-                        break;
-                    case WorldType.Overworld:
-                        GameSystem.LoadZone(GameMode.Overworld, locationData.sceneInfo, true, OnTransferPlayerDone);
-                        break;
-                    case WorldType.ArmyBattle:
-                        GameSystem.LoadZone(GameMode.ArmyBattle, locationData.sceneInfo, true, OnTransferPlayerDone);
-                        break;
-                }
-            }
-            else
+            var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
+            WorldTypeVar.SetCurrentWorldType(locationData.location);
+
+            switch (WorldTypeVar.CurrentWorldType)
             {
-                GameSystem.LoadZone(locationData.sceneInfo, true, OnTransferPlayerDone);
+                case WorldType.Underworld:
+                    GameSystem.LoadZone(GameMode.Underworld, locationData.sceneInfo, true, OnTransferPlayerDone);
+                    break;
+                case WorldType.Overworld:
+                    GameSystem.LoadZone(GameMode.Overworld, locationData.sceneInfo, true, OnTransferPlayerDone);
+                    break;
+                case WorldType.ArmyBattle:
+                    GameSystem.LoadZone(GameMode.ArmyBattle, locationData.sceneInfo, true, OnTransferPlayerDone);
+                    break;
             }
         }
 

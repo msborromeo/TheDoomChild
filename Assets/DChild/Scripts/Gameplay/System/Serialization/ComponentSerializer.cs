@@ -51,7 +51,7 @@ namespace DChild.Serialization
             {
                 if (m_id.value == SerializeID.defaultValue)
                 {
-                    Debug.LogError($"{gameObject.name} Component Serializer ID is not on the Database");
+                    Debug.LogError($"{gameObject.name} Component Serializer ID is not on the Database",this);
                 }
             }
         }
