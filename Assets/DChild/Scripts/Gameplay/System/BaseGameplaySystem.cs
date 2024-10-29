@@ -19,6 +19,12 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 namespace DChild.Gameplay.Systems
 {
+    public class GameplayModifiers
+    {
+        public float minionSoulEssenceDrop = 1;
+        public float SoulessenceAbsorption = 1;
+    }
+
     public class BaseGameplaySystem : MonoBehaviour
     {
         [SerializeField]

@@ -15,8 +15,6 @@ namespace DChild
         [SerializeField]
         private SceneInfo m_loadingScene;
         [SerializeField]
-        private SceneInfo m_gameplayScene;
-        [SerializeField]
         private SceneInfo m_mainMenu;
 
         private string m_activeZone;
@@ -60,10 +58,6 @@ namespace DChild
                     LoadingHandle.UnloadScenes(m_activeZone);
                     m_activeZone = string.Empty;
                 }
-                if (GameSystem.sceneManager.IsSceneLoaded(m_gameplayScene.sceneName) == false)
-                {
-                    GameSystem.sceneManager.LoadSceneAsync(m_gameplayScene.sceneName);
-                }
 
                 if (scene.isAddressables)
                 {
@@ -84,7 +78,6 @@ namespace DChild
                 LoadingHandle.UnloadScenes(m_activeZone);
                 m_activeZone = string.Empty;
             }
-            LoadingHandle.UnloadScenes(m_gameplayScene);
             m_gameplaySceneActive = false;
             LoadingHandle.LoadScenes(m_mainMenu);
             Time.timeScale = 1;
