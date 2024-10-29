@@ -97,7 +97,7 @@ namespace DChild.Gameplay.Systems
             if (GameplaySystem.campaignSerializer.slot == null)
                 return;
 
-            m_playerManager.player.character.transform.position = GameplaySystem.campaignSerializer.slot.spawnPosition;
+            //m_playerManager.player.character.transform.position = GameplaySystem.campaignSerializer.slot.spawnPosition;
             m_playerManager.FreezePlayerPosition(true);
         }
 
@@ -141,6 +141,9 @@ namespace DChild.Gameplay.Systems
             {
                 LockPlayerToSpawnPosition();
             }
+
+            //Just to make sure that underworld system is loaded with Base Gameplay, currently still using old way to initialize first load;
+            GameplaySystem.campaignSerializer.Load(SerializationScope.Gameplay | SerializationScope.Menu, true);
 
             Debug.Log("Underworld Gameplay Awake Done");
         }
