@@ -146,10 +146,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     if (m_character.facing == HorizontalDirection.Left)
                     {
                         m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
-                        /*if (m_rigidbody.velocity.x == 0)
+                        if (!m_state.isGrounded)
                         {
-                            m_rigidbody.velocity = new Vector2(xVelocity, 0);
-                        }*/
+                            m_rigidbody.gravityScale = 20f;
+                        }
+                        else
+                        {
+                            m_rigidbody.gravityScale = 0;
+                        }
                     }
                     else
                     {
@@ -158,13 +162,18 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
                             if (m_rigidbody.velocity.x == 0)
                             {
-
                                 m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
+                                m_rigidbody.gravityScale = 20f;
                             }
                         }
                         else
                         {
                             m_rigidbody.velocity = new Vector2(xVelocity, -slopeAngle);
+                            if (m_rigidbody.velocity.x == 0)
+                            {
+                                m_rigidbody.velocity = new Vector2(xVelocity, 0);
+                                m_rigidbody.gravityScale = 0;
+                            }
                         }
 
                     }
@@ -178,28 +187,38 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
                             if (m_rigidbody.velocity.x == 0)
                             {
-
                                 m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
+                                m_rigidbody.gravityScale = 20f;
                             }
                         }
                         else
                         {
                             m_rigidbody.velocity = new Vector2(xVelocity, -slopeAngle);
+                            if (m_rigidbody.velocity.x == 0)
+                            {
+                                m_rigidbody.velocity = new Vector2(xVelocity, 0);
+                                m_rigidbody.gravityScale = 0;
+                            }
                         }
                     }
                     else
                     {
 
                         m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
-                        /*if (m_rigidbody.velocity.x == 0)
+                        if (!m_state.isGrounded)
                         {
-                            m_rigidbody.velocity = new Vector2(xVelocity, 0);
-                        }*/
+                            m_rigidbody.gravityScale = 20f;
+                        }
+                        else
+                        {
+                            m_rigidbody.gravityScale = 0;
+                        }
                     }
                 }
                 else
                 {
                     m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
+                    m_rigidbody.gravityScale = 20f;
                 }
             }
             /*else
