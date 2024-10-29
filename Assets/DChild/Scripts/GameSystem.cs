@@ -133,6 +133,10 @@ namespace DChild
         public static void LoadMainMenu()
         {
             dataManager.InitializeCampaignSlotList();
+            if (m_useGameModeValidator)
+            {
+                m_gameModeValidator.RemoveAllGameModeSystems();
+            }
             m_zoneLoader.LoadMainMenu();
         }
 

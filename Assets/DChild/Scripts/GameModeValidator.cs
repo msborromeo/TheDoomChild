@@ -42,6 +42,39 @@ namespace DChild
             ValidateGameModeSystem(m_currentGameModeSetup);
         }
 
+        public void RemoveAllGameModeSystems()
+        {
+            if (m_baseGameplaySceneActive)
+            {
+                LoadingHandle.UnloadScenes(m_baseGameplayScene);
+                m_baseGameplaySceneActive = false;
+            }
+            switch (m_currentGameModeSetup)
+            {
+                case GameMode.Underworld:
+                    if (m_underworldGameplaySceneActive)
+                    {
+                        LoadingHandle.UnloadScenes(m_underworldGameplayScene);
+                        m_underworldGameplaySceneActive = false;
+                    }
+                    break;
+                case GameMode.Overworld:
+                    if (m_overworldGameplaySceneActive)
+                    {
+                        LoadingHandle.UnloadScenes(m_overworldGameplayScene);
+                        m_overworldGameplaySceneActive = false;
+                    }
+                    break;
+                case GameMode.ArmyBattle:
+                    if (m_armyBattleGameplaySceneActive)
+                    {
+                        LoadingHandle.UnloadScenes(m_armyBattleGameplayScene);
+                        m_armyBattleGameplaySceneActive = false;
+                    }
+                    break;
+            }
+        }
+
         private void ValidateGameModeSystem(GameMode gameMode)
         {
             switch (gameMode)

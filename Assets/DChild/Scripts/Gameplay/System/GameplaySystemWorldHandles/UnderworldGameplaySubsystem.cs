@@ -97,7 +97,7 @@ namespace DChild.Gameplay.Systems
             if (GameplaySystem.campaignSerializer.slot == null)
                 return;
 
-            m_playerManager.player.transform.position = GameplaySystem.campaignSerializer.slot.spawnPosition;
+            m_playerManager.player.character.transform.position = GameplaySystem.campaignSerializer.slot.spawnPosition;
             m_playerManager.FreezePlayerPosition(true);
         }
 
