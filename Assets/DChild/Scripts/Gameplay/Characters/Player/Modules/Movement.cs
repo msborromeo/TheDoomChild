@@ -107,6 +107,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_animator.SetFloat(m_speedAnimationParameter, 1);
                 m_animator.SetInteger(m_xInputAnimationParameter, direction > 0 ? 1 : -1);
             }
+            m_rigidbody.gravityScale = 20f;
             var xVelocity = speed * direction;
             m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
         }
@@ -146,60 +147,117 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     if (m_character.facing == HorizontalDirection.Left)
                     {
                         m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
-                        /*if (m_rigidbody.velocity.x == 0)
+                        if (m_rigidbody.velocity.x == 0)
                         {
-                            m_rigidbody.velocity = new Vector2(xVelocity, 0);
+                            m_rigidbody.gravityScale = 0;
+                        }
+                        else
+                        {
+                            m_rigidbody.gravityScale = 20f;
+                        }
+                        /*if (!m_state.isGrounded)
+                        {
+                            m_rigidbody.gravityScale = 20f;
+                        }
+                        else
+                        {
+                            m_rigidbody.gravityScale = 0;
                         }*/
                     }
                     else
                     {
-                        if (!m_state.isGrounded)
+                        /*if (!m_state.isGrounded)
                         {
                             m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
                             if (m_rigidbody.velocity.x == 0)
                             {
-
                                 m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
+                                m_rigidbody.gravityScale = 20f;
                             }
                         }
                         else
                         {
                             m_rigidbody.velocity = new Vector2(xVelocity, -slopeAngle);
-                        }
+                            if (m_rigidbody.velocity.x == 0)
+                            {
+                                m_rigidbody.velocity = new Vector2(xVelocity, 0);
+                                m_rigidbody.gravityScale = 0;
+                            }
+                        }*/
 
+                        m_rigidbody.velocity = new Vector2(xVelocity, -slopeAngle);
+                        if (m_rigidbody.velocity.x == 0)
+                        {
+                            m_rigidbody.velocity = new Vector2(xVelocity, 0);
+                            m_rigidbody.gravityScale = 0;
+                        }
+                        else
+                        {
+                            m_rigidbody.gravityScale = 20f;
+                        }
                     }
                 }
                 else if (dotProduct < 0)
                 {
                     if (m_character.facing == HorizontalDirection.Left)
                     {
-                        if (!m_state.isGrounded)
+                        /*if (!m_state.isGrounded)
                         {
                             m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
                             if (m_rigidbody.velocity.x == 0)
                             {
-
                                 m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
+                                m_rigidbody.gravityScale = 20f;
                             }
                         }
                         else
                         {
                             m_rigidbody.velocity = new Vector2(xVelocity, -slopeAngle);
+                            if (m_rigidbody.velocity.x == 0)
+                            {
+                                m_rigidbody.velocity = new Vector2(xVelocity, 0);
+                                m_rigidbody.gravityScale = 0;
+                            }
+                        }*/
+
+                        m_rigidbody.velocity = new Vector2(xVelocity, -slopeAngle);
+                        if (m_rigidbody.velocity.x == 0)
+                        {
+                            m_rigidbody.velocity = new Vector2(xVelocity, 0);
+                            m_rigidbody.gravityScale = 0;
+                        }
+                        else
+                        {
+                            m_rigidbody.gravityScale = 20f;
                         }
                     }
                     else
                     {
 
                         m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
-                        /*if (m_rigidbody.velocity.x == 0)
+                        if (m_rigidbody.velocity.x == 0)
                         {
-                            m_rigidbody.velocity = new Vector2(xVelocity, 0);
+                            m_rigidbody.gravityScale = 0;
+                        }
+                        else
+                        {
+                            m_rigidbody.gravityScale = 20f;
+                        }
+                        /*if (!m_state.isGrounded)
+                        {
+                            m_rigidbody.gravityScale = 20f;
+                        }
+                        else
+                        {
+                            m_rigidbody.gravityScale = 0;
                         }*/
                     }
                 }
                 else
                 {
                     m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
+                    m_rigidbody.gravityScale = 20f;
+                    /*m_rigidbody.gravityScale = 20f;*/
                 }
             }
             /*else
