@@ -15,6 +15,7 @@ using PixelCrushers.DialogueSystem;
 using System;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 namespace DChild.Gameplay.Systems
 {
@@ -150,7 +151,7 @@ namespace DChild.Gameplay.Systems
                         break;
                 }
 
-                GameSystem.LoadZone(gameMode,m_campaignToLoad.sceneToLoad, true);
+                GameSystem.LoadZone(gameMode, m_campaignToLoad.sceneToLoad, true);
             }
             else
             {
@@ -261,6 +262,8 @@ namespace DChild.Gameplay.Systems
         {
             if (this == m_instance)
             {
+                m_instance = null;
+
                 m_fxManager = null;
                 m_cinema = null;
                 m_world = null;

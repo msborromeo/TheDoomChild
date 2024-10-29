@@ -11,10 +11,12 @@ using static UnityEngine.InputSystem.HID.HID;
 
 namespace DChild.Gameplay.Systems
 {
-    public class UnderworldGameplaySubsystem : MonoBehaviour
+    public class UnderworldGameplaySystem : MonoBehaviour
     {
         [SerializeField]
         private bool m_doNotTeleportPlayerOnAwake;
+
+        private static UnderworldGameplaySystem m_instance;
 
         #region Modules
         private static IGameplayActivatable[] m_activatableModules;
@@ -128,24 +130,32 @@ namespace DChild.Gameplay.Systems
 
         private void Awake()
         {
-            Debug.Log("Underworld Gameplay Awake");
-
-            AssignModules();
-            var initializables = GetComponentsInChildren<IGameplayInitializable>();
-            for (int i = 0; i < initializables.Length; i++)
+            if (m_instance)
             {
-                initializables[i].Initialize();
+                Destroy(gameObject);
             }
-
-            if (m_doNotTeleportPlayerOnAwake == false)
+            else
             {
-                LockPlayerToSpawnPosition();
+                m_instance = this;
+                Debug.Log("Underworld Gameplay Awake");
+
+                AssignModules();
+                var initializables = GetComponentsInChildren<IGameplayInitializable>();
+                for (int i = 0; i < initializables.Length; i++)
+                {
+                    initializables[i].Initialize();
+                }
+
+                if (m_doNotTeleportPlayerOnAwake == false)
+                {
+                    LockPlayerToSpawnPosition();
+                }
+
+                //Just to make sure that underworld system is loaded with Base Gameplay, currently still using old way to initialize first load;
+                GameplaySystem.campaignSerializer.Load(SerializationScope.Gameplay | SerializationScope.Menu, true);
+
+                Debug.Log("Underworld Gameplay Awake Done");
             }
-
-            //Just to make sure that underworld system is loaded with Base Gameplay, currently still using old way to initialize first load;
-            GameplaySystem.campaignSerializer.Load(SerializationScope.Gameplay | SerializationScope.Menu, true);
-
-            Debug.Log("Underworld Gameplay Awake Done");
         }
 
         private void Start()
@@ -159,11 +169,16 @@ namespace DChild.Gameplay.Systems
 
         private void OnDestroy()
         {
-            m_combatManager = null;
-            m_lootHandler = null;
-            m_simulation = null;
-            m_playerManager = null;
-            m_activatableModules = null;
+            if (m_instance == this)
+            {
+                m_instance = null;
+
+                m_combatManager = null;
+                m_lootHandler = null;
+                m_simulation = null;
+                m_playerManager = null;
+                m_activatableModules = null;
+            }
         }
     }
 }

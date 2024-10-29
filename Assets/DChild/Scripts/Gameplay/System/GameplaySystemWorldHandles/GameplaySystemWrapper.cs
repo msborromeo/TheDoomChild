@@ -18,18 +18,18 @@ namespace DChild.Gameplay
         public static AudioListenerPositioner audioListener { get => BaseGameplaySystem.audioListener; }
         public static IGameplayUIHandle gamplayUIHandle { get => uiHandle; }
 
-        public static ICombatManager combatManager { get => UnderworldGameplaySubsystem.combatManager; }
+        public static ICombatManager combatManager { get => UnderworldGameplaySystem.combatManager; }
         public static IFXManager fXManager { get => BaseGameplaySystem.fXManager; }
         public static ICinema cinema { get => BaseGameplaySystem.cinema; }
         public static IWorld world { get => BaseGameplaySystem.world; }
         public static ITime time { get => BaseGameplaySystem.time; }
 
-        public static IPlayerManager playerManager { get => BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld ? UnderworldGameplaySubsystem.playerManager : OverworldGameplaySubsystem.playerManager; }
-        public static ISimulationHandler simulationHandler { get => BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld ? UnderworldGameplaySubsystem.simulationHandler : null; }
-        public static ILootHandler lootHandler { get => UnderworldGameplaySubsystem.lootHandler; }
-        public static IHealthTracker healthTracker { get => UnderworldGameplaySubsystem.healthTracker; }
-        public static ISoulSkillManager soulSkillManager { get => UnderworldGameplaySubsystem.soulSkillManager; }
-        public static IMinionManager minionManager { get => UnderworldGameplaySubsystem.minionManager; }
+        public static IPlayerManager playerManager { get => BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld ? UnderworldGameplaySystem.playerManager : OverworldGameplaySubsystem.playerManager; }
+        public static ISimulationHandler simulationHandler { get => BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld ? UnderworldGameplaySystem.simulationHandler : null; }
+        public static ILootHandler lootHandler { get => UnderworldGameplaySystem.lootHandler; }
+        public static IHealthTracker healthTracker { get => UnderworldGameplaySystem.healthTracker; }
+        public static ISoulSkillManager soulSkillManager { get => UnderworldGameplaySystem.soulSkillManager; }
+        public static IMinionManager minionManager { get => UnderworldGameplaySystem.minionManager; }
         public static CampaignSerializer campaignSerializer => BaseGameplaySystem.campaignSerializer;
 
         public static bool isGamePaused { get; private set; }
@@ -40,7 +40,7 @@ namespace DChild.Gameplay
             BaseGameplaySystem.ResumeGame();
             if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
             {
-                UnderworldGameplaySubsystem.ResumeGame();
+                UnderworldGameplaySystem.ResumeGame();
             }
             else
             {
@@ -54,7 +54,7 @@ namespace DChild.Gameplay
             BaseGameplaySystem.PauseGame();
             if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
             {
-                UnderworldGameplaySubsystem.PauseGame();
+                UnderworldGameplaySystem.PauseGame();
             }
             else
             {
@@ -69,7 +69,7 @@ namespace DChild.Gameplay
             {
                 if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
                 {
-                    UnderworldGameplaySubsystem.ClearCaches();
+                    UnderworldGameplaySystem.ClearCaches();
                 }
                 else
                 {
@@ -84,7 +84,7 @@ namespace DChild.Gameplay
             BaseGameplaySystem.LoadGame(campaignSlot, loadType);
             if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
             {
-                UnderworldGameplaySubsystem.LoadGame();
+                UnderworldGameplaySystem.LoadGame();
             }
             else
             {
@@ -97,7 +97,7 @@ namespace DChild.Gameplay
             BaseGameplaySystem.ReloadGame();
             if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
             {
-                UnderworldGameplaySubsystem.LoadGame();
+                UnderworldGameplaySystem.LoadGame();
             }
             else
             {
@@ -116,7 +116,7 @@ namespace DChild.Gameplay
             {
                 if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
                 {
-                    UnderworldGameplaySubsystem.SetInputActive(isActive);
+                    UnderworldGameplaySystem.SetInputActive(isActive);
                 }
             }
         }
@@ -127,14 +127,14 @@ namespace DChild.Gameplay
             {
                 if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
                 {
-                    UnderworldGameplaySubsystem.ListenToNextSceneLoad();
+                    UnderworldGameplaySystem.ListenToNextSceneLoad();
                 }
             }
             else
             {
                 if (GameSystem.CurrentGameMode == GameMode.Underworld)
                 {
-                    UnderworldGameplaySubsystem.ListenToNextSceneLoad();
+                    UnderworldGameplaySystem.ListenToNextSceneLoad();
                 }
             }
         }
