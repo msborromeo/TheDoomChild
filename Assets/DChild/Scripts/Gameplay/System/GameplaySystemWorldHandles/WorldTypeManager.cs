@@ -50,8 +50,7 @@ namespace DChild.Gameplay.Systems
             
 
             var args = new WorldTypeArgs(m_currentWorldType);
-
-            OnWorldTypeChanged.Invoke(this, args);
+            OnWorldTypeChanged?.Invoke(this, args);
         }
     }
 }

@@ -23,27 +23,21 @@ namespace DChild.Gameplay.FastTravel
 
             LoadingHandle.SetLoadType(LoadingHandle.LoadType.Smart);
             GameplaySystem.ResumeGame();
-            if (GameSystem.m_useGameModeValidator)
-            {
-                var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
-                WorldTypeVar.SetCurrentWorldType(destination.location);
 
-                switch (WorldTypeVar.CurrentWorldType)
-                {
-                    case WorldType.Underworld:
-                        GameSystem.LoadZone(GameMode.Underworld, destination.sceneInfo, true, OnTransferPlayerDone);
-                        break;
-                    case WorldType.Overworld:
-                        GameSystem.LoadZone(GameMode.Overworld, destination.sceneInfo, true, OnTransferPlayerDone);
-                        break;
-                    case WorldType.ArmyBattle:
-                        GameSystem.LoadZone(GameMode.ArmyBattle, destination.sceneInfo, true, OnTransferPlayerDone);
-                        break;
-                }
-            }
-            else
+            var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
+            WorldTypeVar.SetCurrentWorldType(destination.location);
+
+            switch (WorldTypeVar.CurrentWorldType)
             {
-                GameSystem.LoadZone(destination.sceneInfo, true, OnTransferPlayerDone);
+                case WorldType.Underworld:
+                    GameSystem.LoadZone(GameMode.Underworld, destination.sceneInfo, true, OnTransferPlayerDone);
+                    break;
+                case WorldType.Overworld:
+                    GameSystem.LoadZone(GameMode.Overworld, destination.sceneInfo, true, OnTransferPlayerDone);
+                    break;
+                case WorldType.ArmyBattle:
+                    GameSystem.LoadZone(GameMode.ArmyBattle, destination.sceneInfo, true, OnTransferPlayerDone);
+                    break;
             }
         }
 
