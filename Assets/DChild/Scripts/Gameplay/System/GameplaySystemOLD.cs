@@ -136,29 +136,29 @@ namespace DChild.Gameplay
             PersistentDataManager.ApplySaveData(campaignSlot.dialogueSaveData, DatabaseResetOptions.KeepAllLoaded);
             m_healthTracker?.RemoveAllTrackers();
             LoadingHandle.SetLoadType(loadType);
-            if (GameSystem.m_useGameModeValidator)
-            {
-                var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
+            //if (GameSystem.m_useGameModeValidator)
+            //{
+            //    var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
 
-                WorldTypeVar.SetCurrentWorldType(m_campaignToLoad.location);
+            //    WorldTypeVar.SetCurrentWorldType(m_campaignToLoad.location);
 
-                switch (WorldTypeVar.CurrentWorldType)
-                {
-                    case WorldType.Underworld:
-                        GameSystem.LoadZone(GameMode.Underworld, m_campaignToLoad.sceneToLoad, true);
-                        break;
-                    case WorldType.Overworld:
-                        GameSystem.LoadZone(GameMode.Overworld, m_campaignToLoad.sceneToLoad, true);
-                        break;
-                    case WorldType.ArmyBattle:
-                        GameSystem.LoadZone(GameMode.ArmyBattle, m_campaignToLoad.sceneToLoad, true);
-                        break;
-                }
-            }
-            else
-            {
-                GameSystem.LoadZone(m_campaignToLoad.sceneToLoad, true);
-            }
+            //    switch (WorldTypeVar.CurrentWorldType)
+            //    {
+            //        case WorldType.Underworld:
+            //            GameSystem.LoadZone(GameMode.Underworld, m_campaignToLoad.sceneToLoad, true);
+            //            break;
+            //        case WorldType.Overworld:
+            //            GameSystem.LoadZone(GameMode.Overworld, m_campaignToLoad.sceneToLoad, true);
+            //            break;
+            //        case WorldType.ArmyBattle:
+            //            GameSystem.LoadZone(GameMode.ArmyBattle, m_campaignToLoad.sceneToLoad, true);
+            //            break;
+            //    }
+            //}
+            //else
+            //{
+            //    GameSystem.LoadZone(m_campaignToLoad.sceneToLoad, true);
+            //}
             //Reload Items
             LoadingHandle.SceneDone += LoadGameDone;
         }
@@ -241,7 +241,7 @@ namespace DChild.Gameplay
             AssignModule(out m_zoneMover);
             AssignModule(out m_campaignSerializer);
             AssignModule(out m_healthTracker);
-            AssignModule(out m_gameplayUIHandle);
+            //AssignModule(out m_gameplayUIHandle);
             AssignModule(out m_soulSkillManager);
             AssignModule(out m_minionManager);
         }

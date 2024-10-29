@@ -12,7 +12,7 @@ namespace DChild.Gameplay
 {
     public static class GameplaySystem
     {
-        private static GameplayUIHandleWrapper uiHandle = new GameplayUIHandleWrapper();
+        private static GameplayUIHandle uiHandle = new GameplayUIHandle();
 
         public static GameplayModifiers modifiers { get => BaseGameplaySystem.modifiers; }
         public static AudioListenerPositioner audioListener { get => BaseGameplaySystem.audioListener; }

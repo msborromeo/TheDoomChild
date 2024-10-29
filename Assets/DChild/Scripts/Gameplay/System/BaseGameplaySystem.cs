@@ -133,30 +133,24 @@ namespace DChild.Gameplay.Systems
             ClearCaches();
             PersistentDataManager.ApplySaveData(campaignSlot.dialogueSaveData, DatabaseResetOptions.KeepAllLoaded);
             LoadingHandle.SetLoadType(loadType);
-            if (GameSystem.m_useGameModeValidator)
-            {
-                m_worldTypeManager.SetCurrentWorldType(m_campaignToLoad.location);
 
-                var gameMode = GameMode.Underworld;
-                switch (m_worldTypeManager.CurrentWorldType)
-                {
-                    case WorldType.Underworld:
-                        gameMode = GameMode.Underworld;
-                        break;
-                    case WorldType.Overworld:
-                        gameMode = GameMode.Overworld;
-                        break;
-                    case WorldType.ArmyBattle:
-                        gameMode = GameMode.ArmyBattle;
-                        break;
-                }
+            m_worldTypeManager.SetCurrentWorldType(m_campaignToLoad.location);
 
-                GameSystem.LoadZone(gameMode, m_campaignToLoad.sceneToLoad, true);
-            }
-            else
+            var gameMode = GameMode.Underworld;
+            switch (m_worldTypeManager.CurrentWorldType)
             {
-                GameSystem.LoadZone(m_campaignToLoad.sceneToLoad, true);
+                case WorldType.Underworld:
+                    gameMode = GameMode.Underworld;
+                    break;
+                case WorldType.Overworld:
+                    gameMode = GameMode.Overworld;
+                    break;
+                case WorldType.ArmyBattle:
+                    gameMode = GameMode.ArmyBattle;
+                    break;
             }
+
+            GameSystem.LoadZone(gameMode, m_campaignToLoad.sceneToLoad, true);
             //Reload Items
             LoadingHandle.SceneDone += LoadGameDone;
         }

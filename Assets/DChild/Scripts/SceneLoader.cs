@@ -49,19 +49,7 @@ namespace DChild
                     LoadingHandle.UnloadScenes(m_activeZone);
                     m_activeZone = string.Empty;
                 }
-
-                if (GameSystem.m_useGameModeValidator == false)
-                {
-                    if (m_gameplaySceneActive == false)
-                    {
-                        LoadingHandle.LoadScenes(m_gameplayScene);
-                        m_gameplaySceneActive = true;
-                    }
-                }
-                //if (m_activeZone != sceneName)
-                //{
                 LoadingHandle.LoadScenes(scene);
-                //}
                 GameSystem.sceneManager.LoadSceneAsync(m_loadingScene.sceneName);
             }
             else
