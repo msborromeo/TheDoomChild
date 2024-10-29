@@ -12,7 +12,7 @@ namespace DChild.Gameplay.ArmyBattle
 {
     public class ArmyBattleSystem : MonoBehaviour
     {
-        public static ArmyBattleScenario BattleScenario;
+        public static ArmyBattleScenarioData BattleScenario;
         public static RecruitedCharacterList DebugPlayerRecruitedCharacters;
 
         private static ArmyBattleSystem Instance;

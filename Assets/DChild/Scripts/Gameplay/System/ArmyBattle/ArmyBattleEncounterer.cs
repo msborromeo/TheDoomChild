@@ -15,7 +15,7 @@ namespace DChild.Gameplay.ArmyBattle
     public class ArmyBattleEncounterer : MonoBehaviour , IButtonToInteract , ISerializableComponent
     {
         [SerializeField,TabGroup("Initialize")]
-        private ArmyBattleScenario m_Scenario;
+        private ArmyBattleScenarioData m_Scenario;
         [SerializeField, TabGroup("Reference")]
         private SpriteRenderer m_SpriteRenderer;
         [SerializeField, TabGroup("Reference")]

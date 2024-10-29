@@ -3,7 +3,7 @@
 namespace DChild.Gameplay.ArmyBattle
 {
     [CreateAssetMenu(fileName = "ArmyBattleScenario", menuName = "DChild/Gameplay/Army/BattleScenario")]
-    public class ArmyBattleScenario : ScriptableObject
+    public class ArmyBattleScenarioData : ScriptableObject
     {
         [SerializeField]
         private ArmyAIData m_enemyToBattle;

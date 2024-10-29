@@ -8,7 +8,7 @@ namespace DChild.Gameplay.ArmyBattle
         [SerializeField, AssetSelector]
         private ArmyCharacterData[] m_playerRecruitedCharacters;
         [SerializeField]
-        public ArmyBattleScenario m_battleScenario;
+        public ArmyBattleScenarioData m_battleScenario;
 
         private void Awake()
         {
