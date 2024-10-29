@@ -12,16 +12,15 @@ namespace DChild.Gameplay.ArmyBattle.UI
         
         public void SetAvailableGroups(List<IAttackingGroup> groups)
         {
-            m_groups = groups;
+            this.m_groups = groups;
         }
 
         public void Display()
-        {        
-            
-            foreach(IAttackingGroup group in m_groups)
+        {
+
+            for(int i = 0; i < m_groups.Count; i++)
             {
-                Debug.Log($"name: {group.GetCharacterGroup().name}");
-                Debug.Log($"member count: {group.GetCharacterGroup().memberCount}");
+                m_selectableGroups[i].Display(m_groups[i]);
             }
 
             /*var damageType = option.damageType;
