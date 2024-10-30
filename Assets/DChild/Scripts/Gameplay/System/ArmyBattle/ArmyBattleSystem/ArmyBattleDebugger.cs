@@ -16,7 +16,7 @@ namespace DChild.Gameplay.ArmyBattle
             {
                 ArmyBattleSystem.BattleScenario = m_battleScenario;
             }
-            ArmyBattleSystem.DebugPlayerRecruitedCharacters = new RecruitedCharacterList(m_playerRecruitedCharacters);
+            ArmyBattleSystem.DebugPlayerRecruitedCharacters = new ArmyCharactersSaveData(m_playerRecruitedCharacters);
         }
     }
 
