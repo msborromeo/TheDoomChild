@@ -24,7 +24,7 @@ namespace DChild.Gameplay.Optimization.Lights
 
         private void OnMainCameraChange(Camera obj)
         {
-            m_currentCamerBounds = obj.GetComponent<CameraBounds>();
+            m_currentCamerBounds = obj?.GetComponent<CameraBounds>() ?? null;
         }
 
         private void Awake()

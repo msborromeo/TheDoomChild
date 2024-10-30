@@ -15,8 +15,6 @@ namespace DChild
         [SerializeField]
         private SceneInfo m_loadingScene;
         [SerializeField]
-        private SceneInfo m_gameplayScene;
-        [SerializeField]
         private SceneInfo m_mainMenu;
 
         private string m_activeZone;
@@ -50,18 +48,11 @@ namespace DChild
                     m_activeZone = string.Empty;
                 }
 
-                if (GameSystem.m_useGameModeValidator == false)
+
+                if (scene != null)
                 {
-                    if (m_gameplaySceneActive == false)
-                    {
-                        LoadingHandle.LoadScenes(m_gameplayScene);
-                        m_gameplaySceneActive = true;
-                    }
+                    LoadingHandle.LoadScenes(scene);
                 }
-                //if (m_activeZone != sceneName)
-                //{
-                LoadingHandle.LoadScenes(scene);
-                //}
                 GameSystem.sceneManager.LoadSceneAsync(m_loadingScene.sceneName);
             }
             else
@@ -72,21 +63,20 @@ namespace DChild
                     LoadingHandle.UnloadScenes(m_activeZone);
                     m_activeZone = string.Empty;
                 }
-                if (GameSystem.sceneManager.IsSceneLoaded(m_gameplayScene.sceneName) == false)
-                {
-                    GameSystem.sceneManager.LoadSceneAsync(m_gameplayScene.sceneName);
-                }
 
-                if (scene.isAddressables)
+                if (scene != null)
                 {
-                    GameSystem.sceneManager.LoadSceneAsync(scene.sceneName);
-                }
-                else
-                {
-                    SceneManager.LoadSceneAsync(scene.sceneName, LoadSceneMode.Additive);
+                    if (scene.isAddressables)
+                    {
+                        GameSystem.sceneManager.LoadSceneAsync(scene.sceneName);
+                    }
+                    else
+                    {
+                        SceneManager.LoadSceneAsync(scene.sceneName, LoadSceneMode.Additive);
+                    }
                 }
             }
-            m_activeZone = scene.sceneName;
+            m_activeZone = scene?.sceneName ?? null;
         }
 
         public void LoadMainMenu()
@@ -96,7 +86,6 @@ namespace DChild
                 LoadingHandle.UnloadScenes(m_activeZone);
                 m_activeZone = string.Empty;
             }
-            LoadingHandle.UnloadScenes(m_gameplayScene);
             m_gameplaySceneActive = false;
             LoadingHandle.LoadScenes(m_mainMenu);
             Time.timeScale = 1;

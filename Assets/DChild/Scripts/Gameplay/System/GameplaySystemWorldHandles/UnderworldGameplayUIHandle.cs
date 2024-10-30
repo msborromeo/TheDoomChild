@@ -1,5 +1,4 @@
-﻿
-using DChild.Gameplay.Characters.Enemies;
+﻿using DChild.Gameplay.Characters.Enemies;
 using DChild.Gameplay.Characters.NPC;
 using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Combat.UI;
@@ -12,23 +11,14 @@ using DChild.Menu.Trade;
 using DChild.Temp;
 using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
-using Holysoft.Event;
 using Sirenix.OdinInspector;
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Video;
 
 namespace DChild.Gameplay.Systems
 {
-    public class GameplayUIHandle : SerializedMonoBehaviour, IGameplayUIHandle, IGameplaySystemModule, IGameplayInitializable
+    public class UnderworldGameplayUIHandle : MonoBehaviour, IGameplaySystemModule, IGameplayInitializable
     {
-        [SerializeField, FoldoutGroup("Signals")]
-        private SignalSender m_cinemaSignal;
-        [SerializeField, FoldoutGroup("Signals")]
-        private SignalSender m_gameOverSignal;
-        [SerializeField, FoldoutGroup("Signals")]
-        private SignalSender m_confirmationWindowSignal;
+        public static UnderworldGameplayUIHandle Instance { get; private set; }
 
         [SerializeField]
         private UINotificationManager m_notificationManager;
@@ -57,10 +47,7 @@ namespace DChild.Gameplay.Systems
 
         [SerializeField]
         private UIContainer m_playerHUD;
-        [SerializeField]
-        private UIContainer m_skippableUI;
-        [SerializeField]
-        private UIContainer m_fadeUI;
+
 
         [SerializeField, FoldoutGroup("Object Prompt")]
         private UIContainer m_interactablePrompt;
@@ -69,18 +56,12 @@ namespace DChild.Gameplay.Systems
 
         [SerializeField]
         private WeaponUpgradeHandle m_upgradeWeaponHandler;
-        [SerializeField]
-        private CinematicVideoHandle m_cinematicVideoHandle;
 
-        [SerializeField]
-        private UIView m_cinematicBars;
 
         public IUINotificationManager notificationManager => m_notificationManager;
 
         public void ToggleCinematicMode(bool on, bool instant)
         {
-            m_cinemaSignal.Payload.booleanValue = on;
-            m_cinemaSignal.SendSignal();
             if (on && instant)
             {
                 m_playerHUD.InstantHide();
@@ -91,12 +72,10 @@ namespace DChild.Gameplay.Systems
         {
             if (value)
             {
-                m_cinematicBars.Show();
                 m_playerHUD.InstantHide();
             }
             else
             {
-                m_cinematicBars.Hide();
                 m_playerHUD.InstantShow();
             }
         }
@@ -118,17 +97,6 @@ namespace DChild.Gameplay.Systems
         {
             m_storeNavigator.SetPage(storePage);
             m_storeNavigator.OpenStore();
-        }
-
-        public void OpenWorldMap(Location fromLocation)
-        {
-            GameEventMessage.SendEvent("WorldMap Open");
-            m_worldMap.SetFromLocation(fromLocation);
-        }
-
-        public void OpenShadowGateMap(Location fromLocation)
-        {
-            GameEventMessage.SendEvent("ShadowGateMap Open");
         }
 
         public void OpenStore()
@@ -178,18 +146,6 @@ namespace DChild.Gameplay.Systems
             }
         }
 
-        public void ToggleFadeUI(bool willshow)
-        {
-            if (willshow)
-            {
-                m_fadeUI.Show();
-            }
-            else
-            {
-                m_fadeUI.Hide();
-            }
-        }
-
         public void RevealBossName()
         {
             GameEventMessage.SendEvent("Boss Encounter");
@@ -219,11 +175,6 @@ namespace DChild.Gameplay.Systems
             }
         }
 
-        public void ShowGameOverScreen()
-        {
-            m_gameOverSignal.SendSignal();
-        }
-
         public void ShowGameplayUI(bool willshow)
         {
             if (willshow == true)
@@ -243,17 +194,6 @@ namespace DChild.Gameplay.Systems
             m_journalNotification.Show(true);
         }
 
-        public void ShowSequenceSkip(bool willShow)
-        {
-            if (willShow)
-            {
-                m_skippableUI.Show();
-            }
-            else
-            {
-                m_skippableUI.Hide();
-            }
-        }
 
         public void ActivateHealthRegenEffect(PassiveRegeneration.Handle handle)
         {
@@ -277,14 +217,12 @@ namespace DChild.Gameplay.Systems
         {
             m_notificationManager.InitializeFullPriorityHandling();
             m_notificationManager.InitializePromptPriorityHandling();
-            m_cinematicVideoHandle.Initialize();
             GameplaySystem.campaignSerializer.PostDeserialization += OnPostDeserialization;
         }
 
         public void OpenWeaponUpgradeConfirmationWindow()
         {
             m_upgradeWeaponHandler.RequestUpgrade();
-            m_confirmationWindowSignal.SendSignal();
         }
 
         private void OnPostDeserialization(object sender, CampaignSlotUpdateEventArgs eventArgs)
@@ -292,9 +230,26 @@ namespace DChild.Gameplay.Systems
             m_navMap.ForceMapUpdateOnNextOpen();
         }
 
-        public void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null)
+        private void Awake()
         {
-            m_cinematicVideoHandle.ShowCinematicVideo(clip, behindTheSceneRoutine, OnVideoDone);
+            if (Instance == null)
+            {
+                Instance = this;
+                Initialize();
+            }
+            else
+            {
+                Destroy(this);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance != null)
+            {
+                Instance = null;
+                GameplaySystem.campaignSerializer.PostDeserialization -= OnPostDeserialization;
+            }
         }
     }
 }
