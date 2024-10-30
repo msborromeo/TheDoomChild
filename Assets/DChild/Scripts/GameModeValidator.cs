@@ -6,6 +6,8 @@ namespace DChild
 {
     public class GameModeValidator : MonoBehaviour
     {
+        public static GameModeValidator Instance { get; private set; }
+
         [SerializeField]
         private SceneInfo m_baseGameplayScene;
         [SerializeField]
@@ -20,6 +22,8 @@ namespace DChild
         private bool m_underworldGameplaySceneActive;
         private bool m_overworldGameplaySceneActive;
         private bool m_armyBattleGameplaySceneActive;
+
+        public GameMode currentGameModeSetup => m_currentGameModeSetup;
 
         public void SetupGameMode(GameMode gameMode)
         {
@@ -36,6 +40,39 @@ namespace DChild
 
             m_currentGameModeSetup = gameMode;
             ValidateGameModeSystem(m_currentGameModeSetup);
+        }
+
+        public void RemoveAllGameModeSystems()
+        {
+            if (m_baseGameplaySceneActive)
+            {
+                LoadingHandle.UnloadScenes(m_baseGameplayScene);
+                m_baseGameplaySceneActive = false;
+            }
+            switch (m_currentGameModeSetup)
+            {
+                case GameMode.Underworld:
+                    if (m_underworldGameplaySceneActive)
+                    {
+                        LoadingHandle.UnloadScenes(m_underworldGameplayScene);
+                        m_underworldGameplaySceneActive = false;
+                    }
+                    break;
+                case GameMode.Overworld:
+                    if (m_overworldGameplaySceneActive)
+                    {
+                        LoadingHandle.UnloadScenes(m_overworldGameplayScene);
+                        m_overworldGameplaySceneActive = false;
+                    }
+                    break;
+                case GameMode.ArmyBattle:
+                    if (m_armyBattleGameplaySceneActive)
+                    {
+                        LoadingHandle.UnloadScenes(m_armyBattleGameplayScene);
+                        m_armyBattleGameplaySceneActive = false;
+                    }
+                    break;
+            }
         }
 
         private void ValidateGameModeSystem(GameMode gameMode)
@@ -92,6 +129,11 @@ namespace DChild
                     }
                     break;
             }
+        }
+
+        private void Awake()
+        {
+            Instance = this;
         }
     }
 
