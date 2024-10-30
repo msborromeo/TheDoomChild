@@ -41,9 +41,9 @@ namespace DChild.Gameplay.ArmyBattle
         [Button]
         public void InitiateEncounter()
         {
-
             ArmyBattleSystem.BattleScenario = m_Scenario;
             Debug.Log("ARMY BATTLE SCENARIO INITIATED :"+ArmyBattleSystem.BattleScenario.name);
+            GameSystem.LoadZone(GameMode.ArmyBattle, null, true);
         }
         /*
         private void OnTriggerEnter2D(Collider2D collision)

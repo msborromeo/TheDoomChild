@@ -49,9 +49,12 @@ namespace DChild.Gameplay.Systems
 
         public static bool HasInstance => m_instance != null;
 
+        private SkeletonAnimationManager m_skeletonManager;
+
         #region Modules
         private static IGameplayActivatable[] m_activatableModules;
         private static IOptionalGameplaySystemModule[] m_optionalGameplaySystemModules;
+        private static IGameplayModuleManager[] m_gameplayModuleManager;
         private static FXManager m_fxManager;
         private static Cinema m_cinema;
         private static World m_world;
@@ -87,6 +90,11 @@ namespace DChild.Gameplay.Systems
             AssignModule(out m_world);
             AssignModule(out m_campaignSerializer);
             AssignModule(out m_baseGameplayUIHandle);
+
+            m_skeletonManager = new SkeletonAnimationManager();
+            //these two iffy - Ayan
+            m_gameplayModuleManager = new IGameplayModuleManager[1];
+            m_gameplayModuleManager[0] = m_skeletonManager;
         }
 
         private void AssignModule<T>(out T module) where T : MonoBehaviour, IGameplaySystemModule => module = GetComponentInChildren<T>();
@@ -203,6 +211,13 @@ namespace DChild.Gameplay.Systems
                 m_activatableModules = GetComponentsInChildren<IGameplayActivatable>();
                 var initializables = GetComponentsInChildren<IGameplayInitializable>();
                 m_worldTypeManager = GetComponentInChildren<WorldTypeManager>();
+
+
+                for (int i = 0; i < m_gameplayModuleManager.Length; i++)
+                {
+                    m_gameplayModuleManager[i].SetInstance(m_gameplayModuleManager[i]);
+                }
+
                 for (int i = 0; i < initializables.Length; i++)
                 {
                     initializables[i].Initialize();
@@ -269,6 +284,11 @@ namespace DChild.Gameplay.Systems
                 m_world = null;
                 m_activatableModules = null;
                 GameTime.UnregisterValueChange(m_instance, GameTime.Factor.Multiplication);
+
+                for (int i = 0; i < m_gameplayModuleManager.Length; i++)
+                {
+                    m_gameplayModuleManager[i].SetInstance(null);
+                }
             }
         }
     }
