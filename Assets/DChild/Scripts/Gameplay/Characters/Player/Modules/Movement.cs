@@ -24,8 +24,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private Rigidbody2D m_rigidbody;
         private Character m_character;
         private Animator m_animator;
-        [SerializeField]
-        private CharacterState m_state;
+
         private int m_speedAnimationParameter;
         private int m_xInputAnimationParameter;
         private bool m_isTurning;
