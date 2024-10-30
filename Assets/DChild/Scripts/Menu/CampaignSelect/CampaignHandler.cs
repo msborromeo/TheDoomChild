@@ -18,6 +18,10 @@ namespace DChild.Menu
 
         [SerializeField]
         private CampaignSlotData m_defaultSave;
+        [SerializeField]
+        private LocationInWorldData m_overworldLocations;
+        [SerializeField]
+        private LocationInWorldData m_underworldLocations;
         private ICampaignSelect m_campaignSelect;
         private int m_selectedSlotID;
 
@@ -41,7 +45,15 @@ namespace DChild.Menu
             LoadingHandle.SetLoadType(LoadingHandle.LoadType.Force);
             GameplaySystem.SetCurrentCampaign(m_campaignSelect.selectedSlot);
             LoadingHandle.UnloadScenes(gameObject.scene.name);
-            GameSystem.LoadZone(GameSystem.CurrentGameMode, m_campaignSelect.selectedSlot.sceneToLoad, true);
+
+            if (m_underworldLocations.Locations.Contains(m_campaignSelect.selectedSlot.location) || m_campaignSelect.selectedSlot.newGame)
+            {
+                GameSystem.LoadZone(GameMode.Underworld, m_campaignSelect.selectedSlot.sceneToLoad, true);
+            }
+            else
+            {
+                GameSystem.LoadZone(GameMode.Overworld, m_campaignSelect.selectedSlot.sceneToLoad, true);
+            }
         }
 
         private void OnDeleteAffirmed(object sender, EventActionArgs eventArgs)
