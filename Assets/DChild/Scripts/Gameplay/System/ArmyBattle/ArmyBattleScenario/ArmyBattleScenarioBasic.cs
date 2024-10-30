@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using DChild.Gameplay.Systems.Serialization;
+using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace DChild.Gameplay.ArmyBattle
 {
@@ -8,7 +10,10 @@ namespace DChild.Gameplay.ArmyBattle
         private ArmyBattleScenarioIntroHandle m_introHandle;
         [SerializeField]
         private ArmyBattleScenarioUpdateHandle m_updateHandle;
-
+        [SerializeField]
+        private LocationData m_afterBattleOverworldWinPosition;
+        [SerializeField]
+        private LocationData m_afterBattleOverworldLosePosition;
         [SerializeField]
         private ArmyBattleRewardGiver m_RewardGiver;
 
@@ -26,15 +31,25 @@ namespace DChild.Gameplay.ArmyBattle
         {
             if (playerWon)
             {
-                m_RewardGiver.GiveReward();
+                PlayerWin();
                 Debug.Log("Army Battle Scenario: Player Won");
             }
             else
             {
+                PlayerLose();
                 Debug.Log("Army Battle Scenario: Player Lost");
             }
         }
+        [Button]
+        public void PlayerWin()
+        {
+            m_RewardGiver.GiveReward();
+        }
+        [Button]
+        public void PlayerLose()
+        {
 
+        }
         public override void StartScenario()
         {
             m_introHandle.Execute();

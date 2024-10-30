@@ -11,5 +11,6 @@ namespace DChild.Gameplay.ArmyBattle
     {
         public List<ItemData> m_Items;
         public int m_SoulEssence;
+        public ArmyCharacterData m_CharacterReward;
     }
 }

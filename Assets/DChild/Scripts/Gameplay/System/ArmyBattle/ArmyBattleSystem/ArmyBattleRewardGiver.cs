@@ -14,7 +14,6 @@ namespace DChild.Gameplay.ArmyBattle
 {
     public class ArmyBattleRewardGiver : SerializedMonoBehaviour
     {
-        [SerializeField]
         private ArmyBattleRewardData m_battleRewards;
         private PlayerInventory m_Inventory;
         // Start is called before the first frame update
