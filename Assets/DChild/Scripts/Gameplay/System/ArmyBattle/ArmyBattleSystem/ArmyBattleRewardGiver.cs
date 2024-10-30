@@ -5,33 +5,45 @@ using Sirenix.OdinInspector;
 using DChild.Gameplay.Items;
 using DChild.Gameplay.Inventories;
 using DChild.Gameplay;
+using DChild.Gameplay.ArmyBattle;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-public class ArmyBattleRewardGiver : SerializedMonoBehaviour
-{
-    [SerializeField]
-    private int m_SoulEssence;
-    [SerializeField,TabGroup("ITEMS"), DictionaryDrawerSettings(KeyLabel = "Item", ValueLabel = "Amount")]
-    private Dictionary<ItemData,int> m_Items = new Dictionary<ItemData, int>();
-    private PlayerInventory m_Inventory;
-    // Start is called before the first frame update
-    void Start()
-    {
-        if(!GameplaySystem.playerManager.player)
-        {
-            return;
-        }
-        m_Inventory = GameplaySystem.playerManager.player.inventory;
-    }
 
-    [Button]
-    public void GiveReward()
+namespace DChild.Gameplay.ArmyBattle
+{
+    public class ArmyBattleRewardGiver : SerializedMonoBehaviour
     {
-        foreach(ItemData item in m_Items.Keys)
+        [SerializeField]
+        private ArmyBattleRewardData m_battleRewards;
+        private PlayerInventory m_Inventory;
+        // Start is called before the first frame update
+        void Start()
         {
-            m_Inventory.AddItem(item,m_Items.GetValueOrDefault(item));
+            if (!GameplaySystem.playerManager.player)
+            {
+                return;
+            }
+            m_Inventory = GameplaySystem.playerManager.player.inventory;
         }
-        m_Inventory.AddSoulEssence(m_SoulEssence);
+
+        public void InitializeReward(ArmyBattleRewardData reward)
+        {
+            m_battleRewards = reward;
+        }
+
+        [Button]
+        public void GiveReward()
+        {
+            if (!m_Inventory||!m_battleRewards)
+            {
+                return;
+            }
+            foreach (ItemData item in m_battleRewards.m_Items)
+            {
+                m_Inventory.AddItem(item, 1);
+            }
+            m_Inventory.AddSoulEssence(m_battleRewards.m_SoulEssence);
+        }
     }
 }

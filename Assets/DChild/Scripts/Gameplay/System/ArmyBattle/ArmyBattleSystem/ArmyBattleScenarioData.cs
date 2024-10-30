@@ -12,9 +12,14 @@ namespace DChild.Gameplay.ArmyBattle
         [SerializeField]
         private GameObject m_scenarioHandle;
 
+        [SerializeField]
+        private ArmyBattleRewardData m_battleRewards;
+
         public ArmyAIData enemyToBattle => m_enemyToBattle;
         public ArmyBattleLocation location => m_location;
 
         public GameObject scenarioHandle => m_scenarioHandle;
+
+        public ArmyBattleRewardData battleRewards => m_battleRewards;
     }
 }
