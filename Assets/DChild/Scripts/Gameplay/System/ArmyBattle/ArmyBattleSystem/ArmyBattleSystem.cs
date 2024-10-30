@@ -13,7 +13,7 @@ namespace DChild.Gameplay.ArmyBattle
     public class ArmyBattleSystem : MonoBehaviour
     {
         public static ArmyBattleScenario BattleScenario;
-        public static RecruitedCharacterList DebugPlayerRecruitedCharacters;
+        public static ArmyCharactersSaveData DebugPlayerRecruitedCharacters;
 
         private static ArmyBattleSystem Instance;
 
@@ -193,7 +193,18 @@ namespace DChild.Gameplay.ArmyBattle
             //Create Player Army
             if (GameplaySystem.campaignSerializer != null)
             {
-
+                var saveData = GameplaySystem.campaignSerializer.slot.armyCharactersSaveData;
+                if (saveData.recruitedCharacterCount > 0)
+                {
+                    var playerArmy = m_generator.GenerateArmy(GameplaySystem.campaignSerializer.slot.armyCharactersSaveData);
+                    m_player.SetArmyToControl(playerArmy);
+                }
+                else
+                {
+                    Debug.LogWarning("There are no Recruited Characters in Save File, Will be using Debug Recruited Character List");
+                    var playerArmy = m_generator.GenerateArmy(DebugPlayerRecruitedCharacters);
+                    m_player.SetArmyToControl(playerArmy);
+                }
             }
             else if (DebugPlayerRecruitedCharacters != null)
             {

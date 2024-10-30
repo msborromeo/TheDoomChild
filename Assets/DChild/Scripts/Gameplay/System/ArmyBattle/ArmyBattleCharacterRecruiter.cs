@@ -1,0 +1,67 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace DChild.Gameplay.ArmyBattle
+{
+    public class ArmyBattleCharacterRecruiter : MonoBehaviour
+    {
+        [SerializeField]
+        private List<int> m_recruitedCharacters;
+
+        public ArmyCharactersSaveData SaveData() => new ArmyCharactersSaveData(m_recruitedCharacters.ToArray());
+
+        public void LoadData(ArmyCharactersSaveData data)
+        {
+            m_recruitedCharacters.Clear();
+            for (int i = 0; i < data.recruitedCharacterCount; i++)
+            {
+                m_recruitedCharacters.Add(data.GetRecruitedCharacterID(i));
+            }
+        }
+
+        public void SetAsRecruited(ArmyCharacterData characterData, bool isRecruited)
+        {
+            var id = characterData.ID;
+            if (isRecruited)
+            {
+                if(m_recruitedCharacters.Contains(id) == false)
+                {
+                    m_recruitedCharacters.Add(id);
+                }
+            }
+            else if(m_recruitedCharacters.Contains(id))
+            {
+                m_recruitedCharacters.Remove(id);
+            }
+        }
+
+        public void Initialize()
+        {
+            m_recruitedCharacters = new List<int>();
+            GameplaySystem.campaignSerializer.PreSerialization += OnPreSerialization;
+            GameplaySystem.campaignSerializer.PostDeserialization += OnPostDeserialization;
+        }
+
+        private void OnPostDeserialization(object sender, CampaignSlotUpdateEventArgs eventArgs)
+        {
+            if (eventArgs.IsPartOfTheUpdate(SerializationScope.Quest))
+            {
+                LoadData(GameplaySystem.campaignSerializer.slot.armyCharactersSaveData);
+            }
+        }
+
+        private void OnPreSerialization(object sender, CampaignSlotUpdateEventArgs eventArgs)
+        {
+            if (eventArgs.IsPartOfTheUpdate(SerializationScope.Quest))
+            {
+                GameplaySystem.campaignSerializer.slot.UpdateArmyCharacterData(SaveData());
+            }
+        }
+
+        private void OnDestroy()
+        {
+            GameplaySystem.campaignSerializer.PreSerialization -= OnPreSerialization;
+            GameplaySystem.campaignSerializer.PostDeserialization -= OnPostDeserialization;
+        }
+    }
+}
