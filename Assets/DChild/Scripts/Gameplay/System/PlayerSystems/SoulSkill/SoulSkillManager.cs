@@ -12,7 +12,7 @@ using UnityEngine.EventSystems;
 namespace DChild.Gameplay.SoulSkills
 {
 
-    public class SoulSkillManager : MonoBehaviour, IGameplaySystemModule, ISoulSkillManager
+    public class SoulSkillManager : MonoBehaviour, IGameplaySystemModule, ISoulSkillManager, IGameplayInitializable
     {
         [SerializeField]
         private SoulSkillList m_completeSoulSkillList;
@@ -117,6 +117,18 @@ namespace DChild.Gameplay.SoulSkills
             m_activatedListUI.DisplayCapacity(m_playerHandle.currentSoulCapacity);
         }
 
+        public void Initialize()
+        {
+            m_playerHandle.SaveDataLoaded += OnSoulSkillSaveDataLoaded;
+            m_playerHandle.AvailableSoulSkillChanged += OnAvailableSkillsChanged;
+            m_playerHandle.MaxCapacityChanged += OnMaxCapacityChanged;
+            m_skillSelection.OnSelected += OnSoulSkillSelected;
+            m_skillSelection.OnActionRequired += OnSoulSkillActionRequired;
+            m_availableListUI.InitializeList(m_completeSoulSkillList);
+            m_activatedListUI.Reset();
+            SyncWithSaveData();
+        }
+
         public void SetAvailableSoulSkills(IReadOnlyCollection<int> list)
         {
             m_availableListUI.InitializeListAvailability(list);
@@ -174,19 +186,6 @@ namespace DChild.Gameplay.SoulSkills
         {
             m_availableListUI.InitializeListAvailability(m_playerHandle.acquiredSkills);
         }
-
-        private void Awake()
-        {
-            m_playerHandle.SaveDataLoaded += OnSoulSkillSaveDataLoaded;
-            m_playerHandle.AvailableSoulSkillChanged += OnAvailableSkillsChanged;
-            m_playerHandle.MaxCapacityChanged += OnMaxCapacityChanged;
-            m_skillSelection.OnSelected += OnSoulSkillSelected;
-            m_skillSelection.OnActionRequired += OnSoulSkillActionRequired;
-            m_availableListUI.InitializeList(m_completeSoulSkillList);
-            m_activatedListUI.Reset();
-            SyncWithSaveData();
-        }
-
 
     }
 }

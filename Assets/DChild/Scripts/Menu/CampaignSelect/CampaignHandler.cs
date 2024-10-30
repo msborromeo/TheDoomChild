@@ -41,28 +41,7 @@ namespace DChild.Menu
             LoadingHandle.SetLoadType(LoadingHandle.LoadType.Force);
             GameplaySystem.SetCurrentCampaign(m_campaignSelect.selectedSlot);
             LoadingHandle.UnloadScenes(gameObject.scene.name);
-            if (GameSystem.m_useGameModeValidator)
-            {
-                var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
-                WorldTypeVar.SetCurrentWorldType(m_campaignSelect.selectedSlot.location);
-
-                switch (WorldTypeVar.CurrentWorldType)
-                {
-                    case WorldType.Underworld:
-                        GameSystem.LoadZone(GameMode.Underworld, m_campaignSelect.selectedSlot.sceneToLoad, true);
-                        break;
-                    case WorldType.Overworld:
-                        GameSystem.LoadZone(GameMode.Overworld, m_campaignSelect.selectedSlot.sceneToLoad, true);
-                        break;
-                    case WorldType.ArmyBattle:
-                        GameSystem.LoadZone(GameMode.ArmyBattle, m_campaignSelect.selectedSlot.sceneToLoad, true);
-                        break;
-                }
-            }
-            else
-            {
-                GameSystem.LoadZone(m_campaignSelect.selectedSlot.sceneToLoad, true);
-            }
+            GameSystem.LoadZone(GameSystem.CurrentGameMode, m_campaignSelect.selectedSlot.sceneToLoad, true);
         }
 
         private void OnDeleteAffirmed(object sender, EventActionArgs eventArgs)
@@ -103,7 +82,7 @@ namespace DChild.Menu
 
             for (int i = 0; i < newSlotList.Length; i++)
             {
-                if(newSlotList[i].id == m_selectedSlotID)
+                if (newSlotList[i].id == m_selectedSlotID)
                 {
                     newSlotList[i] = resetCampaignSlot;
                 }
