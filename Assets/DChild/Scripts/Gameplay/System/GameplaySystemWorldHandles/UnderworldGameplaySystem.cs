@@ -84,7 +84,7 @@ namespace DChild.Gameplay.Systems
         private static void OnLoadingSceneDone(object sender, EventActionArgs eventArgs)
         {
             LoadingHandle.LoadingDone -= OnLoadingSceneDone;
-            m_playerManager.FreezePlayerPosition(false);
+            m_playerManager?.FreezePlayerPosition(false);
         }
 
         private static void LoadGameDone(object sender, EventActionArgs eventArgs)
