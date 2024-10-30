@@ -299,7 +299,7 @@ namespace DChild.Menu
             }
 
             Debug.LogError("False Positive: Scene Activation Done");
-
+            
             yield return endOfFrame;
             while (m_canTransferScene == false)
             {
@@ -317,10 +317,12 @@ namespace DChild.Menu
             }
             yield return endOfFrame;
             time += Time.unscaledDeltaTime;
-            SceneDone?.Invoke(this, EventActionArgs.Empty);
-            Debug.LogError("False Positive: Scene Done Reaction Done");
+
             //Cant Call Unload Here for some reason, so i have to resort to using a flag to trigger the unloading
             m_unloadThis = true;
+
+            SceneDone?.Invoke(this, EventActionArgs.Empty);
+            Debug.LogError("False Positive: Scene Done Reaction Done");
             Debug.Log($"Loading Time: {time}");
 
 
