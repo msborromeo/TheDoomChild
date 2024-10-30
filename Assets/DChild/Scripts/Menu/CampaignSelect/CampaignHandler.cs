@@ -46,7 +46,7 @@ namespace DChild.Menu
             GameplaySystem.SetCurrentCampaign(m_campaignSelect.selectedSlot);
             LoadingHandle.UnloadScenes(gameObject.scene.name);
 
-            if (m_underworldLocations.Locations.Contains(m_campaignSelect.selectedSlot.location))
+            if (m_underworldLocations.Locations.Contains(m_campaignSelect.selectedSlot.location) || m_campaignSelect.selectedSlot.newGame)
             {
                 GameSystem.LoadZone(GameMode.Underworld, m_campaignSelect.selectedSlot.sceneToLoad, true);
             }
