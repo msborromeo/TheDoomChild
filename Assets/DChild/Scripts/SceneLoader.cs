@@ -47,7 +47,12 @@ namespace DChild
                     LoadingHandle.UnloadScenes(m_activeZone);
                     m_activeZone = string.Empty;
                 }
-                LoadingHandle.LoadScenes(scene);
+
+
+                if (scene != null)
+                {
+                    LoadingHandle.LoadScenes(scene);
+                }
                 GameSystem.sceneManager.LoadSceneAsync(m_loadingScene.sceneName);
             }
             else
@@ -59,16 +64,19 @@ namespace DChild
                     m_activeZone = string.Empty;
                 }
 
-                if (scene.isAddressables)
+                if (scene != null)
                 {
-                    GameSystem.sceneManager.LoadSceneAsync(scene.sceneName);
-                }
-                else
-                {
-                    SceneManager.LoadSceneAsync(scene.sceneName, LoadSceneMode.Additive);
+                    if (scene.isAddressables)
+                    {
+                        GameSystem.sceneManager.LoadSceneAsync(scene.sceneName);
+                    }
+                    else
+                    {
+                        SceneManager.LoadSceneAsync(scene.sceneName, LoadSceneMode.Additive);
+                    }
                 }
             }
-            m_activeZone = scene.sceneName;
+            m_activeZone = scene?.sceneName ?? null;
         }
 
         public void LoadMainMenu()
