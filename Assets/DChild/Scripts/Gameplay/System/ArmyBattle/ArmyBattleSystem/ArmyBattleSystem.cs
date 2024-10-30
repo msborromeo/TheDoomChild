@@ -193,7 +193,12 @@ namespace DChild.Gameplay.ArmyBattle
             //Create Player Army
             if (GameplaySystem.campaignSerializer != null)
             {
-
+                //Temporary until player serialization is done
+                if (DebugPlayerRecruitedCharacters != null)
+                {
+                    var playerArmy = m_generator.GenerateArmy(DebugPlayerRecruitedCharacters);
+                    m_player.SetArmyToControl(playerArmy);
+                }
             }
             else if (DebugPlayerRecruitedCharacters != null)
             {
