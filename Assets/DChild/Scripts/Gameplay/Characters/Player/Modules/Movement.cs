@@ -92,6 +92,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public LayerMask groundLayer;
         public void AirMove(float direction, bool faceDirection)
         {
+            m_rigidbody.gravityScale = 20f;
             if (direction == 0)
             {
                 m_animator.SetFloat(m_speedAnimationParameter, 0);
@@ -107,7 +108,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_animator.SetFloat(m_speedAnimationParameter, 1);
                 m_animator.SetInteger(m_xInputAnimationParameter, direction > 0 ? 1 : -1);
             }
-            m_rigidbody.gravityScale = 20f;
             var xVelocity = speed * direction;
             m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
         }
@@ -149,6 +149,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
                         if (m_rigidbody.velocity.x == 0)
                         {
+                            m_rigidbody.velocity = new Vector2(xVelocity, 0);
                             m_rigidbody.gravityScale = 0;
                         }
                         else
@@ -237,6 +238,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         m_rigidbody.velocity = new Vector2(xVelocity, m_rigidbody.velocity.y);
                         if (m_rigidbody.velocity.x == 0)
                         {
+                            m_rigidbody.velocity = new Vector2(xVelocity, 0);
                             m_rigidbody.gravityScale = 0;
                         }
                         else
