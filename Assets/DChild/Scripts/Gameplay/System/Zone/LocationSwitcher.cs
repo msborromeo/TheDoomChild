@@ -76,7 +76,7 @@ namespace DChild.Gameplay.Systems
 
                 LoadingHandle.SetLoadType(LoadingHandle.LoadType.Smart);
                 Cache<LoadZoneFunctionHandle> cacheLoadZoneHandle = Cache<LoadZoneFunctionHandle>.Claim();
-                cacheLoadZoneHandle.Value.Initialize(m_destination, character, cacheLoadZoneHandle);
+                //cacheLoadZoneHandle.Value.Initialize(m_destination, character, cacheLoadZoneHandle);
 
                 var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
                 WorldTypeVar.SetCurrentWorldType(m_destination.location);
@@ -84,16 +84,18 @@ namespace DChild.Gameplay.Systems
                 switch (WorldTypeVar.CurrentWorldType)
                 {
                     case WorldType.Underworld:
+                        cacheLoadZoneHandle.Value.Initialize(m_destination, character, cacheLoadZoneHandle);
                         GameSystem.LoadZone(GameMode.Underworld, locationData.sceneInfo, true, cacheLoadZoneHandle.Value.CallLocationArriveEvent);
                         break;
                     case WorldType.Overworld:
+                        cacheLoadZoneHandle.Value.Initialize(m_destination, null, cacheLoadZoneHandle);
                         GameSystem.LoadZone(GameMode.Overworld, locationData.sceneInfo, true, cacheLoadZoneHandle.Value.CallLocationArriveEvent);
                         break;
                     case WorldType.ArmyBattle:
+                        cacheLoadZoneHandle.Value.Initialize(m_destination, null, cacheLoadZoneHandle);
                         GameSystem.LoadZone(GameMode.ArmyBattle, locationData.sceneInfo, true, cacheLoadZoneHandle.Value.CallLocationArriveEvent);
                         break;
                 }
-
                 GameplaySystem.ClearCaches();
 
             }
