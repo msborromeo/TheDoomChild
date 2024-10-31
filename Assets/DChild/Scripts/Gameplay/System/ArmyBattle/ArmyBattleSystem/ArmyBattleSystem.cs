@@ -12,8 +12,8 @@ namespace DChild.Gameplay.ArmyBattle
 {
     public class ArmyBattleSystem : MonoBehaviour
     {
-        public static ArmyBattleScenarioData BattleScenario;
-        public static RecruitedCharacterList DebugPlayerRecruitedCharacters;
+        public static ArmyBattleScenario BattleScenario;
+        public static ArmyCharactersSaveData DebugPlayerRecruitedCharacters;
 
         private static ArmyBattleSystem Instance;
 
@@ -150,7 +150,6 @@ namespace DChild.Gameplay.ArmyBattle
         {
             if (BattleScenario == null)
             {
-                BattleScenario = ArmyBattleSystem.BattleScenario;
                 //throw new Exception();
             }
 
@@ -168,7 +167,7 @@ namespace DChild.Gameplay.ArmyBattle
 
         private void InitializeBattleScenario()
         {
-            var scenarioHandleInstance = Instantiate(BattleScenario.scenarioHandle,transform) as GameObject;
+            var scenarioHandleInstance = Instantiate(BattleScenario.scenarioHandle) as GameObject;
             m_scenarioHandle = scenarioHandleInstance.GetComponent<ArmyBattleScenarioHandle>();
             m_scenarioHandle.Initialize(m_player.controlledArmy, m_enemy.controlledArmy);
             if (canBattleBeStarted)
@@ -194,11 +193,20 @@ namespace DChild.Gameplay.ArmyBattle
             //Create Player Army
             if (GameplaySystem.campaignSerializer != null)
             {
-                //Temporary until player serialization is done
-                if (DebugPlayerRecruitedCharacters != null)
+                var saveData = GameplaySystem.campaignSerializer.slot.armyCharactersSaveData;
+                if (saveData.recruitedCharacterCount > 0)
                 {
-                    var playerArmy = m_generator.GenerateArmy(DebugPlayerRecruitedCharacters);
+                    var playerArmy = m_generator.GenerateArmy(saveData);
                     m_player.SetArmyToControl(playerArmy);
+                }
+                else
+                {
+                    //Temporary until player serialization is done
+                    if (DebugPlayerRecruitedCharacters != null)
+                    {
+                        var playerArmy = m_generator.GenerateArmy(DebugPlayerRecruitedCharacters);
+                        m_player.SetArmyToControl(playerArmy);
+                    }
                 }
             }
             else if (DebugPlayerRecruitedCharacters != null)
