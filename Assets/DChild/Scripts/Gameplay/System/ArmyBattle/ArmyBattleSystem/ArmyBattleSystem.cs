@@ -150,6 +150,7 @@ namespace DChild.Gameplay.ArmyBattle
         {
             if (BattleScenario == null)
             {
+                BattleScenario = ArmyBattleSystem.BattleScenario;
                 //throw new Exception();
             }
 
@@ -167,7 +168,7 @@ namespace DChild.Gameplay.ArmyBattle
 
         private void InitializeBattleScenario()
         {
-            var scenarioHandleInstance = Instantiate(BattleScenario.scenarioHandle) as GameObject;
+            var scenarioHandleInstance = Instantiate(BattleScenario.scenarioHandle,transform) as GameObject;
             m_scenarioHandle = scenarioHandleInstance.GetComponent<ArmyBattleScenarioHandle>();
             m_scenarioHandle.Initialize(m_player.controlledArmy, m_enemy.controlledArmy);
             if (canBattleBeStarted)

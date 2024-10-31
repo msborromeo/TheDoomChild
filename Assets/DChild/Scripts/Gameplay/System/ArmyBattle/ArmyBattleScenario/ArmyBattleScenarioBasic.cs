@@ -44,11 +44,12 @@ namespace DChild.Gameplay.ArmyBattle
         public void PlayerWin()
         {
             m_RewardGiver.GiveReward();
+            GameSystem.LoadZone(GameMode.Underworld, m_afterBattleOverworldWinPosition.sceneInfo, true);
         }
         [Button]
         public void PlayerLose()
         {
-
+            GameSystem.LoadZone(GameMode.Underworld, m_afterBattleOverworldLosePosition.sceneInfo, true);
         }
         public override void StartScenario()
         {
