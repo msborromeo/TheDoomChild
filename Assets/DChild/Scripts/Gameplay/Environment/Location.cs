@@ -25,6 +25,7 @@ namespace DChild.Gameplay.Environment
         Realm_Of_Nightmare,
         Morden,
         World_Map,
+        Overworld,
         [HideInInspector]
         _COUNT,
         [HideInInspector]

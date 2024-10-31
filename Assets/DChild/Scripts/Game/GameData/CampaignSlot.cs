@@ -7,6 +7,7 @@ using DChild.Gameplay.Environment;
 using UnityEditor;
 using PixelCrushers.DialogueSystem;
 using DLocation = DChild.Gameplay.Environment.Location;
+using DChild.Gameplay.ArmyBattle;
 
 namespace DChild.Serialization
 {
@@ -36,6 +37,8 @@ namespace DChild.Serialization
         private PlayerCharacterData m_characterData;
         [SerializeField, HideReferenceObjectPicker, HideIf("m_newGame"), TabGroup("Campaign")]
         private SerializeDataList m_campaignProgress;
+        [SerializeField, HideReferenceObjectPicker, HideIf("m_newGame"), TabGroup("ArmyBattle")]
+        private ArmyCharactersSaveData m_armyCharacterSaveData;
         [SerializeField, HideReferenceObjectPicker, HideIf("m_newGame"), TabGroup("Zone")]
         private SerializeDataList m_zoneDatas;
         [SerializeField, DrawWithUnity, TabGroup("ZoneSlots Importable")]
@@ -63,6 +66,7 @@ namespace DChild.Serialization
             m_completion = 0;
             m_duration = 0;
             m_characterData = new PlayerCharacterData();
+            m_armyCharacterSaveData = new ArmyCharactersSaveData();
             m_campaignProgress = new SerializeDataList();
             m_zoneDatas = new SerializeDataList();
             m_miscDatas = new SerializeDataList();
@@ -79,6 +83,7 @@ namespace DChild.Serialization
             m_completion = 0;
             m_duration = 0;
             m_characterData = new PlayerCharacterData();
+            m_armyCharacterSaveData = new ArmyCharactersSaveData();
             m_campaignProgress = new SerializeDataList();
             m_zoneDatas = new SerializeDataList();
             m_miscDatas = new SerializeDataList();
@@ -96,6 +101,7 @@ namespace DChild.Serialization
 
         public Vector2 spawnPosition { get => m_spawnPosition; }
         public PlayerCharacterData characterData => m_characterData;
+        public ArmyCharactersSaveData armyCharactersSaveData => m_armyCharacterSaveData;
 
         public SerializeDataList campaignProgress => m_campaignProgress;
         public SerializeDataList zoneDatas => m_zoneDatas;
@@ -114,6 +120,7 @@ namespace DChild.Serialization
             m_completion = 0;
             m_duration = 0;
             m_characterData = new PlayerCharacterData();
+            m_armyCharacterSaveData = new ArmyCharactersSaveData();
             m_campaignProgress = new SerializeDataList();
             m_zoneDatas = new SerializeDataList();
             m_miscDatas = new SerializeDataList();
@@ -130,6 +137,7 @@ namespace DChild.Serialization
             m_completion = slot.completion;
             m_duration = slot.duration;
             m_characterData = new PlayerCharacterData(slot.characterData);
+            m_armyCharacterSaveData = new ArmyCharactersSaveData(slot.armyCharactersSaveData);
             m_campaignProgress = new SerializeDataList(slot.campaignProgress);
             m_zoneDatas = new SerializeDataList(slot.zoneDatas);
             m_dialogueSaveData = slot.dialogueSaveData;
@@ -145,6 +153,7 @@ namespace DChild.Serialization
         public void UpdateDuration(float value) => m_duration = Mathf.Max(0, value);
 
         public void UpdateCharacterData(PlayerCharacterData data) => m_characterData = data;
+        public void UpdateArmyCharacterData(ArmyCharactersSaveData data) => m_armyCharacterSaveData = data;
 
         public void UpdateCampaignProgress(SerializeID ID, ISaveData saveData) => m_campaignProgress.UpdateData(ID, saveData);
 
