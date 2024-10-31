@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace DChild.Gameplay.ArmyBattle.UI
 {
-    public class AttackingGroupSelectableOptionUI :  AttackingGroupOptionUI
+    public class AttackingGroupSelectableOptionUI : AttackingGroupOptionUI
     {
         /*[SerializeField]
         private Image m_nullBackPlate;
@@ -26,13 +26,20 @@ namespace DChild.Gameplay.ArmyBattle.UI
         [SerializeField]
         private List<Image> m_targetAssets;
         [SerializeField]
+        private Image m_targetCommandIcon;
+        [SerializeField]
         private TextMeshProUGUI m_targetPartyName;
+        [SerializeField]
+        private TextMeshProUGUI m_targetPowerLabel;
+        [SerializeField]
+        private TextMeshProUGUI m_targetPowerValue;
 
 
         public override void Display(IAttackingGroup group)
         {
-            if(group == null)
+            if (group == null)
             {
+                NullifyArmyGroupUI();
                 return;
             }
 
@@ -41,8 +48,12 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         private void NullifyArmyGroupUI()
         {
+            m_targetCommandIcon.enabled = false;
             m_targetPartyName.enabled = false;
-            for(int i = 0; i < m_NullAssets.Count; i++)
+            m_targetPowerLabel.text = $"<color=#82A4C7>{m_targetPowerLabel.text}</color>";
+            m_targetPowerValue.enabled = false;
+
+            for (int i = 0; i < m_NullAssets.Count; i++)
             {
                 NullifyGroupElement(i, m_targetAssets[i]);
             }
