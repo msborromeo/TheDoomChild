@@ -28,10 +28,12 @@ namespace DChild.Gameplay.ArmyBattle.UI
         public void SetAttackGroupSelection(ArmyDamageTypeOptionUI option)
         {
             var damageType = option.damageType;
-            
-            m_groupSelection.SetSelectionList(m_player.controlledArmy.GetAvailableGroups(damageType));
+            var playerGroups = m_player.controlledArmy.GetAvailableGroups(damageType);
+
+
+            m_groupSelection.SetSelectionList(playerGroups);
             m_groupSelection.SetSelectionIcon(damageType);
-            m_groupIndex.SetAvailableGroups(m_player.controlledArmy.GetAvailableGroups(damageType));
+            m_groupIndex.SetAvailableGroups(playerGroups);
             SelectCurrentAttackingGroup();
         }
 

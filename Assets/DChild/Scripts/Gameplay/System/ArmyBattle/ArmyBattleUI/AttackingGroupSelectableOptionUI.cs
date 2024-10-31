@@ -7,18 +7,6 @@ namespace DChild.Gameplay.ArmyBattle.UI
 {
     public class AttackingGroupSelectableOptionUI : AttackingGroupOptionUI
     {
-        /*[SerializeField]
-        private Image m_nullBackPlate;
-        [SerializeField]
-        private Image m_nullFrontPanel;
-        [SerializeField]
-        private Image m_nullPartyName;
-        [SerializeField]
-        private Image m_nullSlotFrame;
-        [SerializeField]
-        private Image m_nullPowerHolder;
-        [SerializeField]
-        private Image m_nullSkillHolder;*/
 
         [SerializeField]
         private List<Sprite> m_NullAssets;
