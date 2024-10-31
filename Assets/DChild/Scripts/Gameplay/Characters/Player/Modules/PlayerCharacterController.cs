@@ -1141,7 +1141,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     if (m_state.isInShadowMode == false)
                     {
-                        m_movement.GroundMove(m_input.horizontalInput, true);
+                        m_movement.AirMove(m_input.horizontalInput, true);
                     }
 
                     if (m_input.horizontalInput != 0)

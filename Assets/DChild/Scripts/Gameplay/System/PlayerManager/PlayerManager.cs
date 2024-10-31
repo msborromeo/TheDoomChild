@@ -15,6 +15,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using DChild.Gameplay.ArmyBattle;
 
 namespace DChild.Gameplay.Systems
 {
@@ -56,6 +57,8 @@ namespace DChild.Gameplay.Systems
 
         [SerializeField]
         private AutoReflexHandler m_autoReflex;
+        [SerializeField]
+        private ArmyBattleCharacterRecruiter m_armyBattleCharacterRecruiter; 
 
         private CollisionRegistrator m_collisionRegistrator;
         private InteractableDetector m_interactableDetector;
@@ -67,6 +70,8 @@ namespace DChild.Gameplay.Systems
 
         public GameplayInput gameplayInput => m_gameplayInput;
         public IAutoReflexHandler autoReflex => m_autoReflex;
+
+        public ArmyBattleCharacterRecruiter armyBattleCharacterRecruiter => m_armyBattleCharacterRecruiter;
 
         public void SyncVisualsWith(SpineSyncer spineSyncer)
         {
@@ -264,6 +269,10 @@ namespace DChild.Gameplay.Systems
             }
         }
 
-
+        public void OnDestroy()
+        {
+            GameplaySystem.campaignSerializer.PostDeserialization -= OnPostDeserialization;
+            GameplaySystem.campaignSerializer.PreSerialization -= OnPreSerialization;
+        }
     }
 }
