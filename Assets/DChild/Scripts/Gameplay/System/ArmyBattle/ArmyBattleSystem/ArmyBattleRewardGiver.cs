@@ -16,6 +16,7 @@ namespace DChild.Gameplay.ArmyBattle
     {
         private ArmyBattleRewardData m_battleRewards;
         private PlayerInventory m_Inventory;
+        public CharacterGiver m_CharacterGiver;
         // Start is called before the first frame update
         void Start()
         {
@@ -43,6 +44,10 @@ namespace DChild.Gameplay.ArmyBattle
                 m_Inventory.AddItem(item, 1);
             }
             m_Inventory.AddSoulEssence(m_battleRewards.m_SoulEssence);
+            if(m_battleRewards.m_CharacterReward)
+            {
+                m_CharacterGiver.RecruitCharacter(m_battleRewards.m_CharacterReward);
+            }
         }
     }
 }
