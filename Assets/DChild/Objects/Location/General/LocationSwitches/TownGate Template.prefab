@@ -162,6 +162,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 8177859743727538903, guid: 64779caeafbfd7e46b7a1679bde70cec,
+        type: 3}
+      propertyPath: m_TagString
+      value: Sensor
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64779caeafbfd7e46b7a1679bde70cec, type: 3}
 --- !u!4 &6428857786858472560 stripped
@@ -273,6 +278,66 @@ MonoBehaviour:
   m_data: {fileID: 0}
   m_locationPoint: {fileID: 6428857786858472560}
   m_prevPosition: {x: 839.5618, y: 74.69055, z: -1045.7188}
+--- !u!114 &2666177075224902771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9010537756785852727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cc064dd0124bb749aa872864526e014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_oneTimeOnly: 0
+  m_waitForPlayerToBeGrounded: 1
+  m_playerHitboxOnly: 1
+  m_enterEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4146952613411197386}
+        m_TargetAssemblyTypeName: TownGateInitializer, Assembly-CSharp
+        m_MethodName: TriggerPortal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_exitEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4146952613411197386}
+        m_TargetAssemblyTypeName: TownGateInitializer, Assembly-CSharp
+        m_MethodName: LeavePortal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4146952613411197386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9010537756785852727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c06f6c3ae0c4ea479b74764beedd906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_switcher: {fileID: 308705089653751466}
+  m_Poster: {fileID: 992260143271767645}
+  fastTravel: {fileID: 0}
 --- !u!114 &7660441899140034510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,17 +365,3 @@ MonoBehaviour:
   RuntimeFollower: {fileID: 0}
   colliderMaxDistance: 0
   lastTimeMaxDistanceCalced: 637901276585553491
---- !u!114 &4146952613411197386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9010537756785852727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c06f6c3ae0c4ea479b74764beedd906, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_switcher: {fileID: 308705089653751466}
-  m_Poster: {fileID: 992260143271767645}

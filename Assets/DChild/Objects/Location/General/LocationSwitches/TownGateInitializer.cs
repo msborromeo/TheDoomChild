@@ -26,8 +26,15 @@ public class TownGateInitializer : MonoBehaviour
     }
 
     [Button]
-    public void CallUI()
+    public void TriggerPortal()
     {
-        Debug.Log("Test");
+        Debug.Log("Test, On a Portal");
     }
+    [Button]
+    public void LeavePortal()
+    {
+        Debug.Log("Test, leaving a portal");
+    }
+
+    
 }
