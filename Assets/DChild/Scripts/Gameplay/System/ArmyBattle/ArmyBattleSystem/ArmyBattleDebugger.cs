@@ -8,7 +8,7 @@ namespace DChild.Gameplay.ArmyBattle
         [SerializeField, AssetSelector]
         private ArmyCharacterData[] m_playerRecruitedCharacters;
         [SerializeField]
-        public ArmyBattleScenario m_battleScenario;
+        public ArmyBattleScenarioData m_battleScenario;
 
         private void Awake()
         {
@@ -16,7 +16,7 @@ namespace DChild.Gameplay.ArmyBattle
             {
                 ArmyBattleSystem.BattleScenario = m_battleScenario;
             }
-            ArmyBattleSystem.DebugPlayerRecruitedCharacters = new RecruitedCharacterList(m_playerRecruitedCharacters);
+            ArmyBattleSystem.DebugPlayerRecruitedCharacters = new ArmyCharactersSaveData(m_playerRecruitedCharacters);
         }
     }
 
