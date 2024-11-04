@@ -1,5 +1,8 @@
+using DChild.Gameplay;
+using DChild.Gameplay.Environment.Interractables;
 using DChild.Gameplay.FastTravel;
 using DChild.Gameplay.Systems;
+using Holysoft.Event;
 using Sirenix.OdinInspector;
 using Spine.Unity;
 using System.Collections;
@@ -8,31 +11,38 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TownGateInitializer : MonoBehaviour
+public class TownGateHandler : MonoBehaviour , IButtonToInteract
 {
     [SerializeField, TabGroup("Reference")]
     private SkeletonAnimation m_SkeletonAnimation;
     [SerializeField, TabGroup("Reference")]
-    private LocationSwitcher m_switcher;
-    [SerializeField, TabGroup("Reference")]
     private LocationPoster m_Poster;
     [SerializeField, TabGroup("Actions")]
-    private UnityEvent Default, Interact;
+    private UnityEvent Default, InteractAction;
     [SerializeField, Spine.Unity.SpineAnimation, TabGroup("Animation")]
     private List<string> m_Interact;
     [SerializeField, Spine.Unity.SpineAnimation, TabGroup("Animation")]
     private List<string> m_Idle;
     [SerializeField, TabGroup("Appearance"), OnValueChanged("GateValueChanged")]
     private SkeletonDataAsset m_GateAnimation;
+    [SerializeField]
+    public Vector3 m_Offset;
     public FastTravelHandle fastTravel;
 
-    // Start is called before the first frame update
-    void Start()
+    public event EventAction<EventActionArgs> InteractionOptionChange;
+
+    public bool showPrompt => true;
+
+    public string promptMessage => "Town Portal";
+
+    public Vector3 promptPosition => transform.position+m_Offset;
+
+    private void Start()
     {
         IdlePortal();
     }
 
-    string ChooseIdleAnim()
+    private string ChooseIdleAnim()
     {
         if (m_Idle.Count > 1)
         {
@@ -45,7 +55,7 @@ public class TownGateInitializer : MonoBehaviour
         }
     }
 
-    string ChooseInteractAnim()
+    private string ChooseInteractAnim()
     {
         if (m_Interact.Count > 1)
         {
@@ -58,14 +68,14 @@ public class TownGateInitializer : MonoBehaviour
         }
     }
 
-    [Button]
-    public void InteractPortal()
+    [Button, HideInEditorMode]
+    public void NearPortal()
     {
-        Interact?.Invoke();
+        InteractAction?.Invoke();
         m_SkeletonAnimation.AnimationName = ChooseInteractAnim();
         Debug.Log("Test, On a Portal");
     }
-    [Button]
+    [Button, HideInEditorMode]
     public void IdlePortal()
     {
         Default?.Invoke();
@@ -73,7 +83,7 @@ public class TownGateInitializer : MonoBehaviour
         Debug.Log("Test, leaving a portal");
     }
 
-    void GateValueChanged()
+    private void GateValueChanged()
     {
         m_SkeletonAnimation.skeletonDataAsset = m_GateAnimation;
         m_SkeletonAnimation.Initialize(true);
@@ -83,5 +93,15 @@ public class TownGateInitializer : MonoBehaviour
         EditorUtility.SetDirty(m_SkeletonAnimation.transform);
 #endif
     }
+    [Button, HideInEditorMode]
+    public void Interact(Character character)
+    {
+        Debug.Log("You should be looking at a Location changing UI here");
+    }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawSphere(promptPosition, 1f);
+    }
 }
