@@ -15,7 +15,7 @@ namespace DChild.Gameplay.ArmyBattle
     public class ArmyBattleEncounterer : MonoBehaviour , IButtonToInteract , ISerializableComponent
     {
         [SerializeField,TabGroup("Initialize")]
-        private ArmyBattleScenario m_Scenario;
+        private ArmyBattleScenarioData m_Scenario;
         [SerializeField, TabGroup("Reference")]
         private SpriteRenderer m_SpriteRenderer;
         [SerializeField, TabGroup("Reference")]
@@ -41,9 +41,9 @@ namespace DChild.Gameplay.ArmyBattle
         [Button]
         public void InitiateEncounter()
         {
-            ArmyBattleSystem.BattleScenario = m_Scenario;
-            Debug.Log("ARMY BATTLE SCENARIO INITIATED :"+ArmyBattleSystem.BattleScenario.name);
             GameSystem.LoadZone(GameMode.ArmyBattle, null, true);
+            ArmyBattleSystem.BattleScenario = m_Scenario;
+            Debug.Log("ARMY BATTLE SCENARIO INITIATED :" + ArmyBattleSystem.BattleScenario.name);
         }
         /*
         private void OnTriggerEnter2D(Collider2D collision)

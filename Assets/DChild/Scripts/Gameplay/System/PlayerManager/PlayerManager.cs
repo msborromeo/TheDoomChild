@@ -23,6 +23,7 @@ namespace DChild.Gameplay.Systems
     {
         Player player { get; }
         IAutoReflexHandler autoReflex { get; }
+        ArmyBattleCharacterRecruiter armyBattleCharacterRecruiter { get; }
         PlayerCharacterOverride OverrideCharacterControls();
 
         bool IsPartOfPlayer(GameObject gameObject);
@@ -36,6 +37,7 @@ namespace DChild.Gameplay.Systems
         void EnableIntroAction(List<IntroActions> action);
         void SyncVisualsWith(SpineSyncer spineSyncer);
         IEnumerator PlayerActionChange(Action<PlayerInput> Callback);
+
 
         void ReturnPlayerToOrginalScene();
     }
