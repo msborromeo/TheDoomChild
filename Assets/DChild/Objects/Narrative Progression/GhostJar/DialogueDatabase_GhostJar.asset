@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 935899b62f48ae5498594680ed17d133, type: 3}
-  m_Name: NavigationMapDatabase_TOTO
+  m_Name: DialogueDatabase_GhostJar
   m_EditorClassIdentifier: 
   version: 
   author: 
@@ -40,6 +40,32 @@ MonoBehaviour:
     - title: Name
       value: Player
       type: 0
+      typeString: CustomFieldType_Text
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: IsPlayer
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Display Name
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    portrait: {fileID: 0}
+    spritePortrait: {fileID: 0}
+    alternatePortraits: []
+    spritePortraits: []
+  - id: 64
+    fields:
+    - title: Name
+      value: shadowjar
+      type: 0
       typeString: 
     - title: Pictures
       value: '[]'
@@ -50,22 +76,52 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: IsPlayer
-      value: True
+      value: False
       type: 2
       typeString: CustomFieldType_Boolean
     portrait: {fileID: 0}
     spritePortrait: {fileID: 0}
     alternatePortraits: []
     spritePortraits: []
-  items: []
+  items:
+  - id: 47
+    fields:
+    - title: Name
+      value: DestroyGhostJar
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: destroy all ghost jars
+      type: 0
+      typeString: 
+    - title: Success Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Failure Description
+      value: 
+      type: 0
+      typeString: 
+    - title: State
+      value: unassigned
+      type: 0
+      typeString: 
+    - title: Is Item
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
   locations: []
   variables:
-  - id: 26
+  - id: 278
     fields:
     - title: Name
-      value: TOTO1_RealmGate
+      value: DestroyedCounter
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Initial Value
       value: 0
       type: 1
@@ -73,339 +129,129 @@ MonoBehaviour:
     - title: Description
       value: 
       type: 0
-      typeString: 
-  - id: 176
+      typeString: CustomFieldType_Text
+  - id: 279
     fields:
     - title: Name
-      value: TOTO1_SavePoint
+      value: COTD4_Destroyed_Jar
       type: 0
       typeString: 
     - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
     - title: Description
       value: 
       type: 0
       typeString: 
-  - id: 177
+  - id: 280
     fields:
     - title: Name
-      value: TOTO1_Passageway
+      value: GY2_Destroyed_Jar
       type: 0
       typeString: 
     - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
     - title: Description
       value: 
       type: 0
       typeString: 
-  - id: 178
+  - id: 281
     fields:
     - title: Name
-      value: TOTO2_SavePointArea
+      value: UF10_Destroyed_Jar
       type: 0
       typeString: 
     - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
     - title: Description
       value: 
       type: 0
       typeString: 
-  - id: 179
+  - id: 282
     fields:
     - title: Name
-      value: TOTO2_FirstBossFight
+      value: LIB3_Destroyed_Jar
       type: 0
       typeString: 
     - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
     - title: Description
       value: 
       type: 0
       typeString: 
-  - id: 180
+  - id: 283
     fields:
     - title: Name
-      value: TOTO3_SceneArea3
+      value: PR2_Destroyed_Jar
       type: 0
       typeString: 
     - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
     - title: Description
       value: 
       type: 0
       typeString: 
-  - id: 198
+  - id: 284
     fields:
     - title: Name
-      value: TOTO4_TopArea
+      value: RON3_Destroyed_Jar
       type: 0
       typeString: 
     - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
     - title: Description
       value: 
       type: 0
       typeString: 
-  - id: 182
+  - id: 285
     fields:
     - title: Name
-      value: TOTO4_BottomArea
+      value: RON4_Destroyed_Jar
       type: 0
       typeString: 
     - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
     - title: Description
       value: 
       type: 0
       typeString: 
-  - id: 183
+  - id: 286
     fields:
     - title: Name
-      value: TOTO4_MiniLocationLeftArea
+      value: TOTO1_Destroyed_Jar
       type: 0
       typeString: 
     - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
     - title: Description
       value: 
       type: 0
       typeString: 
-  - id: 184
+  - id: 287
     fields:
     - title: Name
-      value: TOTO5_RightSide
+      value: TOTO2_Destroyed_Jar
       type: 0
       typeString: 
     - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 185
-    fields:
-    - title: Name
-      value: TOTO5_Centre
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 186
-    fields:
-    - title: Name
-      value: TOTO5_LeftSide
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 187
-    fields:
-    - title: Name
-      value: TOTO6_SecondBossFight
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 188
-    fields:
-    - title: Name
-      value: TOTO7_UpperArea
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 189
-    fields:
-    - title: Name
-      value: TOTO7_BottomArea
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 190
-    fields:
-    - title: Name
-      value: TOTO7_RightSide
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 191
-    fields:
-    - title: Name
-      value: TOTO7_LeftSide
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 192
-    fields:
-    - title: Name
-      value: TOTO8_TopCentreArea
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 193
-    fields:
-    - title: Name
-      value: TOTO8_TopLeftArea
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 194
-    fields:
-    - title: Name
-      value: TOTO8_TopRightArea
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 195
-    fields:
-    - title: Name
-      value: TOTO8_BottomLeftArea
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 196
-    fields:
-    - title: Name
-      value: TOTO8_BottomCentreArea
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 197
-    fields:
-    - title: Name
-      value: TOTO8_BottomRightArea
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 24
-    fields:
-    - title: Name
-      value: TOTO9_TopArea
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 25
-    fields:
-    - title: Name
-      value: TOTO9_BossArea
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: 0
-      type: 1
-      typeString: CustomFieldType_Number
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
     - title: Description
       value: 
       type: 0
