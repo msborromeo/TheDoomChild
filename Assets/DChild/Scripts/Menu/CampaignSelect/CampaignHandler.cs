@@ -1,5 +1,7 @@
 ﻿using System;
 using DChild.Gameplay;
+using DChild.Gameplay.Systems;
+using DChild.Gameplay.Systems.Serialization;
 using DChild.Menu.Campaign;
 using DChild.Serialization;
 using DChildDebug;
@@ -16,6 +18,10 @@ namespace DChild.Menu
 
         [SerializeField]
         private CampaignSlotData m_defaultSave;
+        [SerializeField]
+        private LocationInWorldData m_overworldLocations;
+        [SerializeField]
+        private LocationInWorldData m_underworldLocations;
         private ICampaignSelect m_campaignSelect;
         private int m_selectedSlotID;
 
@@ -39,7 +45,15 @@ namespace DChild.Menu
             LoadingHandle.SetLoadType(LoadingHandle.LoadType.Force);
             GameplaySystem.SetCurrentCampaign(m_campaignSelect.selectedSlot);
             LoadingHandle.UnloadScenes(gameObject.scene.name);
-            GameSystem.LoadZone(m_campaignSelect.selectedSlot.sceneToLoad, true);
+
+            if (m_underworldLocations.Locations.Contains(m_campaignSelect.selectedSlot.location) || m_campaignSelect.selectedSlot.newGame)
+            {
+                GameSystem.LoadZone(GameMode.Underworld, m_campaignSelect.selectedSlot.sceneToLoad, true);
+            }
+            else
+            {
+                GameSystem.LoadZone(GameMode.Overworld, m_campaignSelect.selectedSlot.sceneToLoad, true);
+            }
         }
 
         private void OnDeleteAffirmed(object sender, EventActionArgs eventArgs)
@@ -80,7 +94,7 @@ namespace DChild.Menu
 
             for (int i = 0; i < newSlotList.Length; i++)
             {
-                if(newSlotList[i].id == m_selectedSlotID)
+                if (newSlotList[i].id == m_selectedSlotID)
                 {
                     newSlotList[i] = resetCampaignSlot;
                 }
