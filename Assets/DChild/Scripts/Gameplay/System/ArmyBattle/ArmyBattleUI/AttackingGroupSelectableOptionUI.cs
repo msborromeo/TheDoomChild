@@ -10,6 +10,8 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         [SerializeField]
         private List<Sprite> m_NullAssets;
+        [SerializeField]
+        private List<Sprite> m_GroupAssets;
 
         [SerializeField]
         private List<Image> m_targetAssets;
@@ -22,6 +24,14 @@ namespace DChild.Gameplay.ArmyBattle.UI
         [SerializeField]
         private TextMeshProUGUI m_targetPowerValue;
 
+        private int m_selectionIndex;
+
+        public int selectionIndex => m_selectionIndex;
+
+        public void SetSelectionIndex(int index)
+        {
+            m_selectionIndex = index;
+        }
 
         public override void Display(IAttackingGroup group)
         {
@@ -31,20 +41,42 @@ namespace DChild.Gameplay.ArmyBattle.UI
                 return;
             }
 
+            if (m_targetCommandIcon.enabled == false)
+            {
+                RestoreArmyGroupUI();
+            }
             base.Display(group);
         }
+        private void RestoreArmyGroupUI()
+        {
+            for (int i = 0; i < m_GroupAssets.Count; i++)
+            {
+                RestoreGroupElement(i, m_targetAssets[i]);
+            }
+
+            m_targetCommandIcon.enabled = true;
+            m_targetPartyName.enabled = true;
+            m_targetPowerLabel.text = "<color=#EA9E03>ATTACK POWER</color>";
+            m_targetPowerValue.enabled = true;
+        }
+
 
         private void NullifyArmyGroupUI()
         {
             m_targetCommandIcon.enabled = false;
             m_targetPartyName.enabled = false;
-            m_targetPowerLabel.text = $"<color=#82A4C7>{m_targetPowerLabel.text}</color>";
+            m_targetPowerLabel.text = $"<color=#82A4C7>ATTACK POWER</color>";
             m_targetPowerValue.enabled = false;
 
             for (int i = 0; i < m_NullAssets.Count; i++)
             {
                 NullifyGroupElement(i, m_targetAssets[i]);
             }
+        }
+
+        private void RestoreGroupElement(int index, Image target)
+        {
+            target.sprite = m_GroupAssets[index];
 
         }
 

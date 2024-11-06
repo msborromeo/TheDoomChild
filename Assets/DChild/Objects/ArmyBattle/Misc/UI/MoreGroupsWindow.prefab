@@ -556,7 +556,7 @@ MonoBehaviour:
         - m_Target: {fileID: 697338969}
           m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.UI.ArmyGroupIndexHandle,
             Assembly-CSharp
-          m_MethodName: Display
+          m_MethodName: Initialize
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1448,6 +1448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be534dcedbdc654bbd5f499bb7bca43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_attackGroupSelection: {fileID: 0}
   m_selectableGroups:
   - {fileID: 557885704975706037}
   - {fileID: 6931676181697044402}
@@ -1457,6 +1458,7 @@ MonoBehaviour:
   - {fileID: 6117914603976493244}
   - {fileID: 7466155054918149646}
   - {fileID: 721550567320727622}
+  m_scrollBar: {fileID: 4638578166810236827}
 --- !u!1 &4638578166022785966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1824,7 +1826,20 @@ MonoBehaviour:
     Selectable: {fileID: 4638578166810236827}
   OnValueChangedCallback:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 697338969}
+        m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.UI.ArmyGroupIndexHandle,
+          Assembly-CSharp
+        m_MethodName: HandleScroll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   HandleRect: {fileID: 4638578166022785965}
   Direction: 3
   Value: 0
@@ -2807,6 +2822,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7461409966242710578, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 697338969}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0c4346d3fec7b4ebe6384d5a654235, type: 3}
 --- !u!114 &557885704975706037 stripped
@@ -3009,6 +3029,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7461409966242710578, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 697338969}
+    - target: {fileID: 7461409966242710578, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 721550567320727622}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0c4346d3fec7b4ebe6384d5a654235, type: 3}
 --- !u!114 &721550567320727622 stripped
@@ -3211,6 +3241,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7461409966242710578, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 697338969}
+    - target: {fileID: 7461409966242710578, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1428102836336310291}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0c4346d3fec7b4ebe6384d5a654235, type: 3}
 --- !u!114 &1428102836336310291 stripped
@@ -3638,6 +3678,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7461409966242710578, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 697338969}
+    - target: {fileID: 7461409966242710578, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 6931676180523869162}
     - target: {fileID: 7461409966242710579, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
         type: 3}
       propertyPath: NormalAnimation.Fade.Enabled
@@ -3910,6 +3960,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7461409966242710578, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 697338969}
+    - target: {fileID: 7461409966242710578, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 6931676181172695889}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0c4346d3fec7b4ebe6384d5a654235, type: 3}
 --- !u!224 &2869860113199871310 stripped
@@ -4112,6 +4172,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7461409966242710578, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 697338969}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0c4346d3fec7b4ebe6384d5a654235, type: 3}
 --- !u!224 &2869860113740732845 stripped
@@ -4314,6 +4379,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7461409966242710578, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 697338969}
+    - target: {fileID: 7461409966242710578, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 7466155054918149646}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0c4346d3fec7b4ebe6384d5a654235, type: 3}
 --- !u!224 &2340908790961971217 stripped
@@ -4741,6 +4816,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7461409966242710578, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 697338969}
+    - target: {fileID: 7461409966242710578, guid: 3b0c4346d3fec7b4ebe6384d5a654235,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 6117914603976493244}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0c4346d3fec7b4ebe6384d5a654235, type: 3}
 --- !u!224 &1370988438545960611 stripped
