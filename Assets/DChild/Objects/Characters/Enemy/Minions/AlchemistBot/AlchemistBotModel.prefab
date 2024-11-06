@@ -15724,6 +15724,8 @@ GameObject:
   - component: {fileID: 6867767878161283049}
   - component: {fileID: 694269288510399211}
   - component: {fileID: 8044980104686956544}
+  - component: {fileID: 4403393549607487289}
+  - component: {fileID: 7615837169618404089}
   m_Layer: 13
   m_Name: AlchemistBotModel
   m_TagString: Untagged
@@ -15780,7 +15782,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fe3451150fe6ce14191b643450fa949d, type: 2}
+  - {fileID: 2100000, guid: bd743589b729066479ce699dc06a5091, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15814,8 +15816,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 4c4958a951853e94b8d41ec30ad8c56c, type: 2}
-  initialSkinName: default
+  skeletonDataAsset: {fileID: 11400000, guid: b8d339c9f2536644983361bbfa6e571c, type: 2}
+  initialSkinName: 
   initialFlipX: 1
   initialFlipY: 0
   separatorSlotNames: []
@@ -15832,10 +15834,10 @@ MonoBehaviour:
   maskInteraction: 2
   maskMaterials:
     materialsMaskDisabled:
-    - {fileID: 2100000, guid: 84457d0e6081548468a7fbfe80b43575, type: 2}
+    - {fileID: 2100000, guid: 48acf0ec75deffd43a65659af1f530c5, type: 2}
     materialsInsideMask: []
     materialsOutsideMask:
-    - {fileID: 2100000, guid: fe3451150fe6ce14191b643450fa949d, type: 2}
+    - {fileID: 2100000, guid: bd743589b729066479ce699dc06a5091, type: 2}
   disableRenderingOnOverride: 1
   _animationName: ALCHEMIST_BOT_Idle
   loop: 1
@@ -15873,6 +15875,39 @@ MonoBehaviour:
   useY: 0
   rb: {fileID: 0}
   siblingBoneNames: []
+--- !u!114 &4403393549607487289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8266155066596933724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce36765c3609a7e438482540600a3b3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_renderer: {fileID: 3375742119803790111}
+  m_color: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 0}
+  m_fadeInDuration: 0.05
+  m_fadeOutDuration: 0.1
+--- !u!114 &7615837169618404089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8266155066596933724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb0641d37f1cbc418dcf04f60a07c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 0}
+  m_renderer: {fileID: 3375742119803790111}
+  m_startDissolveEvent: StartFade
+  m_dissolveDuration: 0.45
+  m_delay: 0
 --- !u!1 &8897967920875657985
 GameObject:
   m_ObjectHideFlags: 0
