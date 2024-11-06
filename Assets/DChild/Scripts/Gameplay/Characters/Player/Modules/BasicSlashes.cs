@@ -44,6 +44,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private Info m_midAirOverhead;
         [SerializeField]
         private float m_aerialGravity;
+        [SerializeField]
+        private ParticleFX slash2;
 
         private IPlayerModifer m_modifier;
         private List<Type> m_executedTypes;
@@ -188,16 +190,19 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_groundOverhead.PlayFX(play);
                     m_attackFX.transform.position = m_groundOverhead.fxPosition.position;
                     m_fxAnimator.SetTrigger("GroundOverhead");
+                    slash2.Play();
                     break;
                 case Type.Crouch:
                     m_crouch.PlayFX(play);
                     m_attackFX.transform.position = m_crouch.fxPosition.position;
                     m_fxAnimator.SetTrigger("Crouch");
+                    slash2.Play();
                     break;
                 case Type.MidAir_Forward:
                     m_midAirForward.PlayFX(play);
                     m_attackFX.transform.position = m_midAirForward.fxPosition.position;
                     m_fxAnimator.Play("JumpSlash");
+                    slash2.Play();
                     break;
                 case Type.MidAir_Overhead:
                     m_midAirOverhead.PlayFX(play);
