@@ -57,7 +57,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public bool CanSlashCombo() => m_canSlashCombo;
         public bool CanMove() => m_canMove;
 
-        public ParticleFX slash2;
+        //public ParticleFX slash2;
         public override void Initialize(ComplexCharacterInfo info)
         {
             base.Initialize(info);
@@ -131,7 +131,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void PlayFX(bool value)
         {
             m_slashComboInfo[m_currentVisualSlashState].PlayFX(value);
-            slash2.Play();
+            //slash2.Play();
         }
 
         public void EnableCollision(bool value)
