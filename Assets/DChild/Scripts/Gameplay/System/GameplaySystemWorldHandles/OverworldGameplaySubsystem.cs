@@ -17,7 +17,7 @@ namespace DChild.Gameplay.Systems
 
         private void AssignModules()
         {
-
+            AssignModule(out m_playerManager);
         }
 
         private void Awake()
@@ -27,17 +27,17 @@ namespace DChild.Gameplay.Systems
 
         public static void LoadGame()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public static void PauseGame()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public static void ResumeGame()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

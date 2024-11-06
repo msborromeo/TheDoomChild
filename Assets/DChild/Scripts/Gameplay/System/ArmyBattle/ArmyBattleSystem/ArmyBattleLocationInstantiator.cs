@@ -22,7 +22,8 @@ namespace DChild.Gameplay.ArmyBattle
 
             if (template != null)
             {
-                m_locationInstance = Instantiate(template);
+                m_locationInstance = Instantiate(template,transform);
+                m_locationInstance.transform.SetParent(null);
                 m_locationInstance.transform.position = Vector3.zero;
             }
             else
