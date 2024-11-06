@@ -47,6 +47,18 @@ namespace DChild.Gameplay.Combat.StatusAilment
 
         public bool IsInflictedWith(StatusEffectType type) => Contains(type, out int index);
 
+        public IStatusEffectInfo GetInfo(StatusEffectType type)
+        {
+            if (Contains(type, out int index))
+            {
+                return m_inflictedStatusEffects[index];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public float GetCurrentDurationOf(StatusEffectType type)
         {
             if (Contains(type, out int index))

@@ -54,9 +54,10 @@ namespace DChild.Gameplay.Combat.StatusAilment
             }
         }
 
+        [Button]
         public void InflictStatusTo(StatusEffectReciever reciever)
         {
-           GameplaySystem.combatManager.Inflict(reciever, m_statusInflictions.ToArray());
+            GameplaySystem.combatManager.Inflict(reciever, m_statusInflictions.ToArray());
         }
 
         private bool Contains(StatusEffectType type, out int index)
