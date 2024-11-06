@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Combat.StatusAilment
 {
+
     public class StatusEffectReferenceEventArgs : IEventActionArgs
     {
         public void Initialize(StatusEffectHandle statusEffect)
@@ -15,7 +16,7 @@ namespace DChild.Gameplay.Combat.StatusAilment
         public StatusEffectHandle statusEffect { get; private set; }
     }
 
-    public class StatusEffectHandle
+    public class StatusEffectHandle : IStatusEffectInfo
     {
         [ShowInInspector, ReadOnly]
         private StatusEffectType m_type;
@@ -36,6 +37,9 @@ namespace DChild.Gameplay.Combat.StatusAilment
         public float duration { get => m_duration; set => m_duration = value; }
         public event EventAction<StatusEffectReferenceEventArgs> DurationExpired;
         public StatusEffectType type => m_type;
+
+        public float durationPercentage => duration/m_baseDuration;
+
         private float m_baseDuration;
 
         public StatusEffectHandle(StatusEffectType m_type, float m_duration, float m_baseDuration, IStatusEffectModule[] m_modules, IStatusEffectUpdatableModule[] m_updatableModules)
