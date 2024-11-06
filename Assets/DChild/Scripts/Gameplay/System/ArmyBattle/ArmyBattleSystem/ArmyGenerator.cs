@@ -42,7 +42,8 @@ namespace DChild.Gameplay.ArmyBattle
                 var canBeCreated = viableCharacters.Count > 0;
                 if (canBeCreated)
                 {
-                    for (int k = 0; k < armyGroup.requiredCharactersToBeAValidGroup.Length; k++)
+                    var numofRequired = armyGroup.requiredCharactersToBeAValidGroup?.Length ?? 0;
+                    for (int k = 0; k < numofRequired; k++)
                     {
                         if (viableCharacters.Contains(armyGroup.requiredCharactersToBeAValidGroup[k]) == false)
                         {
