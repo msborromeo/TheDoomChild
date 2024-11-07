@@ -92,7 +92,7 @@ namespace DChild.Gameplay.ArmyBattle
 
         public List<IAttackingGroup> GetAvailableGroups(DamageType damageType)
         {
-            return m_availableAttackingGroups.Where(x => x.GetDamageType() == damageType).OrderBy(x => x.GetAttackPower()).ToList();
+            return m_availableAttackingGroups.Where(x => x.GetDamageType() == damageType).OrderByDescending(x => x.GetAttackPower()).ToList();
         }
 
         public void SetAttackingGroupAvailability(IAttackingGroup attackingGroup, bool isAvailable)
