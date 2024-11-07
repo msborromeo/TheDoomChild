@@ -2,6 +2,9 @@
 using Doozy.Runtime.UIManager.Containers;
 using Holysoft.Gameplay.UI;
 using Sirenix.OdinInspector;
+using System;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace DChild.Gameplay.Combat.UI
@@ -20,6 +23,11 @@ namespace DChild.Gameplay.Combat.UI
         private SliderStatUI m_bossHealth;
         [SerializeField]
         private SegmentedStatUI m_segmentedBossHealth;
+
+        [SerializeField]
+        private TextMeshProUGUI m_bossLabelField;
+        [SerializeField]
+        private TextMeshProUGUI m_bossShadowField;
 
         public void Show()
         {
@@ -59,6 +67,10 @@ namespace DChild.Gameplay.Combat.UI
         {
             m_bossBanner.SetBannerInfo(boss);
             m_bossHealth.MonitorInfoOf(boss.health);
+
+            string bossName = string.Concat(boss.creatureName.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ').ToUpper();
+            m_bossLabelField.text = bossName;
+            m_bossShadowField.text = bossName;
 
             //if (m_segmentedBossHealth)
             //{
