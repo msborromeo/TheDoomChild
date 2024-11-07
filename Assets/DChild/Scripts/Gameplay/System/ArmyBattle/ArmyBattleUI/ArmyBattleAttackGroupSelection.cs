@@ -43,9 +43,8 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         public void SetSelectionList(List<IAttackingGroup> selection)
         {
-            m_selection = selection.OrderBy(x => x.GetAttackPower()).ToList();
+            m_selection = selection;
             selectionIndex = 0;
-
         }
 
         private void UpdateUI()
