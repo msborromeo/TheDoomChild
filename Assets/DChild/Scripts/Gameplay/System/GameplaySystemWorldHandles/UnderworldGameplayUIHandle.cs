@@ -245,7 +245,7 @@ namespace DChild.Gameplay.Systems
 
         private void OnDestroy()
         {
-            if (Instance != null)
+            if (Instance == this)
             {
                 Instance = null;
                 GameplaySystem.campaignSerializer.PostDeserialization -= OnPostDeserialization;
