@@ -43,6 +43,8 @@ namespace DChild.Gameplay.ArmyBattle.UI
         {
             m_scrollBar.numberOfSteps = GetTotalPages();
             m_scrollBar.size = 1f / GetTotalPages();
+            m_scrollBar.value = 0;
+
             SetPage(0);
             Display(m_filteredGroups);
         }
