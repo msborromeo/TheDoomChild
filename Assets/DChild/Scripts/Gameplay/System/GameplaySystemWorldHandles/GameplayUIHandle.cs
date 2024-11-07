@@ -110,7 +110,17 @@ namespace DChild.Gameplay.Systems
 
         public void ShowInteractionPrompt(bool willshow)
         {
-            UnderworldGameplayUIHandle.Instance.ShowInteractionPrompt(willshow);
+            switch (GameplaySystem.GetCurrentWorldType())
+            {
+                case WorldType.Underworld:
+                    UnderworldGameplayUIHandle.Instance.ShowInteractionPrompt(willshow);
+                    break;
+                case WorldType.Overworld:
+                    OverworldGameplayUIHandle.Instance.ShowInteractionPrompt(willshow);
+                    break;
+                case WorldType.ArmyBattle:
+                    break;
+            }
         }
 
         public void ShowJournalNotificationPrompt(float duration)
