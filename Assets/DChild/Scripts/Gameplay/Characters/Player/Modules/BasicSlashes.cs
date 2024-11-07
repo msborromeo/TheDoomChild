@@ -189,13 +189,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 case Type.Ground_Overhead:
                     m_groundOverhead.PlayFX(play);
                     m_attackFX.transform.position = m_groundOverhead.fxPosition.position;
-                    m_fxAnimator.SetTrigger("GroundOverhead");
+                    //m_fxAnimator.SetTrigger("GroundOverhead");
                     
                     break;
                 case Type.Crouch:
                     m_crouch.PlayFX(play);
                     m_attackFX.transform.position = m_crouch.fxPosition.position;
-                    m_fxAnimator.SetTrigger("Crouch");
+                    //m_fxAnimator.SetTrigger("Crouch");
                     
                     break;
                 case Type.MidAir_Forward:
@@ -227,7 +227,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //m_fxAnimator.Play("Buffer");
             //test.state.AddEmptyAnimation(0, 0, 0);
             //test.state.ClearTrack(0);
-            m_skeletonAnimation.state.SetEmptyAnimation(0, 0);
+            //m_skeletonAnimation.state.SetEmptyAnimation(0, 0);
             //m_fxAnimator.Play("Buffer");
             m_rigidBody.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
         }
