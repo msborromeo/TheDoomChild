@@ -12,14 +12,19 @@ namespace DChild.Menu.Campaign
 
         protected override void OnCampaignSelected(object sender, SelectedCampaignSlotEventArgs eventArgs)
         {
+            if (eventArgs.location == Location._COUNT)
+            {
+                m_target.text = "EMPTY";
+                return;
+            }
+
             if (m_currentLocation != eventArgs.location)
             {
                 m_currentLocation = eventArgs.location;
-                var locationString = m_currentLocation.ToString();
-                locationString = locationString.ToUpper();
-                locationString = locationString.Replace('_', ' ');
+                var locationString = m_currentLocation.ToString().ToUpper().Replace('_', ' ');
                 m_target.text = locationString;
             }
+
         }
 
         protected override void Awake()
