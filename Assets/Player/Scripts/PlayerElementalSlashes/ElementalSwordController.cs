@@ -12,7 +12,7 @@ using UnityEngine;
 using DChild.Gameplay;
 
 public class ElementalSwordController : MonoBehaviour
-{
+{ 
     private PlayerWeapon m_playerWeapon;
     [SerializeField]
     private ElementalSwordFX[] m_elementalSwordFX;

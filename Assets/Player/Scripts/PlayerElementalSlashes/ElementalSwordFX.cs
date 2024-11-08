@@ -53,7 +53,7 @@ public class ElementalSwordFX : MonoBehaviour
         //Stop();
 
         switch (m_currentElement)
-        {
+        { 
             case Element.Physical:
                 physicalFX.Play();
                 break;
