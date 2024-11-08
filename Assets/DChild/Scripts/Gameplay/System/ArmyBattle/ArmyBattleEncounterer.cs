@@ -24,14 +24,16 @@ namespace DChild.Gameplay.ArmyBattle
         private Sprite m_Appearance;
         [HideInInspector]
         private bool m_IsDefeated;
+        [SerializeField]
+        private Vector3 m_promptOffset;
 
         public event EventAction<EventActionArgs> InteractionOptionChange;
 
-        public bool showPrompt => throw new System.NotImplementedException();
+        public bool showPrompt => true;
 
-        public string promptMessage => throw new System.NotImplementedException();
+        public string promptMessage => "Encounter an Army";
 
-        public Vector3 promptPosition => throw new System.NotImplementedException();
+        public Vector3 promptPosition => transform.position + m_promptOffset;
 
         private void Awake()
         {
