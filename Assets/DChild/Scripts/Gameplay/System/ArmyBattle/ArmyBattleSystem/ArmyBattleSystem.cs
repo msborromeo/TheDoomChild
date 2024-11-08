@@ -12,7 +12,7 @@ namespace DChild.Gameplay.ArmyBattle
 {
     public class ArmyBattleSystem : MonoBehaviour
     {
-        public static ArmyBattleScenario BattleScenario;
+        public static ArmyBattleScenarioData BattleScenario;
         public static ArmyCharactersSaveData DebugPlayerRecruitedCharacters;
 
         private static ArmyBattleSystem Instance;
@@ -167,7 +167,7 @@ namespace DChild.Gameplay.ArmyBattle
 
         private void InitializeBattleScenario()
         {
-            var scenarioHandleInstance = Instantiate(BattleScenario.scenarioHandle) as GameObject;
+            var scenarioHandleInstance = Instantiate(BattleScenario.scenarioHandle,transform) as GameObject;
             m_scenarioHandle = scenarioHandleInstance.GetComponent<ArmyBattleScenarioHandle>();
             m_scenarioHandle.Initialize(m_player.controlledArmy, m_enemy.controlledArmy);
             if (canBattleBeStarted)
