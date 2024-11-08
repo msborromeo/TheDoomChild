@@ -12,7 +12,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         protected class Info
         {
             [SerializeField]
-            private ParticleSystem m_fx;
+            private ElementalSwordFX m_fx;
             [SerializeField]
             private Transform m_fxPosition;
             [SerializeField]
@@ -25,18 +25,17 @@ namespace DChild.Gameplay.Characters.Players.Modules
             public float nextAttackDelay => m_nextAttackDelay;
             public float damageModifier => m_damageModifier;
             public Transform fxPosition => m_fxPosition;
-
             public void PlayFX(bool value)
             {
                 if (m_fx != null)
                 {
                     if (value)
                     {
-                        m_fx.Play(true);
+                        m_fx.Play();
                     }
                     else
                     {
-                        m_fx.Stop(true);
+                        m_fx.Stop();
                     } 
                 }
             }
