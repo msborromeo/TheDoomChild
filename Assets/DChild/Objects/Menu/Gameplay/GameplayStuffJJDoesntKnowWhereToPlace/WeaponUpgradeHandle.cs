@@ -6,6 +6,7 @@ using DChild.Gameplay.Inventories;
 using DChild.Gameplay.Items;
 using DChild.Gameplay.Systems;
 using DChild.Menu;
+using Doozy.Runtime.UIManager.Containers;
 using Holysoft.Event;
 using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
@@ -31,19 +32,23 @@ public class WeaponUpgradeHandle : MonoBehaviour
     public void RequestUpgrade()
     {
         IsViableForUpgrade(m_playerWeapon, m_playerInventory);
+
+        //Hack Solution for COnfirmation
+        m_confirmationRequest.ShowView();
         m_confirmationRequest.Execute(OnUpgradeConfirm);
     }
     private void OnUpgradeConfirm(object sender, EventActionArgs eventArgs)
     {
         ExecuteUpgrade(m_playerWeapon, m_playerInventory);
+        m_confirmationRequest.HideView();
     }
 
     public bool IsViableForUpgrade(PlayerWeapon playerWeapon, PlayerInventory playerInventory)
     {
-        WeaponLevel nextWeaponLevel = playerWeapon.GetWeaponLevel()+1;
+        WeaponLevel nextWeaponLevel = playerWeapon.GetWeaponLevel() + 1;
         bool hasRequirements = false;
-        
-        for(int i = 0; i < m_weaponUpgradeData[(int)nextWeaponLevel].info.weaponUpgradeRequirement.Length; i++)
+
+        for (int i = 0; i < m_weaponUpgradeData[(int)nextWeaponLevel].info.weaponUpgradeRequirement.Length; i++)
         {
             ItemData currentRequiredItem = m_weaponUpgradeData[(int)nextWeaponLevel].info.weaponUpgradeRequirement[i].item;
             int currentRequiredItemAmount = m_weaponUpgradeData[(int)nextWeaponLevel].info.weaponUpgradeRequirement[i].amount;
@@ -76,11 +81,11 @@ public class WeaponUpgradeHandle : MonoBehaviour
             additionalDamage.type = playerWeapon.damage.type;
             additionalDamage.value = playerWeapon.damage.value + m_weaponUpgradeData[(int)nextWeaponLevel].info.attackdamage.damage.value;
 
-            for(int i = 0; i < m_weaponUpgradeData[(int)nextWeaponLevel].info.weaponUpgradeRequirement.Length; i++)
+            for (int i = 0; i < m_weaponUpgradeData[(int)nextWeaponLevel].info.weaponUpgradeRequirement.Length; i++)
             {
                 playerInventory.RemoveItem(m_weaponUpgradeData[(int)nextWeaponLevel].info.weaponUpgradeRequirement[i].item, m_weaponUpgradeData[(int)nextWeaponLevel].info.weaponUpgradeRequirement[i].amount);
-            }        
-            
+            }
+
             playerWeapon.SetBaseDamage(additionalDamage);
             playerWeapon.SetWeaponLevel(playerWeapon.currentWeaponLevel + 1);
             FindObjectOfType<Blacksmith>().UpgradeFinished();
