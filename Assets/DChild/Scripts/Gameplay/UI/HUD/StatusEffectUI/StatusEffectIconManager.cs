@@ -65,7 +65,7 @@ namespace DChild.Gameplay.Combat.StatusAilment.UI
         private void Awake()
         {
             m_icons = GetComponentsInChildren<StatusEffectIcon>(true);
-            m_layoutGroup.enabled = false;
+            /*m_layoutGroup.enabled = false;*/
         }
     }
 

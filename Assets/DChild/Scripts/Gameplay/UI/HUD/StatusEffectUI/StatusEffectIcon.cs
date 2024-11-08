@@ -1,6 +1,8 @@
+using Doozy.Runtime.UIManager.Containers;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.UI;
 
 namespace DChild.Gameplay.Combat.StatusAilment.UI
 {
@@ -9,6 +11,12 @@ namespace DChild.Gameplay.Combat.StatusAilment.UI
         private IStatusEffectInfo m_infoToMonitor;
 
         public StatusEffectType type => m_infoToMonitor.type;
+        
+        [SerializeField]
+        private UIContainer m_container;
+
+        [SerializeField]
+        private Image m_activeIcon;
 
         public void Monitor(IStatusEffectInfo info, StatusEffectIconData iconData)
         {
@@ -16,6 +24,9 @@ namespace DChild.Gameplay.Combat.StatusAilment.UI
             gameObject.name = $"StatusEffectIcon ({type})";
             enabled = true;
             gameObject.SetActive(true);
+            m_activeIcon.sprite = iconData.activeIcon;
+            m_container.Show();
+            UpdateUI(info.durationPercentage);
         }
 
         public void Hide()
@@ -24,11 +35,12 @@ namespace DChild.Gameplay.Combat.StatusAilment.UI
             UpdateUI(0);
             enabled = false;
             gameObject.SetActive(false);
+            m_container.Hide();
         }
 
         private void UpdateUI(float durationPercentage)
         {
-
+            m_activeIcon.fillAmount = durationPercentage;
         }
 
         private void Awake()

@@ -9,6 +9,9 @@ namespace DChild.Gameplay.Combat.StatusAilment.UI
         private Sprite m_activeIcon;
         [SerializeField]
         private Sprite m_runningDurationIcon;
+
+        public Sprite activeIcon => m_activeIcon;
+        public Sprite runningDurationIcon => m_runningDurationIcon;
     }
 
 }
