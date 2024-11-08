@@ -24,8 +24,8 @@ namespace DChild.Gameplay
         public static IWorld world { get => BaseGameplaySystem.world; }
         public static ITime time { get => BaseGameplaySystem.time; }
 
-        public static IPlayerManager playerManager { get => BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld ? UnderworldGameplaySystem.playerManager : OverworldGameplaySubsystem.playerManager; }
-        public static ISimulationHandler simulationHandler { get => BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld ? UnderworldGameplaySystem.simulationHandler : null; }
+        public static IPlayerManager playerManager { get => GetCurrentWorldType() == WorldType.Underworld ? UnderworldGameplaySystem.playerManager : OverworldGameplaySubsystem.playerManager; }
+        public static ISimulationHandler simulationHandler { get => GetCurrentWorldType() == WorldType.Underworld ? UnderworldGameplaySystem.simulationHandler : null; }
         public static ILootHandler lootHandler { get => UnderworldGameplaySystem.lootHandler; }
         public static IHealthTracker healthTracker { get => UnderworldGameplaySystem.healthTracker; }
         public static ISoulSkillManager soulSkillManager { get => UnderworldGameplaySystem.soulSkillManager; }
@@ -34,11 +34,13 @@ namespace DChild.Gameplay
 
         public static bool isGamePaused { get; private set; }
 
+        public static WorldType GetCurrentWorldType() => BaseGameplaySystem.GetCurrentWorldType();
+
         public static void ResumeGame()
         {
             isGamePaused = false;
             BaseGameplaySystem.ResumeGame();
-            if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
+            if (GetCurrentWorldType() == WorldType.Underworld)
             {
                 UnderworldGameplaySystem.ResumeGame();
             }
@@ -52,7 +54,7 @@ namespace DChild.Gameplay
         {
             isGamePaused = true;
             BaseGameplaySystem.PauseGame();
-            if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
+            if (GetCurrentWorldType() == WorldType.Underworld)
             {
                 UnderworldGameplaySystem.PauseGame();
             }
@@ -67,7 +69,7 @@ namespace DChild.Gameplay
             BaseGameplaySystem.ClearCaches();
             if (BaseGameplaySystem.HasInstance)
             {
-                if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
+                if (GetCurrentWorldType() == WorldType.Underworld)
                 {
                     UnderworldGameplaySystem.ClearCaches();
                 }
@@ -82,7 +84,7 @@ namespace DChild.Gameplay
         {
             ClearCaches();
             BaseGameplaySystem.LoadGame(campaignSlot, loadType);
-            if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
+            if (GetCurrentWorldType() == WorldType.Underworld)
             {
                 UnderworldGameplaySystem.LoadGame();
             }
@@ -95,7 +97,7 @@ namespace DChild.Gameplay
         public static void ReloadGame()
         {
             BaseGameplaySystem.ReloadGame();
-            if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
+            if (GetCurrentWorldType() == WorldType.Underworld)
             {
                 UnderworldGameplaySystem.LoadGame();
             }
@@ -114,7 +116,7 @@ namespace DChild.Gameplay
         {
             if (BaseGameplaySystem.HasInstance)
             {
-                if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
+                if (GetCurrentWorldType() == WorldType.Underworld)
                 {
                     UnderworldGameplaySystem.SetInputActive(isActive);
                 }
@@ -125,7 +127,7 @@ namespace DChild.Gameplay
         {
             if (BaseGameplaySystem.HasInstance)
             {
-                if (BaseGameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
+                if (GetCurrentWorldType() == WorldType.Underworld)
                 {
                     UnderworldGameplaySystem.ListenToNextSceneLoad();
                 }
