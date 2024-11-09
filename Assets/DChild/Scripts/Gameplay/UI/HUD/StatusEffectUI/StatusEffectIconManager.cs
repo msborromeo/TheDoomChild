@@ -23,7 +23,6 @@ namespace DChild.Gameplay.Combat.StatusAilment.UI
                 if (icon.enabled == false)
                 {
                     icon.Monitor(statusEffectReciever.GetInfo(type), m_statusEffectIconDataPair[type]);
-                    icon.transform.SetAsLastSibling();
                     StopAllCoroutines();
                     StartCoroutine(AutoLayoutIcons());
                     return;
