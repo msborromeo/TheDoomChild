@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay;
+using DChild.Gameplay.Systems;
 using DChild.Gameplay.Systems.Serialization;
 using DChild.Menu;
 using DChild.Temp;
@@ -16,6 +17,8 @@ public class LoadZoneFunctionHandle
 
     private Cache<LoadZoneFunctionHandle> m_cacheVersion;
 
+    private WorldType m_startingWorldType;
+
     public LoadZoneFunctionHandle()
     {
         m_locationData = null;
@@ -28,18 +31,36 @@ public class LoadZoneFunctionHandle
         m_character = character;
         m_cacheVersion = cacheVersion;
         LoadingHandle.SceneDone += TeleportCharacter;
+
+        m_startingWorldType = GameplaySystem.GetCurrentWorldType();
     }
 
     private void TeleportCharacter(object sender, EventActionArgs eventArgs)
     {
-        Debug.Log(m_locationData.position);
-        m_character.transform.position = m_locationData.position;
+        if(GameplaySystem.GetCurrentWorldType() == m_startingWorldType)
+        {
+            Debug.Log(m_locationData.position);
+            m_character.transform.position = m_locationData.position;
+        }
+        else
+        {
+            GameplaySystem.playerManager.player.character.transform.position = m_locationData.position;
+        }
+        
         LoadingHandle.SceneDone -= TeleportCharacter;
     }
 
     public void CallLocationArriveEvent()
     {
-        m_locationData?.CallArriveEvent(m_character);
+        if (GameplaySystem.GetCurrentWorldType() == m_startingWorldType)
+        {
+            m_locationData?.CallArriveEvent(m_character);
+        }
+        else
+        {
+            m_locationData?.CallArriveEvent(GameplaySystem.playerManager.player.character);
+        }
+
         m_cacheVersion.Release();
         m_cacheVersion = null;
     }
