@@ -148,9 +148,9 @@ MonoBehaviour:
   onExecute:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6694078659559698807}
-        m_TargetAssemblyTypeName: DChild.Gameplay.Items.ItemGiver, Assembly-CSharp
-        m_MethodName: GiveItem
+      - m_Target: {fileID: 645133193750219627}
+        m_TargetAssemblyTypeName: DChild.Gameplay.Items.ItemRemover, Assembly-CSharp
+        m_MethodName: RemoveItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -173,10 +173,80 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2426660004675204744}
+        m_TargetAssemblyTypeName: PixelCrushers.DialogueSystem.QuestStateListener,
+          Assembly-CSharp-firstpass
+        m_MethodName: UpdateIndicator
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   useConversationTitlePicker: 1
   useBarkTitlePicker: 1
   useQuestNamePicker: 1
   selectedDatabase: {fileID: 11400000, guid: 1703b693a992cac4abf8992bf2ec5c1c, type: 2}
+--- !u!1 &7688058059916574000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3477993756335242734}
+  - component: {fileID: 645133193750219627}
+  m_Layer: 11
+  m_Name: BrokenSwordRemover
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3477993756335242734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7688058059916574000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 957087518877211699}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &645133193750219627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7688058059916574000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82439b5c3b68f2e4ca60be9771cb41bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_data: {fileID: 11400000, guid: 3501f3bbb3e16964ba79d19d9a41b16d, type: 2}
 --- !u!1 &8760787716166500140
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +273,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8760787716166500140}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -71.34, y: -129.87, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -225,10 +295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questName: TheBrokenSword
-  questStateIndicatorLevels: []
-  questEntryStateIndicatorLevels:
+  questStateIndicatorLevels:
   - updateOnStartOnly: 0
-    entryNumber: 0
     questState: 3
     condition:
       luaConditions:
@@ -238,7 +306,7 @@ MonoBehaviour:
       acceptedGameObjects: []
       luaWizardIndex: -1
       lastEvaluationValue: 0
-    indicatorLevel: 0
+    indicatorLevel: 1
     onEnterState:
       m_PersistentCalls:
         m_Calls:
@@ -255,7 +323,6 @@ MonoBehaviour:
             m_BoolArgument: 1
           m_CallState: 2
   - updateOnStartOnly: 0
-    entryNumber: 0
     questState: 3
     condition:
       luaConditions:
@@ -282,7 +349,6 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - updateOnStartOnly: 0
-    entryNumber: 0
     questState: 4
     condition:
       luaConditions: []
@@ -307,6 +373,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  questEntryStateIndicatorLevels: []
   suppressOnEnterStateEventsOnStart: 0
 --- !u!114 &8130251190314677407
 MonoBehaviour:
@@ -321,6 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicators:
+  - {fileID: 0}
   - {fileID: 957087518877211692}
 --- !u!114 &291540407126797808
 MonoBehaviour:
@@ -335,7 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   addTrigger: 16
-  removeTrigger: 1024
+  removeTrigger: 1280
   databases:
   - {fileID: 11400000, guid: 1703b693a992cac4abf8992bf2ec5c1c, type: 2}
   condition:
@@ -491,6 +559,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 34deac7c0d0abf64aa9971ea66e661fb,
         type: 3}
+    - target: {fileID: 1599750675189986289, guid: a62a057707fb2574d907631cd7d8ae79,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975975817667900597, guid: a62a057707fb2574d907631cd7d8ae79,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975975817667900597, guid: a62a057707fb2574d907631cd7d8ae79,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18
+      objectReference: {fileID: 0}
     - target: {fileID: 2372178329769258006, guid: a62a057707fb2574d907631cd7d8ae79,
         type: 3}
       propertyPath: m_RootOrder
@@ -499,12 +582,12 @@ PrefabInstance:
     - target: {fileID: 2372178329769258006, guid: a62a057707fb2574d907631cd7d8ae79,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 546.8
+      value: 563.2
       objectReference: {fileID: 0}
     - target: {fileID: 2372178329769258006, guid: a62a057707fb2574d907631cd7d8ae79,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 147.6
+      value: 146.53
       objectReference: {fileID: 0}
     - target: {fileID: 2372178329769258006, guid: a62a057707fb2574d907631cd7d8ae79,
         type: 3}
@@ -568,8 +651,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4220707520816927437, guid: a62a057707fb2574d907631cd7d8ae79,
         type: 3}
+      propertyPath: m_promptOffset.x
+      value: -0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4220707520816927437, guid: a62a057707fb2574d907631cd7d8ae79,
+        type: 3}
       propertyPath: m_promptOffset.y
-      value: 15
+      value: 14.43
       objectReference: {fileID: 0}
     - target: {fileID: 5350381358703550942, guid: a62a057707fb2574d907631cd7d8ae79,
         type: 3}
@@ -680,12 +768,12 @@ PrefabInstance:
     - target: {fileID: 9202456344484938045, guid: 67a6d98b649a56045a02b03603dc74e0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 518.41
+      value: 519.68
       objectReference: {fileID: 0}
     - target: {fileID: 9202456344484938045, guid: 67a6d98b649a56045a02b03603dc74e0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 147.97
+      value: 148.61
       objectReference: {fileID: 0}
     - target: {fileID: 9202456344484938045, guid: 67a6d98b649a56045a02b03603dc74e0,
         type: 3}
