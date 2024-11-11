@@ -57,6 +57,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public bool CanSlashCombo() => m_canSlashCombo;
         public bool CanMove() => m_canMove;
 
+        //public ParticleFX slash2;
         public override void Initialize(ComplexCharacterInfo info)
         {
             base.Initialize(info);
@@ -116,7 +117,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
 
             m_state.isDoingCombo = false;
-            m_fxAnimator.Play("Buffer");
+            //m_fxAnimator.Play("Buffer");
 
             for (int i = 0; i < m_slashComboInfo.Count; i++)
             {
@@ -130,6 +131,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void PlayFX(bool value)
         {
             m_slashComboInfo[m_currentVisualSlashState].PlayFX(value);
+            //slash2.Play();
         }
 
         public void EnableCollision(bool value)
@@ -138,20 +140,21 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_slashComboInfo[m_currentVisualSlashState].ShowCollider(value);
             m_attackFX.transform.position = m_slashComboInfo[m_currentVisualSlashState].fxPosition.position;
 
-            switch (m_currentVisualSlashState)
-            {
-                case 0:
-                    m_fxAnimator.Play("SlashCombo1");
-                    break;
-                case 1:
-                    m_fxAnimator.Play("SlashCombo2");
-                    break;
-                case 2:
-                    m_fxAnimator.Play("SlashCombo3");
-                    break;
-                default:
-                    break;
-            }
+            //For Spine Skeleton FX
+            //switch (m_currentVisualSlashState)
+            //{
+            //    case 0:
+            //        m_fxAnimator.Play("SlashCombo1");
+            //        break;
+            //    case 1:
+            //        m_fxAnimator.Play("SlashCombo2");
+            //        break;
+            //    case 2:
+            //        m_fxAnimator.Play("SlashCombo3");
+            //        break;
+            //    default:
+            //        break;
+            //}
 
             //TEST
             //m_enemySensor.Cast();
@@ -179,7 +182,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_canMove = false;
             }
 
-            m_fxAnimator.Play("Buffer");
+            //m_fxAnimator.Play("Buffer");
             base.AttackOver();
         }
 
