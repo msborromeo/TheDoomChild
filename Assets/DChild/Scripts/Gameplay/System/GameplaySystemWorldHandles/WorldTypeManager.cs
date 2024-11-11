@@ -52,6 +52,25 @@ namespace DChild.Gameplay.Systems
             var args = new WorldTypeArgs(m_currentWorldType);
             OnWorldTypeChanged?.Invoke(this, args);
         }
+
+        public WorldType GetLocationWorldType(Location checkedLocation)
+        {
+            if (m_underworldLocationsData.Locations.Contains(checkedLocation) || m_overworldLocationsData.Locations.Contains(checkedLocation))
+            {
+                if (m_underworldLocationsData.Locations.Contains(checkedLocation))
+                {
+                    return WorldType.Underworld;
+                }
+                else
+                {
+                    return WorldType.Overworld;
+                }
+            }
+            else
+            {
+                return WorldType.ArmyBattle;
+            }
+        }
     }
 }
 

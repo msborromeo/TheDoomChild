@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 
 namespace DChild.Gameplay.Systems
 {
-    public class OverworldPlayerManager : MonoBehaviour, IPlayerManager
+    public class OverworldPlayerManager : MonoBehaviour, IPlayerManager, IGameplaySystemModule
     {
         [SerializeField, BoxGroup("Player Data")]
         private Player m_player;
@@ -23,7 +23,7 @@ namespace DChild.Gameplay.Systems
         private PlayerCharacterOverride m_overrideController;
 
         #region IPlayerManager Stuff
-        public IPlayer player => m_player;
+        public Player player => m_player;
 
         public IAutoReflexHandler autoReflex => null;
 
@@ -102,8 +102,12 @@ namespace DChild.Gameplay.Systems
         {
             throw new NotImplementedException();
         }
-
         #endregion
+
+        public void TeleportPlayer(Vector2 position)
+        {
+            m_player.SetPosition(position);
+        }
     }
 }
 

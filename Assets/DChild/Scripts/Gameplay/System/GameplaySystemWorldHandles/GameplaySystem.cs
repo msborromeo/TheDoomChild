@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.Cinematics;
 using DChild.Gameplay.Combat;
+using DChild.Gameplay.Environment;
 using DChild.Gameplay.SoulSkills;
 using DChild.Gameplay.Systems;
 using DChild.Gameplay.VFX;
@@ -7,6 +8,7 @@ using DChild.Menu;
 using DChild.Serialization;
 using Holysoft.Event;
 using System;
+using System.Numerics;
 
 namespace DChild.Gameplay
 {
@@ -120,6 +122,14 @@ namespace DChild.Gameplay
                 {
                     UnderworldGameplaySystem.SetInputActive(isActive);
                 }
+            }
+        }
+
+        public static void ForcePlayerTeleportOnSceneLoad(UnityEngine.Vector2 position)
+        {
+            if (GetCurrentWorldType() == WorldType.Overworld)
+            {
+                OverworldGameplaySubsystem.RequestForPlayerCharacterTeleport(position);
             }
         }
 

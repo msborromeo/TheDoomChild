@@ -8,6 +8,7 @@ using Sirenix.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class LoadZoneFunctionHandle
@@ -37,29 +38,35 @@ public class LoadZoneFunctionHandle
 
     private void TeleportCharacter(object sender, EventActionArgs eventArgs)
     {
-        if(GameplaySystem.GetCurrentWorldType() == m_startingWorldType)
+        //if(m_startingWorldType == GameplaySystem.GetCurrentWorldType())
+        //{
+        //    Debug.Log(m_locationData.position);
+        //    m_character.transform.position = m_locationData.position;
+        //}
+        //else
+        //{
+        //}
+        if (GameplaySystem.playerManager == null)
         {
-            Debug.Log(m_locationData.position);
-            m_character.transform.position = m_locationData.position;
+            GameplaySystem.ForcePlayerTeleportOnSceneLoad(m_locationData.position);
         }
         else
         {
             GameplaySystem.playerManager.player.character.transform.position = m_locationData.position;
         }
-        
         LoadingHandle.SceneDone -= TeleportCharacter;
     }
 
     public void CallLocationArriveEvent()
     {
-        if (GameplaySystem.GetCurrentWorldType() == m_startingWorldType)
-        {
-            m_locationData?.CallArriveEvent(m_character);
-        }
-        else
-        {
+        //if (GameplaySystem.GetCurrentWorldType() == m_startingWorldType)
+        //{
+        //    m_locationData?.CallArriveEvent(m_character);
+        //}
+        //else
+        //{
+        //}
             m_locationData?.CallArriveEvent(GameplaySystem.playerManager.player.character);
-        }
 
         m_cacheVersion.Release();
         m_cacheVersion = null;
