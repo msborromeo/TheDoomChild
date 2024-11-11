@@ -19,7 +19,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private ShadowSlide m_shadowSlide;
 
         #region Battle Abilities
-       
+
         private ReaperHarvest m_reaperHarvest;
         private KrakenRage m_krakenRage;
         private SovereignImpale m_sovereignImpale;
@@ -92,7 +92,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void SlashCombo()
         {
-            //m_slashCombo?.PlayFX(true);
+            m_slashCombo?.PlayFX(true);
             m_slashCombo?.EnableCollision(true);
         }
 
@@ -203,7 +203,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_swordThrust?.AttackOver();
             m_swordThrust.EndExecution();
-        } 
+        }
 
         public void SwordThrustPush()
         {
