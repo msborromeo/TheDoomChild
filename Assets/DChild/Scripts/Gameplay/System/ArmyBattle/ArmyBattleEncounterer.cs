@@ -56,7 +56,7 @@ namespace DChild.Gameplay.ArmyBattle
             m_SpriteRenderer.sprite = m_Appearance;
         }
         
-        [Button]
+        [Button, HideInEditorMode]
         public void InitiateEncounter()
         {
             GameSystem.LoadZone(GameMode.ArmyBattle, null, true);
@@ -78,7 +78,7 @@ namespace DChild.Gameplay.ArmyBattle
             }
         }
         */
-        [Button]
+        [Button, HideInEditorMode]
         public void DefeatArmy()
         {
             Debug.Log(name + " Is Defeated");
