@@ -1,3 +1,4 @@
+using DChild.Gameplay.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,10 @@ namespace DChild.Gameplay.Systems
 
         #region Modules
         private static DChild.Gameplay.Systems.PlayerManager m_playerManager;
+        private static OverworldGameplayUIHandle m_uiHandler;
+
         public static IPlayerManager playerManager => m_playerManager;
+        public static OverworldGameplayUIHandle uiHandler => m_uiHandler;
         #endregion
 
         private void AssignModule<T>(out T module) where T : MonoBehaviour, IGameplaySystemModule => module = GetComponentInChildren<T>();
@@ -18,6 +22,7 @@ namespace DChild.Gameplay.Systems
         private void AssignModules()
         {
             AssignModule(out m_playerManager);
+            AssignModule(out m_uiHandler);
         }
 
         private void Awake()
