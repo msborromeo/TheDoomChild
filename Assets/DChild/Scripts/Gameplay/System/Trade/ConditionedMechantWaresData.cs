@@ -43,6 +43,7 @@ namespace DChild.Gameplay.Trade
                 var conditionedWare = m_additionalWares[i];
                 if (Lua.IsTrue(conditionedWare.condition))
                 {
+                    Debug.Log("Condition For Wares is True:" + conditionedWare.condition);
                     AddInfoTo(conditionedWare.inventoryInfo, ref itemList);
                 }
             }
