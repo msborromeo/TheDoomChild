@@ -15,7 +15,7 @@ namespace DChild.Gameplay.Characters.Players
 
     [AddComponentMenu("DChild/Gameplay/Player/Player Weapon")]
     [System.Serializable]
-    public class PlayerWeapon : MonoBehaviour,ISerializable<WeaponUpgradeSaveData>
+    public class PlayerWeapon : MonoBehaviour, ISerializable<WeaponUpgradeSaveData>
     {
         [SerializeField]
         private WeaponBaseStatsData m_defaultWeaponStatsData;
@@ -44,7 +44,7 @@ namespace DChild.Gameplay.Characters.Players
         public event EventAction<EventActionArgs> StatusInflictionUpdate;
 
         public void Initialize()
-        {          
+        {
             if (m_isInitialized == false)
             {
                 m_baseDamage = m_defaultWeaponStatsData.damage;
@@ -61,6 +61,7 @@ namespace DChild.Gameplay.Characters.Players
             DamageChange?.Invoke(this, EventActionArgs.Empty);
         }
 
+        public Damage GetBaseDamage() => m_baseDamage;
         public void SetBaseDamage(Damage damage)
         {
             m_baseDamage = damage;
