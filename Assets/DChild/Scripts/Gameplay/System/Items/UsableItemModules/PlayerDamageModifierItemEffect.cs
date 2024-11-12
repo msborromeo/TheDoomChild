@@ -25,6 +25,8 @@ namespace DChild.Gameplay.Items
 
         public void StopEffect(IPlayer player)
         {
+            //will conflict if other items are using this
+            //function and we don't want their effects to stop
             player.weapon.SetAddedDamage(0);
         }
     }
