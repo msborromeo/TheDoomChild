@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 6401821050490539887}
   - component: {fileID: 6401821050490539886}
   m_Layer: 5
-  m_Name: Timer Icon
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -162,13 +162,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6401821051360563436}
   - component: {fileID: 6401821051360563434}
-  - component: {fileID: 6401821051360563433}
   - component: {fileID: 6401821051360563432}
   - component: {fileID: 6401821051360563439}
   - component: {fileID: 6401821051360563438}
   - component: {fileID: 6401821051360563437}
+  - component: {fileID: 6628371584869330738}
   m_Layer: 5
-  m_Name: StatusIconSlot
+  m_Name: StatusEffectIconSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -217,23 +217,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &6401821051360563433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6401821051360563427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 8388407
 --- !u!114 &6401821051360563432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,7 +265,7 @@ MonoBehaviour:
   UseCustomStartPosition: 1
   AutoHideAfterShow: 0
   AutoHideAfterShowDelay: 0
-  DisableGameObjectWhenHidden: 0
+  DisableGameObjectWhenHidden: 1
   DisableCanvasWhenHidden: 1
   DisableGraphicRaycasterWhenHidden: 1
   ClearSelectedOnShow: 0
@@ -378,12 +361,12 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {x: -128, y: 0, z: 0}
-      ToValue: {x: 0, y: 0, z: 0}
-      CurrentValue: {x: 0, y: 0, z: 0}
-      Enabled: 1
+      FromValue: {x: -29.000008, y: -28.999996, z: 0}
+      ToValue: {x: 28.999992, y: -28.999996, z: 0}
+      CurrentValue: {x: 28.999992, y: -28.999996, z: 0}
+      Enabled: 0
       AnimationType: 0
-      StartPosition: {x: 0, y: 0, z: 0}
+      StartPosition: {x: 28.999992, y: -28.999996, z: 0}
       FromReferenceValue: 0
       ToReferenceValue: 0
       FromCustomValue: {x: 0, y: 0, z: 0}
@@ -447,7 +430,7 @@ MonoBehaviour:
         FadeOutShake: 0
       FromValue: {x: 0, y: 0, z: 0}
       ToValue: {x: 0, y: 0, z: 0}
-      CurrentValue: {x: 0, y: 0, z: 0}
+      CurrentValue: {x: -0, y: 0, z: 0}
       Enabled: 0
       StartRotation: {x: -0, y: 0, z: 0}
       FromReferenceValue: 0
@@ -458,7 +441,7 @@ MonoBehaviour:
       ToOffset: {x: 0, y: 0, z: 0}
     Scale:
       Settings:
-        PlayMode: 0
+        PlayMode: 1
         EaseMode: 0
         Ease: 1
         Curve:
@@ -486,7 +469,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
         StartDelay: 0
-        Duration: 0.3
+        Duration: 0.175
         Loops: 0
         LoopDelay: 0
         UseRandomStartDelay: 0
@@ -510,21 +493,21 @@ MonoBehaviour:
         Elasticity: 1
         FadeOutShake: 0
       FromValue: {x: 1, y: 1, z: 1}
-      ToValue: {x: 1, y: 1, z: 1}
-      CurrentValue: {x: 0, y: 0, z: 0}
-      Enabled: 0
+      ToValue: {x: 1.375, y: 1.375, z: 1}
+      CurrentValue: {x: 1, y: 1, z: 1}
+      Enabled: 1
       StartScale: {x: 1, y: 1, z: 1}
       FromReferenceValue: 0
-      ToReferenceValue: 0
+      ToReferenceValue: 1
       FromCustomValue: {x: 1, y: 1, z: 1}
       ToCustomValue: {x: 1, y: 1, z: 1}
       FromOffset: {x: 0, y: 0, z: 0}
-      ToOffset: {x: 0, y: 0, z: 0}
+      ToOffset: {x: 0.375, y: 0.375, z: 0}
     Fade:
       Settings:
         PlayMode: 0
         EaseMode: 0
-        Ease: 1
+        Ease: 4
         Curve:
           serializedVersion: 2
           m_Curve:
@@ -532,7 +515,7 @@ MonoBehaviour:
             time: 0
             value: 0
             inSlope: 0
-            outSlope: 1
+            outSlope: 0
             tangentMode: 0
             weightedMode: 0
             inWeight: 0
@@ -540,7 +523,7 @@ MonoBehaviour:
           - serializedVersion: 3
             time: 1
             value: 1
-            inSlope: 1
+            inSlope: 0
             outSlope: 0
             tangentMode: 0
             weightedMode: 0
@@ -550,7 +533,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
         StartDelay: 0
-        Duration: 0.3
+        Duration: 0.05
         Loops: 0
         LoopDelay: 0
         UseRandomStartDelay: 0
@@ -573,14 +556,14 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: 1
+      FromValue: 0
       ToValue: 1
-      CurrentValue: 0
-      Enabled: 0
+      CurrentValue: 1
+      Enabled: 1
       StartAlpha: 1
-      FromReferenceValue: 0
-      ToReferenceValue: 0
-      FromCustomValue: 1
+      FromReferenceValue: 2
+      ToReferenceValue: 2
+      FromCustomValue: 0
       ToCustomValue: 1
       FromOffset: 0
       ToOffset: 0
@@ -648,12 +631,12 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {x: 0, y: 0, z: 0}
-      ToValue: {x: 128, y: 0, z: 0}
-      CurrentValue: {x: 0, y: 0, z: 0}
-      Enabled: 1
+      FromValue: {x: 28.999992, y: -28.999996, z: 0}
+      ToValue: {x: 492.335, y: -28.999996, z: 0}
+      CurrentValue: {x: 28.999992, y: -28.999996, z: 0}
+      Enabled: 0
       AnimationType: 1
-      StartPosition: {x: 0, y: 0, z: 0}
+      StartPosition: {x: 28.999992, y: -28.999996, z: 0}
       FromReferenceValue: 0
       ToReferenceValue: 0
       FromCustomValue: {x: 0, y: 0, z: 0}
@@ -717,7 +700,7 @@ MonoBehaviour:
         FadeOutShake: 0
       FromValue: {x: 0, y: 0, z: 0}
       ToValue: {x: 0, y: 0, z: 0}
-      CurrentValue: {x: 0, y: 0, z: 0}
+      CurrentValue: {x: -0, y: 0, z: 0}
       Enabled: 0
       StartRotation: {x: -0, y: 0, z: 0}
       FromReferenceValue: 0
@@ -781,10 +764,10 @@ MonoBehaviour:
         FadeOutShake: 0
       FromValue: {x: 1, y: 1, z: 1}
       ToValue: {x: 1, y: 1, z: 1}
-      CurrentValue: {x: 0, y: 0, z: 0}
+      CurrentValue: {x: 1, y: 1, z: 1}
       Enabled: 0
       StartScale: {x: 1, y: 1, z: 1}
-      FromReferenceValue: 0
+      FromReferenceValue: 1
       ToReferenceValue: 0
       FromCustomValue: {x: 1, y: 1, z: 1}
       ToCustomValue: {x: 1, y: 1, z: 1}
@@ -820,7 +803,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
         StartDelay: 0
-        Duration: 0.3
+        Duration: 0.05
         Loops: 0
         LoopDelay: 0
         UseRandomStartDelay: 0
@@ -844,14 +827,14 @@ MonoBehaviour:
         Elasticity: 1
         FadeOutShake: 0
       FromValue: 1
-      ToValue: 1
+      ToValue: 0
       CurrentValue: 0
-      Enabled: 0
+      Enabled: 1
       StartAlpha: 1
-      FromReferenceValue: 0
-      ToReferenceValue: 0
+      FromReferenceValue: 2
+      ToReferenceValue: 2
       FromCustomValue: 1
-      ToCustomValue: 1
+      ToCustomValue: 0
       FromOffset: 0
       ToOffset: 0
 --- !u!222 &6401821051360563437
@@ -862,3 +845,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6401821051360563427}
   m_CullTransparentMesh: 1
+--- !u!114 &6628371584869330738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6401821051360563427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abec2fad35acd84b931163a380dc23a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_container: {fileID: 6401821051360563432}
+  m_activeIcon: {fileID: 6401821050262196718}
