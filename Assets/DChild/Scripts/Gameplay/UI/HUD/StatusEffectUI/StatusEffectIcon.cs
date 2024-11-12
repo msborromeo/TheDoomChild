@@ -9,8 +9,9 @@ namespace DChild.Gameplay.Combat.StatusAilment.UI
     public class StatusEffectIcon : MonoBehaviour
     {
         private IStatusEffectInfo m_infoToMonitor;
+        private StatusEffectType m_type;
 
-        public StatusEffectType type => m_infoToMonitor.type;
+        public StatusEffectType type => m_type;
         
         [SerializeField]
         private UIContainer m_container;
@@ -21,9 +22,10 @@ namespace DChild.Gameplay.Combat.StatusAilment.UI
         public void Monitor(IStatusEffectInfo info, StatusEffectIconData iconData)
         {
             m_infoToMonitor = info;
+            m_type = info.type;
             gameObject.name = $"StatusEffectIcon ({type})";
             enabled = true;
-            gameObject.SetActive(true);
+            /*gameObject.SetActive(true);*/
             m_activeIcon.sprite = iconData.activeIcon;
             m_container.Show();
             UpdateUI(info.durationPercentage);
@@ -34,7 +36,7 @@ namespace DChild.Gameplay.Combat.StatusAilment.UI
             m_infoToMonitor = null;
             UpdateUI(0);
             enabled = false;
-            gameObject.SetActive(false);
+            /*gameObject.SetActive(false);*/
             m_container.Hide();
         }
 
