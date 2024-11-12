@@ -35,12 +35,28 @@ namespace DChild.Gameplay.ArmyBattle
 
         public Vector3 promptPosition => transform.position + m_promptOffset;
 
+        [System.Serializable]
+        private struct SaveData : ISaveData
+        {
+            [SerializeField]
+            private bool m_isDefated;
+
+            public SaveData(bool isDefated)
+            {
+                m_isDefated = isDefated;
+            }
+
+            public bool isDefated => m_isDefated;
+
+            public ISaveData ProduceCopy() => new SaveData(m_isDefated);
+        }
+
         private void Awake()
         {
             m_SpriteRenderer.sprite = m_Appearance;
         }
         
-        [Button]
+        [Button, HideInEditorMode]
         public void InitiateEncounter()
         {
             GameSystem.LoadZone(GameMode.ArmyBattle, null, true);
@@ -62,7 +78,7 @@ namespace DChild.Gameplay.ArmyBattle
             }
         }
         */
-        [Button]
+        [Button, HideInEditorMode]
         public void DefeatArmy()
         {
             Debug.Log(name + " Is Defeated");
@@ -75,17 +91,30 @@ namespace DChild.Gameplay.ArmyBattle
 
         public ISaveData Save()
         {
-            throw new System.NotImplementedException();
+            return new SaveData(m_IsDefeated);
         }
 
         public void Load(ISaveData data)
         {
-            throw new System.NotImplementedException();
+            m_IsDefeated = ((SaveData)data).isDefated;
+            if(m_IsDefeated)
+            {
+                this.gameObject.SetActive(false);
+            }else
+            {
+
+            }
         }
 
         public void Initialize()
         {
-            throw new System.NotImplementedException();
+            m_IsDefeated = false;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawSphere(promptPosition, .1f);
         }
     }
 }
