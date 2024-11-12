@@ -5,6 +5,9 @@ public class SpawnPowent: MonoBehaviour
     [SerializeField]
     private GameObject m_speedPic;
 
+    [SerializeField]
+    private bool m_toEnter;
+
 
 
     private void Update()
@@ -36,7 +39,15 @@ public class SpawnPowent: MonoBehaviour
     {
         if (collision.CompareTag("Hitbox"))
         {
-            m_speedPic.SetActive(false);
+            if (m_toEnter)
+            {
+                m_speedPic.SetActive(true);
+            }
+            else
+            {
+                m_speedPic.SetActive(false);
+            }
+            
         }
 
         
@@ -47,7 +58,15 @@ public class SpawnPowent: MonoBehaviour
     {
         if (collision.CompareTag("Hitbox"))
         {
-            m_speedPic.SetActive(true);
+          if(m_speedPic.activeInHierarchy == true)
+            {
+                m_speedPic.SetActive(false);
+            }
+            else
+            {
+                m_speedPic.SetActive(true);
+            }
+           
         }
 
 
