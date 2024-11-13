@@ -53,7 +53,7 @@ public class ElementalSwordFX : MonoBehaviour
         //Stop();
 
         switch (m_currentElement)
-        { 
+        {
             case Element.Physical:
                 physicalFX.Play();
                 break;
@@ -71,16 +71,72 @@ public class ElementalSwordFX : MonoBehaviour
 
     public void Stop()
     {
-        physicalFX.Stop();
-        fireFX.Stop();
-        iceFX.Stop();
-        lightningFX.Stop();
+        if (physicalFX == null)
+        {
+            Debug.Log("stop physical fx is empty");
+        }
+        else
+        {
+            physicalFX.Stop();
+        }
+        if (fireFX == null)
+        {
+            Debug.Log("stop fire fx is empty");
+        }
+        else
+        {
+            fireFX.Stop();
+        }
+        if (iceFX == null)
+        {
+            Debug.Log("stop ice fx is empty");
+        }
+        else
+        {
+            iceFX.Stop();
+        }
+        if (lightningFX == null)
+        {
+            Debug.Log("stop lightning fx is empty");
+        }
+        else
+        {
+            lightningFX.Stop();
+        }
     }
     public void Clear()
     {
-        physicalFX?.Clear();
-        fireFX?.Clear();
-        iceFX?.Clear();
-        lightningFX?.Clear();
+        if (physicalFX == null)
+        {
+            Debug.Log("clear physical fx is empty");
+        }
+        else
+        {
+            physicalFX.Clear();
+        }
+        if (fireFX == null)
+        {
+            Debug.Log("clear fire fx is empty");
+        }
+        else
+        {
+            fireFX.Clear();
+        }
+        if (iceFX == null)
+        {
+            Debug.Log("clear ice fx is empty");
+        }
+        else
+        {
+            iceFX.Clear();
+        }
+        if (lightningFX == null)
+        {
+            Debug.Log("clear lightning fx is empty");
+        }
+        else
+        {
+            lightningFX.Clear();
+        }
     }
 }
