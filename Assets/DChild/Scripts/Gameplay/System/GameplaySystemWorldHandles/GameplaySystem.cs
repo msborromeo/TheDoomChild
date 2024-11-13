@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.Cinematics;
 using DChild.Gameplay.Combat;
+using DChild.Gameplay.Environment;
 using DChild.Gameplay.SoulSkills;
 using DChild.Gameplay.Systems;
 using DChild.Gameplay.VFX;
@@ -7,6 +8,7 @@ using DChild.Menu;
 using DChild.Serialization;
 using Holysoft.Event;
 using System;
+using System.Numerics;
 
 namespace DChild.Gameplay
 {
@@ -24,7 +26,23 @@ namespace DChild.Gameplay
         public static IWorld world { get => BaseGameplaySystem.world; }
         public static ITime time { get => BaseGameplaySystem.time; }
 
-        public static IPlayerManager playerManager { get => GetCurrentWorldType() == WorldType.Underworld ? UnderworldGameplaySystem.playerManager : OverworldGameplaySubsystem.playerManager; }
+        public static IPlayerManager playerManager
+        {
+            get
+            {
+                switch (GetCurrentWorldType())
+                {
+                    case WorldType.Underworld:
+                        return UnderworldGameplaySystem.playerManager;
+                    case WorldType.Overworld:
+                        return OverworldGameplaySubsystem.playerManager;
+                    case WorldType.ArmyBattle:
+                        return ArmyBattleGameplaySystem.playerManager;
+                    default:
+                        return null;
+                }
+            }
+        }
         public static ISimulationHandler simulationHandler { get => GetCurrentWorldType() == WorldType.Underworld ? UnderworldGameplaySystem.simulationHandler : null; }
         public static ILootHandler lootHandler { get => UnderworldGameplaySystem.lootHandler; }
         public static IHealthTracker healthTracker { get => UnderworldGameplaySystem.healthTracker; }
@@ -120,6 +138,14 @@ namespace DChild.Gameplay
                 {
                     UnderworldGameplaySystem.SetInputActive(isActive);
                 }
+            }
+        }
+
+        public static void ForcePlayerTeleportOnSceneLoad(UnityEngine.Vector2 position)
+        {
+            if (GetCurrentWorldType() == WorldType.Overworld)
+            {
+                OverworldGameplaySubsystem.RequestForPlayerCharacterTeleport(position);
             }
         }
 

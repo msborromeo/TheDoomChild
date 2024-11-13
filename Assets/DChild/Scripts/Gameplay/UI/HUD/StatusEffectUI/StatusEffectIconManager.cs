@@ -13,17 +13,18 @@ namespace DChild.Gameplay.Combat.StatusAilment.UI
         [SerializeField]
         private Dictionary<StatusEffectType, StatusEffectIconData> m_statusEffectIconDataPair;
 
-        private StatusEffectIcon[] m_icons;
+        [SerializeField]
+        private List<StatusEffectIcon> m_icons;
 
         public void ShowIconFor(StatusEffectType type, StatusEffectReciever statusEffectReciever)
         {
-            for (int i = 0; i < m_icons.Length; i++)
+
+            for (int i = 0; i < m_icons.Count; i++)
             {
                 var icon = m_icons[i];
                 if (icon.enabled == false)
                 {
                     icon.Monitor(statusEffectReciever.GetInfo(type), m_statusEffectIconDataPair[type]);
-                    icon.transform.SetAsLastSibling();
                     StopAllCoroutines();
                     StartCoroutine(AutoLayoutIcons());
                     return;
@@ -35,7 +36,7 @@ namespace DChild.Gameplay.Combat.StatusAilment.UI
 
         public void HideIconFor(StatusEffectType type, StatusEffectReciever statusEffectReciever)
         {
-            for (int i = 0; i < m_icons.Length; i++)
+            for (int i = 0; i < m_icons.Count; i++)
             {
                 var icon = m_icons[i];
                 if (icon.type == type)
@@ -49,7 +50,7 @@ namespace DChild.Gameplay.Combat.StatusAilment.UI
 
         public void HideAllIcons()
         {
-            for (int i = 0; i < m_icons.Length; i++)
+            for (int i = 0; i < m_icons.Count; i++)
             {
                 m_icons[i].Hide();
             }
@@ -57,15 +58,15 @@ namespace DChild.Gameplay.Combat.StatusAilment.UI
 
         private IEnumerator AutoLayoutIcons()
         {
-            m_layoutGroup.enabled = true;
-            yield return new WaitForSeconds(0.1f);
             m_layoutGroup.enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            m_layoutGroup.enabled = true;
         }
 
         private void Awake()
         {
-            m_icons = GetComponentsInChildren<StatusEffectIcon>(true);
-            m_layoutGroup.enabled = false;
+            GetComponentsInChildren(true, m_icons);
+            /*m_layoutGroup.enabled = false;*/
         }
     }
 

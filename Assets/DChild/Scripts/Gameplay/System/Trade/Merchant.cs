@@ -30,7 +30,7 @@ namespace DChild.Gameplay.Trade
         {
             if (m_hasDialogue)
             {
-                GetComponent<NPCDialogue>().Interact(character);
+                GetComponentInChildren<NPCDialogue>().Interact(character);
             }
             else
             {
