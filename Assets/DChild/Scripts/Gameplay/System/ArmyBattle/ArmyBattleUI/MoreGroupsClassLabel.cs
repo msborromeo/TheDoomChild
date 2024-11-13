@@ -24,8 +24,6 @@ namespace DChild.Gameplay.ArmyBattle.UI
                 case DamageType.Range:
                     m_panelLabel.text = "RANGE";
                     break;
-                default:
-                    break;
             }
         }
     }
