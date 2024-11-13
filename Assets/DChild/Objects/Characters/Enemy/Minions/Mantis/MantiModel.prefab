@@ -689,6 +689,8 @@ GameObject:
   - component: {fileID: 4084833900952986301}
   - component: {fileID: 3100124374872348645}
   - component: {fileID: 3353714633532988130}
+  - component: {fileID: 6704153298995412292}
+  - component: {fileID: 4626181045732213591}
   m_Layer: 13
   m_Name: MantiModel
   m_TagString: Untagged
@@ -777,7 +779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 8c678d4aafc4d11488ed75fa8ebfeab4, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: a2d5c23274f9ec141a1a6222c516fa4a, type: 2}
   initialSkinName: default
   initialFlipX: 1
   initialFlipY: 0
@@ -834,6 +836,39 @@ MonoBehaviour:
   boneRoot: {fileID: 0}
   flipBy180DegreeRotation: 0
   skeletonRenderer: {fileID: 4084833900952986301}
+--- !u!114 &6704153298995412292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4084833900952986303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce36765c3609a7e438482540600a3b3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_renderer: {fileID: 4084833900952986290}
+  m_color: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 0}
+  m_fadeInDuration: 0.05
+  m_fadeOutDuration: 0.1
+--- !u!114 &4626181045732213591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4084833900952986303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb0641d37f1cbc418dcf04f60a07c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 0}
+  m_renderer: {fileID: 4084833900952986290}
+  m_startDissolveEvent: StartFade
+  m_dissolveDuration: 1
+  m_delay: 0
 --- !u!1 &4498609843321960624
 GameObject:
   m_ObjectHideFlags: 0
