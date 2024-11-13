@@ -71,71 +71,30 @@ public class ElementalSwordFX : MonoBehaviour
 
     public void Stop()
     {
-        if (physicalFX == null)
+        if (physicalFX == null || fireFX == null || iceFX == null || lightningFX == null)
         {
-            Debug.Log("stop physical fx is empty");
+            Debug.Log("emptyStop");
         }
         else
         {
             physicalFX.Stop();
-        }
-        if (fireFX == null)
-        {
-            Debug.Log("stop fire fx is empty");
-        }
-        else
-        {
             fireFX.Stop();
-        }
-        if (iceFX == null)
-        {
-            Debug.Log("stop ice fx is empty");
-        }
-        else
-        {
             iceFX.Stop();
-        }
-        if (lightningFX == null)
-        {
-            Debug.Log("stop lightning fx is empty");
-        }
-        else
-        {
             lightningFX.Stop();
         }
+
     }
     public void Clear()
     {
-        if (physicalFX == null)
+        if (physicalFX == null || fireFX == null || iceFX == null || lightningFX == null)
         {
-            Debug.Log("clear physical fx is empty");
+            Debug.Log("emptyClear");
         }
         else
         {
             physicalFX.Clear();
-        }
-        if (fireFX == null)
-        {
-            Debug.Log("clear fire fx is empty");
-        }
-        else
-        {
             fireFX.Clear();
-        }
-        if (iceFX == null)
-        {
-            Debug.Log("clear ice fx is empty");
-        }
-        else
-        {
             iceFX.Clear();
-        }
-        if (lightningFX == null)
-        {
-            Debug.Log("clear lightning fx is empty");
-        }
-        else
-        {
             lightningFX.Clear();
         }
     }
