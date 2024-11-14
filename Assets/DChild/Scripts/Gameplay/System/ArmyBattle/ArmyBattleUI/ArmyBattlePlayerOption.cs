@@ -33,6 +33,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
             m_groupSelection.SetSelectionList(playerGroups);
             m_groupSelection.SetSelectionIcon(damageType);
+            m_groupSelection.SetPanelLabel(damageType);
             m_groupIndex.SetAvailableGroups(playerGroups);
             SelectCurrentAttackingGroup();
         }
