@@ -60,7 +60,7 @@ MonoBehaviour:
   - id: 48
     fields:
     - title: Name
-      value: Mom
+      value: Mother Mantis
       type: 0
       typeString: 
     - title: Pictures
@@ -79,28 +79,58 @@ MonoBehaviour:
     spritePortrait: {fileID: 0}
     alternatePortraits: []
     spritePortraits: []
-  items: []
-  locations: []
-  variables:
-  - id: 4
+  items:
+  - id: 25
     fields:
     - title: Name
-      value: Alert
+      value: Defeat Mother Mantis
       type: 0
       typeString: 
-    - title: Initial Value
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
       value: 
       type: 0
       typeString: 
+    - title: Success Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Failure Description
+      value: 
+      type: 0
+      typeString: 
+    - title: State
+      value: unassigned
+      type: 0
+      typeString: 
+    - title: Is Item
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+  locations: []
+  variables:
+  - id: 94
+    fields:
+    - title: Name
+      value: MotherMantis_HasBeenDefeatMotherMantis_HasbeenDefeated
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
     - title: Description
       value: 
       type: 0
       typeString: 
   conversations:
-  - id: 2
+  - id: 154
     fields:
     - title: Title
-      value: New Conversation 1
+      value: BossFight/Mother Mantis/Intro
       type: 0
       typeString: 
     - title: Description
@@ -173,17 +203,17 @@ MonoBehaviour:
         value: None()
         type: 0
         typeString: 
-      conversationID: 2
+      conversationID: 154
       isRoot: 0
       isGroup: 0
       nodeColor: 
       delaySimStatus: 0
-      falseConditionAction: 
+      falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 2
+      - originConversationID: 154
         originDialogueID: 0
-        destinationConversationID: 2
+        destinationConversationID: 154
         destinationDialogueID: 1
         isConnector: 0
         priority: 2
@@ -221,14 +251,14 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Ello
+        value: GRRRRRRRRRR
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 2
+      conversationID: 154
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -236,9 +266,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 2
+      - originConversationID: 154
         originDialogueID: 1
-        destinationConversationID: 2
+        destinationConversationID: 154
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
@@ -276,14 +306,124 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: EEEEEEEEELLLLLLo
+        value: UHHHHHHHHHH
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 2
+      conversationID: 154
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 154
+        originDialogueID: 2
+        destinationConversationID: 154
+        destinationDialogueID: 3
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 120
+        width: 160
+        height: 30
+    - id: 3
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 48
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: GRRRRRRRRRRRR[pic=2]
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 154
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 154
+        originDialogueID: 3
+        destinationConversationID: 154
+        destinationDialogueID: 4
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 170
+        width: 160
+        height: 30
+    - id: 4
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 48
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: UHHHHHHHHHHHH
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 154
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -299,7 +439,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 30
-        y: 120
+        y: 220
         width: 160
         height: 30
     entryGroups: []
