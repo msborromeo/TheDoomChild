@@ -11,6 +11,9 @@ namespace DChild.Gameplay.ArmyBattle.UI
         [SerializeField]
         private AttackingGroupOptionUI m_ui;
 
+        [SerializeField]
+        private MoreGroupsClassLabel m_frontLabel;
+
         private List<IAttackingGroup> m_selection;
 
         private int m_selectionIndex;
@@ -41,11 +44,12 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         public void SetSelectionIcon(DamageType type) => m_damageTypeIcon.SetType(type);
 
+        public void SetPanelLabel(DamageType type) => m_frontLabel.SetPanelLabel(type);
+
         public void SetSelectionList(List<IAttackingGroup> selection)
         {
-            m_selection = selection.OrderBy(x => x.GetAttackPower()).ToList();
+            m_selection = selection;
             selectionIndex = 0;
-
         }
 
         private void UpdateUI()

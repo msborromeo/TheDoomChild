@@ -172,7 +172,7 @@ namespace DChild.Gameplay.Characters.Players
         {
             OnDeath?.Invoke(this, eventArgs);
             //  m_controlledCharacter.physics.SetVelocity(Vector2.zero);
-
+            itemEffect.DeactivateAllEffects();
             m_controller.Disable();
             m_damageable.SetHitboxActive(false);
         }

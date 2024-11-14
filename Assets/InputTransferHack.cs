@@ -12,10 +12,10 @@ public class InputTransferHack : MonoBehaviour
 
     private void Start()
     {
-        PlayerInput m_playerInput = GameplaySystem.playerManager.player.GetComponentInChildren<PlayerInput>(true);
-        m_playerInput.enabled = false;
+        //PlayerInput m_playerInput = GameplaySystem.playerManager.player.GetComponentInChildren<PlayerInput>(true);
+        //m_playerInput.enabled = false;
         
-        StartCoroutine(SwitchToOverworldControlsRoutine());
+        //StartCoroutine(SwitchToOverworldControlsRoutine());
     }
 
     private IEnumerator SwitchToOverworldControlsRoutine()

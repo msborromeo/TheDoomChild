@@ -15,7 +15,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         [SerializeField]
         private SelectedSkillButton m_selectedSkill;
         [SerializeField]
-        private List<Image> m_partyClass;
+        private List<Image> m_partyGlow;
 
         [SerializeField]
         private Sprite m_meleeGlow;
@@ -23,8 +23,10 @@ namespace DChild.Gameplay.ArmyBattle.UI
         private Sprite m_rangeGlow;
         [SerializeField]
         private Sprite m_magicGlow;
+        [SerializeField]
+        private Sprite m_specialGlow;
 
-        public void Display(IAttackingGroup group)
+        public virtual void Display(IAttackingGroup group)
         {
             DamageType m_damageType = group.GetDamageType();
 
@@ -44,14 +46,17 @@ namespace DChild.Gameplay.ArmyBattle.UI
                 case DamageType.Magic:
                     SelectGlow(m_magicGlow);
                     break;
+                default:
+                    SelectGlow(m_specialGlow);
+                    break;
             }
         }
 
         private void SelectGlow(Sprite glow)
         {
-            foreach (Image armyUnit in m_partyClass)
+            foreach (Image glowClass in m_partyGlow)
             {
-                armyUnit.sprite = glow;
+                glowClass.sprite = glow;
             }
         }
     }

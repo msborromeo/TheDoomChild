@@ -12,8 +12,8 @@ namespace DChild.Gameplay.ArmyBattle
 {
     public class ArmyBattleSystem : MonoBehaviour
     {
-        public static ArmyBattleScenario BattleScenario;
-        public static RecruitedCharacterList DebugPlayerRecruitedCharacters;
+        public static ArmyBattleScenarioData BattleScenario;
+        public static ArmyCharactersSaveData DebugPlayerRecruitedCharacters;
 
         private static ArmyBattleSystem Instance;
 
@@ -102,6 +102,7 @@ namespace DChild.Gameplay.ArmyBattle
 
         private void OnTurnEnd(object sender, EventActionArgs eventArgs)
         {
+            m_uiManager.UpdateParticipantTroopCount(m_player, m_enemy);
             bool endBattle = false;
             if (m_player.controlledArmy.troopCount <= 0)
             {
@@ -167,7 +168,7 @@ namespace DChild.Gameplay.ArmyBattle
 
         private void InitializeBattleScenario()
         {
-            var scenarioHandleInstance = Instantiate(BattleScenario.scenarioHandle) as GameObject;
+            var scenarioHandleInstance = Instantiate(BattleScenario.scenarioHandle,transform) as GameObject;
             m_scenarioHandle = scenarioHandleInstance.GetComponent<ArmyBattleScenarioHandle>();
             m_scenarioHandle.Initialize(m_player.controlledArmy, m_enemy.controlledArmy);
             if (canBattleBeStarted)
@@ -193,7 +194,21 @@ namespace DChild.Gameplay.ArmyBattle
             //Create Player Army
             if (GameplaySystem.campaignSerializer != null)
             {
-
+                var saveData = GameplaySystem.campaignSerializer.slot.armyCharactersSaveData;
+                if (saveData.recruitedCharacterCount > 0)
+                {
+                    var playerArmy = m_generator.GenerateArmy(saveData);
+                    m_player.SetArmyToControl(playerArmy);
+                }
+                else
+                {
+                    //Temporary until player serialization is done
+                    if (DebugPlayerRecruitedCharacters != null)
+                    {
+                        var playerArmy = m_generator.GenerateArmy(DebugPlayerRecruitedCharacters);
+                        m_player.SetArmyToControl(playerArmy);
+                    }
+                }
             }
             else if (DebugPlayerRecruitedCharacters != null)
             {

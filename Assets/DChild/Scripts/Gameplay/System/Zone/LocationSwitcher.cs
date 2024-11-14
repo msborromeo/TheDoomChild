@@ -76,31 +76,26 @@ namespace DChild.Gameplay.Systems
 
                 LoadingHandle.SetLoadType(LoadingHandle.LoadType.Smart);
                 Cache<LoadZoneFunctionHandle> cacheLoadZoneHandle = Cache<LoadZoneFunctionHandle>.Claim();
-                cacheLoadZoneHandle.Value.Initialize(m_destination, character, cacheLoadZoneHandle);
+                //cacheLoadZoneHandle.Value.Initialize(m_destination, character, cacheLoadZoneHandle);
 
-                if (GameSystem.m_useGameModeValidator) //Remove if when subsystem implementation is complete
-                {
-                    var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
-                    WorldTypeVar.SetCurrentWorldType(m_destination.location);
+                var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
+                WorldTypeVar.SetCurrentWorldType(m_destination.location);
 
-                    switch (WorldTypeVar.CurrentWorldType)
-                    {
-                        case WorldType.Underworld:
-                            GameSystem.LoadZone(GameMode.Underworld, locationData.sceneInfo, true, cacheLoadZoneHandle.Value.CallLocationArriveEvent);
-                            break;
-                        case WorldType.Overworld:
-                            GameSystem.LoadZone(GameMode.Overworld, locationData.sceneInfo, true, cacheLoadZoneHandle.Value.CallLocationArriveEvent);
-                            break;
-                        case WorldType.ArmyBattle:
-                            GameSystem.LoadZone(GameMode.ArmyBattle, locationData.sceneInfo, true, cacheLoadZoneHandle.Value.CallLocationArriveEvent);
-                            break;
-                    }
-                }
-                else
+                switch (WorldTypeVar.CurrentWorldType)
                 {
-                    GameSystem.LoadZone(m_destination.sceneInfo, true, cacheLoadZoneHandle.Value.CallLocationArriveEvent);
+                    case WorldType.Underworld:
+                        cacheLoadZoneHandle.Value.Initialize(m_destination, character, cacheLoadZoneHandle);
+                        GameSystem.LoadZone(GameMode.Underworld, locationData.sceneInfo, true, cacheLoadZoneHandle.Value.CallLocationArriveEvent);
+                        break;
+                    case WorldType.Overworld:
+                        cacheLoadZoneHandle.Value.Initialize(m_destination, null, cacheLoadZoneHandle);
+                        GameSystem.LoadZone(GameMode.Overworld, locationData.sceneInfo, true, cacheLoadZoneHandle.Value.CallLocationArriveEvent);
+                        break;
+                    case WorldType.ArmyBattle:
+                        cacheLoadZoneHandle.Value.Initialize(m_destination, null, cacheLoadZoneHandle);
+                        GameSystem.LoadZone(GameMode.ArmyBattle, locationData.sceneInfo, true, cacheLoadZoneHandle.Value.CallLocationArriveEvent);
+                        break;
                 }
-                
                 GameplaySystem.ClearCaches();
 
             }

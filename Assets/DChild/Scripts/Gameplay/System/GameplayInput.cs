@@ -85,7 +85,7 @@ namespace DChild.Gameplay.Systems
         }
 
 
-        private void Awake()
+        private void Start()
         {
             if (m_storeToggleAction.action != null)
             {

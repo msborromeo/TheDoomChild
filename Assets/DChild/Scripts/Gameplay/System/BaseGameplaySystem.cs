@@ -1,11 +1,12 @@
 using DarkTonic.MasterAudio;
 using DChild;
+using DChild.Configurations;
 using DChild.Gameplay;
 using DChild.Gameplay.Cinematics;
 using DChild.Gameplay.Combat;
+using DChild.Gameplay.Environment;
 using DChild.Gameplay.SoulSkills;
 using DChild.Gameplay.Systems;
-using DChild.Gameplay.Systems.Serialization;
 using DChild.Gameplay.VFX;
 using DChild.Menu;
 using DChild.Serialization;
@@ -14,190 +15,281 @@ using PixelCrushers.DialogueSystem;
 using System;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
-public class BaseGameplaySystem : MonoBehaviour
+namespace DChild.Gameplay.Systems
 {
-    private static BaseGameplaySystem m_instance;
-    private static CampaignSlot m_campaignToLoad;
-    private static GameplayModifiers m_modifiers;
-    public static GameplayModifiers modifiers => m_modifiers;
-
-    private static CampaignSerializer m_campaignSerializer;
-
-    public static CampaignSerializer campaignSerializer => m_campaignSerializer;
-
-    public static AudioListenerPositioner audioListener { get; private set; }
-
-    [SerializeField]
-    private static WorldTypeManager m_worldTypeManager;
-
-    #region Modules
-    private static IGameplayActivatable[] m_activatableModules;
-    private static IOptionalGameplaySystemModule[] m_optionalGameplaySystemModules;
-    private static FXManager m_fxManager;
-    private static Cinema m_cinema;
-    private static World m_world;
-    private static SimulationHandler m_simulation;
-
-    private static ZoneMoverHandle m_zoneMover;
-    private static BaseGameplayUIHandle m_baseGameplayUIHandle;
-    public static bool isGamePaused { get; private set; }
-
-    public static BaseGameplayUIHandle gamplayUIHandle => m_baseGameplayUIHandle;
-    public static IFXManager fXManager => m_fxManager;
-    public static ICinema cinema => m_cinema;
-    public static IWorld world => m_world;
-    public static ITime time
+    public class GameplayModifiers
     {
-        get
+        public float minionSoulEssenceDrop = 1;
+        public float SoulessenceAbsorption = 1;
+    }
+
+    public class BaseGameplaySystem : MonoBehaviour
+    {
+        [SerializeField]
+        private bool m_doNotDeserializeOnAwake;
+        [SerializeField]
+        private AudioListenerPositioner m_audioListener;
+
+        private GameplaySettings m_settings;
+        private static BaseGameplaySystem m_instance;
+        private static CampaignSlot m_campaignToLoad;
+        private static GameplayModifiers m_modifiers;
+        public static GameplayModifiers modifiers => m_modifiers;
+
+        private static CampaignSerializer m_campaignSerializer;
+
+        public static CampaignSerializer campaignSerializer => m_campaignSerializer;
+
+        public static AudioListenerPositioner audioListener { get; private set; }
+
+        [SerializeField]
+        private static WorldTypeManager m_worldTypeManager;
+
+        public static bool HasInstance => m_instance != null;
+
+        private SkeletonAnimationManager m_skeletonManager;
+
+        #region Modules
+        private static IGameplayActivatable[] m_activatableModules;
+        private static IOptionalGameplaySystemModule[] m_optionalGameplaySystemModules;
+        private static IGameplayModuleManager[] m_gameplayModuleManager;
+        private static FXManager m_fxManager;
+        private static Cinema m_cinema;
+        private static World m_world;
+
+        private static BaseGameplayUIHandle m_baseGameplayUIHandle;
+
+        public static bool isGamePaused { get; private set; }
+
+        public static BaseGameplayUIHandle gamplayUIHandle => m_baseGameplayUIHandle;
+        public static IFXManager fXManager => m_fxManager;
+        public static ICinema cinema => m_cinema;
+        public static IWorld world => m_world;
+        public static ITime time
         {
-            if (m_world == null)
+            get
             {
-                return new TimeInfo(Time.timeScale, Time.deltaTime, Time.fixedDeltaTime);
+                if (m_world == null)
+                {
+                    return new TimeInfo(Time.timeScale, Time.deltaTime, Time.fixedDeltaTime);
+                }
+                else
+                {
+                    return m_world;
+                }
+            }
+        }
+        #endregion
+
+        private void AssignModules()
+        {
+            AssignModule(out m_fxManager);
+            AssignModule(out m_cinema);
+            AssignModule(out m_world);
+            AssignModule(out m_campaignSerializer);
+            AssignModule(out m_baseGameplayUIHandle);
+
+            m_skeletonManager = new SkeletonAnimationManager();
+            //these two iffy - Ayan
+            m_gameplayModuleManager = new IGameplayModuleManager[1];
+            m_gameplayModuleManager[0] = m_skeletonManager;
+        }
+
+        private void AssignModule<T>(out T module) where T : MonoBehaviour, IGameplaySystemModule => module = GetComponentInChildren<T>();
+
+        public static WorldType GetCurrentWorldType()
+        {
+            return m_worldTypeManager.CurrentWorldType;
+        }
+
+        public static void SetWorldType(Environment.Location location)
+        {
+            m_worldTypeManager.SetCurrentWorldType(location);
+        }
+
+        public static void ResumeGame()
+        {
+            GameTime.UnregisterValueChange(m_instance, GameTime.Factor.Multiplication);
+            isGamePaused = false;
+            GameSystem.SetCursorVisibility(false);
+
+            try
+            {
+                MasterAudio.UnpauseEverything();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+            SkeletonAnimationManager.Instance.UnpauseAllSpines();
+        }
+
+        public static void PauseGame()
+        {
+            GameTime.RegisterValueChange(m_instance, 0, GameTime.Factor.Multiplication);
+            isGamePaused = true;
+            GameSystem.SetCursorVisibility(true);
+            MasterAudio.PauseEverything();
+            SkeletonAnimationManager.Instance.PauseAllSpines();
+        }
+
+        public static void ClearCaches()
+        {
+            MasterAudio.StopMixer();
+            m_cinema?.ClearLists();
+        }
+
+        public static void LoadGame(CampaignSlot campaignSlot, LoadingHandle.LoadType loadType)
+        {
+            m_campaignToLoad = campaignSlot;
+            ClearCaches();
+            PersistentDataManager.ApplySaveData(campaignSlot.dialogueSaveData, DatabaseResetOptions.KeepAllLoaded);
+            LoadingHandle.SetLoadType(loadType);
+
+            m_worldTypeManager.SetCurrentWorldType(m_campaignToLoad.location);
+
+            var gameMode = GameMode.Underworld;
+            switch (m_worldTypeManager.CurrentWorldType)
+            {
+                case WorldType.Underworld:
+                    gameMode = GameMode.Underworld;
+                    break;
+                case WorldType.Overworld:
+                    gameMode = GameMode.Overworld;
+                    break;
+                case WorldType.ArmyBattle:
+                    gameMode = GameMode.ArmyBattle;
+                    break;
+            }
+
+            GameSystem.LoadZone(gameMode, m_campaignToLoad.sceneToLoad, true);
+            //Reload Items
+            LoadingHandle.SceneDone += LoadGameDone;
+        }
+
+        private static void LoadGameDone(object sender, EventActionArgs eventArgs)
+        {
+            LoadingHandle.SceneDone -= LoadGameDone;
+
+
+            m_campaignSerializer.SetSlot(m_campaignToLoad);
+            //m_baseGameplayUIHandle.ResetGameplayUI();
+            m_campaignSerializer.Load(SerializationScope.Gameplay, true);
+        }
+
+        public static void ReloadGame()
+        {
+            LoadGame(campaignSerializer.slot, LoadingHandle.LoadType.Force);
+        }
+
+        public static void SetCurrentCampaign(CampaignSlot campaignSlot)
+        {
+            if (m_instance)
+            {
+                LoadGame(campaignSlot, LoadingHandle.LoadType.Force);
             }
             else
             {
-                return m_world;
+                m_campaignToLoad = campaignSlot;
             }
         }
-    }
-    
-    public static ISimulationHandler simulationHandler => m_simulation;
-    #endregion
 
-    private void AssignModules()
-    {
-        AssignModule(out m_campaignSerializer);
-    }
-
-    private void AssignModule<T>(out T module) where T : MonoBehaviour, IGameplaySystemModule => module = GetComponentInChildren<T>();
-
-
-    protected void Awake()
-    {
-        if (m_instance)
+        protected void Awake()
         {
-            Destroy(gameObject);
-        }
-        else
-        {
-            m_instance = this;
-            AssignModules();
-            var initializables = GetComponentsInChildren<IGameplayInitializable>();
-            for (int i = 0; i < initializables.Length; i++)
+            if (m_instance)
             {
-                initializables[i].Initialize();
+                Destroy(gameObject);
             }
+            else
+            {
+                Debug.Log("Base Gameplay Awake");
+
+                m_instance = this;
+                AssignModules();
+                m_activatableModules = GetComponentsInChildren<IGameplayActivatable>();
+                var initializables = GetComponentsInChildren<IGameplayInitializable>();
+                m_worldTypeManager = GetComponentInChildren<WorldTypeManager>();
+
+
+                for (int i = 0; i < m_gameplayModuleManager.Length; i++)
+                {
+                    m_gameplayModuleManager[i].SetInstance(m_gameplayModuleManager[i]);
+                }
+
+                for (int i = 0; i < initializables.Length; i++)
+                {
+                    initializables[i].Initialize();
+                }
+                if (m_campaignToLoad != null)
+                {
+                    m_campaignSerializer.SetSlot(m_campaignToLoad);
+                }
+
+                if (m_doNotDeserializeOnAwake == false)
+                {
+                    m_campaignSerializer.Load(SerializationScope.Gameplay, true);
+                }
+                Debug.Log("Base Gameplay Awake Done");
+            }
+        }
+
+        private void Start()
+        {
+            Debug.Log("Base Gameplay Start");
+
+            audioListener = m_audioListener;
+            m_settings = GameSystem.settings?.gameplay ?? null;
+            m_modifiers = new GameplayModifiers();
+            isGamePaused = false;
             if (m_campaignToLoad != null)
             {
                 m_campaignSerializer.SetSlot(m_campaignToLoad);
+
+                m_campaignToLoad = null;
             }
+            Debug.Log("Base Gameplay Start Done");
         }
-    }
 
-    public static WorldType GetCurrentWorldType()
-    {
-        return m_worldTypeManager.CurrentWorldType;
-    }
-
-    private void Start()
-    {
-        if (m_campaignToLoad != null)
+        private void OnEnable()
         {
-            m_campaignSerializer.SetSlot(m_campaignToLoad);
-
-            m_campaignToLoad = null;
-        }
-    }
-
-    public static void ResumeGame()
-    {
-        GameTime.UnregisterValueChange(m_instance, GameTime.Factor.Multiplication);
-        isGamePaused = false;
-        GameSystem.SetCursorVisibility(false);
-
-        try
-        {
-            MasterAudio.UnpauseEverything();
-        }
-        catch (Exception e)
-        {
-            Debug.LogError(e.Message);
-        }
-    }
-
-    public static void PauseGame()
-    {
-        GameTime.RegisterValueChange(m_instance, 0, GameTime.Factor.Multiplication);      
-        isGamePaused = true;
-        GameSystem.SetCursorVisibility(true);
-        MasterAudio.PauseEverything();
-        SkeletonAnimationManager.Instance.PauseAllSpines();
-    }
-
-    public static void ClearCaches()
-    {
-        MasterAudio.StopMixer();
-        m_cinema?.ClearLists();
-    }
-
-    public static void LoadGame(CampaignSlot campaignSlot, LoadingHandle.LoadType loadType)
-    {
-        m_campaignToLoad = campaignSlot;
-        ClearCaches();
-        PersistentDataManager.ApplySaveData(campaignSlot.dialogueSaveData, DatabaseResetOptions.KeepAllLoaded);
-        LoadingHandle.SetLoadType(loadType);
-        if(GameSystem.m_useGameModeValidator)
-        {
-            var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
-
-            WorldTypeVar.SetCurrentWorldType(m_campaignToLoad.location);
-
-            switch (WorldTypeVar.CurrentWorldType)
+            for (int i = 0; i < m_activatableModules.Length; i++)
             {
-                case WorldType.Underworld:
-                    GameSystem.LoadZone(GameMode.Underworld, m_campaignToLoad.sceneToLoad, true);
-                    break;
-                case WorldType.Overworld:
-                    GameSystem.LoadZone(GameMode.Overworld, m_campaignToLoad.sceneToLoad, true);
-                    break;
-                case WorldType.ArmyBattle:
-                    GameSystem.LoadZone(GameMode.ArmyBattle, m_campaignToLoad.sceneToLoad, true);
-                    break;
+                m_activatableModules[i].Enable();
             }
         }
-        else
+
+        private void OnDisable()
         {
-            GameSystem.LoadZone(m_campaignToLoad.sceneToLoad, true);
+            for (int i = 0; i < m_activatableModules.Length; i++)
+            {
+                m_activatableModules[i].Disable();
+            }
         }
-        //Reload Items
-        LoadingHandle.SceneDone += LoadGameDone;
-    }
 
-    private static void LoadGameDone(object sender, EventActionArgs eventArgs)
-    {
-        LoadingHandle.SceneDone -= LoadGameDone;
-
-
-        m_campaignSerializer.SetSlot(m_campaignToLoad);
-        m_baseGameplayUIHandle.ResetGameplayUI();
-        m_campaignSerializer.Load(SerializationScope.Gameplay, true);
-    }
-
-    public static void ReloadGame()
-    {
-        LoadGame(campaignSerializer.slot, LoadingHandle.LoadType.Force);
-    }
-
-    public static void SetCurrentCampaign(CampaignSlot campaignSlot)
-    {
-        if (m_instance)
+        private void OnApplicationQuit()
         {
-            LoadGame(campaignSlot, LoadingHandle.LoadType.Force);
+            Time.timeScale = 1;
         }
-        else
+
+        private void OnDestroy()
         {
-            m_campaignToLoad = campaignSlot;
+            if (this == m_instance)
+            {
+                m_instance = null;
+
+                m_fxManager = null;
+                m_cinema = null;
+                m_world = null;
+                m_activatableModules = null;
+                GameTime.UnregisterValueChange(m_instance, GameTime.Factor.Multiplication);
+
+                for (int i = 0; i < m_gameplayModuleManager.Length; i++)
+                {
+                    m_gameplayModuleManager[i].SetInstance(null);
+                }
+            }
         }
     }
 }

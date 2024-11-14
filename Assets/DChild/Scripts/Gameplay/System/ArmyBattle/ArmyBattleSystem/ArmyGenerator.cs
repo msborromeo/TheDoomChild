@@ -13,7 +13,7 @@ namespace DChild.Gameplay.ArmyBattle
 
         public Army GenerateArmy(ArmyData armyData) => new Army(armyData.info);
 
-        public Army GenerateArmy(RecruitedCharacterList characters)
+        public Army GenerateArmy(ArmyCharactersSaveData characters)
         {
             var armyGroups = CreateViableArmyGroups(characters, m_playerArmyConfiguration.generatableArmyGroups);
             var filteredArmyGroups = RemoveReplacableArmyGroups(armyGroups, m_cachedCreatedGroupsReference);
@@ -28,7 +28,7 @@ namespace DChild.Gameplay.ArmyBattle
             return new Army(armyInfo);
         }
 
-        private List<ArmyGroup> CreateViableArmyGroups(RecruitedCharacterList characters, ArmyGroupTemplateList referenceList)
+        private List<ArmyGroup> CreateViableArmyGroups(ArmyCharactersSaveData characters, ArmyGroupTemplateList referenceList)
         {
             m_cachedCreatedGroupsReference.Clear();
             List<ArmyGroup> createdArmyGroup = new List<ArmyGroup>();
@@ -42,7 +42,8 @@ namespace DChild.Gameplay.ArmyBattle
                 var canBeCreated = viableCharacters.Count > 0;
                 if (canBeCreated)
                 {
-                    for (int k = 0; k < armyGroup.requiredCharactersToBeAValidGroup.Length; k++)
+                    var numofRequired = armyGroup.requiredCharactersToBeAValidGroup?.Length ?? 0;
+                    for (int k = 0; k < numofRequired; k++)
                     {
                         if (viableCharacters.Contains(armyGroup.requiredCharactersToBeAValidGroup[k]) == false)
                         {
@@ -63,7 +64,7 @@ namespace DChild.Gameplay.ArmyBattle
 
             return createdArmyGroup;
 
-            List<ArmyCharacterData> GetViableCharacters(RecruitedCharacterList characters, List<ArmyCharacterData> viableCharacters, ArmyCharacterGroup basedOnCharacterGroup)
+            List<ArmyCharacterData> GetViableCharacters(ArmyCharactersSaveData characters, List<ArmyCharacterData> viableCharacters, ArmyCharacterGroup basedOnCharacterGroup)
             {
                 viableCharacters.Clear();
                 for (int j = 0; j < basedOnCharacterGroup.memberCount; j++)

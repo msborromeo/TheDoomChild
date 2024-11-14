@@ -15,7 +15,7 @@ namespace DChild.Gameplay.ArmyBattle
     public class ArmyBattleEncounterer : MonoBehaviour , IButtonToInteract , ISerializableComponent
     {
         [SerializeField,TabGroup("Initialize")]
-        private ArmyBattleScenario m_Scenario;
+        private ArmyBattleScenarioData m_Scenario;
         [SerializeField, TabGroup("Reference")]
         private SpriteRenderer m_SpriteRenderer;
         [SerializeField, TabGroup("Reference")]
@@ -24,26 +24,44 @@ namespace DChild.Gameplay.ArmyBattle
         private Sprite m_Appearance;
         [HideInInspector]
         private bool m_IsDefeated;
+        [SerializeField]
+        private Vector3 m_promptOffset;
 
         public event EventAction<EventActionArgs> InteractionOptionChange;
 
-        public bool showPrompt => throw new System.NotImplementedException();
+        public bool showPrompt => true;
 
-        public string promptMessage => throw new System.NotImplementedException();
+        public string promptMessage => "Encounter an Army";
 
-        public Vector3 promptPosition => throw new System.NotImplementedException();
+        public Vector3 promptPosition => transform.position + m_promptOffset;
+
+        [System.Serializable]
+        private struct SaveData : ISaveData
+        {
+            [SerializeField]
+            private bool m_isDefated;
+
+            public SaveData(bool isDefated)
+            {
+                m_isDefated = isDefated;
+            }
+
+            public bool isDefated => m_isDefated;
+
+            public ISaveData ProduceCopy() => new SaveData(m_isDefated);
+        }
 
         private void Awake()
         {
             m_SpriteRenderer.sprite = m_Appearance;
         }
         
-        [Button]
+        [Button, HideInEditorMode]
         public void InitiateEncounter()
         {
-
+            GameSystem.LoadZone(GameMode.ArmyBattle, null, true);
             ArmyBattleSystem.BattleScenario = m_Scenario;
-            Debug.Log("ARMY BATTLE SCENARIO INITIATED :"+ArmyBattleSystem.BattleScenario.name);
+            Debug.Log("ARMY BATTLE SCENARIO INITIATED :" + ArmyBattleSystem.BattleScenario.name);
         }
         /*
         private void OnTriggerEnter2D(Collider2D collision)
@@ -60,7 +78,7 @@ namespace DChild.Gameplay.ArmyBattle
             }
         }
         */
-        [Button]
+        [Button, HideInEditorMode]
         public void DefeatArmy()
         {
             Debug.Log(name + " Is Defeated");
@@ -73,17 +91,30 @@ namespace DChild.Gameplay.ArmyBattle
 
         public ISaveData Save()
         {
-            throw new System.NotImplementedException();
+            return new SaveData(m_IsDefeated);
         }
 
         public void Load(ISaveData data)
         {
-            throw new System.NotImplementedException();
+            m_IsDefeated = ((SaveData)data).isDefated;
+            if(m_IsDefeated)
+            {
+                this.gameObject.SetActive(false);
+            }else
+            {
+
+            }
         }
 
         public void Initialize()
         {
-            throw new System.NotImplementedException();
+            m_IsDefeated = false;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawSphere(promptPosition, .1f);
         }
     }
 }

@@ -57,27 +57,21 @@ namespace DChild.Gameplay.UI
             LoadingHandle.SetLoadType(LoadingHandle.LoadType.Force);
             LoadingHandle.LoadingDone += OnLoadingDone;
             GameplaySystem.ResumeGame();
-            if(GameSystem.m_useGameModeValidator)
-            {
-                var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
-                WorldTypeVar.SetCurrentWorldType(m_transferingTo.location);
 
-                switch (WorldTypeVar.CurrentWorldType)
-                {
-                    case WorldType.Underworld:
-                        GameSystem.LoadZone(GameMode.Underworld, m_transferingTo.sceneInfo, true);
-                        break;
-                    case WorldType.Overworld:
-                        GameSystem.LoadZone(GameMode.Overworld, m_transferingTo.sceneInfo, true);
-                        break;
-                    case WorldType.ArmyBattle:
-                        GameSystem.LoadZone(GameMode.ArmyBattle, m_transferingTo.sceneInfo, true);
-                        break;
-                }
-            }
-            else
+            var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
+            WorldTypeVar.SetCurrentWorldType(m_transferingTo.location);
+
+            switch (WorldTypeVar.CurrentWorldType)
             {
-                GameSystem.LoadZone(m_transferingTo.sceneInfo, true);
+                case WorldType.Underworld:
+                    GameSystem.LoadZone(GameMode.Underworld, m_transferingTo.sceneInfo, true);
+                    break;
+                case WorldType.Overworld:
+                    GameSystem.LoadZone(GameMode.Overworld, m_transferingTo.sceneInfo, true);
+                    break;
+                case WorldType.ArmyBattle:
+                    GameSystem.LoadZone(GameMode.ArmyBattle, m_transferingTo.sceneInfo, true);
+                    break;
             }
 
             //Force Save for the Demo Delete this after proper saving is done

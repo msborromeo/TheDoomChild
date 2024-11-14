@@ -1017,7 +1017,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                         return;
                     }
-                    else if (m_input.lightningSpearPressed && m_airSlashRange.CanAirSlashRange() && (!m_abilities.IsAbilityActivated(CombatArt.LightningSpear)))
+                    else if (m_input.lightningSpearPressed && m_airSlashRange.CanAirSlashRange() && (!m_abilities.IsAbilityActivated(CombatArt.LightningSpear)) && (m_abilities.IsAbilityActivated(CombatArt.AirSlashRange)))
                     {
                         if (m_state.isInShadowMode == false)
                         {
@@ -1141,7 +1141,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     if (m_state.isInShadowMode == false)
                     {
-                        m_movement.GroundMove(m_input.horizontalInput, true);
+                        m_movement.AirMove(m_input.horizontalInput, true);
                     }
 
                     if (m_input.horizontalInput != 0)

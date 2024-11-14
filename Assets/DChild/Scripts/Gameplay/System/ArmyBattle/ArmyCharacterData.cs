@@ -1,11 +1,12 @@
 using DChild.Gameplay.Environment;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace DChild.Gameplay.ArmyBattle
 {
-
     [CreateAssetMenu(fileName = "ArmyCharacter", menuName = "DChild/Gameplay/Army/Character")]
     public class ArmyCharacterData : ScriptableObject
     {
