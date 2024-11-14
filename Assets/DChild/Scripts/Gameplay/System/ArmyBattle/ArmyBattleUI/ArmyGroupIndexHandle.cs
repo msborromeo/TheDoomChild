@@ -15,9 +15,12 @@ namespace DChild.Gameplay.ArmyBattle.UI
         private ArmyBattleAttackGroupSelection m_attackGroupSelection;
         [SerializeField]
         private List<AttackingGroupSelectableOptionUI> m_selectableGroups;
+        
         private List<IAttackingGroup> m_groups;
-
         private List<IAttackingGroup> m_filteredGroups;
+
+        [SerializeField]
+        private ArmyBattleAttackGroupSelection m_armyGroupSelection;
 
 
         [SerializeField]
