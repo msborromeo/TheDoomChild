@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 namespace DChild.Gameplay.ArmyBattle
