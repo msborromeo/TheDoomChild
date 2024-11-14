@@ -12,18 +12,18 @@ namespace DChild.Gameplay.Items
     {
         [SerializeField]
         private DamageType m_type;
-        
+
 
         public void StartEffect(IPlayer player)
         {
-            Damage temp = player.weapon.damage;
+            Damage temp = player.weapon.GetBaseDamage();
             temp.type = m_type;
             player.weapon.SetBaseDamage(temp);
         }
 
         public void StopEffect(IPlayer player)
         {
-            Damage temp = player.weapon.damage;
+            Damage temp = player.weapon.GetBaseDamage();
             temp.type = DamageType.Physical;
             player.weapon.SetBaseDamage(temp);
         }

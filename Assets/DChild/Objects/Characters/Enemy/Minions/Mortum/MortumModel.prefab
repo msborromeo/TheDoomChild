@@ -1600,6 +1600,8 @@ GameObject:
   - component: {fileID: 7832940071835804778}
   - component: {fileID: 1702745520553650031}
   - component: {fileID: 1661660273811542391}
+  - component: {fileID: 613590827069939750}
+  - component: {fileID: 9223084253851032037}
   m_Layer: 13
   m_Name: MortumModel
   m_TagString: Untagged
@@ -1656,7 +1658,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a0d733ce629bd50419e4bbbc0ddb60eb, type: 2}
+  - {fileID: 2100000, guid: cdde13c1d7755714e81296612453423d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1674,8 +1676,8 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1150295711
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &13991539320619508
@@ -1690,7 +1692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: d7f21431cdf3e554c8aad84ebb6659bf, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: b20ee25de38240c4eaa1051d5ff93354, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -1768,6 +1770,39 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &613590827069939750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403774284811111379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce36765c3609a7e438482540600a3b3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_renderer: {fileID: 2406644513509253982}
+  m_color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 0}
+  m_fadeInDuration: 0.05
+  m_fadeOutDuration: 0.1
+--- !u!114 &9223084253851032037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403774284811111379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb0641d37f1cbc418dcf04f60a07c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 0}
+  m_renderer: {fileID: 2406644513509253982}
+  m_startDissolveEvent: StartFade
+  m_dissolveDuration: 1
+  m_delay: 0.3
 --- !u!1 &5738445397387374667
 GameObject:
   m_ObjectHideFlags: 0

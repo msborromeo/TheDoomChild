@@ -113,7 +113,7 @@ MonoBehaviour:
   m_animator: {fileID: 1095034991171287018}
   m_animation: Death
   m_bodyDuration:
-    m_startTime: 3
+    m_startTime: 2
   m_fx: []
   m_destroySource: 0
 --- !u!114 &724006229186071054
@@ -570,6 +570,7 @@ MonoBehaviour:
   m_statsData: {fileID: 11400000, guid: 6e51f336236462444af9b78643b2fc25, type: 2}
   m_health: {fileID: 339836608860036271}
   m_hitbox: {fileID: 7207698296091638397}
+  m_spineEventListener: {fileID: 3365001864560706239}
   m_selfCollider: {fileID: 3529564584168350841}
   m_turnHandle: {fileID: 724006229186071054}
   m_movement: {fileID: 3365001865707009107}
@@ -578,6 +579,9 @@ MonoBehaviour:
     m_animation: {fileID: 1095034991171287018}
   m_deathHandle: {fileID: 1869691798801304144}
   m_flinchHandle: {fileID: 821603087813728574}
+  m_HoofFX: {fileID: 4901965959849707320, guid: 348258748d948324babf94fbadec049f,
+    type: 3}
+  m_spawnPointFX: {fileID: 8138147495957012275}
   m_wallSensor: {fileID: 1701363326955235419}
   m_groundSensor: {fileID: 6338727189923306421}
   m_edgeSensor: {fileID: 4694426998464547797}
@@ -767,15 +771,20 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1830866575042132621, guid: 4376776dec624954dbf61f38e8189011,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0e3621761738a544291e79ab917faa70, type: 2}
     - target: {fileID: 3831036850087406049, guid: 4376776dec624954dbf61f38e8189011,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.423226
+      value: -2.4232345
       objectReference: {fileID: 0}
     - target: {fileID: 3831036850087406049, guid: 4376776dec624954dbf61f38e8189011,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.99750817
+      value: -0.9975092
       objectReference: {fileID: 0}
     - target: {fileID: 3831036850087406049, guid: 4376776dec624954dbf61f38e8189011,
         type: 3}
@@ -810,7 +819,7 @@ PrefabInstance:
     - target: {fileID: 4568480492747826506, guid: 4376776dec624954dbf61f38e8189011,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.1251144
+      value: 1.1251221
       objectReference: {fileID: 0}
     - target: {fileID: 4568480492747826506, guid: 4376776dec624954dbf61f38e8189011,
         type: 3}
@@ -947,6 +956,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.9047563
+      objectReference: {fileID: 0}
+    - target: {fileID: 7145976087244775620, guid: 4376776dec624954dbf61f38e8189011,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7496768909005278972, guid: 4376776dec624954dbf61f38e8189011,
         type: 3}
@@ -1165,3 +1179,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1819101304e6a3479b6fb001626539e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &8138147495957012275 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5197447615915795758, guid: 4376776dec624954dbf61f38e8189011,
+    type: 3}
+  m_PrefabInstance: {fileID: 4094204265568680477}
+  m_PrefabAsset: {fileID: 0}
