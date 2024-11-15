@@ -13,6 +13,7 @@ namespace DChild.Gameplay.FastTravel
         {
             var playerManager = GameplaySystem.playerManager;
             var character = playerManager.player.character;
+            character.transform.position  = new Vector2(50000, 50000);
             m_spawnPosition = destination.position;
 
             var controller = GameplaySystem.playerManager.OverrideCharacterControls();
