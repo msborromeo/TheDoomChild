@@ -99,36 +99,40 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void WhipCombo()
         {
             //Debug.Log("Do Whip Combo EVENT");
+            // m_whipCombo?.PlayFXFor(WhipAttack.Type.Ground_Forward,true);
+            //m_whipCombo?.PlayFX(true);
             m_whipCombo?.EnableCollision(true);
         }
 
         public void GroundForwardWhipAttackFX()
         {
             //m_whip?.PlayFXFor(WhipAttack.Type.Ground_Forward, true);
+            m_whip?.PlayFXFor(WhipAttack.Type.Ground_Forward, true);
             m_whip?.EnableCollision(WhipAttack.Type.Ground_Forward, true);
         }
 
         public void GroundOverheadWhipAttackFX()
         {
             //m_whip?.PlayFXFor(WhipAttack.Type.Ground_Overhead, true);
+            m_whip?.PlayFXFor(WhipAttack.Type.Ground_Overhead, true);
             m_whip?.EnableCollision(WhipAttack.Type.Ground_Overhead, true);
         }
 
         public void MidairForwardWhipAttackFX()
         {
-            //m_whip?.PlayFXFor(WhipAttack.Type.MidAir_Forward, true);
+            m_whip?.PlayFXFor(WhipAttack.Type.MidAir_Forward, true);
             m_whip?.EnableCollision(WhipAttack.Type.MidAir_Forward, true);
         }
 
         public void MidairOverheadWhipAttackFX()
         {
-            //m_whip?.PlayFXFor(WhipAttack.Type.MidAir_Overhead, true);
+            m_whip?.PlayFXFor(WhipAttack.Type.MidAir_Overhead, true);
             m_whip?.EnableCollision(WhipAttack.Type.MidAir_Overhead, true);
         }
 
         public void CrouchForwardWhipAttackFX()
         {
-            //m_whip?.PlayFXFor(WhipAttack.Type.Ground_Forward, true);
+            m_whip?.PlayFXFor(WhipAttack.Type.Ground_Forward, true);
             m_whip?.EnableCollision(WhipAttack.Type.Crouch_Forward, true);
         }
 
