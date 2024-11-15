@@ -53,7 +53,7 @@ public class ElementalSwordFX : MonoBehaviour
         //Stop();
 
         switch (m_currentElement)
-        { 
+        {
             case Element.Physical:
                 physicalFX.Play();
                 break;
@@ -71,16 +71,31 @@ public class ElementalSwordFX : MonoBehaviour
 
     public void Stop()
     {
-        physicalFX.Stop();
-        fireFX.Stop();
-        iceFX.Stop();
-        lightningFX.Stop();
+        if (physicalFX == null || fireFX == null || iceFX == null || lightningFX == null)
+        {
+            Debug.Log("emptyStop");
+        }
+        else
+        {
+            physicalFX.Stop();
+            fireFX.Stop();
+            iceFX.Stop();
+            lightningFX.Stop();
+        }
+
     }
     public void Clear()
     {
-        physicalFX?.Clear();
-        fireFX?.Clear();
-        iceFX?.Clear();
-        lightningFX?.Clear();
+        if (physicalFX == null || fireFX == null || iceFX == null || lightningFX == null)
+        {
+            Debug.Log("emptyClear");
+        }
+        else
+        {
+            physicalFX.Clear();
+            fireFX.Clear();
+            iceFX.Clear();
+            lightningFX.Clear();
+        }
     }
 }
