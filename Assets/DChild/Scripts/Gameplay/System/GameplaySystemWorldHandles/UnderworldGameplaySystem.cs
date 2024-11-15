@@ -2,12 +2,8 @@ using DChild.Gameplay.Combat;
 using DChild.Gameplay.SoulSkills;
 using DChild.Menu;
 using Holysoft.Event;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
-using static UnityEngine.InputSystem.HID.HID;
 
 namespace DChild.Gameplay.Systems
 {
