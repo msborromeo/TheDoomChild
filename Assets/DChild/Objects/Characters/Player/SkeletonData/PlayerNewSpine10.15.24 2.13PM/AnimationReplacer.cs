@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using Spine.Unity;
@@ -70,3 +71,4 @@ public class AnimationReplacer : MonoBehaviour
         }
     }
 }
+#endif
