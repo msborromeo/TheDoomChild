@@ -23,5 +23,10 @@ namespace DChild.Gameplay.ArmyBattle.UI
         {
             m_playerOption.UpdateOptions();
         }
+
+        public void UpdateParticipantTroopCount(PlayerArmyController player, ArmyController enemy)
+        {
+            m_participantDetails.UpdateTroopCount(player, enemy);
+        }
     }
 }

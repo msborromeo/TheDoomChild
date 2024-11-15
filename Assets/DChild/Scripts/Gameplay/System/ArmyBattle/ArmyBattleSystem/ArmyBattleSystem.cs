@@ -102,6 +102,7 @@ namespace DChild.Gameplay.ArmyBattle
 
         private void OnTurnEnd(object sender, EventActionArgs eventArgs)
         {
+            m_uiManager.UpdateParticipantTroopCount(m_player, m_enemy);
             bool endBattle = false;
             if (m_player.controlledArmy.troopCount <= 0)
             {
