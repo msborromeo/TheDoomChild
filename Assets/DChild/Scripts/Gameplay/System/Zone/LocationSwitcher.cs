@@ -79,8 +79,12 @@ namespace DChild.Gameplay.Systems
                 //cacheLoadZoneHandle.Value.Initialize(m_destination, character, cacheLoadZoneHandle);
 
                 var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
+                if (WorldTypeVar.CurrentWorldType != WorldTypeVar.GetLocationWorldType(m_destination.location))
+                {
+                    GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Player);
+                }
                 WorldTypeVar.SetCurrentWorldType(m_destination.location);
-
+                
                 switch (WorldTypeVar.CurrentWorldType)
                 {
                     case WorldType.Underworld:
