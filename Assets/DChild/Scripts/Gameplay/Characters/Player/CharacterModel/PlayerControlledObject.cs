@@ -24,15 +24,22 @@ namespace DChild.Gameplay.Characters.Players
 
         public void SetOwner(IPlayer player)
         {
-           if (m_owner != null)
+            try
             {
-                m_owner.controller.ControllerDisabled -= OnOwnerControllerDisabled;
-                m_owner.controller.ControllerEnabled -= OnOwnerControllerEnabled;
-            }
-            m_owner = player;
+                if (m_owner != null)
+                {
+                    m_owner.controller.ControllerDisabled -= OnOwnerControllerDisabled;
+                    m_owner.controller.ControllerEnabled -= OnOwnerControllerEnabled;
+                }
+                m_owner = player;
 
-            m_owner.controller.ControllerDisabled += OnOwnerControllerDisabled;
-            m_owner.controller.ControllerEnabled += OnOwnerControllerEnabled;
+                m_owner.controller.ControllerDisabled += OnOwnerControllerDisabled;
+                m_owner.controller.ControllerEnabled += OnOwnerControllerEnabled;
+            }catch
+            {
+                Debug.LogWarning("NO CONTROLLER");
+            }
+            
         }
 
         private void OnOwnerControllerEnabled(object sender, EventActionArgs eventArgs)
