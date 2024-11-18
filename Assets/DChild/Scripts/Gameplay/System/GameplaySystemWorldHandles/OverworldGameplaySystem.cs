@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Systems
 {
-    public class OverworldGameplaySubsystem : MonoBehaviour
+    public class OverworldGameplaySystem : MonoBehaviour
     {
         #region Modules
         private static OverworldPlayerManager m_playerManager;
@@ -37,6 +37,16 @@ namespace DChild.Gameplay.Systems
         {
             Debug.Log("Overworld System Awake Start");
             AssignModules();
+
+            var initializables = GetComponentsInChildren<IGameplayInitializable>();
+            for (int i = 0; i < initializables.Length; i++)
+            {
+                initializables[i].Initialize();
+            }
+
+
+            //Just to make sure that underworld system is loaded with Base Gameplay, currently still using old way to initialize first load;
+            GameplaySystem.campaignSerializer.Load(SerializationScope.Gameplay | SerializationScope.Menu, true);
             Debug.Log("Overworld System Awake Done");
 
             if (m_hasBeenRequested)
