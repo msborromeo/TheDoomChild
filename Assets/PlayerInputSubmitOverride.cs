@@ -10,18 +10,13 @@ public class PlayerInputSubmitOverride : MonoBehaviour
     [SerializeField]
     private InputActionReference m_actionReference;
 
-    private InputAction m_preArmyInput;
+    private InputActionReference m_preArmyInput;
 
-    InputSystemUIInputModule m_inputModule = (InputSystemUIInputModule)EventSystem.current.currentInputModule;
+    InputSystemUIInputModule m_inputModule => (InputSystemUIInputModule)EventSystem.current.currentInputModule;
 
-    void Start()
-    { 
-        m_preArmyInput = m_inputModule.submit.action;
-        m_inputModule.submit.Set(m_actionReference.action);
-    }
+    private void Awake() => m_preArmyInput = m_inputModule.submit;
 
-    private void OnDestroy()
-    {
-        m_inputModule.submit.Set(m_preArmyInput);
-    }
+    public void OverrideInput() => m_inputModule.submit = m_actionReference;
+
+    private void OnDestroy() => m_inputModule.submit = m_preArmyInput;
 }
