@@ -19,8 +19,18 @@ namespace DChild.Gameplay.ArmyBattle.UI
             m_playerBanner.Display(player.controlledArmy.overview);
             m_enemyBanner.Display(enemy.controlledArmy.overview);
 
-            m_playerPower.text = $"{player.controlledArmy.troopCount}";
-            m_enemyPower.text = $"{enemy.controlledArmy.troopCount}";
+            UpdateTroopCount(player, enemy);
+        }
+
+        public void UpdateTroopCount(ArmyController player, ArmyController enemy)
+        {
+            m_playerPower.text = CheckNegativeTroops(player);
+            m_enemyPower.text = CheckNegativeTroops(enemy);
+        }
+
+        private string CheckNegativeTroops(ArmyController army)
+        {
+            return army.controlledArmy.troopCount > -1 ? $"{army.controlledArmy.troopCount}" : "0";
         }
     }
 }

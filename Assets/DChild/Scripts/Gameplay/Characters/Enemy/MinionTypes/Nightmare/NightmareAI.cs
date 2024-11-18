@@ -75,7 +75,10 @@ namespace DChild.Gameplay.Characters.Enemies
             private BasicAnimationInfo m_turnAnimation;
             public BasicAnimationInfo turnAnimation => m_turnAnimation;
 
-
+            [TitleGroup("Events")]
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_hoofFX;
+            public string hoofFX => m_hoofFX;
             public override void Initialize()
             {
 #if UNITY_EDITOR
@@ -121,6 +124,8 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField, TabGroup("Reference")]
         private Hitbox m_hitbox;
         [SerializeField, TabGroup("Reference")]
+        private SpineEventListener m_spineEventListener;
+        [SerializeField, TabGroup("Reference")]
         private Collider2D m_selfCollider;
         [SerializeField, TabGroup("Modules")]
         private AnimatedTurnHandle m_turnHandle;
@@ -134,6 +139,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private DeathHandle m_deathHandle;
         [SerializeField, TabGroup("Modules")]
         private FlinchHandler m_flinchHandle;
+        [SerializeField, TabGroup("FX")]
+        private GameObject m_HoofFX;
+        [SerializeField, TabGroup("FX")]
+        private Transform m_spawnPointFX;
 
         private float m_currentPatience;
         private float m_currentCD;
@@ -336,7 +345,13 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.OverrideState(State.ReevaluateSituation);
             yield return null;
         }
-
+        public void OnOffHoofFX()
+        {
+            Debug.Log("asd");
+            Instantiate(m_HoofFX, m_spawnPointFX.position, m_spawnPointFX.rotation);
+        
+           
+        }
         private IEnumerator ChargeAttackRoutine()
         {
             var toTarget = m_targetInfo.position - (Vector2)m_character.centerMass.position;
@@ -414,6 +429,7 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void Start()
         {
             base.Start();
+            m_spineEventListener.Subscribe(m_info.hoofFX, OnOffHoofFX);
             m_animation.SetAnimation(5, m_info.fireAnimation, true);
             m_currentTimeScale = UnityEngine.Random.Range(1.0f, 2.0f);
             m_currentFullCD = UnityEngine.Random.Range(m_info.attackCD * .5f, m_info.attackCD * 2f);

@@ -189,6 +189,61 @@ namespace DChild.Gameplay.Characters.Players.Modules
             OnWhip?.Invoke(this, new WhipAttackEventArgs(type));
         }
 
+        public void PlayFXFor(Type type, bool play)
+        {
+            switch (type)
+            {
+                case Type.Ground_Forward:
+                    m_groundForward.PlayFX(play);
+                    //m_attackFX.transform.position = m_groundOverhead.fxPosition.position;
+                    break;
+                case Type.Ground_Overhead:
+                    m_groundOverhead.PlayFX(play);
+                    //m_attackFX.transform.position = m_groundOverhead.fxPosition.position;
+                    //m_fxAnimator.SetTrigger("GroundOverhead");
+
+                    break;
+                case Type.Crouch_Forward:
+                    m_crouchForward.PlayFX(play);
+                    //m_attackFX.transform.position = m_crouch.fxPosition.position;
+                    //m_fxAnimator.SetTrigger("Crouch");
+
+                    break;
+                case Type.MidAir_Forward:
+                    m_midAirForward.PlayFX(play);
+                    //m_attackFX.transform.position = m_midAirForward.fxPosition.position;
+                    //m_fxAnimator.Play("JumpSlash");
+
+                    break;
+                case Type.MidAir_Overhead:
+                    m_midAirOverhead.PlayFX(play);
+                    //m_attackFX.transform.position = m_midAirOverhead.fxPosition.position;
+                    //m_fxAnimator.SetTrigger("JumpOverhead");
+                    break;
+            }
+        }
+        public void ClearFXFor(Type type)
+        {
+            switch (type)
+            {
+                case Type.Ground_Forward:
+                    m_groundForward.ClearFX();
+                    break;
+                case Type.Ground_Overhead:
+                    m_groundOverhead.ClearFX();
+                    break;
+                case Type.Crouch_Forward:
+                    m_crouchForward.ClearFX();
+                    break;
+                case Type.MidAir_Forward:
+                    m_midAirForward.ClearFX();
+                    break;
+                case Type.MidAir_Overhead:
+                    m_midAirOverhead.ClearFX();
+                    break;
+            }
+        }
+
         public override void AttackOver()
         {
             base.AttackOver();

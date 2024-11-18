@@ -27,7 +27,8 @@ public class TownGateHandler : MonoBehaviour , IButtonToInteract
     private SkeletonDataAsset m_GateAnimation;
     [SerializeField]
     public Vector3 m_Offset;
-    public FastTravelHandle fastTravel;
+    [SerializeField]
+    private UnityEvent m_onInteraction;
 
     public event EventAction<EventActionArgs> InteractionOptionChange;
 
@@ -96,7 +97,7 @@ public class TownGateHandler : MonoBehaviour , IButtonToInteract
     [Button, HideInEditorMode]
     public void Interact(Character character)
     {
-        Debug.Log("You should be looking at a Location changing UI here");
+        m_onInteraction?.Invoke();
     }
 
     private void OnDrawGizmosSelected()
