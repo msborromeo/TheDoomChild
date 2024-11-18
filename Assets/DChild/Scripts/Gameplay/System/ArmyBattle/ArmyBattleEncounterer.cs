@@ -6,6 +6,8 @@ using DChild.Gameplay.Characters.Players;
 using DChild.Gameplay.Environment.Interractables;
 using Holysoft.Event;
 using DChild.Serialization;
+using DChild.Gameplay.Systems;
+using DChild.Gameplay.Systems.Serialization;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -26,6 +28,11 @@ namespace DChild.Gameplay.ArmyBattle
         private bool m_IsDefeated;
         [SerializeField]
         private Vector3 m_promptOffset;
+
+        [SerializeField, TabGroup("Debug")]
+        private LocationData m_ChangeSceneTo;
+        [SerializeField, TabGroup("Debug")]
+        private bool m_ChaneIntoPortal;
 
         public event EventAction<EventActionArgs> InteractionOptionChange;
 
@@ -84,10 +91,32 @@ namespace DChild.Gameplay.ArmyBattle
             Debug.Log(name + " Is Defeated");
             Destroy(this.gameObject);
         }
+
+        [Button, HideInEditorMode]
+        public void PortalTo()
+        {
+            var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
+            WorldTypeVar.SetCurrentWorldType(m_ChangeSceneTo.location);
+            switch (WorldTypeVar.CurrentWorldType)
+            {
+                case WorldType.Underworld:
+                    GameSystem.LoadZone(GameMode.Underworld, m_ChangeSceneTo.sceneInfo, true);
+                    break;
+                case WorldType.Overworld:
+                    GameSystem.LoadZone(GameMode.Overworld, m_ChangeSceneTo.sceneInfo, true);
+                    break;
+            }
+        }
         public void Interact(Character character)
         {
+            if (m_ChaneIntoPortal)
+            {
+                PortalTo();
+                return;
+            }
             InitiateEncounter();
         }
+
 
         public ISaveData Save()
         {
