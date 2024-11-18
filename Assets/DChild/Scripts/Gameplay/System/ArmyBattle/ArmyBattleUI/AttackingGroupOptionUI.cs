@@ -23,6 +23,8 @@ namespace DChild.Gameplay.ArmyBattle.UI
         private Sprite m_rangeGlow;
         [SerializeField]
         private Sprite m_magicGlow;
+        [SerializeField]
+        private Sprite m_specialGlow;
 
         public virtual void Display(IAttackingGroup group)
         {
@@ -43,6 +45,9 @@ namespace DChild.Gameplay.ArmyBattle.UI
                     break;
                 case DamageType.Magic:
                     SelectGlow(m_magicGlow);
+                    break;
+                default:
+                    SelectGlow(m_specialGlow);
                     break;
             }
         }
