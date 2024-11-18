@@ -1970,7 +1970,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 //m_activeSlide = m_slide;
             }
         }
-
         private void MoveCharacter(bool isGrabbing)
         {
             if (!IsFacingInput())
@@ -2000,12 +1999,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             else
             {
                 if (m_state.isGrounded)
-                    m_movement?.GroundMove(m_input.horizontalInput, true);
+                    m_movement?.GroundMove(m_input.horizontalInput, false);
                 else
                     m_movement?.AirMove(m_input.horizontalInput, false);
             }
         }
-
         private bool CanMove()
         {
             return m_whipCombo.CanMove()

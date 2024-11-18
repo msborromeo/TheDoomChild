@@ -8,11 +8,13 @@ namespace DChild.Gameplay.FastTravel
 {
     public class FastTravelHandle : MonoBehaviour
     {
+        private Vector2 m_spawnPosition;
         public void TransferPlayerTo(LocationData destination)
         {
             var playerManager = GameplaySystem.playerManager;
             var character = playerManager.player.character;
-            character.transform.position = destination.position;
+            character.transform.position  = new Vector2(50000, 50000);
+            m_spawnPosition = destination.position;
 
             var controller = GameplaySystem.playerManager.OverrideCharacterControls();
             controller.moveDirectionInput = 0;
@@ -45,7 +47,8 @@ namespace DChild.Gameplay.FastTravel
         {
             var playerManager = GameplaySystem.playerManager;
             var character = playerManager.player.character;
-
+            character.transform.position = m_spawnPosition;
+            
             Rigidbody2D rigidBody = character.GetComponent<Rigidbody2D>();
             rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
             CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
