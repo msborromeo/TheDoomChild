@@ -7,7 +7,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class OverworldMovementController : MonoBehaviour
+public class OverworldMovementController : MonoBehaviour, IMainController
 {
     
     [SerializeField]
@@ -24,6 +24,9 @@ public class OverworldMovementController : MonoBehaviour
     public float verticalInput;
     public bool interactPressed;
     public OverworldCharacterAnimatorHandle m_animationhandler;
+
+    public event EventAction<EventActionArgs> ControllerDisabled;
+    public event EventAction<EventActionArgs> ControllerEnabled;
 
     public void Move(float directionx, float directiony)
     {
