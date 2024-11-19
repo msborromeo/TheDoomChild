@@ -31,9 +31,9 @@ namespace DChild.Gameplay.Systems
 
         public void DisableControls()
         {
-            m_gameplayInput?.SetStoreInputActive(false);
-            m_characterInput?.Disable();
-            m_player.controller.Disable();
+           // m_gameplayInput?.SetStoreInputActive(false);
+           // m_characterInput?.Disable();
+           //// m_player.controller?.Disable();
         }
 
         public void DisableIntroControls()
@@ -43,9 +43,9 @@ namespace DChild.Gameplay.Systems
 
         public void EnableControls()
         {
-            m_gameplayInput?.SetStoreInputActive(true);
-            m_characterInput?.Enable();
-            m_player.controller.Enable();
+            //m_gameplayInput?.SetStoreInputActive(true);
+            //m_characterInput?.Enable();
+            ////m_player.controller?.Enable();
         }
 
         public void EnableIntroAction(List<IntroActions> action)
@@ -70,13 +70,14 @@ namespace DChild.Gameplay.Systems
 
         public PlayerCharacterOverride OverrideCharacterControls()
         {
-            m_gameplayInput?.SetStoreInputActive(false);
-            m_characterInput?.Disable();
-            m_player.controller.Disable();
-            m_player.controller.Enable();
-            m_overrideController.enabled = true;
-            m_player.state.allowExtendedIdle = false;
-            return m_overrideController;
+            //m_gameplayInput?.SetStoreInputActive(false);
+            //m_characterInput?.Disable();
+            ////We are not using PlayerCharacterController in Overworld
+            ////m_player.controller?.Disable();
+            ////m_player.controller?.Enable();
+            //m_overrideController.enabled = true;
+            //m_player.state.allowExtendedIdle = false;
+            return null;
         }
 
         public IEnumerator PlayerActionChange(Action<PlayerInput> Callback)
@@ -86,16 +87,17 @@ namespace DChild.Gameplay.Systems
 
         public void ReturnPlayerToOrginalScene()
         {
-            throw new NotImplementedException();
+            m_player.character.transform.SetParent(transform);
+            m_player.character.transform.SetParent(null);
         }
 
         public void StopCharacterControlOverride()
         {
-            m_overrideController.enabled = false;
-            m_gameplayInput?.SetStoreInputActive(true);
-            m_characterInput?.Enable();
-            m_player.controller.Enable();
-            m_player.state.allowExtendedIdle = true;
+            //m_overrideController.enabled = false;
+            //m_gameplayInput?.SetStoreInputActive(true);
+            //m_characterInput?.Enable();
+            //m_player.controller?.Enable();
+            //m_player.state.allowExtendedIdle = true;
         }
 
         public void SyncVisualsWith(SpineSyncer spineSyncer)
