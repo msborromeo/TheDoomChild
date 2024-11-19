@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 
 namespace DChild.Gameplay.Systems
 {
-    public class OverworldPlayerManager : MonoBehaviour, IPlayerManager, IGameplaySystemModule
+    public class OverworldPlayerManager : MonoBehaviour, IPlayerManager, IGameplaySystemModule, IGameplayInitializable
     {
         [SerializeField, BoxGroup("Player Data")]
         private Player m_player;
@@ -103,6 +103,35 @@ namespace DChild.Gameplay.Systems
             throw new NotImplementedException();
         }
         #endregion
+
+        public void Initialize()
+        {
+            //var character = m_player.character;
+            //m_collisionRegistrator = character.GetComponentInChildren<CollisionRegistrator>();
+            //m_interactableDetector = character.GetComponentInChildren<InteractableDetector>();
+
+            m_player.Initialize();
+            GameplaySystem.campaignSerializer.PostDeserialization += OnPostDeserialization;
+            GameplaySystem.campaignSerializer.PreSerialization += OnPreSerialization;
+            // m_respawnDelay.CountdownEnd += OnRespawnPlayer;
+        }
+
+        private void OnPostDeserialization(object sender, CampaignSlotUpdateEventArgs eventArgs)
+        {
+            if (eventArgs.IsPartOfTheUpdate(SerializationScope.Player) && m_player)
+            {
+                m_player.SetPosition(eventArgs.slot.spawnPosition);
+                m_player.LoadData(eventArgs.slot.characterData);
+            }
+        }
+
+        private void OnPreSerialization(object sender, CampaignSlotUpdateEventArgs eventArgs)
+        {
+            if (eventArgs.IsPartOfTheUpdate(SerializationScope.Player) && m_player)
+            {
+                eventArgs.slot.UpdateCharacterData(m_player.SaveData());
+            }
+        }
 
         public void TeleportPlayer(Vector2 position)
         {

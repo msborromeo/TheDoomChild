@@ -146,26 +146,35 @@ namespace DChild.Gameplay.Characters.Players
 
         public void SetPosition(Vector2 position)
         {
-            m_controlledCharacter.transform.position = position;
+            if (m_controlledCharacter)
+            {
+                m_controlledCharacter.transform.position = position;
+            }
         }
 
         public void Initialize()
         {
-            m_moduleConfigurator.InitializeModuleConfigurations();
-            m_stats.Initialize();
-            m_weapon.Initialize();
-            m_attackResistance.Initialize();
-            m_statusResistance.Initialize();
-            m_modifiers.Initialize();
-            m_soulSkills.Initialize();
-            m_combatArts.Initialize();
+            m_moduleConfigurator?.InitializeModuleConfigurations();
+            m_stats?.Initialize();
+            m_weapon?.Initialize();
+            m_attackResistance?.Initialize();
+            m_statusResistance?.Initialize();
+            m_modifiers?.Initialize();
+            m_soulSkills?.Initialize();
+            m_combatArts?.Initialize();
         }
 
         private void Awake()
         {
-            var controlledObject = m_controlledCharacter.gameObject.AddComponent<PlayerControlledObject>();
-            controlledObject.SetOwner(this);
-            m_damageable.Destroyed += OnDestroyed;
+            if(m_controlledCharacter)
+            {
+                var controlledObject = m_controlledCharacter.gameObject.AddComponent<PlayerControlledObject>();
+                controlledObject.SetOwner(this);
+            }
+            if(m_damageable)
+            {
+                m_damageable.Destroyed += OnDestroyed;
+            }
         }
 
         private void OnDestroyed(object sender, EventActionArgs eventArgs)

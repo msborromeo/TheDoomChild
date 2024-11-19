@@ -32,6 +32,9 @@ namespace DChild.Gameplay.ArmyBattle
         private ArmyBattleUIManager m_uiManager;
 
         [SerializeField]
+        private PlayerInputSubmitOverride m_inputOverride;
+
+        [SerializeField]
         private PlayerArmyController m_player;
         [SerializeField]
         private ArmyAI m_enemy;
@@ -162,6 +165,8 @@ namespace DChild.Gameplay.ArmyBattle
             m_fightManager.Initialize(m_player.controlledArmy, m_enemy.controlledArmy);
 
             m_hasViableBattleSetup = true;
+
+            m_inputOverride.OverrideInput();
 
             InitializeBattleScenario();
         }
