@@ -51,8 +51,8 @@ namespace DChild.Configurations
                 fullscreen = true,
                 vsync = true,
                 bloom = true,
-                brightness = 0.5f,
-                contrast = 0.5f,
+                brightness = 0f,
+                contrast = 0f,
                 antiAliasingIndex = 0
             };
 
