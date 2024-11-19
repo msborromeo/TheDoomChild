@@ -6,12 +6,13 @@ namespace DChild.Gameplay.Systems
     {
         private static ArmyBattleGameplaySystem m_instance;
 
-        private static DChild.Gameplay.Systems.PlayerManager m_playerManager;
+        private static DChild.Gameplay.Systems.ArmyBattlePlayerManager m_playerManager;
 
         public static IPlayerManager playerManager => m_playerManager;
         private void AssignModules()
         {
             AssignModule(out m_playerManager);
+            Debug.Log(GameplaySystem.playerManager+" ASDASDASDASDAAAAAAAA");
         }
 
         private void AssignModule<T>(out T module) where T : MonoBehaviour, IGameplaySystemModule => module = GetComponentInChildren<T>();
@@ -20,12 +21,13 @@ namespace DChild.Gameplay.Systems
         {
             if (m_instance)
             {
+                Debug.Log(" aaaaaaaaaaaaASDASDASDASDAAAAAAAA");
                 Destroy(gameObject);
             }
             else
             {
                 m_instance = this;
-
+                Debug.Log(GetComponentInChildren<IPlayerManager>()+" WHAT IS THIS");
                 AssignModules();
 
                 var worldTypeManager = FindObjectOfType<WorldTypeManager>();
