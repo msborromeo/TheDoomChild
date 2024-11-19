@@ -9,6 +9,7 @@ namespace DChild.Gameplay.Systems
     public class OverworldGameplaySystem : MonoBehaviour
     {
         private static OverworldGameplaySystem m_instance;
+
         #region Modules
         private static OverworldPlayerManager m_playerManager;
         private static OverworldGameplayUIHandle m_uiHandler;
@@ -36,13 +37,9 @@ namespace DChild.Gameplay.Systems
 
         private void Awake()
         {
-            if (m_instance)
+            if (m_instance == null)
             {
-                Destroy(gameObject);
-            }
-            else
-            {
-                m_instance = this;
+
                 Debug.Log("Overworld System Awake Start");
                 AssignModules();
 
@@ -60,7 +57,25 @@ namespace DChild.Gameplay.Systems
                 if (m_hasBeenRequested)
                 {
                     m_playerManager.TeleportPlayer(m_requestPosition);
+                    m_hasBeenRequested = false;
                 }
+
+                m_instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (m_instance == this)
+            {
+                m_playerManager = null;
+                m_uiHandler = null;
+
+                m_instance = null;
             }
         }
 
