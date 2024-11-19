@@ -227,8 +227,11 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void Start()
         {
             base.Start();
-            m_cobWebTrigger.CobWebEnterEvent += CobwebEvent;
-            m_cobWebTrigger.Onhit += HitCobWeb;
+            if(m_cobWebTrigger != null)
+            {
+                m_cobWebTrigger.CobWebEnterEvent += CobwebEvent;
+                m_cobWebTrigger.Onhit += HitCobWeb;
+            }
             bodyHitTrigger.OnhitEvent += BodyhitEvent;
             m_currentTimeScale = UnityEngine.Random.Range(1.0f, 2.0f);
             m_currentFullCD = UnityEngine.Random.Range(m_info.attackCD * .5f, m_info.attackCD * 2f);
@@ -344,13 +347,14 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_enablePatience = false;
                 //StopCoroutine(PatienceRoutine()); //for latur
 
+                //Detect player without cobweb 
                 if (!m_isDetecting && !isPlayerDetected)
                 {
                     m_isDetecting = true;
                     m_stateHandle.OverrideState(State.Detect);
                     Debug.Log("Set target");
                 }
-                else if(m_stateHandle.currentState == State.Patrol)
+                else if(m_stateHandle.currentState == State.Patrol || m_stateHandle.currentState == State.Idle)
                 {
                     m_stateHandle.OverrideState(State.ReevaluateSituation);
                     //Debug.Log("chase state ");
@@ -735,6 +739,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
             StartCoroutine(RampageDuration());
+            m_animation.EnableRootMotion(false, false);
             m_animation.SetAnimation(0, m_info.playerDetect2.animation, false);
             do
             {
