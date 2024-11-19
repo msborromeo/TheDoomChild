@@ -178,7 +178,19 @@ MonoBehaviour:
     Runners: []
     Event:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: DChild.CursorConfigurator, Assembly-CSharp
+          m_MethodName: SetCursorVisibility
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   OnVisibleCallback:
     EventName: OnVisibleCallback
     Runners: []
@@ -213,7 +225,7 @@ MonoBehaviour:
   ClearSelectedOnShow: 0
   ClearSelectedOnHide: 1
   AutoSelectAfterShow: 1
-  AutoSelectTarget: {fileID: 1055616312190719755}
+  AutoSelectTarget: {fileID: 1055616310905831353}
   Id:
     Category: General
     Name: Confirmation
@@ -534,12 +546,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1510797652, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
       propertyPath: Id.Name
-      value: Yes
+      value: Back
       objectReference: {fileID: 0}
     - target: {fileID: 1510797652, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
       propertyPath: Id.Category
       value: General
       objectReference: {fileID: 0}
+    - target: {fileID: 1510797652, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510797652, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 2549677304967429354}
     - target: {fileID: 1510797652, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
       propertyPath: Behaviours.Behaviours.Array.size
       value: 2
@@ -610,7 +630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1510797652, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Hide
+      value: InstantHide
       objectReference: {fileID: 0}
     - target: {fileID: 1510797652, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -619,6 +639,10 @@ PrefabInstance:
     - target: {fileID: 1510797652, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: Doozy.Runtime.UIManager.Containers.UIContainer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510797652, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1510797652, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -632,6 +656,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Button - Yes
+      objectReference: {fileID: 0}
+    - target: {fileID: 3297773408028580533, guid: a38bd721f37cadc40a96c6797a60b4d8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3297773408028580534, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
@@ -985,6 +1014,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
+--- !u!1 &1055616310905831353 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3297773408028580533, guid: a38bd721f37cadc40a96c6797a60b4d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2549677305561851148}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1055616310905831354 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3297773408028580534, guid: a38bd721f37cadc40a96c6797a60b4d8,
@@ -997,7 +1032,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 2549677305561851148}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1055616310905831353}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77c6d918500348269ab48ea9646e337b, type: 3}
@@ -1018,6 +1053,14 @@ PrefabInstance:
       propertyPath: Id.Category
       value: General
       objectReference: {fileID: 0}
+    - target: {fileID: 1510797652, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510797652, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 2549677306804130904}
     - target: {fileID: 1510797652, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
       propertyPath: Behaviours.Behaviours.Array.size
       value: 2
@@ -1110,6 +1153,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Button - No
+      objectReference: {fileID: 0}
+    - target: {fileID: 3297773408028580533, guid: a38bd721f37cadc40a96c6797a60b4d8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3297773408028580534, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
@@ -1459,19 +1507,13 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2549677306410536382}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1055616312190719755 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3297773408028580533, guid: a38bd721f37cadc40a96c6797a60b4d8,
-    type: 3}
-  m_PrefabInstance: {fileID: 2549677306410536382}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2549677304967429354 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1510797652, guid: a38bd721f37cadc40a96c6797a60b4d8,
     type: 3}
   m_PrefabInstance: {fileID: 2549677306410536382}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1055616312190719755}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77c6d918500348269ab48ea9646e337b, type: 3}
