@@ -174,7 +174,7 @@ MonoBehaviour:
   m_animator: {fileID: 8694658257653842231}
   m_animation: Death2
   m_bodyDuration:
-    m_startTime: 3
+    m_startTime: 2
   m_fx: []
   m_destroySource: 0
 --- !u!114 &9049938164838481107
@@ -320,20 +320,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 558596028847307378}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &257542701943606075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6729124433025304002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3bcd7279fe7d024fbecefa2ce736140, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_character: {fileID: 8730981206529776552}
-  m_resistance: {fileID: 0}
 --- !u!114 &323690338422638332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,7 +582,7 @@ MonoBehaviour:
   m_AttackFX: {fileID: 0}
   m_facing: 1
   m_bodyReference:
-    m_default: {fileID: 2658099570208437904}
+    m_default: {fileID: 0}
     m_list: []
 --- !u!50 &7719016373444114555 stripped
 Rigidbody2D:
@@ -651,19 +637,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1191763446433945728, guid: a7599f23db0f7454a80df8444a1b4a11,
         type: 3}
+      propertyPath: skeletonDataAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c08fe249979cad4bbe3de6e2d9d57ae,
+        type: 2}
+    - target: {fileID: 1191763446433945728, guid: a7599f23db0f7454a80df8444a1b4a11,
+        type: 3}
       propertyPath: m_alwaysUpdateMesh
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1191763446433945728, guid: a7599f23db0f7454a80df8444a1b4a11,
         type: 3}
       propertyPath: maskMaterials.materialsOutsideMask.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1191763446433945728, guid: a7599f23db0f7454a80df8444a1b4a11,
         type: 3}
       propertyPath: maskMaterials.materialsMaskDisabled.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1191763446433945728, guid: a7599f23db0f7454a80df8444a1b4a11,
+        type: 3}
+      propertyPath: maskMaterials.materialsOutsideMask.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4178ba3a91fa3144ca3949760c6b05d4, type: 2}
+    - target: {fileID: 1191763446433945728, guid: a7599f23db0f7454a80df8444a1b4a11,
+        type: 3}
+      propertyPath: maskMaterials.materialsMaskDisabled.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6a8c38a3f71aa824e955151220222f14, type: 2}
     - target: {fileID: 1191763446433945729, guid: a7599f23db0f7454a80df8444a1b4a11,
         type: 3}
       propertyPath: m_RootOrder
@@ -733,7 +735,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f895a2e838b1d4a42bdac52cc4c49da4, type: 2}
+      objectReference: {fileID: 2100000, guid: 4178ba3a91fa3144ca3949760c6b05d4, type: 2}
     - target: {fileID: 1700283649020493685, guid: a7599f23db0f7454a80df8444a1b4a11,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -805,6 +807,11 @@ PrefabInstance:
       propertyPath: m_damageFXInfo.m_overrideScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6963116516007151186, guid: a7599f23db0f7454a80df8444a1b4a11,
+        type: 3}
+      propertyPath: m_animation
+      value: 
+      objectReference: {fileID: 8694658257653842231}
     m_RemovedComponents:
     - {fileID: 7261997437735848163, guid: a7599f23db0f7454a80df8444a1b4a11, type: 3}
     - {fileID: 3495724982000547875, guid: a7599f23db0f7454a80df8444a1b4a11, type: 3}
@@ -926,7 +933,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4045119114280799574}
   m_PrefabAsset: {fileID: 0}
---- !u!60 &7251251721931872780
+--- !u!60 &5211221825934100197
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
