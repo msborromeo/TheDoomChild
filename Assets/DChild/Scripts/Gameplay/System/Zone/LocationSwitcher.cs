@@ -43,7 +43,6 @@ namespace DChild.Gameplay.Systems
             }
             else
             {
-                var controller = GameplaySystem.playerManager.OverrideCharacterControls();
                 StartCoroutine(DoTransition(character, TransitionType.Enter));
             }
         }

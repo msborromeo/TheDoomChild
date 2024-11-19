@@ -147,6 +147,10 @@ namespace DChild.Gameplay
             {
                 OverworldGameplaySystem.RequestForPlayerCharacterTeleport(position);
             }
+            else if(GetCurrentWorldType() == WorldType.Underworld)
+            {
+                UnderworldGameplaySystem.RequestForPlayerCharacterTeleport(position);
+            }
         }
 
         public static void ListenToNextSceneLoad()

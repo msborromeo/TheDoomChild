@@ -233,6 +233,7 @@ namespace DChild.Gameplay.Systems
             GameplaySystem.LoadGame(GameplaySystem.campaignSerializer.slot, Menu.LoadingHandle.LoadType.Smart);
             m_player.Revitilize();
             m_player.Reset();
+            FreezePlayerPosition(true);
             //GameplaySystem.campaignSerializer.Load(true);
             m_playerIsDead = false;
         }
@@ -245,6 +246,11 @@ namespace DChild.Gameplay.Systems
             m_playerInput.enabled = true;
             yield return null;
 
+        }
+
+        public void TeleportPlayer(Vector2 position)
+        {
+            m_player.SetPosition(position);
         }
 
         private void Start()
