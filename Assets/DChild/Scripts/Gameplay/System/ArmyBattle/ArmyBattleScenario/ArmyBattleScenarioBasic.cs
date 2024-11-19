@@ -81,6 +81,7 @@ namespace DChild.Gameplay.ArmyBattle
                     GameSystem.LoadZone(GameMode.Overworld, loc.sceneInfo, true);
                     break;
             }
+            GameplaySystem.ForcePlayerTeleportOnSceneLoad(loc.position);
         }
     }
 }
