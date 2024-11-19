@@ -18,14 +18,15 @@ namespace DChild.Gameplay.ArmyBattle
         [SerializeField]
         private ArmyBattleRewardGiver m_RewardGiver;
 
+        private void Start()
+        {
+            
+            
+        }
         public void ForceStartBattleGameplay()
         {
             ArmyBattleSystem.StartBattleGameplay();
-            if(!ArmyBattleSystem.BattleScenario.battleRewards)
-            {
-                return;
-            }
-            m_RewardGiver.InitializeReward(ArmyBattleSystem.BattleScenario.battleRewards);
+            
         }
 
         public override void EndScenario(bool playerWon)
@@ -54,6 +55,10 @@ namespace DChild.Gameplay.ArmyBattle
         }
         public override void StartScenario()
         {
+            if (ArmyBattleSystem.BattleScenario.battleRewards)
+            {
+                m_RewardGiver.InitializeReward(ArmyBattleSystem.BattleScenario.battleRewards);
+            }
             m_introHandle.Execute();
         }
 
@@ -65,6 +70,7 @@ namespace DChild.Gameplay.ArmyBattle
         private void ChangeScene(LocationData loc)
         {
             var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
+            GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Player);
             WorldTypeVar.SetCurrentWorldType(loc.location);
             switch (WorldTypeVar.CurrentWorldType)
             {
