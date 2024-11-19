@@ -74,6 +74,12 @@ namespace DChild.Gameplay.Characters.Players
                 m_activatedBehaviour &= ~module;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="module">Do not use PrimarySkill.None</param>
+        /// <param name="isUnlocked"></param>
         public void SetModuleLock(PrimarySkill module, bool isUnlocked)
         {
             if (isUnlocked)
@@ -84,10 +90,10 @@ namespace DChild.Gameplay.Characters.Players
             {
                 m_unlockedSkills &= ~module;
             }
+
             EndUpdate(module);
             //Do this incase the thing is actually a passive module
         }
-
 
         public bool IsModuleActive(PrimarySkill module)
         {
@@ -104,7 +110,7 @@ namespace DChild.Gameplay.Characters.Players
         public void Validate()
         {
             m_activatedSkills = PrimarySkill.All;
-            m_unlockedSkills = PrimarySkill.All;
+            //m_unlockedSkills = PrimarySkill.All;
             m_activatedBehaviour = PlayerBehaviour.All;
         }
 
