@@ -19,7 +19,7 @@ public class CobWebTrigger : MonoBehaviour
 
     public EventAction<EventActionArgs> CobWebEnterEvent;
     public EventAction<EventActionArgs> Onhit;
-    public PlayerDamageable playerDamageable;
+    public PlayerDamageable playerDamageable=null;
 
 
 
@@ -33,6 +33,15 @@ public class CobWebTrigger : MonoBehaviour
         Onhit?.Invoke(this, EventActionArgs.Empty);
     }
 
+    public void ClearStatus()
+    {
+        if (playerDamageable != null)
+        {
+            StatusEffectReciever playerstatus = playerDamageable.GetComponentInParent<StatusEffectReciever>();
+            playerstatus.StopStatusEffect(StatusEffectType.Snared);
+        }
+       
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //if (collision.tag != "Hitbox")
@@ -47,6 +56,7 @@ public class CobWebTrigger : MonoBehaviour
 
             if (collision.tag == "Hitbox")
             {
+
                 m_statusInflictor.InflictStatusTo(collision.GetComponentInParent<StatusEffectReciever>());
             }
         }
