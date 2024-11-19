@@ -23,7 +23,7 @@ namespace DChild.Gameplay.Characters.Players
     {
         [SerializeField]
         private PlayerModuleActivator m_moduleActivator;
-        [SerializeField, EnumToggleButtons,OnValueChanged("UpdateAllSkillState")]
+        [SerializeField, EnumToggleButtons, OnValueChanged("UpdateAllSkillState")]
         private PrimarySkill m_skills;
 
         public event EventAction<PrimarySkillUpdateEventArgs> SkillUpdate;
@@ -51,7 +51,7 @@ namespace DChild.Gameplay.Characters.Players
 
         public void LoadData(PrimarySkillsData savedData)
         {
-            m_moduleActivator.Validate();
+            //m_moduleActivator.Validate();
             m_moduleActivator.Reset();
             m_skills = savedData.activatedSkills;
             UpdateAllSkillState();
@@ -59,13 +59,24 @@ namespace DChild.Gameplay.Characters.Players
 
         private void UpdateAllSkillState()
         {
-            var enumValue = Enum.GetValues(typeof(PrimarySkill));
-            foreach (PrimarySkill value in enumValue)
+            if (m_skills == PrimarySkill.None)
             {
-                if (value != PrimarySkill.None && value != PrimarySkill.All)
+                m_moduleActivator.SetModuleLock(PrimarySkill.All, false);
+            }
+            else if (m_skills == PrimarySkill.All)
+            {
+                m_moduleActivator.SetModuleLock(PrimarySkill.All, true);
+            }
+            else
+            {
+                var enumValue = Enum.GetValues(typeof(PrimarySkill));
+                foreach (PrimarySkill value in enumValue)
                 {
-                    var isUnlocked = m_skills.HasFlag(value);
-                    m_moduleActivator.SetModuleLock(value, isUnlocked);
+                    if (value != PrimarySkill.None && value != PrimarySkill.All)
+                    {
+                        var isUnlocked = m_skills.HasFlag(value);
+                        m_moduleActivator.SetModuleLock(value, isUnlocked);
+                    }
                 }
             }
         }

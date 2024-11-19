@@ -116,13 +116,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
             switch (m_currentVisualWhipState)
             {
                 case 0:
-                    m_whipFXAnimator.SetTrigger("WhipCombo1");
+                    //m_whipFXAnimator.SetTrigger("WhipCombo1");
+                    m_whipComboInfo[m_currentVisualWhipState].PlayFX(true);
                     break;
                 case 1:
-                    m_whipFXAnimator.SetTrigger("WhipCombo2");
+                    //m_whipFXAnimator.SetTrigger("WhipCombo2");
+                    m_whipComboInfo[m_currentVisualWhipState].PlayFX(true);
                     break;
                 case 2:
-                    m_whipFXAnimator.SetTrigger("WhipCombo1");
+                    //m_whipFXAnimator.SetTrigger("WhipCombo1");
+                    m_whipComboInfo[m_currentVisualWhipState].PlayFX(true);
                     break;
             }
         }
@@ -135,7 +138,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
 
             if (m_state.isAttacking)
-                m_animator.SetBool(m_whipAttackAnimationParameter, false);
+                //m_animator.SetBool(m_whipAttackAnimationParameter, false);
 
             m_state.isDoingCombo = false;
             m_fxAnimator.Play("Buffer");
