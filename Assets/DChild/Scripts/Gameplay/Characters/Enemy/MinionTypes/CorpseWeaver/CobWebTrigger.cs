@@ -11,12 +11,15 @@ using DChild.Gameplay;
 using DChild.Gameplay.Characters.Players.Modules;
 using DChild.Gameplay.Combat;
 using DChild.Gameplay.Combat.StatusAilment;
+using DChild.Gameplay.Characters.Players.State;
+using DChild.Gameplay.Characters.AI;
+using DChild;
 
 public class CobWebTrigger : MonoBehaviour
 {
     [SerializeField]
     private StatusInflictor m_statusInflictor;
-
+    private bool m_isinshadow = false;
     public EventAction<EventActionArgs> CobWebEnterEvent;
     public EventAction<EventActionArgs> Onhit;
     public PlayerDamageable playerDamageable=null;
@@ -46,19 +49,20 @@ public class CobWebTrigger : MonoBehaviour
     {
         //if (collision.tag != "Hitbox")
         //    return;
-
+        m_isinshadow = false;
         var playerObject = collision.gameObject.GetComponentInParent<PlayerControlledObject>();
         if (playerObject != null && collision.tag != "Sensor" && playerObject.owner == (IPlayer)GameplaySystem.playerManager.player)
         {
             playerDamageable = collision.GetComponentInParent<PlayerDamageable>();
             DamageTaken();
             Debug.Log("hit??");
-
-            if (collision.tag == "Hitbox")
+            m_isinshadow = GameplaySystem.playerManager.player.character.GetComponentInChildren<IShadowModeState>().isInShadowMode;
+            if (collision.tag == "Hitbox"&& m_isinshadow == false)
             {
-
                 m_statusInflictor.InflictStatusTo(collision.GetComponentInParent<StatusEffectReciever>());
             }
+           
         }
     }
-}
+    
+    }
