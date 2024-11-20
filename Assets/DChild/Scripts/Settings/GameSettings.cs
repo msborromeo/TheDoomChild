@@ -38,7 +38,11 @@ namespace DChild.Configurations
 
         public void LoadDefaultSettings()
         {
+            m_configuration = new GameSettingsConfiguration();
+            SaveSettings();
 
+            m_visual.Initialize(m_configuration);
+            m_audio.Initialize(m_configuration);
         }
 
         public void Initialize()
@@ -46,7 +50,6 @@ namespace DChild.Configurations
             SerializationHandle.LoadConfiguration(ref m_configuration);
             if (m_configuration == null)
             {
-                m_configuration = new GameSettingsConfiguration();
                 LoadDefaultSettings();
                 SaveSettings();
             }

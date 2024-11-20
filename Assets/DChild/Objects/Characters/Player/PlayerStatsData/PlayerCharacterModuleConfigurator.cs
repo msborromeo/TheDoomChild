@@ -81,33 +81,33 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void InitializeModuleConfigurations()
         {
-            m_movement.SetConfiguration(m_playerBasicBehaviourConfiguration.movementStatsInfo);
-            m_groundJump.SetConfiguration(m_playerBasicBehaviourConfiguration.groundJumpInfo);
-            m_objectManipulation.SetConfiguration(m_playerBasicBehaviourConfiguration.objectManipulationInfo);
-            m_ledgeGrab.SetConfiguration(m_playerBasicBehaviourConfiguration.ledgeGrabStatsInfo);
-            m_shadowMorph.SetConfiguration(m_playerBasicBehaviourConfiguration.shadowMorphStatsInfo);
-            m_autoStepClimb.SetConfiguration(m_playerBasicBehaviourConfiguration.autoStepClimbStatsInfo);
-            m_basicSlashes.SetConfiguration(m_playerBasicBehaviourConfiguration.basicSlashesStatsInfo);
-            m_slashCombo.SetConfiguration(m_playerBasicBehaviourConfiguration.slashComboStatsInfo);
-            m_flinch.SetConfiguration(m_playerBasicBehaviourConfiguration.flinchStatsInfo);
-            m_dash.SetConfiguration(m_playerBasicBehaviourConfiguration.dashStatsInfo);
-            m_extraJump.SetConfiguration(m_playerBasicBehaviourConfiguration.extraJumpInfo);
-            m_devilWings.SetConfiguration(m_playerBasicBehaviourConfiguration.devilWingsInfo);
-            m_shadowDash.SetConfiguration(m_playerBasicBehaviourConfiguration.shadowDashInfo);
-            m_slide.SetConfiguration(m_playerBasicBehaviourConfiguration.slideInfo);
-            m_shadowSlide.SetConfiguration(m_playerBasicBehaviourConfiguration.shadowSlideInfo);
-            m_wallStick.SetConfiguration(m_playerBasicBehaviourConfiguration.wallStickInfo);
-            m_wallMovement.SetConfiguration(m_playerBasicBehaviourConfiguration.wallMovementInfo);
-            m_wallJump.SetConfiguration(m_playerBasicBehaviourConfiguration.wallJumpInfo);
-            m_wallSlide.SetConfiguration(m_playerBasicBehaviourConfiguration.wallSlideInfo);
-            m_earthShaker.SetConfiguration(m_playerBasicBehaviourConfiguration.earthShakerInfo);
-            m_swordThrust.SetConfiguration(m_playerBasicBehaviourConfiguration.swordThrustInfo);
-            m_whipAttack.SetConfiguration(m_playerBasicBehaviourConfiguration.whipAttackInfo);
-            m_whipAttackCombo.SetConfiguration(m_playerBasicBehaviourConfiguration.whipAttackComboInfo);
-            m_projectileThrow.SetConfiguration(m_playerBasicBehaviourConfiguration.projectileThrowInfo);
-            m_block.SetConfiguration(m_playerBasicBehaviourConfiguration.blockInfo);
-            m_idleHandle.SetConfiguration(playerBasicBehaviourConfiguration.idleHandleInfo);
-            m_combatReadiness.SetConfiguration(m_playerBasicBehaviourConfiguration.combatReadinessInfo);
+            m_movement?.SetConfiguration(m_playerBasicBehaviourConfiguration.movementStatsInfo);
+            m_groundJump?.SetConfiguration(m_playerBasicBehaviourConfiguration.groundJumpInfo);
+            m_objectManipulation?.SetConfiguration(m_playerBasicBehaviourConfiguration.objectManipulationInfo);
+            m_ledgeGrab?.SetConfiguration(m_playerBasicBehaviourConfiguration.ledgeGrabStatsInfo);
+            m_shadowMorph?.SetConfiguration(m_playerBasicBehaviourConfiguration.shadowMorphStatsInfo);
+            m_autoStepClimb?.SetConfiguration(m_playerBasicBehaviourConfiguration.autoStepClimbStatsInfo);
+            m_basicSlashes?.SetConfiguration(m_playerBasicBehaviourConfiguration.basicSlashesStatsInfo);
+            m_slashCombo?.SetConfiguration(m_playerBasicBehaviourConfiguration.slashComboStatsInfo);
+            m_flinch?.SetConfiguration(m_playerBasicBehaviourConfiguration.flinchStatsInfo);
+            m_dash?.SetConfiguration(m_playerBasicBehaviourConfiguration.dashStatsInfo);
+            m_extraJump?.SetConfiguration(m_playerBasicBehaviourConfiguration.extraJumpInfo);
+            m_devilWings?.SetConfiguration(m_playerBasicBehaviourConfiguration.devilWingsInfo);
+            m_shadowDash?.SetConfiguration(m_playerBasicBehaviourConfiguration.shadowDashInfo);
+            m_slide?.SetConfiguration(m_playerBasicBehaviourConfiguration.slideInfo);
+            m_shadowSlide?.SetConfiguration(m_playerBasicBehaviourConfiguration.shadowSlideInfo);
+            m_wallStick?.SetConfiguration(m_playerBasicBehaviourConfiguration.wallStickInfo);
+            m_wallMovement?.SetConfiguration(m_playerBasicBehaviourConfiguration.wallMovementInfo);
+            m_wallJump?.SetConfiguration(m_playerBasicBehaviourConfiguration.wallJumpInfo);
+            m_wallSlide?.SetConfiguration(m_playerBasicBehaviourConfiguration.wallSlideInfo);
+            m_earthShaker?.SetConfiguration(m_playerBasicBehaviourConfiguration.earthShakerInfo);
+            m_swordThrust?.SetConfiguration(m_playerBasicBehaviourConfiguration.swordThrustInfo);
+            m_whipAttack?.SetConfiguration(m_playerBasicBehaviourConfiguration.whipAttackInfo);
+            m_whipAttackCombo?.SetConfiguration(m_playerBasicBehaviourConfiguration.whipAttackComboInfo);
+            m_projectileThrow?.SetConfiguration(m_playerBasicBehaviourConfiguration.projectileThrowInfo);
+            m_block?.SetConfiguration(m_playerBasicBehaviourConfiguration.blockInfo);
+            m_idleHandle?.SetConfiguration(playerBasicBehaviourConfiguration.idleHandleInfo);
+            m_combatReadiness?.SetConfiguration(m_playerBasicBehaviourConfiguration.combatReadinessInfo);
         }
     }
 }

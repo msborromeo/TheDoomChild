@@ -6,8 +6,10 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Systems
 {
-    public class OverworldGameplaySubsystem : MonoBehaviour
+    public class OverworldGameplaySystem : MonoBehaviour
     {
+        private static OverworldGameplaySystem m_instance;
+
         #region Modules
         private static OverworldPlayerManager m_playerManager;
         private static OverworldGameplayUIHandle m_uiHandler;
@@ -35,13 +37,45 @@ namespace DChild.Gameplay.Systems
 
         private void Awake()
         {
-            Debug.Log("Overworld System Awake Start");
-            AssignModules();
-            Debug.Log("Overworld System Awake Done");
-
-            if (m_hasBeenRequested)
+            if (m_instance == null)
             {
-                m_playerManager.TeleportPlayer(m_requestPosition);
+
+                Debug.Log("Overworld System Awake Start");
+                AssignModules();
+
+                var initializables = GetComponentsInChildren<IGameplayInitializable>();
+                for (int i = 0; i < initializables.Length; i++)
+                {
+                    initializables[i].Initialize();
+                }
+
+
+                //Just to make sure that underworld system is loaded with Base Gameplay, currently still using old way to initialize first load;
+                GameplaySystem.campaignSerializer.Load(SerializationScope.Gameplay | SerializationScope.Menu, true);
+                Debug.Log("Overworld System Awake Done");
+
+                if (m_hasBeenRequested)
+                {
+                    m_playerManager.TeleportPlayer(m_requestPosition);
+                    m_hasBeenRequested = false;
+                }
+
+                m_instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (m_instance == this)
+            {
+                m_playerManager = null;
+                m_uiHandler = null;
+
+                m_instance = null;
             }
         }
 

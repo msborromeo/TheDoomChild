@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.Characters.Player.CombatArt.Leveling;
 using Holysoft.Event;
+using System;
 using UnityEngine;
 
 namespace DChildDebug.Window
@@ -17,5 +18,15 @@ namespace DChildDebug.Window
         {
             m_level.exp.AddCurrentValue(m_level.exp.maxValue);
         }
+        private void OnValueChange(object sender, StatInfoEventArgs eventArgs)
+        {
+            ValueChange?.Invoke(this, EventActionArgs.Empty);
+        }
+
+        private void Awake()
+        {
+            m_level.exp.ValueChanged += OnValueChange;
+        }
+
     }
 }

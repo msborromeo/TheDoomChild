@@ -35,7 +35,7 @@ namespace DChild.Gameplay
                     case WorldType.Underworld:
                         return UnderworldGameplaySystem.playerManager;
                     case WorldType.Overworld:
-                        return OverworldGameplaySubsystem.playerManager;
+                        return OverworldGameplaySystem.playerManager;
                     case WorldType.ArmyBattle:
                         return ArmyBattleGameplaySystem.playerManager;
                     default:
@@ -64,7 +64,7 @@ namespace DChild.Gameplay
             }
             else
             {
-                OverworldGameplaySubsystem.ResumeGame();
+                OverworldGameplaySystem.ResumeGame();
             }
         }
 
@@ -78,7 +78,7 @@ namespace DChild.Gameplay
             }
             else
             {
-                OverworldGameplaySubsystem.PauseGame();
+                OverworldGameplaySystem.PauseGame();
             }
         }
 
@@ -93,7 +93,7 @@ namespace DChild.Gameplay
                 }
                 else
                 {
-                    OverworldGameplaySubsystem.LoadGame();
+                    OverworldGameplaySystem.LoadGame();
                 }
             }
         }
@@ -108,7 +108,7 @@ namespace DChild.Gameplay
             }
             else
             {
-                OverworldGameplaySubsystem.LoadGame();
+                OverworldGameplaySystem.LoadGame();
             }
         }
 
@@ -121,7 +121,7 @@ namespace DChild.Gameplay
             }
             else
             {
-                OverworldGameplaySubsystem.LoadGame();
+                OverworldGameplaySystem.LoadGame();
             }
         }
 
@@ -145,7 +145,11 @@ namespace DChild.Gameplay
         {
             if (GetCurrentWorldType() == WorldType.Overworld)
             {
-                OverworldGameplaySubsystem.RequestForPlayerCharacterTeleport(position);
+                OverworldGameplaySystem.RequestForPlayerCharacterTeleport(position);
+            }
+            else if(GetCurrentWorldType() == WorldType.Underworld)
+            {
+                UnderworldGameplaySystem.RequestForPlayerCharacterTeleport(position);
             }
         }
 

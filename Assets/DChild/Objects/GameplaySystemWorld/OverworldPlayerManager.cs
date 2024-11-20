@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 
 namespace DChild.Gameplay.Systems
 {
-    public class OverworldPlayerManager : MonoBehaviour, IPlayerManager, IGameplaySystemModule
+    public class OverworldPlayerManager : MonoBehaviour, IPlayerManager, IGameplaySystemModule, IGameplayInitializable
     {
         [SerializeField, BoxGroup("Player Data")]
         private Player m_player;
@@ -31,9 +31,9 @@ namespace DChild.Gameplay.Systems
 
         public void DisableControls()
         {
-            m_gameplayInput?.SetStoreInputActive(false);
-            m_characterInput?.Disable();
-            m_player.controller.Disable();
+           // m_gameplayInput?.SetStoreInputActive(false);
+           // m_characterInput?.Disable();
+           //// m_player.controller?.Disable();
         }
 
         public void DisableIntroControls()
@@ -43,9 +43,9 @@ namespace DChild.Gameplay.Systems
 
         public void EnableControls()
         {
-            m_gameplayInput?.SetStoreInputActive(true);
-            m_characterInput?.Enable();
-            m_player.controller.Enable();
+            //m_gameplayInput?.SetStoreInputActive(true);
+            //m_characterInput?.Enable();
+            ////m_player.controller?.Enable();
         }
 
         public void EnableIntroAction(List<IntroActions> action)
@@ -70,13 +70,14 @@ namespace DChild.Gameplay.Systems
 
         public PlayerCharacterOverride OverrideCharacterControls()
         {
-            m_gameplayInput?.SetStoreInputActive(false);
-            m_characterInput?.Disable();
-            m_player.controller.Disable();
-            m_player.controller.Enable();
-            m_overrideController.enabled = true;
-            m_player.state.allowExtendedIdle = false;
-            return m_overrideController;
+            //m_gameplayInput?.SetStoreInputActive(false);
+            //m_characterInput?.Disable();
+            ////We are not using PlayerCharacterController in Overworld
+            ////m_player.controller?.Disable();
+            ////m_player.controller?.Enable();
+            //m_overrideController.enabled = true;
+            //m_player.state.allowExtendedIdle = false;
+            return null;
         }
 
         public IEnumerator PlayerActionChange(Action<PlayerInput> Callback)
@@ -86,16 +87,17 @@ namespace DChild.Gameplay.Systems
 
         public void ReturnPlayerToOrginalScene()
         {
-            throw new NotImplementedException();
+            m_player.character.transform.SetParent(transform);
+            m_player.character.transform.SetParent(null);
         }
 
         public void StopCharacterControlOverride()
         {
-            m_overrideController.enabled = false;
-            m_gameplayInput?.SetStoreInputActive(true);
-            m_characterInput?.Enable();
-            m_player.controller.Enable();
-            m_player.state.allowExtendedIdle = true;
+            //m_overrideController.enabled = false;
+            //m_gameplayInput?.SetStoreInputActive(true);
+            //m_characterInput?.Enable();
+            //m_player.controller?.Enable();
+            //m_player.state.allowExtendedIdle = true;
         }
 
         public void SyncVisualsWith(SpineSyncer spineSyncer)
@@ -103,6 +105,35 @@ namespace DChild.Gameplay.Systems
             throw new NotImplementedException();
         }
         #endregion
+
+        public void Initialize()
+        {
+            //var character = m_player.character;
+            //m_collisionRegistrator = character.GetComponentInChildren<CollisionRegistrator>();
+            //m_interactableDetector = character.GetComponentInChildren<InteractableDetector>();
+
+            m_player.Initialize();
+            GameplaySystem.campaignSerializer.PostDeserialization += OnPostDeserialization;
+            GameplaySystem.campaignSerializer.PreSerialization += OnPreSerialization;
+            // m_respawnDelay.CountdownEnd += OnRespawnPlayer;
+        }
+
+        private void OnPostDeserialization(object sender, CampaignSlotUpdateEventArgs eventArgs)
+        {
+            if (eventArgs.IsPartOfTheUpdate(SerializationScope.Player) && m_player)
+            {
+                m_player.SetPosition(eventArgs.slot.spawnPosition);
+                m_player.LoadData(eventArgs.slot.characterData);
+            }
+        }
+
+        private void OnPreSerialization(object sender, CampaignSlotUpdateEventArgs eventArgs)
+        {
+            if (eventArgs.IsPartOfTheUpdate(SerializationScope.Player) && m_player)
+            {
+                eventArgs.slot.UpdateCharacterData(m_player.SaveData());
+            }
+        }
 
         public void TeleportPlayer(Vector2 position)
         {
