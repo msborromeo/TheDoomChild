@@ -20,6 +20,8 @@ public class CobWebTrigger : MonoBehaviour
     [SerializeField]
     private StatusInflictor m_statusInflictor;
     private bool m_isinshadow = false;
+    private bool m_isinslide = false;
+    private bool m_isindash = false;
     public EventAction<EventActionArgs> CobWebEnterEvent;
     public EventAction<EventActionArgs> Onhit;
     public PlayerDamageable playerDamageable=null;
@@ -57,7 +59,9 @@ public class CobWebTrigger : MonoBehaviour
             DamageTaken();
             Debug.Log("hit??");
             m_isinshadow = GameplaySystem.playerManager.player.character.GetComponentInChildren<IShadowModeState>().isInShadowMode;
-            if (collision.tag == "Hitbox"&& m_isinshadow == false)
+            m_isinslide = GameplaySystem.playerManager.player.character.GetComponentInChildren < ISlideState>().isSliding;
+            m_isindash = GameplaySystem.playerManager.player.character.GetComponentInChildren<IDashState>().isDashing;
+            if (collision.tag == "Hitbox"&& m_isinshadow == false&& m_isinslide == false && m_isindash == false)
             {
                 m_statusInflictor.InflictStatusTo(collision.GetComponentInParent<StatusEffectReciever>());
             }
