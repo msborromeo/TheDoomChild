@@ -24,9 +24,8 @@ namespace DChild.Gameplay.ArmyBattle
 
         private ArmyBattleCombatResult.Record CalculateCombatResultInfo(ArmyTurnAction target, ArmyDamage attackerDamage)
         {
-
             var remainingTroopCount = target.troopCount - attackerDamage.value;
-            return new ArmyBattleCombatResult.Record(target.troopCount, remainingTroopCount, target.attack.type, attackerDamage.type);
+            return new ArmyBattleCombatResult.Record(target.willAttack,target.troopCount, remainingTroopCount, target.attack.type, attackerDamage.type);
         }
 
         private int GetBaseDamage(ArmyTurnAction attacker, ArmyTurnAction target)
