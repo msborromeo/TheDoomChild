@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Doozy.Runtime.Signals;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.UI.GridLayoutGroup;
 
@@ -59,6 +61,8 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
         }
 
         [SerializeField]
+        private SignalSender m_skillActivationEndSignal;
+        [SerializeField]
         private List<ActiveSkill> m_activeSkillList;
 
         public void Activate(SpecialSkill specialSkill, ArmyController owner)
@@ -68,7 +72,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
                 var target = ArmyBattleSystem.GetTargetOf(owner);
                 var skill = new ActiveSkill(specialSkill, owner, target);
                 //This creates a Circle Dependency
-                skill.specialSkill.ApplyEffect(owner, target);
+                StartCoroutine(ApplySpecialSkillRoutine(skill,owner, target));
                 m_activeSkillList.Add(skill);
             }
         }
@@ -96,6 +100,12 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
                     m_activeSkillList.RemoveAt(i);
                 }
             }
+        }
+
+        private IEnumerator ApplySpecialSkillRoutine(ActiveSkill skill, ArmyController owner, ArmyController target)
+        {
+            yield return skill.specialSkill.ApplyEffect(owner, target);
+            m_skillActivationEndSignal?.SendSignal();
         }
     }
 }

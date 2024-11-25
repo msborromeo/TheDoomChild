@@ -9,6 +9,8 @@ namespace DChild.Gameplay.ArmyBattle
         public struct Record
         {
             [SerializeField]
+            private bool m_hasAttacked;
+            [SerializeField]
             private int m_initialTroopCount;
             [SerializeField]
             private int m_remainingTroopCount;
@@ -17,14 +19,16 @@ namespace DChild.Gameplay.ArmyBattle
             [SerializeField]
             private DamageType m_damageTypeRecieved;
 
-            public Record(int initialTroopCount, int remainingTroopCount, DamageType attackType, DamageType damageTypeRecieved)
+            public Record(bool hasAttacked, int initialTroopCount, int remainingTroopCount, DamageType attackType, DamageType damageTypeRecieved)
             {
+                m_hasAttacked = hasAttacked;
                 m_initialTroopCount = initialTroopCount;
                 m_remainingTroopCount = remainingTroopCount;
                 m_attackType = attackType;
                 m_damageTypeRecieved = damageTypeRecieved;
             }
 
+            public bool hasAttacked => m_hasAttacked;
             public int initialTroopCount => m_initialTroopCount;
             public int remainingTroopCount => m_remainingTroopCount;
             public DamageType attackType => m_attackType;
@@ -36,8 +40,9 @@ namespace DChild.Gameplay.ArmyBattle
 
             public override string ToString()
             {
+                string noAttackMSG = m_hasAttacked ? m_attackType.ToString() : "None";
                 return $"Initial Troop Count: {m_initialTroopCount} \n" +
-                       $"Attacked With: {m_attackType} \n" +
+                       $"Attacked With: {noAttackMSG} \n" +
                        $"Received Damage: {m_damageTypeRecieved} {damageReceived} \n" +
                        $"Healed: {healingReceived}\n" + 
                        $"Remaining Troop Count: {m_remainingTroopCount}\n";
