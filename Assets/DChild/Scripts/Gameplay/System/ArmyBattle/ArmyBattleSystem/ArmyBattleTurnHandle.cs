@@ -9,6 +9,16 @@ namespace DChild.Gameplay.ArmyBattle
 {
     public class ArmyBattleTurnHandle : MonoBehaviour
     {
+        [System.Serializable]
+        public struct TurnConfiguration
+        {
+            public bool playerWillAttack;
+            public bool enemyWillAttack;
+            public bool turnWillProgress;
+        }
+
+        public TurnConfiguration configuration;
+
         [SerializeField]
         private ArmyBattleCombatSimulator m_combatSimulator;
         [SerializeField]
@@ -28,7 +38,11 @@ namespace DChild.Gameplay.ArmyBattle
         [Button]
         public void TurnStart()
         {
-            m_turnCount++;
+            if (configuration.turnWillProgress)
+            {
+                m_turnCount++;
+            }
+            ResetConfiguration();
             OnTurnStart?.Invoke(this, EventActionArgs.Empty);
         }
 
@@ -36,7 +50,10 @@ namespace DChild.Gameplay.ArmyBattle
         public void CommenceTurn()
         {
             var playerTurn = m_player.GetTurnAction(m_turnCount);
+            playerTurn.willAttack = configuration.playerWillAttack;
+
             var enemyTurn = m_enemy.GetTurnAction(m_turnCount);
+            enemyTurn.willAttack = configuration.enemyWillAttack;
 
             var result = m_combatSimulator.CalculateCombatResult(playerTurn, enemyTurn);
             m_player.controlledArmy.SubtractTroopCount(result.player.damageReceived);
@@ -65,8 +82,16 @@ namespace DChild.Gameplay.ArmyBattle
             OnTurnEnd?.Invoke(this, EventActionArgs.Empty);
         }
 
+        private void ResetConfiguration()
+        {
+            configuration.turnWillProgress = true;
+            configuration.enemyWillAttack = true;
+            configuration.playerWillAttack = true;
+        }
+
         private void Awake()
         {
+            ResetConfiguration();
             m_fightManager.OnFightEnd += OnFightEnd;
         }
     }
