@@ -1,0 +1,102 @@
+﻿using Spine;
+using Spine.Unity;
+using System.Collections;
+using UnityEngine;
+
+namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
+{
+    [System.Serializable]
+    public class WaitForVisuals : ISpecialSkillIEnumeratorModule
+    {
+        private enum VisualType
+        {
+            Spine,
+            VFX
+        }
+
+        private enum Position
+        {
+            Owner,
+            Target,
+            Center
+        }
+
+        [SerializeField]
+        private GameObject m_fx;
+        [SerializeField]
+        private VisualType m_visualType;
+        [SerializeField]
+        private Position m_position;
+
+        public IEnumerator ApplyEffect(ArmyController owner, ArmyController target)
+        {
+            switch (m_visualType)
+            {
+                case VisualType.Spine:
+                    yield return HandleSpineVisuals(owner,target);
+                    break;
+                case VisualType.VFX:
+                    break;
+            }
+        }
+
+        public IEnumerator RemoveEffect(ArmyController owner, ArmyController target)
+        {
+            yield return null;
+        }
+
+        private IEnumerator HandleSpineVisuals(ArmyController owner, ArmyController target)
+        {
+            var fx = CreateFX(owner, target);
+            yield return null;
+
+            bool isAnimationOver = false;
+            fx.GetComponent<SkeletonAnimation>().AnimationState.Complete += OnAnimationEnd;
+            while (isAnimationOver == false)
+                yield return null;
+
+            Object.Destroy(fx);
+
+            void OnAnimationEnd(TrackEntry trackEntry)
+            {
+                isAnimationOver = true;
+            }
+        }
+
+        private IEnumerator HandleSpineVFX(ArmyController owner, ArmyController target)
+        {
+            var fx = CreateFX(owner, target);
+            yield return null;
+
+            fx.GetComponent<ArmySpecialSkillVfx>();
+
+            //Temporary thing since ArmySpecialSkillVfx doesnt have an event that it is done atm
+            yield return new WaitForSeconds(3f);
+
+            Object.Destroy(fx);
+        }
+
+
+        private GameObject CreateFX(ArmyController owner, ArmyController target)
+        {
+            var fx = Object.Instantiate(m_fx) as GameObject;
+            switch (m_position)
+            {
+                case Position.Owner:
+                    fx.transform.SetParent(owner.transform);
+                    fx.transform.localPosition = Vector3.zero;
+                    break;
+                case Position.Target:
+                    fx.transform.SetParent(target.transform);
+                    fx.transform.localPosition = Vector3.zero;
+                    break;
+                case Position.Center:
+                    fx.transform.SetParent(owner.transform);
+                    break;
+            }
+            fx.transform.SetParent(null);
+
+            return fx;
+        }
+    }
+}

@@ -50,22 +50,33 @@ namespace DChild.Gameplay.ArmyBattle.Visualizer
 
         private IEnumerator FightRoutine(ArmyBattleCombatResult result)
         {
-            m_player.StopAttack();
-            m_enemy.StopAttack();
+            if (result.player.hasAttacked)
+            {
+                m_player.StopAttack();
+                m_player.Attack(result.player.attackType, m_enemy);
+                m_enemy.ShowBeingHit(true);
+            }
 
-            m_player.Attack(result.player.attackType, m_enemy);
-            m_enemy.Attack(result.enemy.attackType, m_player);
-
-            m_player.ShowBeingHit(true);
-            m_enemy.ShowBeingHit(true);
+            if (result.enemy.hasAttacked)
+            {
+                m_enemy.StopAttack();
+                m_enemy.Attack(result.enemy.attackType, m_player);
+                m_player.ShowBeingHit(true);
+            }
 
             yield return new WaitForSeconds(m_fightDuration);
 
-            m_player.StopAttack();
-            m_enemy.StopAttack();
+            if (result.player.hasAttacked)
+            {
+                m_player.StopAttack();
+                m_enemy.ShowBeingHit(false);
+            }
+            if (result.enemy.hasAttacked)
+            {
+                m_enemy.StopAttack();
+                m_player.ShowBeingHit(false);
+            }
 
-            m_player.ShowBeingHit(false);
-            m_enemy.ShowBeingHit(false);
 
             yield return new WaitForSeconds(m_postAttackDuration);
 
