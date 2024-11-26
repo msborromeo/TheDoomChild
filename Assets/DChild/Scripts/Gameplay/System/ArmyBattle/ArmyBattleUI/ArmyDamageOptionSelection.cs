@@ -1,12 +1,28 @@
-﻿using UnityEngine;
+﻿using Holysoft.Event;
+using System;
+using UnityEngine;
 
 namespace DChild.Gameplay.ArmyBattle.UI
 {
     public class ArmyDamageOptionSelection : MonoBehaviour
     {
+        public struct DamageTypeSelectedEventArgs : IEventActionArgs
+        {
+            private DamageType m_damageType;
+
+            public DamageTypeSelectedEventArgs(DamageType damageType)
+            {
+                m_damageType = damageType;
+            }
+
+            public DamageType damageType => m_damageType;
+        }
+
         [SerializeField]
         private ArmyDamageTypeOptionUI[] m_options;
         private Army m_reference;
+
+        public event EventAction<DamageTypeSelectedEventArgs> OnOptionSelected;
 
         public void Initialize(Army army)
         {
@@ -23,6 +39,11 @@ namespace DChild.Gameplay.ArmyBattle.UI
                     option.SetInteractability(m_reference.HasAvailableGroup(option.damageType));
                 }
             }
+        }
+
+        public void SelectOption(ArmyDamageTypeOptionUI armyDamageTypeOptionUI)
+        {
+            OnOptionSelected?.Invoke(this, new DamageTypeSelectedEventArgs(armyDamageTypeOptionUI.damageType));
         }
     }
 }

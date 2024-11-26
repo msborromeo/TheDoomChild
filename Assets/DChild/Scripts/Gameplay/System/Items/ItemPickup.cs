@@ -67,7 +67,7 @@ namespace DChild.Gameplay.Items
 
         public void Load(ISaveData data)
         {
-            m_hasBeenPickedUp = ((SaveData)data).isPickedUp == false;
+            m_hasBeenPickedUp = ((SaveData)data).isPickedUp;
             m_model.SetActive(!m_hasBeenPickedUp);
             m_trigger.enabled = !m_hasBeenPickedUp;
         }
