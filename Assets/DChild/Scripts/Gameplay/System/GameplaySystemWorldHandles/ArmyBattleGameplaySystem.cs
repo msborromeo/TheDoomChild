@@ -6,7 +6,7 @@ namespace DChild.Gameplay.Systems
     {
         private static ArmyBattleGameplaySystem m_instance;
 
-        private static DChild.Gameplay.Systems.PlayerManager m_playerManager;
+        private static DChild.Gameplay.Systems.ArmyBattlePlayerManager m_playerManager;
 
         public static IPlayerManager playerManager => m_playerManager;
         private void AssignModules()
@@ -25,11 +25,10 @@ namespace DChild.Gameplay.Systems
             else
             {
                 m_instance = this;
-
                 AssignModules();
 
                 var worldTypeManager = FindObjectOfType<WorldTypeManager>();
-                worldTypeManager.SetCurrentWorldType(Environment.Location._COUNT);
+                worldTypeManager?.SetCurrentWorldType(Environment.Location._COUNT);
 
                 var initializables = GetComponentsInChildren<IGameplayInitializable>();
                 for (int i = 0; i < initializables.Length; i++)

@@ -20,11 +20,7 @@ namespace DChild.Gameplay.ArmyBattle
         // Start is called before the first frame update
         void Start()
         {
-            if (!GameplaySystem.playerManager.player)
-            {
-                return;
-            }
-            m_Inventory = GameplaySystem.playerManager.player.inventory;
+           
         }
 
         public void InitializeReward(ArmyBattleRewardData reward)
@@ -35,6 +31,7 @@ namespace DChild.Gameplay.ArmyBattle
         [Button]
         public void GiveReward()
         {
+            m_Inventory = GameplaySystem.playerManager.player.inventory;
             if (!m_Inventory||!m_battleRewards)
             {
                 return;

@@ -14,6 +14,9 @@ namespace DChild.Gameplay.Systems
 
         private static UnderworldGameplaySystem m_instance;
 
+        private static bool m_hasBeenRequested;
+        private static Vector2 m_requestPosition;
+
         #region Modules
         private static IGameplayActivatable[] m_activatableModules;
         private static MinionManager m_minionManager;
@@ -75,6 +78,12 @@ namespace DChild.Gameplay.Systems
         public static void ListenToNextSceneLoad()
         {
             LoadingHandle.LoadingDone += OnLoadingSceneDone;
+        }
+
+        public static void RequestForPlayerCharacterTeleport(Vector2 position)
+        {
+            m_requestPosition = position;
+            m_hasBeenRequested = true;
         }
 
         private static void OnLoadingSceneDone(object sender, EventActionArgs eventArgs)
@@ -142,13 +151,19 @@ namespace DChild.Gameplay.Systems
                     initializables[i].Initialize();
                 }
 
+                //Just to make sure that underworld system is loaded with Base Gameplay, currently still using old way to initialize first load;
+                GameplaySystem.campaignSerializer.Load(SerializationScope.Gameplay | SerializationScope.Menu, true);
+
+                if (m_hasBeenRequested)
+                {
+                    m_playerManager.TeleportPlayer(m_requestPosition);
+                    m_hasBeenRequested = false;
+                }
+
                 if (m_doNotTeleportPlayerOnAwake == false)
                 {
                     LockPlayerToSpawnPosition();
                 }
-
-                //Just to make sure that underworld system is loaded with Base Gameplay, currently still using old way to initialize first load;
-                GameplaySystem.campaignSerializer.Load(SerializationScope.Gameplay | SerializationScope.Menu, true);
 
                 Debug.Log("Underworld Gameplay Awake Done");
             }

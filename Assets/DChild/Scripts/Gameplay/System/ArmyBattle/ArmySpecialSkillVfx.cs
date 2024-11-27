@@ -20,7 +20,8 @@ namespace DChild.Gameplay.ArmyBattle
         private List<VfxParticleTurnManager> m_vfxParticleTurnManager = new List<VfxParticleTurnManager>();
         [SerializeField]
         private List<VfxSpineTurnManager> m_VfxSpineTurnManager = new List<VfxSpineTurnManager>();
-
+        [SerializeField]
+        public bool m_iseffectdone  = false;
         [Serializable]
         public class VfxParticleTurnManager
         {
@@ -92,6 +93,7 @@ namespace DChild.Gameplay.ArmyBattle
         [Button, HideInPrefabAssets]
         public void PlayEffects()
         {
+            m_iseffectdone = false;
             for (int i = 0; i < m_vfxParticleTurnManager.Count; i++)
             {
 
@@ -138,10 +140,11 @@ namespace DChild.Gameplay.ArmyBattle
                 }
                 
             }
-
+            m_iseffectdone = true;
         }
         public void StopEffects()
         {
+            m_iseffectdone = false;
             for (int i = 0; i < m_vfxParticleTurnManager.Count; i++)
             {
 
@@ -154,7 +157,7 @@ namespace DChild.Gameplay.ArmyBattle
 
 
             }
-          
+            m_iseffectdone = true;
 
         }
         private IEnumerator PlayEventRoutine(GameObject Spineasset, String animation,float delaytime, SpineEventListener spineListener, string particleevent, ParticleSystem eventPartcileSystem)

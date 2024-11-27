@@ -1,4 +1,5 @@
-﻿using Doozy.Runtime.UIManager.Components;
+﻿using Doozy.Runtime.UIManager.Animators;
+using Doozy.Runtime.UIManager.Components;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         private UIButton m_armyRow;
         [SerializeField]
         private Image m_highlightGlow;
+
 
         private int m_selectionIndex;
 
@@ -76,6 +78,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
             m_targetPartyName.enabled = false;
             m_targetPowerLabel.text = $"<color=#82A4C7>ATTACK POWER</color>";
             m_targetPowerValue.enabled = false;
+            
 
             for (int i = 0; i < m_NullAssets.Count; i++)
             {

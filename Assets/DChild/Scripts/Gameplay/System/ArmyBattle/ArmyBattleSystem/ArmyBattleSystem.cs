@@ -32,6 +32,9 @@ namespace DChild.Gameplay.ArmyBattle
         private ArmyBattleUIManager m_uiManager;
 
         [SerializeField]
+        private PlayerInputSubmitOverride m_inputOverride;
+
+        [SerializeField]
         private PlayerArmyController m_player;
         [SerializeField]
         private ArmyAI m_enemy;
@@ -57,7 +60,10 @@ namespace DChild.Gameplay.ArmyBattle
         public ArmyFightManager fightManager => m_fightManager;
         public ArmyBattleTurnHandle turnHandle => m_turnHandle;
 
+
+
         public static int GetCurrentTurnNumber() => Instance.turnHandle.currentTurn;
+        public static ArmyBattleTurnHandle.TurnConfiguration turnConfiguration { get => Instance.turnHandle.configuration; set => Instance.turnHandle.configuration = value; }
         public static ArmyController GetPlayer() => Instance.player;
         public static ArmyController GetEnemy() => Instance.enemy;
 
@@ -119,7 +125,7 @@ namespace DChild.Gameplay.ArmyBattle
 
             if (endBattle == false)
             {
-                m_specialSkillHandle.ResolveActiveSkills();
+                m_specialSkillHandle.ResolveWaitingSkills();
                 m_specialSkillHandle.ReinstanteActivateEffects();
                 m_turnEndSignal.SendSignal();
                 m_scenarioHandle.UpdateScenario();
@@ -163,12 +169,14 @@ namespace DChild.Gameplay.ArmyBattle
 
             m_hasViableBattleSetup = true;
 
+            m_inputOverride.OverrideInput();
+
             InitializeBattleScenario();
         }
 
         private void InitializeBattleScenario()
         {
-            var scenarioHandleInstance = Instantiate(BattleScenario.scenarioHandle,transform) as GameObject;
+            var scenarioHandleInstance = Instantiate(BattleScenario.scenarioHandle, transform) as GameObject;
             m_scenarioHandle = scenarioHandleInstance.GetComponent<ArmyBattleScenarioHandle>();
             m_scenarioHandle.Initialize(m_player.controlledArmy, m_enemy.controlledArmy);
             if (canBattleBeStarted)

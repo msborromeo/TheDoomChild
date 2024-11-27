@@ -66,6 +66,7 @@ namespace DChild.Gameplay.ArmyBattle
         [Button, HideInEditorMode]
         public void InitiateEncounter()
         {
+            GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Player);
             GameSystem.LoadZone(GameMode.ArmyBattle, null, true);
             ArmyBattleSystem.BattleScenario = m_Scenario;
             Debug.Log("ARMY BATTLE SCENARIO INITIATED :" + ArmyBattleSystem.BattleScenario.name);
@@ -100,6 +101,7 @@ namespace DChild.Gameplay.ArmyBattle
             switch (WorldTypeVar.CurrentWorldType)
             {
                 case WorldType.Underworld:
+                    GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Player);
                     GameSystem.LoadZone(GameMode.Underworld, m_ChangeSceneTo.sceneInfo, true);
                     break;
                 case WorldType.Overworld:

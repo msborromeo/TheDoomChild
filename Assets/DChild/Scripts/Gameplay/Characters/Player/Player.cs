@@ -146,7 +146,10 @@ namespace DChild.Gameplay.Characters.Players
 
         public void SetPosition(Vector2 position)
         {
-            m_controlledCharacter.transform.position = position;
+            if (m_controlledCharacter)
+            {
+                m_controlledCharacter.transform.position = position;
+            }
         }
 
         public void Initialize()
@@ -163,9 +166,15 @@ namespace DChild.Gameplay.Characters.Players
 
         private void Awake()
         {
-            var controlledObject = m_controlledCharacter.gameObject.AddComponent<PlayerControlledObject>();
-            controlledObject.SetOwner(this);
-            m_damageable.Destroyed += OnDestroyed;
+            if(m_controlledCharacter)
+            {
+                var controlledObject = m_controlledCharacter.gameObject.AddComponent<PlayerControlledObject>();
+                controlledObject.SetOwner(this);
+            }
+            if(m_damageable)
+            {
+                m_damageable.Destroyed += OnDestroyed;
+            }
         }
 
         private void OnDestroyed(object sender, EventActionArgs eventArgs)
