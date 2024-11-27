@@ -20,10 +20,7 @@ namespace DChild.Gameplay.ArmyBattle
         // Start is called before the first frame update
         void Start()
         {
-            if (!GameplaySystem.playerManager.player)
-            {
-                return;
-            }
+           
         }
 
         public void InitializeReward(ArmyBattleRewardData reward)

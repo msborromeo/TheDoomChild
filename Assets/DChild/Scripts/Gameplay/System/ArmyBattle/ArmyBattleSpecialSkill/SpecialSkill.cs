@@ -9,7 +9,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
     {
         public enum Type
         {
-            Instance,
+            Instant,
             Turn,
             Waiting
         }
@@ -18,7 +18,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
         private Type m_type;
         [SerializeField]
         private string m_description;
-        [SerializeField, Min(1)]
+        [SerializeField, Min(1), ShowIf("@m_type == Type.Waiting")]
         private int m_duration = 1;
         [SerializeField, HideLabel, HideReferenceObjectPicker, BoxGroup("Visualizers")]
         private SpecialSkillVisualizerInfo m_visualizerInfo = new SpecialSkillVisualizerInfo();
