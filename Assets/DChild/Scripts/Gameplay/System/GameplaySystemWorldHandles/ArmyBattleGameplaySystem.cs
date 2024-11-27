@@ -12,7 +12,6 @@ namespace DChild.Gameplay.Systems
         private void AssignModules()
         {
             AssignModule(out m_playerManager);
-            Debug.Log(GameplaySystem.playerManager+" ASDASDASDASDAAAAAAAA");
         }
 
         private void AssignModule<T>(out T module) where T : MonoBehaviour, IGameplaySystemModule => module = GetComponentInChildren<T>();
@@ -21,17 +20,15 @@ namespace DChild.Gameplay.Systems
         {
             if (m_instance)
             {
-                Debug.Log(" aaaaaaaaaaaaASDASDASDASDAAAAAAAA");
                 Destroy(gameObject);
             }
             else
             {
                 m_instance = this;
-                Debug.Log(GetComponentInChildren<IPlayerManager>()+" WHAT IS THIS");
                 AssignModules();
 
                 var worldTypeManager = FindObjectOfType<WorldTypeManager>();
-                worldTypeManager.SetCurrentWorldType(Environment.Location._COUNT);
+                worldTypeManager?.SetCurrentWorldType(Environment.Location._COUNT);
 
                 var initializables = GetComponentsInChildren<IGameplayInitializable>();
                 for (int i = 0; i < initializables.Length; i++)

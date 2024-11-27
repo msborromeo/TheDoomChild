@@ -49,8 +49,11 @@ namespace DChild.Gameplay.Systems
 
         public void Initialize()
         {
-            GameplaySystem.campaignSerializer.PostDeserialization += OnPostDeserialization;
-            GameplaySystem.campaignSerializer.PreSerialization += OnPreSerialization;
+            if (GameplaySystem.campaignSerializer != null)
+            {
+                GameplaySystem.campaignSerializer.PostDeserialization += OnPostDeserialization;
+                GameplaySystem.campaignSerializer.PreSerialization += OnPreSerialization;
+            }
         }
 
         public bool IsPartOfPlayer(GameObject gameObject)

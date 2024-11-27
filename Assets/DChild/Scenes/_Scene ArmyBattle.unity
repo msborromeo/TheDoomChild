@@ -2254,6 +2254,7 @@ MonoBehaviour:
         m_attackPower: 0
         m_hasSpecialSkill: 0
         m_specialSkill:
+          m_type: 0
           m_description: 
           m_duration: 1
           m_visualizerInfo:
@@ -2271,6 +2272,7 @@ MonoBehaviour:
         m_attackPower: 0
         m_hasSpecialSkill: 0
         m_specialSkill:
+          m_type: 0
           m_description: 
           m_duration: 1
           m_visualizerInfo:
@@ -2281,6 +2283,7 @@ MonoBehaviour:
         m_meleeModifier: 0
         m_rangeModifier: 0
         m_magicModifier: 0
+      genericDamageModifier: 0
       resistanceModifier:
         m_meleeModifier: 0
         m_rangeModifier: 0
@@ -3535,7 +3538,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_actionReference: {fileID: 4468441876299300757, guid: 2e0d81e8951c3384cba5207fae67c9a4,
     type: 3}
-  m_inputModule: {fileID: 982075568}
 --- !u!1 &1705063221
 GameObject:
   m_ObjectHideFlags: 0
@@ -3586,6 +3588,7 @@ MonoBehaviour:
         m_meleeModifier: 0
         m_rangeModifier: 0
         m_magicModifier: 0
+      genericDamageModifier: 0
       resistanceModifier:
         m_meleeModifier: 0
         m_rangeModifier: 0
@@ -4894,6 +4897,11 @@ PrefabInstance:
       objectReference: {fileID: 1674599619}
     - target: {fileID: 8762055607546447033, guid: d010eed03bdd5de4c82abb34a981d52f,
         type: 3}
+      propertyPath: m_skillHandle
+      value: 
+      objectReference: {fileID: 2025281907}
+    - target: {fileID: 8762055607546447033, guid: d010eed03bdd5de4c82abb34a981d52f,
+        type: 3}
       propertyPath: m_fightManager
       value: 
       objectReference: {fileID: 99463599}
@@ -4970,6 +4978,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e273e4c4853372b4b84aabec1b2c55e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2025281907 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7289556706671694533, guid: d010eed03bdd5de4c82abb34a981d52f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2025281905}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7a7938092530740a306e675d908079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &2045563281 stripped
