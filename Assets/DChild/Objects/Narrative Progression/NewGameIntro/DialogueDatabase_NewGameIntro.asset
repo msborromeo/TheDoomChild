@@ -128,6 +128,50 @@ MonoBehaviour:
     spritePortrait: {fileID: 0}
     alternatePortraits: []
     spritePortraits: []
+  - id: 41
+    fields:
+    - title: Name
+      value: Necro
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+    - title: IsPlayer
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    portrait: {fileID: 0}
+    spritePortrait: {fileID: 0}
+    alternatePortraits: []
+    spritePortraits: []
+  - id: 55
+    fields:
+    - title: Name
+      value: Crazy Knight
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+    - title: IsPlayer
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    portrait: {fileID: 0}
+    spritePortrait: {fileID: 0}
+    alternatePortraits: []
+    spritePortraits: []
   items: []
   locations: []
   variables:
@@ -253,6 +297,132 @@ MonoBehaviour:
       value: False
       type: 2
       typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 206
+    fields:
+    - title: Name
+      value: playerIdleExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 1
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 216
+    fields:
+    - title: Name
+      value: playerThinkingExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 2
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 208
+    fields:
+    - title: Name
+      value: playerFacingAwayExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 3
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 209
+    fields:
+    - title: Name
+      value: playerExcitedExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 4
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 210
+    fields:
+    - title: Name
+      value: necroIdleExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 1
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 211
+    fields:
+    - title: Name
+      value: necroSurprisedExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 2
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 212
+    fields:
+    - title: Name
+      value: necroSmirkingExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 3
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 213
+    fields:
+    - title: Name
+      value: necroFrustratedExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 4
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 214
+    fields:
+    - title: Name
+      value: necroTalkingExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 5
+      type: 1
+      typeString: CustomFieldType_Number
     - title: Description
       value: 
       type: 0
@@ -843,7 +1013,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 2
+        value: 55
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -855,7 +1025,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: ' Careful on your left. That water''s not safe.'
+        value: 'YOUR MOTHER! Hahahaha!
+
+'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -881,7 +1053,13 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 58
+        originDialogueID: 1
+        destinationConversationID: 58
+        destinationDialogueID: 5
+        isConnector: 0
+        priority: 2
       conditionsString: 
       userScript: 
       onExecute:
@@ -908,7 +1086,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 1
+        value: 55
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -920,8 +1098,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: ' A talking book? Why does picking you up feel like something I''ll
-          regret?'
+        value: (in your head) Why does picking you up feel like something I'd regret
+          after?
         type: 0
         typeString: 
       - title: Parenthetical
@@ -980,11 +1158,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 2
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 1
+        value: -1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -992,8 +1170,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: I don't regret being lifted from that dank and wet ground that's for
-          sure.
+        value: '[pic=playerExcitedExpression] Who was that who just spoke!?
+
+'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1033,7 +1212,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 162
+        x: 160.82355
         y: 240
         width: 160
         height: 30
@@ -1052,11 +1231,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 2
+        value: 41
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 1
+        value: -1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -1064,7 +1243,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Hey hey hey careful with those pages big guy!
+        value: '[pic=necroFrustratedExpression] HEY! Pick me up! Get me off this
+          disgusting ground!'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1105,12 +1285,151 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 164.50563
-        y: 107.7059
+        y: 108.88237
+        width: 160
+        height: 30
+    - id: 5
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: '[pic=necroSmirkingExpression] FINALLY! Thanks for finally lifting
+          me up!
+
+'
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 58
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 58
+        originDialogueID: 5
+        destinationConversationID: 58
+        destinationDialogueID: 6
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 157.17647
+        y: 386.09393
+        width: 160
+        height: 30
+    - id: 6
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: '[pic=necroTalkingExpression] Let''s leave this place now!'
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 58
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 157.17647
+        y: 436.09393
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.8500001
+    canvasScrollPosition: {x: 25.612068, y: 228.72342}
+    canvasZoom: 0.94
   - id: 134
     fields:
     - title: Title
