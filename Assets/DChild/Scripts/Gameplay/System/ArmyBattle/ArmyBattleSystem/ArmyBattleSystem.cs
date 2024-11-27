@@ -125,7 +125,7 @@ namespace DChild.Gameplay.ArmyBattle
 
             if (endBattle == false)
             {
-                m_specialSkillHandle.ResolveActiveSkills();
+                m_specialSkillHandle.ResolveWaitingSkills();
                 m_specialSkillHandle.ReinstanteActivateEffects();
                 m_turnEndSignal.SendSignal();
                 m_scenarioHandle.UpdateScenario();
