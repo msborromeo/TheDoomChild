@@ -25,7 +25,7 @@ namespace DChild.Gameplay.ArmyBattle
         private ArmyBattleCombatResult.Record CalculateCombatResultInfo(ArmyTurnAction target, ArmyDamage attackerDamage)
         {
             var remainingTroopCount = target.troopCount - attackerDamage.value;
-            return new ArmyBattleCombatResult.Record(target.willAttack,target.troopCount, remainingTroopCount, target.attack.type, attackerDamage.type);
+            return new ArmyBattleCombatResult.Record(target.willAttack, target.troopCount, remainingTroopCount, target.attack.type, attackerDamage.type);
         }
 
         private int GetBaseDamage(ArmyTurnAction attacker, ArmyTurnAction target)
@@ -33,9 +33,11 @@ namespace DChild.Gameplay.ArmyBattle
             var daamgeTypeModifier = m_data.GetDamageTypeModifier(attacker.attack.type, target.attack.type);
             var troopCountModifier = attacker.troopCount / m_data.troopCountConstant;
 
-            var attackValue = attacker.attack.value;
+            var attackValue = attacker.attack.value * attacker.modifiers.damageModifier.GetModifier(attacker.attack.type);
             var randomizedAttackValue = RandomizeAttackValueModifier(attackValue);
             var baseDamage = (attackValue * daamgeTypeModifier * troopCountModifier) + randomizedAttackValue;
+
+            baseDamage *= attacker.modifiers.genericDamageModifier;
             return Mathf.CeilToInt(Mathf.Max(0, baseDamage));
         }
 
