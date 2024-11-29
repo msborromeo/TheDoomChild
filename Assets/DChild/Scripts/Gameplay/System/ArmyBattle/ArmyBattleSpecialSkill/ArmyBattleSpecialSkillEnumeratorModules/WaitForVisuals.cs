@@ -27,6 +27,8 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
         private VisualType m_visualType;
         [SerializeField]
         private Position m_position;
+        [SerializeField]
+        private ArmySpecialSkillVfx m_fxStatus;
 
         public IEnumerator ApplyEffect(ArmyController owner, ArmyController target)
         {
@@ -69,7 +71,11 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
             yield return null;
 
             fx.GetComponent<ArmySpecialSkillVfx>();
-
+            while (!m_fxStatus.m_iseffectdone)
+            {
+                yield return null; 
+            }
+            Debug.Log("Effects finish!");
             //Temporary thing since ArmySpecialSkillVfx doesnt have an event that it is done atm
             yield return new WaitForSeconds(3f);
 
