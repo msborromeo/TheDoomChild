@@ -55,12 +55,12 @@ namespace DChild.Gameplay.Combat.StatusAilment
                     var proposedClampPosition = m_lockIntoPosition;
                     proposedClampPosition.x += signedMovement * m_maxXDistanceChange;
                     Debug.Log(proposedClampPosition);
-                    m_character.transform.localPosition = proposedClampPosition;
+                    m_character.transform.localPosition = new Vector3(proposedClampPosition.x, m_character.transform.localPosition.y, m_character.transform.localPosition.z);
                 }
             }
             else
             {
-                m_character.transform.localPosition = m_lockIntoPosition;
+                m_character.transform.localPosition = new Vector3(m_lockIntoPosition.x, m_character.transform.localPosition.y, m_character.transform.localPosition.z);
             }
         }
     }
