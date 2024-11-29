@@ -16,6 +16,12 @@ public class ElementalSwordController : MonoBehaviour
     private PlayerWeapon m_playerWeapon;
     [SerializeField]
     private ElementalSwordFX[] m_elementalSwordFX;
+    [SerializeField]
+    private ParticleSystem m_fireHandFX;
+    [SerializeField]
+    private ParticleSystem m_iceHandFX;
+    [SerializeField]
+    private ParticleSystem m_lightningHandFX;
     private DamageType currentDamageType;
 
     private void Start()
@@ -48,15 +54,21 @@ public class ElementalSwordController : MonoBehaviour
         {
             case DamageType.Physical:
                 foreach (var fx in m_elementalSwordFX) fx.SetElementTo(ElementalSwordFX.Element.Physical);
+                m_fireHandFX.Stop();
+                m_iceHandFX.Stop();
+                m_lightningHandFX.Stop();
                 break;
             case DamageType.Fire:
                 foreach (var fx in m_elementalSwordFX) fx.SetElementTo(ElementalSwordFX.Element.Fire);
+                m_fireHandFX.Play();
                 break;
             case DamageType.Ice:
                 foreach (var fx in m_elementalSwordFX) fx.SetElementTo(ElementalSwordFX.Element.Ice);
+                m_iceHandFX.Play();
                 break;
             case DamageType.Lightning:
                 foreach (var fx in m_elementalSwordFX) fx.SetElementTo(ElementalSwordFX.Element.Lightning);
+                m_lightningHandFX.Play();
                 break;
         }
     }

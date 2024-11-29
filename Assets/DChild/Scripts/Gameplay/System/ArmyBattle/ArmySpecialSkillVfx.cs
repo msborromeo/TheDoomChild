@@ -184,6 +184,7 @@ namespace DChild.Gameplay.ArmyBattle
         {
             m_currentturn = turn;
         }
+        public bool IsEffectOver() => m_iseffectdone;
         private void Start()
         {
             for (int i = 0; i < m_vfxParticleTurnManager.Count; i++)
