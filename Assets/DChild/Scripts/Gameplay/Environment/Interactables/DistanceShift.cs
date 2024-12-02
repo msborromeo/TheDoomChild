@@ -41,6 +41,11 @@ namespace DChild.Gameplay.Environment
         [SerializeField, HideInPlayMode]
         private bool m_distanceToReferenceIsPlayer;
 
+#if UNITY_EDITOR
+        public bool HasSpriteCenter () => m_spriteCenter != null;
+        public bool HasDistanceToReference() => m_distanceToReferenceIsPlayer || m_distanceToReference;
+#endif
+
         protected abstract TargetType[] targets { get; }
         public Vector3 spriteCenter => m_spriteCenter?.position ?? transform.position;
 

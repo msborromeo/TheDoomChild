@@ -47,6 +47,8 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
             public SpecialSkill specialSkill => m_specialSkill;
             public ArmyController owner => m_owner;
 
+            public bool AreSkillVFXDonePlaying => m_ownerVisuals.isEffectDone && m_targetVisuals.isEffectDone;
+
             public void PlayVisuals()
             {
                 m_ownerVisuals?.Play(activationTurnCount);
@@ -60,12 +62,40 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
             }
         }
 
+        [System.Serializable]
+        private class ActiveSkillList
+        {
+            [SerializeField]
+            private List<ActiveSkill> m_waitingTypeSkillList;
+            [SerializeField]
+            private List<ActiveSkill> m_turnTypeSkillList;
+
+            public int totalSkillCount => m_waitingTypeSkillList.Count + m_turnTypeSkillList.Count;
+
+            public List<ActiveSkill> GetSkillTypeList(SpecialSkill.Type type)
+            {
+                switch (type)
+                {
+                    case SpecialSkill.Type.Turn:
+                        return m_turnTypeSkillList;
+                    case SpecialSkill.Type.Waiting:
+                        return m_waitingTypeSkillList;
+                    default:
+                        return null;
+                }
+            }
+        }
+
         [SerializeField]
         private SignalSender m_skillActivationEndSignal;
         [SerializeField]
-        private List<ActiveSkill> m_waitingTypeSkillList;
+        private int m_maxPlayerActiveSkills;
         [SerializeField]
-        private List<ActiveSkill> m_turnTypeSkillList;
+        private ActiveSkillList m_playerActiveSkills;
+        [SerializeField]
+        private ActiveSkillList m_enemyActiveSkills;
+
+        public bool CanPlayerActivateMoreSkills() => m_playerActiveSkills.totalSkillCount < m_maxPlayerActiveSkills;
 
         public void Activate(SpecialSkill specialSkill, ArmyController owner)
         {
@@ -75,91 +105,79 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
                 var skill = new ActiveSkill(specialSkill, owner, target);
                 //This creates a Circle Dependency
 
+
                 switch (specialSkill.type)
                 {
                     case SpecialSkill.Type.Instant:
                         StartCoroutine(ApplyInstantSpecialSkillRoutine(skill, owner, target));
                         break;
                     case SpecialSkill.Type.Turn:
-                        m_turnTypeSkillList.Add(skill);
-                        break;
                     case SpecialSkill.Type.Waiting:
-                        m_waitingTypeSkillList.Add(skill);
+                        var activeList = ArmyBattleSystem.GetPlayer() == owner ? m_playerActiveSkills.GetSkillTypeList(specialSkill.type) : m_enemyActiveSkills.GetSkillTypeList(specialSkill.type);
+                        activeList.Add(skill);
                         break;
-                }
-            }
-        }
-
-        public void ReinstanteActivateEffects()
-        {
-            for (int i = 0; i < m_waitingTypeSkillList.Count; i++)
-            {
-                var currentSkill = m_waitingTypeSkillList[i];
-                currentSkill.PlayVisuals();
-            }
-        }
-
-        public void ResolveWaitingSkills()
-        {
-            for (int i = m_waitingTypeSkillList.Count - 1; i >= 0; i--)
-            {
-                var currentSkill = m_waitingTypeSkillList[i];
-                currentSkill.turnsLeft -= 1;
-                if (currentSkill.turnsLeft == 0)
-                {
-                    var owner = currentSkill.owner;
-                    currentSkill.specialSkill.RemoveEffect(owner, ArmyBattleSystem.GetTargetOf(owner));
-                    currentSkill.DestroyVisuals();
-                    m_waitingTypeSkillList.RemoveAt(i);
                 }
             }
         }
 
         public IEnumerator ApplyWaitingSkillsRoutine()
         {
-            for (int i = 0; i < m_waitingTypeSkillList.Count; i++)
+            var skillType = SpecialSkill.Type.Waiting;
+            yield return ApplyWaitingSkillsRoutine(m_playerActiveSkills.GetSkillTypeList(skillType));
+            yield return ApplyWaitingSkillsRoutine(m_enemyActiveSkills.GetSkillTypeList(skillType));
+        }
+
+        private IEnumerator ApplyWaitingSkillsRoutine(List<ActiveSkill> waitingSkills)
+        {
+            for (int i = 0; i < waitingSkills.Count; i++)
             {
-                var currentSkill = m_waitingTypeSkillList[i];
+                var currentSkill = waitingSkills[i];
                 currentSkill.turnsLeft -= 1;
                 if (currentSkill.turnsLeft == 0)
                 {
                     var owner = currentSkill.owner;
-                    currentSkill.specialSkill.ApplyEffect(owner, ArmyBattleSystem.GetTargetOf(owner));;
-                    yield return new WaitForSeconds(5);
+                    yield return currentSkill.specialSkill.ApplyEffect(owner, ArmyBattleSystem.GetTargetOf(owner)); ;
                     currentSkill.DestroyVisuals();
                 }
                 else
                 {
                     currentSkill.PlayVisuals();
-                    yield return new WaitForSeconds(5);
+                    while (currentSkill.AreSkillVFXDonePlaying == false)
+                        yield return null;
                 }
             }
 
-            for (int i = m_waitingTypeSkillList.Count - 1; i >= 0; i--)
+            for (int i = waitingSkills.Count - 1; i >= 0; i--)
             {
-                var currentSkill = m_waitingTypeSkillList[i];
+                var currentSkill = waitingSkills[i];
                 if (currentSkill.turnsLeft == 0)
                 {
                     currentSkill.DestroyVisuals();
-                    m_waitingTypeSkillList.RemoveAt(i);
+                    waitingSkills.RemoveAt(i);
                 }
             }
         }
 
         public IEnumerator ApplyTurnSpecialSkillsRoutine()
         {
-            for (int i = 0; i < m_turnTypeSkillList.Count; i++)
-            {
-                var currentSkill = m_turnTypeSkillList[i];
-                var owner = currentSkill.owner;
-                yield return currentSkill.specialSkill.ApplyEffect(owner, ArmyBattleSystem.GetTargetOf(owner));
-            }
-
-            m_turnTypeSkillList.Clear();
+            var skillType = SpecialSkill.Type.Turn;
+            yield return ApplyTurnSpecialSkillsRoutine(m_playerActiveSkills.GetSkillTypeList(skillType));
+            yield return ApplyTurnSpecialSkillsRoutine(m_enemyActiveSkills.GetSkillTypeList(skillType));
 
             m_skillActivationEndSignal?.SendSignal();
         }
 
+        private IEnumerator ApplyTurnSpecialSkillsRoutine(List<ActiveSkill> turnSkills)
+        {
+            for (int i = 0; i < turnSkills.Count; i++)
+            {
+                var currentSkill = turnSkills[i];
+                var owner = currentSkill.owner;
+                yield return currentSkill.specialSkill.ApplyEffect(owner, ArmyBattleSystem.GetTargetOf(owner));
+            }
+
+            turnSkills.Clear();
+        }
 
         private IEnumerator ApplyInstantSpecialSkillRoutine(ActiveSkill skill, ArmyController owner, ArmyController target)
         {

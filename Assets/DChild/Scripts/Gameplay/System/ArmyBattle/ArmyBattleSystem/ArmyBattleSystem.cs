@@ -25,8 +25,6 @@ namespace DChild.Gameplay.ArmyBattle
         [SerializeField]
         private ArmyBattleTurnHandle m_turnHandle;
         [SerializeField]
-        private ArmyBattleSpecialSkillHandle m_specialSkillHandle;
-        [SerializeField]
         private ArmyFightManager m_fightManager;
         [SerializeField]
         private ArmyBattleUIManager m_uiManager;
@@ -125,8 +123,6 @@ namespace DChild.Gameplay.ArmyBattle
 
             if (endBattle == false)
             {
-                m_specialSkillHandle.ResolveWaitingSkills();
-                m_specialSkillHandle.ReinstanteActivateEffects();
                 m_turnEndSignal.SendSignal();
                 m_scenarioHandle.UpdateScenario();
             }
