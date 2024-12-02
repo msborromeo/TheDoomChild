@@ -70,6 +70,8 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
             [SerializeField]
             private List<ActiveSkill> m_turnTypeSkillList;
 
+            public int totalSkillCount => m_waitingTypeSkillList.Count + m_turnTypeSkillList.Count;
+
             public List<ActiveSkill> GetSkillTypeList(SpecialSkill.Type type)
             {
                 switch (type)
@@ -87,9 +89,13 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
         [SerializeField]
         private SignalSender m_skillActivationEndSignal;
         [SerializeField]
+        private int m_maxPlayerActiveSkills;
+        [SerializeField]
         private ActiveSkillList m_playerActiveSkills;
         [SerializeField]
         private ActiveSkillList m_enemyActiveSkills;
+
+        public bool CanPlayerActivateMoreSkills() => m_playerActiveSkills.totalSkillCount < m_maxPlayerActiveSkills;
 
         public void Activate(SpecialSkill specialSkill, ArmyController owner)
         {
