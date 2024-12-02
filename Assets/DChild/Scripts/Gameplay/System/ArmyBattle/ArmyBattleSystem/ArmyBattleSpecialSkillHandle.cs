@@ -47,6 +47,8 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
             public SpecialSkill specialSkill => m_specialSkill;
             public ArmyController owner => m_owner;
 
+            public bool AreSkillVFXDonePlaying => m_ownerVisuals.isEffectDone && m_targetVisuals.isEffectDone;
+
             public void PlayVisuals()
             {
                 m_ownerVisuals?.Play(activationTurnCount);
@@ -90,31 +92,6 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
             }
         }
 
-        public void ReinstanteActivateEffects()
-        {
-            for (int i = 0; i < m_waitingTypeSkillList.Count; i++)
-            {
-                var currentSkill = m_waitingTypeSkillList[i];
-                currentSkill.PlayVisuals();
-            }
-        }
-
-        public void ResolveWaitingSkills()
-        {
-            for (int i = m_waitingTypeSkillList.Count - 1; i >= 0; i--)
-            {
-                var currentSkill = m_waitingTypeSkillList[i];
-                currentSkill.turnsLeft -= 1;
-                if (currentSkill.turnsLeft == 0)
-                {
-                    var owner = currentSkill.owner;
-                    currentSkill.specialSkill.RemoveEffect(owner, ArmyBattleSystem.GetTargetOf(owner));
-                    currentSkill.DestroyVisuals();
-                    m_waitingTypeSkillList.RemoveAt(i);
-                }
-            }
-        }
-
         public IEnumerator ApplyWaitingSkillsRoutine()
         {
             for (int i = 0; i < m_waitingTypeSkillList.Count; i++)
@@ -124,14 +101,14 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
                 if (currentSkill.turnsLeft == 0)
                 {
                     var owner = currentSkill.owner;
-                    currentSkill.specialSkill.ApplyEffect(owner, ArmyBattleSystem.GetTargetOf(owner));;
-                    yield return new WaitForSeconds(5);
+                    yield return currentSkill.specialSkill.ApplyEffect(owner, ArmyBattleSystem.GetTargetOf(owner)); ;
                     currentSkill.DestroyVisuals();
                 }
                 else
                 {
                     currentSkill.PlayVisuals();
-                    yield return new WaitForSeconds(5);
+                    while (currentSkill.AreSkillVFXDonePlaying == false)
+                        yield return null;
                 }
             }
 
