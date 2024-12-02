@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.Environment;
+using DChild.Gameplay.Systems;
 using DChild.Serialization;
 using Holysoft.Collections;
 using Sirenix.OdinInspector;
@@ -20,7 +21,10 @@ namespace DChild.Gameplay
         [Button]
         public void SaveGame()
         {
-            GameplaySystem.playerManager.player.Revitilize();
+            if(GameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
+            {
+                GameplaySystem.playerManager.player.Revitilize();
+            }
 
             //#if UNITY_EDITOR
             if (m_dontActuallySave)
