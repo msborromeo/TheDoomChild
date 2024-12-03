@@ -51,7 +51,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -4934,7 +4934,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -9997,7 +9997,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -14849,6 +14849,9 @@ GameObject:
   - component: {fileID: 6793955503251333278}
   - component: {fileID: 6793955503251333279}
   - component: {fileID: 6793955503251333276}
+  - component: {fileID: 1121295044045468733}
+  - component: {fileID: 3894149993674734793}
+  - component: {fileID: 8174156324131233873}
   m_Layer: 0
   m_Name: 19GiantFamilyAttackDamageIncreased
   m_TagString: Untagged
@@ -14897,7 +14900,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -19659,6 +19662,74 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &1121295044045468733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793955503251333277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6178cd111cba844a6e236cfbee492c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_poolableItemData: {fileID: 0}
+  m_particleSystems:
+  - {fileID: 6793955503251333279}
+  - {fileID: 6793955504036059505}
+  - {fileID: 6793955503823286013}
+  - {fileID: 6793955502221581716}
+  - {fileID: 7338950532787528280}
+  - {fileID: 7338950533532711582}
+  - {fileID: 7338950532739999230}
+  - {fileID: 332774330373833443}
+  - {fileID: 6431703020525369437}
+  m_playOnAwake: 0
+  m_baseFlipped: 0
+  m_poolOnStop: 0
+--- !u!114 &3894149993674734793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793955503251333277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd8599297ea1c84ba2f23b8f6c74e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 6431703020919804371}
+--- !u!114 &8174156324131233873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793955503251333277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bbb7891a8ab6c4386eae13d2090129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_vfxParticleTurnManager:
+  - m_fxPartcileSystem:
+    - {fileID: 6793955503251333279}
+  m_VfxSpineTurnManager:
+  - m_SpineModel: {fileID: 6431703020919804381}
+    m_fxSpineSystem: {fileID: 11400000, guid: b9937d969ecac3d4ab1c957926dfe3e1, type: 2}
+    m_animation:
+    - Intro_1
+    m_launchOnEvent:
+    - SpecialSkillFX
+    m_spineListener: {fileID: 3894149993674734793}
+    m_eventPartcileSystem:
+    - {fileID: 6793955503251333279}
+    m_delaytime:
+    - 0
+  m_iseffectdone: 1
+  m_currentturn: 1
 --- !u!1 &6793955503823286009
 GameObject:
   m_ObjectHideFlags: 0
@@ -19710,7 +19781,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -24593,7 +24664,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -29534,7 +29605,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -34417,7 +34488,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -39300,7 +39371,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
