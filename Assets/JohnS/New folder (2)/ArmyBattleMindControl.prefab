@@ -4904,6 +4904,8 @@ GameObject:
   - component: {fileID: 5772766927143834213}
   - component: {fileID: 5772766927143834212}
   - component: {fileID: 5772766927143834215}
+  - component: {fileID: 3421068410799537212}
+  - component: {fileID: 5579721803184180380}
   m_Layer: 0
   m_Name: ArmyBattleMindControl
   m_TagString: Untagged
@@ -9780,6 +9782,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5dbbb1030d96d438905b0e01caa8d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3421068410799537212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5772766927143834214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd8599297ea1c84ba2f23b8f6c74e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 0}
+--- !u!114 &5579721803184180380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5772766927143834214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bbb7891a8ab6c4386eae13d2090129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_vfxParticleTurnManager:
+  - m_fxPartcileSystem:
+    - {fileID: 5772766927143834213}
+  m_VfxSpineTurnManager:
+  - m_SpineModel: {fileID: 5772766927562601543}
+    m_fxSpineSystem: {fileID: 11400000, guid: 631f7f6c360572e4b8c631965b3c4a52, type: 2}
+    m_animation: []
+    m_launchOnEvent: []
+    m_spineListener: {fileID: 3421068410799537212}
+    m_eventPartcileSystem: []
+    m_delaytime:
+    - 0
+  m_iseffectdone: 0
+  m_currentturn: 1
 --- !u!1 &5772766927562601543
 GameObject:
   m_ObjectHideFlags: 0
