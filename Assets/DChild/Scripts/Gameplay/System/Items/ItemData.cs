@@ -2,13 +2,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using DChildDebug.Gameplay.Trade;
 #if UNITY_EDITOR
 using UnityEditor;
 using DChildEditor;
 #endif
 namespace DChild.Gameplay.Items
 {
-
     [CreateAssetMenu(fileName = "ItemData", menuName = "DChild/Database/Item Data")]
     public class ItemData : DatabaseAsset
     {
@@ -142,6 +142,8 @@ namespace DChild.Gameplay.Items
         private int m_quantityLimit;
         [SerializeField, MinValue(0), ToggleGroup("m_enableEdit")]
         private int m_cost;
+        [SerializeField, ToggleGroup("m_enableEdit"), HideLabel, BoxGroup("m_enableEdit/Cost")]
+        private ItemCost m_newCost;
         [SerializeField, TextArea, ToggleGroup("m_enableEdit")]
         private string m_description;
         [SerializeField, ToggleGroup("m_enableEdit")]
@@ -154,6 +156,7 @@ namespace DChild.Gameplay.Items
         public Sprite icon { get => m_icon; }
         public int quantityLimit { get => m_quantityLimit; }
         public int cost { get => m_cost; }
+        public ItemCost newCost { get => m_newCost; }
         public string description { get => m_description; }
         public bool canBeSold => m_canBeSold;
         public virtual bool hasInfiniteUses => false;
