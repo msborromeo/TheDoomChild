@@ -24432,6 +24432,8 @@ GameObject:
   - component: {fileID: 5497544753526608649}
   - component: {fileID: 5497544753526608648}
   - component: {fileID: 5497544753526608651}
+  - component: {fileID: 3960250069561592874}
+  - component: {fileID: 8315783207880492354}
   m_Layer: 0
   m_Name: ArmyBattleBribe
   m_TagString: Untagged
@@ -29309,3 +29311,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5dbbb1030d96d438905b0e01caa8d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3960250069561592874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5497544753526608650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bbb7891a8ab6c4386eae13d2090129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_vfxParticleTurnManager:
+  - m_fxPartcileSystem:
+    - {fileID: 5497544753526608649}
+  m_VfxSpineTurnManager:
+  - m_SpineModel: {fileID: 5497544751748579029}
+    m_fxSpineSystem: {fileID: 11400000, guid: c84b80b5a6c3f7b40a59f2a51f3aa8fc, type: 2}
+    m_animation: []
+    m_launchOnEvent: []
+    m_spineListener: {fileID: 8315783207880492354}
+    m_eventPartcileSystem: []
+    m_delaytime:
+    - 0
+  m_iseffectdone: 0
+  m_currentturn: 1
+--- !u!114 &8315783207880492354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5497544753526608650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd8599297ea1c84ba2f23b8f6c74e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 5497544751748579034}

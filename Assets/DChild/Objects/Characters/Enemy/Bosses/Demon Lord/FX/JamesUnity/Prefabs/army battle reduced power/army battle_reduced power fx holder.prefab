@@ -14781,6 +14781,8 @@ GameObject:
   - component: {fileID: 2795690918105253988}
   - component: {fileID: 2795690918105253987}
   - component: {fileID: 2795690918105253986}
+  - component: {fileID: 2715193112816998183}
+  - component: {fileID: 706287530121203887}
   m_Layer: 0
   m_Name: army battle_reduced power fx holder
   m_TagString: Untagged
@@ -19586,3 +19588,42 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &2715193112816998183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2795690918105253985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bbb7891a8ab6c4386eae13d2090129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_vfxParticleTurnManager:
+  - m_fxPartcileSystem:
+    - {fileID: 2795690918105253987}
+  m_VfxSpineTurnManager:
+  - m_SpineModel: {fileID: 2795690917109203764}
+    m_fxSpineSystem: {fileID: 11400000, guid: 547e59d9a14c3b14197df2aef5feb7bf, type: 2}
+    m_animation: []
+    m_launchOnEvent: []
+    m_spineListener: {fileID: 706287530121203887}
+    m_eventPartcileSystem: []
+    m_delaytime:
+    - 0
+  m_iseffectdone: 0
+  m_currentturn: 1
+--- !u!114 &706287530121203887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2795690918105253985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd8599297ea1c84ba2f23b8f6c74e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 2795690917109203766}
