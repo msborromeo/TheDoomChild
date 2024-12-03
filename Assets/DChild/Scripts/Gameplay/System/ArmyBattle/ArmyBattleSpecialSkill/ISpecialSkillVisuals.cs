@@ -6,7 +6,7 @@ namespace DChild.Gameplay.ArmyBattle
     {
         Transform transform { get; }
         void Play(int turnCount);
-
+        bool isEffectDone { get; }
         GameObject gameObject { get; }
     }
 }

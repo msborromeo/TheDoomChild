@@ -21,13 +21,15 @@ namespace DChild.Gameplay.Systems
         private InputTranslator m_characterInput;
         [SerializeField]
         private PlayerCharacterOverride m_overrideController;
+        [SerializeField]
+        private ArmyBattleCharacterRecruiter m_armyBattleCharacterRecruiter;
 
         #region IPlayerManager Stuff
         public Player player => m_player;
 
         public IAutoReflexHandler autoReflex => null;
 
-        public ArmyBattleCharacterRecruiter armyBattleCharacterRecruiter { get; }
+        public ArmyBattleCharacterRecruiter armyBattleCharacterRecruiter => m_armyBattleCharacterRecruiter;
 
         public void DisableControls()
         {
