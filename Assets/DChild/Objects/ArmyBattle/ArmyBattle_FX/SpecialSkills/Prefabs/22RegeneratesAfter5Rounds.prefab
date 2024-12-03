@@ -58854,6 +58854,8 @@ GameObject:
   - component: {fileID: 7820326364122686365}
   - component: {fileID: 7820326364122686366}
   - component: {fileID: 7820326364122686367}
+  - component: {fileID: 3416749027460879260}
+  - component: {fileID: 4180513568680106864}
   m_Layer: 0
   m_Name: 22RegeneratesAfter5Rounds
   m_TagString: Untagged
@@ -63726,3 +63728,42 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &3416749027460879260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7820326364122686304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd8599297ea1c84ba2f23b8f6c74e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 1347224988}
+--- !u!114 &4180513568680106864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7820326364122686304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bbb7891a8ab6c4386eae13d2090129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_vfxParticleTurnManager:
+  - m_fxPartcileSystem:
+    - {fileID: 7820326364122686366}
+  m_VfxSpineTurnManager:
+  - m_SpineModel: {fileID: 1347224986}
+    m_fxSpineSystem: {fileID: 11400000, guid: 9470262f71bdc994483f4af03070f35b, type: 2}
+    m_animation: []
+    m_launchOnEvent: []
+    m_spineListener: {fileID: 3416749027460879260}
+    m_eventPartcileSystem: []
+    m_delaytime:
+    - 0
+  m_iseffectdone: 0
+  m_currentturn: 1
