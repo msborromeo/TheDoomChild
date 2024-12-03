@@ -126,4 +126,9 @@ public class WeaponUpgradeHandle : MonoBehaviour
             LoadUpgrade(m_playerWeapon);
         }
     }
+
+    private void OnDestroy()
+    {
+        GameplaySystem.campaignSerializer.PostDeserialization -= OnGameplayLoad;
+    }
 }

@@ -17,9 +17,21 @@ namespace DChild.Gameplay.Environment
         [SerializeField]
         private SpriteRenderer[] m_renderers;
 
+#if UNITY_EDITOR
+        public bool HasNullReferenceInRendererList()
+        {
+            for (int i = 0; i < m_renderers.Length; i++)
+            {
+                if (m_renderers[i] == null)
+                    return true;
+            }
+
+            return false;
+        }
+#endif
         protected override SpriteRenderer[] targets => m_renderers;
 
-        protected  override void SetShiftValue(SpriteRenderer renderer, float value)
+        protected override void SetShiftValue(SpriteRenderer renderer, float value)
         {
             var color = renderer.color;
             color.a = value;

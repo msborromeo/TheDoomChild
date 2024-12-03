@@ -16,7 +16,13 @@ public class PlayerInputSubmitOverride : MonoBehaviour
 
     private void Awake() => m_preArmyInput = m_inputModule.submit;
 
-    public void OverrideInput() => m_inputModule.submit = m_actionReference;
+    public void OverrideInput()
+    {
+        if (m_inputModule != null)
+        {
+            m_inputModule.submit = m_actionReference;
+        }
+    }
 
     private void OnDestroy() => m_inputModule.submit = m_preArmyInput;
 }

@@ -204,7 +204,6 @@ namespace DChild.Gameplay.Systems
                 var initializables = GetComponentsInChildren<IGameplayInitializable>();
                 m_worldTypeManager = GetComponentInChildren<WorldTypeManager>();
 
-
                 for (int i = 0; i < m_gameplayModuleManager.Length; i++)
                 {
                     m_gameplayModuleManager[i].SetInstance(m_gameplayModuleManager[i]);
@@ -218,6 +217,8 @@ namespace DChild.Gameplay.Systems
                 {
                     m_campaignSerializer.SetSlot(m_campaignToLoad);
                 }
+
+                m_worldTypeManager.SetCurrentWorldType(m_campaignToLoad.location);
 
                 if (m_doNotDeserializeOnAwake == false)
                 {
