@@ -2,13 +2,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using DChildDebug.Gameplay.Trade;
 #if UNITY_EDITOR
 using UnityEditor;
 using DChildEditor;
 #endif
 namespace DChild.Gameplay.Items
 {
-
     [CreateAssetMenu(fileName = "ItemData", menuName = "DChild/Database/Item Data")]
     public class ItemData : DatabaseAsset
     {
@@ -68,7 +68,7 @@ namespace DChild.Gameplay.Items
         {
             var connection = DChildDatabase.GetItemConnection();
             connection.Initialize();
-            m_ID = connection.Insert(Mathf.Abs(m_ID), m_name, m_description, m_quantityLimit, m_cost);
+            m_ID = connection.Insert(Mathf.Abs(m_ID), m_name, m_description, m_quantityLimit, cost);
             m_databaseID = m_ID;
             m_customName = m_name;
             m_connectToDatabase = true;
@@ -91,7 +91,7 @@ namespace DChild.Gameplay.Items
         {
             var connection = DChildDatabase.GetItemConnection();
             connection.Initialize();
-            connection.Update(m_ID, m_description, m_quantityLimit, m_cost);
+            connection.Update(m_ID, m_description, m_quantityLimit, cost);
             connection.Close();
         }
 
@@ -103,7 +103,7 @@ namespace DChild.Gameplay.Items
             var info = connection.GetInfoOf(m_ID);
             m_description = info.description;
             m_quantityLimit = info.quantityLimit;
-            m_cost = info.cost;
+            m_cost = new ItemCost(info.cost,m_cost.GetCostOfType(Trade.CurrencyType.SilverCoin));
             connection.Close();
 
             EditorUtility.SetDirty(this);
@@ -140,8 +140,8 @@ namespace DChild.Gameplay.Items
         private Sprite m_icon;
         [SerializeField, MinValue(1), ToggleGroup("m_enableEdit")]
         private int m_quantityLimit;
-        [SerializeField, MinValue(0), ToggleGroup("m_enableEdit")]
-        private int m_cost;
+        [SerializeField, ToggleGroup("m_enableEdit"), HideLabel, BoxGroup("m_enableEdit/Cost")]
+        private ItemCost m_cost;
         [SerializeField, TextArea, ToggleGroup("m_enableEdit")]
         private string m_description;
         [SerializeField, ToggleGroup("m_enableEdit")]
@@ -153,7 +153,8 @@ namespace DChild.Gameplay.Items
 
         public Sprite icon { get => m_icon; }
         public int quantityLimit { get => m_quantityLimit; }
-        public int cost { get => m_cost; }
+        public int cost { get => m_cost.GetCostOfType(Trade.CurrencyType.SoulEssence); }
+        public ItemCost newCost { get => m_cost; }
         public string description { get => m_description; }
         public bool canBeSold => m_canBeSold;
         public virtual bool hasInfiniteUses => false;
