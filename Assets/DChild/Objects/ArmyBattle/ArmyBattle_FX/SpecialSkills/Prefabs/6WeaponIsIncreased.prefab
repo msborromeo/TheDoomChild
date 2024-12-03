@@ -29498,6 +29498,9 @@ GameObject:
   - component: {fileID: 7284584553480126262}
   - component: {fileID: 7284584553480126263}
   - component: {fileID: 7284584553480126260}
+  - component: {fileID: 5640761678958703664}
+  - component: {fileID: 5538338519237353854}
+  - component: {fileID: 9216701171634815885}
   m_Layer: 0
   m_Name: 6WeaponIsIncreased
   m_TagString: Untagged
@@ -34308,6 +34311,74 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5640761678958703664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7284584553480126261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bbb7891a8ab6c4386eae13d2090129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_vfxParticleTurnManager:
+  - m_fxPartcileSystem:
+    - {fileID: 7284584553480126263}
+  m_VfxSpineTurnManager:
+  - m_SpineModel: {fileID: 174214573}
+    m_fxSpineSystem: {fileID: 11400000, guid: 9763a1d4ea19bd74cacc58c65ab3d3d5, type: 2}
+    m_animation:
+    - Intro
+    m_launchOnEvent:
+    - SpecialSkillFX
+    m_spineListener: {fileID: 5538338519237353854}
+    m_eventPartcileSystem:
+    - {fileID: 7284584553480126263}
+    m_delaytime:
+    - 0
+  m_iseffectdone: 0
+  m_currentturn: 1
+--- !u!114 &5538338519237353854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7284584553480126261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd8599297ea1c84ba2f23b8f6c74e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 174214575}
+--- !u!114 &9216701171634815885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7284584553480126261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6178cd111cba844a6e236cfbee492c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_poolableItemData: {fileID: 0}
+  m_particleSystems:
+  - {fileID: 7284584553480126263}
+  - {fileID: 7284584553715386073}
+  - {fileID: 7284584554047975765}
+  - {fileID: 7284584552446263868}
+  - {fileID: 6812188284011625968}
+  - {fileID: 6812188284186305846}
+  - {fileID: 6812188283972385366}
+  - {fileID: 1192130132}
+  - {fileID: 1725689157}
+  m_playOnAwake: 0
+  m_baseFlipped: 0
+  m_poolOnStop: 0
 --- !u!1 &7284584553715386053
 GameObject:
   m_ObjectHideFlags: 0

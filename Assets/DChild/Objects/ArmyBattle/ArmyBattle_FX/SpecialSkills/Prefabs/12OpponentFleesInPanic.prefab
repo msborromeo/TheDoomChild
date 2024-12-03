@@ -24426,6 +24426,8 @@ GameObject:
   - component: {fileID: 7664792620164013212}
   - component: {fileID: 7664792620164013213}
   - component: {fileID: 7664792620164013214}
+  - component: {fileID: 6512915252441527121}
+  - component: {fileID: 7912699342585333113}
   m_Layer: 0
   m_Name: 12OpponentFleesInPanic
   m_TagString: Untagged
@@ -29233,6 +29235,48 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &6512915252441527121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7664792620164013215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bbb7891a8ab6c4386eae13d2090129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_vfxParticleTurnManager:
+  - m_fxPartcileSystem:
+    - {fileID: 7664792620164013213}
+  m_VfxSpineTurnManager: []
+  m_iseffectdone: 1
+  m_currentturn: 1
+--- !u!114 &7912699342585333113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7664792620164013215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6178cd111cba844a6e236cfbee492c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_poolableItemData: {fileID: 0}
+  m_particleSystems:
+  - {fileID: 7664792620164013213}
+  - {fileID: 7664792619378238835}
+  - {fileID: 7664792619590882047}
+  - {fileID: 7664792621193634198}
+  - {fileID: 5894959504315162202}
+  - {fileID: 5894959503603074716}
+  - {fileID: 5894959504362297852}
+  m_playOnAwake: 0
+  m_baseFlipped: 0
+  m_poolOnStop: 0
 --- !u!1 &7664792621193634194
 GameObject:
   m_ObjectHideFlags: 0
