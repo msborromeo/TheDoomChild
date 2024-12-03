@@ -51,7 +51,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 1
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -4885,7 +4885,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 1
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -9680,6 +9680,8 @@ GameObject:
   - component: {fileID: 7538596006302429714}
   - component: {fileID: 7538596006302429677}
   - component: {fileID: 7538596006302429712}
+  - component: {fileID: 5082952648885233561}
+  - component: {fileID: 957669230198125491}
   m_Layer: 0
   m_Name: army battle_fx_18_cannot use magic
   m_TagString: Untagged
@@ -9722,7 +9724,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -14504,6 +14506,45 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5082952648885233561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7538596006302429676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6178cd111cba844a6e236cfbee492c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_poolableItemData: {fileID: 0}
+  m_particleSystems:
+  - {fileID: 7538596006302429714}
+  - {fileID: 7538596005822197499}
+  - {fileID: 7538596006150126568}
+  - {fileID: 7538596006304630048}
+  m_playOnAwake: 0
+  m_baseFlipped: 0
+  m_poolOnStop: 0
+--- !u!114 &957669230198125491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7538596006302429676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bbb7891a8ab6c4386eae13d2090129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_vfxParticleTurnManager:
+  - m_fxPartcileSystem:
+    - {fileID: 7538596006302429714}
+  m_VfxSpineTurnManager: []
+  m_iseffectdone: 1
+  m_currentturn: 1
 --- !u!1 &7538596006304630076
 GameObject:
   m_ObjectHideFlags: 0
@@ -14555,7 +14596,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 1
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
