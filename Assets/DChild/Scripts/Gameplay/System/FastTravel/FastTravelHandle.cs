@@ -51,9 +51,15 @@ namespace DChild.Gameplay.FastTravel
             
             Rigidbody2D rigidBody = character.GetComponent<Rigidbody2D>();
             rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
-            collisionState.forcedCurrentGroundedness = false;
-            GameplaySystem.playerManager.StopCharacterControlOverride();
+
+            var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
+            if(WorldTypeVar.CurrentWorldType == WorldType.Underworld)
+            {
+                CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
+                collisionState.forcedCurrentGroundedness = false;
+                GameplaySystem.playerManager.StopCharacterControlOverride();
+            }
+            
         }
     }
 }

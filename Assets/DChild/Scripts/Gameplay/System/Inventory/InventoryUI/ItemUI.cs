@@ -19,8 +19,9 @@ namespace DChild.Gameplay.Inventories.UI
             if (m_reference != reference)
             {
                 m_reference = reference;
-                ShowDetailsOf(m_reference);
             }
+
+            ShowDetailsOf(m_reference);
         }
 
 

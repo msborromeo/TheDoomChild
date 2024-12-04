@@ -8,9 +8,10 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Trade
 {
-
     public class MerchantStore : MonoBehaviour, ITradeInventory, IMerchantStore
     {
+        [SerializeField]
+        private CurrencyType m_currencyType;
         [SerializeField]
         private TradeRates m_tradeRates;
         [SerializeField, HideLabel, FoldoutGroup("Inventory")]
@@ -28,6 +29,7 @@ namespace DChild.Gameplay.Trade
             }
         }
 
+        public CurrencyType currencyType => m_currencyType;
         public TradeRates tradeRates => m_tradeRates;
 
         public void SetWares(IInventoryInfo reference)
@@ -78,18 +80,6 @@ namespace DChild.Gameplay.Trade
         }
 
         #region ITradeInventory Implementation
-        int ITradeInventory.currency => 999999;
-
-        void ITradeInventory.AddCurrency(int value)
-        {
-
-        }
-
-        void ITradeInventory.AddItem(ItemData item, int count)
-        {
-
-        }
-
         ITradeItem[] ITradeInventory.FindTradeItemsOfType(ItemCategory category) => m_inventory.FindTradeItemsOfType(category);
 
         ITradeItem[] ITradeInventory.GetTradableItems() => m_inventory.GetTradableItems();
@@ -99,6 +89,17 @@ namespace DChild.Gameplay.Trade
         void ITradeInventory.RemoveItem(ItemData item, int count) => m_inventory.RemoveItem(item, count);
 
         public ITradeItem GetTradeItem(ItemData item) => m_inventory.GetTradeItem(item);
+
+        int ITradeInventory.GetCurrencyAmount(CurrencyType currencyType) => 999999;
+
+        void ITradeInventory.AddCurrency(CurrencyType currencyType, int value)
+        {
+
+        }
+
+        void ITradeInventory.AddItem(ItemData item, int count)
+        {
+        }
         #endregion
 
     }
