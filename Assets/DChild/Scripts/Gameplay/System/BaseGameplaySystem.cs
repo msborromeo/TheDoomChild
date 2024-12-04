@@ -28,8 +28,9 @@ namespace DChild.Gameplay.Systems
         private static BaseGameplaySystem m_instance;
         private static CampaignSlot m_campaignToLoad;
         private static GameplayModifiers m_modifiers;
+        private static GameplayConstantsReference m_constantsReference;
         public static GameplayModifiers modifiers => m_modifiers;
-
+        public static GameplayConstantsReference constantsReference => m_constantsReference;
         private static CampaignSerializer m_campaignSerializer;
 
         public static CampaignSerializer campaignSerializer => m_campaignSerializer;
@@ -82,6 +83,7 @@ namespace DChild.Gameplay.Systems
             AssignModule(out m_world);
             AssignModule(out m_campaignSerializer);
             AssignModule(out m_baseGameplayUIHandle);
+            AssignModule(out m_constantsReference);
 
             m_skeletonManager = new SkeletonAnimationManager();
             //these two iffy - Ayan

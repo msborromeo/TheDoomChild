@@ -1,9 +1,11 @@
-﻿namespace DChild.Gameplay.Inventories
+﻿using DChild.Gameplay.Items;
+
+namespace DChild.Gameplay.Inventories
 {
     public interface ITradeItem : IStoredItem
     {
-        int cost { get; }
-        void OverrideCost(int newCost);
+        ItemCost cost { get; }
+        void OverrideCost(ItemCost newCost);
         void RemoveCostOverride();
     }
 }

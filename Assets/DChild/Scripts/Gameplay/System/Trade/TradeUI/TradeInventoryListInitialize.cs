@@ -1,4 +1,5 @@
-﻿using DChild.Gameplay.Inventories.UI;
+﻿using DChild.Gameplay.Inventories;
+using DChild.Gameplay.Inventories.UI;
 using Doozy.Runtime.UIManager.Components;
 using System.Collections;
 using UnityEngine;
@@ -31,6 +32,7 @@ namespace DChild.Gameplay.Trade.UI
             while (m_itemGroup.numberOfToggles == 0)
                 yield return null;
 
+            yield return null;
             var toggles = m_itemGroup.toggles;
             AddToggleOnListener(m_itemGroup.FirstToggle);
             for (int i = 0; i < toggles.Count; i++)
@@ -38,7 +40,6 @@ namespace DChild.Gameplay.Trade.UI
                 var toggle = toggles[i];
                 AddToggleOnListener(toggle);
             }
-
             Debug.Log("Trade Inventory Initialized: " + m_itemGroup.numberOfToggles);
         }
     }

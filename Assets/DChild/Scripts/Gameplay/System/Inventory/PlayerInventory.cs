@@ -7,6 +7,7 @@ using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace DChild.Gameplay.Inventories
 {
@@ -47,6 +48,7 @@ namespace DChild.Gameplay.Inventories
         public int currency => m_inventory.currency;
         int ICurrency.amount => m_inventory.currency;
 
+        public int GetCurrencyAmount(CurrencyType currencyType) => m_inventory.GetCurrencyAmount(currencyType);
 
         public TradableInventorySerialization SaveData() => new TradableInventorySerialization(m_inventory);
 
@@ -56,14 +58,14 @@ namespace DChild.Gameplay.Inventories
 
             if (serializedData == null)
             {
-                m_inventory.SetCurrency(0);
+                m_inventory.SetCurrency(CurrencyType.SoulEssence,0);
                 SetSoulEssence(0);
                 m_inventory.InvokeMassInventoryItemUpdate();
                 return;
             }
             else
             {
-                m_inventory.SetCurrency(serializedData.soulEssence);
+                m_inventory.SetCurrency(CurrencyType.SoulEssence,serializedData.soulEssence);
                 SetSoulEssence(serializedData.soulEssence);
             }
 
@@ -117,21 +119,21 @@ namespace DChild.Gameplay.Inventories
 
         public void AddSoulEssence(int value)
         {
-            m_inventory.AddCurrency(value);
+            m_inventory.AddCurrency(CurrencyType.SoulEssence,value);
             OnAmountAdded?.Invoke(this, new CurrencyUpdateEventArgs(value));
         }
 
         public void SetSoulEssence(int value)
         {
-            m_inventory.SetCurrency(value);
+            m_inventory.SetCurrency(CurrencyType.SoulEssence, value);
             OnAmountSet?.Invoke(this, new CurrencyUpdateEventArgs(value));
         }
 
         #region ITradeInventory Implementation
 
-        void ITradeInventory.AddCurrency(int value)
+        void ITradeInventory.AddCurrency(CurrencyType type, int value)
         {
-            m_inventory.AddCurrency(value);
+            m_inventory.AddCurrency(type,value);
             OnAmountAdded?.Invoke(this, new CurrencyUpdateEventArgs(value));
         }
 
