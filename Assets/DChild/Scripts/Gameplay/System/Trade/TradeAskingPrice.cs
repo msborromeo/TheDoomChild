@@ -13,24 +13,23 @@ namespace DChild.Menu.Trade
         [SerializeField, InlineEditor]
         private TradeAskingPriceData m_priceModifierData;
 
-        public int GetAskingPrice(ItemData data)
+        public ItemCost GetAskingPrice(ItemData data)
         {
-            var modifiedPrice = -1;
+            var modifiedPrice = new ItemCost(-1, -1);
             if (m_priceModifierData != null)
             {
-                if (m_priceModifierData.TryGetPriceModifier(data, out int value))
+                if (m_priceModifierData.TryGetPriceModifierNew(data, out ItemCost value))
                 {
                     modifiedPrice = value;
                 }
             }
-            if (modifiedPrice < 0)
-            {
-                return data.cost;
-            }
-            else
-            {
-                return modifiedPrice;
-            }
+
+            var soulEssenceType = Gameplay.Trade.CurrencyType.SoulEssence;
+            var soulEssencePrice = modifiedPrice.GetCostOfType(soulEssenceType) < 0 ? data.cost.GetCostOfType(soulEssenceType) : modifiedPrice.GetCostOfType(soulEssenceType);
+            var silverCoinType = Gameplay.Trade.CurrencyType.SilverCoin;
+            var silverCointPrice = modifiedPrice.GetCostOfType(silverCoinType) < 0 ? data.cost.GetCostOfType(silverCoinType) : modifiedPrice.GetCostOfType(silverCoinType);
+
+            return new ItemCost(soulEssencePrice, silverCointPrice);
         }
     }
 }

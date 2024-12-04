@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Trade
 {
+
     public class TradeDebugger : SerializedMonoBehaviour
     {
         [SerializeField]
@@ -15,6 +16,8 @@ namespace DChild.Gameplay.Trade
         [SerializeField]
         private TradeRates m_rates;
         [SerializeField]
+        private CurrencyType m_currencyType;
+        [SerializeField]
         private TradeManager m_manager;
 
 
@@ -24,7 +27,7 @@ namespace DChild.Gameplay.Trade
             //m_manager.SetSellerProfile(m_merchantProfile);
             ////m_manager.SetSellingTradeRates(m_rates.sellAskingPrice);
             //m_manager.SetupTrade(m_player, m_merchant);
-            GameplaySystem.gamplayUIHandle.OpenTradeWindow(null, null, null);
+            GameplaySystem.gamplayUIHandle.OpenTradeWindow(null, null, null, m_currencyType);
         }
     }
 }
