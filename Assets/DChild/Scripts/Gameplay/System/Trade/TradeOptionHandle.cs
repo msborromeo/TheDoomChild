@@ -1,4 +1,5 @@
-﻿using Holysoft.UI;
+﻿using Doozy.Runtime.UIManager.Components;
+using Holysoft.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,9 +10,16 @@ namespace DChild.Menu.Trade
     {
         private TradeType m_tradeType;
         [SerializeField]
+        private UIButton m_tradeButton;
+        [SerializeField]
         private TextMeshProUGUI m_tradeButtonLabel;
 
         public TradeType tradeType => m_tradeType;
+
+        public void SetInteractability(bool interactability)
+        {
+            m_tradeButton.interactable = interactability;
+        }
 
         public void ChangeToBuyOption(bool instant)
         {

@@ -80,8 +80,6 @@ namespace DChild.Gameplay.Trade
         }
 
         #region ITradeInventory Implementation
-        int ITradeInventory.currency => 999999;
-
         ITradeItem[] ITradeInventory.FindTradeItemsOfType(ItemCategory category) => m_inventory.FindTradeItemsOfType(category);
 
         ITradeItem[] ITradeInventory.GetTradableItems() => m_inventory.GetTradableItems();

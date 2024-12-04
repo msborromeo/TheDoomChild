@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.Systems;
+using DChild.Gameplay.Trade;
 using DChild.Temp;
 using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
@@ -9,6 +10,8 @@ namespace DChild.Gameplay.UI
 {
     public class CurrencyUI : SerializedMonoBehaviour
     {
+        [SerializeField]
+        private CurrencyType m_typeToMonitor;
         [SerializeField]
         private UIContainer m_addedCurrencyContainer;
         [SerializeField]
@@ -74,19 +77,25 @@ namespace DChild.Gameplay.UI
                 m_currency.OnAmountSet -= OnAmountSet;
             }
             m_currency = currency;
-            currentAmount = m_currency.amount;
+            currentAmount = m_currency.GetCurrencyAmount(m_typeToMonitor);
             m_currency.OnAmountAdded += OnAmountAdded;
             m_currency.OnAmountSet += OnAmountSet;
         }
 
         private void OnAmountSet(object sender, CurrencyUpdateEventArgs eventArgs)
         {
+            if (m_typeToMonitor != eventArgs.type)
+                return;
+
             m_currentAmountText.text = eventArgs.amount.ToString();
             m_currentAmount = eventArgs.amount;
         }
 
         private void OnAmountAdded(object sender, CurrencyUpdateEventArgs eventArgs)
         {
+            if (m_typeToMonitor != eventArgs.type)
+                return;
+
             addedAmount += eventArgs.amount;
             m_delayTimer = m_addAmountDelay;
             m_delayAddingOfAmount = true;
