@@ -68,7 +68,7 @@ namespace DChild.Gameplay.Items
         {
             var connection = DChildDatabase.GetItemConnection();
             connection.Initialize();
-            m_ID = connection.Insert(Mathf.Abs(m_ID), m_name, m_description, m_quantityLimit, cost);
+            m_ID = connection.Insert(Mathf.Abs(m_ID), m_name, m_description, m_quantityLimit, cost.GetCostOfType(Trade.CurrencyType.SoulEssence));
             m_databaseID = m_ID;
             m_customName = m_name;
             m_connectToDatabase = true;
@@ -91,7 +91,7 @@ namespace DChild.Gameplay.Items
         {
             var connection = DChildDatabase.GetItemConnection();
             connection.Initialize();
-            connection.Update(m_ID, m_description, m_quantityLimit, cost);
+            connection.Update(m_ID, m_description, m_quantityLimit, cost.GetCostOfType(Trade.CurrencyType.SoulEssence));
             connection.Close();
         }
 
@@ -153,8 +153,7 @@ namespace DChild.Gameplay.Items
 
         public Sprite icon { get => m_icon; }
         public int quantityLimit { get => m_quantityLimit; }
-        public int cost { get => m_cost.GetCostOfType(Trade.CurrencyType.SoulEssence); }
-        public ItemCost newCost { get => m_cost; }
+        public ItemCost cost { get => m_cost; }
         public string description { get => m_description; }
         public bool canBeSold => m_canBeSold;
         public virtual bool hasInfiniteUses => false;
