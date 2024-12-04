@@ -602,25 +602,22 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void SwapPustuleBombPosition()
         {
-            if(m_PustuleBombsPosition.Count<=0)
+            if (m_PustuleBombsPosition.Count <= 0)
             {
                 return;
             }
             var randomSwap = UnityEngine.Random.Range(1, 100);
             var shouldSwap = randomSwap <= 50 ? true : false;
-            if (shouldSwap) 
+            if (shouldSwap)
             {
-                var random = UnityEngine.Random.Range(1, 100);
-                var pustuleBombPosition = m_startPos;
-                Vector3 randomPustuleBombPosition;
-                var index = random % m_PustuleBombsPosition.Count;
-                randomPustuleBombPosition = m_PustuleBombsPosition[index].transform.position;
+                var pustuleBombPosition = m_parentObject.transform.position;
+                var index = UnityEngine.Random.Range(0, m_PustuleBombsPosition.Count);
+                Vector3 randomPustuleBombPosition = m_PustuleBombsPosition[index].transform.position;
                 m_PustuleBombsPosition[index].transform.position = pustuleBombPosition;
                 m_parentObject.transform.position = randomPustuleBombPosition;
             }
             m_wayPointPatrol.wayPoints[0].Set(m_parentObject.transform.position.x, m_parentObject.transform.position.y);
             m_stateHandle.OverrideState(State.Patrol);
-            
         }
 
         protected override void Start()
