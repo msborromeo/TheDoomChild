@@ -18,7 +18,7 @@ namespace DChild.Menu.Trade
             var modifiedPrice = new ItemCost(-1, -1);
             if (m_priceModifierData != null)
             {
-                if (m_priceModifierData.TryGetPriceModifierNew(data, out ItemCost value))
+                if (m_priceModifierData.TryGetPriceModifier(data, out ItemCost value))
                 {
                     modifiedPrice = value;
                 }

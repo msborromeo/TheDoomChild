@@ -65,7 +65,7 @@ namespace DChild.Gameplay.Environment
         public bool CanBeInteracted(Character character)
         {
             var inventory = character.GetComponent<PlayerControlledObject>().owner.inventory;
-            return inventory.currency >= m_amountRequired;
+            return inventory.GetCurrencyAmount(Trade.CurrencyType.SoulEssence) >= m_amountRequired;
         }
 
         public void Interact(Character character)
@@ -81,7 +81,7 @@ namespace DChild.Gameplay.Environment
             }
             else
             {
-                var getAmount = Mathf.Min(inventory.currency, m_amountRequired - m_currentAmount);
+                var getAmount = Mathf.Min(inventory.GetCurrencyAmount(Trade.CurrencyType.SoulEssence), m_amountRequired - m_currentAmount);
                 m_currentAmount += getAmount;
                 inventory.AddSoulEssence(-getAmount);
                 if (m_currentAmount == m_amountRequired)

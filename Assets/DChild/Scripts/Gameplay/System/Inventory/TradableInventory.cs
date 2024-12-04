@@ -32,7 +32,7 @@ namespace DChild.Gameplay.Inventories
                     }
                     else
                     {
-                        return m_data?.cost ?? new ItemCost(0,0);
+                        return m_data?.cost ?? new ItemCost(0, 0);
                     }
                 }
             }
@@ -62,8 +62,6 @@ namespace DChild.Gameplay.Inventories
             m_restrictItemsToQuanitityLimit = restrictItemsToQuanitityLimit;
         }
 
-        public int currency => soulEssence;
-
         public int GetCurrencyAmount(CurrencyType currencyType)
         {
             switch (currencyType)
@@ -71,7 +69,7 @@ namespace DChild.Gameplay.Inventories
                 case CurrencyType.SoulEssence:
                     return soulEssence;
                 case CurrencyType.SilverCoin:
-                    return GetStoredItem(GameplaySystem.constantsReference.silverCoinItemData).count;
+                    return GetStoredItem(GameplaySystem.constantsReference.silverCoinItemData)?.count ?? 0;
             }
             return 0;
         }
@@ -84,7 +82,14 @@ namespace DChild.Gameplay.Inventories
                     soulEssence += amount;
                     break;
                 case CurrencyType.SilverCoin:
-                    AddItem(GameplaySystem.constantsReference.silverCoinItemData, amount);
+                    if (amount >= 0)
+                    {
+                        AddItem(GameplaySystem.constantsReference.silverCoinItemData, amount);
+                    }
+                    else
+                    {
+                        RemoveItem(GameplaySystem.constantsReference.silverCoinItemData, Mathf.Abs(amount));
+                    }
                     break;
             }
         }
@@ -182,7 +187,7 @@ namespace DChild.Gameplay.Inventories
         {
             for (int i = 0; i < m_items.Count; i++)
             {
-                if(m_items[i].data == item)
+                if (m_items[i].data == item)
                 {
                     return m_items[i];
                 }

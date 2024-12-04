@@ -25,6 +25,16 @@ namespace DChild.Gameplay.Trade
         public ITradeItem currentItemBeingTraded => m_currentItemBeingTraded;
         public ITradeTransactionInfo transactionInfo => m_transaction;
         public ITradeInventory currentSeller => m_seller;
+        public CurrencyType currencyTypeToTrade => m_currencyTypeToTrade;
+
+        public bool CanBuyerAffordTransaction(int inferredIncreasedAmount = 0)
+        {
+            var sellerHasEnoughItem = m_currentItemBeingTraded.count >= m_transaction.count + inferredIncreasedAmount;
+            var buyerHasEnoughMoney = m_buyer.GetCurrencyAmount(m_currencyTypeToTrade) >= m_transaction.totalCost + (m_currentItemBeingTraded.cost.GetCostOfType(m_currencyTypeToTrade) * inferredIncreasedAmount);
+            var buyerCanStoreItem = m_buyer.HasSpaceFor(m_transaction.item, m_transaction.count + inferredIncreasedAmount);
+
+            return sellerHasEnoughItem && buyerHasEnoughMoney && buyerCanStoreItem;
+        }
 
         public void SetCurrencyToTrade(CurrencyType type) => m_currencyTypeToTrade = type;
 
@@ -44,10 +54,7 @@ namespace DChild.Gameplay.Trade
 
         public void IncreaseItemCount()
         {
-            var sellerHasEnoughItem = m_currentItemBeingTraded.count >= m_transaction.count + 1;
-            var buyerHasEnoughMoney = m_buyer.currency >= m_transaction.totalCost + m_currentItemBeingTraded.cost.GetCostOfType(m_currencyTypeToTrade);
-            var buyerCanStoreItem = m_buyer.HasSpaceFor(m_transaction.item, m_transaction.count + 1);
-            if (sellerHasEnoughItem && buyerHasEnoughMoney && buyerCanStoreItem)
+            if (CanBuyerAffordTransaction(1))
             {
                 m_transaction.IncreaseItemCount(1);
             }

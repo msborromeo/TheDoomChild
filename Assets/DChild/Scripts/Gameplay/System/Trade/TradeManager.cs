@@ -28,7 +28,7 @@ namespace DChild.Gameplay.Trade
         [SerializeField]
         private ItemUI m_firstSelectedItemUI;
         [SerializeField]
-        private ItemDetailsUI m_itemBeingTradedUI;
+        private TradeDetailsUI m_itemBeingTradedUI;
         [SerializeField]
         private NPCProfileUI m_sellerProfile;
         [SerializeField]
@@ -42,6 +42,7 @@ namespace DChild.Gameplay.Trade
             m_tradeHandle.SetCurrencyToTrade(type);
             m_tradeHandle.SetTraders(buyer, seller);
             m_tradeOption.ChangeToBuyOption(true);
+            m_itemBeingTradedUI.SetCostTypeToDisplay(type);
             ResetTradeUI();
             UpdateCurrencyUI();
         }
@@ -62,6 +63,13 @@ namespace DChild.Gameplay.Trade
             m_tradeHandle.SetItemToTrade((ITradeItem)item.reference);
             m_highlight.enabled = true;
             m_highlight.rectTransform.position = item.transform.position;
+            UpdateTradeInteractability();
+        }
+
+        private void UpdateTradeInteractability()
+        {
+            var enableTradeButton = m_tradeHandle.CanBuyerAffordTransaction();
+            m_tradeOption.SetInteractability(enableTradeButton);
         }
 
         public void SetTradeFilter(ItemCategory filter)
@@ -87,7 +95,8 @@ namespace DChild.Gameplay.Trade
         {
             var transaction = m_tradeHandle.transactionInfo;
             var pluralization = transaction.count > 1 ? "s " : " ";
-            var message = $"Would you like to Trade {transaction.count} {transaction.item.itemName}{pluralization}for S.E {transaction.totalCost}";
+            var currencyTypeMsg = GetCurrencyTypeInString();
+            var message = $"Would you like to Trade {transaction.count} {transaction.item.itemName}{pluralization} for {currencyTypeMsg} {transaction.totalCost}";
             m_tradeConfirmation.RequestConfirmation(OnTradeConfirmed, message);
         }
 
@@ -103,11 +112,26 @@ namespace DChild.Gameplay.Trade
                 m_tradeHandle.SetItemToTrade(m_tradeHandle.currentItemBeingTraded);
             }
             UpdateCurrencyUI();
+            UpdateTradeInteractability();
+        }
+
+        private string GetCurrencyTypeInString()
+        {
+            switch (m_tradeHandle.currencyTypeToTrade)
+            {
+                case CurrencyType.SoulEssence:
+                    return "S.E";
+
+                case CurrencyType.SilverCoin:
+                    return "S.C";
+                default:
+                    return "N/A";
+            }
         }
 
         private void UpdateCurrencyUI()
         {
-            m_playerCurrencies.UpdateUI(GameplaySystem.playerManager.player.inventory.currency, 0);
+            m_playerCurrencies.UpdateUI(GameplaySystem.playerManager.player.inventory.GetCurrencyAmount(CurrencyType.SoulEssence), 0);
         }
         private void Awake()
         {

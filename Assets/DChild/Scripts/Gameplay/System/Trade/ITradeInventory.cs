@@ -9,7 +9,6 @@ namespace DChild.Gameplay.Trade
 
     public interface ITradeInventory
     {
-        int currency { get; }
         int GetCurrencyAmount(CurrencyType currencyType);
         void AddCurrency(CurrencyType currencyType, int value);
         void AddItem(ItemData item, int count);
