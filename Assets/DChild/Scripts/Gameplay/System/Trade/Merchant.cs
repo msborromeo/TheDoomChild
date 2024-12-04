@@ -41,7 +41,7 @@ namespace DChild.Gameplay.Trade
         [Button, HideInEditorMode]
         public void CommenceTrade()
         {
-            GameplaySystem.gamplayUIHandle.OpenTradeWindow(m_npcData, m_store, m_store.tradeRates?.sellAskingPrice ?? null);
+            GameplaySystem.gamplayUIHandle.OpenTradeWindow(m_npcData, m_store, m_store.tradeRates?.sellAskingPrice ?? null,m_store.currencyType);
         }
 
         private void OnDrawGizmosSelected()

@@ -31,7 +31,7 @@ namespace DChild.Gameplay.Trade.UI
             }
             else
             {
-                m_costLabel.text = ((ITradeItem)reference).cost.ToString();
+                m_costLabel.text = ((ITradeItem)reference).cost.GetCostOfType(CurrencyType.SoulEssence).ToString();
                 m_countLabel.text = reference.hasInfiniteCount? "99" : reference.count.ToString();
             }
         }

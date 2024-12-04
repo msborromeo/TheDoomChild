@@ -63,9 +63,9 @@ namespace DChild.Gameplay.Systems
             UnderworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage);
         }
 
-        public void OpenTradeWindow(NPCProfile merchantData, ITradeInventory merchantInventory, TradeAskingPrice merchantBuyingPriceRate)
+        public void OpenTradeWindow(NPCProfile merchantData, ITradeInventory merchantInventory, TradeAskingPrice merchantBuyingPriceRate, CurrencyType type)
         {
-            UnderworldGameplayUIHandle.Instance.OpenTradeWindow(merchantData, merchantInventory, merchantBuyingPriceRate);
+            UnderworldGameplayUIHandle.Instance.OpenTradeWindow(merchantData, merchantInventory, merchantBuyingPriceRate, type);
         }
 
         public void OpenWeaponUpgradeConfirmationWindow()

@@ -37,8 +37,9 @@ namespace DChild.Gameplay.Trade
         [SerializeField]
         private ConfirmationHandler m_tradeConfirmation;
 
-        public void SetupTrade(ITradeInventory buyer, ITradeInventory seller)
+        public void SetupTrade(ITradeInventory buyer, ITradeInventory seller, CurrencyType type)
         {
+            m_tradeHandle.SetCurrencyToTrade(type);
             m_tradeHandle.SetTraders(buyer, seller);
             m_tradeOption.ChangeToBuyOption(true);
             ResetTradeUI();
@@ -106,7 +107,7 @@ namespace DChild.Gameplay.Trade
 
         private void UpdateCurrencyUI()
         {
-           m_playerCurrencies.UpdateUI(GameplaySystem.playerManager.player.inventory.currency, 0);
+            m_playerCurrencies.UpdateUI(GameplaySystem.playerManager.player.inventory.currency, 0);
         }
         private void Awake()
         {

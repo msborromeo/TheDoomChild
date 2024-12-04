@@ -16,6 +16,7 @@ namespace DChild.Gameplay
     {
         private static GameplayUIHandle uiHandle = new GameplayUIHandle();
 
+        public static GameplayConstantsReference constantsReference => BaseGameplaySystem.constantsReference;
         public static GameplayModifiers modifiers { get => BaseGameplaySystem.modifiers; }
         public static AudioListenerPositioner audioListener { get => BaseGameplaySystem.audioListener; }
         public static IGameplayUIHandle gamplayUIHandle { get => uiHandle; }
@@ -147,7 +148,7 @@ namespace DChild.Gameplay
             {
                 OverworldGameplaySystem.RequestForPlayerCharacterTeleport(position);
             }
-            else if(GetCurrentWorldType() == WorldType.Underworld)
+            else if (GetCurrentWorldType() == WorldType.Underworld)
             {
                 UnderworldGameplaySystem.RequestForPlayerCharacterTeleport(position);
             }

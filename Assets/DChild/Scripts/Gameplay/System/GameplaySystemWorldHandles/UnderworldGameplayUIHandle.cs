@@ -85,11 +85,11 @@ namespace DChild.Gameplay.Systems
             m_navMap.UpdateConfiguration(location, sceneIndex, inGameReference, mapReferencePoint, calculationOffset);
         }
 
-        public void OpenTradeWindow(NPCProfile merchantData, ITradeInventory merchantInventory, TradeAskingPrice merchantBuyingPriceRate)
+        public void OpenTradeWindow(NPCProfile merchantData, ITradeInventory merchantInventory, TradeAskingPrice merchantBuyingPriceRate, CurrencyType type)
         {
             m_tradeManager.SetSellerProfile(merchantData);
             m_tradeManager.SetSellingTradeRates(merchantBuyingPriceRate);
-            m_tradeManager.SetupTrade(GameplaySystem.playerManager.player.inventory, merchantInventory);
+            m_tradeManager.SetupTrade(GameplaySystem.playerManager.player.inventory, merchantInventory, type);
             m_tradeWindowSignal.SendSignal();
         }
 
