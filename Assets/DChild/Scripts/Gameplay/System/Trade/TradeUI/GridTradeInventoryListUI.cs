@@ -63,6 +63,11 @@ namespace DChild.Gameplay.Trade.UI
         {
             SetPage(1);
         }
+
+        public override void SwapItems(ItemUI itemOne, ItemUI itemTwo)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
 }
