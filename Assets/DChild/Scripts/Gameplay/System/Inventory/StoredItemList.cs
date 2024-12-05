@@ -57,6 +57,7 @@ namespace DChild.Gameplay.Inventories
         public abstract void SetItemAsInfinite(ItemData data, bool isInfinite);
 
         public abstract IStoredItem[] FindStoredItemsOfType(ItemCategory category);
+        public abstract void SwapItems(ItemData itemOne, ItemData itemTwo);
 
         public abstract IStoredItem GetItem(int index);
         public abstract IStoredItem GetItem(ItemData itemData);
@@ -75,6 +76,7 @@ namespace DChild.Gameplay.Inventories
                 }
             }
         }
+
     }
 
     [System.Serializable]
@@ -181,6 +183,36 @@ namespace DChild.Gameplay.Inventories
                     return item;
             }
             return null;
+        }
+
+        public override void SwapItems(ItemData itemOne, ItemData itemTwo)
+        {
+            var slotItemOne = GetItem(itemOne);
+            var slotItemTwo = GetItem(itemTwo);
+            var bothItemsExistInList = slotItemOne != null && slotItemTwo != null;
+
+            if (!bothItemsExistInList)
+                return;
+
+            var itemOneIndex = FindIndex(slotItemOne);
+            var itemTwoIndex = FindIndex(slotItemTwo);
+
+            var temp = m_items[itemOneIndex];
+            m_items[itemOneIndex] = m_items[itemTwoIndex];
+            m_items[itemTwoIndex] = temp;
+            
+        }
+
+        private int FindIndex(IStoredItem item)
+        {
+            for (int i = 0; i < m_items.Count; i++)
+            {
+                if(m_items[i].data == item.data)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         protected bool TryGetStoredItem(ItemData data, out T storedItem)

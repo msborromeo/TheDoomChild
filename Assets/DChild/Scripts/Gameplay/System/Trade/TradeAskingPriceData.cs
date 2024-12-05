@@ -13,17 +13,9 @@ namespace DChild.Menu.Trade
     public class TradeAskingPriceData : SerializedScriptableObject
     {
         [OdinSerialize, HideReferenceObjectPicker, OnValueChanged("UpdatePrice", true)]
-        private Dictionary<ItemData, int> m_priceModifier = new Dictionary<ItemData, int>();
-
-        [OdinSerialize, HideReferenceObjectPicker, OnValueChanged("UpdatePrice", true)]
         private Dictionary<ItemData, ItemCost> m_newPriceModifier = new Dictionary<ItemData, ItemCost>();
 
-        public bool TryGetPriceModifier(ItemData data, out int value)
-        {
-            return m_priceModifier.TryGetValue(data, out value);
-        }
-
-        public bool TryGetPriceModifierNew(ItemData data, out ItemCost value)
+        public bool TryGetPriceModifier(ItemData data, out ItemCost value)
         {
             return m_newPriceModifier.TryGetValue(data, out value);
         }
@@ -32,53 +24,11 @@ namespace DChild.Menu.Trade
         [SerializeField, PropertyOrder(-1)]
         private ItemList m_reference;
 
-        [SerializeField, ReadOnly, HideInInlineEditors, PropertySpace(SpaceBefore = 20)]
-        private Dictionary<ItemData, int> m_price;
-
-        private void UpdatePrice()
-        {
-            if (m_price == null)
-            {
-                m_price = new Dictionary<ItemData, int>();
-            }
-
-            m_price.Clear();
-            foreach (var item in m_priceModifier.Keys)
-            {
-                if (m_priceModifier[item] < 0)
-                {
-                    //Use Original Price
-                    m_price.Add(item, item.cost.GetCostOfType(Gameplay.Trade.CurrencyType.SoulEssence));
-                }
-                else
-                {
-                    m_price.Add(item, m_priceModifier[item]);
-                }
-
-            }
-        }
-
-        [Button, PropertyOrder(-1)]
-        private void AddItemsToList()
-        {
-            var ids = m_reference.GetIDs();
-            for (int i = 0; i < ids.Length; i++)
-            {
-                var item = m_reference.GetInfo(ids[i]);
-                if (m_priceModifier.ContainsKey(item) == false)
-                {
-                    m_priceModifier.Add(item, -1);
-                    EditorUtility.SetDirty(this);
-                }
-            }
-            UpdatePrice();
-        }
-
-
+      
         [SerializeField, ReadOnly, HideInInlineEditors, PropertySpace(SpaceBefore = 20)]
         private Dictionary<ItemData, ItemCost> m_newPrice;
 
-        private void UpdateNewPrice()
+        private void UpdatePrice()
         {
             if (m_newPrice == null)
             {
@@ -86,7 +36,7 @@ namespace DChild.Menu.Trade
             }
 
             m_newPrice.Clear();
-            foreach (var item in m_priceModifier.Keys)
+            foreach (var item in m_newPriceModifier.Keys)
             {
                 var modifiedPrice = m_newPriceModifier[item];
                 var soulEssenceType = Gameplay.Trade.CurrencyType.SoulEssence;
@@ -112,15 +62,6 @@ namespace DChild.Menu.Trade
                 }
             }
             UpdatePrice();
-        }
-
-        [Button]
-        private void TransistionToNewStructure()
-        {
-            foreach (var item in m_priceModifier.Keys)
-            {
-                m_newPriceModifier.Add(item, new ItemCost(m_priceModifier[item], 0));
-            }
         }
 #endif
     }

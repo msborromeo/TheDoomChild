@@ -1,6 +1,7 @@
 using DChild.Gameplay.Characters.Players;
 using DChild.Gameplay.Environment.Interractables;
 using DChild.Gameplay.Systems;
+using DChild.Gameplay.Trade;
 using DChild.Serialization;
 using DChild.Temp;
 using Holysoft.Event;
@@ -13,6 +14,8 @@ namespace DChild.Gameplay.Items
 {
     public class ItemExchangeInteraction : MonoBehaviour, IButtonToInteract, IInteractionRequirement
     {
+        [SerializeField]
+        private CurrencyType m_currencyType;
         [InfoBox("When interacted, it will take soul essence when it has not reached the amount, it will give soul essence whn it has reached the amount")]
         [SerializeField, MinValue(1), OnValueChanged("OnAmountChanged")]
         private int m_amountRequired;
@@ -43,7 +46,7 @@ namespace DChild.Gameplay.Items
         public bool CanBeInteracted(Character character)
         {
             var inventory = character.GetComponent<PlayerControlledObject>().owner.inventory;
-            return inventory.currency >= m_amountRequired;
+            return inventory.GetCurrencyAmount(m_currencyType) >= m_amountRequired;
         }
 
         public void Interact(Character character)
@@ -59,7 +62,7 @@ namespace DChild.Gameplay.Items
             }
             else
             {
-                var getAmount = Mathf.Min(inventory.currency, m_amountRequired - m_currentAmount);
+                var getAmount = Mathf.Min(inventory.GetCurrencyAmount(m_currencyType), m_amountRequired - m_currentAmount);
                 m_currentAmount += getAmount;
                 inventory.AddSoulEssence(-getAmount);
                 if (m_currentAmount == m_amountRequired)

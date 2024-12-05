@@ -45,8 +45,6 @@ namespace DChild.Gameplay.Inventories
         }
 
         public int storedItemCount => m_inventory.storedItemCount;
-        public int currency => m_inventory.currency;
-        int ICurrency.amount => m_inventory.currency;
 
         public int GetCurrencyAmount(CurrencyType currencyType) => m_inventory.GetCurrencyAmount(currencyType);
 
@@ -120,13 +118,13 @@ namespace DChild.Gameplay.Inventories
         public void AddSoulEssence(int value)
         {
             m_inventory.AddCurrency(CurrencyType.SoulEssence,value);
-            OnAmountAdded?.Invoke(this, new CurrencyUpdateEventArgs(value));
+            OnAmountAdded?.Invoke(this, new CurrencyUpdateEventArgs(CurrencyType.SoulEssence,value));
         }
 
         public void SetSoulEssence(int value)
         {
             m_inventory.SetCurrency(CurrencyType.SoulEssence, value);
-            OnAmountSet?.Invoke(this, new CurrencyUpdateEventArgs(value));
+            OnAmountSet?.Invoke(this, new CurrencyUpdateEventArgs(CurrencyType.SoulEssence,value));
         }
 
         #region ITradeInventory Implementation
@@ -134,7 +132,7 @@ namespace DChild.Gameplay.Inventories
         void ITradeInventory.AddCurrency(CurrencyType type, int value)
         {
             m_inventory.AddCurrency(type,value);
-            OnAmountAdded?.Invoke(this, new CurrencyUpdateEventArgs(value));
+            OnAmountAdded?.Invoke(this, new CurrencyUpdateEventArgs(type,value));
         }
 
         ITradeItem[] ITradeInventory.FindTradeItemsOfType(ItemCategory category) => m_inventory.FindTradeItemsOfType(category);
@@ -151,6 +149,11 @@ namespace DChild.Gameplay.Inventories
         public IStoredItem GetItem(ItemData item)
         {
             return m_inventory.GetStoredItem(item);
+        }
+
+        public void SwapItems(ItemData itemOne, ItemData itemTwo)
+        {
+            m_inventory.SwapItems(itemOne, itemTwo);
         }
         #endregion
     }

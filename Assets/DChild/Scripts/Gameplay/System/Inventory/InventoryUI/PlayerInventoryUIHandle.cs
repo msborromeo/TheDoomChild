@@ -33,6 +33,12 @@ namespace DChild.Gameplay.Inventories.UI
             }
         }
 
+        [Button]
+        public void SwapItems(ItemUI itemOne, ItemUI itemTwo)
+        {
+            m_listUI.SwapItems(itemOne, itemTwo);
+            m_listUI.UpdateUIList();
+        }
         public void Initialize()
         {
             m_listUI.Reset();
