@@ -18,6 +18,11 @@ namespace DChild.Gameplay.Inventories.UI
             m_availableSlot = itemUICount - 1;
         }
 
+        public override void SwapItems(ItemUI itemOne, ItemUI itemTwo)
+        {
+            m_inventory.SwapItems(itemOne.reference.data, itemTwo.reference.data);
+        }
+
 
         [Button, HideInEditorMode, PropertyOrder(-1)]
         public override void UpdateUIList()
