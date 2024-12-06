@@ -10,6 +10,8 @@ namespace DChild.Gameplay.FastTravel
         [SerializeField]
         private FastTravelData m_data;
 
+        public FastTravelData data => m_data;
+
         public void SetData(FastTravelData data)
         {
             m_data = data;

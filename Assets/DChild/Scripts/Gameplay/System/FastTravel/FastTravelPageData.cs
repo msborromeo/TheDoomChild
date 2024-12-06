@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace DChild.Gameplay.FastTravel
 {
-    [CreateAssetMenu(fileName = "FastTravelDataList", menuName = "DChild/Gameplay/Fast Travel/FastTravel List")]
-    public class FastTravelDataList : ScriptableObject
+    [CreateAssetMenu(fileName = "FastTravelPageData", menuName = "DChild/Gameplay/Fast Travel/FastTravel Page Data")]
+    public class FastTravelPageData : ScriptableObject
     {
         [SerializeField]
         private Location m_location;

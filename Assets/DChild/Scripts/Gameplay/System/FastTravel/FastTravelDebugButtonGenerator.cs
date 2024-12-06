@@ -7,7 +7,7 @@ namespace DChild.Gameplay.FastTravel.Debug
     public class FastTravelDebugButtonGenerator : MonoBehaviour
     {
         [SerializeField]
-        private FastTravelDataList m_toInstantiate;
+        private FastTravelPageData m_toInstantiate;
         [SerializeField]
         private GameObject m_button;
         [SerializeField]
