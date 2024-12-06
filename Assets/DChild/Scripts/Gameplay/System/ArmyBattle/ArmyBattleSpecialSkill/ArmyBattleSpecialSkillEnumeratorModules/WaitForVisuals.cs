@@ -38,6 +38,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
                     yield return HandleSpineVisuals(owner,target);
                     break;
                 case VisualType.VFX:
+                    yield return HandleSpineVFX(owner, target);
                     break;
             }
         }
@@ -70,8 +71,8 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
             var fx = CreateFX(owner, target);
             yield return null;
 
-            fx.GetComponent<ArmySpecialSkillVfx>();
-            while (!m_fxStatus.m_iseffectdone)
+            var specialSkillFX = fx.GetComponent<ArmySpecialSkillVfx>();
+            while (!specialSkillFX.m_iseffectdone)
             {
                 yield return null; 
             }
