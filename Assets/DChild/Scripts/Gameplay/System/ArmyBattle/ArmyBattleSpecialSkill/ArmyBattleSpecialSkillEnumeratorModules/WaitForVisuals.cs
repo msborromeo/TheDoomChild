@@ -74,6 +74,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
             var specialSkillFX = fx.GetComponent<ArmySpecialSkillVfx>();
             while (!specialSkillFX.m_iseffectdone)
             {
+                specialSkillFX.PlayEffects();
                 yield return null; 
             }
             Debug.Log("Effects finish!");

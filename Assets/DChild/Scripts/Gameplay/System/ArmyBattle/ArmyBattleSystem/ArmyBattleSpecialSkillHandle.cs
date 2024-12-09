@@ -112,6 +112,10 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
                         StartCoroutine(ApplyInstantSpecialSkillRoutine(skill, owner, target));
                         break;
                     case SpecialSkill.Type.Turn:
+                        var turnActiveList = ArmyBattleSystem.GetPlayer() == owner ? m_playerActiveSkills.GetSkillTypeList(specialSkill.type) : m_enemyActiveSkills.GetSkillTypeList(specialSkill.type);
+                        turnActiveList.Add(skill);
+                        //StartCoroutine(ApplyTurnSpecialSkillsRoutine(turnActiveList));
+                        break;
                     case SpecialSkill.Type.Waiting:
                         var activeList = ArmyBattleSystem.GetPlayer() == owner ? m_playerActiveSkills.GetSkillTypeList(specialSkill.type) : m_enemyActiveSkills.GetSkillTypeList(specialSkill.type);
                         activeList.Add(skill);

@@ -90,6 +90,7 @@ namespace DChild.Gameplay.ArmyBattle
         [SerializeField]
         private int m_currentturn=1;
         private SkeletonAnimation skeletonAnimation;
+
         [Button, HideInPrefabAssets]
         public void PlayEffects()
         {
