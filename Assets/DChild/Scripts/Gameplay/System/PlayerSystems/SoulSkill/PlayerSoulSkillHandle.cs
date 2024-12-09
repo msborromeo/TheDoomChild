@@ -67,6 +67,11 @@ namespace DChild.Gameplay.SoulSkills
             SaveDataLoaded?.Invoke(this, EventActionArgs.Empty);
         }
 
+        public void AddSoulSkillEnergyPoint(int increment)
+        {
+            m_currentSoulCapacity += increment;
+        }
+
         public void AddAsAcquired(int soulSkillID)
         {
             m_acquiredSkills.Add(soulSkillID);
