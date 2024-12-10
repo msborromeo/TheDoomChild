@@ -118,6 +118,10 @@ namespace DChild.Gameplay.Environment
                 float souls = m_lootList.soulEssenceAmount * GameplaySystem.modifiers.SoulessenceAbsorption;
                 playerInventory.AddSoulEssence((int)souls);
             }
+            if(m_lootList.aetherPointsAmount >= 0)
+            {
+                GameplaySystem.playerManager.player.soulSkills.AddSoulSkillEnergyPoint(m_lootList.aetherPointsAmount);
+            }
         }
 
         private void SendNotification()

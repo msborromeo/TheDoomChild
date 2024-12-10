@@ -152,7 +152,7 @@ namespace DChild.Gameplay.SoulSkills
 
             m_player.inventory.SoulSkillItemAcquired += OnSoulSkillItemAcquired;
 
-            m_currentSoulCapacity = m_maxSoulCapacity;
+            m_currentSoulCapacity = 23; //temporary setting to keep a lot of soul capacity but also allow testing of dark aether pickups
         }
 
         private void OnSoulSkillItemAcquired(object sender, SoulSkillAcquiredEventArgs eventArgs)
