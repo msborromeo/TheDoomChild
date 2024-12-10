@@ -11,7 +11,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TownGateHandler : MonoBehaviour , IButtonToInteract
+public class TownGateHandler : MonoBehaviour, IButtonToInteract
 {
     [SerializeField, TabGroup("Reference")]
     private SkeletonAnimation m_SkeletonAnimation;
@@ -27,8 +27,6 @@ public class TownGateHandler : MonoBehaviour , IButtonToInteract
     private SkeletonDataAsset m_GateAnimation;
     [SerializeField]
     public Vector3 m_Offset;
-    [SerializeField]
-    private UnityEvent m_onInteraction;
 
     public event EventAction<EventActionArgs> InteractionOptionChange;
 
@@ -36,7 +34,7 @@ public class TownGateHandler : MonoBehaviour , IButtonToInteract
 
     public string promptMessage => "Town Portal";
 
-    public Vector3 promptPosition => transform.position+m_Offset;
+    public Vector3 promptPosition => transform.position + m_Offset;
 
     private void Start()
     {
@@ -97,7 +95,7 @@ public class TownGateHandler : MonoBehaviour , IButtonToInteract
     [Button, HideInEditorMode]
     public void Interact(Character character)
     {
-        m_onInteraction?.Invoke();
+        GameplaySystem.gamplayUIHandle.OpenFastTravel(m_Poster.data.location);
     }
 
     private void OnDrawGizmosSelected()

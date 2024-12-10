@@ -1,17 +1,20 @@
-using DChild.Gameplay.Characters.Players.Modules;
-using DChild.Gameplay.Systems;
-using DChild.Gameplay.Systems.Serialization;
-using DChild.Menu;
-using Doozy.Runtime.UIManager.Components;
-using UnityEditor;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DChild.Gameplay.FastTravel
 {
     public class FastTravelLocationTab : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, OnValueChanged("OnDataChange")]
         private FastTravelPageData m_locationList;
-        public FastTravelPageData locationList => m_locationList;        
+        [SerializeField]
+        private Image m_icon;
+        public FastTravelPageData locationList => m_locationList;
+
+        private void OnDataChange()
+        {
+            m_icon.sprite = m_locationList?.tabIcon ?? null;
+        }
     }
 }

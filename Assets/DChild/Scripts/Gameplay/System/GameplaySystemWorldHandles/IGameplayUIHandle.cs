@@ -25,6 +25,7 @@ namespace DChild.Gameplay.Systems
 
         void UpdateNavMapConfiguration(Location location, int sceneIndex, Transform inGameReference, Vector2 mapReferencePoint, Vector2 calculationOffset);
         void OpenTradeWindow(NPCProfile merchantData, ITradeInventory merchantInventory, TradeAskingPrice merchantBuyingPriceRate, CurrencyType type);
+        void OpenFastTravel(Location startingLocation);
         void OpenWeaponUpgradeConfirmationWindow();
         void OpenStoreAtPage(StorePage storePage);
         void OpenStore();
