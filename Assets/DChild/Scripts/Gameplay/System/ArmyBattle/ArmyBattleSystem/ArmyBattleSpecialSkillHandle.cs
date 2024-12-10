@@ -57,8 +57,15 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
 
             public void DestroyVisuals()
             {
-                Destroy(m_ownerVisuals.gameObject);
-                Destroy(m_targetVisuals.gameObject);
+                if(m_ownerVisuals != null)
+                {
+                    Destroy(m_ownerVisuals.gameObject);
+                }
+                if(m_targetVisuals != null)
+                {
+                    Destroy(m_targetVisuals.gameObject);
+                }
+                  
             }
         }
 
@@ -137,11 +144,10 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
             {
                 var currentSkill = waitingSkills[i];
                 currentSkill.turnsLeft -= 1;
-                if (currentSkill.turnsLeft == 0)
+                if (currentSkill.turnsLeft <= 0)
                 {
                     var owner = currentSkill.owner;
                     yield return currentSkill.specialSkill.ApplyEffect(owner, ArmyBattleSystem.GetTargetOf(owner)); ;
-                    currentSkill.DestroyVisuals();
                 }
                 else
                 {
@@ -154,7 +160,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
             for (int i = waitingSkills.Count - 1; i >= 0; i--)
             {
                 var currentSkill = waitingSkills[i];
-                if (currentSkill.turnsLeft == 0)
+                if (currentSkill.turnsLeft <= 0)
                 {
                     currentSkill.DestroyVisuals();
                     waitingSkills.RemoveAt(i);
