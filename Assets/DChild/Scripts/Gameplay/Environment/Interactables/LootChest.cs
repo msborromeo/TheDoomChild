@@ -60,7 +60,7 @@ namespace DChild.Gameplay.Environment
                 //Force Player Animation?
                 //Enable Cinematic Thingy?
                 //Temporary Fix, If All Chest are the same dont make UnityEvent
-                m_visuals.Open(true);
+                m_visuals?.Open(true);
                 GetComponent<Collider2D>().enabled = false;
                 //gameObject.SetActive(false);
 
@@ -68,7 +68,7 @@ namespace DChild.Gameplay.Environment
             else
             {
                 //Temporary Fix, If All Chest are the same dont make UnityEvent
-                m_visuals.Close(true);
+                m_visuals?.Close(true);
                 GetComponent<Collider2D>().enabled = true;
                 //gameObject.SetActive(true);
             }
