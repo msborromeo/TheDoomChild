@@ -33,7 +33,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
                 case AddDamageValueType.PercentageValue:
                     //???
                     var baseDamage = owner.controlledArmy.modifiers.damageModifier.GetModifier(m_unit);
-                    var modifier = m_damageModiferValue / 100f;
+                    var modifier = m_damageModiferPercentageValue / 100f;
                     var modifiedDamage = baseDamage + (baseDamage * modifier);
                     owner.controlledArmy.modifiers.damageModifier.SetModifier(m_unit, modifiedDamage);
                     break;
