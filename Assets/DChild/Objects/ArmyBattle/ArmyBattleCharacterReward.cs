@@ -20,6 +20,8 @@ namespace DChild.Gameplay.ArmyBattle
         private List<ArmyCharacterData> m_CharacterReward;
         [SerializeField]
         private CharacterGiver m_CharacterGiver;
+        [SerializeField, TabGroup("Requirements")]
+
 
         public event EventAction<EventActionArgs> InteractionOptionChange;
 
@@ -43,13 +45,15 @@ namespace DChild.Gameplay.ArmyBattle
 
         public void GiveReward()
         {
-            m_Reward?.Invoke();
+            
             m_CharacterGiver?.RecruitCharacter(m_CharacterReward);
+            Debug.LogError("AHHHHHHHHHHHHHH pain");
         }
 
         public void Interact(Character character)
         {
-            GiveReward();
+            //GiveReward();
+            m_Reward?.Invoke();
         }
     }
 }
