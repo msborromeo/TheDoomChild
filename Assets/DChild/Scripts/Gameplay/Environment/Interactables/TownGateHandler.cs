@@ -3,6 +3,7 @@ using DChild.Gameplay.Environment.Interractables;
 using DChild.Gameplay.FastTravel;
 using DChild.Gameplay.Systems;
 using Holysoft.Event;
+using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using Spine.Unity;
 using System.Collections;
@@ -13,10 +14,12 @@ using UnityEngine.Events;
 
 public class TownGateHandler : MonoBehaviour, IButtonToInteract
 {
+    [SerializeField, VariablePopup(true)]
+    private string m_serializationReference;
     [SerializeField, TabGroup("Reference")]
     private SkeletonAnimation m_SkeletonAnimation;
     [SerializeField, TabGroup("Reference")]
-    private LocationPoster m_Poster;
+    private LocationPoster m_poster;
     [SerializeField, TabGroup("Actions")]
     private UnityEvent Default, InteractAction;
     [SerializeField, Spine.Unity.SpineAnimation, TabGroup("Animation")]
@@ -95,7 +98,8 @@ public class TownGateHandler : MonoBehaviour, IButtonToInteract
     [Button, HideInEditorMode]
     public void Interact(Character character)
     {
-        GameplaySystem.gamplayUIHandle.OpenFastTravel(m_Poster.data.location);
+        DialogueLua.SetVariable(m_serializationReference, true);
+        GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location);
     }
 
     private void OnDrawGizmosSelected()

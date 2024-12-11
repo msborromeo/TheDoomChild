@@ -17,13 +17,18 @@ namespace DChild.Gameplay.FastTravel
 
         public void ShowPage(FastTravelPageData locationList)
         {
-            m_locationLabel.text = locationList.location.ToString().Replace('_',' ');
+            m_locationLabel.text = locationList.location.ToString().Replace('_', ' ');
 
             ResetButtons(locationList);
             for (int i = 0; i < locationList.count; i++)
             {
-                Show(m_townGateButtons[i]);
-                m_townGateButtons[i].SetData(locationList.GetUnderworldTravelData(i));
+                var button = m_townGateButtons[i];
+                Show(button);
+                var data = locationList.GetUnderworldTravelData(i);
+                button.SetData(data);
+
+                var isActivated = DialogueLua.GetVariable(FastTravelUtility.GenerateActivationVariableName(data)).asBool;
+                button.SetInteractability(isActivated);
             }
         }
         private void ResetButtons(FastTravelPageData locationList)
