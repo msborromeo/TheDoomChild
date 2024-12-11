@@ -18,7 +18,6 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: fc99d70f6e1d64f4d9afb94d7f08c11a, type: 2}
     - {fileID: 11400000, guid: 6f69b69d9bd2b6549adddeb45fbaf758, type: 2}
-    - {fileID: 11400000, guid: a16ebf9a818f11e45b3f8a0d0ac093f1, type: 2}
     - {fileID: 11400000, guid: df34a90d01bc2434b88bae6a2ac182f6, type: 2}
     - {fileID: 11400000, guid: 713193f3a7206cd4f846cf17c61c334e, type: 2}
     - {fileID: 11400000, guid: c967d88a47be9294483fc54ef936ddea, type: 2}
@@ -36,10 +35,10 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: m_priceModifier
+    - Name: m_newPriceModifier
       Entry: 7
-      Data: 0|UnityEngine.Rendering.SerializedDictionary`2[[DChild.Gameplay.Items.ItemData,
-        Assembly-CSharp],[System.Int32, mscorlib]], Unity.RenderPipelines.Core.Runtime
+      Data: 0|System.Collections.Generic.Dictionary`2[[DChild.Gameplay.Items.ItemData,
+        Assembly-CSharp],[DChild.Gameplay.Items.ItemCost, Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[DChild.Gameplay.Items.ItemData,
@@ -49,7 +48,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 15
+      Data: 14
     - Name: 
       Entry: 7
       Data: 
@@ -57,8 +56,17 @@ MonoBehaviour:
       Entry: 10
       Data: 0
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
       Data: 160
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -69,8 +77,17 @@ MonoBehaviour:
       Entry: 10
       Data: 1
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
       Data: 1100
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -81,8 +98,17 @@ MonoBehaviour:
       Entry: 10
       Data: 2
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
-      Data: 2
+      Data: 160
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -93,8 +119,17 @@ MonoBehaviour:
       Entry: 10
       Data: 3
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
-      Data: 160
+      Data: 500
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -105,8 +140,17 @@ MonoBehaviour:
       Entry: 10
       Data: 4
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
-      Data: 500
+      Data: 160
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -117,8 +161,17 @@ MonoBehaviour:
       Entry: 10
       Data: 5
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
       Data: 160
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -129,8 +182,17 @@ MonoBehaviour:
       Entry: 10
       Data: 6
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
-      Data: 160
+      Data: 500
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -141,8 +203,17 @@ MonoBehaviour:
       Entry: 10
       Data: 7
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
-      Data: 500
+      Data: 300
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -153,8 +224,17 @@ MonoBehaviour:
       Entry: 10
       Data: 8
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
-      Data: 300
+      Data: 500
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -165,8 +245,17 @@ MonoBehaviour:
       Entry: 10
       Data: 9
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
       Data: 500
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -177,8 +266,17 @@ MonoBehaviour:
       Entry: 10
       Data: 10
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
       Data: 500
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -189,8 +287,17 @@ MonoBehaviour:
       Entry: 10
       Data: 11
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
       Data: 500
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -201,8 +308,17 @@ MonoBehaviour:
       Entry: 10
       Data: 12
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
       Data: 500
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -213,20 +329,17 @@ MonoBehaviour:
       Entry: 10
       Data: 13
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
-      Data: 500
+      Data: 160
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 10
-      Data: 14
-    - Name: $v
-      Entry: 3
-      Data: 160
     - Name: 
       Entry: 8
       Data: 
@@ -236,16 +349,20 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: m_price
+    - Name: m_newPrice
       Entry: 7
       Data: 2|System.Collections.Generic.Dictionary`2[[DChild.Gameplay.Items.ItemData,
-        Assembly-CSharp],[System.Int32, mscorlib]], mscorlib
+        Assembly-CSharp],[DChild.Gameplay.Items.ItemCost, Assembly-CSharp]], mscorlib
     - Name: comparer
-      Entry: 9
-      Data: 1
+      Entry: 7
+      Data: 3|System.Collections.Generic.ObjectEqualityComparer`1[[DChild.Gameplay.Items.ItemData,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 12
-      Data: 15
+      Data: 14
     - Name: 
       Entry: 7
       Data: 
@@ -253,8 +370,17 @@ MonoBehaviour:
       Entry: 10
       Data: 0
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
       Data: 160
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -265,8 +391,17 @@ MonoBehaviour:
       Entry: 10
       Data: 1
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
       Data: 1100
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -277,8 +412,17 @@ MonoBehaviour:
       Entry: 10
       Data: 2
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
-      Data: 2
+      Data: 160
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -289,8 +433,17 @@ MonoBehaviour:
       Entry: 10
       Data: 3
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
-      Data: 160
+      Data: 500
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -301,8 +454,17 @@ MonoBehaviour:
       Entry: 10
       Data: 4
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
-      Data: 500
+      Data: 160
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -313,8 +475,17 @@ MonoBehaviour:
       Entry: 10
       Data: 5
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
       Data: 160
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -325,8 +496,17 @@ MonoBehaviour:
       Entry: 10
       Data: 6
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
-      Data: 160
+      Data: 500
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -337,8 +517,17 @@ MonoBehaviour:
       Entry: 10
       Data: 7
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
-      Data: 500
+      Data: 300
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -349,8 +538,17 @@ MonoBehaviour:
       Entry: 10
       Data: 8
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
-      Data: 300
+      Data: 500
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -361,8 +559,17 @@ MonoBehaviour:
       Entry: 10
       Data: 9
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
       Data: 500
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -373,8 +580,17 @@ MonoBehaviour:
       Entry: 10
       Data: 10
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
       Data: 500
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -385,8 +601,17 @@ MonoBehaviour:
       Entry: 10
       Data: 11
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
       Data: 500
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -397,8 +622,17 @@ MonoBehaviour:
       Entry: 10
       Data: 12
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
       Data: 500
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -409,20 +643,17 @@ MonoBehaviour:
       Entry: 10
       Data: 13
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.Items.ItemCost, Assembly-CSharp
+    - Name: m_soulEssenceCost
       Entry: 3
-      Data: 500
+      Data: 160
+    - Name: m_silverCoinCost
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 10
-      Data: 14
-    - Name: $v
-      Entry: 3
-      Data: 160
     - Name: 
       Entry: 8
       Data: 

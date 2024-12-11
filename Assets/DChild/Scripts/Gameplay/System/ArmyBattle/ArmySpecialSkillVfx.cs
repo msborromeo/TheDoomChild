@@ -122,13 +122,23 @@ namespace DChild.Gameplay.ArmyBattle
                 {
                     for (int x = 0; x < m_VfxSpineTurnManager[i].animation.Count; x++)
                     {
+                        var launchEvent = " ";
+                        if(m_VfxSpineTurnManager[i].m_launchOnEvent.Count <=0)
+                        {
+                           
+                        }
+                        else
+                        {
+                            launchEvent = m_VfxSpineTurnManager[i].m_launchOnEvent[x];
+                        }
+
                         for (int y = 0; y < m_VfxSpineTurnManager[i].m_eventPartcileSystem.Count; y++)
                         {
                             m_VfxSpineTurnManager[i].m_eventPartcileSystem[y].Stop();
                         }
                         if (m_VfxSpineTurnManager[i].m_spineListener != null){
                             StartCoroutine(PlayEventRoutine(m_VfxSpineTurnManager[i].m_SpineModel, m_VfxSpineTurnManager[i].animation[x], m_VfxSpineTurnManager[i].animationDelayTime[x],
-                               m_VfxSpineTurnManager[i].m_spineListener, m_VfxSpineTurnManager[i].m_launchOnEvent[x], m_VfxSpineTurnManager[i].m_eventPartcileSystem[x]));
+                               m_VfxSpineTurnManager[i].m_spineListener, launchEvent, m_VfxSpineTurnManager[i].m_eventPartcileSystem[x]));
                         }
                         else
                         {

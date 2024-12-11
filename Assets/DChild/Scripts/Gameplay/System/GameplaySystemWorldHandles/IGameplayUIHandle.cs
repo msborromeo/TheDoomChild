@@ -24,7 +24,7 @@ namespace DChild.Gameplay.Systems
         void ToggleCinematicBars(bool value);
 
         void UpdateNavMapConfiguration(Location location, int sceneIndex, Transform inGameReference, Vector2 mapReferencePoint, Vector2 calculationOffset);
-        void OpenTradeWindow(NPCProfile merchantData, ITradeInventory merchantInventory, TradeAskingPrice merchantBuyingPriceRate);
+        void OpenTradeWindow(NPCProfile merchantData, ITradeInventory merchantInventory, TradeAskingPrice merchantBuyingPriceRate, CurrencyType type);
         void OpenWeaponUpgradeConfirmationWindow();
         void OpenStoreAtPage(StorePage storePage);
         void OpenStore();

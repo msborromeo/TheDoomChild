@@ -11,6 +11,7 @@ namespace DChild.Gameplay.Trade
     [CreateAssetMenu(fileName = "TradeRates", menuName = "DChild/Gameplay/Trade/Trade Rates")]
     public class TradeRates : ScriptableObject
     {
+
         [BoxGroup("AskingPrice")]
         [SerializeField, TabGroup("AskingPrice/Tab", "Buying"), HideLabel]
         private TradeAskingPrice m_buyAskingPrice = new TradeAskingPrice();

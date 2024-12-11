@@ -12,6 +12,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public event EventAction<EventActionArgs> ListOverallChange;
 
+        public T inventory => m_inventory;
         protected virtual int itemUICount => m_itemUIs.Length;
 
         public void SetInventoryReference(T tradeInventory)
@@ -24,6 +25,8 @@ namespace DChild.Gameplay.Inventories.UI
         }
 
         public abstract void UpdateUIList();
+
+        public abstract void SwapItems(ItemUI itemOne, ItemUI itemTwo);
 
 
         protected void InvokeListOverallChange()

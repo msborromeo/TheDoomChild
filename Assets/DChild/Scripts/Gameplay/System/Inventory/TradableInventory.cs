@@ -13,7 +13,7 @@ namespace DChild.Gameplay.Inventories
         [System.Serializable]
         public class Item : StoredItem, ITradeItem
         {
-            private int m_newCost;
+            private ItemCost m_newCost;
             private bool m_overrideCost;
 
             public Item(ItemData data, int count) : base(data, count)
@@ -22,7 +22,7 @@ namespace DChild.Gameplay.Inventories
             }
 
             [ShowInInspector, ReadOnly]
-            public int cost
+            public ItemCost cost
             {
                 get
                 {
@@ -32,12 +32,12 @@ namespace DChild.Gameplay.Inventories
                     }
                     else
                     {
-                        return m_data?.cost ?? 0;
+                        return m_data?.cost ?? new ItemCost(0, 0);
                     }
                 }
             }
 
-            public void OverrideCost(int newCost)
+            public void OverrideCost(ItemCost newCost)
             {
                 m_overrideCost = true;
                 m_newCost = newCost;
@@ -62,14 +62,49 @@ namespace DChild.Gameplay.Inventories
             m_restrictItemsToQuanitityLimit = restrictItemsToQuanitityLimit;
         }
 
-        public int currency => soulEssence;
-
-        public void AddCurrency(int amount)
+        public int GetCurrencyAmount(CurrencyType currencyType)
         {
-            soulEssence += amount;
+            switch (currencyType)
+            {
+                case CurrencyType.SoulEssence:
+                    return soulEssence;
+                case CurrencyType.SilverCoin:
+                    return GetStoredItem(GameplaySystem.constantsReference.silverCoinItemData)?.count ?? 0;
+            }
+            return 0;
         }
-        public void SetCurrency(int amount)
+
+        public void AddCurrency(CurrencyType type, int amount)
         {
+            switch (type)
+            {
+                case CurrencyType.SoulEssence:
+                    soulEssence += amount;
+                    break;
+                case CurrencyType.SilverCoin:
+                    if (amount >= 0)
+                    {
+                        AddItem(GameplaySystem.constantsReference.silverCoinItemData, amount);
+                    }
+                    else
+                    {
+                        RemoveItem(GameplaySystem.constantsReference.silverCoinItemData, Mathf.Abs(amount));
+                    }
+                    break;
+            }
+        }
+        public void SetCurrency(CurrencyType type, int amount)
+        {
+            switch (type)
+            {
+                case CurrencyType.SoulEssence:
+                    soulEssence = amount;
+                    break;
+                case CurrencyType.SilverCoin:
+                    SetItem(GameplaySystem.constantsReference.silverCoinItemData, amount);
+                    break;
+            }
+
             soulEssence = amount;
         }
 
@@ -152,7 +187,7 @@ namespace DChild.Gameplay.Inventories
         {
             for (int i = 0; i < m_items.Count; i++)
             {
-                if(m_items[i].data == item)
+                if (m_items[i].data == item)
                 {
                     return m_items[i];
                 }

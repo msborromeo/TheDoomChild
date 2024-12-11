@@ -53,7 +53,7 @@ namespace DChild.Gameplay.Inventories
             {
                 m_serializedItems[i] = new ItemSerialization(inventory.GetItem(i));
             }
-            m_soulEssence = inventory.currency;
+            m_soulEssence = inventory.GetCurrencyAmount(Trade.CurrencyType.SoulEssence);
         }
 
 
