@@ -13,42 +13,50 @@ namespace DChild.Gameplay.ArmyBattle
 {
     public class ArmyBattleCharacterReward : MonoBehaviour ,IButtonToInteract
     {
-        [SerializeField, TabGroup("Reference")]
+
+        [TabGroup("Main","Reference")]
+        [SerializeField, TabGroup("Main/Reference", "General References")]
         private SpriteRenderer m_Graphics;
-        [SerializeField, TabGroup("Actions")]
-        private UnityEvent m_GiveReward,m_RequirementFailed;
-        [SerializeField, TabGroup("Reference")]
+        [SerializeField, TabGroup("Main/Reference", "General References")]
         private Vector3 m_promptOffset;
-        [SerializeField, TabGroup("Character Reward")]
-        private List<ArmyCharacterData> m_CharacterReward;
-        [SerializeField, TabGroup("Reference")]
+        [SerializeField, TabGroup("Main/Reference", "General References")]
         private CharacterGiver m_CharacterGiver;
-        [SerializeField, TabGroup("Requirements")]
+
+
+        [SerializeField, TabGroup("Main/Reference", "Actions")]
+        private UnityEvent m_GiveReward,m_RequirementFailed;
+        [SerializeField, TabGroup("Main/Reference","Character Reward")]
+        private List<ArmyCharacterData> m_CharacterReward;
+
+
+        [SerializeField, TabGroup("Main","Requirements")]
         private bool m_isFree;
-        [SerializeField, TabGroup("Requirements"), HideIf("m_isFree")]
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
         private bool m_requiresSoulEssence;
-        [SerializeField, TabGroup("Requirements"), HideIf("m_isFree")]
+            [ShowIfGroup("Main/Requirements/SoulEssenceToggle", MemberName = "m_requiresSoulEssence")]
+            [SerializeField, BoxGroup("Main/Requirements/SoulEssenceToggle/SoulEssenceRequirement")]
+            private int m_requiredSoulEssence;
+
+
+        [SerializeField, TabGroup("Main","Requirements"), HideIf("m_isFree")]
         private bool m_requiresItem;
-        [SerializeField, TabGroup("Requirements"), HideIf("m_isFree")]
+            [ShowIfGroup("Main/Requirements/ItemToggle", MemberName = "m_requiresItem")]
+            [SerializeField, BoxGroup("Main/Requirements/ItemToggle/ItemRequirement")]
+            private ItemData m_hasItem;
+            [SerializeField, BoxGroup("Main/Requirements/ItemToggle/ItemRequirement")]
+            private int m_ItemAmount;
+
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
         private bool m_requiresCombatArt;
-        [SerializeField, TabGroup("Requirements"), HideIf("m_isFree")]
+
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
         private bool m_requiresPrimarySkill;
-        [SerializeField, TabGroup("Requirements"), HideIf("m_isFree")]
-        private bool m_Others;
+            [ShowIfGroup("Main/Requirements/PrimarySkillToggle", MemberName = "m_requiresPrimarySkill")]
+            [SerializeField, BoxGroup("Main/Requirements/PrimarySkillToggle/CombatArtRequirement")]
+            private PrimarySkill m_PrimarySkill;
 
-        [ShowIfGroup("m_requiresSoulEssence")]
-        [SerializeField,BoxGroup("m_requiresSoulEssence/SoulEssenceRequirement")]
-        private int m_requiredSoulEssence;
-
-        [ShowIfGroup("m_requiresItem")]
-        [SerializeField, BoxGroup("m_requiresItem/ItemRequirement")]
-        private ItemData m_hasItem;
-        [SerializeField, BoxGroup("m_requiresItem/ItemRequirement")]
-        private int m_ItemAmount;
-
-        [ShowIfGroup("m_requiresPrimarySkill")]
-        [SerializeField, BoxGroup("m_requiresCombatSkill/CombatArtRequirement")]
-        private PrimarySkill m_PrimarySkill;
+        //[SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
+        private bool m_OtherConditions;
 
         private bool m_RequirementAchieved;
 
@@ -70,6 +78,11 @@ namespace DChild.Gameplay.ArmyBattle
         public void RequirementMet(bool isAchieved)
         {
             m_RequirementAchieved = isAchieved;
+        }
+
+        public void HasOtherConditions(bool x)
+        {
+            m_OtherConditions = x;
         }
 
         public void Interact(Character character)
@@ -104,7 +117,7 @@ namespace DChild.Gameplay.ArmyBattle
                     }
                 }
 
-                if(m_Others)
+                if(m_OtherConditions)
                 {
                     if(!m_RequirementAchieved)
                     {
