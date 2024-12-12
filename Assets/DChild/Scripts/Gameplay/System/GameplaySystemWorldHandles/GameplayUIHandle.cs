@@ -48,6 +48,11 @@ namespace DChild.Gameplay.Systems
             UnderworldGameplayUIHandle.Instance.MonitorBoss(boss);
         }
 
+        public void OpenFastTravel(Location startingLocation)
+        {
+            BaseGameplayUIHandle.Instance.OpenFastTravel(startingLocation);
+        }
+
         public void OpenShadowGateMap(Location fromLocation)
         {
             throw new NotImplementedException();

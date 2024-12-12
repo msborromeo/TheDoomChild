@@ -45,6 +45,7 @@ namespace DChild.Gameplay.Environment
 
         private void OnDoorwayEnter(Character character)
         {
+            GameplaySystem.campaignSerializer.UpdateDialogueSaveData();
             Debug.Log("Entered an Overworld Doorway");
         }
 
