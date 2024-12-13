@@ -220,32 +220,34 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 897980227101103072}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &6593576143566031558
-BoxCollider2D:
+--- !u!114 &4146952613411197386
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9010537756785852727}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 15, y: 1}
-  m_EdgeRadius: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c06f6c3ae0c4ea479b74764beedd906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_serializationReference: 
+  m_SkeletonAnimation: {fileID: 3505783241663726896}
+  m_poster: {fileID: 992260143271767645}
+  Default:
+    m_PersistentCalls:
+      m_Calls: []
+  InteractAction:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Interact:
+  - idle2
+  - idle_loop
+  m_Idle:
+  - animation
+  m_GateAnimation: {fileID: 11400000, guid: 5c74a29295321f44f81d69bfa3236ad2, type: 2}
+  m_Offset: {x: -2, y: 22, z: 0}
 --- !u!114 &992260143271767645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,48 +308,32 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4146952613411197386
-MonoBehaviour:
+--- !u!61 &6593576143566031558
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9010537756785852727}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c06f6c3ae0c4ea479b74764beedd906, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SkeletonAnimation: {fileID: 3505783241663726896}
-  m_Poster: {fileID: 992260143271767645}
-  Default:
-    m_PersistentCalls:
-      m_Calls: []
-  InteractAction:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Interact:
-  - idle2
-  - idle_loop
-  m_Idle:
-  - animation
-  m_GateAnimation: {fileID: 11400000, guid: 5c74a29295321f44f81d69bfa3236ad2, type: 2}
-  m_Offset: {x: 0, y: 25, z: 0}
-  m_onInteraction:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7809001695216816092}
-        m_TargetAssemblyTypeName: Doozy.Runtime.Signals.SignalSender, Assembly-CSharp
-        m_MethodName: SendSignal
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 15, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &7660441899140034510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,33 +361,3 @@ MonoBehaviour:
   RuntimeFollower: {fileID: 0}
   colliderMaxDistance: 0
   lastTimeMaxDistanceCalced: 638671059981396520
---- !u!114 &7809001695216816092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9010537756785852727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78f003aa0ad0a4c469338c205df004d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Payload:
-    StreamId:
-      Category: Gameplay
-      Name: FastTravel
-      Custom: 0
-    SignalValueType: 0
-    IntegerValue: 0
-    BooleanValue: 0
-    FloatValue: 0
-    StringValue: 
-    ColorValue: {r: 0, g: 0, b: 0, a: 0}
-    Vector2Value: {x: 0, y: 0}
-    Vector3Value: {x: 0, y: 0, z: 0}
-    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
-  SendOnStart: 0
-  SendOnEnable: 0
-  SendOnDisable: 0
-  SendOnDestroy: 0
