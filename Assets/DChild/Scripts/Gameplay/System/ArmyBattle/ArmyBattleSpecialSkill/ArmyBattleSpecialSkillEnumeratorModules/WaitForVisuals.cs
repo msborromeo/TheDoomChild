@@ -72,13 +72,16 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
             yield return null;
 
             var specialSkillFX = fx.GetComponent<ArmySpecialSkillVfx>();
+            specialSkillFX.PlayEffects();
             while (!specialSkillFX.m_iseffectdone)
             {
+                
                 yield return null; 
             }
             Debug.Log("Effects finish!");
             //Temporary thing since ArmySpecialSkillVfx doesnt have an event that it is done atm
             yield return new WaitForSeconds(3f);
+            specialSkillFX.StopEffects();
 
             Object.Destroy(fx);
         }
@@ -90,12 +93,10 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
             switch (m_position)
             {
                 case Position.Owner:
-                    fx.transform.SetParent(owner.transform);
-                    fx.transform.localPosition = Vector3.zero;
+                    fx.transform.position = ArmyBattleSystem.GetBattalionPosition(owner);
                     break;
                 case Position.Target:
-                    fx.transform.SetParent(target.transform);
-                    fx.transform.localPosition = Vector3.zero;
+                    fx.transform.position = ArmyBattleSystem.GetBattalionPosition(target);
                     break;
                 case Position.Center:
                     fx.transform.SetParent(owner.transform);
