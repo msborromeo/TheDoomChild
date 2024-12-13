@@ -4897,8 +4897,10 @@ GameObject:
   - component: {fileID: 220053144073445818}
   - component: {fileID: 3771084960357911781}
   - component: {fileID: 2459399832355582453}
+  - component: {fileID: 926253764939832456}
+  - component: {fileID: 6874067058672945996}
   m_Layer: 0
-  m_Name: Spine GameObject (eye)
+  m_Name: Army Battle Eye Success
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9792,6 +9794,47 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &926253764939832456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220053144073445821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bbb7891a8ab6c4386eae13d2090129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_vfxParticleTurnManager:
+  - m_fxPartcileSystem:
+    - {fileID: 3771084960357911781}
+  m_VfxSpineTurnManager:
+  - m_SpineModel: {fileID: 220053144073445821}
+    m_fxSpineSystem: {fileID: 11400000, guid: 441759724f96f604c981c59ecaf8898b, type: 2}
+    m_animation:
+    - Success
+    m_launchOnEvent: []
+    m_spineListener: {fileID: 6874067058672945996}
+    m_eventPartcileSystem:
+    - {fileID: 3771084960357911781}
+    m_delaytime:
+    - 0
+  m_iseffectdone: 0
+  m_currentturn: 1
+--- !u!114 &6874067058672945996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220053144073445821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd8599297ea1c84ba2f23b8f6c74e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 220053144073445818}
 --- !u!1 &220053145359347850
 GameObject:
   m_ObjectHideFlags: 0
