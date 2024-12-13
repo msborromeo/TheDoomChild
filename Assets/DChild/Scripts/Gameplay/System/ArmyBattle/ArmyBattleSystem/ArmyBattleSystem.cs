@@ -65,6 +65,18 @@ namespace DChild.Gameplay.ArmyBattle
         public static ArmyController GetPlayer() => Instance.player;
         public static ArmyController GetEnemy() => Instance.enemy;
 
+        public static Vector3 GetBattalionPosition(ArmyController controller)
+        {
+            if (controller == GetPlayer())
+                return Instance.fightManager.GetPlayerBattalionPosition();
+
+            if (controller == GetEnemy())
+                return Instance.fightManager.GetEnemyBattalionPosition();
+
+            Debug.LogWarning("Request For Battalion Position recieved a non participating Army Controller");
+            return Vector3.zero;
+        }
+
         //Feels Like A Hack Solution ATM
         public static ArmyController GetTargetOf(ArmyController reference)
         {

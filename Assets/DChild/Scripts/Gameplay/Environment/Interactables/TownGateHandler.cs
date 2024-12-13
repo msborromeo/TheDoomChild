@@ -3,6 +3,7 @@ using DChild.Gameplay.Environment.Interractables;
 using DChild.Gameplay.FastTravel;
 using DChild.Gameplay.Systems;
 using Holysoft.Event;
+using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using Spine.Unity;
 using System.Collections;
@@ -11,12 +12,14 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TownGateHandler : MonoBehaviour , IButtonToInteract
+public class TownGateHandler : MonoBehaviour, IButtonToInteract
 {
+    [SerializeField, VariablePopup(true)]
+    private string m_serializationReference;
     [SerializeField, TabGroup("Reference")]
     private SkeletonAnimation m_SkeletonAnimation;
     [SerializeField, TabGroup("Reference")]
-    private LocationPoster m_Poster;
+    private LocationPoster m_poster;
     [SerializeField, TabGroup("Actions")]
     private UnityEvent Default, InteractAction;
     [SerializeField, Spine.Unity.SpineAnimation, TabGroup("Animation")]
@@ -27,8 +30,6 @@ public class TownGateHandler : MonoBehaviour , IButtonToInteract
     private SkeletonDataAsset m_GateAnimation;
     [SerializeField]
     public Vector3 m_Offset;
-    [SerializeField]
-    private UnityEvent m_onInteraction;
 
     public event EventAction<EventActionArgs> InteractionOptionChange;
 
@@ -36,7 +37,7 @@ public class TownGateHandler : MonoBehaviour , IButtonToInteract
 
     public string promptMessage => "Town Portal";
 
-    public Vector3 promptPosition => transform.position+m_Offset;
+    public Vector3 promptPosition => transform.position + m_Offset;
 
     private void Start()
     {
@@ -97,7 +98,8 @@ public class TownGateHandler : MonoBehaviour , IButtonToInteract
     [Button, HideInEditorMode]
     public void Interact(Character character)
     {
-        m_onInteraction?.Invoke();
+        DialogueLua.SetVariable(m_serializationReference, true);
+        GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location);
     }
 
     private void OnDrawGizmosSelected()
