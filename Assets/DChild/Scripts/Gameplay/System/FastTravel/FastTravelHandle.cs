@@ -39,7 +39,7 @@ namespace DChild.Gameplay.FastTravel
             GameplaySystem.ResumeGame();
 
             var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
-            if (WorldTypeVar.CurrentWorldType != WorldTypeVar.GetLocationWorldType(m_destination.location))
+            if (WorldTypeVar.CurrentWorldType != WorldTypeVar.GetLocationWorldType(destination.location))
             {
                 GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Player);
             }
