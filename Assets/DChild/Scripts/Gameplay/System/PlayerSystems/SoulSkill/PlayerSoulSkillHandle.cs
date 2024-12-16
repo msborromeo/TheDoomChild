@@ -41,7 +41,7 @@ namespace DChild.Gameplay.SoulSkills
 
         public PlayerSoulSkillData SaveData()
         {
-            return new PlayerSoulSkillData(m_maxSoulCapacity, m_acquiredSkills.ToArray(), m_activatedSkillsID.ToArray());
+            return new PlayerSoulSkillData(m_currentSoulCapacity, m_acquiredSkills.ToArray(), m_activatedSkillsID.ToArray());
         }
 
         public void LoadData(PlayerSoulSkillData data)
@@ -151,8 +151,6 @@ namespace DChild.Gameplay.SoulSkills
             m_activatedSkills = new HashSet<SoulSkill>();
 
             m_player.inventory.SoulSkillItemAcquired += OnSoulSkillItemAcquired;
-
-            m_currentSoulCapacity = 23; //temporary setting to keep a lot of soul capacity but also allow testing of dark aether pickups
         }
 
         private void OnSoulSkillItemAcquired(object sender, SoulSkillAcquiredEventArgs eventArgs)
