@@ -150,6 +150,11 @@ namespace DChild.Gameplay.Inventories
         {
             return m_inventory.GetStoredItem(item);
         }
+
+        public void SwapItems(ItemData itemOne, ItemData itemTwo)
+        {
+            m_inventory.SwapItems(itemOne, itemTwo);
+        }
         #endregion
     }
 }

@@ -1,3 +1,5 @@
+using DChild.Gameplay.Environment;
+using DChild.Gameplay.FastTravel;
 using DChild.Menu;
 using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
@@ -16,6 +18,8 @@ namespace DChild.Gameplay.Systems
         [SerializeField, FoldoutGroup("Signals")]
         private SignalSender m_cinemaSignal;
         [SerializeField, FoldoutGroup("Signals")]
+        private SignalSender m_fastTravelSignal;
+        [SerializeField, FoldoutGroup("Signals")]
         private SignalSender m_gameOverSignal;
         [SerializeField, FoldoutGroup("Signals")]
         private SignalSender m_confirmationWindowSignal;
@@ -30,7 +34,8 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private UIContainer m_fadeUI;
 
-
+        [SerializeField]
+        private FastTravelUIManager m_fastTravelUI;
         [SerializeField]
         private CinematicVideoHandle m_cinematicVideoHandle;
         [SerializeField]
@@ -93,6 +98,12 @@ namespace DChild.Gameplay.Systems
         {
             m_cinematicVideoHandle.ShowCinematicVideo(clip, behindTheSceneRoutine, OnVideoDone);
         }
+        public void OpenFastTravel(Location startingLocation)
+        {
+            m_fastTravelUI.ForceOpenPage(startingLocation);
+            m_fastTravelSignal?.SendSignal();
+        }
+
 
         private void Awake()
         {
