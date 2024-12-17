@@ -48,12 +48,17 @@ namespace DChild.Gameplay.ArmyBattle
 
         [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
         private bool m_requiresCombatArt;
+            [ShowIfGroup("Main/Requirements/CombatArtToggle", MemberName = "m_requiresCombatArt")]
+            [SerializeField, BoxGroup("Main/Requirements/CombatArtToggle/CombatArtRequirement")]
+            private CombatArt m_CombatArt;
 
         [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
         private bool m_requiresPrimarySkill;
             [ShowIfGroup("Main/Requirements/PrimarySkillToggle", MemberName = "m_requiresPrimarySkill")]
-            [SerializeField, BoxGroup("Main/Requirements/PrimarySkillToggle/CombatArtRequirement")]
+            [SerializeField, BoxGroup("Main/Requirements/PrimarySkillToggle/PrimarySkillRequirement")]
             private PrimarySkill m_PrimarySkill;
+
+            
 
         //[SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
         private bool m_OtherConditions;
@@ -117,7 +122,16 @@ namespace DChild.Gameplay.ArmyBattle
                     }
                 }
 
-                if(m_OtherConditions)
+                if (m_requiresCombatArt)
+                {
+                    if (!GameplaySystem.playerManager.player.combatArts.IsAbilityActivated(m_CombatArt))
+                    {
+                        m_RequirementFailed?.Invoke();
+                        return;
+                    }
+                }
+
+                if (m_OtherConditions)
                 {
                     if(!m_RequirementAchieved)
                     {
