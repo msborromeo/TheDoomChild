@@ -58,7 +58,19 @@ namespace DChild.Gameplay.ArmyBattle
             [SerializeField, BoxGroup("Main/Requirements/PrimarySkillToggle/PrimarySkillRequirement")]
             private PrimarySkill m_PrimarySkill;
 
-            
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
+        private bool m_requiresSpecificNPC;
+            [ShowIfGroup("Main/Requirements/SpecificNPCToggle", MemberName = "m_requiresSpecificNPC")]
+            [SerializeField, BoxGroup("Main/Requirements/SpecificNPCToggle/RequiredNPC")]
+            private ArmyCharacterData armyCharacterData;
+
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
+        private bool m_requiresMinimumNPCsRecruited;
+            [ShowIfGroup("Main/Requirements/NPCsAmountToggle", MemberName = "m_requiresMinimumNPCsRecruited")]
+            [SerializeField, BoxGroup("Main/Requirements/NPCsAmountToggle/NPCsAmount")]
+            private int neededNPCsRecruited;
+
+
 
         //[SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
         private bool m_OtherConditions;
@@ -98,7 +110,7 @@ namespace DChild.Gameplay.ArmyBattle
                 {
                     if (GameplaySystem.playerManager.player.inventory.GetCurrencyAmount(CurrencyType.SoulEssence) < m_requiredSoulEssence && m_requiredSoulEssence != 0)
                     {
-                        m_RequirementFailed?.Invoke();
+                        RequirementFailed();
                         return;
                     }
                 }
@@ -108,7 +120,7 @@ namespace DChild.Gameplay.ArmyBattle
                     int x = GameplaySystem.playerManager.player.inventory.GetCurrentAmount(m_hasItem);
                     if (x == 0||x < m_ItemAmount)
                     {
-                        m_RequirementFailed?.Invoke();
+                        RequirementFailed();
                         return;
                     }
                 }
@@ -117,7 +129,7 @@ namespace DChild.Gameplay.ArmyBattle
                 {
                     if(!GameplaySystem.playerManager.player.skills.IsSkillUnlocked(m_PrimarySkill))
                     {
-                        m_RequirementFailed?.Invoke();
+                        RequirementFailed();
                         return;
                     }
                 }
@@ -126,7 +138,25 @@ namespace DChild.Gameplay.ArmyBattle
                 {
                     if (!GameplaySystem.playerManager.player.combatArts.IsAbilityActivated(m_CombatArt))
                     {
-                        m_RequirementFailed?.Invoke();
+                        RequirementFailed();
+                        return;
+                    }
+                }
+
+                if(m_requiresSpecificNPC)
+                {
+                    if (!GameplaySystem.playerManager.armyBattleCharacterRecruiter.HasRecruitedCharacter(armyCharacterData))
+                    {
+                        RequirementFailed();
+                        return;
+                    }
+                }
+
+                if(m_requiresMinimumNPCsRecruited)
+                {
+                    if(GameplaySystem.playerManager.armyBattleCharacterRecruiter.ArmySize()<neededNPCsRecruited)
+                    {
+                        RequirementFailed();
                         return;
                     }
                 }
@@ -135,14 +165,18 @@ namespace DChild.Gameplay.ArmyBattle
                 {
                     if(!m_RequirementAchieved)
                     {
-                        m_RequirementFailed?.Invoke();
+                        RequirementFailed();
                         return;
                     }
                 }
-                
             }
 
             m_GiveReward?.Invoke();
+        }
+
+        private void RequirementFailed()
+        {
+            m_RequirementFailed?.Invoke();
         }
     }
 }
