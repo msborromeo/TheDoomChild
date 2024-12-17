@@ -7,7 +7,7 @@ namespace DChild.Gameplay.FastTravel.Debug
     public class FastTravelDebugButtonGenerator : MonoBehaviour
     {
         [SerializeField]
-        private FastTravelDataList m_toInstantiate;
+        private FastTravelPageData m_toInstantiate;
         [SerializeField]
         private GameObject m_button;
         [SerializeField]
@@ -27,7 +27,7 @@ namespace DChild.Gameplay.FastTravel.Debug
             for (int i = 0; i < m_toInstantiate.count; i++)
             {
                 var instance = PrefabUtility.InstantiatePrefab(m_button, m_content) as GameObject;
-                instance.GetComponent<FastTravelOptionButton>().SetData(m_toInstantiate.GetData(i));
+                instance.GetComponent<FastTravelOptionButton>().SetData(m_toInstantiate.GetUnderworldTravelData(i));
             }
         }
 #endif

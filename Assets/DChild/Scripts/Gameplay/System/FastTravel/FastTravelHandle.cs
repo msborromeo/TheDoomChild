@@ -2,15 +2,27 @@
 using DChild.Gameplay.Systems;
 using DChild.Gameplay.Systems.Serialization;
 using DChild.Menu;
+using DChild.Serialization;
+using DChild.UI;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DChild.Gameplay.FastTravel
 {
+
+
     public class FastTravelHandle : MonoBehaviour
     {
         private Vector2 m_spawnPosition;
         public void TransferPlayerTo(LocationData destination)
         {
+            var zoneData = FindObjectOfType<ZoneDataHandle>();
+            if(zoneData != null)
+            {
+                zoneData.ForceUpdateZoneData();
+            }
+
+
             var playerManager = GameplaySystem.playerManager;
             var character = playerManager.player.character;
             character.transform.position  = new Vector2(50000, 50000);
@@ -27,6 +39,10 @@ namespace DChild.Gameplay.FastTravel
             GameplaySystem.ResumeGame();
 
             var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
+            if (WorldTypeVar.CurrentWorldType != WorldTypeVar.GetLocationWorldType(destination.location))
+            {
+                GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Player);
+            }
             WorldTypeVar.SetCurrentWorldType(destination.location);
 
             switch (WorldTypeVar.CurrentWorldType)

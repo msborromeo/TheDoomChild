@@ -90,6 +90,7 @@ namespace DChild.Gameplay.ArmyBattle
         [SerializeField]
         private int m_currentturn=1;
         private SkeletonAnimation skeletonAnimation;
+
         [Button, HideInPrefabAssets]
         public void PlayEffects()
         {
@@ -111,6 +112,18 @@ namespace DChild.Gameplay.ArmyBattle
                         m_vfxParticleTurnManager[i].m_fxPartcileSystem[x].Stop();
                     }
 
+                }
+
+                if(m_VfxSpineTurnManager != null)
+                {
+                    for (int x = 0; x < m_vfxParticleTurnManager[i].m_fxPartcileSystem.Count; x++)
+                    {
+                       var duration = m_vfxParticleTurnManager[i].m_fxPartcileSystem[x].main.duration;
+                        if(duration <= 0)
+                        {
+                            m_iseffectdone = true;
+                        }
+                    }
                 }
 
 
@@ -150,7 +163,7 @@ namespace DChild.Gameplay.ArmyBattle
                 }
                 
             }
-            m_iseffectdone = true;
+           
         }
         public void StopEffects()
         {
@@ -179,6 +192,7 @@ namespace DChild.Gameplay.ArmyBattle
             skeletonAnimation.AnimationState.SetAnimation(0, animation, false);
             spineListener.Subscribe(particleevent, eventPartcileSystem.Play);
             yield return new WaitForAnimationComplete(skeletonAnimation.AnimationState, animation);
+            m_iseffectdone = true;
             yield return null;
         }
         private IEnumerator PlayRoutine(GameObject Spineasset, String animation, float delaytime)
@@ -188,6 +202,7 @@ namespace DChild.Gameplay.ArmyBattle
             skeletonAnimation = Spineasset.GetComponent<SkeletonAnimation>();
             skeletonAnimation.AnimationState.SetAnimation(0, animation, false);
             yield return new WaitForAnimationComplete(skeletonAnimation.AnimationState, animation);
+            m_iseffectdone = true;
             yield return null;
         }
         private void SetTurn(int turn)
