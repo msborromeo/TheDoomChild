@@ -69,6 +69,7 @@ namespace DChild.Gameplay.Systems
                 GameplaySystem.playerManager.ReturnPlayerToOrginalScene();
                 GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Zone);
 
+
                 yield return new WaitForSeconds(m_handle.transitionDelay);
 
                 m_handle.DoSceneTransition(character, TransitionType.PostEnter);
