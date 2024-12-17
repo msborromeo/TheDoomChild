@@ -27,13 +27,22 @@ namespace DChild.Gameplay.Systems
         {
             if (m_reference.data == null)
             {
-                var soulEssenceValue = m_reference.loot.GetComponent<SoulEssenceLoot>().value;
-                soulEssenceValue *= m_count;
-                recordList.AddSoulEssence(soulEssenceValue);
+                if(m_reference.loot.GetComponent<SoulEssenceLoot>() != null)
+                {
+                    var soulEssenceValue = m_reference.loot.GetComponent<SoulEssenceLoot>().value;
+                    soulEssenceValue *= m_count;
+                    recordList.AddSoulEssence(soulEssenceValue);
+                }
+                else
+                {
+                    var aetherValue = m_reference.loot.GetComponent<AetherLoot>().value;
+                    aetherValue *= m_count;
+                    recordList.AddDarkAetherPoints(aetherValue);
+                }
+                
             }
             else
             {
-
                 recordList.Add(m_reference.data, m_count);
             }
         }
