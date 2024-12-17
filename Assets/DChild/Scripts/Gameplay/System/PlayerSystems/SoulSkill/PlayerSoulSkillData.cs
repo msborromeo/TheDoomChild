@@ -21,11 +21,11 @@ namespace DChild.Gameplay.SoulSkills
             m_currentSoulCapacity = 1;
         }
 
-        public PlayerSoulSkillData(int maxSoulCapacity, int[] acquiredSoulSkills, int[] activatedSoulSkills)
+        public PlayerSoulSkillData(int currentSoulCapacity, int[] acquiredSoulSkills, int[] activatedSoulSkills)
         {
             m_acquiredSoulSkills = acquiredSoulSkills;
             m_activatedSoulSkills = activatedSoulSkills;
-            m_currentSoulCapacity = maxSoulCapacity;
+            m_currentSoulCapacity = currentSoulCapacity;
         }
 
         public int currentSoulCapacity => m_currentSoulCapacity;
