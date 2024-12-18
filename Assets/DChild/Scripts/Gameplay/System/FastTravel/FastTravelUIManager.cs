@@ -33,6 +33,8 @@ namespace DChild.Gameplay.FastTravel
             for (int i = 0; i < toggles.Count; i++)
             {
                 var tab = toggles[i].GetComponent<FastTravelLocationTab>();
+                tab.OnDataChange();
+
                 if (tab.locationList.location == startingLocation)
                 {
                     toggles[i].SetIsOn(true);
