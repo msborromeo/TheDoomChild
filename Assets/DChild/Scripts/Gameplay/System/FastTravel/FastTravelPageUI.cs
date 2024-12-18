@@ -30,6 +30,9 @@ namespace DChild.Gameplay.FastTravel
                 var isActivated = DialogueLua.GetVariable(FastTravelUtility.GenerateActivationVariableName(data)).asBool;
                 button.SetInteractability(isActivated);
             }
+
+            var isOverworldActivated = DialogueLua.GetVariable(FastTravelUtility.GenerateActivationVariableName(locationList.overworldTravelData)).asBool;
+            m_overworldTownGateButtons.SetInteractability(isOverworldActivated);
         }
         private void ResetButtons(FastTravelPageData locationList)
         {
