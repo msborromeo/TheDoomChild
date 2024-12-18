@@ -3,6 +3,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DChild.Gameplay.FastTravel
 {
@@ -14,11 +15,13 @@ namespace DChild.Gameplay.FastTravel
         private FastTravelOptionButton[] m_townGateButtons;
         [SerializeField]
         private FastTravelOptionButton m_overworldTownGateButtons;
+        [SerializeField]
+        private Image m_locationBackground;
 
         public void ShowPage(FastTravelPageData locationList)
         {
             m_locationLabel.text = locationList.location.ToString().Replace('_', ' ');
-
+            m_locationBackground.sprite = locationList.locationBackground;
             ResetButtons(locationList);
             for (int i = 0; i < locationList.count; i++)
             {
