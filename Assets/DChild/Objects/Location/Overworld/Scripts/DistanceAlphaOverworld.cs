@@ -22,11 +22,11 @@ public class DistanceAlphaOverworld : MonoBehaviour
 
     void Start()
     {
-        if (!m_isMultipleObjects)
+        if(!m_isMultipleObjects)
             m_spriteRenderer = GetComponent<SpriteRenderer>();
         else
         {
-            for (int i = 0; i < m_renderers.Count; i++)
+            for(int i = 0; i < m_renderers.Count; i++)
             {
                 m_renderers[i] = m_renderers[i].GetComponent<SpriteRenderer>();
             }
@@ -39,7 +39,7 @@ public class DistanceAlphaOverworld : MonoBehaviour
         {
             if (m_isMultipleObjects)
             {
-                for (int i = 0; i < m_renderers.Count; i++)
+                for(int i = 0; i < m_renderers.Count; i++)
                 {
                     m_color = m_renderers[i].color;
                     m_color.a = Mathf.Lerp(m_color.a, m_minAlpha, Time.deltaTime * m_fadeSpeed);
