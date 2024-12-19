@@ -79,13 +79,43 @@ MonoBehaviour:
     spritePortrait: {fileID: 0}
     alternatePortraits: []
     spritePortraits: []
-  items: []
+  items:
+  - id: 1
+    fields:
+    - title: Name
+      value: Recruit Alchemist
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Success Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Failure Description
+      value: 
+      type: 0
+      typeString: 
+    - title: State
+      value: unassigned
+      type: 0
+      typeString: 
+    - title: Is Item
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
   locations: []
   variables:
   - id: 2
     fields:
     - title: Name
-      value: Has Recuited
+      value: Has Recruited 111
       type: 0
       typeString: 
     - title: Initial Value
@@ -93,7 +123,7 @@ MonoBehaviour:
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Description
-      value: 
+      value: Recruited Alchemist
       type: 0
       typeString: 
   conversations:
@@ -248,15 +278,15 @@ MonoBehaviour:
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
-      conditionsString: Variable["HasRecuited"] == false
+      conditionsString: Variable["Has_Recruited_111"] == false
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 27
-        y: 140
+        x: 20
+        y: 173
         width: 160
         height: 30
     - id: 2
@@ -304,8 +334,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 33
-        y: 236
+        x: 23
+        y: 286
         width: 160
         height: 30
     - id: 3
@@ -346,15 +376,15 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: Variable["HasRecuited"] == true
+      conditionsString: Variable["Has_Recruited_111"] == true
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 244
-        y: 136
+        x: 252
+        y: 168
         width: 160
         height: 30
     entryGroups: []

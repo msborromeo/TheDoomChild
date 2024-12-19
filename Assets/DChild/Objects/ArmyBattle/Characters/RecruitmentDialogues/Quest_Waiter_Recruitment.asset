@@ -79,13 +79,43 @@ MonoBehaviour:
     spritePortrait: {fileID: 0}
     alternatePortraits: []
     spritePortraits: []
-  items: []
+  items:
+  - id: 1
+    fields:
+    - title: Name
+      value: Recruit Waiter
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Success Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Failure Description
+      value: 
+      type: 0
+      typeString: 
+    - title: State
+      value: unassigned
+      type: 0
+      typeString: 
+    - title: Is Item
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
   locations: []
   variables:
   - id: 1
     fields:
     - title: Name
-      value: Has Recruited
+      value: Has Recruited 127
       type: 0
       typeString: 
     - title: Initial Value
@@ -93,7 +123,7 @@ MonoBehaviour:
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Description
-      value: 
+      value: Recruited Rimak (Waiter)
       type: 0
       typeString: 
   conversations:
@@ -227,7 +257,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: DAMN, you can DOUBLE JUMP !!!!!!!!!!!!!!!!!!!!!
+        value: You can do that
         type: 0
         typeString: 
       - title: Sequence
@@ -248,7 +278,7 @@ MonoBehaviour:
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
-      conditionsString: Variable["Has_Recruited"] == false
+      conditionsString: Variable["Has_Recruited_127"] == false
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -331,8 +361,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: i want to double jump someday (recruited by having the primary skill
-          DOUBLE JUMP)
+        value: i want to do Earthshaker someday (recruited by having the primary
+          skill EARTHSHAKER)
         type: 0
         typeString: 
       - title: Sequence
@@ -347,7 +377,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: Variable["Has_Recruited"] == true
+      conditionsString: Variable["Has_Recruited_127"] == true
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -485,7 +515,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: It would be cool if you can double jump
+        value: we need EARTHSHAKER to get past those walls and cracked grounds
         type: 0
         typeString: 
       - title: Sequence

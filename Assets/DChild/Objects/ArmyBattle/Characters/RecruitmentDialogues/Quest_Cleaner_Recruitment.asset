@@ -79,13 +79,43 @@ MonoBehaviour:
     spritePortrait: {fileID: 0}
     alternatePortraits: []
     spritePortraits: []
-  items: []
+  items:
+  - id: 1
+    fields:
+    - title: Name
+      value: Recruit Cleaner
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Success Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Failure Description
+      value: 
+      type: 0
+      typeString: 
+    - title: State
+      value: unassigned
+      type: 0
+      typeString: 
+    - title: Is Item
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
   locations: []
   variables:
   - id: 1
     fields:
     - title: Name
-      value: Has Recruited
+      value: Has Recruited 129
       type: 0
       typeString: 
     - title: Initial Value
@@ -93,7 +123,7 @@ MonoBehaviour:
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Description
-      value: 
+      value: Recruited Bomak (Cleaner)
       type: 0
       typeString: 
   conversations:
@@ -248,7 +278,7 @@ MonoBehaviour:
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
-      conditionsString: Variable["Has_Recruited"] == false
+      conditionsString: Variable["Has_Recruited_129"] == false
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -346,7 +376,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: Variable["Has_Recruited"] == true
+      conditionsString: Variable["Has_Recruited_129"] == true
       userScript: 
       onExecute:
         m_PersistentCalls:
