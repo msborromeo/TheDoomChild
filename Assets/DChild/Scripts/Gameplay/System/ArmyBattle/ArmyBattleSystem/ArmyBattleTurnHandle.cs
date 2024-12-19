@@ -14,6 +14,14 @@ namespace DChild.Gameplay.ArmyBattle
         [System.Serializable]
         public struct TurnConfiguration
         {
+            public bool playerCanUseMelee;
+            public bool playerCanUseMagic;
+            public bool playerCanUseRange;
+
+            public bool enemyCanUseMelee;
+            public bool enemyCanUseMagic;
+            public bool enemyCanUseRange;
+
             public bool playerWillAttack;
             public bool enemyWillAttack;
             public bool turnWillProgress;
@@ -101,18 +109,71 @@ namespace DChild.Gameplay.ArmyBattle
             // Wait for Scenarios ******************
 
 
-            var playerTurn = m_player.GetTurnAction(m_turnCount);
-            playerTurn.willAttack = configuration.playerWillAttack;
+            //var playerTurn = m_player.GetTurnAction(m_turnCount);
+            //playerTurn.willAttack = configuration.playerWillAttack;
 
-            var enemyTurn = m_enemy.GetTurnAction(m_turnCount);
-            enemyTurn.willAttack = configuration.enemyWillAttack;
+            //var enemyTurn = m_enemy.GetTurnAction(m_turnCount);
+            //enemyTurn.willAttack = configuration.enemyWillAttack;
+
+
+            var playerTurn = ArmyTurnConfiguration(m_player, m_turnCount);
+            var enemyTurn = ArmyTurnConfiguration(m_enemy, m_turnCount);
 
             var result = m_combatSimulator.CalculateCombatResult(playerTurn, enemyTurn);
             m_player.controlledArmy.SubtractTroopCount(result.player.damageReceived);
             m_enemy.controlledArmy.SubtractTroopCount(result.enemy.damageReceived);
             m_fightManager.VisualizeCombat(result);
         }
+        private ArmyTurnAction ArmyTurnConfiguration(ArmyController participant, int turnCount)
+        {
+            ArmyTurnAction turnAction = new ArmyTurnAction();
+            if (participant == m_player)
+            {
+                var playerTurn = m_player.GetTurnAction(turnCount);
+                playerTurn.willAttack = configuration.playerWillAttack;
+                if (playerTurn.willAttack)
+                {
+                    switch (playerTurn.attack.type)
+                    {
+                        case DamageType.Melee:
+                            playerTurn.willAttack = configuration.playerCanUseMelee;
+                            break;
+                        case DamageType.Range:
+                            playerTurn.willAttack = configuration.playerCanUseRange;
+                            break;
+                        case DamageType.Magic:
+                            playerTurn.willAttack = configuration.playerCanUseMagic;
+                            break;
 
+                    }
+                }
+                turnAction = playerTurn;
+            }
+            else if (participant == m_enemy)
+            {
+                var enemyTurn = m_enemy.GetTurnAction(m_turnCount);
+                enemyTurn.willAttack = configuration.enemyWillAttack;
+                if (enemyTurn.willAttack)
+                {
+                    switch (enemyTurn.attack.type)
+                    {
+                        case DamageType.Melee:
+                            enemyTurn.willAttack = configuration.enemyCanUseMelee;
+                            break;
+                        case DamageType.Range:
+                            enemyTurn.willAttack = configuration.enemyCanUseRange;
+                            break;
+                        case DamageType.Magic:
+                            enemyTurn.willAttack = configuration.enemyCanUseMagic;
+                            break;
+                    }
+                }
+                turnAction = enemyTurn;
+            }
+
+
+            return turnAction;
+        }
 
         [Button]
         private void EndTurn()
@@ -122,6 +183,15 @@ namespace DChild.Gameplay.ArmyBattle
 
         private void ResetConfiguration()
         {
+
+            configuration.playerCanUseMelee = true;
+            configuration.playerCanUseRange = true;
+            configuration.playerCanUseMagic = true;
+
+            configuration.enemyCanUseMelee = true;
+            configuration.enemyCanUseRange = true;
+            configuration.enemyCanUseMagic = true;
+
             configuration.turnWillProgress = true;
             configuration.enemyWillAttack = true;
             configuration.playerWillAttack = true;
