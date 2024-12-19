@@ -17,7 +17,7 @@ namespace DChildDebug.Serialization
         [MenuItem("Tools/DChild Utility/FastTravel Database Populator")]
         private static void ShowWindow()
         {
-            var window = GetWindow<FastTravelDatabasePopulator_Window>(false, "Collectathon Database Populator", true);
+            var window = GetWindow<FastTravelDatabasePopulator_Window>(false, "FastTravel Database Populator", true);
         }
 
         [SerializeField, AssetList]
@@ -39,7 +39,9 @@ namespace DChildDebug.Serialization
                     var variable = FastTravelUtility.GenerateActivationVariableName(data.GetUnderworldTravelData(j));
                     variablesToAdd.Add(variable);
                 }
+                variablesToAdd.Add(FastTravelUtility.GenerateActivationVariableName(data.overworldTravelData));
             }
+
 
             Template template = TemplateTools.LoadFromEditorPrefs();
 

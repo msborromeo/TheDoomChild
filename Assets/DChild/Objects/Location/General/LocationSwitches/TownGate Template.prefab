@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4299748413204877307}
   - component: {fileID: 7976717085807636339}
   - component: {fileID: 3505783241663726896}
+  - component: {fileID: 3917321226722408095}
   m_Layer: 11
   m_Name: Model
   m_TagString: Untagged
@@ -123,6 +124,20 @@ MonoBehaviour:
   loop: 1
   timeScale: 1
   m_alwaysUpdateMesh: 1
+--- !u!114 &3917321226722408095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523712574910048540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09352e9564b46104896226477f31b5b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animationTracks: []
+  m_skeletonAnimation: {fileID: 3505783241663726896}
 --- !u!1001 &897980227101103072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -220,34 +235,32 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 897980227101103072}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4146952613411197386
-MonoBehaviour:
+--- !u!61 &6593576143566031558
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9010537756785852727}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c06f6c3ae0c4ea479b74764beedd906, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_serializationReference: 
-  m_SkeletonAnimation: {fileID: 3505783241663726896}
-  m_poster: {fileID: 992260143271767645}
-  Default:
-    m_PersistentCalls:
-      m_Calls: []
-  InteractAction:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Interact:
-  - idle2
-  - idle_loop
-  m_Idle:
-  - animation
-  m_GateAnimation: {fileID: 11400000, guid: 5c74a29295321f44f81d69bfa3236ad2, type: 2}
-  m_Offset: {x: -2, y: 22, z: 0}
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 15, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &992260143271767645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,32 +321,25 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!61 &6593576143566031558
-BoxCollider2D:
+--- !u!114 &4146952613411197386
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9010537756785852727}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 15, y: 1}
-  m_EdgeRadius: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c06f6c3ae0c4ea479b74764beedd906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_serializationReference: 
+  m_animation: {fileID: 3917321226722408095}
+  m_poster: {fileID: 992260143271767645}
+  m_closeIdle: animation
+  m_openTransition: idle2
+  m_openIdle: idle_loop
+  m_Offset: {x: -2, y: 22, z: 0}
 --- !u!114 &7660441899140034510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,3 +367,16 @@ MonoBehaviour:
   RuntimeFollower: {fileID: 0}
   colliderMaxDistance: 0
   lastTimeMaxDistanceCalced: 638671059981396520
+--- !u!114 &8726800478189505806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9010537756785852727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f717088150faf954fa33fb7270fc4471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_serializationReference: 
