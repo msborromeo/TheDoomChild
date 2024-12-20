@@ -1,4 +1,6 @@
 using DChild.Gameplay;
+using DChild.Gameplay.Characters;
+using DChild.Gameplay.Environment;
 using DChild.Gameplay.Environment.Interractables;
 using DChild.Gameplay.FastTravel;
 using DChild.Gameplay.Systems;
@@ -6,105 +8,95 @@ using Holysoft.Event;
 using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using Spine.Unity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TownGateHandler : MonoBehaviour, IButtonToInteract
+namespace DChild.Gameplay.Environment.Interractables
 {
-    [SerializeField, VariablePopup(true)]
-    private string m_serializationReference;
-    [SerializeField, TabGroup("Reference")]
-    private SkeletonAnimation m_SkeletonAnimation;
-    [SerializeField, TabGroup("Reference")]
-    private LocationPoster m_poster;
-    [SerializeField, TabGroup("Actions")]
-    private UnityEvent Default, InteractAction;
-    [SerializeField, Spine.Unity.SpineAnimation, TabGroup("Animation")]
-    private List<string> m_Interact;
-    [SerializeField, Spine.Unity.SpineAnimation, TabGroup("Animation")]
-    private List<string> m_Idle;
-    [SerializeField, TabGroup("Appearance"), OnValueChanged("GateValueChanged")]
-    private SkeletonDataAsset m_GateAnimation;
-    [SerializeField]
-    public Vector3 m_Offset;
 
-    public event EventAction<EventActionArgs> InteractionOptionChange;
-
-    public bool showPrompt => true;
-
-    public string promptMessage => "Town Portal";
-
-    public Vector3 promptPosition => transform.position + m_Offset;
-
-    private void Start()
+    public class TownGateHandler : MonoBehaviour, IButtonToInteract, IInteractionRequirement
     {
-        IdlePortal();
-    }
+        [SerializeField, VariablePopup(true)]
+        private string m_serializationReference;
+        [SerializeField, TabGroup("Reference")]
+        private SpineRootAnimation m_animation;
+        [SerializeField, TabGroup("Reference")]
+        private LocationPoster m_poster;
+        [SerializeField, TabGroup("Reference")]
+        private SoulEssenceOffering m_soulOffering;
 
-    private string ChooseIdleAnim()
-    {
-        if (m_Idle.Count > 1)
+        [SerializeField, Spine.Unity.SpineAnimation, TabGroup("Animation")]
+        private string m_closeIdle;
+        [SerializeField, Spine.Unity.SpineAnimation, TabGroup("Animation")]
+        private string m_openTransition;
+        [SerializeField, Spine.Unity.SpineAnimation, TabGroup("Animation")]
+        private string m_openIdle;
+        [SerializeField]
+        public Vector3 m_Offset;
+
+        public event EventAction<EventActionArgs> InteractionOptionChange;
+
+        public bool showPrompt => true;
+
+        public string promptMessage => IsCurrentActiveState() ? "Town Portal" : m_soulOffering.promptMessage;
+
+        public Vector3 promptPosition => transform.position + m_Offset;
+
+        public string requirementMessage => m_soulOffering.requirementMessage;
+
+        private void Start()
         {
-            int x = UnityEngine.Random.Range(0, m_Idle.Count);
-            return m_Idle[x];
+            IdlePortal();
         }
-        else
+
+        private bool IsCurrentActiveState() => DialogueLua.GetVariable(m_serializationReference).asBool;
+
+        public bool CanBeInteracted(Character character) => m_soulOffering.CanBeInteracted(character);
+
+        [Button, HideInEditorMode]
+        public void NearPortal()
         {
-            return m_Idle[0];
-        }
-    }
+            if (IsCurrentActiveState() == false)
+                return;
 
-    private string ChooseInteractAnim()
-    {
-        if (m_Interact.Count > 1)
+            m_animation.SetAnimation(0, m_openTransition, false);
+            m_animation.AddAnimation(0, m_openIdle, true, 0);
+            Debug.Log("Test, On a Portal");
+        }
+        [Button, HideInEditorMode]
+        public void IdlePortal()
         {
-            int x = UnityEngine.Random.Range(0, m_Interact.Count);
-            return m_Interact[x];
+            m_animation.SetAnimation(0, m_closeIdle, false);
+            Debug.Log("Test, leaving a portal");
         }
-        else
+
+        [Button, HideInEditorMode]
+        public void Interact(Character character)
         {
-            return m_Interact[0];
+            var wasPreviouslyActive = IsCurrentActiveState();
+            DialogueLua.SetVariable(m_serializationReference, true);
+            if (wasPreviouslyActive == false)
+            {
+                m_soulOffering.Interact(character);
+                m_animation.SetAnimation(0, m_openTransition, false);
+                m_animation.AddAnimation(0, m_openIdle, true, 0);
+                InteractionOptionChange?.Invoke(this, EventActionArgs.Empty);
+            }
+            GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location);
+
         }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawSphere(promptPosition, 1f);
+        }
+
+        
     }
 
-    [Button, HideInEditorMode]
-    public void NearPortal()
-    {
-        InteractAction?.Invoke();
-        m_SkeletonAnimation.AnimationName = ChooseInteractAnim();
-        Debug.Log("Test, On a Portal");
-    }
-    [Button, HideInEditorMode]
-    public void IdlePortal()
-    {
-        Default?.Invoke();
-        m_SkeletonAnimation.AnimationName = ChooseIdleAnim();
-        Debug.Log("Test, leaving a portal");
-    }
-
-    private void GateValueChanged()
-    {
-        m_SkeletonAnimation.skeletonDataAsset = m_GateAnimation;
-        m_SkeletonAnimation.Initialize(true);
-        m_SkeletonAnimation.loop = true;
-#if UNITY_EDITOR
-        EditorUtility.SetDirty(m_SkeletonAnimation);
-        EditorUtility.SetDirty(m_SkeletonAnimation.transform);
-#endif
-    }
-    [Button, HideInEditorMode]
-    public void Interact(Character character)
-    {
-        DialogueLua.SetVariable(m_serializationReference, true);
-        GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawSphere(promptPosition, 1f);
-    }
 }
