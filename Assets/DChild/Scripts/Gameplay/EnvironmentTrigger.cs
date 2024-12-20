@@ -136,6 +136,9 @@ namespace DChild.Gameplay
 
         private void OnTriggerExit2D(Collider2D collision)
         {
+            if (m_playerHitboxOnly && collision.tag != "Hitbox")
+                return;
+
             if (!transform.GetComponentInParent<HiddenAreaCover>())
             {
                 if (!m_oneTimeOnly)
