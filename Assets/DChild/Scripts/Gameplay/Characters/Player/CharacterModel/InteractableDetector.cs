@@ -84,6 +84,11 @@ namespace DChild.Gameplay.Characters.Players
                 m_objectsInRange.Remove(m_closestObject);
                 SetAsClosestInteractableObject(null);
             }
+            else
+            {
+                //Force Update on InteractableDetected
+                CallInteractableDetectedEvent(m_closestObject);
+            }
         }
 
         private void CallInteractableDetectedEvent(IButtonToInteract interactable)
@@ -215,7 +220,7 @@ namespace DChild.Gameplay.Characters.Players
                                 SetAsClosestInteractableObject(interactableObject);
                             }
                         }
-                        
+
                     }
                 }
             }

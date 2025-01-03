@@ -87,6 +87,8 @@ namespace DChild.Gameplay.Narrative
         {
             m_database.OnUse();
             m_storePickupSequence.SetActive(false);
+            var WorldTypeThigy = FindObjectOfType<WorldTypeManager>();
+            WorldTypeThigy.SetCurrentWorldType(Environment.Location.City_Of_The_Dead);
             GameplaySystem.playerManager.player.GetComponentInChildren<PlayerInput>().actions.FindActionMap("Gameplay").Disable();
             m_introStartEvent?.Invoke();
         }

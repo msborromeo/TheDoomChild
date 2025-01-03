@@ -11,8 +11,7 @@ namespace DChild.Gameplay.FastTravel
         [SerializeField]
         private Image m_icon;
         public FastTravelPageData locationList => m_locationList;
-
-        private void OnDataChange()
+        public void OnDataChange()
         {
             m_icon.sprite = m_locationList?.tabIcon ?? null;
         }

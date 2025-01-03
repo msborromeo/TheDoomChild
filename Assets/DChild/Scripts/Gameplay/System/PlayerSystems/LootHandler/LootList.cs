@@ -15,6 +15,9 @@ namespace DChild.Gameplay.Systems
         private int m_soulEssenceAmount;
         public int soulEssenceAmount => m_soulEssenceAmount;
 
+        private int m_aetherPointsAmount;
+        public int aetherPointsAmount => m_aetherPointsAmount;
+
         public LootList()
         {
             m_lootAmountPair = new Dictionary<ItemData, int>();
@@ -42,9 +45,15 @@ namespace DChild.Gameplay.Systems
         }
 
         public ItemData[] GetAllItems() => m_lootAmountPair.Keys.ToArray();
+
         public void AddSoulEssence(int soulcount)
         {
             m_soulEssenceAmount += soulcount;
+        }
+
+        public void AddDarkAetherPoints(int aethercount)
+        {
+            m_aetherPointsAmount += aethercount;
         }
 
         public int GetCountOf(ItemData itemData)

@@ -61,7 +61,7 @@ MonoBehaviour:
     spritePortrait: {fileID: 0}
     alternatePortraits: []
     spritePortraits: []
-  - id: 2
+  - id: 32
     fields:
     - title: Name
       value: NPC
@@ -83,10 +83,40 @@ MonoBehaviour:
     spritePortrait: {fileID: 0}
     alternatePortraits: []
     spritePortraits: []
-  items: []
+  items:
+  - id: 1
+    fields:
+    - title: Name
+      value: Recruit Fisher
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Success Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Failure Description
+      value: 
+      type: 0
+      typeString: 
+    - title: State
+      value: unassigned
+      type: 0
+      typeString: 
+    - title: Is Item
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
   locations: []
   variables:
-  - id: 1
+  - id: 375
     fields:
     - title: Name
       value: Can Recruit
@@ -100,10 +130,10 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: CustomFieldType_Text
-  - id: 2
+  - id: 1
     fields:
     - title: Name
-      value: Has Recruited
+      value: Has Recruited 109
       type: 0
       typeString: 
     - title: Initial Value
@@ -111,14 +141,14 @@ MonoBehaviour:
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Description
-      value: 
+      value: Recruited Fisher
       type: 0
       typeString: 
   conversations:
-  - id: 1
+  - id: 229
     fields:
     - title: Title
-      value: New Conversation 1
+      value: Fisher Requirement Met
       type: 0
       typeString: 
     - title: Description
@@ -130,7 +160,7 @@ MonoBehaviour:
       type: 5
       typeString: CustomFieldType_Actor
     - title: Conversant
-      value: 2
+      value: 32
       type: 5
       typeString: CustomFieldType_Actor
     overrideSettings:
@@ -176,7 +206,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 2
+        value: 32
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -191,7 +221,7 @@ MonoBehaviour:
         value: None()
         type: 0
         typeString: 
-      conversationID: 1
+      conversationID: 229
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -199,15 +229,15 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 1
+      - originConversationID: 229
         originDialogueID: 0
-        destinationConversationID: 1
+        destinationConversationID: 229
         destinationDialogueID: 1
         isConnector: 0
         priority: 2
-      - originConversationID: 1
+      - originConversationID: 229
         originDialogueID: 0
-        destinationConversationID: 1
+        destinationConversationID: 229
         destinationDialogueID: 5
         isConnector: 0
         priority: 2
@@ -233,7 +263,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 2
+        value: 32
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -245,14 +275,14 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: I am the Fisherman, I catch fish
+        value: I am the Fisher, I catch fish
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 1
+      conversationID: 229
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -260,13 +290,13 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 1
+      - originConversationID: 229
         originDialogueID: 1
-        destinationConversationID: 1
+        destinationConversationID: 229
         destinationDialogueID: 3
         isConnector: 0
         priority: 2
-      conditionsString: Variable["Has_Recruited"] == false
+      conditionsString: Variable["Has_Recruited_109"] == false
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -292,7 +322,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 2
+        value: 32
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -307,7 +337,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 1
+      conversationID: 229
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -315,9 +345,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 1
+      - originConversationID: 229
         originDialogueID: 3
-        destinationConversationID: 1
+        destinationConversationID: 229
         destinationDialogueID: 4
         isConnector: 0
         priority: 2
@@ -343,7 +373,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 2
+        value: 32
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -362,7 +392,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 1
+      conversationID: 229
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -392,7 +422,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 2
+        value: 32
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -404,14 +434,14 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: ': / '
+        value: ': /  (Fisher free recruited)'
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 1
+      conversationID: 229
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -419,13 +449,13 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 1
+      - originConversationID: 229
         originDialogueID: 5
-        destinationConversationID: 1
+        destinationConversationID: 229
         destinationDialogueID: 6
         isConnector: 0
         priority: 2
-      conditionsString: Variable["Has_Recruited"] == true
+      conditionsString: Variable["Has_Recruited_109"] == true
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -451,7 +481,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 2
+        value: 32
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -466,7 +496,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 1
+      conversationID: 229
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -488,10 +518,10 @@ MonoBehaviour:
     entryGroups: []
     canvasScrollPosition: {x: 60.606056, y: 26.573416}
     canvasZoom: 0.7799999
-  - id: 2
+  - id: 230
     fields:
     - title: Title
-      value: New Conversation 2
+      value: Fisher Requirement unMet
       type: 0
       typeString: 
     - title: Description
@@ -503,7 +533,7 @@ MonoBehaviour:
       type: 5
       typeString: CustomFieldType_Actor
     - title: Conversant
-      value: 2
+      value: 32
       type: 5
       typeString: CustomFieldType_Actor
     overrideSettings:
@@ -549,7 +579,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 2
+        value: 32
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -564,7 +594,7 @@ MonoBehaviour:
         value: None()
         type: 0
         typeString: 
-      conversationID: 2
+      conversationID: 230
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -572,9 +602,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 2
+      - originConversationID: 230
         originDialogueID: 0
-        destinationConversationID: 2
+        destinationConversationID: 230
         destinationDialogueID: 1
         isConnector: 0
         priority: 2
@@ -600,7 +630,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 2
+        value: 32
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -619,7 +649,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 2
+      conversationID: 230
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -627,9 +657,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 2
+      - originConversationID: 230
         originDialogueID: 1
-        destinationConversationID: 2
+        destinationConversationID: 230
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
@@ -659,7 +689,62 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 2
+        value: 32
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: How's that even possible
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 230
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 230
+        originDialogueID: 2
+        destinationConversationID: 230
+        destinationDialogueID: 3
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 44
+        y: 134
+        width: 160
+        height: 30
+    - id: 3
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 32
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -674,7 +759,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 2
+      conversationID: 230
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -689,8 +774,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 55
-        y: 173
+        x: 54
+        y: 218
         width: 160
         height: 30
     entryGroups: []
