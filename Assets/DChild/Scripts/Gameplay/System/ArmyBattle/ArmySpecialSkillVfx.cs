@@ -114,7 +114,7 @@ namespace DChild.Gameplay.ArmyBattle
 
                 }
 
-                if(m_VfxSpineTurnManager != null)
+                if(m_VfxSpineTurnManager.Count != 0)
                 {
                     for (int x = 0; x < m_vfxParticleTurnManager[i].m_fxPartcileSystem.Count; x++)
                     {
@@ -124,6 +124,10 @@ namespace DChild.Gameplay.ArmyBattle
                             m_iseffectdone = true;
                         }
                     }
+                }
+                else
+                {
+                    m_iseffectdone = true;
                 }
 
 
