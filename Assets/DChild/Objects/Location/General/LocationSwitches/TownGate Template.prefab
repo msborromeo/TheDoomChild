@@ -1,5 +1,64 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &587625743633984462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7441427212250858287}
+  - component: {fileID: 4424095048835347640}
+  m_Layer: 11
+  m_Name: Offering
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7441427212250858287
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587625743633984462}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6428857786858472560}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4424095048835347640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587625743633984462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 066c61ae6f73a7a459387dc9fbb360c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_amountRequired: 1
+  m_currentAmount: 0
+  m_promptOffset: {x: 0, y: 0, z: 0}
+  m_startAsComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  m_startAsIncomplete:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onIncomplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1523712574910048540
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,6 +395,7 @@ MonoBehaviour:
   m_serializationReference: 
   m_animation: {fileID: 3917321226722408095}
   m_poster: {fileID: 992260143271767645}
+  m_soulOffering: {fileID: 4424095048835347640}
   m_closeIdle: animation
   m_openTransition: idle2
   m_openIdle: idle_loop
