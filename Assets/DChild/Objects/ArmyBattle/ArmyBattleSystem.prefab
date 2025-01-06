@@ -294,6 +294,63 @@ MonoBehaviour:
   SendOnEnable: 0
   SendOnDisable: 0
   SendOnDestroy: 0
+--- !u!1 &7219800372774773872
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8241193282177698893}
+  - component: {fileID: 3945783607935223109}
+  m_Layer: 0
+  m_Name: DialogueDB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8241193282177698893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219800372774773872}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1015.37976, y: 763.8425, z: 41.618988}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8762055607546447034}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3945783607935223109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219800372774773872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6546d1f34e0077748a93d4c356aa9411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addTrigger: 16
+  removeTrigger: 512
+  databases:
+  - {fileID: 11400000, guid: b95aabd7178816f46a615a02663829f8, type: 2}
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  once: 0
+  onePerFrame: 0
 --- !u!1 &7629693369632066443
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,11 +433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_playerRecruitedCharacters:
   - {fileID: 0}
-  m_battleScenario:
-    m_enemyToBattle: {fileID: 0}
-    m_location: 0
-    m_scenarioHandle: {fileID: 7236979997786383951, guid: 5c6a7430de079c644aaa2249b24c648a,
-      type: 3}
+  m_battleScenario: {fileID: 0}
 --- !u!114 &9010337518295323112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,6 +484,7 @@ Transform:
   - {fileID: 8762055606266220326}
   - {fileID: 627560145216773687}
   - {fileID: 5866443668867012454}
+  - {fileID: 8241193282177698893}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -449,9 +503,9 @@ MonoBehaviour:
   m_locationInstantiator: {fileID: 2225420059054573839}
   m_generator: {fileID: 9064165810040716005}
   m_turnHandle: {fileID: 8762055607546447033}
-  m_specialSkillHandle: {fileID: 7289556706671694533}
   m_fightManager: {fileID: 0}
   m_uiManager: {fileID: 65209429484771079}
+  m_inputOverride: {fileID: 0}
   m_player: {fileID: 0}
   m_enemy: {fileID: 0}
   m_battleStartSignal: {fileID: 8989342661395816589}
@@ -497,6 +551,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e273e4c4853372b4b84aabec1b2c55e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  configuration:
+    playerCanUseMelee: 0
+    playerCanUseMagic: 0
+    playerCanUseRange: 0
+    enemyCanUseMelee: 0
+    enemyCanUseMagic: 0
+    enemyCanUseRange: 0
+    playerWillAttack: 0
+    enemyWillAttack: 0
+    turnWillProgress: 0
+  m_skillHandle: {fileID: 0}
   m_combatSimulator:
     m_data: {fileID: 11400000, guid: 63ce407c7004e2b43b1b599fbd8f5777, type: 2}
   m_fightManager: {fileID: 0}
@@ -512,4 +577,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7a7938092530740a306e675d908079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_activeSkillList: []
+  m_skillActivationEndSignal: {fileID: 0}
+  m_maxPlayerActiveSkills: 0
+  m_playerActiveSkills:
+    m_waitingTypeSkillList: []
+    m_turnTypeSkillList: []
+  m_enemyActiveSkills:
+    m_waitingTypeSkillList: []
+    m_turnTypeSkillList: []
