@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6526744280870559102}
+  - component: {fileID: 1729128228255452280}
+  - component: {fileID: 5015501526719833107}
   - component: {fileID: 6526744280870559101}
   - component: {fileID: 6526744280870559100}
-  - component: {fileID: 6526744280870559091}
   m_Layer: 0
   m_Name: OverworldTownGate
   m_TagString: Untagged
@@ -35,6 +36,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1729128228255452280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6526744280870559090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7dc9f9fb85a6fa4ca792ee2b3c3a8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_serializationReference: 
+  m_poster: {fileID: 5015501526719833107}
+  m_onEffect: {fileID: 8245019202604056524}
+  m_Offset: {x: -0.63, y: 3.53, z: 0}
+--- !u!114 &5015501526719833107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6526744280870559090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3562ad78cbfa81441aaff7610ceeeac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_data: {fileID: 0}
+  m_locationPoint: {fileID: 6526744280870559102}
+  m_prevPosition: {x: 0, y: 0, z: 0}
 --- !u!61 &6526744280870559101
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -91,36 +123,6 @@ MonoBehaviour:
   SendOnEnable: 0
   SendOnDisable: 0
   SendOnDestroy: 0
---- !u!114 &6526744280870559091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6526744280870559090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 275851cf650b4e341901cd773f6a9f31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_promptMessage: Fast Travel
-  m_promptOffset: {x: 0, y: 1, z: 0}
-  m_oneTimeInteraction: 0
-  m_onInteraction:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6526744280870559100}
-        m_TargetAssemblyTypeName: Doozy.Runtime.Signals.SignalSender, Assembly-CSharp
-        m_MethodName: SendSignal
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1001 &6526744280510717796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -138,6 +140,16 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 41
       objectReference: {fileID: 0}
+    - target: {fileID: 2910114812983431634, guid: 9d97929562386054ead2b09049325d38,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2910114813947983997, guid: 9d97929562386054ead2b09049325d38,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2910114813947983999, guid: 9d97929562386054ead2b09049325d38,
         type: 3}
       propertyPath: m_SortingOrder
@@ -153,6 +165,16 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 41
       objectReference: {fileID: 0}
+    - target: {fileID: 2910114814089340614, guid: 9d97929562386054ead2b09049325d38,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2910114814097510977, guid: 9d97929562386054ead2b09049325d38,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2910114814097510979, guid: 9d97929562386054ead2b09049325d38,
         type: 3}
       propertyPath: m_SortingOrder
@@ -163,10 +185,20 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 41
       objectReference: {fileID: 0}
+    - target: {fileID: 2910114814652592678, guid: 9d97929562386054ead2b09049325d38,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2910114814929716376, guid: 9d97929562386054ead2b09049325d38,
         type: 3}
       propertyPath: m_SortingOrder
       value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 2910114814929716382, guid: 9d97929562386054ead2b09049325d38,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4859074097545682795, guid: 9d97929562386054ead2b09049325d38,
         type: 3}
@@ -177,6 +209,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_UseCustomVertexStreams
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130965467448318525, guid: 9d97929562386054ead2b09049325d38,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6354172079354637521, guid: 9d97929562386054ead2b09049325d38,
         type: 3}
@@ -233,6 +270,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6906793925643665691, guid: 9d97929562386054ead2b09049325d38,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8250613350520856873, guid: 9d97929562386054ead2b09049325d38,
         type: 3}
       propertyPath: m_SortingOrder
@@ -243,6 +285,12 @@ PrefabInstance:
 --- !u!4 &197360691475395509 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6354172079354637521, guid: 9d97929562386054ead2b09049325d38,
+    type: 3}
+  m_PrefabInstance: {fileID: 6526744280510717796}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8245019202604056524 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2954244876760932520, guid: 9d97929562386054ead2b09049325d38,
     type: 3}
   m_PrefabInstance: {fileID: 6526744280510717796}
   m_PrefabAsset: {fileID: 0}
