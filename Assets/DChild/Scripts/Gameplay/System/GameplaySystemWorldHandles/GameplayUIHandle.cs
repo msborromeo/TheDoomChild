@@ -60,12 +60,27 @@ namespace DChild.Gameplay.Systems
 
         public void OpenStore()
         {
-            UnderworldGameplayUIHandle.Instance.OpenStore();
+            if(GameSystem.CurrentGameMode == GameMode.Underworld)
+            {
+                UnderworldGameplayUIHandle.Instance.OpenStore();
+            }
+            else if(GameSystem.CurrentGameMode == GameMode.Overworld)
+            {
+                OverworldGameplayUIHandle.Instance.OpenStore();
+            }
         }
 
         public void OpenStoreAtPage(StorePage storePage)
         {
-            UnderworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage);
+            if (GameSystem.CurrentGameMode == GameMode.Underworld)
+            {
+                UnderworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage);
+            }
+            else if (GameSystem.CurrentGameMode == GameMode.Overworld)
+            {
+                OverworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage);
+            }
+            
         }
 
         public void OpenTradeWindow(NPCProfile merchantData, ITradeInventory merchantInventory, TradeAskingPrice merchantBuyingPriceRate, CurrencyType type)
