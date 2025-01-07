@@ -57,15 +57,15 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
 
             public void DestroyVisuals()
             {
-                if(m_ownerVisuals != null)
+                if (m_ownerVisuals != null)
                 {
                     Destroy(m_ownerVisuals.gameObject);
                 }
-                if(m_targetVisuals != null)
+                if (m_targetVisuals != null)
                 {
                     Destroy(m_targetVisuals.gameObject);
                 }
-                  
+
             }
         }
 
@@ -109,25 +109,30 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
             if (specialSkill != null && owner != null)
             {
                 var target = ArmyBattleSystem.GetTargetOf(owner);
-                var skill = new ActiveSkill(specialSkill, owner, target);
-                //This creates a Circle Dependency
+                StartCoroutine(ActivateSkillRoutine(specialSkill, owner, target));
+            }
+        }
 
+        private IEnumerator ActivateSkillRoutine(SpecialSkill specialSkill, ArmyController owner, ArmyController target)
+        {
+            var skill = new ActiveSkill(specialSkill, owner, target);
 
-                switch (specialSkill.type)
-                {
-                    case SpecialSkill.Type.Instant:
-                        StartCoroutine(ApplyInstantSpecialSkillRoutine(skill, owner, target));
-                        break;
-                    case SpecialSkill.Type.Turn:
-                        var turnActiveList = ArmyBattleSystem.GetPlayer() == owner ? m_playerActiveSkills.GetSkillTypeList(specialSkill.type) : m_enemyActiveSkills.GetSkillTypeList(specialSkill.type);
-                        turnActiveList.Add(skill);
-                        //StartCoroutine(ApplyTurnSpecialSkillsRoutine(turnActiveList));
-                        break;
-                    case SpecialSkill.Type.Waiting:
-                        var activeList = ArmyBattleSystem.GetPlayer() == owner ? m_playerActiveSkills.GetSkillTypeList(specialSkill.type) : m_enemyActiveSkills.GetSkillTypeList(specialSkill.type);
-                        activeList.Add(skill);
-                        break;
-                }
+            yield return specialSkill.ExecuteOnSelect(owner, target);
+
+            switch (specialSkill.type)
+            {
+                case SpecialSkill.Type.Instant:
+                    yield return ApplyInstantSpecialSkillRoutine(skill, owner, target);
+                    break;
+                case SpecialSkill.Type.Turn:
+                    var turnActiveList = ArmyBattleSystem.GetPlayer() == owner ? m_playerActiveSkills.GetSkillTypeList(specialSkill.type) : m_enemyActiveSkills.GetSkillTypeList(specialSkill.type);
+                    turnActiveList.Add(skill);
+                    //StartCoroutine(ApplyTurnSpecialSkillsRoutine(turnActiveList));
+                    break;
+                case SpecialSkill.Type.Waiting:
+                    var activeList = ArmyBattleSystem.GetPlayer() == owner ? m_playerActiveSkills.GetSkillTypeList(specialSkill.type) : m_enemyActiveSkills.GetSkillTypeList(specialSkill.type);
+                    activeList.Add(skill);
+                    break;
             }
         }
 
