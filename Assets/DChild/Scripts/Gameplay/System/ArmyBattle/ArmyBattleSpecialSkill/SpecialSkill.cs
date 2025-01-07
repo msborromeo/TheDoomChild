@@ -20,15 +20,27 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
         private string m_description;
         [SerializeField, Min(1), ShowIf("@m_type == Type.Waiting")]
         private int m_duration = 1;
-        [SerializeField, HideLabel, HideReferenceObjectPicker, BoxGroup("Visualizers")]
+        [SerializeField, TabGroup("Upon Select")]
+        private ISpecialSkillIEnumeratorModule[] m_onSelect = new ISpecialSkillIEnumeratorModule[0];
+        [SerializeField, HideLabel, HideReferenceObjectPicker, TabGroup("Upon Effect")]
         private SpecialSkillVisualizerInfo m_visualizerInfo = new SpecialSkillVisualizerInfo();
-        [SerializeField]
+        [SerializeField, TabGroup("Upon Effect")]
         private ISpecialSkillIEnumeratorModule[] m_specialSkillModules = new ISpecialSkillIEnumeratorModule[0];
 
         public Type type => m_type;
         public int duration => m_duration;
         public SpecialSkillVisualizerInfo visualizerInfo => m_visualizerInfo;
         public string GetDescription() { return m_description; }
+
+        public IEnumerator ExecuteOnSelect(ArmyController owner, ArmyController target)
+        {
+            for (int i = 0; i < m_onSelect.Length; i++)
+            {
+                yield return m_onSelect[i].ApplyEffect(owner, target);
+            }
+
+            Debug.Log($"{m_description} \n Is Selected");
+        }
 
         public IEnumerator ApplyEffect(ArmyController owner, ArmyController target)
         {

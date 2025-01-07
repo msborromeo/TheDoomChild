@@ -11,7 +11,9 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
 
         public IEnumerator ApplyEffect(ArmyController owner, ArmyController target)
         {
+            Debug.Log($"Waiting for {m_wait} To Imitiate Army Battle Skill Duration");
             yield return new WaitForSeconds(m_wait);
+            Debug.Log("Waiting Done To Imitiate Army Battle Skill Duration");
         }
 
         public IEnumerator RemoveEffect(ArmyController owner, ArmyController target)
