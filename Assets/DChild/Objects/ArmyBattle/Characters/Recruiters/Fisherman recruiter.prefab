@@ -70,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 869082683812701045, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
         type: 3}
       propertyPath: m_isFree
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 869082683812701045, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
         type: 3}
@@ -110,6 +110,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 869082683812701045, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
         type: 3}
+      propertyPath: m_requiresSpecificNPC
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 869082683812701045, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
+        type: 3}
       propertyPath: m_requiresPrimarySkill
       value: 0
       objectReference: {fileID: 0}
@@ -117,6 +122,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CharacterReward.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 869082683812701045, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
+        type: 3}
+      propertyPath: m_requiresMinimumNPCsRecruited
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 869082683812701045, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
         type: 3}
@@ -164,20 +174,66 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fisherman recruiter
       objectReference: {fileID: 0}
+    - target: {fileID: 869082684660550891, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 869082684660550891, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 869082684660550892, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 32bbbc77489f10f4a8ff93d8280f4480,
+        type: 3}
     - target: {fileID: 1029470314919556481, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
         type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2418359907522693162, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
+        type: 3}
+      propertyPath: luaCode
+      value: Variable["Has_Recruited_109"] = true
+      objectReference: {fileID: 0}
+    - target: {fileID: 2418359907522693162, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
+        type: 3}
+      propertyPath: condition.questConditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2418359907522693162, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
+        type: 3}
+      propertyPath: condition.questConditions.Array.data[0].questName
+      value: Recruit Fisher
+      objectReference: {fileID: 0}
+    - target: {fileID: 2418359907522693162, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
+        type: 3}
+      propertyPath: condition.questConditions.Array.data[0].questState
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2469374293724033495, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
         type: 3}
       propertyPath: conversation
-      value: New Conversation 2
+      value: Fisher Requirement unMet
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990878899145114877, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
+        type: 3}
+      propertyPath: questName
+      value: Recruit Fisher
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990878899145114877, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
+        type: 3}
+      propertyPath: questState
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6990878899145114877, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
         type: 3}
       propertyPath: conversation
-      value: New Conversation 1
+      value: Fisher Requirement Met
       objectReference: {fileID: 0}
     - target: {fileID: 8642094258358052508, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
         type: 3}
@@ -186,137 +242,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f40df66e5a8cc54d9bbe9d55605a238, type: 3}
---- !u!1 &3125682269885486241 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6944923605985427564, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
-    type: 3}
-  m_PrefabInstance: {fileID: 5404869650372515021}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2134452094295871340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3125682269885486241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trigger: 2
-  condition:
-    luaConditions: []
-    questConditions: []
-    acceptedTags: []
-    acceptedGameObjects: []
-    luaWizardIndex: -1
-    lastEvaluationValue: 0
-  setQuestState: 1
-  questName: 
-  questState: 0
-  setQuestEntryState: 0
-  questEntryNumber: 1
-  questEntryState: 0
-  setAnotherQuestEntryState: 0
-  anotherQuestEntryNumber: 1
-  anotherQuestEntryState: 0
-  luaCode: Variable["Has_Recruited"] = true
-  sequence: 
-  sequenceSpeaker: {fileID: 0}
-  sequenceListener: {fileID: 0}
-  waitOneFrameOnStartOrEnable: 1
-  alertMessage: 
-  textTable: {fileID: 0}
-  alertDuration: 0
-  sendMessages: []
-  barkSource: 0
-  barkConversation: 
-  barkText: 
-  barkTextSequence: 
-  barker: {fileID: 0}
-  barkTarget: {fileID: 0}
-  barkOrder: 0
-  allowBarksDuringConversations: 0
-  skipBarkIfNoValidEntries: 0
-  cacheBarkLines: 0
-  conversation: 
-  conversationConversant: {fileID: 0}
-  conversationActor: {fileID: 0}
-  startConversationEntryID: -1
-  exclusive: 0
-  replace: 0
-  skipIfNoValidEntries: 0
-  preventRestartOnSameFrameEnded: 0
-  stopConversationOnTriggerExit: 0
-  stopConversationIfTooFar: 0
-  maxConversationDistance: 5
-  monitorConversationDistanceFrequency: 1
-  showCursorDuringConversation: 0
-  pauseGameDuringConversation: 0
-  setActiveActions: []
-  setEnabledActions: []
-  setAnimatorStateActions: []
-  onExecute:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5120151146956535736}
-        m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.ArmyBattleCharacterReward,
-          Assembly-CSharp
-        m_MethodName: GiveReward
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  useConversationTitlePicker: 1
-  useBarkTitlePicker: 1
-  useQuestNamePicker: 1
-  selectedDatabase: {fileID: 11400000, guid: c62858e629bc4ed48be1000172c4bf32, type: 2}
---- !u!114 &5120151146956535736 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 869082683812701045, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
-    type: 3}
-  m_PrefabInstance: {fileID: 5404869650372515021}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5120151146956535739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ed0afc9281a6ae44911db13f4c2155d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &5120151146956535739 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 869082683812701046, guid: 3f40df66e5a8cc54d9bbe9d55605a238,
-    type: 3}
-  m_PrefabInstance: {fileID: 5404869650372515021}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &497210441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5120151146956535739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6546d1f34e0077748a93d4c356aa9411, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  addTrigger: 16
-  removeTrigger: 1024
-  databases:
-  - {fileID: 11400000, guid: c62858e629bc4ed48be1000172c4bf32, type: 2}
-  condition:
-    luaConditions: []
-    questConditions: []
-    acceptedTags: []
-    acceptedGameObjects: []
-    luaWizardIndex: -1
-    lastEvaluationValue: 0
-  once: 0
-  onePerFrame: 0
