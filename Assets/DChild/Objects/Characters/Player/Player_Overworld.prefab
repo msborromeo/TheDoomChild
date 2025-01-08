@@ -488,6 +488,7 @@ Transform:
   - {fileID: 3869083880477792663}
   - {fileID: 3476673266910782811}
   - {fileID: 1288448364386052021}
+  - {fileID: 1819734711493638995}
   m_Father: {fileID: 6734730171648301109}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -772,3 +773,102 @@ MonoBehaviour:
     m_markAllItemsAsTradable: 0
     m_restrictItemsToQuanitityLimit: 1
     soulEssence: 0
+--- !u!1 &8278414560899739337
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1819734711493638995}
+  - component: {fileID: 5490252825331370866}
+  - component: {fileID: 4202114256957673629}
+  - component: {fileID: 7005604476539224809}
+  - component: {fileID: 5235726205416897870}
+  m_Layer: 8
+  m_Name: CombatArtProgression
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1819734711493638995
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8278414560899739337}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6734730172246290022}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5490252825331370866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8278414560899739337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8751c5d07180fc242bf6aaebffce5778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  m_level: {fileID: 7005604476539224809}
+  m_skillPoints: {fileID: 4202114256957673629}
+--- !u!114 &4202114256957673629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8278414560899739337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94349722a513545428765d217b0a1add, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_level: {fileID: 7005604476539224809}
+  m_points: 0
+--- !u!114 &7005604476539224809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8278414560899739337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7040946daf49a6418fa7d6b36dfdaf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_currentLevel: 1
+  m_exp: {fileID: 5235726205416897870}
+--- !u!114 &5235726205416897870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8278414560899739337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45db5c614f1c45d4ab5f384b6629fa18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxValue: 200
