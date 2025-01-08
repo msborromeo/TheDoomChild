@@ -37,7 +37,7 @@ namespace DChild.Gameplay.Characters.Players
         [SerializeField]
         private PlayerPassiveModule m_passiveModule;
         [ShowInInspector, ReadOnly]
-        private PrimarySkill m_unlockedSkills;
+        protected PrimarySkill m_unlockedSkills;
         [ShowInInspector, ReadOnly]
         private PrimarySkill m_activatedSkills;
         [ShowInInspector, ReadOnly]
@@ -80,7 +80,7 @@ namespace DChild.Gameplay.Characters.Players
         /// </summary>
         /// <param name="module">Do not use PrimarySkill.None</param>
         /// <param name="isUnlocked"></param>
-        public void SetModuleLock(PrimarySkill module, bool isUnlocked)
+        public virtual void SetModuleLock(PrimarySkill module, bool isUnlocked)
         {
             if (isUnlocked)
             {
