@@ -16,8 +16,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         public void Display(ISpecialSkillGroup group)
         {
-            //m_armyPower.text = $"{group.GetSpecialSkill()}";
-            m_armyPower.text = "SP";
+            m_armyPower.text = $"{group.GetSpecialSkill().type}";
         }
     }
 }

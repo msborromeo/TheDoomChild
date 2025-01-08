@@ -1,19 +1,22 @@
-﻿using Doozy.Runtime.UIManager;
-using UnityEngine;
+﻿using UnityEngine;
 using Doozy.Runtime.UIManager.Components;
+using Sirenix.OdinInspector;
+using UnityEngine.UI;
 
 namespace DChild.Gameplay.ArmyBattle.UI
 {
     public class SpecialSkillNavigationToggleUI : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, BoxGroup("NORMAL")]
         private UIButton m_prevButton;
-        [SerializeField]
-        private UIButton m_specialPrevButton;
-        [SerializeField]
+        [SerializeField, BoxGroup("NORMAL")]
         private UIButton m_nextButton;
-        [SerializeField]
+
+        [SerializeField, BoxGroup("SPECIAL")]
+        private UIButton m_specialPrevButton;
+        [SerializeField, BoxGroup("SPECIAL")]
         private UIButton m_specialNextButton;
+
 
         public void ToggleSpecialUnitNavigation(bool value)
         {
@@ -22,6 +25,22 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
             m_specialPrevButton.gameObject.SetActive(value);
             m_specialNextButton.gameObject.SetActive(value);
+        }
+
+        public void UpdateMoreGroupButtonNavigation(UIButton moreGroups)
+        {
+            var newNavigation = moreGroups.navigation;
+
+            if (m_specialPrevButton.isActiveAndEnabled)
+            {
+                newNavigation.selectOnUp = m_specialPrevButton;
+                newNavigation.selectOnDown = m_specialNextButton;
+                moreGroups.navigation = newNavigation;
+                return;
+            }
+            newNavigation.selectOnUp = m_prevButton;
+            newNavigation.selectOnDown = m_nextButton;
+            moreGroups.navigation = newNavigation;
         }
     }
 }

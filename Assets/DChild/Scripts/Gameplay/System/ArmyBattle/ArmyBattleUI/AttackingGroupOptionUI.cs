@@ -25,6 +25,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         [SerializeField]
         private SelectedSkillButton m_selectedSkill;
+        public SelectedSkillButton selectedSkill => m_selectedSkill;
 
         [FoldoutGroup("GLOW OVERRIDE")]
         [SerializeField, FoldoutGroup("GLOW OVERRIDE/ASSETS")]
@@ -52,7 +53,10 @@ namespace DChild.Gameplay.ArmyBattle.UI
             }
 
             if (m_moreGroupsButton != null && m_moreGroupsButton.Id.Name != "MoreGroups")
+            {
+                m_navigationToggle.UpdateMoreGroupButtonNavigation(m_moreGroupsButton);
                 m_moreGroupsButton.Id.Name = "MoreGroups";
+            }
 
             m_characterGroupUI.Display(group?.GetCharacterGroup() ?? null);
             m_selectedSkill.Display(m_damageType);
