@@ -18,7 +18,9 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
         private Type m_type;
         [SerializeField]
         private string m_description;
-        [SerializeField, Min(1), ShowIf("@m_type == Type.Waiting")]
+        [SerializeField, ShowIf("@m_type == Type.Waiting")]
+        private int m_delay =0;
+        [SerializeField, Min(1)]
         private int m_duration = 1;
         [SerializeField, TabGroup("Upon Select")]
         private ISpecialSkillIEnumeratorModule[] m_onSelect = new ISpecialSkillIEnumeratorModule[0];
@@ -28,6 +30,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
         private ISpecialSkillIEnumeratorModule[] m_specialSkillModules = new ISpecialSkillIEnumeratorModule[0];
 
         public Type type => m_type;
+        public int delay => m_delay;
         public int duration => m_duration;
         public SpecialSkillVisualizerInfo visualizerInfo => m_visualizerInfo;
         public string GetDescription() { return m_description; }

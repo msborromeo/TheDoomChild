@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,12 +8,14 @@ namespace DChild.Gameplay.ArmyBattle
 {
     public class SelectedSkillButton : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, BoxGroup("ICONS")]
         private Sprite m_meleeIcon;
-        [SerializeField]
+        [SerializeField, BoxGroup("ICONS")]
         private Sprite m_rangedIcon;
-        [SerializeField]
+        [SerializeField, BoxGroup("ICONS")]
         private Sprite m_magicIcon;
+        [SerializeField, BoxGroup("ICONS")]
+        private Sprite m_specialIcon;
 
         [SerializeField]
         private Image m_targetIcon;
@@ -33,5 +36,7 @@ namespace DChild.Gameplay.ArmyBattle
                     break;
             }
         }
+        public void DisplaySpecialIcon() => m_targetIcon.sprite = m_specialIcon;
+
     }
 }

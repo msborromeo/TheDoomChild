@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using DChild.Gameplay.ArmyBattle.SpecialSkills;
+using TMPro;
 using UnityEngine;
 
 namespace DChild.Gameplay.ArmyBattle.UI
@@ -11,6 +12,11 @@ namespace DChild.Gameplay.ArmyBattle.UI
         public void Display(IAttackingGroup group)
         {
             m_armyPower.text = $"{group.GetAttackPower()}";
+        }
+
+        public void Display(ISpecialSkillGroup group)
+        {
+            m_armyPower.text = $"{group.GetSpecialSkill().type}";
         }
     }
 }
