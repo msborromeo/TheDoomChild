@@ -23,6 +23,7 @@ namespace DChild.Gameplay.Essence
         protected override void OnApplyPickup(IPlayer player)
         {
             //Add Soul SKill Capacity Point
+            player.soulSkills.AddSoulSkillEnergyPoint(m_value);
         }
     }
 }

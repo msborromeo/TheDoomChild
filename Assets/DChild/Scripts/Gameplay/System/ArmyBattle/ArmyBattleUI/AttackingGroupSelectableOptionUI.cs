@@ -1,5 +1,6 @@
 ﻿using Doozy.Runtime.UIManager.Animators;
 using Doozy.Runtime.UIManager.Components;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,13 +10,12 @@ namespace DChild.Gameplay.ArmyBattle.UI
 {
     public class AttackingGroupSelectableOptionUI : AttackingGroupOptionUI
     {
-
-        [SerializeField]
+        [FoldoutGroup("NULLIFY SELECTABLES")]
+        [SerializeField, FoldoutGroup("NULLIFY SELECTABLES/ASSETS")]
         private List<Sprite> m_NullAssets;
-        [SerializeField]
+        [SerializeField, FoldoutGroup("NULLIFY SELECTABLES/ASSETS")]
         private List<Sprite> m_GroupAssets;
-
-        [SerializeField]
+        [SerializeField, FoldoutGroup("NULLIFY SELECTABLES")]
         private List<Image> m_targetAssets;
         [SerializeField]
         private Image m_targetCommandIcon;

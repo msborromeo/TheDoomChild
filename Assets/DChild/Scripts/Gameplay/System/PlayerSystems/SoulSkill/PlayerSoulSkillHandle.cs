@@ -41,7 +41,7 @@ namespace DChild.Gameplay.SoulSkills
 
         public PlayerSoulSkillData SaveData()
         {
-            return new PlayerSoulSkillData(m_maxSoulCapacity, m_acquiredSkills.ToArray(), m_activatedSkillsID.ToArray());
+            return new PlayerSoulSkillData(m_currentSoulCapacity, m_acquiredSkills.ToArray(), m_activatedSkillsID.ToArray());
         }
 
         public void LoadData(PlayerSoulSkillData data)
@@ -65,6 +65,11 @@ namespace DChild.Gameplay.SoulSkills
             }
 
             SaveDataLoaded?.Invoke(this, EventActionArgs.Empty);
+        }
+
+        public void AddSoulSkillEnergyPoint(int increment)
+        {
+            m_currentSoulCapacity += increment;
         }
 
         public void AddAsAcquired(int soulSkillID)
@@ -146,8 +151,6 @@ namespace DChild.Gameplay.SoulSkills
             m_activatedSkills = new HashSet<SoulSkill>();
 
             m_player.inventory.SoulSkillItemAcquired += OnSoulSkillItemAcquired;
-
-            m_currentSoulCapacity = m_maxSoulCapacity;
         }
 
         private void OnSoulSkillItemAcquired(object sender, SoulSkillAcquiredEventArgs eventArgs)
