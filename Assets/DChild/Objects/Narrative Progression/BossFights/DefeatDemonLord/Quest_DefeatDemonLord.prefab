@@ -1247,6 +1247,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 4347870872911812711}
+          m_TargetAssemblyTypeName: DChild.Gameplay.Cinematics.Cameras.VirtualCameraSwitcher,
+            Assembly-CSharp
+          m_MethodName: SwitchTo
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - updateOnStartOnly: 1
     questState: 4
     condition:
@@ -1286,18 +1299,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Environment.Interractables.Door,
+        - m_Target: {fileID: 4347870872911812711}
+          m_TargetAssemblyTypeName: DChild.Gameplay.Cinematics.Cameras.VirtualCameraSwitcher,
             Assembly-CSharp
-          m_MethodName: 
-          m_Mode: 1
+          m_MethodName: SwitchTo
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
-            m_IntArgument: 0
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
   questEntryStateIndicatorLevels: []
   suppressOnEnterStateEventsOnStart: 0
@@ -2127,7 +2140,7 @@ PrefabInstance:
     - target: {fileID: 4187563768028897306, guid: 86329b9df0984bf4ea8a186b4e4632b9,
         type: 3}
       propertyPath: m_SceneBindings.Array.size
-      value: 14
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4187563768028897306, guid: 86329b9df0984bf4ea8a186b4e4632b9,
         type: 3}
@@ -2188,6 +2201,18 @@ PrefabInstance:
       propertyPath: m_SceneBindings.Array.data[13].key
       value: 
       objectReference: {fileID: 4824138471460043176, guid: c1820ebf3ce783142baa407b8f1e1459,
+        type: 2}
+    - target: {fileID: 4187563768028897306, guid: 86329b9df0984bf4ea8a186b4e4632b9,
+        type: 3}
+      propertyPath: m_SceneBindings.Array.data[14].key
+      value: 
+      objectReference: {fileID: -3710729320656693917, guid: c1820ebf3ce783142baa407b8f1e1459,
+        type: 2}
+    - target: {fileID: 4187563768028897306, guid: 86329b9df0984bf4ea8a186b4e4632b9,
+        type: 3}
+      propertyPath: m_SceneBindings.Array.data[15].key
+      value: 
+      objectReference: {fileID: 4733286163727303029, guid: c1820ebf3ce783142baa407b8f1e1459,
         type: 2}
     - target: {fileID: 4187563768028897306, guid: 86329b9df0984bf4ea8a186b4e4632b9,
         type: 3}
@@ -3470,6 +3495,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2810836055049639292}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4347870872911812711 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1969381431204711707, guid: 8e8a18358c30c3b46bd98976aaa3a7df,
+    type: 3}
+  m_PrefabInstance: {fileID: 2810836055049639292}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa32fd4352e15442a0e891781998124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3135563960085226390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4376,7 +4413,7 @@ PrefabInstance:
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.size
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
@@ -4411,6 +4448,11 @@ PrefabInstance:
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[5].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[6].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
@@ -4442,7 +4484,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[5].m_Target
       value: 
-      objectReference: {fileID: 414745813637490640}
+      objectReference: {fileID: 4347870872911812711}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -4481,6 +4523,11 @@ PrefabInstance:
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[5].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[6].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
@@ -4531,7 +4578,7 @@ PrefabInstance:
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[5].m_MethodName
-      value: SaveGame
+      value: EnableCam
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
@@ -4591,7 +4638,17 @@ PrefabInstance:
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[5].m_TargetAssemblyTypeName
-      value: DChild.Gameplay.SavePoint, Assembly-CSharp
+      value: DChild.Gameplay.Cinematics.Cameras.VirtualCameraSwitcher, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[6].m_TargetAssemblyTypeName
+      value: DChild.Gameplay.Cinematics.Cameras.VirtualCameraSwitcher, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
@@ -4611,6 +4668,16 @@ PrefabInstance:
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[6].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
