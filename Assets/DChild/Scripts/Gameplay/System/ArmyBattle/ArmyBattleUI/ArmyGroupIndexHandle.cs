@@ -1,3 +1,4 @@
+using DChild.Gameplay.ArmyBattle.SpecialSkills;
 using Doozy.Runtime.UIManager.Components;
 using Holysoft.Collections;
 using Holysoft.Event;
@@ -9,18 +10,23 @@ using UnityEngine;
 
 namespace DChild.Gameplay.ArmyBattle.UI
 {
+
     public class ArmyGroupIndexHandle : MonoBehaviour, IPageHandle
     {
         [SerializeField]
         private ArmyBattleAttackGroupSelection m_attackGroupSelection;
         [SerializeField]
         private List<AttackingGroupSelectableOptionUI> m_selectableGroups;
-        
+
+        [SerializeField]
+        private ArmyBattleSpecialSkillSelection m_specialSkillSelection;
+
         private List<IAttackingGroup> m_groups;
         private List<IAttackingGroup> m_filteredGroups;
 
-        [SerializeField]
-        private ArmyBattleAttackGroupSelection m_armyGroupSelection;
+        private List<ISpecialSkillGroup> m_specialGroups;
+        private List<ISpecialSkillGroup> m_filteredSpecialGroups;
+
 
 
         [SerializeField]
@@ -42,6 +48,11 @@ namespace DChild.Gameplay.ArmyBattle.UI
             this.m_groups = groups;
         }
 
+        public void SetAvailableSpecialGroups(List<ISpecialSkillGroup> groups)
+        {
+            this.m_specialGroups = groups;
+        }
+
         public void Initialize()
         {
             m_scrollBar.numberOfSteps = GetTotalPages();
@@ -49,7 +60,6 @@ namespace DChild.Gameplay.ArmyBattle.UI
             m_scrollBar.value = 0;
 
             SetPage(0);
-            Display(m_filteredGroups);
         }
 
         public void Display(List<IAttackingGroup> attackingGroups)
@@ -91,14 +101,12 @@ namespace DChild.Gameplay.ArmyBattle.UI
             m_page++;
             SetPage(m_page);
 
-            Debug.Log("next page");
         }
 
         public void PreviousPage()
         {
             m_page--;
             SetPage(m_page);
-            Debug.Log("prev page");
         }
 
         public void HandleScroll()
