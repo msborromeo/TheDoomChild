@@ -185,7 +185,14 @@ namespace DChild.Gameplay.Systems
 
         public void UpdateNavMapConfiguration(Location location, int sceneIndex, Transform inGameReference, Vector2 mapReferencePoint, Vector2 calculationOffset)
         {
-            UnderworldGameplayUIHandle.Instance.UpdateNavMapConfiguration(location, sceneIndex, inGameReference, mapReferencePoint, calculationOffset);
+            if(location == Location.Overworld)
+            {
+                OverworldGameplayUIHandle.Instance.UpdateNavMapConfiguration(location, sceneIndex, inGameReference, mapReferencePoint, calculationOffset);
+            }
+            else
+            {
+                UnderworldGameplayUIHandle.Instance.UpdateNavMapConfiguration(location, sceneIndex, inGameReference, mapReferencePoint, calculationOffset);
+            }
         }
     }
 }

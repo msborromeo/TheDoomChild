@@ -1,3 +1,4 @@
+using DChild.Gameplay.Environment;
 using DChild.Gameplay.NavigationMap;
 using DChild.Gameplay.Systems;
 using Doozy.Runtime.UIManager.Containers;
@@ -43,6 +44,11 @@ namespace DChild.Gameplay.UI
         public void OpenStore()
         {
             m_storeNavigator.OpenStore();
+        }
+
+        public void UpdateNavMapConfiguration(Location location, int sceneIndex, Transform inGameReference, Vector2 mapReferencePoint, Vector2 calculationOffset)
+        {
+            m_navMap.UpdateConfiguration(location, sceneIndex, inGameReference, mapReferencePoint, calculationOffset);
         }
 
         public void Initialize()
