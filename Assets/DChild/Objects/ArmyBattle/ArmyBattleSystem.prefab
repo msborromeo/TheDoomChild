@@ -294,63 +294,6 @@ MonoBehaviour:
   SendOnEnable: 0
   SendOnDisable: 0
   SendOnDestroy: 0
---- !u!1 &7219800372774773872
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8241193282177698893}
-  - component: {fileID: 3945783607935223109}
-  m_Layer: 0
-  m_Name: DialogueDB
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8241193282177698893
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7219800372774773872}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1015.37976, y: 763.8425, z: 41.618988}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8762055607546447034}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3945783607935223109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7219800372774773872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6546d1f34e0077748a93d4c356aa9411, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  addTrigger: 16
-  removeTrigger: 512
-  databases:
-  - {fileID: 11400000, guid: b95aabd7178816f46a615a02663829f8, type: 2}
-  condition:
-    luaConditions: []
-    questConditions: []
-    acceptedTags: []
-    acceptedGameObjects: []
-    luaWizardIndex: -1
-    lastEvaluationValue: 0
-  once: 0
-  onePerFrame: 0
 --- !u!1 &7629693369632066443
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +405,7 @@ GameObject:
   - component: {fileID: 2225420059054573839}
   - component: {fileID: 8762055607546447033}
   - component: {fileID: 7289556706671694533}
+  - component: {fileID: 4979868036534290299}
   m_Layer: 0
   m_Name: ArmyBattleSystem
   m_TagString: Untagged
@@ -484,7 +428,6 @@ Transform:
   - {fileID: 8762055606266220326}
   - {fileID: 627560145216773687}
   - {fileID: 5866443668867012454}
-  - {fileID: 8241193282177698893}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -552,14 +495,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configuration:
-    playerCanUseMelee: 0
-    playerCanUseMagic: 0
-    playerCanUseRange: 0
-    enemyCanUseMelee: 0
-    enemyCanUseMagic: 0
-    enemyCanUseRange: 0
-    playerWillAttack: 0
-    enemyWillAttack: 0
+    playerConfiguration:
+      canUseMelee: 0
+      canUseMagic: 0
+      canUseRange: 0
+      willAttack: 0
+    enemyConfiguration:
+      canUseMelee: 0
+      canUseMagic: 0
+      canUseRange: 0
+      willAttack: 0
     turnWillProgress: 0
   m_skillHandle: {fileID: 0}
   m_combatSimulator:
@@ -578,10 +523,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_skillActivationEndSignal: {fileID: 0}
-  m_maxPlayerActiveSkills: 0
+  m_maxPlayerActiveSkills: 3
   m_playerActiveSkills:
     m_waitingTypeSkillList: []
     m_turnTypeSkillList: []
   m_enemyActiveSkills:
     m_waitingTypeSkillList: []
     m_turnTypeSkillList: []
+--- !u!114 &4979868036534290299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8762055607546447031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6546d1f34e0077748a93d4c356aa9411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addTrigger: 16
+  removeTrigger: 512
+  databases:
+  - {fileID: 11400000, guid: b95aabd7178816f46a615a02663829f8, type: 2}
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  once: 0
+  onePerFrame: 0

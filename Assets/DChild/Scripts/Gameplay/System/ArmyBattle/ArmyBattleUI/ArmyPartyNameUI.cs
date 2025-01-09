@@ -1,6 +1,4 @@
-using DChild.Gameplay.ArmyBattle;
-using System.Collections;
-using System.Collections.Generic;
+using DChild.Gameplay.ArmyBattle.SpecialSkills;
 using TMPro;
 using UnityEngine;
 
@@ -12,6 +10,11 @@ namespace DChild.Gameplay.ArmyBattle.UI
         private TextMeshProUGUI m_partyName;
 
         public void Display(IAttackingGroup group)
+        {
+            m_partyName.text = $"<uppercase>{group.GetCharacterGroup().name}</uppercase>";
+        } 
+
+        public void Display(ISpecialSkillGroup group)
         {
             m_partyName.text = $"<uppercase>{group.GetCharacterGroup().name}</uppercase>";
         }

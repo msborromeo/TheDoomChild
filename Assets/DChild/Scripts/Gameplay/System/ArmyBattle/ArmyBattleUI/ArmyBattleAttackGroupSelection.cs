@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DChild.Gameplay.ArmyBattle.SpecialSkills;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -8,8 +9,9 @@ namespace DChild.Gameplay.ArmyBattle.UI
     {
         [SerializeField]
         private ArmyDamageTypeOptionUI m_damageTypeIcon;
+
         [SerializeField]
-        private AttackingGroupOptionUI m_ui;
+        protected AttackingGroupOptionUI m_ui;
 
         [SerializeField]
         private MoreGroupsClassLabel m_frontLabel;
@@ -18,7 +20,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         private int m_selectionIndex;
 
-        private int selectionIndex
+        protected int selectionIndex
         {
             get => m_selectionIndex;
             set
@@ -29,6 +31,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         }
 
         public IAttackingGroup GetSelectedAttackGroup() => m_selection[m_selectionIndex];
+
 
         public void Prev()
         {
