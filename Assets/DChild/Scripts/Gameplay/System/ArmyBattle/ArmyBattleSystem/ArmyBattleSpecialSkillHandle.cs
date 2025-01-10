@@ -121,8 +121,8 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
         {
             var skill = new ActiveSkill(specialSkill, owner, target);
 
-            yield return specialSkill.ExecuteOnSelect(owner, target);
-
+            //yield return specialSkill.ExecuteOnSelect(owner, target);
+            
             switch (specialSkill.type)
             {
                 case SpecialSkill.Type.Instant:
@@ -136,6 +136,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
                 case SpecialSkill.Type.Waiting:
                     var activeList = ArmyBattleSystem.GetPlayer() == owner ? m_playerActiveSkills.GetSkillTypeList(specialSkill.type) : m_enemyActiveSkills.GetSkillTypeList(specialSkill.type);
                     activeList.Add(skill);
+                    //StartCoroutine(ApplyWaitingSkillsRoutine(activeList));
                     break;
             }
         }

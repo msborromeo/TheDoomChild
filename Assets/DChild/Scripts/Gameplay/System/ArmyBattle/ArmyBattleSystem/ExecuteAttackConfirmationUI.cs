@@ -1,9 +1,10 @@
 ﻿using DChild.Gameplay.ArmyBattle.UI;
+using Doozy.Runtime.UIManager.Components;
 using UnityEngine;
 
 namespace DChild.Gameplay.ArmyBattle.SpecialSkills
 {
-    public class ExecuteAttackConfirmationUI: MonoBehaviour
+    public class ExecuteAttackConfirmationUI : MonoBehaviour
     {
         [SerializeField]
         private ArmyBattlePlayerOption m_playerOptions;
@@ -13,13 +14,17 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
         private ArmyBattleSpecialSkillHandle m_specialSkillHandle;
         [SerializeField]
         private ArmyBattleSpecialSkillSelection m_specialSelection;
+        [SerializeField]
+        private UIButton m_confirmationButton;
 
         private bool m_isSpecial = false;
 
         public void ToggleSpecialConfirmation(bool toggle)
         {
             m_isSpecial = toggle;
+            m_confirmationButton.Id.Name = m_isSpecial ? "ExecuteSpecial" : "ExecuteAttack";
         }
+
         public void ExecuteAttack()
         {
             switch (m_isSpecial)
@@ -30,11 +35,9 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
                     break;
                 default:
                     m_playerOptions.SelectCurrentAttackingGroup();
+                    m_turnHandle.CommenceTurn();
                     break;
             }
-
-            m_turnHandle.CommenceTurn();
-
         }
 
     }
