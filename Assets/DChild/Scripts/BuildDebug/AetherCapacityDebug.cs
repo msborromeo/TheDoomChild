@@ -27,6 +27,16 @@ namespace DChildDebug.Window
             m_maxValue.text = GameplaySystem.playerManager.player.soulSkills.maxSoulCapacity.ToString();
         }
 
+        public void IncreaseCurrentSoulCapacity()
+        {
+            GameplaySystem.playerManager.player.soulSkills.AddSoulSkillEnergyPoint(1);
+        }
+
+        public void DecreaseCurrentSoulCapacity()
+        {
+            GameplaySystem.playerManager.player.soulSkills.AddSoulSkillEnergyPoint(-1);
+        }
+
         private void Awake()
         {
             var soulSkills = GameplaySystem.playerManager.player.soulSkills;
