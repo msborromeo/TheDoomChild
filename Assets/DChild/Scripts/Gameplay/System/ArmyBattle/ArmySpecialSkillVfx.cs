@@ -95,38 +95,46 @@ namespace DChild.Gameplay.ArmyBattle
         public void PlayEffects()
         {
             m_iseffectdone = false;
-            for (int i = 0; i < m_vfxParticleTurnManager.Count; i++)
+
+            if (m_vfxParticleTurnManager.Count != 0)
             {
-
-                if (i == m_currentturn - 1)
+                for (int i = 0; i < m_vfxParticleTurnManager.Count; i++)
                 {
-                    for (int x = 0; x < m_vfxParticleTurnManager[i].m_fxPartcileSystem.Count; x++)
-                    {
-                        m_vfxParticleTurnManager[i].m_fxPartcileSystem[x].Play();
-                    }
-                }
-                else
-                {
-                    for (int x = 0; x < m_vfxParticleTurnManager[i].m_fxPartcileSystem.Count; x++)
-                    {
-                        m_vfxParticleTurnManager[i].m_fxPartcileSystem[x].Stop();
-                    }
 
-                }
-
-                if(m_VfxSpineTurnManager != null)
-                {
-                    for (int x = 0; x < m_vfxParticleTurnManager[i].m_fxPartcileSystem.Count; x++)
+                    if (i == m_currentturn - 1)
                     {
-                       var duration = m_vfxParticleTurnManager[i].m_fxPartcileSystem[x].main.duration;
-                        if(duration <= 0)
+                        for (int x = 0; x < m_vfxParticleTurnManager[i].m_fxPartcileSystem.Count; x++)
                         {
-                            m_iseffectdone = true;
+                            m_vfxParticleTurnManager[i].m_fxPartcileSystem[x].Play();
                         }
                     }
+                    else
+                    {
+                        for (int x = 0; x < m_vfxParticleTurnManager[i].m_fxPartcileSystem.Count; x++)
+                        {
+                            m_vfxParticleTurnManager[i].m_fxPartcileSystem[x].Stop();
+                        }
+
+                    }
+
+                    if (m_VfxSpineTurnManager.Count != 0)
+                    {
+                        for (int x = 0; x < m_vfxParticleTurnManager[i].m_fxPartcileSystem.Count; x++)
+                        {
+                            var duration = m_vfxParticleTurnManager[i].m_fxPartcileSystem[x].main.duration;
+                            if (duration <= 0)
+                            {
+                                m_iseffectdone = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        m_iseffectdone = true;
+                    }
+
+
                 }
-
-
             }
             for (int i = 0; i < m_VfxSpineTurnManager.Count; i++)
             {
@@ -144,11 +152,14 @@ namespace DChild.Gameplay.ArmyBattle
                         {
                             launchEvent = m_VfxSpineTurnManager[i].m_launchOnEvent[x];
                         }
-
-                        for (int y = 0; y < m_VfxSpineTurnManager[i].m_eventPartcileSystem.Count; y++)
+                        if(m_VfxSpineTurnManager[i].m_eventPartcileSystem.Count != 0)
                         {
-                            m_VfxSpineTurnManager[i].m_eventPartcileSystem[y].Stop();
+                            for (int y = 0; y < m_VfxSpineTurnManager[i].m_eventPartcileSystem.Count; y++)
+                            {
+                                m_VfxSpineTurnManager[i].m_eventPartcileSystem[y].Stop();
+                            }
                         }
+                 
                         if (m_VfxSpineTurnManager[i].m_spineListener != null){
                             StartCoroutine(PlayEventRoutine(m_VfxSpineTurnManager[i].m_SpineModel, m_VfxSpineTurnManager[i].animation[x], m_VfxSpineTurnManager[i].animationDelayTime[x],
                                m_VfxSpineTurnManager[i].m_spineListener, launchEvent, m_VfxSpineTurnManager[i].m_eventPartcileSystem[x]));
