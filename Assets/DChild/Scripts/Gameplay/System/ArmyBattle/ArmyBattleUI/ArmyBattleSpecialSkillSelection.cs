@@ -16,7 +16,6 @@ namespace DChild.Gameplay.ArmyBattle.UI
         private MoreGroupsClassLabel m_frontLabel;
 
         private List<ISpecialSkillGroup> m_specialSelection;
-        public ISpecialSkillGroup GetSelectedSpecialAttackGroup() => m_specialSelection[selectionIndex];
 
         private int m_selectionIndex;
 
