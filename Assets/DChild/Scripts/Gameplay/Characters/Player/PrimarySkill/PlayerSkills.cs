@@ -38,7 +38,7 @@ namespace DChild.Gameplay.Characters.Players
             {
                 m_skills &= ~skill;
             }
-            m_moduleActivator.SetModuleLock(skill, enableSkill);
+            m_moduleActivator?.SetModuleLock(skill, enableSkill);
             SkillUpdate?.Invoke(this, new PrimarySkillUpdateEventArgs(skill, enableSkill));
         }
 
@@ -52,7 +52,7 @@ namespace DChild.Gameplay.Characters.Players
         public void LoadData(PrimarySkillsData savedData)
         {
             //m_moduleActivator.Validate();
-            m_moduleActivator.Reset();
+            m_moduleActivator?.Reset();
             m_skills = savedData.activatedSkills;
             UpdateAllSkillState();
         }
