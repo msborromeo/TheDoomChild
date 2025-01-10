@@ -7,6 +7,8 @@ namespace DChild.Gameplay.ArmyBattle.UI
     {
         [SerializeField]
         private PlayerArmyController m_player;
+        public PlayerArmyController player => m_player;
+
         [SerializeField]
         private ArmyDamageOptionSelection m_damageSelection;
         [SerializeField]
@@ -45,8 +47,12 @@ namespace DChild.Gameplay.ArmyBattle.UI
         {
             var playerSpecialGroups = m_player.controlledArmy.GetAvailableSkills();
             m_specialSelection.SetSpecialSelectionList(playerSpecialGroups);
-            m_specialSelection.GetSelectedSpecialAttackGroup();
+            m_specialSelection.GetSelectedSpecialSkillGroup();
             m_groupIndex.SetAvailableSpecialGroups(playerSpecialGroups);
+        }
+
+        public void SelectCurrentSpecialGroup()
+        { 
         }
 
         public void SelectCurrentAttackingGroup()
