@@ -46,7 +46,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 1
   ClearGraphHistory: 0
-  Position: {x: 1280.9998, y: 305.99997}
+  Position: {x: 1281, y: 267}
   PivotOrientation: 3
 --- !u!114 &-7474091924850176672
 MonoBehaviour:
@@ -240,8 +240,8 @@ MonoBehaviour:
     Direction: 0
     Capacity: 1
     Connections:
-    - a5822f0f-34c5-4342-8d77-10f5afb3fce0
     - 076e9e2c-1200-424d-a35d-643efdc69bd4
+    - 83493e58-4daf-476a-a597-58559d9775fd
     Value: 
     ValueTypeQualifiedName: 
     CanBeDeleted: 0
@@ -264,7 +264,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 1
   ClearGraphHistory: 0
-  Position: {x: 3118.0007, y: 292.00003}
+  Position: {x: 3101.0002, y: 267}
   PivotOrientation: 2
 --- !u!114 &-4988221962488344114
 MonoBehaviour:
@@ -376,7 +376,7 @@ MonoBehaviour:
     Direction: 0
     Capacity: 1
     Connections:
-    - 83493e58-4daf-476a-a597-58559d9775fd
+    - be0669ab-543f-45d9-846a-05ae50939121
     Value: '{"CanGoBack":false}'
     ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.GoBackInputPortData,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -401,7 +401,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 3049.087, y: -90}
+  Position: {x: 3118, y: 50.5}
   OnEnterShowViews:
   - Id:
       Category: ArmyBattle
@@ -728,6 +728,72 @@ MonoBehaviour:
     Mode: 0
   OnEnterHideAllViews: 0
   OnExitHideAllViews: 0
+--- !u!114 &-1018888804768810259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b2479a69f56cf54c96de81c44e8ad1a, type: 3}
+  m_Name: Portal
+  m_EditorClassIdentifier: 
+  FlowGraphId: 7fc3b6ba-4294-412b-97d1-5b0345cc5fd0
+  NodeId: 758f9ade-f097-4833-b0cc-e8961c761cc1
+  NodeType: 1
+  NodeName: On Battle End
+  NodeDescription: 
+  InputPorts: []
+  OutputPorts:
+  - NodeId: 758f9ade-f097-4833-b0cc-e8961c761cc1
+    PortId: be0669ab-543f-45d9-846a-05ae50939121
+    Direction: 1
+    Capacity: 0
+    Connections:
+    - 98a0f23b-692a-498a-95cc-11386387846f
+    Value: 
+    ValueTypeQualifiedName: 
+    CanBeDeleted: 0
+    CanBeReordered: 0
+  RunUpdate: 0
+  RunFixedUpdate: 0
+  RunLateUpdate: 0
+  NodeState: 0
+  CanBeDeleted: 1
+  Passthrough: 1
+  ClearGraphHistory: 0
+  Position: {x: 2959, y: -27.999977}
+  Trigger: 0
+  SignalPayload:
+    StreamId:
+      Category: ArmyBattle
+      Name: BattleEnd
+      Custom: 0
+    SignalValueType: 0
+    IntegerValue: 0
+    BooleanValue: 0
+    FloatValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  ButtonId:
+    Category: None
+    Name: None
+    Custom: 0
+  ToggleId:
+    Category: None
+    Name: None
+    Custom: 0
+  CommandToggle: 2
+  ViewId:
+    Category: None
+    Name: None
+    Custom: 0
+  CommandShowHide: 0
 --- !u!114 &-786543654439033246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -832,7 +898,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 3223.26, y: 108.903786}
+  Position: {x: 3302.8005, y: 129.99997}
   OnEnterShowViews: []
   OnEnterHideViews: []
   OnExitShowViews: []
@@ -851,8 +917,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02761efe598a45c98fa1baf4d446c6a7, type: 3}
   m_Name: ArmyBattleFlow
   m_EditorClassIdentifier: 
-  EditorPosition: {x: -1846, y: 167, z: 0}
-  EditorScale: {x: 0.7561437, y: 0.7561437, z: 1}
+  EditorPosition: {x: -288, y: 165, z: 0}
+  EditorScale: {x: 0.2471847, y: 0.2471847, z: 1}
   Id: 7fc3b6ba-4294-412b-97d1-5b0345cc5fd0
   GraphName: Flow Graph
   GraphDescription: 
@@ -889,6 +955,7 @@ MonoBehaviour:
   - {fileID: -3797519940076020615}
   - {fileID: 4304382468014618981}
   - {fileID: 5638920159311737336}
+  - {fileID: -1018888804768810259}
   RootNode: {fileID: 1619892338794797350}
   ActiveNode: {fileID: 0}
 --- !u!114 &1619892338794797350
@@ -1071,7 +1138,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 1
   ClearGraphHistory: 0
-  Position: {x: 3376.9995, y: 329.99997}
+  Position: {x: 3528.621, y: 330.00003}
   PivotOrientation: 2
 --- !u!114 &4304382468014618981
 MonoBehaviour:
@@ -1319,7 +1386,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 2695.5525, y: 84.225}
+  Position: {x: 2619, y: 98.49998}
   OnEnterShowViews: []
   OnEnterHideViews:
   - Id:
@@ -1549,23 +1616,12 @@ MonoBehaviour:
     Direction: 1
     Capacity: 0
     Connections:
-    - 98a0f23b-692a-498a-95cc-11386387846f
-    Value: '{"Trigger":1,"TimeDelay":0.0,"SignalPayload":{"StreamId":{"Category":"ArmyBattle","Name":"BattleEnd","Custom":false},"SignalValueType":0,"IntegerValue":0,"BooleanValue":true,"FloatValue":0.0,"StringValue":"","ColorValue":{"r":0.0,"g":0.0,"b":0.0,"a":0.0},"Vector2Value":{"x":0.0,"y":0.0},"Vector3Value":{"x":0.0,"y":0.0,"z":0.0},"Vector4Value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}},"ButtonId":{"Category":"None","Name":"None","Custom":false},"ToggleId":{"Category":"None","Name":"None","Custom":false},"CommandToggle":2,"ViewId":{"Category":"None","Name":"None","Custom":false},"CommandShowHide":0}'
+    - cf541ff3-13e2-428d-ba9b-f01e76fc111e
+    Value: '{"Trigger":1,"TimeDelay":0.0,"SignalPayload":{"StreamId":{"Category":"ArmyBattle","Name":"TurnEnd","Custom":false},"SignalValueType":0,"IntegerValue":0,"BooleanValue":true,"FloatValue":0.0,"StringValue":"","ColorValue":{"r":0.0,"g":0.0,"b":0.0,"a":0.0},"Vector2Value":{"x":0.0,"y":0.0},"Vector3Value":{"x":0.0,"y":0.0,"z":0.0},"Vector4Value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}},"ButtonId":{"Category":"None","Name":"None","Custom":false},"ToggleId":{"Category":"None","Name":"None","Custom":false},"CommandToggle":2,"ViewId":{"Category":"None","Name":"None","Custom":false},"CommandShowHide":0}'
     ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.UIOutputPortData,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     CanBeDeleted: 0
     CanBeReordered: 0
-  - NodeId: 375084a1-6a69-4854-9003-6e7086aa29cd
-    PortId: a5822f0f-34c5-4342-8d77-10f5afb3fce0
-    Direction: 1
-    Capacity: 0
-    Connections:
-    - cf541ff3-13e2-428d-ba9b-f01e76fc111e
-    Value: '{"Trigger":1,"TimeDelay":3.0,"SignalPayload":{"StreamId":{"Category":"ArmyBattle","Name":"TurnEnd","Custom":false},"SignalValueType":0,"IntegerValue":0,"BooleanValue":false,"FloatValue":0.0,"StringValue":"","ColorValue":{"r":0.0,"g":0.0,"b":0.0,"a":0.0},"Vector2Value":{"x":0.0,"y":0.0},"Vector3Value":{"x":0.0,"y":0.0,"z":0.0},"Vector4Value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}},"ButtonId":{"Category":"None","Name":"None","Custom":false},"ToggleId":{"Category":"None","Name":"None","Custom":false},"CommandToggle":2,"ViewId":{"Category":"None","Name":"None","Custom":false},"CommandShowHide":0}'
-    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.UIOutputPortData,
-      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    CanBeDeleted: 1
-    CanBeReordered: 1
   RunUpdate: 0
   RunFixedUpdate: 0
   RunLateUpdate: 0
@@ -1573,7 +1629,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 1
-  Position: {x: 2762.87, y: -89.91302}
+  Position: {x: 2619.2275, y: -90.00001}
   OnEnterShowViews: []
   OnEnterHideViews:
   - Id:
