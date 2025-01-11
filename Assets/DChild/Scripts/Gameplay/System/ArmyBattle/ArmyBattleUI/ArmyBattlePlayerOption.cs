@@ -18,6 +18,8 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         [SerializeField]
         private ArmyGroupIndexHandle m_groupIndex;
+        [SerializeField]
+        private SpecialGroupIndexHandle m_specialIndex;
 
 
         public void Initialize(PlayerArmyController player)
@@ -46,9 +48,9 @@ namespace DChild.Gameplay.ArmyBattle.UI
         public void SetSpecialSkillSelection()
         {
             var playerSpecialGroups = m_player.controlledArmy.GetAvailableSkills();
-            m_specialSelection.SetSpecialSelectionList(playerSpecialGroups);
-            m_specialSelection.GetSelectedSpecialSkillGroup();
-            m_groupIndex.SetAvailableSpecialGroups(playerSpecialGroups);
+            //m_specialSelection.SetSpecialSelectionList(playerSpecialGroups);
+            //m_specialSelection.GetSelectedSpecialSkillGroup();
+            m_specialIndex.SetAvailableSpecialGroups(playerSpecialGroups);
         }
 
         public void SelectCurrentSpecialGroup()

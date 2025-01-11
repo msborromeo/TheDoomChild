@@ -34,15 +34,6 @@ namespace DChild.Gameplay.ArmyBattle.UI
             m_specialSelection = selection;
             selectionIndex = 0;
         }
-        public void Prev()
-        {
-            selectionIndex -= 1;
-        }
-
-        public void Next()
-        {
-            selectionIndex += 1;
-        }
 
         public ISpecialSkillGroup GetSelectedSpecialSkillGroup() => m_specialSelection[m_selectionIndex];
 
