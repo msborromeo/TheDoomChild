@@ -19,6 +19,8 @@ namespace DChild.Gameplay.ArmyBattle.Units
         private string[] m_attackAnimations;
         [SerializeField, USpine.SpineAnimation]
         private string[] m_deathAnimations;
+        [SerializeField, USpine.SpineAnimation]
+        private string[] m_ressurectAnimations;
 
         private bool m_isAlive;
 
@@ -40,6 +42,15 @@ namespace DChild.Gameplay.ArmyBattle.Units
         }
 
         [Button]
+        public virtual void Ressurect()
+        {
+            m_isAlive = true;
+            PlayRandomAnimation(m_ressurectAnimations, false);
+            var idleAnimation = ChooseAnimation(m_idleAnimations);
+            m_animation.state.AddAnimation(0, idleAnimation, true, 0);
+        }
+
+        [Button]
         public virtual void Idle()
         {
             PlayRandomAnimation(m_idleAnimations, true);
@@ -47,6 +58,9 @@ namespace DChild.Gameplay.ArmyBattle.Units
 
         protected void PlayRandomAnimation(string[] animations, bool loop)
         {
+            if (animations.Length == 0)
+                return;
+
             var animation = ChooseAnimation(animations);
 
 
