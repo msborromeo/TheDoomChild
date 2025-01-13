@@ -130,7 +130,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
             var skill = new ActiveSkill(specialSkill, owner, target);
 
             yield return specialSkill.ExecuteOnSelect(owner, target);
-
+            
             switch (specialSkill.type)
             {
                 case SpecialSkill.Type.Instant:
@@ -139,11 +139,12 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
                 case SpecialSkill.Type.Turn:
                     var turnActiveList = ArmyBattleSystem.GetPlayer() == owner ? m_playerActiveSkills.GetSkillTypeList(specialSkill.type) : m_enemyActiveSkills.GetSkillTypeList(specialSkill.type);
                     turnActiveList.Add(skill);
-                    //StartCoroutine(ApplyTurnSpecialSkillsRoutine(turnActiveList));
+                    yield return ApplyTurnSpecialSkillsRoutine(turnActiveList);
                     break;
                 case SpecialSkill.Type.Waiting:
                     var activeList = ArmyBattleSystem.GetPlayer() == owner ? m_playerActiveSkills.GetSkillTypeList(specialSkill.type) : m_enemyActiveSkills.GetSkillTypeList(specialSkill.type);
                     activeList.Add(skill);
+                    yield return ApplyWaitingSkillsRoutine(activeList);
                     break;
             }
         }
@@ -208,6 +209,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
                 currentSkill.duration = -1;
             }
             RemoveSkillsThatEnded(turnSkills);
+
         }
 
         private IEnumerator ApplyInstantSpecialSkillRoutine(ActiveSkill skill, ArmyController owner, ArmyController target)
