@@ -2204,6 +2204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 588794669}
   - component: {fileID: 588794668}
+  - component: {fileID: 588794670}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2305,6 +2306,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &588794670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588794667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b60195c0523827f448bd27abc7bc7d33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_toTrack: {fileID: 588794668}
+  m_troopCountVar: PlayerTroops
 --- !u!114 &697338969 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 697338969, guid: bb99211c6efc06c4ba97a3a0dbaeff67,
@@ -3698,6 +3713,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1705063223}
   - component: {fileID: 1705063222}
+  - component: {fileID: 1705063224}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -3759,6 +3775,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1705063224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705063221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b60195c0523827f448bd27abc7bc7d33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_toTrack: {fileID: 1705063222}
+  m_troopCountVar: EnemyTroops
 --- !u!114 &1897723001 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6939098841211835588, guid: 1b96205c49f98a54c9b00764c26c799c,
@@ -4087,6 +4117,21 @@ PrefabInstance:
       propertyPath: m_inputOverride
       value: 
       objectReference: {fileID: 1674599619}
+    - target: {fileID: 8762055607546447032, guid: d010eed03bdd5de4c82abb34a981d52f,
+        type: 3}
+      propertyPath: m_enemyStatsTracker
+      value: 
+      objectReference: {fileID: 1705063224}
+    - target: {fileID: 8762055607546447032, guid: d010eed03bdd5de4c82abb34a981d52f,
+        type: 3}
+      propertyPath: m_playerStatsTracker
+      value: 
+      objectReference: {fileID: 588794670}
+    - target: {fileID: 8762055607546447032, guid: d010eed03bdd5de4c82abb34a981d52f,
+        type: 3}
+      propertyPath: m_specialSkillHandle
+      value: 
+      objectReference: {fileID: 2025281907}
     - target: {fileID: 8762055607546447033, guid: d010eed03bdd5de4c82abb34a981d52f,
         type: 3}
       propertyPath: m_fightManager
