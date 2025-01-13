@@ -165,6 +165,11 @@ namespace DChild.Gameplay.ArmyBattle
             m_usedSpecialSkills.Clear();
         }
 
+        public ISpecialSkillGroup GetSpecificGroup(ArmyGroupTemplateData group)
+        {
+            return GetAvailableGroup(group.id, m_availableSpecialSkills);
+        }
+
         private IAttackingGroup GetAvailableGroup(int id, List<IAttackingGroup> reference)
         {
             for (int i = 0; i < reference.Count; i++)
