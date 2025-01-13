@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5188516693716642824}
   - component: {fileID: 3426656729334891090}
   - component: {fileID: 4903141788741480995}
+  - component: {fileID: 3365897172835684258}
   m_Layer: 5
   m_Name: SpecialSkillGroupsWindow
   m_TagString: Untagged
@@ -1015,13 +1016,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29d95fb6fa11df4ab8b447f93855668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_specialSkillSelection: {fileID: 0}
+  m_specialSkillSelection: {fileID: 3365897172835684258}
   m_selectableGroups:
   - {fileID: 3350142273336812347}
   - {fileID: 3350142273249075633}
   - {fileID: 3350142273092929294}
   - {fileID: 5235864074439445077}
   m_scrollBar: {fileID: 4270813114942441377}
+--- !u!114 &3365897172835684258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652483791054484888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2608017824cfc1e4caae86c52244d3c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4270813112967715780
 GameObject:
   m_ObjectHideFlags: 0
@@ -2609,11 +2622,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnLeft: {fileID: 3203403678774595955}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 0
   m_Colors:
@@ -2692,8 +2705,8 @@ MonoBehaviour:
   OnValueChangedCallback:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.UI.ArmyGroupIndexHandle,
+      - m_Target: {fileID: 4903141788741480995}
+        m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.UI.SpecialGroupIndexHandle,
           Assembly-CSharp
         m_MethodName: HandleScroll
         m_Mode: 1
@@ -3156,6 +3169,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4270813113388130950}
     m_Modifications:
+    - target: {fileID: 1529782703826234786, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: m_skillSelection
+      value: 
+      objectReference: {fileID: 3365897172835684258}
     - target: {fileID: 3892844140813136024, guid: b4294eee32a091d49b58c0e4528283bb,
         type: 3}
       propertyPath: m_attackPowerUI
@@ -3243,8 +3261,43 @@ PrefabInstance:
       objectReference: {fileID: 5378239872290830999}
     - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
         type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 4270813114942441377}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 4903141788741480995}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Select
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DChild.Gameplay.ArmyBattle.UI.SpecialGroupIndexHandle, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 3350142273336812347}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: DChild.Gameplay.ArmyBattle.UI.SpecialSkillGroupOptionUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8207706199964137094, guid: b4294eee32a091d49b58c0e4528283bb,
         type: 3}
@@ -3400,6 +3453,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4270813113388130950}
     m_Modifications:
+    - target: {fileID: 1529782703826234786, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: m_skillSelection
+      value: 
+      objectReference: {fileID: 3365897172835684258}
     - target: {fileID: 3892844140813136024, guid: b4294eee32a091d49b58c0e4528283bb,
         type: 3}
       propertyPath: m_attackPowerUI
@@ -3492,8 +3550,43 @@ PrefabInstance:
       objectReference: {fileID: 5378239872378730525}
     - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
         type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 4270813114942441377}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 4903141788741480995}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Select
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DChild.Gameplay.ArmyBattle.UI.SpecialGroupIndexHandle, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 3350142273249075633}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: DChild.Gameplay.ArmyBattle.UI.SpecialSkillGroupOptionUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8207706199964137094, guid: b4294eee32a091d49b58c0e4528283bb,
         type: 3}
@@ -3649,6 +3742,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4270813113388130950}
     m_Modifications:
+    - target: {fileID: 1529782703826234786, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: m_skillSelection
+      value: 
+      objectReference: {fileID: 3365897172835684258}
     - target: {fileID: 3892844140813136024, guid: b4294eee32a091d49b58c0e4528283bb,
         type: 3}
       propertyPath: m_attackPowerUI
@@ -3751,8 +3849,43 @@ PrefabInstance:
       objectReference: {fileID: 5378239872290830999}
     - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
         type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 4270813114942441377}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 4903141788741480995}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Select
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DChild.Gameplay.ArmyBattle.UI.SpecialGroupIndexHandle, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 3350142273092929294}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: DChild.Gameplay.ArmyBattle.UI.SpecialSkillGroupOptionUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8207706199964137094, guid: b4294eee32a091d49b58c0e4528283bb,
         type: 3}
@@ -3908,6 +4041,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4270813113388130950}
     m_Modifications:
+    - target: {fileID: 1529782703826234786, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: m_skillSelection
+      value: 
+      objectReference: {fileID: 3365897172835684258}
     - target: {fileID: 4212339641996448445, guid: b4294eee32a091d49b58c0e4528283bb,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3973,6 +4111,46 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
       objectReference: {fileID: 5378239872110828584}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 4270813114942441377}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4903141788741480995}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Select
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DChild.Gameplay.ArmyBattle.UI.SpecialGroupIndexHandle, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 5235864074439445077}
+    - target: {fileID: 8207706199964137092, guid: b4294eee32a091d49b58c0e4528283bb,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: DChild.Gameplay.ArmyBattle.UI.SpecialSkillGroupOptionUI, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8207706199964137094, guid: b4294eee32a091d49b58c0e4528283bb,
         type: 3}
       propertyPath: m_Name

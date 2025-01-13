@@ -48,13 +48,8 @@ namespace DChild.Gameplay.ArmyBattle.UI
         public void SetSpecialSkillSelection()
         {
             var playerSpecialGroups = m_player.controlledArmy.GetAvailableSkills();
-            //m_specialSelection.SetSpecialSelectionList(playerSpecialGroups);
-            //m_specialSelection.GetSelectedSpecialSkillGroup();
+            m_specialSelection.SetSpecialSelectionList(playerSpecialGroups);
             m_specialIndex.SetAvailableSpecialGroups(playerSpecialGroups);
-        }
-
-        public void SelectCurrentSpecialGroup()
-        { 
         }
 
         public void SelectCurrentAttackingGroup()

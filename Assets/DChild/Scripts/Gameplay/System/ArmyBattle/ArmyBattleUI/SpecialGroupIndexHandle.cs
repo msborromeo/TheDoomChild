@@ -19,6 +19,11 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         [SerializeField]
         private UIScrollbar m_scrollBar;
+        //[SerializeField]
+        //private List<UIButton> m_upperButtons;
+        //[SerializeField]
+        //private List<UIButton> m_lowerButtons;
+
 
         private int m_startingIndex = 0;
         private int m_page;
@@ -27,6 +32,12 @@ namespace DChild.Gameplay.ArmyBattle.UI
         public int currentPage => throw new System.NotImplementedException();
 
         public event EventAction<EventActionArgs> PageChange;
+
+        public void Select(SpecialSkillGroupOptionUI selectable)
+        {
+            Debug.Log($"received special group: {selectable.group.GetCharacterGroup()}");
+            m_specialSkillSelection.SelectSpecialGroup(selectable.group);
+        }
 
         public void Display(List<ISpecialSkillGroup> specialGroups)
         {
@@ -43,9 +54,19 @@ namespace DChild.Gameplay.ArmyBattle.UI
             }
         }
 
+        void IPageHandle.NextPage()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        void IPageHandle.PreviousPage()
+        {
+            throw new System.NotImplementedException();
+        }
 
         public void Initialize()
         {
+            Debug.Log($"total special groups: ${m_groups.Count}");
             m_scrollBar.numberOfSteps = GetTotalPages();
             m_scrollBar.size = 1f / GetTotalPages();
             m_scrollBar.value = 0;
@@ -63,20 +84,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         {
             return Mathf.CeilToInt(m_groups.Count / (float)m_maxRows);
 
-        }
-
-        public void NextPage()
-        {
-
-            m_page++;
-            SetPage(m_page);
-        }
-
-        public void PreviousPage()
-        {
-            m_page--;
-            SetPage(m_page);
-        }
+        }        
 
         public void SetPage(int pageIndex)
         {
@@ -102,6 +110,8 @@ namespace DChild.Gameplay.ArmyBattle.UI
                 SetPage(updatedPage);
             }
         }
+
+        
     }
 
 }
