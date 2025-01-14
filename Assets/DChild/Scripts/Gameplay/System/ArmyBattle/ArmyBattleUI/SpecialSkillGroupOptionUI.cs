@@ -18,21 +18,22 @@ namespace DChild.Gameplay.ArmyBattle.UI
         public void Display(ISpecialSkillGroup group)
         {
             m_group = group;
-            //if (group == null)
-            //{
-            //    NullifyArmyGroupUI();
-            //    return;
-            //}
+
+            if (group != null)
+            {
+                SelectGlow(m_specialGlow);
+                selectedSkill.DisplaySpecialIcon();
+                characterGroupUI.Display(group.GetCharacterGroup() ?? null);
+                partyName.Display(group);
+                gameObject.SetActive(true);
+                return;
+            }
+            gameObject.SetActive(false);
 
             //if (targetCommandIcon.enabled == false)
             //{
             //    RestoreArmyGroupUI();
             //}
-
-            SelectGlow(m_specialGlow);
-            selectedSkill.DisplaySpecialIcon();
-            characterGroupUI.Display(group.GetCharacterGroup() ?? null);
-            partyName.Display(group);
         }
     }
 }
