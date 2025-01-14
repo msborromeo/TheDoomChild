@@ -1,4 +1,5 @@
 ﻿using Doozy.Runtime.Signals;
+using Holysoft.Event;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -106,6 +107,8 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
         [SerializeField]
         private ActiveSkillList m_enemyActiveSkills;
 
+        public event EventAction<EventActionArgs> SkillEffectApplied;
+
         public bool CanPlayerActivateMoreSkills() => m_playerActiveSkills.totalSkillCount < m_maxPlayerActiveSkills;
 
         public void Activate(SpecialSkill specialSkill, ArmyController owner)
@@ -115,6 +118,11 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
                 var target = ArmyBattleSystem.GetTargetOf(owner);
                 StartCoroutine(ActivateSkillRoutine(specialSkill, owner, target));
             }
+        }
+
+        public void StopAllSkillActivation()
+        {
+            StopAllCoroutines();
         }
 
         private IEnumerator ActivateSkillRoutine(SpecialSkill specialSkill, ArmyController owner, ArmyController target)
@@ -158,6 +166,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
                 {
                     var owner = currentSkill.owner;
                     yield return currentSkill.specialSkill.ApplyEffect(owner, ArmyBattleSystem.GetTargetOf(owner));
+                    SkillEffectApplied?.Invoke(this, EventActionArgs.Empty);
                     currentSkill.duration -= 1;
                 }
                 else
@@ -196,6 +205,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
                 var currentSkill = turnSkills[i];
                 var owner = currentSkill.owner;
                 yield return currentSkill.specialSkill.ApplyEffect(owner, ArmyBattleSystem.GetTargetOf(owner));
+                SkillEffectApplied?.Invoke(this, EventActionArgs.Empty);
                 currentSkill.duration = -1;
             }
             RemoveSkillsThatEnded(turnSkills);
@@ -205,6 +215,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
         private IEnumerator ApplyInstantSpecialSkillRoutine(ActiveSkill skill, ArmyController owner, ArmyController target)
         {
             yield return skill.specialSkill.ApplyEffect(owner, target);
+            SkillEffectApplied?.Invoke(this, EventActionArgs.Empty);
             m_skillActivationEndSignal?.SendSignal();
         }
 
