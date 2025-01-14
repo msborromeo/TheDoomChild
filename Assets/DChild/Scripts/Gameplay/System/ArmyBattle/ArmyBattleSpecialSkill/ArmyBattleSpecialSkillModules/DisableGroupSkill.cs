@@ -12,10 +12,8 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
 
         public void ApplyEffect(ArmyController owner, ArmyController target)
         {
-             ISpecialSkillGroup group = owner.controlledArmy.GetSpecificGroup(m_group);
+            ISpecialSkillGroup group = owner.controlledArmy.GetSpecificGroup(m_group);
             owner.controlledArmy.SetSpecialSkillAvailability(group, false);
-            
-
         }
 
         public void RemoveEffect(ArmyController owner, ArmyController target)
