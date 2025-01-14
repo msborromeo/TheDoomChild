@@ -35,29 +35,12 @@ namespace DChild.Gameplay.ArmyBattle.UI
         [SerializeField, FoldoutGroup("GLOW OVERRIDE/ASSETS")]
         private Sprite m_magicGlow;
         [SerializeField, FoldoutGroup("GLOW OVERRIDE/ASSETS")]
-
         private List<Image> m_partyGlow;
 
-        [SerializeField, Tooltip("optional")]
-        private UIButton m_moreGroupsButton;
-
-        [SerializeField, Tooltip("optional")]
-        private SpecialSkillNavigationToggleUI m_navigationToggle;
 
         public virtual void Display(IAttackingGroup group)
         {
             DamageType m_damageType = group.GetDamageType();
-            if (m_navigationToggle != null)
-            {
-                m_navigationToggle.ToggleSpecialUnitNavigation(false);
-            }
-
-            if (m_moreGroupsButton != null && m_moreGroupsButton.Id.Name != "MoreGroups")
-            {
-                m_navigationToggle.UpdateMoreGroupButtonNavigation(m_moreGroupsButton);
-                m_moreGroupsButton.Id.Name = "MoreGroups";
-            }
-
             m_characterGroupUI.Display(group?.GetCharacterGroup() ?? null);
             m_selectedSkill.Display(m_damageType);
             m_partyName.Display(group);
@@ -79,7 +62,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         }
 
 
-        public void SelectGlow(Sprite glow)
+        public virtual void SelectGlow(Sprite glow)
         {
             foreach (Image glowClass in m_partyGlow)
             {
