@@ -40,7 +40,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public IEnumerator Attack(float duration)
         {
-            AttackStart?.Invoke(this, EventActionArgs.Empty);
+           // AttackStart?.Invoke(this, EventActionArgs.Empty);
             m_animation.SetAnimation(0, m_attackAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_attackAnimation);
 
@@ -61,7 +61,7 @@ namespace DChild.Gameplay.Characters.Enemies
             //m_tentacleHitBox.enabled = false;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_retractAnimation);
 
-            AttackDone?.Invoke(this, EventActionArgs.Empty);
+           // AttackDone?.Invoke(this, EventActionArgs.Empty);
         }
 
         private void Start()
