@@ -70,6 +70,11 @@ namespace DChild.Gameplay.ArmyBattle
         public static ArmyBattleTurnHandle.TurnConfiguration turnConfiguration { get => Instance.turnHandle.configuration; set => Instance.turnHandle.configuration = value; }
         public static ArmyController GetPlayer() => Instance.player;
         public static ArmyController GetEnemy() => Instance.enemy;
+      
+        public static void SetCurrentTurn(int turnNumber)
+        {
+            Instance.turnHandle.ForceSetTurnNumber(turnNumber);
+        }
 
         public static Vector3 GetBattalionPosition(ArmyController controller)
         {

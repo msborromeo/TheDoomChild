@@ -98,6 +98,11 @@ namespace DChild.Gameplay.ArmyBattle
             }
         }
 
+        public void ForceSetTurnNumber(int turnNumber)
+        {
+            m_turnCount = turnNumber;
+        }
+
         public void SetParticipants(ArmyController player, ArmyController enemy)
         {
             m_player = player;
