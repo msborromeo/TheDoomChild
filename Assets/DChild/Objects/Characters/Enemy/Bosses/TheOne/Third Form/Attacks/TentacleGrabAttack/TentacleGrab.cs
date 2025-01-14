@@ -109,7 +109,7 @@ public class TentacleGrab : MonoBehaviour
 
     private IEnumerator GroundSlam()
     {
-        AttackStart?.Invoke(this, EventActionArgs.Empty);
+        //AttackStart?.Invoke(this, EventActionArgs.Empty);
 
         yield return Emerge();
 
@@ -141,7 +141,7 @@ public class TentacleGrab : MonoBehaviour
 
         isPlayerGrabbed = false;
 
-        AttackDone?.Invoke(this, EventActionArgs.Empty);
+       // AttackDone?.Invoke(this, EventActionArgs.Empty);
     }
 
     private IEnumerator TimelineGroundSlamSequence()
