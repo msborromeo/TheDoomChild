@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2882274343388041871}
   - component: {fileID: 2882274343388041870}
   - component: {fileID: 2882274343388041869}
+  - component: {fileID: 1467984357}
   m_Layer: 5
   m_Name: ExecuteAttackWindow
   m_TagString: Untagged
@@ -125,12 +126,6 @@ MonoBehaviour:
     Runners: []
     Event:
       m_PersistentCalls:
-        m_Calls: []
-  OnHiddenCallback:
-    EventName: OnHiddenCallback
-    Runners: []
-    Event:
-      m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
@@ -144,6 +139,12 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  OnHiddenCallback:
+    EventName: OnHiddenCallback
+    Runners: []
+    Event:
+      m_PersistentCalls:
+        m_Calls: []
   OnVisibilityChangedCallback:
     m_PersistentCalls:
       m_Calls: []
@@ -165,6 +166,23 @@ MonoBehaviour:
     Category: ArmyBattle
     Name: ExecuteAttack
     Custom: 0
+--- !u!114 &1467984357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882274343388041866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340e5b6b09fa30e44add55398d69039a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_playerOptions: {fileID: 0}
+  m_turnHandle: {fileID: 0}
+  m_specialSkillHandle: {fileID: 0}
+  m_specialSelection: {fileID: 0}
+  m_confirmationButton: {fileID: 2882274344598124542}
 --- !u!1 &2882274343778199756
 GameObject:
   m_ObjectHideFlags: 0
@@ -5808,8 +5826,18 @@ PrefabInstance:
     - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1467984357}
+    - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1467984357}
     - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -5823,22 +5851,24 @@ PrefabInstance:
     - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectCurrentAttackingGroup
+      value: ExecuteAttack
       objectReference: {fileID: 0}
     - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: CommenceTurn
+      value: ToggleSpecialConfirmation
       objectReference: {fileID: 0}
     - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: DChild.Gameplay.ArmyBattle.UI.ArmyBattlePlayerOption, Assembly-CSharp
+      value: DChild.Gameplay.ArmyBattle.SpecialSkills.ExecuteAttackConfirmationUI,
+        Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: DChild.Gameplay.ArmyBattle.ArmyBattleTurnHandle, Assembly-CSharp
+      value: DChild.Gameplay.ArmyBattle.SpecialSkills.ExecuteAttackConfirmationUI,
+        Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}

@@ -39,6 +39,8 @@ namespace DChild.Gameplay.ArmyBattle
 
         public ArmyModifier modifiers;
         public int troopCount => m_troopCount;
+        public int startingTroopCount => m_info.GetTroopCount();
+
         public float troopCountPercent => (m_troopCount / m_info.GetTroopCount()) * 100f;
 
         public ArmyOverviewData overview => m_info.overview;
@@ -58,6 +60,10 @@ namespace DChild.Gameplay.ArmyBattle
 
             ResetGroupAvailability();
         }
+
+        public int GetGroupCount() => m_info.GetGroups().Length;
+
+        public ArmyGroup GetGroupInfo(int index) => m_info.GetGroups()[index];
 
         public void AddTroopCount(int additionalTroops)
         {

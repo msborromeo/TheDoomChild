@@ -3228,6 +3228,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Store"",
+                    ""type"": ""Button"",
+                    ""id"": ""cb728808-d8c0-40f9-97ae-dea8f26c0219"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -3437,6 +3446,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""500c86e5-6131-4ff3-90b5-a623eb326c18"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Store"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ff2add7-eea7-4d6f-a238-82a9df50d294"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Store"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -3923,6 +3954,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Minimap_HorizontalInput = m_Minimap.FindAction("HorizontalInput", throwIfNotFound: true);
         m_Minimap_VerticalInput = m_Minimap.FindAction("VerticalInput", throwIfNotFound: true);
         m_Minimap_Interact = m_Minimap.FindAction("Interact", throwIfNotFound: true);
+        m_Minimap_Store = m_Minimap.FindAction("Store", throwIfNotFound: true);
         // Debug Camera
         m_DebugCamera = asset.FindActionMap("Debug Camera", throwIfNotFound: true);
         m_DebugCamera_Camera_Horizontal = m_DebugCamera.FindAction("Camera_Horizontal", throwIfNotFound: true);
@@ -4563,6 +4595,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Minimap_HorizontalInput;
     private readonly InputAction m_Minimap_VerticalInput;
     private readonly InputAction m_Minimap_Interact;
+    private readonly InputAction m_Minimap_Store;
     public struct MinimapActions
     {
         private @PlayerControls m_Wrapper;
@@ -4570,6 +4603,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @HorizontalInput => m_Wrapper.m_Minimap_HorizontalInput;
         public InputAction @VerticalInput => m_Wrapper.m_Minimap_VerticalInput;
         public InputAction @Interact => m_Wrapper.m_Minimap_Interact;
+        public InputAction @Store => m_Wrapper.m_Minimap_Store;
         public InputActionMap Get() { return m_Wrapper.m_Minimap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -4588,6 +4622,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_MinimapActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_MinimapActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_MinimapActionsCallbackInterface.OnInteract;
+                @Store.started -= m_Wrapper.m_MinimapActionsCallbackInterface.OnStore;
+                @Store.performed -= m_Wrapper.m_MinimapActionsCallbackInterface.OnStore;
+                @Store.canceled -= m_Wrapper.m_MinimapActionsCallbackInterface.OnStore;
             }
             m_Wrapper.m_MinimapActionsCallbackInterface = instance;
             if (instance != null)
@@ -4601,6 +4638,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Store.started += instance.OnStore;
+                @Store.performed += instance.OnStore;
+                @Store.canceled += instance.OnStore;
             }
         }
     }
@@ -4790,6 +4830,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnHorizontalInput(InputAction.CallbackContext context);
         void OnVerticalInput(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnStore(InputAction.CallbackContext context);
     }
     public interface IDebugCameraActions
     {

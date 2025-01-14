@@ -15,7 +15,9 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 220053144073445821, guid: 5edfbcefe2b2bb942a00dcfe16965eeb, type: 3}
+    - {fileID: 3662943724639545742, guid: 792a481a90e8f3d43baa8c1acb691057, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -33,9 +35,31 @@ MonoBehaviour:
     - Name: m_duration
       Entry: 3
       Data: 0
+    - Name: m_onSelect
+      Entry: 7
+      Data: 1|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
+        Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 2|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForDialogue, Assembly-CSharp
+    - Name: m_dialoguetitle
+      Entry: 1
+      Data: Gamble Select Dialogue
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: m_visualizerInfo
       Entry: 7
-      Data: 1|DChild.Gameplay.ArmyBattle.SpecialSkillVisualizerInfo, Assembly-CSharp
+      Data: 3|DChild.Gameplay.ArmyBattle.SpecialSkillVisualizerInfo, Assembly-CSharp
     - Name: m_ownerFX
       Entry: 6
       Data: 
@@ -47,20 +71,6 @@ MonoBehaviour:
       Data: 
     - Name: m_specialSkillModules
       Entry: 7
-      Data: 2|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
-        Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 3|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.EnumSuccessFailChance,
-        Assembly-CSharp
-    - Name: m_successChance
-      Entry: 4
-      Data: 50
-    - Name: m_onSuccess
-      Entry: 7
       Data: 4|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
         Assembly-CSharp
     - Name: 
@@ -68,10 +78,24 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 5|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
+      Data: 5|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.EnumSuccessFailChance,
+        Assembly-CSharp
+    - Name: m_successChance
+      Entry: 4
+      Data: 50
+    - Name: m_onSuccess
+      Entry: 7
+      Data: 6|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
+        Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 7|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
     - Name: m_fx
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: m_visualType
       Entry: 3
       Data: 0
@@ -85,6 +109,69 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 8|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.InstantSpecialSkill,
+        Assembly-CSharp
+    - Name: m_modules
+      Entry: 7
+      Data: 9|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillModule[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 10|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.TrackGroupTroopCount,
+        Assembly-CSharp
+    - Name: m_troopCount
+      Entry: 1
+      Data: PlayerTroops
+    - Name: m_groupID
+      Entry: 3
+      Data: 12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 11|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.DealDamage, Assembly-CSharp
+    - Name: m_damageDealt
+      Entry: 3
+      Data: 0
+    - Name: m_damageDealtPercentage
+      Entry: 3
+      Data: 0
+    - Name: m_damageDealtTrackValues
+      Entry: 1
+      Data: PlayerTroops
+    - Name: m_damageType
+      Entry: 3
+      Data: 2
+    - Name: m_targetType
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 12|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForDialogue,
+        Assembly-CSharp
+    - Name: m_dialoguetitle
+      Entry: 1
+      Data: Gamble Success effect Dialogue
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -92,11 +179,92 @@ MonoBehaviour:
       Data: 
     - Name: m_onFail
       Entry: 7
-      Data: 6|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
+      Data: 13|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
         Assembly-CSharp
     - Name: 
       Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 14|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
+    - Name: m_fx
+      Entry: 10
+      Data: 1
+    - Name: m_visualType
+      Entry: 3
       Data: 0
+    - Name: m_position
+      Entry: 3
+      Data: 0
+    - Name: m_fxStatus
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 15|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.InstantSpecialSkill,
+        Assembly-CSharp
+    - Name: m_modules
+      Entry: 7
+      Data: 16|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillModule[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 17|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.TrackGroupTroopCount,
+        Assembly-CSharp
+    - Name: m_troopCount
+      Entry: 1
+      Data: EnemyTroops
+    - Name: m_groupID
+      Entry: 3
+      Data: 12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 18|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.DealDamage, Assembly-CSharp
+    - Name: m_damageDealt
+      Entry: 3
+      Data: 0
+    - Name: m_damageDealtPercentage
+      Entry: 3
+      Data: 0
+    - Name: m_damageDealtTrackValues
+      Entry: 1
+      Data: EnemyTroops
+    - Name: m_damageType
+      Entry: 3
+      Data: 2
+    - Name: m_targetType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 19|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForDialogue,
+        Assembly-CSharp
+    - Name: m_dialoguetitle
+      Entry: 1
+      Data: Gamble Fail effect Dialogue
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
