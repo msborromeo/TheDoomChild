@@ -25,6 +25,8 @@ namespace DChild.Gameplay.ArmyBattle
         [SerializeField]
         private ArmyBattleTurnHandle m_turnHandle;
         [SerializeField]
+        private ArmyBattleSpecialSkillHandle m_specialSkillHandle;
+        [SerializeField]
         private ArmyFightManager m_fightManager;
         [SerializeField]
         private ArmyBattleUIManager m_uiManager;
@@ -35,7 +37,11 @@ namespace DChild.Gameplay.ArmyBattle
         [SerializeField]
         private PlayerArmyController m_player;
         [SerializeField]
+        private ArmyStatsTracker m_playerStatsTracker;
+        [SerializeField]
         private ArmyAI m_enemy;
+        [SerializeField]
+        private ArmyStatsTracker m_enemyStatsTracker;
 
         [SerializeField, FoldoutGroup("Signals")]
         private SignalSender m_battleStartSignal;
@@ -121,9 +127,35 @@ namespace DChild.Gameplay.ArmyBattle
             m_turnHandle.TurnStart();
         }
 
+        public void ForceUpdateFightVisuals()
+        {
+
+        }
+
         private void OnTurnEnd(object sender, EventActionArgs eventArgs)
         {
             m_uiManager.UpdateParticipantTroopCount(m_player, m_enemy);
+
+            if (WillBattleEnd() == false)
+            {
+                m_turnEndSignal.SendSignal();
+                m_scenarioHandle.UpdateScenario();
+            }
+            else
+            {
+                EndBattle();
+            }
+        }
+
+        private void EndBattle()
+        {
+            m_battleEndSignal.Payload.booleanValue = m_enemy.controlledArmy.troopCount <= 0;
+            m_battleEndSignal.SendSignal();
+            StartCoroutine(EndScenarioRoutine());
+        }
+
+        private bool WillBattleEnd()
+        {
             bool endBattle = false;
             if (m_player.controlledArmy.troopCount <= 0)
             {
@@ -138,32 +170,56 @@ namespace DChild.Gameplay.ArmyBattle
                 endBattle = true;
             }
 
-            if (endBattle == false)
+            return endBattle;
+        }
+
+        private void OnSkillEffectApplied(object sender, EventActionArgs eventArgs)
+        {
+            if (ParticipantsHasChangesInTroopCount())
             {
-                m_turnEndSignal.SendSignal();
-                m_scenarioHandle.UpdateScenario();
+                var playerCombatRecord = new ArmyBattleCombatResult.Record(false, m_playerStatsTracker.GetTrackedTroopCount(), m_player.controlledArmy.troopCount, DamageType._COUNT, DamageType._COUNT);
+                var enemyCombatRecord = new ArmyBattleCombatResult.Record(false, m_enemyStatsTracker.GetTrackedTroopCount(), m_enemy.controlledArmy.troopCount, DamageType._COUNT, DamageType._COUNT);
+                var combatResult = new ArmyBattleCombatResult(playerCombatRecord, enemyCombatRecord);
+
+                m_fightManager.VisualizeCombatEndResultImmidiate(combatResult);
+
+                if (WillBattleEnd())
+                {
+                    m_specialSkillHandle.StopAllSkillActivation();
+                    m_turnEndSignal.SendSignal();
+                    EndBattle();
+                }
+                else
+                {
+                    m_playerStatsTracker.RecordStats();
+                    m_enemyStatsTracker.RecordStats();
+                }
             }
-            else
+
+            bool ParticipantsHasChangesInTroopCount()
             {
-                m_battleEndSignal.Payload.booleanValue = m_enemy.controlledArmy.troopCount <= 0;
-                m_battleEndSignal.SendSignal();
-                StartCoroutine(EndScenarioRoutine());
+                var hasPlayerTroopCountChanged = m_playerStatsTracker.GetTrackedTroopCount() != m_player.controlledArmy.troopCount;
+                var hasEnemyTroopCountChanged = m_enemyStatsTracker.GetTrackedTroopCount() != m_enemy.controlledArmy.troopCount;
+
+                return hasPlayerTroopCountChanged || hasEnemyTroopCountChanged;
             }
         }
+
 
         private void Awake()
         {
             if (Instance == null)
             {
                 Instance = this;
+
+                m_turnHandle.SetParticipants(m_player, m_enemy);
+                m_turnHandle.OnTurnEnd += OnTurnEnd;
+                m_specialSkillHandle.SkillEffectApplied += OnSkillEffectApplied;
             }
             else
             {
                 Destroy(gameObject);
             }
-
-            m_turnHandle.SetParticipants(m_player, m_enemy);
-            m_turnHandle.OnTurnEnd += OnTurnEnd;
         }
 
         private void Start()
@@ -206,6 +262,8 @@ namespace DChild.Gameplay.ArmyBattle
 
         private IEnumerator EndScenarioRoutine()
         {
+            var winMessge = m_player.controlledArmy.troopCount > 0 ? "Win" : "Lose";
+            Debug.Log($"Player {winMessge}");
             yield return new WaitForSeconds(1.5f);
             m_scenarioHandle.EndScenario(m_player.controlledArmy.troopCount > 0);
         }

@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using UnityEngine;
 
 namespace DChild.Gameplay.ArmyBattle.Visualizer
@@ -42,7 +43,7 @@ namespace DChild.Gameplay.ArmyBattle.Visualizer
             public int troopCount => m_army.troopCount;
             public bool HasAvailableGroup(DamageType damageType) => m_army.HasAvailableGroup(damageType);
 
-
+            public bool IsAReferenceOf(Army army) => m_army == army;
         }
 
         [SerializeField, MinMaxSlider(0, 1, true)]
@@ -73,6 +74,21 @@ namespace DChild.Gameplay.ArmyBattle.Visualizer
 
             m_nextPlayerUnitTypeToKillIndex = Random.Range(0, (int)DamageType._COUNT);
             m_nextEnemyUnitTypeToKillIndex = Random.Range(0, (int)DamageType._COUNT);
+        }
+
+        public void SyncPopulationImmidiately(ArmyBattleCombatResult result)
+        {
+            var playerUnitsToKillOff = CalculateUnitsToKillOff(m_player.battalion, result.player.remainingTroopCount, m_player.troopPerUnit);
+            KillOfUnitsImmidiate(m_player, playerUnitsToKillOff);
+
+            var playerUnitsToRessurect = CalculateUnitsToRessurect(m_player.battalion, result.player.remainingTroopCount, m_player.troopPerUnit);
+            RessurectUnitsImmidiate(m_player, playerUnitsToRessurect);
+
+            var enemyUnitsToKillOff = CalculateUnitsToKillOff(m_enemy.battalion, result.enemy.remainingTroopCount, m_enemy.troopPerUnit);
+            KillOfUnitsImmidiate(m_enemy, enemyUnitsToKillOff);
+
+            var enemyUnitsToRessurect = CalculateUnitsToRessurect(m_enemy.battalion, result.enemy.remainingTroopCount, m_enemy.troopPerUnit);
+            RessurectUnitsImmidiate(m_enemy, enemyUnitsToRessurect);
         }
 
         public IEnumerator DyingInBattleRoutine(ArmyBattleCombatResult result)
@@ -108,7 +124,14 @@ namespace DChild.Gameplay.ArmyBattle.Visualizer
                     KillOffUnit(m_enemy, ref m_nextEnemyUnitTypeToKillIndex);
                 }
             }
+        }
 
+        private void KillOfUnitsImmidiate(ArmyReference reference, int numberToKillOff)
+        {
+            for (int i = 0; i < numberToKillOff; i++)
+            {
+                KillOffUnit(reference, ref m_nextPlayerUnitTypeToKillIndex);
+            }
         }
 
         private void KillOffUnit(ArmyReference reference, ref int index)
@@ -150,12 +173,48 @@ namespace DChild.Gameplay.ArmyBattle.Visualizer
                 unitHandle.KillOffUnits(1);
                 NextIndex(ref index);
             }
+        }
 
-            void NextIndex(ref int index)
+        private void RessurectUnitsImmidiate(ArmyReference reference, int numberToRessurect)
+        {
+            for (int i = 0; i < numberToRessurect; i++)
             {
-                index += 1;
-                index = (int)Mathf.Repeat(index, ((int)DamageType._COUNT));
+                RessurectUnit(reference, ref m_nextPlayerUnitTypeToKillIndex);
             }
+        }
+
+        private void RessurectUnit(ArmyReference reference, ref int index)
+        {
+            bool hasViableUnitToRessurect = false;
+            ArmyUnitsHandle unitHandle = null;
+
+            var maxAttempts = 3;
+            for (int attempts = 1; attempts <= maxAttempts; attempts++)
+            {
+                var damageType = (DamageType)index;
+                unitHandle = reference.battalion.GetUnitHandle(damageType);
+                if (unitHandle.GetUnitCount() >= unitHandle.GetMaxUnitCount())
+                {
+                    NextIndex(ref index);
+                    continue;
+                }
+
+                hasViableUnitToRessurect = true;
+                break;
+            }
+
+
+            if (hasViableUnitToRessurect)
+            {
+                unitHandle.RessurectUnits(1);
+                NextIndex(ref index);
+            }
+        }
+
+        private void NextIndex(ref int index)
+        {
+            index += 1;
+            index = (int)Mathf.Repeat(index, ((int)DamageType._COUNT));
         }
 
         private void ScheduleDeaths(int unitsToKillOff, bool ofPlayerBattalion)
@@ -170,12 +229,30 @@ namespace DChild.Gameplay.ArmyBattle.Visualizer
 
         private int CalculateUnitsToKillOff(ArmyBattalionManager battalion, int remainingTroopCount, int troopPerUnit)
         {
+            var value = CalculateUnitsPopulationChange(battalion, remainingTroopCount, troopPerUnit);
+            if (value >= 0)
+                return 0;
+
+            return Mathf.Abs(value);
+        }
+
+        private int CalculateUnitsToRessurect(ArmyBattalionManager battalion, int remainingTroopCount, int troopPerUnit)
+        {
+            var value = CalculateUnitsPopulationChange(battalion, remainingTroopCount, troopPerUnit);
+            if (value <= 0)
+                return 0;
+
+            return value;
+        }
+
+        private int CalculateUnitsPopulationChange(ArmyBattalionManager battalion, int remainingTroopCount, int troopPerUnit)
+        {
             if (remainingTroopCount > 0)
             {
                 var numberOfUnitsToLive = Mathf.CeilToInt(remainingTroopCount / troopPerUnit);
                 var currentLiveUnits = battalion.GetTotalUnitCount();
-                var unitsToKillOff = currentLiveUnits - numberOfUnitsToLive;
-                return unitsToKillOff;
+                var unitChange = numberOfUnitsToLive - currentLiveUnits;
+                return unitChange;
             }
             return battalion.GetTotalUnitCount();
         }

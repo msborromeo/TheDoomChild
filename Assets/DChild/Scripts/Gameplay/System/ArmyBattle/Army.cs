@@ -101,6 +101,11 @@ namespace DChild.Gameplay.ArmyBattle
             return m_availableAttackingGroups.Where(x => x.GetDamageType() == damageType).OrderByDescending(x => x.GetAttackPower()).ToList();
         }
 
+        public List<IAttackingGroup> GetAllUnvailableGroups()
+        {
+            return m_usedAttackingGroups;
+        }
+
         public void SetAttackingGroupAvailability(IAttackingGroup attackingGroup, bool isAvailable)
         {
             if (isAvailable)
