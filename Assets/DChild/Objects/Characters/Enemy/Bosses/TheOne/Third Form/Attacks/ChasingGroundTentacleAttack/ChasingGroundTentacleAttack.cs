@@ -51,7 +51,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public IEnumerator ExecuteAttack()
         {
-            AttackStart?.Invoke(this, EventActionArgs.Empty);
+          //  AttackStart?.Invoke(this, EventActionArgs.Empty);
             var rollAttack = Random.Range(1, 4);
 
             switch (rollAttack)
@@ -109,7 +109,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
             }
 
-            AttackDone?.Invoke(this, EventActionArgs.Empty);
+          //  AttackDone?.Invoke(this, EventActionArgs.Empty);
         }
 
         public IEnumerator ExecuteAttack(Vector2 PlayerPosition)
