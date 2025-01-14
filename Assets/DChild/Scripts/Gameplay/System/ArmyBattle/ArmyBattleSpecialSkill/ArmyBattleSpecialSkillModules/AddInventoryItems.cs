@@ -2,12 +2,16 @@
 
 namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
 {
+   
     public class AddInventoryItems : ISpecialSkillModule, ISpecialSkillImplementor
     {
+        [SerializeField]
+        private int m_stolenEssence;
         public void ApplyEffect(ArmyController owner, ArmyController target)
         {
-            Debug.Log("It works now Apply the Effects");
-        }
+            var reward = GameplaySystem.playerManager.player.inventory;
+            reward.AddSoulEssence(m_stolenEssence);
+        }   
 
         public void RemoveEffect(ArmyController owner, ArmyController target)
         {
