@@ -91,7 +91,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public IEnumerator ExecuteAttack(AITargetInfo Target)
         {
-            AttackStart?.Invoke(this, EventActionArgs.Empty);
+          //  AttackStart?.Invoke(this, EventActionArgs.Empty);
             while (m_tentacleCount < 5)
             {
                 m_tentacleCount++;
@@ -172,7 +172,7 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             m_tentacleCount = 0;
             m_tentaclesSpawned.Clear();
-            AttackDone?.Invoke(this, EventActionArgs.Empty);
+            //AttackDone?.Invoke(this, EventActionArgs.Empty);
 
             yield return null;
         }

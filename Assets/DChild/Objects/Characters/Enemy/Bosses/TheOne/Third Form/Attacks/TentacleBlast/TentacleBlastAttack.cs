@@ -22,8 +22,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void Awake()
         {
-            m_leftTentacleBlast.AttackDone += OnLeftTentacleBlastDone;
-            m_rightTentacleBlast.AttackDone += OnRightTentacleBlastDone;
+            //m_leftTentacleBlast.AttackDone += OnLeftTentacleBlastDone;
+            //m_rightTentacleBlast.AttackDone += OnRightTentacleBlastDone;
         }
 
         private void OnRightTentacleBlastDone(object sender, EventActionArgs eventArgs)
@@ -40,8 +40,11 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             StartCoroutine(m_leftTentacleBlast.TentacleBlastAttack());
             StartCoroutine(m_rightTentacleBlast.TentacleBlastAttack());
-
-            yield return null;
+            while(m_leftTentacleBlast.isDoneTentacleAttack == false)
+            {
+                yield return null;
+            }
+            
         }
 
         public IEnumerator ExecuteAttack(Vector2 PlayerPosition)
@@ -51,14 +54,14 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public IEnumerator ExecuteAttack(AITargetInfo Target)
         {
-            AttackStart?.Invoke(this, EventActionArgs.Empty);
+           // AttackStart?.Invoke(this, EventActionArgs.Empty);
 
             if (Target.position.x < m_arenaCenter.position.x)
                 yield return m_leftTentacleBlast.TentacleBlastAttack();
             else
                 yield return m_rightTentacleBlast.TentacleBlastAttack();
 
-            AttackDone?.Invoke(this, EventActionArgs.Empty);
+           // AttackDone?.Invoke(this, EventActionArgs.Empty);
         }
 
         private IEnumerator DoTentacleBlast()
