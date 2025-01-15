@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
 {
-    public class DisableUnitType : ISpecialSkillModule, ISpecialSkillImplementor
+    public struct DisableUnitType : ISpecialSkillModule, ISpecialSkillImplementor
     {
         [SerializeField]
         private DamageType m_damageType;
@@ -12,7 +12,14 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
         {
             var isTargetPlayer = ArmyBattleSystem.GetPlayer() == target;
             var configuration = ArmyBattleSystem.turnConfiguration;
-            configuration = SetArmyDamageType(isTargetPlayer, configuration, false);
+            if (isTargetPlayer)
+            {
+                configuration.playerConfiguration = SetUnitTypeAvailability(configuration.playerConfiguration, false);
+            }
+            else
+            {
+                configuration.enemyConfiguration = SetUnitTypeAvailability(configuration.enemyConfiguration, false);
+            }
 
             ArmyBattleSystem.turnConfiguration = configuration;
             Debug.Log("Disable!");
@@ -23,50 +30,37 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
             target.controlledArmy.ResetGroupAvailability();
             var isTargetPlayer = ArmyBattleSystem.GetPlayer() == target;
             var configuration = ArmyBattleSystem.turnConfiguration;
-            configuration = SetArmyDamageType(isTargetPlayer, configuration, true);
+
+            if (isTargetPlayer)
+            {
+                configuration.playerConfiguration = SetUnitTypeAvailability(configuration.playerConfiguration, true);
+            }
+            else
+            {
+                configuration.enemyConfiguration = SetUnitTypeAvailability(configuration.enemyConfiguration, true);
+            }
 
             ArmyBattleSystem.turnConfiguration = configuration;
 
             Debug.Log("Enable");
         }
 
-        private ArmyBattleTurnHandle.TurnConfiguration SetArmyDamageType(bool isTargetPlayer, ArmyBattleTurnHandle.TurnConfiguration configuration, bool allowUse)
+        private ArmyBattleTurnHandle.ParticipantConfiguration SetUnitTypeAvailability(ArmyBattleTurnHandle.ParticipantConfiguration participantConfiguration, bool allowUse)
         {
-            ArmyBattleTurnHandle.TurnConfiguration setConfiguration;
-            if (isTargetPlayer)
+            switch (m_damageType)
             {
-                switch (m_damageType)
-                {
-                    case DamageType.Melee:
-                        configuration.playerCanUseMelee = allowUse;
-                        break;
-                    case DamageType.Range:
-                        configuration.playerCanUseRange = allowUse;
-                        break;
-                    case DamageType.Magic:
-                        configuration.playerCanUseMagic = allowUse;
-                        break;
-                }
-                setConfiguration = configuration;
-            }
-            else
-            {
-                switch (m_damageType)
-                {
-                    case DamageType.Melee:
-                        configuration.enemyCanUseMelee = allowUse;
-                        break;
-                    case DamageType.Range:
-                        configuration.enemyCanUseRange = allowUse;
-                        break;
-                    case DamageType.Magic:
-                        configuration.enemyCanUseMagic = allowUse;
-                        break;
-                }
-                setConfiguration = configuration;
+                case DamageType.Melee:
+                    participantConfiguration.canUseMelee = allowUse;
+                    break;
+                case DamageType.Range:
+                    participantConfiguration.canUseRange = allowUse;
+                    break;
+                case DamageType.Magic:
+                    participantConfiguration.canUseMagic = allowUse;
+                    break;
             }
 
-            return setConfiguration;
+            return participantConfiguration;
         }
     }
 }

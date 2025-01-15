@@ -37,21 +37,30 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
                 case TargetType.Opponent:
                     if (isUsedByPlayer)
                     {
-                        configuration.enemyWillAttack = enableAttack;
+                        var participantConfiguration = configuration.enemyConfiguration;
+                        participantConfiguration.willAttack = enableAttack;
+                        configuration.enemyConfiguration = participantConfiguration;
+
                     }
                     else
                     {
-                        configuration.playerWillAttack = enableAttack;
+                        var participantConfiguration = configuration.playerConfiguration;
+                        participantConfiguration.willAttack = enableAttack;
+                        configuration.playerConfiguration = participantConfiguration;
                     }
                     break;
                 case TargetType.Self:
                     if (isUsedByPlayer)
                     {
-                        configuration.playerWillAttack = enableAttack;
+                        var participantConfiguration = configuration.playerConfiguration;
+                        participantConfiguration.willAttack = enableAttack;
+                        configuration.playerConfiguration = participantConfiguration;
                     }
                     else
                     {
-                        configuration.enemyWillAttack = enableAttack;
+                        var participantConfiguration = configuration.enemyConfiguration;
+                        participantConfiguration.willAttack = enableAttack;
+                        configuration.enemyConfiguration = participantConfiguration;
                     }
                     break;
             }
