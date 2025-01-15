@@ -36,6 +36,11 @@ namespace DChild.Gameplay.ArmyBattle.Battalion
             GetUnitHandle(unitType).KillOffUnits(count);
         }
 
+        public void Ressurrect(DamageType unitType, int count)
+        {
+            GetUnitHandle(unitType).RessurectUnits(count);
+        }
+
         [Button]
         public void GenerateArmy(DamageType[] typesToGenerate)
         {

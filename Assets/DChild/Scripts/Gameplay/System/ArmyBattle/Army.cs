@@ -101,6 +101,11 @@ namespace DChild.Gameplay.ArmyBattle
             return m_availableAttackingGroups.Where(x => x.GetDamageType() == damageType).OrderByDescending(x => x.GetAttackPower()).ToList();
         }
 
+        public List<IAttackingGroup> GetAllUnvailableGroups()
+        {
+            return m_usedAttackingGroups;
+        }
+
         public void SetAttackingGroupAvailability(IAttackingGroup attackingGroup, bool isAvailable)
         {
             if (isAvailable)
@@ -163,6 +168,11 @@ namespace DChild.Gameplay.ArmyBattle
 
             m_usedAttackingGroups.Clear();
             m_usedSpecialSkills.Clear();
+        }
+
+        public ISpecialSkillGroup GetSpecificGroup(ArmyGroupTemplateData group)
+        {
+            return GetAvailableGroup(group.id, m_availableSpecialSkills);
         }
 
         private IAttackingGroup GetAvailableGroup(int id, List<IAttackingGroup> reference)

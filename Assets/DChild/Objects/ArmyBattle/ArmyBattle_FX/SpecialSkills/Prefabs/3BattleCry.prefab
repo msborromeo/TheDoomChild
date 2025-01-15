@@ -29569,6 +29569,8 @@ GameObject:
   - component: {fileID: 2056102584403181985}
   - component: {fileID: 2056102584403181984}
   - component: {fileID: 2056102584403181987}
+  - component: {fileID: 3063401098563996068}
+  - component: {fileID: 1579466272559755767}
   m_Layer: 0
   m_Name: 3BattleCry
   m_TagString: Untagged
@@ -34381,6 +34383,48 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &3063401098563996068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056102584403181986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bbb7891a8ab6c4386eae13d2090129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_vfxParticleTurnManager:
+  - m_fxPartcileSystem:
+    - {fileID: 2056102584403181984}
+  m_VfxSpineTurnManager:
+  - m_SpineModel: {fileID: 1584804017}
+    m_fxSpineSystem: {fileID: 11400000, guid: 309198bc95127014996d1d0b31ae2258, type: 2}
+    m_animation:
+    - StompingAngIdle
+    m_launchOnEvent:
+    - FX
+    m_spineListener: {fileID: 1579466272559755767}
+    m_eventPartcileSystem:
+    - {fileID: 2056102584403181984}
+    m_delaytime:
+    - 0
+  m_iseffectdone: 0
+  m_currentturn: 1
+--- !u!114 &1579466272559755767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056102584403181986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd8599297ea1c84ba2f23b8f6c74e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 1584804018}
 --- !u!1 &2056102585588006063
 GameObject:
   m_ObjectHideFlags: 0

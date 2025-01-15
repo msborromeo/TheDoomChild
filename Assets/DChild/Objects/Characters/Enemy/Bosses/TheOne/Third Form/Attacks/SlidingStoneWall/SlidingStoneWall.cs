@@ -92,11 +92,11 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public IEnumerator CompleteSlidingWallAttackSequence()
         {
-            AttackStart?.Invoke(this, EventActionArgs.Empty);
+           //AttackStart?.Invoke(this, EventActionArgs.Empty);
             yield return EmergeTentacle();
             yield return AttackTentacle();
             yield return RetractTentacle();
-            AttackDone?.Invoke(this, EventActionArgs.Empty);
+            //AttackDone?.Invoke(this, EventActionArgs.Empty);
         }
 
         public void GroundSmashEffect()
