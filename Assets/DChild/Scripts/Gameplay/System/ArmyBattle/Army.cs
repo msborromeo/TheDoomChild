@@ -59,6 +59,9 @@ namespace DChild.Gameplay.ArmyBattle
             m_usedSpecialSkills = new List<ISpecialSkillGroup>();
 
             ResetGroupAvailability();
+
+            modifiers = new ArmyModifier();
+            modifiers.Reset();
         }
 
         public int GetGroupCount() => m_info.GetGroups().Length;

@@ -15,12 +15,14 @@ namespace DChild.Gameplay.ArmyBattle
             return new ArmyTurnAction()
             {
                 troopCount = m_controlledArmy.troopCount,
-                attack = new ArmyDamage(DamageType.Melee, 30)
+                modifiers = m_controlledArmy.modifiers,
+                attack = new ArmyDamage(chosenAttack.damageType, chosenAttack.forcedDamageValue)
             };
         }
 
         public override void CleanUpForNextTurn()
         {
+            m_controlledArmy.modifiers.Reset();
             return;
         }
     }
