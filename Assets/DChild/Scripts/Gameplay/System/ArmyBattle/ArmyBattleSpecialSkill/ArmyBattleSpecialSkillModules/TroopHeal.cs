@@ -18,7 +18,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
         private Type m_type;
         [SerializeField, ShowIf("@m_type == Type.FlatValue")]
         private int m_troopCount;
-        [SerializeField, ShowIf("@m_type == Type.TrackedValue")]
+        [SerializeField, VariablePopup(true), ShowIf("@m_type == Type.TrackedValue")]
         private string m_trackedVariable;
 
         public void ApplyEffect(ArmyController owner, ArmyController target)

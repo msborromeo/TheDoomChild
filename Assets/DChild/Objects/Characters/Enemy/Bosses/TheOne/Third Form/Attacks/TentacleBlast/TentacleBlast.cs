@@ -30,8 +30,11 @@ namespace DChild.Gameplay.Characters.Enemies
         public event EventAction<EventActionArgs> AttackStart;
         public event EventAction<EventActionArgs> AttackDone;
 
+        public bool isDoneTentacleAttack = false;
+
         private IEnumerator EmergeTentacle()
         {
+            isDoneTentacleAttack = false;
             m_animation.SetAnimation(0, m_spawnAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_spawnAnimation);
 
@@ -43,6 +46,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_animation.SetAnimation(0, m_despawnAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_despawnAnimation);
+            isDoneTentacleAttack = true;
         }
 
         private IEnumerator ShootTentacleBeam()
@@ -55,11 +59,11 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public IEnumerator TentacleBlastAttack()
         {
-            AttackStart?.Invoke(this, EventActionArgs.Empty);
+            //AttackStart?.Invoke(this, EventActionArgs.Empty);
             yield return EmergeTentacle();
             yield return ShootTentacleBeam();
             yield return DespawnTentacle();
-            AttackDone?.Invoke(this, EventActionArgs.Empty);
+          //  AttackDone?.Invoke(this, EventActionArgs.Empty);
         }
 
         // Start is called before the first frame update

@@ -38,10 +38,10 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public IEnumerator ExecuteAttack()
         {
-            AttackStart?.Invoke(this, EventActionArgs.Empty);
+           // AttackStart?.Invoke(this, EventActionArgs.Empty);
             yield return GrowMouth();
 
-            AttackDone?.Invoke(this, EventActionArgs.Empty);
+           // AttackDone?.Invoke(this, EventActionArgs.Empty);
             yield return null;
         }
 

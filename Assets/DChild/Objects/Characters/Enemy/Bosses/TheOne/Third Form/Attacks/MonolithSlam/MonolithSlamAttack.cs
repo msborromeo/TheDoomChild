@@ -46,7 +46,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public IEnumerator ExecuteAttack(AITargetInfo Target)
         {
-            AttackStart?.Invoke(this, EventActionArgs.Empty);
+           // AttackStart?.Invoke(this, EventActionArgs.Empty);
             //Initialize monoliths to spawn and clear spawned monoliths 
             int counter = 0;
 
@@ -89,7 +89,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_monolithsSpawned.Clear();
             m_monolithsSpawnedXPositions.Clear();
 
-            AttackDone?.Invoke(this, EventActionArgs.Empty);
+            //AttackDone?.Invoke(this, EventActionArgs.Empty);
         }
 
         private void Awake()
