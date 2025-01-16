@@ -11,6 +11,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         private ArmyBattlePlayerOption m_playerOption;
         [SerializeField]
         private ArmyParticipantDetailsUI m_participantDetails;
+        public ArmyParticipantDetailsUI participantDetails => m_participantDetails;
 
 
         public void Initialize(PlayerArmyController player, ArmyController enemy)

@@ -1,42 +1,51 @@
 ﻿using DChild.Gameplay.ArmyBattle.SpecialSkills;
 using Doozy.Runtime.UIManager.Components;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace DChild.Gameplay.ArmyBattle.UI
 {
-    public class SpecialSkillGroupOptionUI : MonoBehaviour
+    public class SpecialSkillGroupOptionUI : AttackingGroupOptionUI
     {
-
+        [SerializeField]
+        private ArmyBattleSpecialSkillSelection m_skillSelection;
+        [SerializeField]
+        private TextMeshProUGUI m_description;
+        [SerializeField]
+        private Image m_icon;
         [SerializeField]
         private Sprite m_specialGlow;
-        [SerializeField]
-        private UIButton m_moreGroupsButton;
-        [SerializeField]
-        private AttackingGroupOptionUI m_attackingGroup;
 
-        [SerializeField]
-        private SpecialSkillNavigationToggleUI m_navigationToggle;
+        private ISpecialSkillGroup m_group;
+        public ISpecialSkillGroup group => m_group;
 
         public void Display(ISpecialSkillGroup group)
         {
-            if (m_moreGroupsButton != null && m_moreGroupsButton.Id.Name != "MoreSpecialGroups")
+            m_group = group;
+
+            if (group != null)
             {
-                m_navigationToggle.ToggleSpecialUnitNavigation(true);
-                m_navigationToggle.UpdateMoreGroupButtonNavigation(m_moreGroupsButton);
-                m_moreGroupsButton.Id.Name = "MoreSpecialGroups";
+                SelectGlow(m_specialGlow);
+                selectedSkill.DisplaySpecialIcon();
+                characterGroupUI.Display(group.GetCharacterGroup() ?? null);
+                partyName.Display(group);
+                gameObject.SetActive(true);
+
+                var skill = group.GetSpecialSkill();
+
+                m_description.text = skill.GetDescription();
+                m_icon.sprite = group.GetSpecialSkill().icon;
+
+                m_icon.color = m_icon.sprite ? Color.white : Color.clear;
+                return;
             }
+            gameObject.SetActive(false);
 
-            SelectGlow(m_specialGlow);
-            m_attackingGroup.selectedSkill.DisplaySpecialIcon();
-            m_attackingGroup.attackingPowerUI.Display(group);
-            m_attackingGroup.characterGroupUI.Display(group.GetCharacterGroup() ?? null);
-            m_attackingGroup.partyName.Display(group);
-        }
-
-        private void SelectGlow(Sprite glow)
-        {
-            m_attackingGroup.SelectGlow(glow);
+            //if (targetCommandIcon.enabled == false)
+            //{
+            //    RestoreArmyGroupUI();
+            //}
         }
     }
 }

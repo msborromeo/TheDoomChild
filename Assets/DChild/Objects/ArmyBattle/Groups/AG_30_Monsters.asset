@@ -16,6 +16,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 21300000, guid: e8d2ab02e99745142ac4f28971062658, type: 3}
     - {fileID: 7820326364122686304, guid: f8e4ffc78f266ff4f91c39b6971fd236, type: 3}
     - {fileID: 4180513568680106864, guid: f8e4ffc78f266ff4f91c39b6971fd236, type: 3}
     SerializedBytesString: 
@@ -26,18 +27,46 @@ MonoBehaviour:
     - Name: m_specialSkill
       Entry: 7
       Data: 0|DChild.Gameplay.ArmyBattle.SpecialSkills.SpecialSkill, Assembly-CSharp
+    - Name: m_icon
+      Entry: 10
+      Data: 0
+    - Name: m_description
+      Entry: 1
+      Data: "Takes effect after 2 turns\nGain 1/4 of the lost Troops after 5 turns\r"
     - Name: m_type
       Entry: 3
       Data: 2
-    - Name: m_description
-      Entry: 6
-      Data: 
+    - Name: m_delay
+      Entry: 3
+      Data: 0
     - Name: m_duration
       Entry: 3
       Data: 5
+    - Name: m_onSelect
+      Entry: 7
+      Data: 1|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
+        Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 2|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForDialogue, Assembly-CSharp
+    - Name: m_dialoguetitle
+      Entry: 1
+      Data: Regenerate Select Effect
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: m_visualizerInfo
       Entry: 7
-      Data: 1|DChild.Gameplay.ArmyBattle.SpecialSkillVisualizerInfo, Assembly-CSharp
+      Data: 3|DChild.Gameplay.ArmyBattle.SpecialSkillVisualizerInfo, Assembly-CSharp
     - Name: m_ownerFX
       Entry: 6
       Data: 
@@ -49,17 +78,17 @@ MonoBehaviour:
       Data: 
     - Name: m_specialSkillModules
       Entry: 7
-      Data: 2|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
+      Data: 4|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
         Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 3|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
+      Data: 5|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
     - Name: m_fx
       Entry: 10
-      Data: 0
+      Data: 1
     - Name: m_visualType
       Entry: 3
       Data: 1
@@ -68,26 +97,46 @@ MonoBehaviour:
       Data: 0
     - Name: m_fxStatus
       Entry: 10
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.InstantSpecialSkill,
+      Data: 6|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.InstantSpecialSkill,
         Assembly-CSharp
     - Name: m_modules
       Entry: 7
-      Data: 5|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillModule[], Assembly-CSharp
+      Data: 7|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillModule[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
-      Data: 6|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.TroopHeal, Assembly-CSharp
+      Data: 8|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.TrackGroupTroopCount,
+        Assembly-CSharp
     - Name: m_troopCount
+      Entry: 1
+      Data: AB_PlayerRegen
+    - Name: m_groupID
       Entry: 3
-      Data: 50
+      Data: 30
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.CalculateRegenerationBasedOnLostTroops,
+        Assembly-CSharp
+    - Name: m_percentageToRegen
+      Entry: 4
+      Data: 0.25
+    - Name: m_numberOfTurnsToRecover
+      Entry: 3
+      Data: 5
+    - Name: m_regenVariable
+      Entry: 1
+      Data: AB_PlayerRegen
     - Name: 
       Entry: 8
       Data: 
@@ -118,4 +167,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 5c6464fb3627d664aacef49c87987dda, type: 2}
   m_requiredCharactersToBeAValidGroup: []
   m_damageType: 0
+  m_forcedDamageValue: 0
   m_hasSpecialSkill: 1

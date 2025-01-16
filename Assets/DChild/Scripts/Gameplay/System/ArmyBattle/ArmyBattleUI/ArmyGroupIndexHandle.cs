@@ -18,23 +18,16 @@ namespace DChild.Gameplay.ArmyBattle.UI
         [SerializeField]
         private List<AttackingGroupSelectableOptionUI> m_selectableGroups;
 
-        [SerializeField]
-        private ArmyBattleSpecialSkillSelection m_specialSkillSelection;
-
         private List<IAttackingGroup> m_groups;
         private List<IAttackingGroup> m_filteredGroups;
-
-        private List<ISpecialSkillGroup> m_specialGroups;
-        private List<ISpecialSkillGroup> m_filteredSpecialGroups;
-
-
-
+        
         [SerializeField]
         private UIScrollbar m_scrollBar;
 
         private int m_startingIndex = 0;
         private int m_page;
         private const int m_maxRows = 8;
+
         public int currentPage => m_page;
         public event EventAction<EventActionArgs> PageChange;
 
@@ -47,12 +40,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         {
             this.m_groups = groups;
         }
-
-        public void SetAvailableSpecialGroups(List<ISpecialSkillGroup> groups)
-        {
-            this.m_specialGroups = groups;
-        }
-
+      
         public void Initialize()
         {
             m_scrollBar.numberOfSteps = GetTotalPages();
@@ -80,7 +68,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         public int GetTotalPages()
         {
-            return Mathf.CeilToInt(m_groups.Count / (float) m_maxRows);
+            return Mathf.CeilToInt(m_groups.Count / (float)m_maxRows);
         }
 
         public void SetPage(int pageIndex)
@@ -113,7 +101,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         {
             int totalPages = GetTotalPages();
             int updatedPage = Mathf.FloorToInt(m_scrollBar.value / (1f / totalPages));
-            updatedPage = Mathf.Clamp(updatedPage, 0, totalPages-1);
+            updatedPage = Mathf.Clamp(updatedPage, 0, totalPages - 1);
 
             if (m_page != updatedPage)
             {

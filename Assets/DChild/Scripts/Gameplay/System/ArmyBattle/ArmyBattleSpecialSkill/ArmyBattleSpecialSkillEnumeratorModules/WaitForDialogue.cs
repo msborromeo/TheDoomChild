@@ -10,14 +10,14 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
     [System.Serializable]
     public class WaitForDialogue : ISpecialSkillIEnumeratorModule
     {
-        [SerializeField]
-        private String m_dialoguetitle = null;
-        [SerializeField]
-        private int m_initialDialogueEntryID = 0;
+        [SerializeField, ConversationPopup(true)]
+        private string m_dialoguetitle = null;
         private bool m_activedialogue = false;
         public IEnumerator ApplyEffect(ArmyController owner, ArmyController target)
         {
-            DialogueManager.instance.StartConversation(m_dialoguetitle, null, null, m_initialDialogueEntryID);
+            /*UI NOTE*/
+            /*Cannot display the visuals and apply the effects due to the NullException found here.*/
+            DialogueManager.instance.StartConversation(m_dialoguetitle, null, null, 0);
             DialogueManager.instance.conversationEnded += OnConversationEnd;
             while (m_activedialogue)
             {
@@ -25,10 +25,11 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
             }
 
             Debug.Log("Dialogue finish!");
-    
+            //yield return true;
+
 
         }
-       
+
         private void OnConversationEnd(Transform t)
         {
             m_activedialogue = true;
