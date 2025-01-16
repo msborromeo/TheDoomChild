@@ -16,7 +16,7 @@ namespace DChild.Gameplay.ArmyBattle
             {
                 troopCount = m_controlledArmy.troopCount,
                 modifiers = m_controlledArmy.modifiers,
-                attack = new ArmyDamage(chosenAttack.damageType, chosenAttack.forcedDamageValue)
+                attack = new ArmyDamage(chosenAttack.damageType, chosenAttack.GetDamageValue())
             };
         }
 
