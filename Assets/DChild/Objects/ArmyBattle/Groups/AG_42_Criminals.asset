@@ -16,6 +16,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 21300000, guid: bda579808d1d12f469c6fd33f0688c7e, type: 3}
     - {fileID: 8076560369095341822, guid: 119ed808b94cce04584e66f246039449, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -25,12 +26,17 @@ MonoBehaviour:
     - Name: m_specialSkill
       Entry: 7
       Data: 0|DChild.Gameplay.ArmyBattle.SpecialSkills.SpecialSkill, Assembly-CSharp
+    - Name: m_icon
+      Entry: 10
+      Data: 0
+    - Name: m_description
+      Entry: 1
+      Data: "50% Chance Success or Fail\r\n\nSuccess\r:\nEnemy hostage can give true
+        information about Enemy Army Attack move\r\n\r\r\nFail\r:\nEnemy hostage
+        gives false information about Enemy Army Attack move\r"
     - Name: m_type
       Entry: 3
       Data: 0
-    - Name: m_description
-      Entry: 6
-      Data: 
     - Name: m_delay
       Entry: 3
       Data: 0
@@ -58,13 +64,27 @@ MonoBehaviour:
         Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
-      Data: 3|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
+      Data: 3|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.EnumSuccessFailChance,
+        Assembly-CSharp
+    - Name: m_successChance
+      Entry: 4
+      Data: 0
+    - Name: m_onSuccess
+      Entry: 7
+      Data: 4|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
+        Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 5|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
     - Name: m_fx
       Entry: 10
-      Data: 0
+      Data: 1
     - Name: m_visualType
       Entry: 3
       Data: 0
@@ -79,24 +99,71 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.InstantSpecialSkill,
+      Data: 6|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.InstantSpecialSkill,
         Assembly-CSharp
     - Name: m_modules
       Entry: 7
-      Data: 5|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillModule[], Assembly-CSharp
+      Data: 7|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillModule[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
-      Data: 6|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.TroopHeal, Assembly-CSharp
-    - Name: m_type
+      Data: 8|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.TrackEnemyNextAction,
+        Assembly-CSharp
+    - Name: m_enemyNextMoveVar
+      Entry: 1
+      Data: AB_EnemyNextMoveType
+    - Name: m_trackFalseInformation
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForDialogue, Assembly-CSharp
+    - Name: m_dialoguetitle
+      Entry: 1
+      Data: Hostage Effect Dialogue
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: m_onFail
+      Entry: 7
+      Data: 10|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
+        Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 11|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
+    - Name: m_fx
+      Entry: 10
+      Data: 1
+    - Name: m_visualType
       Entry: 3
       Data: 0
-    - Name: m_troopCount
+    - Name: m_position
       Entry: 3
       Data: 0
-    - Name: m_trackedVariable
+    - Name: m_fxStatus
       Entry: 6
       Data: 
     - Name: 
@@ -104,17 +171,43 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 7|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.TrackTroopAvailability,
+      Data: 12|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.InstantSpecialSkill,
         Assembly-CSharp
-    - Name: m_checkbyID
-      Entry: 3
-      Data: 0
-    - Name: m_id
-      Entry: 3
-      Data: 0
-    - Name: m_trackTroopID
-      Entry: 6
+    - Name: m_modules
+      Entry: 7
+      Data: 13|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillModule[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 14|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.TrackEnemyNextAction,
+        Assembly-CSharp
+    - Name: m_enemyNextMoveVar
+      Entry: 1
+      Data: AB_EnemyNextMoveType
+    - Name: m_trackFalseInformation
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
       Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 15|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForDialogue,
+        Assembly-CSharp
+    - Name: m_dialoguetitle
+      Entry: 1
+      Data: Hostage Effect Dialogue
     - Name: 
       Entry: 8
       Data: 
@@ -144,4 +237,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f2d9864191bb3954f9598ccc5d0edc33, type: 2}
   m_requiredCharactersToBeAValidGroup: []
   m_damageType: 0
+  m_forcedDamageValue: 0
   m_hasSpecialSkill: 1
