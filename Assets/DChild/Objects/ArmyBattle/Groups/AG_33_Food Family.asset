@@ -16,8 +16,8 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 9e49e76fbd237ae4eaf5aac12d8f2c04, type: 3}
     - {fileID: 8898164082720300020, guid: efc7d7749d4d1a34585881609383e55f, type: 3}
-    - {fileID: 2613879350467684453, guid: efc7d7749d4d1a34585881609383e55f, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -26,12 +26,22 @@ MonoBehaviour:
     - Name: m_specialSkill
       Entry: 7
       Data: 0|DChild.Gameplay.ArmyBattle.SpecialSkills.SpecialSkill, Assembly-CSharp
+    - Name: m_icon
+      Entry: 10
+      Data: 0
+    - Name: m_description
+      Entry: 1
+      Data: 'x% Increase damage to chosen attack
+
+        Add x% more Troops
+
+'
     - Name: m_type
       Entry: 3
       Data: 1
-    - Name: m_description
-      Entry: 6
-      Data: 
+    - Name: m_delay
+      Entry: 3
+      Data: 0
     - Name: m_duration
       Entry: 3
       Data: 0
@@ -81,7 +91,7 @@ MonoBehaviour:
       Data: 5|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
     - Name: m_fx
       Entry: 10
-      Data: 0
+      Data: 1
     - Name: m_visualType
       Entry: 3
       Data: 1
@@ -89,8 +99,8 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: m_fxStatus
-      Entry: 10
-      Data: 1
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -119,9 +129,6 @@ MonoBehaviour:
     - Name: m_damageModiferPercentageValue
       Entry: 3
       Data: 50
-    - Name: m_reduceDamage
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -140,9 +147,6 @@ MonoBehaviour:
     - Name: m_damageModiferPercentageValue
       Entry: 3
       Data: 50
-    - Name: m_reduceDamage
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -161,18 +165,21 @@ MonoBehaviour:
     - Name: m_damageModiferPercentageValue
       Entry: 3
       Data: 50
-    - Name: m_reduceDamage
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
       Data: 11|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.TroopHeal, Assembly-CSharp
+    - Name: m_type
+      Entry: 3
+      Data: 0
     - Name: m_troopCount
       Entry: 3
       Data: 50
+    - Name: m_trackedVariable
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -202,4 +209,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 67487df2101bfb64c93349bda343211e, type: 2}
   m_requiredCharactersToBeAValidGroup: []
   m_damageType: 0
+  m_forcedDamageValue: 0
   m_hasSpecialSkill: 1
