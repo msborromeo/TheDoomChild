@@ -18,6 +18,8 @@ namespace DChild.Gameplay.ArmyBattle
         private ArmyCharacterData[] m_requiredCharactersToBeAValidGroup;
         [SerializeField]
         private DamageType m_damageType;
+        [SerializeField,Tooltip("Is only relevant on enemy attacks")]
+        private int m_forcedDamageValue;
         [SerializeField]
         private bool m_hasSpecialSkill;
         [OdinSerialize, ShowIf("m_hasSpecialSkill"), Indent, HideReferenceObjectPicker, HideLabel, BoxGroup("Special Skill Info")]
@@ -28,6 +30,7 @@ namespace DChild.Gameplay.ArmyBattle
         public ArmyCharacterData[] requiredCharactersToBeAValidGroup => m_requiredCharactersToBeAValidGroup;
         public SpecialSkill specialSkill => m_hasSpecialSkill ? m_specialSkill : null;
         public DamageType damageType => m_damageType;
+        public int forcedDamageValue => m_forcedDamageValue;
 
         private IEnumerable GetArmyGroupCharacters()
         {

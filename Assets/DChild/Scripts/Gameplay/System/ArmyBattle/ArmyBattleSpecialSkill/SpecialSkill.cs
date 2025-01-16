@@ -14,12 +14,14 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
             Waiting
         }
 
+        [SerializeField, HorizontalGroup("Details"), LabelWidth(30f),AssetSelector(Paths ="Assets/DChild/Objects/ArmyBattle/Misc/UI/ASSETS/SPECIAL SKILL ICONS")]
+        private Sprite m_icon;
+        [SerializeField, HorizontalGroup("Details"), TextArea(3, 5)]
+        private string m_description;
         [SerializeField]
         private Type m_type;
-        [SerializeField]
-        private string m_description;
         [SerializeField, ShowIf("@m_type == Type.Waiting")]
-        private int m_delay =0;
+        private int m_delay = 0;
         [SerializeField, Min(1)]
         private int m_duration = 1;
         [SerializeField, TabGroup("Upon Select")]
@@ -30,6 +32,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
         private ISpecialSkillIEnumeratorModule[] m_specialSkillModules = new ISpecialSkillIEnumeratorModule[0];
 
         public Type type => m_type;
+        public Sprite icon => m_icon;
         public int delay => m_delay;
         public int duration => m_duration;
         public SpecialSkillVisualizerInfo visualizerInfo => m_visualizerInfo;
