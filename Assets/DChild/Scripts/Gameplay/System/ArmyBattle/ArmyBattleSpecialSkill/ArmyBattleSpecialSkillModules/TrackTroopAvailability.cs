@@ -17,10 +17,13 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
 
         [SerializeField]
         private CheckBy m_checkbyID;
+
         [SerializeField, ShowIf("@m_checkbyID == CheckBy.TroopId")]
         private int m_id;
         [SerializeField, VariablePopup(true), ShowIf("@m_checkbyID == CheckBy.TrackTroopID")]
         private string m_trackTroopID;
+        [SerializeField, VariablePopup(true)]
+        private string m_groupName;
 
         public void ApplyEffect(ArmyController owner, ArmyController target)
         {
@@ -28,11 +31,16 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
             {
                 case CheckBy.RandomTroop:
                     var currentUnavailableTroops = owner.controlledArmy;
-                    var unavailableTroop =currentUnavailableTroops.GetAllUnvailableGroups();
-                    var temp = Random.Range(0,unavailableTroop.Count);
-                    var unavailableTroopID = unavailableTroop[temp].id;
+                    var unavailableTroop = currentUnavailableTroops.GetAllUnvailableGroups();
+                    if(unavailableTroop.Count != 0)
+                    {
+                        var temp = Random.Range(0,unavailableTroop.Count);
+                        var unavailableTroopID = unavailableTroop[temp].id;
 
-                    currentUnavailableTroops.SetAttackingGroupAvailability(unavailableTroopID, true);
+                        currentUnavailableTroops.SetAttackingGroupAvailability(unavailableTroopID, true);
+                        var groupName = currentUnavailableTroops.GetGroupInfo(unavailableTroopID).GetCharacterGroup().name;
+                        DialogueLua.SetVariable(m_groupName, groupName);
+                    }
                     break;
                 case CheckBy.TrackTroopID:
                     owner.controlledArmy.SetAttackingGroupAvailability(DialogueLua.GetVariable(m_trackTroopID).asInt, true);
@@ -40,11 +48,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
                 case CheckBy.TroopId:
                     owner.controlledArmy.SetAttackingGroupAvailability(m_id,true);
                     break;
-            }
-
-            
-        
-            
+            }        
         }
         public void RemoveEffect(ArmyController owner, ArmyController target)
         {
