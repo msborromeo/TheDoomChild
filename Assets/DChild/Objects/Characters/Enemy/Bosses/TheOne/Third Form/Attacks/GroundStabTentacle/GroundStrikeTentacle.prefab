@@ -202,7 +202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2194663897660669571}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.87, z: 0}
+  m_LocalPosition: {x: 0, y: 30.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -760,9 +760,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8135972556375984721}
   - component: {fileID: 3764894348487869759}
-  - component: {fileID: 6172365960537481960}
+  - component: {fileID: 435471653809520652}
   m_Layer: 13
-  m_Name: GroundStabTentacle
+  m_Name: GroundStrikeTentacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -798,7 +798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_animationTracks: []
   m_skeletonAnimation: {fileID: 4984169512158935840}
---- !u!114 &6172365960537481960
+--- !u!114 &435471653809520652
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -807,26 +807,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 8135972556375984720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 286d02a04caffd64a8461f5895183101, type: 3}
+  m_Script: {fileID: 11500000, guid: e907019c9615a694183e764b59b15a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_poolableItemData: {fileID: 11400000, guid: a9ffa2c9d4d620944b8fc8a30e308d4f, type: 2}
-  lifespan: 4
+  m_poolableItemData: {fileID: 11400000, guid: 89551b02f0198044bac61180733bb5bc, type: 2}
+  lifespan: 3
   isOnPlayableGround: 1
+  m_tentacleStabAnimationSpeedMultiplier: 2
   safeZones:
   - {fileID: 6159307366627328230}
   - {fileID: 755071990205299890}
   - {fileID: 3079796000687807833}
   - {fileID: 6484898778094621196}
-  m_hitbox: {fileID: 5726035907490597756}
-  m_tentacleStabAnimationSpeedMultiplier: 2
+  m_hitbox: {fileID: 3689306601488700987}
   m_animation: {fileID: 3764894348487869759}
   m_skeletonAnimation: {fileID: 4984169512158935840}
-  m_anticipationLoopAnimation: Anticipation_Loop
-  m_anticipationStartAnimation: Anticipation_Start
-  m_attackAnimation: tentacle ground stab animation
-  m_retractAnimation: tentacle ground stab retract animation
-  m_stayAnimation: Stay
+  m_attackAnimation: ground spike animation
+  m_retractAnimation: retract ground spike animation
 --- !u!1 &8135972558278111487
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,8 +888,7 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: c2badfbee0a16cf4d92a3372389d3e0c, type: 2}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -912,7 +908,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1150295711
   m_SortingLayer: -1
-  m_SortingOrder: 98
+  m_SortingOrder: 99
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4984169512158935840
 MonoBehaviour:
@@ -926,7 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 3309bdfc993351542b9e1d250f9a277c, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: eef3088d82bfe5d4ebf7de957d014ca0, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -961,9 +957,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7192609081303638697}
   - component: {fileID: 1651060391447397337}
-  - component: {fileID: 5726035907490597756}
   - component: {fileID: 5478851737615308364}
   - component: {fileID: 959767513718125075}
+  - component: {fileID: 3689306601488700987}
   m_Layer: 13
   m_Name: Hitbox
   m_TagString: Untagged
@@ -979,7 +975,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9021568477795216959}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.6758857, y: 86.10683, z: 0}
+  m_LocalPosition: {x: -0.45384938, y: 17.468033, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1001,28 +997,12 @@ MonoBehaviour:
   skeletonRenderer: {fileID: 4984169512158935840}
   boneName: bone2j3
   followXYPosition: 1
-  followZPosition: 1
+  followZPosition: 0
   followBoneRotation: 0
   followSkeletonFlip: 1
   followLocalScale: 0
   initializeOnAwake: 1
   m_updateOnFixedUpdate: 0
---- !u!70 &5726035907490597756
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9021568477795216959}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.5755005, y: -48.593987}
-  m_Size: {x: 14.812008, y: 101.640976}
-  m_Direction: 0
 --- !u!114 &5478851737615308364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1062,3 +1042,19 @@ MonoBehaviour:
   m_damageUniqueHitboxesOnly: 0
   m_collisionRegistrator: {fileID: 0}
   m_ignoreColliderList: []
+--- !u!70 &3689306601488700987
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9021568477795216959}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 2.41, y: -2.9}
+  m_Size: {x: 13.524923, y: 27.5}
+  m_Direction: 0
