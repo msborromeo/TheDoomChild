@@ -109,6 +109,23 @@ namespace DChild.Gameplay.ArmyBattle
             return m_usedAttackingGroups;
         }
 
+        public void SetAttackingGroupAvailability(int attackingGroupId, bool isAvailable)
+        {
+            if (isAvailable)
+            {
+                for (int i = 0; i < m_usedAttackingGroups.Count; i++)
+                {
+                    var setAvailability = m_usedAttackingGroups[i];
+
+                    if (setAvailability.id == attackingGroupId)
+                    {
+
+                        SetAttackingGroupAvailability(setAvailability, true);
+                    }
+                }
+            }
+        }
+
         public void SetAttackingGroupAvailability(IAttackingGroup attackingGroup, bool isAvailable)
         {
             if (isAvailable)

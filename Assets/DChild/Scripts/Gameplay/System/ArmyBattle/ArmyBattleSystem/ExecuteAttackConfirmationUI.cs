@@ -36,6 +36,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
                 case true:
                     var receivedSpecialGroup = m_specialSelection.GetSelectedSpecialSkillGroup();
                     m_specialSkillHandle.Activate(receivedSpecialGroup.GetSpecialSkill(), m_playerOptions.player);
+                    m_playerOptions.player.controlledArmy.SetSpecialSkillAvailability(receivedSpecialGroup, false);
                     break;
                 default:
                     m_playerOptions.SelectCurrentAttackingGroup();
