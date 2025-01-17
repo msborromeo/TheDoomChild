@@ -71,7 +71,6 @@ namespace DChild.Gameplay.Characters.Enemies
                 int rollMonolithToKeep = Random.Range(0, m_monolithsSpawned.Count);
 
                 m_monolithsSpawned[rollMonolithToKeep].gameObject.GetComponent<MonolithSlam>().keepMonolith = true;
-
                 m_obstacleChecker.AddMonolithToList(m_monolithsSpawned[rollMonolithToKeep]);
             }
 

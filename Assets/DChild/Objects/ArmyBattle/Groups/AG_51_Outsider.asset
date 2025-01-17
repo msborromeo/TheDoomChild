@@ -16,6 +16,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 5c46ee924a891a24a80392c4ac700c79, type: 3}
     - {fileID: 2795690918105253985, guid: 337edbd5a6bf7da4aa79fc8981a7df33, type: 3}
     - {fileID: 2715193112816998183, guid: 337edbd5a6bf7da4aa79fc8981a7df33, type: 3}
     SerializedBytesString: 
@@ -26,12 +27,18 @@ MonoBehaviour:
     - Name: m_specialSkill
       Entry: 7
       Data: 0|DChild.Gameplay.ArmyBattle.SpecialSkills.SpecialSkill, Assembly-CSharp
+    - Name: m_icon
+      Entry: 10
+      Data: 0
+    - Name: m_description
+      Entry: 1
+      Data: "20% Decrease Enemy damage on all Attacks\r\n20% Kill enemy troops\r"
     - Name: m_type
       Entry: 3
       Data: 0
-    - Name: m_description
-      Entry: 6
-      Data: 
+    - Name: m_delay
+      Entry: 3
+      Data: 0
     - Name: m_duration
       Entry: 3
       Data: 0
@@ -81,7 +88,7 @@ MonoBehaviour:
       Data: 5|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
     - Name: m_fx
       Entry: 10
-      Data: 0
+      Data: 1
     - Name: m_visualType
       Entry: 3
       Data: 1
@@ -90,7 +97,7 @@ MonoBehaviour:
       Data: 0
     - Name: m_fxStatus
       Entry: 10
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -119,9 +126,6 @@ MonoBehaviour:
     - Name: m_damageModiferPercentageValue
       Entry: 3
       Data: -20
-    - Name: m_reduceDamage
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -140,9 +144,6 @@ MonoBehaviour:
     - Name: m_damageModiferPercentageValue
       Entry: 3
       Data: -20
-    - Name: m_reduceDamage
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -161,9 +162,6 @@ MonoBehaviour:
     - Name: m_damageModiferPercentageValue
       Entry: 3
       Data: -20
-    - Name: m_reduceDamage
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -215,4 +213,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1729e45e5cede05479d4e0f1473492d3, type: 2}
   m_requiredCharactersToBeAValidGroup: []
   m_damageType: 1
+  m_forcedDamageValue: 0
   m_hasSpecialSkill: 1

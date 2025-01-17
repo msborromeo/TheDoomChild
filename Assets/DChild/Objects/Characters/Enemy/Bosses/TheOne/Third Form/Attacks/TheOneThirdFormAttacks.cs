@@ -165,7 +165,10 @@ public class TheOneThirdFormAttacks : MonoBehaviour
     public IEnumerator TentacleGroundStab(AITargetInfo Target)
     {
         yield return (m_tentacleGroundStabAttack.ExecuteAttack(Target));
-        yield return null;
+        while(m_tentacleGroundStabAttack.m_attackDone == false)
+        {
+            yield return null;
+        }
     }
 
     public IEnumerator MovingTentacleGround()
