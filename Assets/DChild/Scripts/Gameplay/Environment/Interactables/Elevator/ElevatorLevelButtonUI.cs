@@ -1,16 +1,18 @@
-﻿using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public partial class MordenElevatorLevelSelectionUI
+namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 {
     public class ElevatorLevelButtonUI : MonoBehaviour
     {
-        [SerializeField]
-        private TextMeshProUGUI m_leftLabel;
-        [SerializeField]
-        private TextMeshProUGUI m_rightLabel;
+        [SerializeField] private ElevatorLabelUI m_leftLabel;
+        [SerializeField] private ElevatorLabelUI m_rightLabel;
 
-        public void Display() { }
+        public void Display()
+        {
+            m_leftLabel.Display();
+            m_rightLabel.Display();
+        }
     }
 }
