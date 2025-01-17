@@ -5001,7 +5001,7 @@ MonoBehaviour:
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
   _animationName: Intro
-  loop: 1
+  loop: 0
   timeScale: 1
   m_alwaysUpdateMesh: 1
 --- !u!1 &4678513502071325171
@@ -68780,7 +68780,6 @@ GameObject:
   - component: {fileID: 8898164082720300023}
   - component: {fileID: 8898164082720300022}
   - component: {fileID: 8898164082720300021}
-  - component: {fileID: 2613879350467684453}
   - component: {fileID: 3453299986467302787}
   - component: {fileID: 181577107498983071}
   m_Layer: 0
@@ -73594,22 +73593,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &2613879350467684453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8898164082720300020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55bbb7891a8ab6c4386eae13d2090129, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_vfxParticleTurnManager: []
-  m_VfxSpineTurnManager: []
-  m_iseffectdone: 0
-  m_currentturn: 1
 --- !u!114 &3453299986467302787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73641,8 +73624,10 @@ MonoBehaviour:
   m_VfxSpineTurnManager:
   - m_SpineModel: {fileID: 1048733290}
     m_fxSpineSystem: {fileID: 11400000, guid: 6fcf5c10a69fb5a44bf598364a5861a7, type: 2}
-    m_animation: []
-    m_launchOnEvent: []
+    m_animation:
+    - Intro
+    m_launchOnEvent:
+    - SpecialSkillsFX
     m_spineListener: {fileID: 3453299986467302787}
     m_eventPartcileSystem:
     - {fileID: 8898164082720300022}

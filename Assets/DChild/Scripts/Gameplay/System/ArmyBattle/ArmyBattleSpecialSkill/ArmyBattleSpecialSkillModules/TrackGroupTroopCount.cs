@@ -15,7 +15,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
         private int m_groupID;
         public void ApplyEffect(ArmyController owner, ArmyController target)
         {
-             DialogueLua.SetVariable(m_troopCount, owner.controlledArmy.GetGroupInfo(m_groupID));
+             DialogueLua.SetVariable(m_troopCount, owner.controlledArmy.GetGroupInfo(m_groupID).GetTroopCount());
         }
 
         public void RemoveEffect(ArmyController owner, ArmyController target)
