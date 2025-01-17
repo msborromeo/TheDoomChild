@@ -184,6 +184,8 @@ namespace DChild.Gameplay.ArmyBattle
                 var enemyCombatRecord = new ArmyBattleCombatResult.Record(false, m_enemyStatsTracker.GetTrackedTroopCount(), m_enemy.controlledArmy.troopCount, DamageType._COUNT, DamageType._COUNT);
                 var combatResult = new ArmyBattleCombatResult(playerCombatRecord, enemyCombatRecord);
 
+                m_uiManager.participantDetails.UpdateTroopCount(player, enemy);
+
                 m_fightManager.VisualizeCombatEndResultImmidiate(combatResult);
 
                 if (WillBattleEnd())
