@@ -8,8 +8,6 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
     public class MordenElevatorLevelSelectionUI : MonoBehaviour
     {
         [SerializeField]
-        private Image m_sectionBackground;
-        [SerializeField]
         private TextMeshProUGUI m_locationLabel;
         [SerializeField]
         private List<ElevatorLevelButtonUI> m_elevatorButtons;
@@ -17,6 +15,7 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 
         public void Display()
         {
+            m_locationLabel.text = "received elevator location data here...";
             foreach(var button in m_elevatorButtons)
             {
                 button.Display();
