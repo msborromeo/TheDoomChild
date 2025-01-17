@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Doozy.Runtime.UIManager.Components;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DChild.Gameplay.ArmyBattle.UI
@@ -11,6 +12,8 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         [SerializeField]
         private ArmyDamageOptionSelection m_damageSelection;
+        [SerializeField]
+        private UIButton m_specialSkillButton;
         [SerializeField]
         private ArmyBattleAttackGroupSelection m_groupSelection;
         [SerializeField]
@@ -31,6 +34,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         public void UpdateOptions()
         {
             m_damageSelection.UpdateSelectionAvailability();
+            m_specialSkillButton.interactable = ArmyBattleSystem.CanPlayerActivateSpecialSkill();
         }
 
         public void SetAttackGroupSelection(ArmyDamageTypeOptionUI option)
