@@ -461,7 +461,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                     , new AttackInfo<Attack>(Attack.Phase5Pattern10, m_info.phase5Pattern10Range)
                                     , new AttackInfo<Attack>(Attack.Phase5Pattern11, m_info.phase5Pattern11Range));*/
             #endregion
-            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.BubbleImprisonmentPhaseFour, m_info.phase1Pattern1Range));
+            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range));
             //switch (m_phaseHandle.currentPhase)
             //{
             //    case Phase.PhaseOne:
@@ -1005,22 +1005,21 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
-            for (int i = 0; i < 2; i++)
+            // end squint eye IK logic, either new AI prefab model or script only 
+            for (int i = 0; i < 4; i++)
             {
                 yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
                 yield return new WaitForSeconds(3f);
             }
+            // end of squint eye IK logic, either new AI prefab model or script only 
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
             Debug.Log("Attack Done");
             Debug.Log("3 na");
-            yield return null;
-
-
         }
         private IEnumerator TentacleGroundStabAttack2()
         {
-            yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
+            yield return m_theOneThirdFormAttacks.TentacleGroundStabTwo();
             yield return new WaitForSeconds(3f);
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
@@ -1059,6 +1058,8 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             yield return MoveMouthBlast(side);
         }
+
+
 
         private IEnumerator MoveMouthBlast(int side)
         {
