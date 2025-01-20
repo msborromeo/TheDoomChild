@@ -41,6 +41,10 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
                         var groupName = currentUnavailableTroops.GetGroupInfo(unavailableTroopID).GetCharacterGroup().name;
                         DialogueLua.SetVariable(m_groupName, groupName);
                     }
+                    else
+                    {
+                        DialogueLua.SetVariable(m_groupName, "");
+                    }
                     break;
                 case CheckBy.TrackTroopID:
                     owner.controlledArmy.SetAttackingGroupAvailability(DialogueLua.GetVariable(m_trackTroopID).asInt, true);
