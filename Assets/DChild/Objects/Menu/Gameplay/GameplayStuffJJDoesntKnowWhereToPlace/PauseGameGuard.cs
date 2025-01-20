@@ -2,6 +2,8 @@ using DChild.Menu;
 using Doozy.Runtime.Signals;
 using System.Collections;
 using System.Collections.Generic;
+using DChild.Gameplay;
+using DChild.Gameplay.Systems;
 using UnityEngine;
 
 public class PauseGameGuard : MonoBehaviour
@@ -11,9 +13,9 @@ public class PauseGameGuard : MonoBehaviour
     
     public void CanPauseGame()
     {
-        if (!LoadingHandle.isLoading)
-        {
-            m_pauseGameSignal.SendSignal();
-        }
+        if (GameplaySystem.GetCurrentWorldType() == WorldType.ArmyBattle) return;
+        if (LoadingHandle.isLoading) return;
+        
+        m_pauseGameSignal.SendSignal();
     }
 }
