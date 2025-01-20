@@ -170,6 +170,10 @@ public class TheOneThirdFormAttacks : MonoBehaviour
             yield return null;
         }
     }
+    public IEnumerator TentacleGroundStabTwo()
+    {
+        yield return (m_tentacleGroundStabAttack.ExecuteAttackGroundStabTwo());
+    }
 
     public IEnumerator MovingTentacleGround()
     {
