@@ -14,9 +14,13 @@ namespace DChild.Gameplay.Characters.Enemies
     public class TentacleGroundStabAttack : MonoBehaviour, IEyeBossAttacks
     {
         [SerializeField]
+        private GroundStabTwoTentacle m_groundStabTentacleTwo;
+        [SerializeField]
         private GameObject m_groundTentacleStab;
         [SerializeField]
         private GameObject m_miniGroundTentacleStab;
+        [SerializeField]
+        private GameObject m_groundStabTwo;
         [SerializeField]
         private float m_tentacleSpawnInterval;
         [SerializeField]
@@ -97,11 +101,18 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             //  AttackStart?.Invoke(this, EventActionArgs.Empty);
             m_attackDone = false;
-            InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, 98, m_midgroundSortingLayerName);
+           
+                InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, 98, m_midgroundSortingLayerName);
+                yield return new WaitForSeconds(m_tentacleSpawnInterval);
+                InstantiateGroundTentacles(new Vector2(Target.position.x, m_tentacleGroundspawnHeight.position.y), m_miniGroundTentacleStab, m_playablegroundSortingLayerID, m_playablegroundSortingLayerName);
+                yield return new WaitForSeconds(5f);
+
+          /*  InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, 98, m_midgroundSortingLayerName);
             yield return new WaitForSeconds(m_tentacleSpawnInterval);
             InstantiateGroundTentacles(new Vector2(Target.position.x, m_tentacleGroundspawnHeight.position.y), m_miniGroundTentacleStab, m_playablegroundSortingLayerID, m_playablegroundSortingLayerName);
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(5f);*/
             m_attackDone = true;
+            #region Old Ground Stab One Routine
             //while (m_tentacleCount < 5)
             //{
             //    m_tentacleCount++;
@@ -180,6 +191,8 @@ namespace DChild.Gameplay.Characters.Enemies
             //        yield return new WaitForSeconds(m_tentacleSpawnInterval);
             //    }
             //}
+            #endregion
+
             m_tentacleCount = 0;
             m_tentaclesSpawned.Clear();
             //AttackDone?.Invoke(this, EventActionArgs.Empty);
@@ -187,6 +200,13 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return null;
         }
 
+        public IEnumerator ExecuteAttackGroundStabTwo()
+        {
+            m_groundStabTwo.SetActive(true);
+            yield return m_groundStabTentacleTwo.StartAttackRoutine();
+            m_groundStabTwo.SetActive(false);
+        }
+       
         private  void InstantiateTentacles(Vector2 spawnPosition, GameObject tentacle, int sortingLayerID, string sortingLayerName)
         {
             var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(tentacle, gameObject.scene);
@@ -241,6 +261,8 @@ namespace DChild.Gameplay.Characters.Enemies
             m_tentaclesSpawned.Add(instance);
             m_tentaclesSpawnedXPositions.Add(instance.transform.position.x);
         }
+
+        
     }
 }
 
