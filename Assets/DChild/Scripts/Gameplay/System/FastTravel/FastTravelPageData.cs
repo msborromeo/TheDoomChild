@@ -24,5 +24,6 @@ namespace DChild.Gameplay.FastTravel
         public FastTravelData overworldTravelData => m_overworldTravelData;
         public int count => m_underworldTravelDatas.Length;
         public FastTravelData GetUnderworldTravelData(int index) => m_underworldTravelDatas[index];
+        public FastTravelData GetOverworldTravelData() => m_overworldTravelData;
     }
 }
