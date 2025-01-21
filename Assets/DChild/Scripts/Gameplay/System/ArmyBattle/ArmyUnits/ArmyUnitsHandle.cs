@@ -13,14 +13,19 @@ namespace DChild.Gameplay.ArmyBattle.Units
         protected ArmyAttackVisualizer m_visualizer;
 
         public abstract void KillOffUnits(int count);
+        public abstract void RessurectUnits(int count);
         public abstract void Idle();
         public abstract void Attack(IArmyBattalion target);
         public abstract void StopAttack();
         public abstract List<ArmyUnit> GetUnits();
         public abstract void SetUnits(ArmyUnit[] units);
+        public abstract int GetMaxUnitCount();
+
+        public abstract void RepositionUnitsToStartingPosition();
 
         public bool HasUnits() => GetUnits().Count > 0;
 
         public int GetUnitCount() => GetUnits().Count;
+
     }
 }

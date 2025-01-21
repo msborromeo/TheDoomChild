@@ -1,3 +1,4 @@
+using DChild.Gameplay.ArmyBattle.SpecialSkills;
 using Doozy.Runtime.UIManager.Components;
 using Holysoft.Collections;
 using Holysoft.Event;
@@ -9,26 +10,24 @@ using UnityEngine;
 
 namespace DChild.Gameplay.ArmyBattle.UI
 {
+
     public class ArmyGroupIndexHandle : MonoBehaviour, IPageHandle
     {
         [SerializeField]
         private ArmyBattleAttackGroupSelection m_attackGroupSelection;
         [SerializeField]
         private List<AttackingGroupSelectableOptionUI> m_selectableGroups;
-        
+
         private List<IAttackingGroup> m_groups;
         private List<IAttackingGroup> m_filteredGroups;
-
-        [SerializeField]
-        private ArmyBattleAttackGroupSelection m_armyGroupSelection;
-
-
+        
         [SerializeField]
         private UIScrollbar m_scrollBar;
 
         private int m_startingIndex = 0;
         private int m_page;
         private const int m_maxRows = 8;
+
         public int currentPage => m_page;
         public event EventAction<EventActionArgs> PageChange;
 
@@ -41,7 +40,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         {
             this.m_groups = groups;
         }
-
+      
         public void Initialize()
         {
             m_scrollBar.numberOfSteps = GetTotalPages();
@@ -49,7 +48,6 @@ namespace DChild.Gameplay.ArmyBattle.UI
             m_scrollBar.value = 0;
 
             SetPage(0);
-            Display(m_filteredGroups);
         }
 
         public void Display(List<IAttackingGroup> attackingGroups)
@@ -70,7 +68,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         public int GetTotalPages()
         {
-            return Mathf.CeilToInt(m_groups.Count / (float) m_maxRows);
+            return Mathf.CeilToInt(m_groups.Count / (float)m_maxRows);
         }
 
         public void SetPage(int pageIndex)
@@ -91,21 +89,19 @@ namespace DChild.Gameplay.ArmyBattle.UI
             m_page++;
             SetPage(m_page);
 
-            Debug.Log("next page");
         }
 
         public void PreviousPage()
         {
             m_page--;
             SetPage(m_page);
-            Debug.Log("prev page");
         }
 
         public void HandleScroll()
         {
             int totalPages = GetTotalPages();
             int updatedPage = Mathf.FloorToInt(m_scrollBar.value / (1f / totalPages));
-            updatedPage = Mathf.Clamp(updatedPage, 0, totalPages-1);
+            updatedPage = Mathf.Clamp(updatedPage, 0, totalPages - 1);
 
             if (m_page != updatedPage)
             {

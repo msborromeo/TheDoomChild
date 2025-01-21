@@ -41,7 +41,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.41063106, y: 0.17017682}
   m_AnchorMax: {x: 0.9493344, y: 0.86082065}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.000015258789}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2907981747342855619
@@ -1657,6 +1657,7 @@ MonoBehaviour:
   m_meleeIcon: {fileID: 21300000, guid: e33f40a5ae0687947815fdfc930e28bf, type: 3}
   m_rangedIcon: {fileID: 21300000, guid: 9d8d06b1ac3fa154f8c9901dc3f79537, type: 3}
   m_magicIcon: {fileID: 21300000, guid: 95cb21fb3f7bd32488ca908e91671e67, type: 3}
+  m_specialIcon: {fileID: 21300000, guid: e523245a05160f94bbe7f0ae9db331ac, type: 3}
   m_targetIcon: {fileID: 6039399875715973986}
 --- !u!1 &7658518511637583543
 GameObject:
@@ -3082,7 +3083,7 @@ GameObject:
   - component: {fileID: 8207706199964137095}
   - component: {fileID: 8207706199964137090}
   - component: {fileID: 8207706199964137092}
-  - component: {fileID: 3892844140813136024}
+  - component: {fileID: 1529782703826234786}
   m_Layer: 5
   m_Name: SpecialGroupRow
   m_TagString: Untagged
@@ -3097,7 +3098,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8207706199964137094}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3142,7 +3143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3262,7 +3263,7 @@ MonoBehaviour:
             m_MethodName: Select
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 3892844140813136024}
+              m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: DChild.Gameplay.ArmyBattle.UI.AttackingGroupSelectableOptionUI,
                 Assembly-CSharp
               m_IntArgument: 0
@@ -3288,10 +3289,10 @@ MonoBehaviour:
     Selectable: {fileID: 8207706199964137092}
   Id:
     Category: ArmyBattle
-    Name: SelectGroup
+    Name: SelectSpecialGroup
     Custom: 0
   Cooldown: 0
---- !u!114 &3892844140813136024
+--- !u!114 &1529782703826234786
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3300,54 +3301,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 8207706199964137094}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8c6449af8f429e44b2588fce3dece5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e41f3878376c304aa45e9c93883d836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_partyName: {fileID: 4692362007051891986}
   m_characterGroupUI: {fileID: 498200517173966797}
   m_attackPowerUI: {fileID: 0}
   m_selectedSkill: {fileID: 3338104829170630255}
+  m_meleeGlow: {fileID: 0}
+  m_rangeGlow: {fileID: 0}
+  m_magicGlow: {fileID: 0}
   m_partyGlow:
-  - {fileID: 4212339641480312882}
-  - {fileID: 4212339643385588546}
   - {fileID: 4212339641733246009}
-  m_meleeGlow: {fileID: 21300000, guid: f179731dfc48cfe43b7662d0afd0c09a, type: 3}
-  m_rangeGlow: {fileID: 21300000, guid: b5fce27ec6d5dc44fb5a84c357cefaac, type: 3}
-  m_magicGlow: {fileID: 21300000, guid: cd92cd70f87531a49aff1275c5f7c6f2, type: 3}
+  - {fileID: 4212339643385588546}
+  - {fileID: 4212339641480312882}
+  m_skillSelection: {fileID: 0}
+  m_description: {fileID: 7944828040600743778}
+  m_icon: {fileID: 336431539682610786}
   m_specialGlow: {fileID: 21300000, guid: 9680c22b487d04a4c91f27b8f6971eef, type: 3}
-  m_NullAssets:
-  - {fileID: 21300000, guid: ce37bff1bbac70744992b70fcd327651, type: 3}
-  - {fileID: 21300000, guid: b7bc0a58ff00154449b092cbb12aec08, type: 3}
-  - {fileID: 21300000, guid: ff5d2cc027bf5ac439338b575573b4a9, type: 3}
-  - {fileID: 21300000, guid: c50027c9f4265f94aa07727c69c0f8ae, type: 3}
-  - {fileID: 21300000, guid: 253db942e108ba44c96d8f22292231cf, type: 3}
-  - {fileID: 21300000, guid: 253db942e108ba44c96d8f22292231cf, type: 3}
-  - {fileID: 21300000, guid: 253db942e108ba44c96d8f22292231cf, type: 3}
-  - {fileID: 21300000, guid: feb7ebcfa2604b74680eff28761c80bf, type: 3}
-  m_GroupAssets:
-  - {fileID: 21300000, guid: 058d79a687b1e564b908ce7981a302f0, type: 3}
-  - {fileID: 21300000, guid: 9a78d2b78d144c64f8f133aaf62237e3, type: 3}
-  - {fileID: 21300000, guid: f505ded396fa7664ab405cc3cee947fd, type: 3}
-  - {fileID: 21300000, guid: f372db36d9e45dd498639abebdc45d1f, type: 3}
-  - {fileID: 21300000, guid: 80de9c35e514c4540af1599c7d28789e, type: 3}
-  - {fileID: 21300000, guid: 80de9c35e514c4540af1599c7d28789e, type: 3}
-  - {fileID: 21300000, guid: 80de9c35e514c4540af1599c7d28789e, type: 3}
-  - {fileID: 21300000, guid: 451f9e9ef35625d49a36d04e78e883ca, type: 3}
-  m_targetAssets:
-  - {fileID: 8207706199507110750}
-  - {fileID: 8207706198784339053}
-  - {fileID: 8860447589748463249}
-  - {fileID: 8207706199597213582}
-  - {fileID: 4212339641935509867}
-  - {fileID: 4212339643453668880}
-  - {fileID: 4212339641680407904}
-  - {fileID: 0}
-  m_targetCommandIcon: {fileID: 6039399875715973986}
-  m_targetPartyName: {fileID: 8207706199684300859}
-  m_targetPowerLabel: {fileID: 0}
-  m_targetPowerValue: {fileID: 0}
-  m_armyRow: {fileID: 8207706199964137092}
-  m_highlightGlow: {fileID: 5909254622297815420}
 --- !u!1001 &8207706198962861270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3600,18 +3571,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4212339641680407904 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5445588464279738806, guid: e05850e27db26834aa25c02d96a95caa,
-    type: 3}
-  m_PrefabInstance: {fileID: 8207706198962861270}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4212339641733246009 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5445588464093206767, guid: e05850e27db26834aa25c02d96a95caa,
@@ -3624,33 +3583,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4212339641935509867 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5445588464025161149, guid: e05850e27db26834aa25c02d96a95caa,
-    type: 3}
-  m_PrefabInstance: {fileID: 8207706198962861270}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4212339643385588546 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5445588464654933908, guid: e05850e27db26834aa25c02d96a95caa,
-    type: 3}
-  m_PrefabInstance: {fileID: 8207706198962861270}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4212339643453668880 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5445588464452635334, guid: e05850e27db26834aa25c02d96a95caa,
     type: 3}
   m_PrefabInstance: {fileID: 8207706198962861270}
   m_PrefabAsset: {fileID: 0}

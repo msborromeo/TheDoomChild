@@ -147,7 +147,8 @@ namespace DChild.Gameplay.Inventories
                 m_currentItem = m_selections.GetItem(m_currentIndex);
 
             }
-            if (m_currentItem != null && m_currentItem.data.category == ItemCategory.Consumable || m_currentItem.data.category == ItemCategory.Throwable)
+
+            if (m_currentItem != null && (m_currentItem.data.category == ItemCategory.Consumable || m_currentItem.data.category == ItemCategory.Throwable))
             {
                 m_currentItemData = (ConsumableItemData)m_currentItem.data;
 

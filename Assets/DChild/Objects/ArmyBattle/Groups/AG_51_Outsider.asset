@@ -16,6 +16,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 5c46ee924a891a24a80392c4ac700c79, type: 3}
     - {fileID: 2795690918105253985, guid: 337edbd5a6bf7da4aa79fc8981a7df33, type: 3}
     - {fileID: 2715193112816998183, guid: 337edbd5a6bf7da4aa79fc8981a7df33, type: 3}
     SerializedBytesString: 
@@ -26,18 +27,46 @@ MonoBehaviour:
     - Name: m_specialSkill
       Entry: 7
       Data: 0|DChild.Gameplay.ArmyBattle.SpecialSkills.SpecialSkill, Assembly-CSharp
+    - Name: m_icon
+      Entry: 10
+      Data: 0
+    - Name: m_description
+      Entry: 1
+      Data: "20% Decrease Enemy damage on all Attacks\r\n20% Kill enemy troops\r"
     - Name: m_type
       Entry: 3
       Data: 0
-    - Name: m_description
-      Entry: 6
-      Data: 
+    - Name: m_delay
+      Entry: 3
+      Data: 0
     - Name: m_duration
       Entry: 3
       Data: 0
+    - Name: m_onSelect
+      Entry: 7
+      Data: 1|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
+        Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 2|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForDialogue, Assembly-CSharp
+    - Name: m_dialoguetitle
+      Entry: 1
+      Data: Debuff Select Dialogue
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: m_visualizerInfo
       Entry: 7
-      Data: 1|DChild.Gameplay.ArmyBattle.SpecialSkillVisualizerInfo, Assembly-CSharp
+      Data: 3|DChild.Gameplay.ArmyBattle.SpecialSkillVisualizerInfo, Assembly-CSharp
     - Name: m_ownerFX
       Entry: 6
       Data: 
@@ -49,26 +78,129 @@ MonoBehaviour:
       Data: 
     - Name: m_specialSkillModules
       Entry: 7
-      Data: 2|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
+      Data: 4|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
         Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
-      Data: 3|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
+      Data: 5|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
     - Name: m_fx
       Entry: 10
-      Data: 0
+      Data: 1
     - Name: m_visualType
       Entry: 3
       Data: 1
     - Name: m_position
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: m_fxStatus
       Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.InstantSpecialSkill,
+        Assembly-CSharp
+    - Name: m_modules
+      Entry: 7
+      Data: 7|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillModule[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 8|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.AddDamage, Assembly-CSharp
+    - Name: m_unit
+      Entry: 3
+      Data: 0
+    - Name: m_target
+      Entry: 3
+      Data: 0
+    - Name: m_addDamageValueType
+      Entry: 3
       Data: 1
+    - Name: m_damageModiferValue
+      Entry: 3
+      Data: 0
+    - Name: m_damageModiferPercentageValue
+      Entry: 3
+      Data: -20
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.AddDamage, Assembly-CSharp
+    - Name: m_unit
+      Entry: 3
+      Data: 1
+    - Name: m_target
+      Entry: 3
+      Data: 0
+    - Name: m_addDamageValueType
+      Entry: 3
+      Data: 1
+    - Name: m_damageModiferValue
+      Entry: 3
+      Data: 0
+    - Name: m_damageModiferPercentageValue
+      Entry: 3
+      Data: -20
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 10|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.AddDamage, Assembly-CSharp
+    - Name: m_unit
+      Entry: 3
+      Data: 2
+    - Name: m_target
+      Entry: 3
+      Data: 0
+    - Name: m_addDamageValueType
+      Entry: 3
+      Data: 1
+    - Name: m_damageModiferValue
+      Entry: 3
+      Data: 0
+    - Name: m_damageModiferPercentageValue
+      Entry: 3
+      Data: -20
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 11|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.DealDamage, Assembly-CSharp
+    - Name: m_damageDealt
+      Entry: 3
+      Data: 0
+    - Name: m_damageDealtPercentage
+      Entry: 3
+      Data: 20
+    - Name: m_damageDealtTrackValues
+      Entry: 6
+      Data: 
+    - Name: m_damageType
+      Entry: 3
+      Data: 1
+    - Name: m_targetType
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 

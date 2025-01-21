@@ -21,29 +21,28 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
             float chance = Random.Range(0, 100);
             if (chance <= m_successChance)
             {
-                ApplyModules(m_onSuccess, owner, target);
+                yield return ApplyModules(m_onSuccess, owner, target);
             }
             else
             {
-                ApplyModules(m_onFail, owner, target);
+                yield return ApplyModules(m_onFail, owner, target);
             }
-            throw new System.NotImplementedException();
         }
 
-        private void ApplyModules(ISpecialSkillIEnumeratorModule[] specialSkillModules, ArmyController owner, ArmyController target)
+        private IEnumerator ApplyModules(ISpecialSkillIEnumeratorModule[] specialSkillModules, ArmyController owner, ArmyController target)
         {
             for (int i = 0; i < specialSkillModules.Length; i++)
             {
-                specialSkillModules[i].ApplyEffect(owner, target);
+                yield return specialSkillModules[i].ApplyEffect(owner, target);
             }
-            throw new System.NotImplementedException();
+
         }
 
        
 
         IEnumerator ISpecialSkillIEnumeratorModule.RemoveEffect(ArmyController owner, ArmyController target)
         {
-            throw new System.NotImplementedException();
+            yield return null;
         }
     }
 }

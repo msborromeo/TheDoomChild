@@ -16,6 +16,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 21300000, guid: b13b57f64968d304baaf565dd9cec658, type: 3}
     - {fileID: 5497544753526608650, guid: f5e18ff21368db842b671da4640dcc95, type: 3}
     - {fileID: 3960250069561592874, guid: f5e18ff21368db842b671da4640dcc95, type: 3}
     SerializedBytesString: 
@@ -26,18 +27,47 @@ MonoBehaviour:
     - Name: m_specialSkill
       Entry: 7
       Data: 0|DChild.Gameplay.ArmyBattle.SpecialSkills.SpecialSkill, Assembly-CSharp
+    - Name: m_icon
+      Entry: 10
+      Data: 0
+    - Name: m_description
+      Entry: 1
+      Data: "Takes effect after 2 turns\nx% Enemy Troops join Player Troops \r\nAdd
+        troops to Player Army\r\n"
     - Name: m_type
       Entry: 3
       Data: 2
-    - Name: m_description
-      Entry: 6
-      Data: 
+    - Name: m_delay
+      Entry: 3
+      Data: 0
     - Name: m_duration
       Entry: 3
       Data: 2
+    - Name: m_onSelect
+      Entry: 7
+      Data: 1|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
+        Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 2|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForDialogue, Assembly-CSharp
+    - Name: m_dialoguetitle
+      Entry: 1
+      Data: Bribe Select Dialogue
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: m_visualizerInfo
       Entry: 7
-      Data: 1|DChild.Gameplay.ArmyBattle.SpecialSkillVisualizerInfo, Assembly-CSharp
+      Data: 3|DChild.Gameplay.ArmyBattle.SpecialSkillVisualizerInfo, Assembly-CSharp
     - Name: m_ownerFX
       Entry: 6
       Data: 
@@ -49,42 +79,42 @@ MonoBehaviour:
       Data: 
     - Name: m_specialSkillModules
       Entry: 7
-      Data: 2|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
+      Data: 4|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
         Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 3|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
+      Data: 5|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
     - Name: m_fx
       Entry: 10
-      Data: 0
+      Data: 1
     - Name: m_visualType
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: m_position
       Entry: 3
       Data: 1
     - Name: m_fxStatus
       Entry: 10
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.InstantSpecialSkill,
+      Data: 6|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.InstantSpecialSkill,
         Assembly-CSharp
     - Name: m_modules
       Entry: 7
-      Data: 5|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillModule[], Assembly-CSharp
+      Data: 7|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillModule[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 6|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.LifeStealArmy, Assembly-CSharp
+      Data: 8|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.LifeStealArmy, Assembly-CSharp
     - Name: m_stealEnemyTroopCountPercentage
       Entry: 3
       Data: 50
@@ -119,4 +149,5 @@ MonoBehaviour:
   m_requiredCharactersToBeAValidGroup:
   - {fileID: 11400000, guid: 7f9b9fcea1459474798cf6ed78314ce1, type: 2}
   m_damageType: 2
+  m_forcedDamageValue: 0
   m_hasSpecialSkill: 1

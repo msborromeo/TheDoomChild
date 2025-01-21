@@ -145,26 +145,34 @@ public class TheOneThirdFormAttacks : MonoBehaviour
     //Attacks
     public IEnumerator TentacleCeilingAttack()
     {
-        StartCoroutine(m_tentacleCeilingAttack.ExecuteAttack());
+        yield return m_tentacleCeilingAttack.ExecuteAttack();
+       // StartCoroutine(m_tentacleCeilingAttack.ExecuteAttack());
         yield return null;
     }
 
     public IEnumerator TentacleGrab()
     {
-        StartCoroutine(m_tentacleGrabScriptedAttack.ExecuteAttack());
+        yield return m_tentacleGrabScriptedAttack.ExecuteAttack();
         yield return null;
     }
 
     public IEnumerator MouthBlastWall()
     {
-        StartCoroutine(m_mouthBlastIIAttack.ExecuteAttack());
+        yield return m_mouthBlastIIAttack.ExecuteAttack();
         yield return null;
     }
 
     public IEnumerator TentacleGroundStab(AITargetInfo Target)
     {
-        StartCoroutine(m_tentacleGroundStabAttack.ExecuteAttack(Target));
-        yield return null;
+        yield return (m_tentacleGroundStabAttack.ExecuteAttack(Target));
+        while(m_tentacleGroundStabAttack.m_attackDone == false)
+        {
+            yield return null;
+        }
+    }
+    public IEnumerator TentacleGroundStabTwo()
+    {
+        yield return (m_tentacleGroundStabAttack.ExecuteAttackGroundStabTwo());
     }
 
     public IEnumerator MovingTentacleGround()
@@ -175,13 +183,12 @@ public class TheOneThirdFormAttacks : MonoBehaviour
 
     public IEnumerator ChasingGroundTentacle()
     {
-        StartCoroutine(m_chasingGroundTentacleAttack.ExecuteAttack());
-        yield return null;
+        yield return m_chasingGroundTentacleAttack.ExecuteAttack();
     }
 
     public IEnumerator MonolithSlam(AITargetInfo Target)
     {
-        StartCoroutine(m_monolithSlamAttack.ExecuteAttack(Target));
+        yield return m_monolithSlamAttack.ExecuteAttack(Target);
         yield return null;
     }
 
@@ -193,19 +200,19 @@ public class TheOneThirdFormAttacks : MonoBehaviour
 
     public IEnumerator TentacleBlastTwo()
     {
-        StartCoroutine(m_tentacleBlastAttack.ExecuteAttack());
+        yield return m_tentacleBlastAttack.ExecuteAttack();
         yield return null;
     }
 
     public IEnumerator SlidingStoneWallAttack(AITargetInfo Target)
     {
-        StartCoroutine(m_slidingWallAttack.ExecuteAttack(Target));
+        yield return m_slidingWallAttack.ExecuteAttack(Target);
         yield return null;
     }
 
     public IEnumerator BubbleImprisonment(AITargetInfo Target)
     {
-        StartCoroutine(m_bubbleImprisonmentAttack.ExecuteAttack(Target));
+        yield return m_bubbleImprisonmentAttack.ExecuteAttack(Target);
         yield return null;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Doozy.Runtime.UIManager.Animators;
 using Doozy.Runtime.UIManager.Components;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,16 +10,16 @@ namespace DChild.Gameplay.ArmyBattle.UI
 {
     public class AttackingGroupSelectableOptionUI : AttackingGroupOptionUI
     {
-
-        [SerializeField]
+        [FoldoutGroup("NULLIFY SELECTABLES")]
+        [SerializeField, FoldoutGroup("NULLIFY SELECTABLES/ASSETS")]
         private List<Sprite> m_NullAssets;
-        [SerializeField]
+        [SerializeField, FoldoutGroup("NULLIFY SELECTABLES/ASSETS")]
         private List<Sprite> m_GroupAssets;
-
-        [SerializeField]
+        [SerializeField, FoldoutGroup("NULLIFY SELECTABLES")]
         private List<Image> m_targetAssets;
         [SerializeField]
         private Image m_targetCommandIcon;
+        public Image targetCommandIcon => m_targetCommandIcon;
         [SerializeField]
         private TextMeshProUGUI m_targetPartyName;
         [SerializeField]
@@ -34,7 +35,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         private int m_selectionIndex;
 
-        public int selectionIndex => m_selectionIndex;
+        public virtual int selectionIndex => m_selectionIndex;
 
         public void SetSelectionIndex(int index)
         {
@@ -55,7 +56,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
             }
             base.Display(group);
         }
-        private void RestoreArmyGroupUI()
+        protected void RestoreArmyGroupUI()
         {
             for (int i = 0; i < m_GroupAssets.Count; i++)
             {
@@ -70,7 +71,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         }
 
 
-        private void NullifyArmyGroupUI()
+        protected void NullifyArmyGroupUI()
         {
             m_armyRow.interactable = false;
             m_highlightGlow.enabled = false;

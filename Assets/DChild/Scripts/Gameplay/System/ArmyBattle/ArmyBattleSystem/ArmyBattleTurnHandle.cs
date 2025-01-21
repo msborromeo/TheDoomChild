@@ -12,11 +12,37 @@ namespace DChild.Gameplay.ArmyBattle
     public class ArmyBattleTurnHandle : MonoBehaviour
     {
         [System.Serializable]
+        public struct ParticipantConfiguration
+        {
+            public bool canUseMelee;
+            public bool canUseMagic;
+            public bool canUseRange;
+
+            public bool willAttack;
+
+            public void Reset()
+            {
+                canUseMelee = true;
+                canUseMagic = true;
+                canUseRange = true;
+
+                willAttack = true;
+            }
+        }
+
+        [System.Serializable]
         public struct TurnConfiguration
         {
-            public bool playerWillAttack;
-            public bool enemyWillAttack;
+            public ParticipantConfiguration playerConfiguration;
+            public ParticipantConfiguration enemyConfiguration;
             public bool turnWillProgress;
+
+            public void Reset()
+            {
+                playerConfiguration.Reset();
+                enemyConfiguration.Reset();
+                turnWillProgress = true;
+            }
         }
 
         public TurnConfiguration configuration;
@@ -50,13 +76,17 @@ namespace DChild.Gameplay.ArmyBattle
                 return;
 
             StartCoroutine(TurnStartRoutine());
-
             if (configuration.turnWillProgress)
             {
                 m_turnCount++;
             }
             ResetConfiguration();
-            
+        }
+
+        public void ForceEndTurn()
+        {
+            StopAllCoroutines();
+            OnFightEnd(this, EventActionArgs.Empty);
         }
 
         [Button]
@@ -66,6 +96,11 @@ namespace DChild.Gameplay.ArmyBattle
             {
                 StartCoroutine(TurnRoutine());
             }
+        }
+
+        public void ForceSetTurnNumber(int turnNumber)
+        {
+            m_turnCount = turnNumber;
         }
 
         public void SetParticipants(ArmyController player, ArmyController enemy)
@@ -98,21 +133,54 @@ namespace DChild.Gameplay.ArmyBattle
             m_hasTurnCommenced = true;
 
             yield return m_skillHandle.ApplyTurnSpecialSkillsRoutine();
-            // Wait for Scenarios ******************
 
-
-            var playerTurn = m_player.GetTurnAction(m_turnCount);
-            playerTurn.willAttack = configuration.playerWillAttack;
-
-            var enemyTurn = m_enemy.GetTurnAction(m_turnCount);
-            enemyTurn.willAttack = configuration.enemyWillAttack;
+            var playerTurn = GenerateTurnAction(m_player, m_turnCount);
+            var enemyTurn = GenerateTurnAction(m_enemy, m_turnCount);
 
             var result = m_combatSimulator.CalculateCombatResult(playerTurn, enemyTurn);
             m_player.controlledArmy.SubtractTroopCount(result.player.damageReceived);
             m_enemy.controlledArmy.SubtractTroopCount(result.enemy.damageReceived);
+
             m_fightManager.VisualizeCombat(result);
         }
 
+        private ArmyTurnAction ConfigureParticipantTurnAction(ArmyTurnAction turnAction, ParticipantConfiguration configuration)
+        {
+            turnAction.willAttack = configuration.willAttack;
+            if (turnAction.willAttack)
+            {
+                switch (turnAction.attack.type)
+                {
+                    case DamageType.Melee:
+                        turnAction.willAttack = configuration.canUseMelee;
+                        break;
+                    case DamageType.Range:
+                        turnAction.willAttack = configuration.canUseRange;
+                        break;
+                    case DamageType.Magic:
+                        turnAction.willAttack = configuration.canUseMagic;
+                        break;
+
+                }
+            }
+            return turnAction;
+        }
+
+        private ArmyTurnAction GenerateTurnAction(ArmyController participant, int turnCount)
+        {
+            ArmyTurnAction turnAction = new ArmyTurnAction();
+            if (participant == m_player)
+            {
+                var playerTurn = m_player.GetTurnAction(turnCount);
+                turnAction = ConfigureParticipantTurnAction(playerTurn, configuration.playerConfiguration);
+            }
+            else if (participant == m_enemy)
+            {
+                var enemyTurn = m_enemy.GetTurnAction(m_turnCount);
+                turnAction = ConfigureParticipantTurnAction(enemyTurn, configuration.enemyConfiguration);
+            }
+            return turnAction;
+        }
 
         [Button]
         private void EndTurn()
@@ -122,9 +190,7 @@ namespace DChild.Gameplay.ArmyBattle
 
         private void ResetConfiguration()
         {
-            configuration.turnWillProgress = true;
-            configuration.enemyWillAttack = true;
-            configuration.playerWillAttack = true;
+            configuration.Reset();
         }
 
         private void Awake()

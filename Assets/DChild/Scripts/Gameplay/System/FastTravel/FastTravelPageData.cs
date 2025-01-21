@@ -8,8 +8,10 @@ namespace DChild.Gameplay.FastTravel
     {
         [SerializeField]
         private Location m_location;
-        [SerializeField] 
+        [SerializeField]
         private Sprite m_tabIcon;
+        [SerializeField]
+        private Sprite m_locationBackground;
         [SerializeField]
         private FastTravelData[] m_underworldTravelDatas;
         [SerializeField]
@@ -17,8 +19,11 @@ namespace DChild.Gameplay.FastTravel
 
         public Location location => m_location;
         public Sprite tabIcon => m_tabIcon;
+        public Sprite locationBackground => m_locationBackground;
+
         public FastTravelData overworldTravelData => m_overworldTravelData;
         public int count => m_underworldTravelDatas.Length;
         public FastTravelData GetUnderworldTravelData(int index) => m_underworldTravelDatas[index];
+        public FastTravelData GetOverworldTravelData() => m_overworldTravelData;
     }
 }

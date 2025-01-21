@@ -317,6 +317,13 @@ namespace DChild.Menu
                 yield return new WaitForSeconds(1f);
                 time += 1f;
             }
+            else
+            {
+                // nong ayan this is a temp test but if it works I pushed it
+                // we have to fix this for army battle dialogue
+                m_loadDoneSignal.SendSignal();
+            }
+
             yield return endOfFrame;
             time += Time.unscaledDeltaTime;
 
