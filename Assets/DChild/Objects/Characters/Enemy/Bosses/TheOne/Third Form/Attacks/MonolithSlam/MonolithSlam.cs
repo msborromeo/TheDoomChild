@@ -88,8 +88,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator AnticipationLoop()
         {
-            m_animation.SetAnimation(0, m_anticipationLoopAnimation, true);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_anticipationLoopAnimation);
+            m_animation.SetAnimation(0, m_anticipationLoopAnimation, true).TimeScale = 0.5f;
+            yield return null;
         }
 
         private IEnumerator DestroyMonolith()
