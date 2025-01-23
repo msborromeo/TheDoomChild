@@ -87,16 +87,16 @@ namespace DChild
 
         public static void LoadZone(GameMode gameMode, SceneInfo scene, bool withLoadingScene)
         {
-            GameplaySystem.ListenToNextSceneLoad();
             m_gameModeValidator.SetupGameMode(gameMode);
+            GameplaySystem.ListenToNextSceneLoad();
             m_zoneLoader.LoadZone(scene, withLoadingScene);
             GameplaySystem.ClearCaches();
         }
 
         public static void LoadZone(GameMode gameMode, SceneInfo scene, bool withLoadingScene, Action CallAfterSceneDone)
         {
-            GameplaySystem.ListenToNextSceneLoad();
             m_gameModeValidator.SetupGameMode(gameMode);
+            GameplaySystem.ListenToNextSceneLoad();
             m_zoneLoader.LoadZone(scene, withLoadingScene, CallAfterSceneDone);
             GameplaySystem.ClearCaches();
         }

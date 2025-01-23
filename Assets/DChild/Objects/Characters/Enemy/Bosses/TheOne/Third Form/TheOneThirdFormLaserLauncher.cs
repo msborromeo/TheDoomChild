@@ -1,0 +1,131 @@
+using Holysoft.Event;
+using Sirenix.OdinInspector;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+
+public class TheOneThirdFormLaserLauncher : MonoBehaviour
+{
+    [SerializeField, TabGroup("Laser")]
+    private Transform laserStart;
+    [SerializeField, TabGroup("Laser")]
+    private Transform laserEndEffect;
+    [SerializeField, TabGroup("Laser")]
+    private LineRenderer lineRenderer;
+    [SerializeField, TabGroup("Laser")]
+    private LayerMask environmentLayer;
+    [SerializeField]
+    private EdgeCollider2D m_laserCollider;
+    public Coroutine laserCoroutine;
+    [SerializeField]
+    private Animator m_anim;
+
+    public bool stop;
+    [SerializeField]
+    private bool m_dynamicRay;
+    //public GameObject m_wallMouth;
+
+    private void Awake()
+    {
+        //m_anim = GetComponent<Animator>();
+    }
+
+    private void OnActivate(object sender, EventActionArgs eventArgs)
+    {
+        laserCoroutine = StartCoroutine(LaserLogic());
+        StartCoroutine(AnimationHandler());
+    }
+
+    private void Start()
+    {
+        m_laserCollider.enabled = false;
+        //  m_wallMouth.GetComponent<WallMouth>().OnActivate += OnActivate;
+        // StartCoroutine(LaserLogic());
+        //StartCoroutine(AnimationHandler());
+    }
+
+    private void OnDisable()
+    {
+        if (laserCoroutine != null)
+        {
+            StopCoroutine(laserCoroutine);
+        }
+    }
+    [SerializeField, ShowIf("m_dynamicRay"), CustomValueDrawer("PenetrationPower")]
+    private float m_penetrationPower;
+    private static float PenetrationPower(float value, GUIContent label)
+    {
+        return EditorGUILayout.Slider(label, value, 1f, 10000f);
+    }
+    public IEnumerator LaserLogic()
+    {
+        while (!stop)
+        {
+            Vector3 startPoint = laserStart.position;
+            Vector2 direction = laserStart.TransformDirection(Vector2.right);
+            Vector2 endPoint;
+
+            RaycastHit2D hit = Physics2D.Raycast(startPoint, direction, Mathf.Infinity, environmentLayer);
+
+
+            if (hit.collider != null)
+                {
+                    endPoint = hit.point;
+                    UpdateLaser(startPoint, endPoint);
+                    UpdateEndEffect(endPoint);
+                }
+                else
+                {
+                    endPoint = startPoint + (Vector3)direction * 100f;
+                    UpdateLaser(startPoint, endPoint);
+                    UpdateEndEffect(endPoint);
+                }  
+            UpdateEdgeCollider(laserStart.position, endPoint);
+            yield return null;
+        }
+    }
+
+
+    private void UpdateEdgeCollider(Vector3 startPoint, Vector3 endPoint)
+    {
+        if (m_laserCollider != null)
+        {
+            Vector2 localStartPoint = m_laserCollider.transform.InverseTransformPoint(startPoint);
+            Vector2 localEndPoint = m_laserCollider.transform.InverseTransformPoint(endPoint);
+            m_laserCollider.points = new Vector2[] { localStartPoint, localEndPoint };
+        }
+    }
+
+
+    public IEnumerator AnimationHandler()
+    {
+        while (!stop)
+        {
+            //yield return new WaitForSeconds(5.167f);
+            m_anim.SetTrigger("TentacleBlastAnticipation");
+            //yield return new WaitForSeconds(10f);
+            m_anim.SetTrigger("TentacleBlastDissipation");
+            yield return null;
+        }
+    }
+
+    private void UpdateLaser(Vector3 startPoint, Vector3 endPoint)
+    {
+        lineRenderer.SetPosition(0, startPoint);
+        lineRenderer.SetPosition(1, endPoint);
+    }
+
+    private void UpdateEndEffect(Vector3 position)
+    {
+        laserEndEffect.transform.position = position;
+    }
+    public void ColliderDamageOn()
+    {
+        m_laserCollider.enabled = true;
+    }
+    public void ColliderDamageOff()
+    {
+        m_laserCollider.enabled = false;
+    }
+}
