@@ -45,6 +45,7 @@ namespace DChild.Gameplay.Pooling
         {
             var pooledItemGO = new GameObject("PooledItems");
             SceneManager.MoveGameObjectToScene(pooledItemGO, gameObject.scene);
+            pooledItemGO.transform.position = new Vector3(10000, 10000, 0);
             ObjectPool.poolItemStorage = pooledItemGO.transform;
             pooledItemGO.SetActive(false);
 
