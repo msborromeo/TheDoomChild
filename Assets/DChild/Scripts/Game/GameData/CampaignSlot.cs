@@ -112,8 +112,8 @@ namespace DChild.Serialization
         [Button]
         public void Reset()
         {
+            m_location = m_demoGame || m_newGame ? DLocation.City_Of_The_Dead : DLocation.None;
             m_newGame = false;
-            m_location = m_demoGame ? DLocation.City_Of_The_Dead : DLocation.None;
             m_spawnPosition = new SerializedVector2();
             m_spawnPosition.x = -1209f;
             m_spawnPosition.y = 90f;
@@ -186,9 +186,11 @@ namespace DChild.Serialization
 
         private void OnNewGameChange()
         {
+            var newGameValue = m_newGame;
             if (m_newGame)
             {
                 Reset();
+                m_newGame = newGameValue;
             }
         }
 #endif 
