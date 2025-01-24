@@ -26,13 +26,18 @@ public class TheOneMiniLevelLaser : MonoBehaviour
     public bool stop;
     [SerializeField]
     private bool m_dynamicRay;
+    [SerializeField]
+    private bool m_noAnticipation;
     public GameObject m_wallMouth;
 
     private void Awake()
     {
         m_anim = GetComponent<Animator>();
     }
-
+    public void SetDynamicLaserValue(bool value)
+    {
+        m_dynamicRay = value;
+    }
     private void OnActivate(object sender, EventActionArgs eventArgs)
     {
         laserCoroutine = StartCoroutine(LaserLogic());
@@ -182,10 +187,19 @@ public class TheOneMiniLevelLaser : MonoBehaviour
     {
         while (!stop)
         {
-            yield return new WaitForSeconds(5.167f);
-            m_anim.SetTrigger("WallMouthBlastAnticipation");
-            yield return new WaitForSeconds(10f);
-            m_anim.SetTrigger("TentacleBlastDissipation");
+            if (m_noAnticipation)
+            {
+                //yield return new WaitForSeconds(5f);
+                m_anim.SetTrigger("NoAnticipationCeiling");
+                yield return null;
+            }
+            else
+            {
+                yield return new WaitForSeconds(5.167f);
+                m_anim.SetTrigger("WallMouthBlastAnticipation");
+                yield return new WaitForSeconds(10f);
+                m_anim.SetTrigger("TentacleBlastDissipation");
+            }
         }
     }
 
