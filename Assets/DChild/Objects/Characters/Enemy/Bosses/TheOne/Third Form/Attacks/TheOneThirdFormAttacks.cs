@@ -186,9 +186,33 @@ public class TheOneThirdFormAttacks : MonoBehaviour
         yield return m_chasingGroundTentacleAttack.ExecuteAttack();
     }
 
-    public IEnumerator MonolithSlam(AITargetInfo Target)
+    public IEnumerator MonolithSlam()
     {
-        yield return m_monolithSlamAttack.ExecuteAttack(Target);
+        yield return m_monolithSlamAttack.PhaseOneMonolithSlam();
+        
+    }
+    public IEnumerator RemovalMonolithSlamPhaseOne()
+    {
+        for (int i = 0; i < m_monolithSlamAttack.m_monolithsSpawned.Count; i++)
+        {
+            m_monolithSlamAttack.m_monolithsSpawned[i].GetComponent<MonolithSlam>().SpawnShatterFX();
+            m_monolithSlamAttack.m_monolithsSpawned[i].GetComponent<MonolithSlam>().OffImpactCollider();
+        }
+        for (int i = 0; i < m_monolithSlamAttack.m_PatternOneTentacleSpawn.Count; i++)
+        {
+            if (m_monolithSlamAttack.m_PatternOneTentacleSpawn[i].activeInHierarchy)
+            {
+                m_monolithSlamAttack.m_PatternOneTentacleSpawn[i].SetActive(false);
+            }
+            
+        }
+      
+        m_monolithSlamAttack.m_monolithsSpawned.Clear();
+        m_monolithSlamAttack.monolithsToDestroy.Clear();
+        m_monolithSlamAttack.monolithsToActuallyKeep.Clear();
+
+        
+        yield return null;
     }
 
     public IEnumerator TentacleBlastOne(AITargetInfo Target)
