@@ -30,6 +30,8 @@ public class WallMouth : MonoBehaviour
     [SerializeField]
     private GameObject m_laser;
     public EventAction<EventActionArgs> OnActivate;
+    [SerializeField]
+    private bool m_noAnticipation;
     public bool stop;
 
     public void InitializeField(SpineRootAnimation spineRoot)
@@ -40,13 +42,23 @@ public class WallMouth : MonoBehaviour
     {
         while (!stop)
         {
-            m_spine.SetAnimation(0, m_idle, true);
-            yield return new WaitForSeconds(5f);
-            m_spine.SetAnimation(0, m_afterAttackChargeLoop, false);
-            yield return new WaitForAnimationComplete(m_spine.animationState, m_afterAttackChargeLoop);
-            m_spine.SetAnimation(0, m_attackLoop, true);
-            yield return new WaitForSeconds(10f);
+            if (m_noAnticipation)
+            {
+                m_spine.SetAnimation(0, m_attackLoop, true);
+                yield return null;
+                //yield return new WaitForSeconds(5f);
+            }
+            else
+            {
+                m_spine.SetAnimation(0, m_idle, true);
+                yield return new WaitForSeconds(5f);
+                m_spine.SetAnimation(0, m_afterAttackChargeLoop, false);
+                yield return new WaitForAnimationComplete(m_spine.animationState, m_afterAttackChargeLoop);
+                m_spine.SetAnimation(0, m_attackLoop, true);
+                yield return new WaitForSeconds(10f);
+            }
         }
+        m_spine.SetAnimation(0, m_idle, true);
     }
     public void StartMovement()
     {
