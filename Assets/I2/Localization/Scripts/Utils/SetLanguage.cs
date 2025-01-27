@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace I2.Loc
 {
@@ -16,6 +17,7 @@ namespace I2.Loc
 			ApplyLanguage();
         }
 
+		[ContextMenu("Apply Language")]
 		public void ApplyLanguage()
 		{
 			if( LocalizationManager.HasLanguage(_Language))
