@@ -54,9 +54,9 @@ namespace DChild.Gameplay.Characters.Enemies
 
             while (m_bubbleCounter < m_maxNumberOfBubblesToSpawn)
             {
-                InstantiateBubble(new Vector2(Target.position.x, Target.position.y), m_bubbleImprisonment.gameObject);
+                InstantiateBubble(new Vector2(Target.position.x, transform.position.y), m_bubbleImprisonment.gameObject);
                 m_bubbleCounter++;
-                yield return new WaitForSeconds(m_timeBetweenBubbleSpawn);
+                yield return new WaitForSeconds(12f);
                 Debug.Log("Bubbles Spawned: " + m_bubbleCounter);
                 yield return null;
             }

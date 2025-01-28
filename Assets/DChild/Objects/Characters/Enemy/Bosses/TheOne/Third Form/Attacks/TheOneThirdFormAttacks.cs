@@ -224,7 +224,6 @@ public class TheOneThirdFormAttacks : MonoBehaviour
     public IEnumerator TentacleBlastTwo()
     {
         yield return m_tentacleBlastAttack.ExecuteAttack();
-        yield return null;
     }
 
     public IEnumerator SlidingStoneWallAttack(AITargetInfo Target)
