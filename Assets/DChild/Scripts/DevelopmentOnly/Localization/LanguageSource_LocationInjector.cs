@@ -43,15 +43,18 @@ namespace DChildEditor.Tools.Localization
                 if (term == null)
                 {
                     term = source.AddTerm(key);
+                    Debug.Log($"{key} Added");
                 }
 
                 var splitKey = key.Split('/');
                 var keyOnly = splitKey[splitKey.Length - 1];
                 foreach (var langaugeCode in languageCodes)
                 {
+                    Debug.Log($"{term.Term} Will be Translated");
                     GoogleTranslation.Translate(keyOnly, "en", langaugeCode, (string Translation, string Errpr) =>
                     {
                         term.SetTranslation(source.GetLanguageIndexFromCode(langaugeCode), Translation);
+                        Debug.Log($"{term.Term} Translated");
                     });
                 }
             }
