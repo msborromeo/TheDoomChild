@@ -519,7 +519,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                     , new AttackInfo<Attack>(Attack.Phase5Pattern10, m_info.phase5Pattern10Range)
                                     , new AttackInfo<Attack>(Attack.Phase5Pattern11, m_info.phase5Pattern11Range));*/
             #endregion
-            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.MonolithSlamPhase1, m_info.phase1Pattern1Range)
+            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.BubbleImprisonment, m_info.phase1Pattern1Range)
                                     /*new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range)*/);
             //switch (m_phaseHandle.currentPhase)
             //{
