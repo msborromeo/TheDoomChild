@@ -25,12 +25,19 @@ namespace DChild.Inputs
             SetInputModeToUnderworldGameplay(); //eventually change to UI because we expect to start at Main Menu
         }
 
-        public event Action<float> HorizontalInputEvent;
-        public event Action<float> HorizontalInputCancelledEvent;
-        public event Action<float> VerticalInputEventEvent;
-
+        #region Input Events
+        public event Action<Vector2> Vector2InputEvent;
+        public event Action<Vector2> Vector2CancelledInputEvent;
         public event Action JumpEvent;
+        public event Action JumpStartedEvent;
         public event Action JumpCancelledEvent;
+        public event Action PauseEvent;
+        public event Action StoreEvent;
+        public event Action DashEvent;
+        public event Action LevitateEvent;
+        public event Action LevitateStartedEvent;
+        public event Action InteractEvent;
+        #endregion
 
         public void SetInputModeToUnderworldGameplay()
         {
@@ -40,28 +47,26 @@ namespace DChild.Inputs
 
         #region Underworld Actions
         //Underworld Actions
-        public void OnHorizontalInput(InputAction.CallbackContext context)
+        public void OnVector2(InputAction.CallbackContext context)
         {
             if(context.phase == InputActionPhase.Performed)
             {
-                HorizontalInputEvent?.Invoke(context.ReadValue<float>());
+                Vector2InputEvent?.Invoke(context.ReadValue<Vector2>());
             }
 
-            if (context.phase == InputActionPhase.Canceled)
+            if(context.phase == InputActionPhase.Canceled)
             {
-                HorizontalInputCancelledEvent?.Invoke(context.ReadValue<float>());
+                Vector2CancelledInputEvent?.Invoke(context.ReadValue<Vector2>());
             }
-
-            Debug.Log(context.ReadValue<float>());
-        }
-
-        public void OnVerticalInput(InputAction.CallbackContext context)
-        {
-            VerticalInputEventEvent?.Invoke(context.ReadValue<float>());
         }
 
         public void OnJump(InputAction.CallbackContext context)
         {
+            if(context.phase == InputActionPhase.Started)
+            {
+                JumpStartedEvent?.Invoke();
+            }
+
             if(context.phase == InputActionPhase.Performed)
             {
                 JumpEvent?.Invoke();
@@ -88,14 +93,12 @@ namespace DChild.Inputs
             throw new NotImplementedException();
         }
 
-        public void OnCrouch(InputAction.CallbackContext context)
-        {
-            throw new NotImplementedException();
-        }
-
         public void OnDash(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if (context.phase == InputActionPhase.Started)
+            {
+                DashEvent?.Invoke();
+            }
         }
 
         public void OnGrab(InputAction.CallbackContext context)
@@ -105,7 +108,10 @@ namespace DChild.Inputs
 
         public void OnInteract(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if(context.phase == InputActionPhase.Started)
+            {
+                InteractEvent?.Invoke();
+            }
         }
 
         public void OnMouseDelta(InputAction.CallbackContext context)
@@ -115,7 +121,7 @@ namespace DChild.Inputs
 
         public void OnPause(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            PauseEvent?.Invoke();
         }
 
         public void OnQuickItemCycle(InputAction.CallbackContext context)
@@ -135,7 +141,7 @@ namespace DChild.Inputs
 
         public void OnStore(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            StoreEvent?.Invoke();
         }
 
         #endregion
@@ -158,7 +164,15 @@ namespace DChild.Inputs
 
         public void OnLevitate(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if(context.phase == InputActionPhase.Started)
+            {
+                LevitateStartedEvent?.Invoke();
+            }
+
+            if(context.phase == InputActionPhase.Performed)
+            {
+                LevitateEvent?.Invoke();
+            }
         }
         #endregion
 
