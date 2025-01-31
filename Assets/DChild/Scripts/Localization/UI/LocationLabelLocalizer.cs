@@ -28,7 +28,7 @@ namespace DChild.Localization
         private string m_paramsVariable;
 
         private ILocationLabelInjector m_injector;
-
+        private string m_currentTerm;
 
         private void OnUpdate(TextMeshProUGUI uGUI, Location location)
         {
@@ -46,7 +46,7 @@ namespace DChild.Localization
                     m_paramsManager.SetParameterValue(m_paramsVariable, toTerm, true);
                     break;
             }
-
+            m_currentTerm = toTerm;
         }
 
         private void Awake()
