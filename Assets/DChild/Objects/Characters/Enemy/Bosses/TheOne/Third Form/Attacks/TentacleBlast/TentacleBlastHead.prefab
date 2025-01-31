@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonRenderer: {fileID: 5535504066907762017}
-  boneName: mouth3
+  boneName: RaycastAttach
   followXYPosition: 1
   followZPosition: 1
   followBoneRotation: 1
@@ -6491,8 +6491,8 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1150295711
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &5535504066907762017
@@ -12088,6 +12088,7 @@ GameObject:
   - component: {fileID: 6686327601878447858}
   - component: {fileID: 9135998295228102930}
   - component: {fileID: 2547833656636022029}
+  - component: {fileID: 3249336843458334107}
   m_Layer: 13
   m_Name: TentacleBlastHead
   m_TagString: Hitbox
@@ -12142,12 +12143,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_animation: {fileID: 1341035588875037446}
+  m_laserLunch: {fileID: 0}
+  m_spineListener: {fileID: 3249336843458334107}
+  m_startCharge: chargeFXStart
+  m_endCharge: BeamEnd
+  m_beamStart: BeamStart
   m_skeletonAnimation: {fileID: 5535504066907762017}
   m_initializeAnimation: Initialize
   m_despawnAnimation: Despawn
   m_mouthBlastAnimation: MouthBlast
   m_spawnAnimation: Spawn
-  m_launcher: {fileID: 1360737647389698415}
+  m_launcher: {fileID: 0}
+  m_anim: {fileID: 0}
+  isDoneTentacleAttack: 0
 --- !u!114 &1341035588875037446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12217,6 +12225,19 @@ MonoBehaviour:
       damageModifier: 0
     ignoreInvulnerability: 0
     ignoresBlock: 0
+--- !u!114 &3249336843458334107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7640492985752890295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd8599297ea1c84ba2f23b8f6c74e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 5535504066907762017}
 --- !u!1 &7640492986208964911
 GameObject:
   m_ObjectHideFlags: 0
@@ -12227,7 +12248,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7640492986208964910}
   - component: {fileID: 7640492986208964909}
-  - component: {fileID: 1360737647389698415}
   m_Layer: 13
   m_Name: Laser
   m_TagString: Hitbox
@@ -12263,24 +12283,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_data: {fileID: 11400000, guid: 67e2e656b6f9fac4ca4e68375a3323bf, type: 2}
---- !u!114 &1360737647389698415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7640492986208964911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14ebb37975eaeec4b94e2be423cd6148, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_lineRenderer: {fileID: 5921542984899868222}
-  m_telegraphLineRenderer: {fileID: 8561688760722244328}
-  m_edgeCollider: {fileID: 3886429936129792299}
-  m_muzzleLoopFX: {fileID: 2988988114015359087}
-  m_muzzleTelegraphFX: {fileID: 3295027784283585556}
-  m_beamPoint: {fileID: 7401329969640460800}
 --- !u!1 &7739541450912948151
 GameObject:
   m_ObjectHideFlags: 0
@@ -12518,7 +12520,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8675485749109635952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.6, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12844,18 +12846,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96ed4d1eab1a63d409358aa3c76035fa, type: 3}
---- !u!114 &3295027784283585556 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7196286171914324361, guid: 96ed4d1eab1a63d409358aa3c76035fa,
-    type: 3}
-  m_PrefabInstance: {fileID: 5648660081458394525}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8291129925856531297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6178cd111cba844a6e236cfbee492c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8291129925856531297 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4428182852656146172, guid: 96ed4d1eab1a63d409358aa3c76035fa,
