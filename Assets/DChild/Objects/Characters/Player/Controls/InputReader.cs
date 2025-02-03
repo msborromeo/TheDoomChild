@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 namespace DChild.Inputs
 {
     [CreateAssetMenu(menuName = "Input Reader")]
-    public class InputReader : ScriptableObject, PlayerControls.IUnderworldActions //Implement other interafaces for other control types later slowly
+    public class InputReader : ScriptableObject, PlayerControls.IUnderworldActions, PlayerControls.IOverworldActions, PlayerControls.IUIActions, PlayerControls.IArmyBattleActions
     {
         [SerializeField]
         private PlayerControls m_playerControls;
@@ -19,30 +19,95 @@ namespace DChild.Inputs
             {
                 m_playerControls = new PlayerControls();
 
-                m_playerControls.Underworld.SetCallbacks(this); //add other inputs later
+                m_playerControls.Underworld.SetCallbacks(this);
+                m_playerControls.Overworld.SetCallbacks(this);
+                m_playerControls.UI.SetCallbacks(this);
+                m_playerControls.ArmyBattle.SetCallbacks(this);
             }
 
             SetInputModeToUnderworldGameplay(); //eventually change to UI because we expect to start at Main Menu
         }
 
         #region Input Events
-        public event Action<Vector2> Vector2InputEvent;
+        #region Underworld Input
+        public event Action<Vector2> Vector2InputPerformedEvent;
         public event Action<Vector2> Vector2CancelledInputEvent;
-        public event Action JumpEvent;
+        public event Action JumpPerformedEvent;
         public event Action JumpStartedEvent;
         public event Action JumpCancelledEvent;
-        public event Action PauseEvent;
-        public event Action StoreEvent;
-        public event Action DashEvent;
-        public event Action LevitateEvent;
+        public event Action PauseStartedEvent;
+        public event Action StoreStartedEvent;
+        public event Action DashStartedEvent;
+        public event Action LevitatePerformedEvent;
         public event Action LevitateStartedEvent;
-        public event Action InteractEvent;
+        public event Action LevitateCancelledEvent;
+        public event Action InteractStartedEvent;
+        #endregion
+        #region Overworld Input
+        public event Action<Vector2> OverworldMovePerformedEvent;
+        public event Action<Vector2> OverworldMoveCancelledEvent;
+        public event Action<Vector2> OverworldMoveStartedEvent;
+        #endregion
+        #region UI Input
+        public event Action<Vector2> UINavigatePerformedEvent;
+        public event Action<Vector2> UINavigateCancelledEvent;
+        public event Action<Vector2> UINavigateStartedEvent;
+        public event Action UISubmitPerformedEvent;
+        public event Action UISubmitCancelledEvent;
+        public event Action UISubmitStartedEvent;
+        public event Action UICancelPerformedEvent;
+        public event Action UICancelCancelledEvent;
+        public event Action UICancelStartedEvent;
+        public event Action<Vector2> UIPointPerformedEvent;
+        public event Action<Vector2> UIPointCancelledEvent;
+        public event Action<Vector2> UIPointStartedEvent;
+        public event Action<Vector2> UIScrollWheelPerformedEvent;
+        public event Action<Vector2> UIScrollWheelCancelledEvent;
+        public event Action<Vector2> UIScrollWheelStartedEvent;
+        public event Action UIResumePerformedEvent;
+        public event Action UIResumeCancelledEvent;
+        public event Action UIResumeStartedEvent;
+        public event Action UIClickPerformedEvent;
+        public event Action UIClickCancelledEvent;
+        public event Action UIClickStartedEvent;
+        #endregion
+        #region Army Battle Input
+        public event Action ArmyBattleSelectCommandPerformedEvent;
+        public event Action ArmyBattleSelectCommandCancelledEvent;
+        public event Action ArmyBattleSelectCommandStartedEvent;
+        #endregion
         #endregion
 
         public void SetInputModeToUnderworldGameplay()
         {
             m_playerControls.Underworld.Enable();
-            //Disable all other input modes
+            m_playerControls.Overworld.Disable();
+            m_playerControls.UI.Disable();
+            m_playerControls.ArmyBattle.Disable();
+        }
+
+        public void SetInputModeTOverworldGameplay()
+        {
+            m_playerControls.Overworld.Enable();
+            m_playerControls.Underworld.Disable();
+            m_playerControls.UI.Disable();
+            m_playerControls.ArmyBattle.Disable();
+        }
+
+        public void SetInputModeToUI()
+        {
+            m_playerControls.UI.Enable();
+            m_playerControls.Underworld.Disable();
+            m_playerControls.Overworld.Disable();
+            m_playerControls.ArmyBattle.Disable();
+        }
+
+        public void SetInputModeToArmyBattleGameplay()
+        {
+            m_playerControls.ArmyBattle.Enable();
+            m_playerControls.Underworld.Disable();
+            m_playerControls.Overworld.Disable();
+            m_playerControls.UI.Disable();
         }
 
         #region Underworld Actions
@@ -51,7 +116,7 @@ namespace DChild.Inputs
         {
             if(context.phase == InputActionPhase.Performed)
             {
-                Vector2InputEvent?.Invoke(context.ReadValue<Vector2>());
+                Vector2InputPerformedEvent?.Invoke(context.ReadValue<Vector2>());
             }
 
             if(context.phase == InputActionPhase.Canceled)
@@ -69,7 +134,7 @@ namespace DChild.Inputs
 
             if(context.phase == InputActionPhase.Performed)
             {
-                JumpEvent?.Invoke();
+                JumpPerformedEvent?.Invoke();
             }
 
             if(context.phase == InputActionPhase.Canceled)
@@ -78,26 +143,11 @@ namespace DChild.Inputs
             }
         }
 
-        public void OnBlock(InputAction.CallbackContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnControllerCursorHorizontalInput(InputAction.CallbackContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnControllerCursorVerticalInput(InputAction.CallbackContext context)
-        {
-            throw new NotImplementedException();
-        }
-
         public void OnDash(InputAction.CallbackContext context)
         {
             if (context.phase == InputActionPhase.Started)
             {
-                DashEvent?.Invoke();
+                DashStartedEvent?.Invoke();
             }
         }
 
@@ -110,7 +160,7 @@ namespace DChild.Inputs
         {
             if(context.phase == InputActionPhase.Started)
             {
-                InteractEvent?.Invoke();
+                InteractStartedEvent?.Invoke();
             }
         }
 
@@ -121,7 +171,7 @@ namespace DChild.Inputs
 
         public void OnPause(InputAction.CallbackContext context)
         {
-            PauseEvent?.Invoke();
+            PauseStartedEvent?.Invoke();
         }
 
         public void OnQuickItemCycle(InputAction.CallbackContext context)
@@ -141,7 +191,7 @@ namespace DChild.Inputs
 
         public void OnStore(InputAction.CallbackContext context)
         {
-            StoreEvent?.Invoke();
+            StoreStartedEvent?.Invoke();
         }
 
         #endregion
@@ -171,7 +221,12 @@ namespace DChild.Inputs
 
             if(context.phase == InputActionPhase.Performed)
             {
-                LevitateEvent?.Invoke();
+                LevitatePerformedEvent?.Invoke();
+            }
+
+            if(context.phase == InputActionPhase.Canceled)
+            {
+                LevitateCancelledEvent?.Invoke();
             }
         }
         #endregion
@@ -244,6 +299,173 @@ namespace DChild.Inputs
         }
         #endregion
 
+        #region Overworld Controls
+        public void OnMove(InputAction.CallbackContext context)
+        {
+            if(context.phase == InputActionPhase.Started)
+            {
+                OverworldMoveStartedEvent?.Invoke(context.ReadValue<Vector2>());
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                OverworldMovePerformedEvent?.Invoke(context.ReadValue<Vector2>());
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                OverworldMoveCancelledEvent?.Invoke(context.ReadValue<Vector2>());
+            }
+        }
+        #endregion
+
+        #region UI Controls
+        public void OnNavigate(InputAction.CallbackContext context)
+        {
+            if(context.phase == InputActionPhase.Started)
+            {
+                UINavigateStartedEvent?.Invoke(context.ReadValue<Vector2>());
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                UINavigatePerformedEvent?.Invoke(context.ReadValue<Vector2>());
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                UINavigateCancelledEvent?.Invoke(context.ReadValue<Vector2>());
+            }
+        }
+
+        public void OnSubmit(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                UISubmitStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                UISubmitPerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                UISubmitCancelledEvent?.Invoke();
+            }
+        }
+
+        public void OnCancel(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                UICancelStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                UICancelPerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                UICancelCancelledEvent?.Invoke();
+            }
+        }
+
+        public void OnPoint(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                UIPointStartedEvent?.Invoke(context.ReadValue<Vector2>());
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                UIPointPerformedEvent?.Invoke(context.ReadValue<Vector2>());
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                UIPointCancelledEvent?.Invoke(context.ReadValue<Vector2>());
+            }
+        }
+
+        public void OnClick(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                UIClickStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                UIClickPerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                UIClickCancelledEvent?.Invoke();
+            }
+        }
+
+        public void OnScrollWheel(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                UIScrollWheelStartedEvent?.Invoke(context.ReadValue<Vector2>());
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                UIScrollWheelPerformedEvent?.Invoke(context.ReadValue<Vector2>());
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                UIScrollWheelCancelledEvent?.Invoke(context.ReadValue<Vector2>());
+            }
+        }
+
+        public void OnResume(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                UIResumeStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                UIResumePerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                UIResumeCancelledEvent?.Invoke();
+            }
+        }
+        #endregion
+
+        #region Army Battle Controls
+        public void OnSelectCommand(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                ArmyBattleSelectCommandStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                ArmyBattleSelectCommandPerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                ArmyBattleSelectCommandCancelledEvent?.Invoke();
+            }
+        }
+        #endregion
 
     }
 }
