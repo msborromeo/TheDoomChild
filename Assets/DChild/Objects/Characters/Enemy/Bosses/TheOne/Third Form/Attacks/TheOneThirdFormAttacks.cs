@@ -147,7 +147,11 @@ public class TheOneThirdFormAttacks : MonoBehaviour
     {
         yield return m_tentacleCeilingAttack.ExecuteAttack();
        // StartCoroutine(m_tentacleCeilingAttack.ExecuteAttack());
-        yield return null;
+    }
+    public IEnumerator TentacleCeilingAttackRetract()
+    {
+        var isRightTentacle = m_tentacleCeilingAttack.m_isRightTentacle;
+        yield return m_tentacleCeilingAttack.RetractTentacleAttack(isRightTentacle);
     }
 
     public IEnumerator TentacleGrab()
@@ -159,7 +163,6 @@ public class TheOneThirdFormAttacks : MonoBehaviour
     public IEnumerator MouthBlastWall()
     {
         yield return m_mouthBlastIIAttack.ExecuteAttack();
-        yield return null;
     }
 
     public IEnumerator TentacleGroundStab(AITargetInfo Target)
@@ -181,6 +184,22 @@ public class TheOneThirdFormAttacks : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator ChasingGroundBlast()
+    {
+        var randomShit = UnityEngine.Random.Range(1, 3);
+        if(randomShit == 1)
+        {
+            Debug.Log("standard");
+            yield return m_chasingGroundTentacleAttack.DelayTentacleSpawn();
+        }
+        else
+        {
+            Debug.Log("Reverse");
+            yield return m_chasingGroundTentacleAttack.DelayTentacleSpawnReverse();
+        }
+        //new attack
+        
+    }
     public IEnumerator ChasingGroundTentacle()
     {
         yield return m_chasingGroundTentacleAttack.ExecuteAttack();
