@@ -14,7 +14,11 @@ public class GroundStabTwoTentacle : PoolableObject
     public bool isOnPlayableGround = false;
 
     [SerializeField]
+    private GameObject[] m_multipleGroundStabAnimations;
+    [SerializeField]
     private GameObject[] m_multipleGroundStabWithPattern;
+    [SerializeField]
+    private GameObject[] m_multipleGroundStabWithPatternAncticipation;
     [SerializeField]
     private GameObject[] safeZones;
     [SerializeField]
@@ -54,11 +58,17 @@ public class GroundStabTwoTentacle : PoolableObject
         var randomShit = Random.Range(1, 3);
         if (randomShit == 1)
         {
+            m_multipleGroundStabWithPatternAncticipation[0].SetActive(true);
+            yield return new WaitForSeconds(1f);
+            m_multipleGroundStabWithPatternAncticipation[0].SetActive(false);
             m_multipleGroundStabWithPattern[0].SetActive(true);
 
         }
         else
         {
+            m_multipleGroundStabWithPatternAncticipation[1].SetActive(true);
+            yield return new WaitForSeconds(1f);
+            m_multipleGroundStabWithPatternAncticipation[1].SetActive(false);
             m_multipleGroundStabWithPattern[1].SetActive(true);
         }
         if (FindObjectOfType<ObstacleChecker>().monolithSlamObstacleList != null)
@@ -79,11 +89,20 @@ public class GroundStabTwoTentacle : PoolableObject
     {
        // RemoveSafeZones();
         m_hitbox.enabled = false;
+        for (int i = 0; i < m_multipleGroundStabAnimations.Length; i++)
+        {
+            if (m_multipleGroundStabAnimations[i].activeInHierarchy == true)
+            {
+                m_multipleGroundStabAnimations[i].GetComponent<TentacleGroundSpikeAnimations>().StartRetractAnimation();
+            }
+           
+        }
+        yield return new WaitForSeconds(1f);
         for (int i = 0; i < m_multipleGroundStabWithPattern.Length; i++)
         {
             m_multipleGroundStabWithPattern[i].SetActive(false);
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         for (int i = 0; i < m_animation.Length; i++)
         {
             m_animation[i].SetAnimation(0, m_retractAnimation, false);
