@@ -722,7 +722,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                 if (m_state.isGrounded)
                 {
-                    if ((m_skills.IsModuleActive(PrimarySkill.Slide) || m_skills.IsModuleActive(PrimarySkill.ShadowSlide)))
+                    if ((m_skills.IsModuleActive(PrimarySkill.Slide) || m_skills.IsModuleActive(PrimarySkill.ShadowSlide)) && m_state.canSlide)
                     {
                         if (m_vector2Input.y < 0 && m_state.canSlide)
                         {
@@ -730,14 +730,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         }
                     }
 
-                    if ((m_skills.IsModuleActive(PrimarySkill.Dash) || m_skills.IsModuleActive(PrimarySkill.ShadowDash)))
+                    if ((m_skills.IsModuleActive(PrimarySkill.Dash) || m_skills.IsModuleActive(PrimarySkill.ShadowDash)) && m_state.canDash)
                     {
                         ExecuteDash();
                     }
                 }
                 else
                 {
-                    if ((m_skills.IsModuleActive(PrimarySkill.Dash) || m_skills.IsModuleActive(PrimarySkill.ShadowDash)))
+                    if ((m_skills.IsModuleActive(PrimarySkill.Dash) || m_skills.IsModuleActive(PrimarySkill.ShadowDash)) && m_state.canDash)
                     {
                         if (m_state.isStickingToWall)
                         {
@@ -1270,6 +1270,18 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 m_activeDash?.Cancel();
                 m_activeDash?.ResetCooldownTimer();
+            }
+            else
+            {
+                if(m_vector2Input.x !=  0)
+                {
+                    var signInput = Mathf.Sign(m_vector2Input.x);
+                    if (signInput != (float)m_character.facing)
+                    {
+                        FlipCharacter();
+                    }
+                }
+                m_activeDash?.Execute();
             }
         }
 
