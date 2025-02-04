@@ -171,7 +171,11 @@ namespace DChild.Inputs
 
         public void OnPause(InputAction.CallbackContext context)
         {
-            PauseStartedEvent?.Invoke();
+            if(context.phase == InputActionPhase.Started)
+            {
+                PauseStartedEvent?.Invoke();
+                SetInputModeToUI();  
+            }
         }
 
         public void OnQuickItemCycle(InputAction.CallbackContext context)
@@ -191,7 +195,11 @@ namespace DChild.Inputs
 
         public void OnStore(InputAction.CallbackContext context)
         {
-            StoreStartedEvent?.Invoke();
+            if(context.phase == InputActionPhase.Started)
+            {
+                StoreStartedEvent?.Invoke();
+                SetInputModeToUI();
+            }
         }
 
         #endregion
