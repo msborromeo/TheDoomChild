@@ -15,8 +15,8 @@ namespace DChild.Configurations
         [SerializeField]
         private GameSettingsConfiguration m_configuration;
 
-        [SerializeField]
-        private KeybindManager m_keybind;
+        //[SerializeField]
+        //private KeybindManager m_keybind;
         [SerializeField, Title("Visual Settings"), HideLabel]
         private VisualSettingsHandle m_visual;
         [SerializeField, Title("Audio Settings"), HideLabel]
@@ -25,7 +25,7 @@ namespace DChild.Configurations
         private GameplaySettings m_gameplay;
 
         public GameSettingsConfiguration configuration => m_configuration;
-        public KeybindManager keybind => m_keybind;
+        //public KeybindManager keybind => m_keybind;
         public VisualSettingsHandle visual => m_visual;
 
         public AudioSettingsHandle audio => m_audio;
@@ -54,7 +54,7 @@ namespace DChild.Configurations
                 SaveSettings();
             }
 
-            m_keybind.Initialize(m_configuration.keyboardKeyBindings);
+            //m_keybind.Initialize(m_configuration.keyboardKeyBindings);
             m_visual.Initialize(m_configuration);
             m_audio.Initialize(m_configuration);
         }
