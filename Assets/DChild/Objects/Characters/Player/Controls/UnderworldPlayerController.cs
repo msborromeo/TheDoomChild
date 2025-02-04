@@ -183,7 +183,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //action handles
             m_inputReader.Vector2InputPerformedEvent += OnVector2PerformedInput;
             m_inputReader.Vector2CancelledInputEvent += OnVector2CancelledInput;
-            m_inputReader.JumpPerformedEvent += OnJumpInput;
+            m_inputReader.JumpPerformedEvent += OnJumpPerformedInput;
             m_inputReader.JumpCancelledEvent += OnJumpCancelledInput;
             m_inputReader.JumpStartedEvent += OnJumpStartedInput;
             m_inputReader.PauseStartedEvent += OnPauseInput;
@@ -208,7 +208,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //action handles
             m_inputReader.Vector2InputPerformedEvent += OnVector2PerformedInput;
             m_inputReader.Vector2CancelledInputEvent += OnVector2CancelledInput;
-            m_inputReader.JumpPerformedEvent -= OnJumpInput;
+            m_inputReader.JumpPerformedEvent -= OnJumpPerformedInput;
             m_inputReader.JumpCancelledEvent -= OnJumpCancelledInput;
             m_inputReader.JumpStartedEvent -= OnJumpStartedInput;
             m_inputReader.PauseStartedEvent -= OnPauseInput;
@@ -481,6 +481,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 WallStickMovementAction();
                 return;
+            } if(m_state.isHighJumping)
+            {
+                if (m_rigidbody.velocity.y <= (m_groundJump?.highJumpCutoffThreshold ?? 0f))
+                {
+                    m_groundJump?.EndExecution();
+                }
+                m_groundJump?.HandleCutoffTimer();
             }
 
             MoveAction();
@@ -573,9 +580,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnJumpCancelledInput()
         {
-            if (m_rigidbody.velocity.y <= (m_groundJump?.highJumpCutoffThreshold ?? 0f))
+            if (m_state.isHighJumping)
             {
-                m_groundJump?.EndExecution();
+                if(m_groundJump?.CanCutoffJump() ?? true)
+                {
+                    m_groundJump?.CutOffJump();
+                }
             }
         }
 
@@ -599,10 +609,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             m_activeDash?.Cancel();
                         }
                         m_activeSlide?.Cancel();
-                        m_movement?.SwitchConfigTo(Movement.Type.MidAir);
                         m_groundedness?.ChangeValue(false);
                         m_groundJump?.Execute();
                         m_groundJump?.HandleCutoffTimer();
+                        m_movement?.SwitchConfigTo(Movement.Type.MidAir);
                     }
                 }
             }
@@ -618,7 +628,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             {
                                 m_devilWings?.Cancel();
                             }
-
+                            
                             m_extraJump?.Execute();
                         }
                     }
@@ -629,6 +639,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     if (m_skills.IsModuleActive(PrimarySkill.WallMovement))
                     {
+                        if (m_state.canWallCrawl)
+                        {
+                            m_wallMovement?.Cancel();
+                        }
                         m_wallStick?.Cancel();
                         m_wallMovement?.Cancel();
                         FlipCharacter();
@@ -638,16 +652,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
         }
 
-        private void OnJumpInput()
+        private void OnJumpPerformedInput()
         {
-            if (m_state.isHighJumping)
-            {
-                if (m_rigidbody.velocity.y <= (m_groundJump?.highJumpCutoffThreshold ?? 0f))
-                {
-                    m_groundJump?.EndExecution();
-                }
-                m_groundJump?.HandleCutoffTimer();
-            }
+
         }
 
         private void OnLevitateStartedInput()
