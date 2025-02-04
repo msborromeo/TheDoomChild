@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class KeyBinder :MonoBehaviour
 {
-    //private PlayerControls.GameplayActions Bindings;
+    private PlayerControls.GameplayActions Bindings;
 
     private void Start()
     {
