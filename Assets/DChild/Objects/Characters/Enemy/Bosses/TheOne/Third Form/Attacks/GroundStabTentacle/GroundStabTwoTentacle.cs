@@ -14,6 +14,8 @@ public class GroundStabTwoTentacle : PoolableObject
     public bool isOnPlayableGround = false;
 
     [SerializeField]
+    private GameObject[] m_multipleGroundStabAnimations;
+    [SerializeField]
     private GameObject[] m_multipleGroundStabWithPattern;
     [SerializeField]
     private GameObject[] m_multipleGroundStabWithPatternAncticipation;
@@ -87,6 +89,15 @@ public class GroundStabTwoTentacle : PoolableObject
     {
        // RemoveSafeZones();
         m_hitbox.enabled = false;
+        for (int i = 0; i < m_multipleGroundStabAnimations.Length; i++)
+        {
+            if (m_multipleGroundStabAnimations[i].activeInHierarchy == true)
+            {
+                m_multipleGroundStabAnimations[i].GetComponent<TentacleGroundSpikeAnimations>().StartRetractAnimation();
+            }
+           
+        }
+        yield return new WaitForSeconds(1f);
         for (int i = 0; i < m_multipleGroundStabWithPattern.Length; i++)
         {
             m_multipleGroundStabWithPattern[i].SetActive(false);
