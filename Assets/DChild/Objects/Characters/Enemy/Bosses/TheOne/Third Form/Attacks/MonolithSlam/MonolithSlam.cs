@@ -11,6 +11,20 @@ namespace DChild.Gameplay.Characters.Enemies
     {
         [SerializeField, TabGroup("Reference")]
         protected SpineRootAnimation m_animation;
+
+        [SerializeField, TabGroup("Reference")]
+        private SpineEventListener m_spineLister;
+        [SerializeField, TabGroup("Reference")]
+        private Transform m_positionDestroyFX;
+        [SerializeField, TabGroup("FX ni ha bilatibay")]
+        private ParticleFX m_impactFX;
+        [SerializeField, TabGroup("FX ni ha bilatibay")]
+        private GameObject m_impactFXGO;
+
+        [SerializeField, SpineEvent, TabGroup("Animation Events ni ha bilatibay")]
+        private string m_AboAngBataan;
+        [SerializeField, SpineEvent, TabGroup("Animation Events ni ha bilatibay")]
+        private string m_WasakAngBataan;
         [SerializeField]
         private SkeletonAnimation m_skeletonAnimation;
         [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
@@ -34,7 +48,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private RaySensor m_playerSensor;
         [SerializeField]
         private bool m_playerHit;
-
+        private Coroutine myCoroutine;
         private bool m_smashMonolith;
         public bool removeMonolithOnGround;
         public bool keepMonolith;
@@ -43,44 +57,87 @@ namespace DChild.Gameplay.Characters.Enemies
         // Start is called before the first frame update
         void Start()
         {
-            m_impactCollider.enabled = true;
+            enabled = true; 
             m_obstacleCollider.enabled = false;
             m_smashMonolith = false;
             keepMonolith = false;
             m_playerHit = false;
             m_playerSensor.enabled = false;
+           // StartCoroutine(EmergeTentacle());
+            m_spineLister.Subscribe(m_WasakAngBataan, DestroyFX);
+            m_spineLister.Subscribe(m_AboAngBataan, OffImpactCollider);
+            gameObject.SetActive(false);
+
+        }
+        public void EmergeRoutine()
+        {
             StartCoroutine(EmergeTentacle());
         }
-
+        private void OnEnable()
+        {
+           
+        }
+        private void OnDisable()
+        {
+            StopAllCoroutines();
+        }
         // Update is called once per frame
         void Update()
         {
-            if (m_smashMonolith)
-            {
-                StartCoroutine(Smash());
-                m_smashMonolith = false;
-            }
+            #region BraindeadCode
+            //if (m_smashMonolith)
+            //{
+            //    StartCoroutine(Smash());
+            //    m_smashMonolith = false;
+            //}
 
-            if (!monolithGrounded)
-            {
-                if (keepMonolith)
-                {
-                    if (m_playerSensor.isDetecting)
-                    {
-                        m_playerHit = true;
-                    }
+            //if (!monolithGrounded)
+            //{
+            //    if (keepMonolith)
+            //    {
+            //        if (m_playerSensor.isDetecting)
+            //        {
+            //            m_playerHit = true;
+            //        }
 
-                    if (m_playerHit)
-                    {
-                        StartCoroutine(DestroyMonolith());
-                    }
-                }
-            }            
+            //        if (m_playerHit)
+            //        {
+            //            StartCoroutine(DestroyMonolith());
+            //        }
+            //    }
+            //}            
+            #endregion
+
         }
 
-        private IEnumerator EmergeTentacle()
+
+
+        private void DestroyFX()
+        {
+            m_impactFX.Play();
+           
+            Debug.Log("WEWEEWEW");
+        }
+        public void OffImpactCollider()
+        {
+           // m_impactCollider.enabled = false;
+           // m_obstacleCollider.enabled = true;
+        }
+        public void RemoveTentacle()
+        {
+            StopAllCoroutines();
+            gameObject.SetActive(false);
+        }
+        public void SpawnShatterFX()
+        {
+            var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_impactFXGO, gameObject.scene);
+            instance.SpawnAt(new Vector2(transform.position.x, transform.position.y + 10f), Quaternion.identity);
+            instance.GetComponent<ParticleFX>().Play();
+        }
+        public IEnumerator EmergeTentacle()
         {
             m_impactCollider.enabled = false;
+            m_obstacleCollider.enabled = false;
             m_animation.SetAnimation(0, m_emergeAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_emergeAnimation);
             yield return AnticipationLoop();
@@ -104,36 +161,35 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator DoAttackWithMonolithPersist()
         {
+            m_impactCollider.enabled = true;
             m_animation.SetAnimation(0, m_attackPlatformAftermathAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_attackPlatformAftermathAnimation);
-
-            //FindObjectOfType<ObstacleChecker>().RemoveMonolithAtIndex(0);
-
-            m_impactCollider.enabled = false;
-            m_obstacleCollider.enabled = true;
+            //FindObjectOfType<ObstacleChecker>().RemoveMonolithAtIndex(0);       
             m_animation.SetAnimation(0, m_platformPersistAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_platformPersistAnimation);
-
+            m_impactCollider.enabled = false;
+            m_obstacleCollider.enabled = true;
             monolithGrounded = true;     
         }
 
         private IEnumerator DoAttackWithoutMonolithPersist()
         {
+            m_impactCollider.enabled = true;
             m_animation.SetAnimation(0, m_attackDestroyAftermathAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_attackDestroyAftermathAnimation);
-
-            yield return DestroyMonolith();
+            m_impactCollider.enabled = false;
+            m_obstacleCollider.enabled = false;
         }
 
         [Button]
-        private void AttackKeepMonolith()
+        public void AttackKeepMonolith()
         {
             Debug.Log("KEPT MONOLITH");
             StartCoroutine(DoAttackWithMonolithPersist());
         }
 
         [Button]
-        private void AttackDestroyMonolith()
+        public void AttackDestroyMonolith()
         {
             Debug.Log("Destroy MONOLITH");
             StartCoroutine(DoAttackWithoutMonolithPersist());
