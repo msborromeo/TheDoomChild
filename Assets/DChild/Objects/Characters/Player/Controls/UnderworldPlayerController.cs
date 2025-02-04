@@ -193,6 +193,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.LevitatePerformedEvent += OnLevitateInput;
             m_inputReader.LevitateCancelledEvent += OnLevitateCancelledInput;
             m_inputReader.InteractStartedEvent += OnInteractInput;
+            m_inputReader.ShadowMorphStartedEvent += OnShadowMorphStartedInput;
 
         }
 
@@ -218,6 +219,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.LevitatePerformedEvent -= OnLevitateInput;
             m_inputReader.LevitateCancelledEvent -= OnLevitateCancelledInput;
             m_inputReader.InteractStartedEvent -= OnInteractInput;
+            m_inputReader.ShadowMorphStartedEvent -= OnShadowMorphStartedInput;
         }
 
         private void FixedUpdate()
@@ -760,6 +762,27 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 m_objectInteraction?.Interact();
                 return;
+            }
+        }
+
+        private void OnShadowMorphStartedInput()
+        {
+            if (m_skills.IsModuleActive(PrimarySkill.ShadowMorph))
+            {
+                m_idle?.Cancel();
+                m_movement?.Cancel();
+                m_objectManipulation?.Cancel();
+
+                if (m_state.isInShadowMode)
+                {
+                    m_shadowMorph.Cancel();
+                    m_shadowGaugeRegen?.Enable(true);
+                }
+                else
+                {
+                    m_shadowGaugeRegen?.Enable(false);
+                    m_shadowMorph.Execute();
+                }
             }
         }
 

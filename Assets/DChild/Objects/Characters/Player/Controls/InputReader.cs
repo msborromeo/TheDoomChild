@@ -42,6 +42,7 @@ namespace DChild.Inputs
         public event Action LevitateStartedEvent;
         public event Action LevitateCancelledEvent;
         public event Action InteractStartedEvent;
+        public event Action ShadowMorphStartedEvent;
         #endregion
         #region Overworld Input
         public event Action<Vector2> OverworldMovePerformedEvent;
@@ -207,7 +208,10 @@ namespace DChild.Inputs
         #region Primary Skills
         public void OnShadowMorph(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if(context.phase == InputActionPhase.Started)
+            {
+                ShadowMorphStartedEvent?.Invoke();
+            }
         }
 
         public void OnWhip(InputAction.CallbackContext context)
