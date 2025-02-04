@@ -2042,6 +2042,2643 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""GameplayActions"",
+            ""id"": ""c0d0a836-295c-4745-a009-e37dc7606f1f"",
+            ""actions"": [
+                {
+                    ""name"": ""HorizontalInput"",
+                    ""type"": ""Button"",
+                    ""id"": ""2cd55c2e-fe25-4aee-9942-091110b44104"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""VerticalInput"",
+                    ""type"": ""Button"",
+                    ""id"": ""d52867c6-8a0a-4ddf-8fa4-73ee5a013523"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""5525f16a-1346-46f3-8bc8-eaee281657ce"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""cca84d8d-6b14-4833-8c95-fff621090b7f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""52028278-f606-400a-aa92-f5549aff2a84"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slash"",
+                    ""type"": ""Button"",
+                    ""id"": ""33ed7e4f-0380-4502-a0b4-2634c1b6f922"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EarthShaker"",
+                    ""type"": ""Button"",
+                    ""id"": ""d0d5bcbb-7795-439a-b356-7359430845b8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SlashHeld"",
+                    ""type"": ""Button"",
+                    ""id"": ""a039bda6-8dc8-4d6c-9f2b-fea449c79a10"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SlashReleased"",
+                    ""type"": ""Button"",
+                    ""id"": ""38503c82-a636-4325-9610-6de9ecfb6087"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""d110ee97-371f-4d7a-9883-a43215d34334"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Levitate"",
+                    ""type"": ""Button"",
+                    ""id"": ""3a952181-05af-48bb-9e16-b7ccf7f1d021"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Whip"",
+                    ""type"": ""Button"",
+                    ""id"": ""f27c925a-f83c-491e-843a-4de830f9b501"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Grab"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce1db6de-d640-41dc-b9eb-09f323a7882e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ProjectileThrow"",
+                    ""type"": ""Button"",
+                    ""id"": ""c87d64d5-5cfc-4aeb-8d9d-a2bb0cb51d9d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""QuickItemUse"",
+                    ""type"": ""Button"",
+                    ""id"": ""41416bc2-bcf3-43b2-b042-60adf83783f7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""QuickItemCycle"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7327f8b-e35f-40e4-9b90-5d5e135950f3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""StoreOpen"",
+                    ""type"": ""Button"",
+                    ""id"": ""5365b5eb-6f72-4ae8-8d86-cae3258eb9c1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShadowMorph"",
+                    ""type"": ""Button"",
+                    ""id"": ""7680537b-f616-4ab4-bd74-8ef7c3798a82"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ControllerCursorHorizontalInput"",
+                    ""type"": ""Button"",
+                    ""id"": ""89631559-a817-4152-b1ad-1d4919bcaabb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ControllerCursorVerticalInput"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb61bb21-b1bf-40ad-815c-d6caf062238a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Block"",
+                    ""type"": ""Button"",
+                    ""id"": ""ea8ebbc4-3e9f-462d-bcc6-642a1746618b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""a8b6b591-acee-4c0d-8343-4c706f57fcfb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Store"",
+                    ""type"": ""Button"",
+                    ""id"": ""7cc4e8ba-8d6b-4950-ba16-aedc65f16b92"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseDelta"",
+                    ""type"": ""Value"",
+                    ""id"": ""4041002a-e137-4ade-a6bc-62c9f1f5cb0a"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""AirLungeSlash"",
+                    ""type"": ""Button"",
+                    ""id"": ""b559edd4-9531-49fe-9784-02993751941b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FireFist"",
+                    ""type"": ""Button"",
+                    ""id"": ""fb8bfddb-285b-432a-aea9-38e7120cb8f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ReaperHarvest"",
+                    ""type"": ""Button"",
+                    ""id"": ""a88f5786-08c4-4cb6-a60c-ff791a06805f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""KrakenRage"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d6d744c-dbfe-4a21-b7ed-4f183e6e1909"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FinalSlash"",
+                    ""type"": ""Button"",
+                    ""id"": ""a58a35e1-5fa8-4a9b-a858-e7e42c314a28"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FinalSlashHeld"",
+                    ""type"": ""Button"",
+                    ""id"": ""48ea0421-acfc-4674-82af-21b12a974f4e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FinalSlashReleased"",
+                    ""type"": ""Button"",
+                    ""id"": ""62f65d6d-8f2f-426d-9282-062d34ca2d2d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AirSlashCombo"",
+                    ""type"": ""Button"",
+                    ""id"": ""17827e27-02f2-45b5-846c-9f2a7ced37f0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SovereignImpale"",
+                    ""type"": ""Button"",
+                    ""id"": ""7ee9bc50-1bc6-410d-9ef3-d86e55af4493"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HellTrident"",
+                    ""type"": ""Button"",
+                    ""id"": ""0dcc0526-a84a-4002-a4d2-8a2678983c1c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FoolsVerdict"",
+                    ""type"": ""Button"",
+                    ""id"": ""3072aa06-c4f5-4006-a249-2478d65bc163"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SoulFireBlast"",
+                    ""type"": ""Button"",
+                    ""id"": ""43bfaf17-ed03-4468-8bbf-31605acefc7f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EdgedFury"",
+                    ""type"": ""Button"",
+                    ""id"": ""25ff7047-6ba8-400a-ace1-313be3a7584e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EdgedFuryReleased"",
+                    ""type"": ""Button"",
+                    ""id"": ""1c4b159a-1b84-4370-93a4-61a017cdc5f7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NinthCircleSanction"",
+                    ""type"": ""Button"",
+                    ""id"": ""c3b32fde-a4d0-4fce-b137-c0a6b742b017"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DoomsdayKong"",
+                    ""type"": ""Button"",
+                    ""id"": ""f1ab0c1b-e4b4-4a09-bc38-66127ac88d10"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BackDiver"",
+                    ""type"": ""Button"",
+                    ""id"": ""51254883-b8d8-4f62-86d5-12f3673d31bd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Barrier"",
+                    ""type"": ""Button"",
+                    ""id"": ""faba7af2-ade9-4f70-8fca-d9c0893ed5ad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BarrierHeld"",
+                    ""type"": ""Button"",
+                    ""id"": ""a767b883-95ca-409f-ba3b-b5533aa23952"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BarrierReleased"",
+                    ""type"": ""Button"",
+                    ""id"": ""e751b86b-3137-46f0-8598-b50a1c2bab1d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FencerFlash"",
+                    ""type"": ""Button"",
+                    ""id"": ""0b4f7757-aeb0-47af-b684-9be03c9df4d0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DiagonalSwordDash"",
+                    ""type"": ""Button"",
+                    ""id"": ""b01ad0f2-3e94-4dde-83fd-a49bdd5dcab8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChampionsUprising"",
+                    ""type"": ""Button"",
+                    ""id"": ""e3e8bdcb-a20c-4257-96b1-7f72d00f13dc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Eelecktrick"",
+                    ""type"": ""Button"",
+                    ""id"": ""8f820242-149f-4c07-ad8a-42574d8dfc3b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EelecktrickHeld"",
+                    ""type"": ""Button"",
+                    ""id"": ""b035c529-17c4-4a7a-99ca-9f1db9dd268e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EelecktrickReleased"",
+                    ""type"": ""Button"",
+                    ""id"": ""feb8bdad-8f3e-4a42-983a-1c4c4d1c28d8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LightningSpear"",
+                    ""type"": ""Button"",
+                    ""id"": ""d8854f22-a476-4f8c-9c6b-4074206422eb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LightningSpearHeld"",
+                    ""type"": ""Button"",
+                    ""id"": ""887fe6ef-887e-4ef9-b0c4-1a3c5c20f1a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LightningSpearReleased"",
+                    ""type"": ""Button"",
+                    ""id"": ""6e232b9a-95a9-447b-8e48-14ae7aa722ea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""IcarusWings"",
+                    ""type"": ""Button"",
+                    ""id"": ""2570d8dd-b2af-430e-8c28-dd46703739b5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TeleportingSkull"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb365954-a3aa-4a37-9e20-75331c67b22b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""PC"",
+                    ""id"": ""05bc358d-be3c-47c6-b660-ef9a7976c532"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""b53418a7-49b3-433f-97a2-f5fe18eca01a"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""433fd11a-ce57-46ad-ba26-9ada1ba7d11f"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""37236f95-a663-4b64-a9cb-e18659e15fa6"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""551dea0f-4325-42c0-8069-b343b3a79e28"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""d14c14be-3396-49e2-9fc1-6d210bab6c88"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""PS4"",
+                    ""id"": ""5971721d-5a9d-4ec0-ab67-9f471a54e511"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""bcfdf467-ebcb-45cc-8b00-48e9100b9c59"",
+                    ""path"": ""<DualShockGamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""93f18e6f-9039-472c-b3f1-96412d04dcc1"",
+                    ""path"": ""<DualShockGamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f33ca30d-9f98-4459-9700-76c7beedc3a7"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a0fe0a3-e498-4a1b-932c-250f682b78d6"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cb666120-ee8f-4163-a689-547cac08f857"",
+                    ""path"": ""<DualShockGamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85d1f4fb-9aa8-41ca-a6c0-ed32d5f81398"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac98544f-15cc-41b6-89e1-a3ca72018890"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c186804f-4cfc-4df3-bd0f-1d1a594d51a2"",
+                    ""path"": ""<DualShockGamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c6d28c1-b245-446d-bc0c-5f5dc100fb9a"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f59eb30c-479f-44ce-adf8-f957b63ab838"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be82f71f-8192-46a9-a04f-beb887f4e17b"",
+                    ""path"": ""<DualShockGamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""PC"",
+                    ""id"": ""0271b14b-9a95-427b-9259-3f798f18f1a6"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""c4c4c2d0-7350-464f-b16c-05c06706c89b"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""d4f89b4f-6c6a-4290-94a6-e06086599b69"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""f2e3656c-981b-4297-80fa-e5b39c5a330d"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""f5981cec-570d-4100-a1b3-1277ea240c0a"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""a3f56d9b-feb1-404f-916b-144357bde2c0"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""PS4"",
+                    ""id"": ""68ad8174-297e-4263-8d5b-8e2c2e130dd7"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""6a1bc8b7-adb6-4b06-b8dd-35e44f50a21d"",
+                    ""path"": ""<DualShockGamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""d6f92682-d22e-4950-b98c-39ed43839443"",
+                    ""path"": ""<DualShockGamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa057a75-cf2c-44f1-ae16-db41db5b3547"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Slash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76a5fe50-4405-4bef-a6fe-5f11acd935f7"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Slash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74c941e8-4f43-425b-837c-45fbade5a45d"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""Slash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""PC"",
+                    ""id"": ""805697c0-ac64-44a9-9f54-63d30344ea51"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EarthShaker"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""292540e1-0b97-4d24-8b1b-cbd05aaaaf59"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""EarthShaker"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""109d79de-92cc-4800-b461-91dc7d17a99a"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""EarthShaker"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""4b03d2a7-f26d-4bc7-80c3-7e5ba9758de5"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EarthShaker"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""095cee2a-59b7-402d-b943-337956adcb50"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""EarthShaker"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""6fd54c9b-da1e-49f6-9a88-cf8a077fe981"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""EarthShaker"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""PS4"",
+                    ""id"": ""5da9d51c-cf15-416c-88d0-965d0d4dbdc6"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EarthShaker"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""37ecb6a9-07e8-4ece-b25f-1e45328a3e95"",
+                    ""path"": ""<DualShockGamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""EarthShaker"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""2b548fea-5b98-41fb-883f-f27e043b9560"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""EarthShaker"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d90ca03-a33b-4450-ab74-5cd06327c579"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""SlashHeld"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e903ba96-b023-482a-a264-87bb22d4400c"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SlashHeld"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0f788fd-93ab-496b-be0c-1e4c3d479f2c"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""SlashHeld"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c4b3a037-1947-4fd6-bfae-856a60381cb1"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""de68421a-abae-4934-b37e-b5664d723874"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""060e48a6-6608-4e09-86d1-e6dffdaba4d5"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""SlashReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""134d50eb-8421-407d-8b81-5c5ccccf0a93"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SlashReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd1806ed-8da0-41e2-b246-482280d1f467"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""SlashReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1cd3f184-70c6-4887-bc72-3a9dd385aafc"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Levitate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e1bdd37-8e0c-46b2-9fac-1abea00ce092"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Levitate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6afcc75-7c26-4d09-9be8-0a9498eeca20"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Whip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""48175549-1631-438e-b9b7-ec011fa07c9e"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Whip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8eac59b9-abb3-42ef-82b6-792c1213c7c3"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7bdea358-281d-4c69-930b-1c2c0d200d4b"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ddca23b-8a06-478c-bf9c-bdb9270bb9b0"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ProjectileThrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""508d3080-6cd7-4769-bad1-db4c69d8d7d7"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ProjectileThrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""801ced71-0b6b-4944-9873-2234b31c7119"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""QuickItemUse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c06861d4-183f-46cb-9ff2-f44f133da8f3"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""QuickItemUse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""PC"",
+                    ""id"": ""ffe2cd5c-0317-45d4-bbc4-7c4982102eb0"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickItemCycle"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""774a96ef-18a6-4060-9400-fe5023cbdb93"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""QuickItemCycle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""ed1cbeb0-1e93-451a-a93b-79aa97dd1709"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""QuickItemCycle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""e9d76dfe-fbb8-4b9c-a90c-a1141730e688"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickItemCycle"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""22abe529-7d15-4195-b02d-c82ac13a73d4"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""QuickItemCycle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""40ca8a55-9999-4558-a60e-53356d86583c"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""QuickItemCycle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a6efcbe-0f13-49de-a987-ca7fb6fbc94b"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""StoreOpen"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""020987fe-d5aa-4487-ba6a-ea79d5c85378"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""StoreOpen"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""910cce8c-02f4-4850-af33-77fd2bcef5e5"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ShadowMorph"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""04e57864-9843-4240-b37d-da65bb04718e"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShadowMorph"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""3423df5c-2c50-41c2-8b50-39add7395036"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ControllerCursorHorizontalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""58905c10-a25c-4e87-ad7c-9f7e3688371a"",
+                    ""path"": ""<XInputController>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ControllerCursorHorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""963e9840-a439-4b88-950e-427a6acf5ae3"",
+                    ""path"": ""<XInputController>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ControllerCursorHorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""6872da26-1589-4f1f-9213-f49134d564fe"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ControllerCursorHorizontalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""191d5d96-45a6-4f23-969c-56a8099c542e"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ControllerCursorHorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""83e307c6-f36c-42f2-bc38-d204be5f6c8c"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ControllerCursorHorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""9845eb70-28f3-4ee7-93ee-7207f54f13d9"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ControllerCursorVerticalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""c56c1e94-9487-4e91-a526-ad2535003898"",
+                    ""path"": ""<XInputController>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ControllerCursorVerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""bfff5cd5-7cec-418c-84b1-a16b7659602a"",
+                    ""path"": ""<XInputController>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ControllerCursorVerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""28cc9ea7-9ece-49b9-9849-5c540cf472a7"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ControllerCursorVerticalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""e45efed2-25b8-4901-be48-ea44cab270ca"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ControllerCursorVerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""0e723e38-49bf-4df0-985a-f3e8e9791df9"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ControllerCursorVerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d38f4fe7-ff42-42b1-a5f8-f070130e0b44"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b8a352cc-31cf-43b6-8976-03a7400ad6bc"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb51e1e8-ee1e-444e-80a4-12ec037e6e6a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e402065f-ddd5-4c85-8c7d-2ab779e0e99c"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e75f42a-c200-4eaa-8cf7-310f49145cec"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Store"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5ac9854-c8cc-412d-bf6f-63de078b471c"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Store"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f746ea1-fe44-4d36-b367-1d561deedf36"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""c5379e3e-7e13-4ad0-9650-8751c2bf258c"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirLungeSlash"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""1f21f723-aba7-4b71-9368-b0d9c2c48a6f"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""AirLungeSlash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""3780a118-8ce1-42e4-852d-712a84790c98"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""AirLungeSlash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""1b323667-18dd-4fdf-be06-6e2b3a2209f0"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""AirLungeSlash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""3a108bd8-85d6-4088-84f8-89d0ed3b55c8"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FireFist"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""046e94d2-61ec-44dd-bee1-808959a9891e"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FireFist"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""37e058f1-78a0-4094-9f82-a0164b34f987"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FireFist"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""b251a9ee-9da6-4947-b8d9-8c3bbb24ee5a"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FireFist"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""c3077759-f7aa-4c75-a34f-5c3a25a8b815"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReaperHarvest"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""ff6d8846-f9ac-49af-bf59-39c738ba4b9d"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ReaperHarvest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""3a27e1d3-f484-4d2f-877b-057a59e6dd58"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ReaperHarvest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""af211c45-5e59-4309-8c21-f5860762ff9e"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ReaperHarvest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""d7744c74-8bf9-4525-af84-5f30f9a55924"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReaperHarvest"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""6e7df0e7-3e94-4ac2-bc3e-7c76e7e8215f"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ReaperHarvest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""8b319e4e-6af5-4a7b-9863-657b87399443"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ReaperHarvest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""2f5bc31a-b241-4541-b236-cd02b3067e0f"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ReaperHarvest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""e7624f04-0fa8-46e9-9bfe-b173e657dc7f"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KrakenRage"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""5a26926b-4df9-42f7-83cc-4ca9acbbb574"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""KrakenRage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""65681462-b1d2-4e9f-a5ff-f26a4e023f60"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""KrakenRage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""f089a6c2-ac00-4614-820f-e40e507a326f"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""KrakenRage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""e83ab43a-be41-41a2-a5c9-11cc2a27d83d"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FinalSlash"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""0c154386-bc50-4044-a4a4-6506af2197d1"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FinalSlash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""c2329353-40c2-4b3a-b608-57ae66c43d91"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FinalSlash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""9a6b98d5-04d8-443a-be7b-a46e6c616b78"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": ""Hold(duration=0.1,pressPoint=0.1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FinalSlashHeld"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""2f998d4e-8fd0-4a43-93f2-8809f4aa4a68"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FinalSlashHeld"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""a9f492e6-4609-42df-ba32-7dab86704dc0"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FinalSlashHeld"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""3859f245-bb3d-4b71-88aa-7dbc5db3f0d2"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirSlashCombo"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""277500ae-accc-4308-91b1-8ac06d9ee723"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""AirSlashCombo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""9ba9bdee-51c5-4a01-b501-b70aef7d904c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""AirSlashCombo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""5d94b827-46bb-4640-a9eb-1dbac8eaf21e"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SovereignImpale"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""81b4f423-b224-401f-a69d-c1d5863a0a73"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""SovereignImpale"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""ff56fea2-93e5-4919-8df8-e85dd25da7f9"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""SovereignImpale"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""d9eae219-afba-4cea-87c4-14b6ce832eef"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""SovereignImpale"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Two Modifier 1"",
+                    ""id"": ""cd276a3b-3d86-443e-8eb4-14b7adffff97"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HellTrident"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""7d13df91-904f-4f77-9e10-c295d7648521"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""HellTrident"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""4f1206e3-8b83-4b73-b9d6-7732636984d3"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""HellTrident"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""edade57c-ccb9-4897-940a-490cb0ad0777"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""HellTrident"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Two Modifier 2"",
+                    ""id"": ""10ccc4b2-b322-46a9-8493-0a673cdaed23"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HellTrident"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""3340f898-b264-4f0b-8c88-49fe99476818"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""HellTrident"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""c0ed6566-4855-431c-bf4c-73923875dbfa"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""HellTrident"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""0d65b3b7-4870-4273-96c8-288c55df27d2"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""HellTrident"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""e8e61042-5ec3-4922-9e82-d7cbc60339cb"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FoolsVerdict"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""7e3bf885-9d0a-496a-8980-372180e24665"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FoolsVerdict"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""36d05da6-47ea-4fda-894b-f8faffb72480"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FoolsVerdict"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""2fea1a94-3bd5-4178-ae6b-bbf1041a68c9"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FoolsVerdict"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""14670138-3863-470d-95bd-b4d09147ace6"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SoulFireBlast"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""3c4400ef-7857-4be7-b171-4bfd577a4a47"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""SoulFireBlast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""49e0401f-c7bc-4705-8003-be9f96a2fb99"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""SoulFireBlast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""1b9b8f45-0c54-4b38-b5e0-32bdd1eb5cef"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EdgedFury"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""d55b0d1a-82a2-4f0b-9f2b-e1a8d5d978bd"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""EdgedFury"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""efeccc23-c1cd-4055-89e5-001d95d8efdd"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""EdgedFury"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""ff10c298-9213-4338-9401-febd08fee072"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EdgedFuryReleased"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""ba0963f3-71c6-4a6c-bc68-4205980fd91c"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""EdgedFuryReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""1e279d33-db3f-49f1-a08e-60d63535372e"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""EdgedFuryReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""06296960-b096-4fd6-8c96-e817ebc84833"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NinthCircleSanction"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""ddacb092-42e4-410b-bed0-ae1f121f8592"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""NinthCircleSanction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""e929f921-b342-4a62-8623-9212fb5d20aa"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""NinthCircleSanction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""573c5049-2bde-4b19-b4c8-3ca0b3015516"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""NinthCircleSanction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""914861c9-9146-43b4-8429-786abbd55440"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""DoomsdayKong"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""88eaf79e-7374-4d18-8cf8-bece532aaa9e"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BackDiver"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""1a94119b-f8bc-4693-b765-cabe7309c290"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""BackDiver"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""598d4863-6e34-4b67-ac09-7b0601d472b3"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""BackDiver"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""f6d927d1-9b88-4bd2-9a66-990977b51455"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""BackDiver"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""0a4e9b9a-c15a-44ff-9aa1-5555f4ce498f"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": ""Press(pressPoint=0.1,behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BarrierReleased"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""9f933f78-9005-4036-b986-8858c60862ea"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""BarrierReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""2185e81e-17b0-4de8-b853-62dfc7b9cdee"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""BarrierReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""18f7d935-6621-456c-b6bb-448dbe72dc49"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": ""Press(pressPoint=0.1,behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BarrierReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41864abb-4578-4637-9965-aeb912db3d50"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Barrier"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""587ca9f5-fd5b-4dda-95fe-2008281c2923"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FencerFlash"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""0757392c-00a3-4d8e-9c07-5207fc2218ff"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FencerFlash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""d349e9a2-63c8-4b2e-943c-6be36c0ef276"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FencerFlash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""b1a6db35-75b0-44e5-b241-aa1805b4a431"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FencerFlash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""7d5474a8-d6eb-4bb9-a844-9461ee311ff8"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FencerFlash"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""f5422411-9fac-4997-9d53-f0c651c07268"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FencerFlash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""35041cf2-93d9-4ecd-8e1a-2f7c8d2febfd"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FencerFlash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""c3c89c21-1810-425d-bde5-5b2b216fb924"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FencerFlash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""caa0d262-daa8-4e90-869c-c9eb17160a66"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DiagonalSwordDash"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""8bd283bb-e10e-4e4d-b4f2-1a71f768cccf"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""DiagonalSwordDash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""1762d8eb-b416-46a1-b5e3-0466b5f399dd"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""DiagonalSwordDash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""b03188cb-b26d-4656-84df-9e21cd625106"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""DiagonalSwordDash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""0e6eabf3-740d-4374-a544-929f9c59159c"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChampionsUprising"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""1f3d3c61-3f12-4405-8a02-d9965e4f9ce2"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ChampionsUprising"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""58b2eef4-f24a-47ca-94fa-98b31c29a7cb"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ChampionsUprising"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ed407bbd-1cdc-4430-9be8-2b8452cab95e"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Eelecktrick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a01f68c7-99fb-48ef-a92a-3391b3ab7577"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": ""Press(pressPoint=0.1,behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""EelecktrickReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""39aa2189-4c38-46d2-910c-af00b389fba0"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LightningSpear"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""af27b53d-40d6-4803-916f-c774860e25c9"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""LightningSpear"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""c288804e-20a2-4269-8781-f3eb2fe5f442"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""LightningSpear"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""3b14c678-41ba-494b-9278-1b57af241253"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""LightningSpear"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""0d184744-fceb-4653-a5b1-f92b9fa55497"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": ""Press(pressPoint=0.1,behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LightningSpearReleased"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""ab907c40-6d47-4c4c-8c9f-4c16f82c784a"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""LightningSpearReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""2fad8cb9-6a5f-42d5-a585-013a22a7213b"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""LightningSpearReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""07679d3b-04ff-4cd8-9b14-c209f0613eba"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""LightningSpearReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""ea5728bb-a04c-46fb-bc1c-c91b9c6836bc"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": ""Press(pressPoint=0.1,behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FinalSlashReleased"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""7365be30-4c95-4ddc-a9a0-972ccb5ff842"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FinalSlashReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""4bf57983-c0d8-427c-ad10-62775e95525d"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""FinalSlashReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f93179ea-cb60-4d68-8c13-a424d90846e1"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": ""Hold(duration=0.1,pressPoint=0.1)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""EelecktrickHeld"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""ead2b3fe-6b96-4e22-a681-3c822ea4d315"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": ""Hold(duration=0.1,pressPoint=0.1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LightningSpearHeld"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""58491094-73a0-43ae-bd5e-9b1aef0d5f60"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""LightningSpearHeld"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""6b7bf947-b8ec-4fb8-9ee5-10e690c59126"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""LightningSpearHeld"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""e58d2ea3-d07a-4dbf-9ba2-f158a3715a05"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""LightningSpearHeld"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""229b2f7c-92f1-400d-924d-4f26ee436dd5"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""IcarusWings"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""6fa7348e-0f8b-416c-b46e-74b1fcfec9f9"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""IcarusWings"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""fa2f3da8-1477-46b4-8fe4-eb0ce98f3e4b"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""IcarusWings"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""6347c05a-683b-41df-9dcd-22f54e9e27ca"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TeleportingSkull"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""e776363d-a9db-4fb8-9a94-1a6806f493eb"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""TeleportingSkull"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""f06ba914-eb47-4236-aadd-a7b24bdb6f89"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""TeleportingSkull"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a6785e9-08df-4122-bbc5-7d34b9fad5c7"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": ""Hold(duration=0.1,pressPoint=0.1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BarrierHeld"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -2133,6 +4770,63 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_DebugCamera_Camera_Horizontal = m_DebugCamera.FindAction("Camera_Horizontal", throwIfNotFound: true);
         m_DebugCamera_Camera_Vertical = m_DebugCamera.FindAction("Camera_Vertical", throwIfNotFound: true);
         m_DebugCamera_Camera_Zoom = m_DebugCamera.FindAction("Camera_Zoom", throwIfNotFound: true);
+        // GameplayActions
+        m_GameplayActions = asset.FindActionMap("GameplayActions", throwIfNotFound: true);
+        m_GameplayActions_HorizontalInput = m_GameplayActions.FindAction("HorizontalInput", throwIfNotFound: true);
+        m_GameplayActions_VerticalInput = m_GameplayActions.FindAction("VerticalInput", throwIfNotFound: true);
+        m_GameplayActions_Crouch = m_GameplayActions.FindAction("Crouch", throwIfNotFound: true);
+        m_GameplayActions_Dash = m_GameplayActions.FindAction("Dash", throwIfNotFound: true);
+        m_GameplayActions_Jump = m_GameplayActions.FindAction("Jump", throwIfNotFound: true);
+        m_GameplayActions_Slash = m_GameplayActions.FindAction("Slash", throwIfNotFound: true);
+        m_GameplayActions_EarthShaker = m_GameplayActions.FindAction("EarthShaker", throwIfNotFound: true);
+        m_GameplayActions_SlashHeld = m_GameplayActions.FindAction("SlashHeld", throwIfNotFound: true);
+        m_GameplayActions_SlashReleased = m_GameplayActions.FindAction("SlashReleased", throwIfNotFound: true);
+        m_GameplayActions_Interact = m_GameplayActions.FindAction("Interact", throwIfNotFound: true);
+        m_GameplayActions_Levitate = m_GameplayActions.FindAction("Levitate", throwIfNotFound: true);
+        m_GameplayActions_Whip = m_GameplayActions.FindAction("Whip", throwIfNotFound: true);
+        m_GameplayActions_Grab = m_GameplayActions.FindAction("Grab", throwIfNotFound: true);
+        m_GameplayActions_ProjectileThrow = m_GameplayActions.FindAction("ProjectileThrow", throwIfNotFound: true);
+        m_GameplayActions_QuickItemUse = m_GameplayActions.FindAction("QuickItemUse", throwIfNotFound: true);
+        m_GameplayActions_QuickItemCycle = m_GameplayActions.FindAction("QuickItemCycle", throwIfNotFound: true);
+        m_GameplayActions_StoreOpen = m_GameplayActions.FindAction("StoreOpen", throwIfNotFound: true);
+        m_GameplayActions_ShadowMorph = m_GameplayActions.FindAction("ShadowMorph", throwIfNotFound: true);
+        m_GameplayActions_ControllerCursorHorizontalInput = m_GameplayActions.FindAction("ControllerCursorHorizontalInput", throwIfNotFound: true);
+        m_GameplayActions_ControllerCursorVerticalInput = m_GameplayActions.FindAction("ControllerCursorVerticalInput", throwIfNotFound: true);
+        m_GameplayActions_Block = m_GameplayActions.FindAction("Block", throwIfNotFound: true);
+        m_GameplayActions_Pause = m_GameplayActions.FindAction("Pause", throwIfNotFound: true);
+        m_GameplayActions_Store = m_GameplayActions.FindAction("Store", throwIfNotFound: true);
+        m_GameplayActions_MouseDelta = m_GameplayActions.FindAction("MouseDelta", throwIfNotFound: true);
+        m_GameplayActions_AirLungeSlash = m_GameplayActions.FindAction("AirLungeSlash", throwIfNotFound: true);
+        m_GameplayActions_FireFist = m_GameplayActions.FindAction("FireFist", throwIfNotFound: true);
+        m_GameplayActions_ReaperHarvest = m_GameplayActions.FindAction("ReaperHarvest", throwIfNotFound: true);
+        m_GameplayActions_KrakenRage = m_GameplayActions.FindAction("KrakenRage", throwIfNotFound: true);
+        m_GameplayActions_FinalSlash = m_GameplayActions.FindAction("FinalSlash", throwIfNotFound: true);
+        m_GameplayActions_FinalSlashHeld = m_GameplayActions.FindAction("FinalSlashHeld", throwIfNotFound: true);
+        m_GameplayActions_FinalSlashReleased = m_GameplayActions.FindAction("FinalSlashReleased", throwIfNotFound: true);
+        m_GameplayActions_AirSlashCombo = m_GameplayActions.FindAction("AirSlashCombo", throwIfNotFound: true);
+        m_GameplayActions_SovereignImpale = m_GameplayActions.FindAction("SovereignImpale", throwIfNotFound: true);
+        m_GameplayActions_HellTrident = m_GameplayActions.FindAction("HellTrident", throwIfNotFound: true);
+        m_GameplayActions_FoolsVerdict = m_GameplayActions.FindAction("FoolsVerdict", throwIfNotFound: true);
+        m_GameplayActions_SoulFireBlast = m_GameplayActions.FindAction("SoulFireBlast", throwIfNotFound: true);
+        m_GameplayActions_EdgedFury = m_GameplayActions.FindAction("EdgedFury", throwIfNotFound: true);
+        m_GameplayActions_EdgedFuryReleased = m_GameplayActions.FindAction("EdgedFuryReleased", throwIfNotFound: true);
+        m_GameplayActions_NinthCircleSanction = m_GameplayActions.FindAction("NinthCircleSanction", throwIfNotFound: true);
+        m_GameplayActions_DoomsdayKong = m_GameplayActions.FindAction("DoomsdayKong", throwIfNotFound: true);
+        m_GameplayActions_BackDiver = m_GameplayActions.FindAction("BackDiver", throwIfNotFound: true);
+        m_GameplayActions_Barrier = m_GameplayActions.FindAction("Barrier", throwIfNotFound: true);
+        m_GameplayActions_BarrierHeld = m_GameplayActions.FindAction("BarrierHeld", throwIfNotFound: true);
+        m_GameplayActions_BarrierReleased = m_GameplayActions.FindAction("BarrierReleased", throwIfNotFound: true);
+        m_GameplayActions_FencerFlash = m_GameplayActions.FindAction("FencerFlash", throwIfNotFound: true);
+        m_GameplayActions_DiagonalSwordDash = m_GameplayActions.FindAction("DiagonalSwordDash", throwIfNotFound: true);
+        m_GameplayActions_ChampionsUprising = m_GameplayActions.FindAction("ChampionsUprising", throwIfNotFound: true);
+        m_GameplayActions_Eelecktrick = m_GameplayActions.FindAction("Eelecktrick", throwIfNotFound: true);
+        m_GameplayActions_EelecktrickHeld = m_GameplayActions.FindAction("EelecktrickHeld", throwIfNotFound: true);
+        m_GameplayActions_EelecktrickReleased = m_GameplayActions.FindAction("EelecktrickReleased", throwIfNotFound: true);
+        m_GameplayActions_LightningSpear = m_GameplayActions.FindAction("LightningSpear", throwIfNotFound: true);
+        m_GameplayActions_LightningSpearHeld = m_GameplayActions.FindAction("LightningSpearHeld", throwIfNotFound: true);
+        m_GameplayActions_LightningSpearReleased = m_GameplayActions.FindAction("LightningSpearReleased", throwIfNotFound: true);
+        m_GameplayActions_IcarusWings = m_GameplayActions.FindAction("IcarusWings", throwIfNotFound: true);
+        m_GameplayActions_TeleportingSkull = m_GameplayActions.FindAction("TeleportingSkull", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -2665,6 +5359,471 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     }
     public DebugCameraActions @DebugCamera => new DebugCameraActions(this);
+
+    // GameplayActions
+    private readonly InputActionMap m_GameplayActions;
+    private IGameplayActionsActions m_GameplayActionsActionsCallbackInterface;
+    private readonly InputAction m_GameplayActions_HorizontalInput;
+    private readonly InputAction m_GameplayActions_VerticalInput;
+    private readonly InputAction m_GameplayActions_Crouch;
+    private readonly InputAction m_GameplayActions_Dash;
+    private readonly InputAction m_GameplayActions_Jump;
+    private readonly InputAction m_GameplayActions_Slash;
+    private readonly InputAction m_GameplayActions_EarthShaker;
+    private readonly InputAction m_GameplayActions_SlashHeld;
+    private readonly InputAction m_GameplayActions_SlashReleased;
+    private readonly InputAction m_GameplayActions_Interact;
+    private readonly InputAction m_GameplayActions_Levitate;
+    private readonly InputAction m_GameplayActions_Whip;
+    private readonly InputAction m_GameplayActions_Grab;
+    private readonly InputAction m_GameplayActions_ProjectileThrow;
+    private readonly InputAction m_GameplayActions_QuickItemUse;
+    private readonly InputAction m_GameplayActions_QuickItemCycle;
+    private readonly InputAction m_GameplayActions_StoreOpen;
+    private readonly InputAction m_GameplayActions_ShadowMorph;
+    private readonly InputAction m_GameplayActions_ControllerCursorHorizontalInput;
+    private readonly InputAction m_GameplayActions_ControllerCursorVerticalInput;
+    private readonly InputAction m_GameplayActions_Block;
+    private readonly InputAction m_GameplayActions_Pause;
+    private readonly InputAction m_GameplayActions_Store;
+    private readonly InputAction m_GameplayActions_MouseDelta;
+    private readonly InputAction m_GameplayActions_AirLungeSlash;
+    private readonly InputAction m_GameplayActions_FireFist;
+    private readonly InputAction m_GameplayActions_ReaperHarvest;
+    private readonly InputAction m_GameplayActions_KrakenRage;
+    private readonly InputAction m_GameplayActions_FinalSlash;
+    private readonly InputAction m_GameplayActions_FinalSlashHeld;
+    private readonly InputAction m_GameplayActions_FinalSlashReleased;
+    private readonly InputAction m_GameplayActions_AirSlashCombo;
+    private readonly InputAction m_GameplayActions_SovereignImpale;
+    private readonly InputAction m_GameplayActions_HellTrident;
+    private readonly InputAction m_GameplayActions_FoolsVerdict;
+    private readonly InputAction m_GameplayActions_SoulFireBlast;
+    private readonly InputAction m_GameplayActions_EdgedFury;
+    private readonly InputAction m_GameplayActions_EdgedFuryReleased;
+    private readonly InputAction m_GameplayActions_NinthCircleSanction;
+    private readonly InputAction m_GameplayActions_DoomsdayKong;
+    private readonly InputAction m_GameplayActions_BackDiver;
+    private readonly InputAction m_GameplayActions_Barrier;
+    private readonly InputAction m_GameplayActions_BarrierHeld;
+    private readonly InputAction m_GameplayActions_BarrierReleased;
+    private readonly InputAction m_GameplayActions_FencerFlash;
+    private readonly InputAction m_GameplayActions_DiagonalSwordDash;
+    private readonly InputAction m_GameplayActions_ChampionsUprising;
+    private readonly InputAction m_GameplayActions_Eelecktrick;
+    private readonly InputAction m_GameplayActions_EelecktrickHeld;
+    private readonly InputAction m_GameplayActions_EelecktrickReleased;
+    private readonly InputAction m_GameplayActions_LightningSpear;
+    private readonly InputAction m_GameplayActions_LightningSpearHeld;
+    private readonly InputAction m_GameplayActions_LightningSpearReleased;
+    private readonly InputAction m_GameplayActions_IcarusWings;
+    private readonly InputAction m_GameplayActions_TeleportingSkull;
+    public struct GameplayActionsActions
+    {
+        private @PlayerControls m_Wrapper;
+        public GameplayActionsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @HorizontalInput => m_Wrapper.m_GameplayActions_HorizontalInput;
+        public InputAction @VerticalInput => m_Wrapper.m_GameplayActions_VerticalInput;
+        public InputAction @Crouch => m_Wrapper.m_GameplayActions_Crouch;
+        public InputAction @Dash => m_Wrapper.m_GameplayActions_Dash;
+        public InputAction @Jump => m_Wrapper.m_GameplayActions_Jump;
+        public InputAction @Slash => m_Wrapper.m_GameplayActions_Slash;
+        public InputAction @EarthShaker => m_Wrapper.m_GameplayActions_EarthShaker;
+        public InputAction @SlashHeld => m_Wrapper.m_GameplayActions_SlashHeld;
+        public InputAction @SlashReleased => m_Wrapper.m_GameplayActions_SlashReleased;
+        public InputAction @Interact => m_Wrapper.m_GameplayActions_Interact;
+        public InputAction @Levitate => m_Wrapper.m_GameplayActions_Levitate;
+        public InputAction @Whip => m_Wrapper.m_GameplayActions_Whip;
+        public InputAction @Grab => m_Wrapper.m_GameplayActions_Grab;
+        public InputAction @ProjectileThrow => m_Wrapper.m_GameplayActions_ProjectileThrow;
+        public InputAction @QuickItemUse => m_Wrapper.m_GameplayActions_QuickItemUse;
+        public InputAction @QuickItemCycle => m_Wrapper.m_GameplayActions_QuickItemCycle;
+        public InputAction @StoreOpen => m_Wrapper.m_GameplayActions_StoreOpen;
+        public InputAction @ShadowMorph => m_Wrapper.m_GameplayActions_ShadowMorph;
+        public InputAction @ControllerCursorHorizontalInput => m_Wrapper.m_GameplayActions_ControllerCursorHorizontalInput;
+        public InputAction @ControllerCursorVerticalInput => m_Wrapper.m_GameplayActions_ControllerCursorVerticalInput;
+        public InputAction @Block => m_Wrapper.m_GameplayActions_Block;
+        public InputAction @Pause => m_Wrapper.m_GameplayActions_Pause;
+        public InputAction @Store => m_Wrapper.m_GameplayActions_Store;
+        public InputAction @MouseDelta => m_Wrapper.m_GameplayActions_MouseDelta;
+        public InputAction @AirLungeSlash => m_Wrapper.m_GameplayActions_AirLungeSlash;
+        public InputAction @FireFist => m_Wrapper.m_GameplayActions_FireFist;
+        public InputAction @ReaperHarvest => m_Wrapper.m_GameplayActions_ReaperHarvest;
+        public InputAction @KrakenRage => m_Wrapper.m_GameplayActions_KrakenRage;
+        public InputAction @FinalSlash => m_Wrapper.m_GameplayActions_FinalSlash;
+        public InputAction @FinalSlashHeld => m_Wrapper.m_GameplayActions_FinalSlashHeld;
+        public InputAction @FinalSlashReleased => m_Wrapper.m_GameplayActions_FinalSlashReleased;
+        public InputAction @AirSlashCombo => m_Wrapper.m_GameplayActions_AirSlashCombo;
+        public InputAction @SovereignImpale => m_Wrapper.m_GameplayActions_SovereignImpale;
+        public InputAction @HellTrident => m_Wrapper.m_GameplayActions_HellTrident;
+        public InputAction @FoolsVerdict => m_Wrapper.m_GameplayActions_FoolsVerdict;
+        public InputAction @SoulFireBlast => m_Wrapper.m_GameplayActions_SoulFireBlast;
+        public InputAction @EdgedFury => m_Wrapper.m_GameplayActions_EdgedFury;
+        public InputAction @EdgedFuryReleased => m_Wrapper.m_GameplayActions_EdgedFuryReleased;
+        public InputAction @NinthCircleSanction => m_Wrapper.m_GameplayActions_NinthCircleSanction;
+        public InputAction @DoomsdayKong => m_Wrapper.m_GameplayActions_DoomsdayKong;
+        public InputAction @BackDiver => m_Wrapper.m_GameplayActions_BackDiver;
+        public InputAction @Barrier => m_Wrapper.m_GameplayActions_Barrier;
+        public InputAction @BarrierHeld => m_Wrapper.m_GameplayActions_BarrierHeld;
+        public InputAction @BarrierReleased => m_Wrapper.m_GameplayActions_BarrierReleased;
+        public InputAction @FencerFlash => m_Wrapper.m_GameplayActions_FencerFlash;
+        public InputAction @DiagonalSwordDash => m_Wrapper.m_GameplayActions_DiagonalSwordDash;
+        public InputAction @ChampionsUprising => m_Wrapper.m_GameplayActions_ChampionsUprising;
+        public InputAction @Eelecktrick => m_Wrapper.m_GameplayActions_Eelecktrick;
+        public InputAction @EelecktrickHeld => m_Wrapper.m_GameplayActions_EelecktrickHeld;
+        public InputAction @EelecktrickReleased => m_Wrapper.m_GameplayActions_EelecktrickReleased;
+        public InputAction @LightningSpear => m_Wrapper.m_GameplayActions_LightningSpear;
+        public InputAction @LightningSpearHeld => m_Wrapper.m_GameplayActions_LightningSpearHeld;
+        public InputAction @LightningSpearReleased => m_Wrapper.m_GameplayActions_LightningSpearReleased;
+        public InputAction @IcarusWings => m_Wrapper.m_GameplayActions_IcarusWings;
+        public InputAction @TeleportingSkull => m_Wrapper.m_GameplayActions_TeleportingSkull;
+        public InputActionMap Get() { return m_Wrapper.m_GameplayActions; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GameplayActionsActions set) { return set.Get(); }
+        public void SetCallbacks(IGameplayActionsActions instance)
+        {
+            if (m_Wrapper.m_GameplayActionsActionsCallbackInterface != null)
+            {
+                @HorizontalInput.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnHorizontalInput;
+                @HorizontalInput.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnHorizontalInput;
+                @HorizontalInput.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnHorizontalInput;
+                @VerticalInput.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnVerticalInput;
+                @VerticalInput.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnVerticalInput;
+                @VerticalInput.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnVerticalInput;
+                @Crouch.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnCrouch;
+                @Crouch.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnCrouch;
+                @Crouch.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnCrouch;
+                @Dash.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnDash;
+                @Jump.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnJump;
+                @Slash.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSlash;
+                @Slash.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSlash;
+                @Slash.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSlash;
+                @EarthShaker.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEarthShaker;
+                @EarthShaker.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEarthShaker;
+                @EarthShaker.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEarthShaker;
+                @SlashHeld.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSlashHeld;
+                @SlashHeld.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSlashHeld;
+                @SlashHeld.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSlashHeld;
+                @SlashReleased.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSlashReleased;
+                @SlashReleased.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSlashReleased;
+                @SlashReleased.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSlashReleased;
+                @Interact.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnInteract;
+                @Levitate.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnLevitate;
+                @Levitate.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnLevitate;
+                @Levitate.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnLevitate;
+                @Whip.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnWhip;
+                @Whip.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnWhip;
+                @Whip.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnWhip;
+                @Grab.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnGrab;
+                @Grab.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnGrab;
+                @Grab.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnGrab;
+                @ProjectileThrow.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnProjectileThrow;
+                @ProjectileThrow.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnProjectileThrow;
+                @ProjectileThrow.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnProjectileThrow;
+                @QuickItemUse.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnQuickItemUse;
+                @QuickItemUse.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnQuickItemUse;
+                @QuickItemUse.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnQuickItemUse;
+                @QuickItemCycle.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnQuickItemCycle;
+                @QuickItemCycle.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnQuickItemCycle;
+                @QuickItemCycle.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnQuickItemCycle;
+                @StoreOpen.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnStoreOpen;
+                @StoreOpen.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnStoreOpen;
+                @StoreOpen.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnStoreOpen;
+                @ShadowMorph.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnShadowMorph;
+                @ShadowMorph.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnShadowMorph;
+                @ShadowMorph.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnShadowMorph;
+                @ControllerCursorHorizontalInput.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnControllerCursorHorizontalInput;
+                @ControllerCursorHorizontalInput.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnControllerCursorHorizontalInput;
+                @ControllerCursorHorizontalInput.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnControllerCursorHorizontalInput;
+                @ControllerCursorVerticalInput.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnControllerCursorVerticalInput;
+                @ControllerCursorVerticalInput.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnControllerCursorVerticalInput;
+                @ControllerCursorVerticalInput.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnControllerCursorVerticalInput;
+                @Block.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBlock;
+                @Block.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBlock;
+                @Block.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBlock;
+                @Pause.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnPause;
+                @Store.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnStore;
+                @Store.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnStore;
+                @Store.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnStore;
+                @MouseDelta.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnMouseDelta;
+                @MouseDelta.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnMouseDelta;
+                @MouseDelta.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnMouseDelta;
+                @AirLungeSlash.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnAirLungeSlash;
+                @AirLungeSlash.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnAirLungeSlash;
+                @AirLungeSlash.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnAirLungeSlash;
+                @FireFist.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFireFist;
+                @FireFist.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFireFist;
+                @FireFist.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFireFist;
+                @ReaperHarvest.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnReaperHarvest;
+                @ReaperHarvest.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnReaperHarvest;
+                @ReaperHarvest.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnReaperHarvest;
+                @KrakenRage.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnKrakenRage;
+                @KrakenRage.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnKrakenRage;
+                @KrakenRage.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnKrakenRage;
+                @FinalSlash.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFinalSlash;
+                @FinalSlash.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFinalSlash;
+                @FinalSlash.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFinalSlash;
+                @FinalSlashHeld.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFinalSlashHeld;
+                @FinalSlashHeld.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFinalSlashHeld;
+                @FinalSlashHeld.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFinalSlashHeld;
+                @FinalSlashReleased.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFinalSlashReleased;
+                @FinalSlashReleased.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFinalSlashReleased;
+                @FinalSlashReleased.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFinalSlashReleased;
+                @AirSlashCombo.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnAirSlashCombo;
+                @AirSlashCombo.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnAirSlashCombo;
+                @AirSlashCombo.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnAirSlashCombo;
+                @SovereignImpale.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSovereignImpale;
+                @SovereignImpale.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSovereignImpale;
+                @SovereignImpale.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSovereignImpale;
+                @HellTrident.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnHellTrident;
+                @HellTrident.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnHellTrident;
+                @HellTrident.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnHellTrident;
+                @FoolsVerdict.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFoolsVerdict;
+                @FoolsVerdict.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFoolsVerdict;
+                @FoolsVerdict.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFoolsVerdict;
+                @SoulFireBlast.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSoulFireBlast;
+                @SoulFireBlast.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSoulFireBlast;
+                @SoulFireBlast.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnSoulFireBlast;
+                @EdgedFury.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEdgedFury;
+                @EdgedFury.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEdgedFury;
+                @EdgedFury.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEdgedFury;
+                @EdgedFuryReleased.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEdgedFuryReleased;
+                @EdgedFuryReleased.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEdgedFuryReleased;
+                @EdgedFuryReleased.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEdgedFuryReleased;
+                @NinthCircleSanction.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnNinthCircleSanction;
+                @NinthCircleSanction.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnNinthCircleSanction;
+                @NinthCircleSanction.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnNinthCircleSanction;
+                @DoomsdayKong.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnDoomsdayKong;
+                @DoomsdayKong.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnDoomsdayKong;
+                @DoomsdayKong.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnDoomsdayKong;
+                @BackDiver.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBackDiver;
+                @BackDiver.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBackDiver;
+                @BackDiver.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBackDiver;
+                @Barrier.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBarrier;
+                @Barrier.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBarrier;
+                @Barrier.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBarrier;
+                @BarrierHeld.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBarrierHeld;
+                @BarrierHeld.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBarrierHeld;
+                @BarrierHeld.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBarrierHeld;
+                @BarrierReleased.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBarrierReleased;
+                @BarrierReleased.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBarrierReleased;
+                @BarrierReleased.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnBarrierReleased;
+                @FencerFlash.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFencerFlash;
+                @FencerFlash.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFencerFlash;
+                @FencerFlash.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnFencerFlash;
+                @DiagonalSwordDash.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnDiagonalSwordDash;
+                @DiagonalSwordDash.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnDiagonalSwordDash;
+                @DiagonalSwordDash.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnDiagonalSwordDash;
+                @ChampionsUprising.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnChampionsUprising;
+                @ChampionsUprising.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnChampionsUprising;
+                @ChampionsUprising.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnChampionsUprising;
+                @Eelecktrick.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEelecktrick;
+                @Eelecktrick.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEelecktrick;
+                @Eelecktrick.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEelecktrick;
+                @EelecktrickHeld.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEelecktrickHeld;
+                @EelecktrickHeld.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEelecktrickHeld;
+                @EelecktrickHeld.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEelecktrickHeld;
+                @EelecktrickReleased.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEelecktrickReleased;
+                @EelecktrickReleased.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEelecktrickReleased;
+                @EelecktrickReleased.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnEelecktrickReleased;
+                @LightningSpear.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnLightningSpear;
+                @LightningSpear.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnLightningSpear;
+                @LightningSpear.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnLightningSpear;
+                @LightningSpearHeld.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnLightningSpearHeld;
+                @LightningSpearHeld.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnLightningSpearHeld;
+                @LightningSpearHeld.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnLightningSpearHeld;
+                @LightningSpearReleased.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnLightningSpearReleased;
+                @LightningSpearReleased.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnLightningSpearReleased;
+                @LightningSpearReleased.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnLightningSpearReleased;
+                @IcarusWings.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnIcarusWings;
+                @IcarusWings.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnIcarusWings;
+                @IcarusWings.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnIcarusWings;
+                @TeleportingSkull.started -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnTeleportingSkull;
+                @TeleportingSkull.performed -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnTeleportingSkull;
+                @TeleportingSkull.canceled -= m_Wrapper.m_GameplayActionsActionsCallbackInterface.OnTeleportingSkull;
+            }
+            m_Wrapper.m_GameplayActionsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @HorizontalInput.started += instance.OnHorizontalInput;
+                @HorizontalInput.performed += instance.OnHorizontalInput;
+                @HorizontalInput.canceled += instance.OnHorizontalInput;
+                @VerticalInput.started += instance.OnVerticalInput;
+                @VerticalInput.performed += instance.OnVerticalInput;
+                @VerticalInput.canceled += instance.OnVerticalInput;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
+                @Slash.started += instance.OnSlash;
+                @Slash.performed += instance.OnSlash;
+                @Slash.canceled += instance.OnSlash;
+                @EarthShaker.started += instance.OnEarthShaker;
+                @EarthShaker.performed += instance.OnEarthShaker;
+                @EarthShaker.canceled += instance.OnEarthShaker;
+                @SlashHeld.started += instance.OnSlashHeld;
+                @SlashHeld.performed += instance.OnSlashHeld;
+                @SlashHeld.canceled += instance.OnSlashHeld;
+                @SlashReleased.started += instance.OnSlashReleased;
+                @SlashReleased.performed += instance.OnSlashReleased;
+                @SlashReleased.canceled += instance.OnSlashReleased;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+                @Levitate.started += instance.OnLevitate;
+                @Levitate.performed += instance.OnLevitate;
+                @Levitate.canceled += instance.OnLevitate;
+                @Whip.started += instance.OnWhip;
+                @Whip.performed += instance.OnWhip;
+                @Whip.canceled += instance.OnWhip;
+                @Grab.started += instance.OnGrab;
+                @Grab.performed += instance.OnGrab;
+                @Grab.canceled += instance.OnGrab;
+                @ProjectileThrow.started += instance.OnProjectileThrow;
+                @ProjectileThrow.performed += instance.OnProjectileThrow;
+                @ProjectileThrow.canceled += instance.OnProjectileThrow;
+                @QuickItemUse.started += instance.OnQuickItemUse;
+                @QuickItemUse.performed += instance.OnQuickItemUse;
+                @QuickItemUse.canceled += instance.OnQuickItemUse;
+                @QuickItemCycle.started += instance.OnQuickItemCycle;
+                @QuickItemCycle.performed += instance.OnQuickItemCycle;
+                @QuickItemCycle.canceled += instance.OnQuickItemCycle;
+                @StoreOpen.started += instance.OnStoreOpen;
+                @StoreOpen.performed += instance.OnStoreOpen;
+                @StoreOpen.canceled += instance.OnStoreOpen;
+                @ShadowMorph.started += instance.OnShadowMorph;
+                @ShadowMorph.performed += instance.OnShadowMorph;
+                @ShadowMorph.canceled += instance.OnShadowMorph;
+                @ControllerCursorHorizontalInput.started += instance.OnControllerCursorHorizontalInput;
+                @ControllerCursorHorizontalInput.performed += instance.OnControllerCursorHorizontalInput;
+                @ControllerCursorHorizontalInput.canceled += instance.OnControllerCursorHorizontalInput;
+                @ControllerCursorVerticalInput.started += instance.OnControllerCursorVerticalInput;
+                @ControllerCursorVerticalInput.performed += instance.OnControllerCursorVerticalInput;
+                @ControllerCursorVerticalInput.canceled += instance.OnControllerCursorVerticalInput;
+                @Block.started += instance.OnBlock;
+                @Block.performed += instance.OnBlock;
+                @Block.canceled += instance.OnBlock;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+                @Store.started += instance.OnStore;
+                @Store.performed += instance.OnStore;
+                @Store.canceled += instance.OnStore;
+                @MouseDelta.started += instance.OnMouseDelta;
+                @MouseDelta.performed += instance.OnMouseDelta;
+                @MouseDelta.canceled += instance.OnMouseDelta;
+                @AirLungeSlash.started += instance.OnAirLungeSlash;
+                @AirLungeSlash.performed += instance.OnAirLungeSlash;
+                @AirLungeSlash.canceled += instance.OnAirLungeSlash;
+                @FireFist.started += instance.OnFireFist;
+                @FireFist.performed += instance.OnFireFist;
+                @FireFist.canceled += instance.OnFireFist;
+                @ReaperHarvest.started += instance.OnReaperHarvest;
+                @ReaperHarvest.performed += instance.OnReaperHarvest;
+                @ReaperHarvest.canceled += instance.OnReaperHarvest;
+                @KrakenRage.started += instance.OnKrakenRage;
+                @KrakenRage.performed += instance.OnKrakenRage;
+                @KrakenRage.canceled += instance.OnKrakenRage;
+                @FinalSlash.started += instance.OnFinalSlash;
+                @FinalSlash.performed += instance.OnFinalSlash;
+                @FinalSlash.canceled += instance.OnFinalSlash;
+                @FinalSlashHeld.started += instance.OnFinalSlashHeld;
+                @FinalSlashHeld.performed += instance.OnFinalSlashHeld;
+                @FinalSlashHeld.canceled += instance.OnFinalSlashHeld;
+                @FinalSlashReleased.started += instance.OnFinalSlashReleased;
+                @FinalSlashReleased.performed += instance.OnFinalSlashReleased;
+                @FinalSlashReleased.canceled += instance.OnFinalSlashReleased;
+                @AirSlashCombo.started += instance.OnAirSlashCombo;
+                @AirSlashCombo.performed += instance.OnAirSlashCombo;
+                @AirSlashCombo.canceled += instance.OnAirSlashCombo;
+                @SovereignImpale.started += instance.OnSovereignImpale;
+                @SovereignImpale.performed += instance.OnSovereignImpale;
+                @SovereignImpale.canceled += instance.OnSovereignImpale;
+                @HellTrident.started += instance.OnHellTrident;
+                @HellTrident.performed += instance.OnHellTrident;
+                @HellTrident.canceled += instance.OnHellTrident;
+                @FoolsVerdict.started += instance.OnFoolsVerdict;
+                @FoolsVerdict.performed += instance.OnFoolsVerdict;
+                @FoolsVerdict.canceled += instance.OnFoolsVerdict;
+                @SoulFireBlast.started += instance.OnSoulFireBlast;
+                @SoulFireBlast.performed += instance.OnSoulFireBlast;
+                @SoulFireBlast.canceled += instance.OnSoulFireBlast;
+                @EdgedFury.started += instance.OnEdgedFury;
+                @EdgedFury.performed += instance.OnEdgedFury;
+                @EdgedFury.canceled += instance.OnEdgedFury;
+                @EdgedFuryReleased.started += instance.OnEdgedFuryReleased;
+                @EdgedFuryReleased.performed += instance.OnEdgedFuryReleased;
+                @EdgedFuryReleased.canceled += instance.OnEdgedFuryReleased;
+                @NinthCircleSanction.started += instance.OnNinthCircleSanction;
+                @NinthCircleSanction.performed += instance.OnNinthCircleSanction;
+                @NinthCircleSanction.canceled += instance.OnNinthCircleSanction;
+                @DoomsdayKong.started += instance.OnDoomsdayKong;
+                @DoomsdayKong.performed += instance.OnDoomsdayKong;
+                @DoomsdayKong.canceled += instance.OnDoomsdayKong;
+                @BackDiver.started += instance.OnBackDiver;
+                @BackDiver.performed += instance.OnBackDiver;
+                @BackDiver.canceled += instance.OnBackDiver;
+                @Barrier.started += instance.OnBarrier;
+                @Barrier.performed += instance.OnBarrier;
+                @Barrier.canceled += instance.OnBarrier;
+                @BarrierHeld.started += instance.OnBarrierHeld;
+                @BarrierHeld.performed += instance.OnBarrierHeld;
+                @BarrierHeld.canceled += instance.OnBarrierHeld;
+                @BarrierReleased.started += instance.OnBarrierReleased;
+                @BarrierReleased.performed += instance.OnBarrierReleased;
+                @BarrierReleased.canceled += instance.OnBarrierReleased;
+                @FencerFlash.started += instance.OnFencerFlash;
+                @FencerFlash.performed += instance.OnFencerFlash;
+                @FencerFlash.canceled += instance.OnFencerFlash;
+                @DiagonalSwordDash.started += instance.OnDiagonalSwordDash;
+                @DiagonalSwordDash.performed += instance.OnDiagonalSwordDash;
+                @DiagonalSwordDash.canceled += instance.OnDiagonalSwordDash;
+                @ChampionsUprising.started += instance.OnChampionsUprising;
+                @ChampionsUprising.performed += instance.OnChampionsUprising;
+                @ChampionsUprising.canceled += instance.OnChampionsUprising;
+                @Eelecktrick.started += instance.OnEelecktrick;
+                @Eelecktrick.performed += instance.OnEelecktrick;
+                @Eelecktrick.canceled += instance.OnEelecktrick;
+                @EelecktrickHeld.started += instance.OnEelecktrickHeld;
+                @EelecktrickHeld.performed += instance.OnEelecktrickHeld;
+                @EelecktrickHeld.canceled += instance.OnEelecktrickHeld;
+                @EelecktrickReleased.started += instance.OnEelecktrickReleased;
+                @EelecktrickReleased.performed += instance.OnEelecktrickReleased;
+                @EelecktrickReleased.canceled += instance.OnEelecktrickReleased;
+                @LightningSpear.started += instance.OnLightningSpear;
+                @LightningSpear.performed += instance.OnLightningSpear;
+                @LightningSpear.canceled += instance.OnLightningSpear;
+                @LightningSpearHeld.started += instance.OnLightningSpearHeld;
+                @LightningSpearHeld.performed += instance.OnLightningSpearHeld;
+                @LightningSpearHeld.canceled += instance.OnLightningSpearHeld;
+                @LightningSpearReleased.started += instance.OnLightningSpearReleased;
+                @LightningSpearReleased.performed += instance.OnLightningSpearReleased;
+                @LightningSpearReleased.canceled += instance.OnLightningSpearReleased;
+                @IcarusWings.started += instance.OnIcarusWings;
+                @IcarusWings.performed += instance.OnIcarusWings;
+                @IcarusWings.canceled += instance.OnIcarusWings;
+                @TeleportingSkull.started += instance.OnTeleportingSkull;
+                @TeleportingSkull.performed += instance.OnTeleportingSkull;
+                @TeleportingSkull.canceled += instance.OnTeleportingSkull;
+            }
+        }
+    }
+    public GameplayActionsActions @GameplayActions => new GameplayActionsActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -2750,5 +5909,63 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnCamera_Horizontal(InputAction.CallbackContext context);
         void OnCamera_Vertical(InputAction.CallbackContext context);
         void OnCamera_Zoom(InputAction.CallbackContext context);
+    }
+    public interface IGameplayActionsActions
+    {
+        void OnHorizontalInput(InputAction.CallbackContext context);
+        void OnVerticalInput(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
+        void OnSlash(InputAction.CallbackContext context);
+        void OnEarthShaker(InputAction.CallbackContext context);
+        void OnSlashHeld(InputAction.CallbackContext context);
+        void OnSlashReleased(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnLevitate(InputAction.CallbackContext context);
+        void OnWhip(InputAction.CallbackContext context);
+        void OnGrab(InputAction.CallbackContext context);
+        void OnProjectileThrow(InputAction.CallbackContext context);
+        void OnQuickItemUse(InputAction.CallbackContext context);
+        void OnQuickItemCycle(InputAction.CallbackContext context);
+        void OnStoreOpen(InputAction.CallbackContext context);
+        void OnShadowMorph(InputAction.CallbackContext context);
+        void OnControllerCursorHorizontalInput(InputAction.CallbackContext context);
+        void OnControllerCursorVerticalInput(InputAction.CallbackContext context);
+        void OnBlock(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
+        void OnStore(InputAction.CallbackContext context);
+        void OnMouseDelta(InputAction.CallbackContext context);
+        void OnAirLungeSlash(InputAction.CallbackContext context);
+        void OnFireFist(InputAction.CallbackContext context);
+        void OnReaperHarvest(InputAction.CallbackContext context);
+        void OnKrakenRage(InputAction.CallbackContext context);
+        void OnFinalSlash(InputAction.CallbackContext context);
+        void OnFinalSlashHeld(InputAction.CallbackContext context);
+        void OnFinalSlashReleased(InputAction.CallbackContext context);
+        void OnAirSlashCombo(InputAction.CallbackContext context);
+        void OnSovereignImpale(InputAction.CallbackContext context);
+        void OnHellTrident(InputAction.CallbackContext context);
+        void OnFoolsVerdict(InputAction.CallbackContext context);
+        void OnSoulFireBlast(InputAction.CallbackContext context);
+        void OnEdgedFury(InputAction.CallbackContext context);
+        void OnEdgedFuryReleased(InputAction.CallbackContext context);
+        void OnNinthCircleSanction(InputAction.CallbackContext context);
+        void OnDoomsdayKong(InputAction.CallbackContext context);
+        void OnBackDiver(InputAction.CallbackContext context);
+        void OnBarrier(InputAction.CallbackContext context);
+        void OnBarrierHeld(InputAction.CallbackContext context);
+        void OnBarrierReleased(InputAction.CallbackContext context);
+        void OnFencerFlash(InputAction.CallbackContext context);
+        void OnDiagonalSwordDash(InputAction.CallbackContext context);
+        void OnChampionsUprising(InputAction.CallbackContext context);
+        void OnEelecktrick(InputAction.CallbackContext context);
+        void OnEelecktrickHeld(InputAction.CallbackContext context);
+        void OnEelecktrickReleased(InputAction.CallbackContext context);
+        void OnLightningSpear(InputAction.CallbackContext context);
+        void OnLightningSpearHeld(InputAction.CallbackContext context);
+        void OnLightningSpearReleased(InputAction.CallbackContext context);
+        void OnIcarusWings(InputAction.CallbackContext context);
+        void OnTeleportingSkull(InputAction.CallbackContext context);
     }
 }
