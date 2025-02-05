@@ -483,7 +483,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 WallStickMovementAction();
                 return;
-            } 
+            }
+
             if(m_state.isHighJumping)
             {
                 if (m_rigidbody.velocity.y <= (m_groundJump?.highJumpCutoffThreshold ?? 0f))
@@ -607,17 +608,19 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                 if (m_skills.IsModuleActive(PlayerBehaviour.Jump))
                 {
-                    if (m_crouch?.IsThereNoCeiling() ?? true)
+                    if(m_state.isHighJumping == false)
                     {
-                        if (m_state.isDashing)
+                        if (m_crouch?.IsThereNoCeiling() ?? true)
                         {
-                            m_activeDash?.Cancel();
+                            if (m_state.isDashing)
+                            {
+                                m_activeDash?.Cancel();
+                            }
+                            m_activeSlide?.Cancel();
+                            m_groundedness?.ChangeValue(false);
+                            m_groundJump?.Execute();
+                            m_movement?.SwitchConfigTo(Movement.Type.MidAir);
                         }
-                        m_activeSlide?.Cancel();
-                        m_groundedness?.ChangeValue(false);
-                        m_groundJump?.Execute();
-                        m_groundJump?.HandleCutoffTimer();
-                        m_movement?.SwitchConfigTo(Movement.Type.MidAir);
                     }
                 }
             }
@@ -633,7 +636,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             {
                                 m_devilWings?.Cancel();
                             }
-                            
+
                             m_extraJump?.Execute();
                         }
                     }
@@ -659,7 +662,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnJumpPerformedInput()
         {
-
+            
         }
 
         private void OnLevitateStartedInput()
