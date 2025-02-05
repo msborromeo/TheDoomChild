@@ -14,6 +14,8 @@ namespace DChild.Gameplay.Characters.Enemies
     {
         [SerializeField, TabGroup("Reference")]
         protected SpineRootAnimation m_animation;
+        [SerializeField, TabGroup("Reference")]
+        private WallMouth m_wallMouth;
         [SerializeField]
         private SkeletonAnimation m_skeletonAnimation;
         [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
@@ -38,11 +40,13 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public IEnumerator ExecuteAttack()
         {
-           // AttackStart?.Invoke(this, EventActionArgs.Empty);
-            yield return GrowMouth();
-
+            // AttackStart?.Invoke(this, EventActionArgs.Empty);
+            //yield return GrowMouth();
+           // m_wallMouth.StartSkyTown();
+            yield return m_wallMouth.AttackSkyTown();
+           // yield return null;
            // AttackDone?.Invoke(this, EventActionArgs.Empty);
-            yield return null;
+            //yield return null;
         }
 
         public IEnumerator ExecuteAttack(Vector2 PlayerPosition)
@@ -94,7 +98,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void Start()
         {
-            m_animation.SetAnimation(0, m_waitForInitializeAnimation, false);
+            //m_animation.SetAnimation(0, m_waitForInitializeAnimation, false);
         }
     }
 }

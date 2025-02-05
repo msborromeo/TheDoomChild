@@ -33,10 +33,15 @@ namespace DChild.Gameplay.Characters.Enemies
             m_hitbox.enabled = false;
             StartCoroutine(WaitForInput());
         }
-
+        public IEnumerator ActualStartTentacle()
+        {
+            yield return Anticipation();
+            yield return new WaitForSeconds(2f);
+            yield return Retract();
+        }
         private IEnumerator Anticipation()
         {
-            m_animation.SetAnimation(0, m_anticipationLoopAnimation, false).TimeScale = chasingGroundTentacleAnimationSpeedMultiplier;
+            m_animation.SetAnimation(0, m_anticipationLoopAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_anticipationLoopAnimation);
             yield return Extended();
         }
@@ -65,7 +70,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public void ErectTentacle()
         {
-            StartCoroutine(Anticipation());
+            StartCoroutine(ActualStartTentacle());
         }
 
         public void RetractTentacle()
