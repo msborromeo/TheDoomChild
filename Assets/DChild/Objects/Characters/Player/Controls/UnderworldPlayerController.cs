@@ -495,6 +495,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
 
             MoveAction();
+            LevitateAction();
             LedgeGrabMovementAction();
 
             if (m_skills.IsModuleActive(PrimarySkill.WallMovement))
@@ -669,17 +670,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_skills.IsModuleActive(PrimarySkill.DevilWings))
             {
-                if (m_state.isInShadowMode == false)
+                if (m_devilWings.CanLevitate())
                 {
-                    if (m_state.isGrounded == false && m_devilWings.CanLevitate() && m_state.isLevitating == false)
+                    if(m_devilWings?.HaveEnoughSourceForExecution() ?? false)
                     {
                         if (m_state.isHighJumping)
                         {
                             m_groundJump?.CutOffJump();
                         }
-
-                        m_devilWings.EnableLevitate();
                         m_devilWings?.Execute();
+
                     }
                 }
             }
@@ -687,23 +687,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnLevitateInput()
         {
-            if (m_state.isLevitating)
-            {
-                m_devilWings?.MaintainHeight();
-                m_devilWings?.GiveMovementBoost();
-                m_devilWings?.ConsumeSource();
-                if (m_devilWings?.HaveEnoughSourceForMaintainingHeight() ?? true)
-                {
-                    m_devilWings?.Cancel();
-                }
-            }
-            else
-            {
-                if (m_devilWings?.HaveEnoughSourceForMaintainingHeight() ?? true)
-                {
-                    m_devilWings.EnableLevitate();
-                }
-            }
+            
         }
 
 
@@ -767,7 +751,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isGrounded)
             {
                 m_objectInteraction?.Interact();
-                return;
             }
         }
 
@@ -804,6 +787,20 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #endregion
 
         #region Action Functions
+        private void LevitateAction()
+        {
+            if (m_state.isLevitating)
+            {
+                m_devilWings?.EnableLevitate();
+                m_devilWings?.MaintainHeight();
+                m_devilWings?.GiveMovementBoost();
+                m_devilWings?.ConsumeSource();
+                if ((m_devilWings?.HaveEnoughSourceForMaintainingHeight() ?? true) == false)
+                {
+                    m_devilWings?.Cancel();
+                }
+            }
+        }
         private void WallStickMovementAction()
         {
             if (m_state.isStickingToWall)
@@ -951,16 +948,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             else if (m_state.isSliding)
             {
                 HandleSlide(m_vector2Input.x);
-            }
-            else if (m_state.isLevitating)
-            {
-                m_devilWings?.MaintainHeight();
-                m_devilWings?.GiveMovementBoost();
-                m_devilWings?.ConsumeSource();
-                if (m_devilWings?.HaveEnoughSourceForMaintainingHeight() ?? true)
-                {
-                    m_devilWings?.Cancel();
-                }
             }
             else if (m_state.isStickingToWall)
             {
