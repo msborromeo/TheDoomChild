@@ -9,7 +9,6 @@ namespace I2.Loc
 {
     public static partial class LocalizationManager
     {
-
         #region Variables: Misc
 
         public static List<LanguageSourceData> Sources = new List<LanguageSourceData>();
@@ -157,6 +156,5 @@ namespace I2.Loc
         }
 
         #endregion
-
     }
 }
