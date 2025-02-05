@@ -4,6 +4,7 @@ using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Combat.StatusAilment;
 using DChild.Gameplay.Environment;
 using DChild.Gameplay.Items;
+using DChild.Gameplay.Systems.Journal;
 using DChild.Menu.Bestiary;
 using System;
 using System.Globalization;
@@ -126,6 +127,26 @@ namespace DChild.Localization
                 return string.Empty;
 
             var id = soulSkill.id;
+            var idString = id.ToString("000000");
+            var prefix = $"SoulSkill/{idString}/{idString}_";
+
+            switch (field)
+            {
+                case BasicDatabaseElementField.Name:
+                    return prefix + "Name";
+                case BasicDatabaseElementField.Description:
+                    return prefix + "Description";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public static string GetTermKey(JournalData data, BasicDatabaseElementField field)
+        {
+            if (data == null)
+                return string.Empty;
+
+            var id = data.ID;
             var idString = id.ToString("000000");
             var prefix = $"SoulSkill/{idString}/{idString}_";
 
