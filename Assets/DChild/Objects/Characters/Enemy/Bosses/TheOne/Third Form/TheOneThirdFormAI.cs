@@ -519,7 +519,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                     , new AttackInfo<Attack>(Attack.Phase5Pattern10, m_info.phase5Pattern10Range)
                                     , new AttackInfo<Attack>(Attack.Phase5Pattern11, m_info.phase5Pattern11Range));*/
             #endregion
-            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleBlast1, m_info.phase1Pattern1Range)
+            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab1AndCeiling, m_info.phase1Pattern1Range)
                                     /*new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range)*/);
             //switch (m_phaseHandle.currentPhase)
             //{
@@ -1312,7 +1312,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
             for (int i = 0; i < 3; i++)
             {
-                yield return m_theOneThirdFormAttacks.MonolithSlam(m_targetInfo);
+                //yield return m_theOneThirdFormAttacks.MonolithSlam(m_targetInfo);
                 yield return new WaitForSeconds(cooldown);
             }
             var randomShit = Random.Range(1, 2);
@@ -1345,7 +1345,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
             for (int i = 0; i < 2; i++)
             {
-                yield return m_theOneThirdFormAttacks.MonolithSlam(m_targetInfo);
+                //yield return m_theOneThirdFormAttacks.MonolithSlam(m_targetInfo);
                 yield return new WaitForSeconds(cooldown);
             }
             yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
@@ -1364,9 +1364,12 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield break;
             }
 
-            yield return m_theOneThirdFormAttacks.MonolithSlam(m_targetInfo);
+            yield return m_theOneThirdFormAttacks.MonolithSlam();
             yield return new WaitForSeconds(cooldown);
+            yield return m_theOneThirdFormAttacks.RemovalMonolithSlamPhaseOne();
+            yield return new WaitForSeconds(1f);
             yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
+            yield return new WaitForSeconds(1f);
             Debug.Log("monolith done");
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
@@ -1380,7 +1383,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return null;
             }
 
-            yield return m_theOneThirdFormAttacks.MonolithSlam(m_targetInfo);
+            yield return m_theOneThirdFormAttacks.MonolithSlam();
             yield return new WaitForSeconds(cooldown);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             Debug.Log("monolith done");
@@ -1456,22 +1459,13 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             yield return m_theOneThirdFormAttacks.TentacleCeilingAttack();
             yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
-            yield return ChasingGroundTentacle(3f);
-            for (int i = 0; i < 3; i++)
-            {
-                yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
-                yield return new WaitForSeconds(3f);
-            }
-            yield return new WaitForSeconds(3f);
-            for (int i = 0; i < 3; i++)
-            {
-                yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
-                yield return new WaitForSeconds(3f);
-            }
             yield return new WaitForSeconds(3f);
             yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
             yield return new WaitForSeconds(3f);
+            yield return m_theOneThirdFormAttacks.TentacleGroundStabTwo();
+            yield return m_theOneThirdFormAttacks.TentacleCeilingAttackRetract();
             yield return MouthBlastWall(1f);
+            // next is mouth blast      
             Debug.Log("TentacleGroundStabCeilingAttack");
             //mouthblast
             m_attackDecider.hasDecidedOnAttack = false;
@@ -1500,6 +1494,15 @@ namespace DChild.Gameplay.Characters.Enemies
             //Temporary
             m_attackDecider.hasDecidedOnAttack = false;
             m_currentAttackCoroutine = null;
+            m_stateHandle.ApplyQueuedState();
+        }
+
+        private IEnumerator ChasingGroundBlast(float cooldown)
+        {
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            yield return m_theOneThirdFormAttacks.ChasingGroundBlast();
+            yield return new WaitForSeconds(cooldown);
+            m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
         }
         private IEnumerator MouthblastOneAttack(float cooldown)
@@ -1781,6 +1784,7 @@ namespace DChild.Gameplay.Characters.Enemies
                             StartCoroutine(TentacleGroundStabCeilingAttack());
                             break;
                         case Attack.ChasingGroundBlast:
+                            StartCoroutine(ChasingGroundBlast(2f));
                             //to be added
                             break;
                         case Attack.TentacleBlast2:
