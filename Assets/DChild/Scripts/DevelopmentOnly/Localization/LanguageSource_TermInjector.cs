@@ -46,6 +46,10 @@ namespace DChildEditor.Tools.Localization
                 }
 
                 term.SetTranslation(source.GetLanguageIndexFromCode(englishLanguageCodes), termInfo.Value);
+
+                if (termInfo.Value == null || termInfo.Value == string.Empty)
+                    continue;
+
                 foreach (var langaugeCode in languageCodes)
                 {
                     Debug.Log($"{term.Term} Will be Translated");
