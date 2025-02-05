@@ -483,7 +483,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 WallStickMovementAction();
                 return;
-            } if(m_state.isHighJumping)
+            } 
+            if(m_state.isHighJumping)
             {
                 if (m_rigidbody.velocity.y <= (m_groundJump?.highJumpCutoffThreshold ?? 0f))
                 {
@@ -493,6 +494,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
 
             MoveAction();
+            LedgeGrabMovementAction();
+
             if (m_skills.IsModuleActive(PrimarySkill.WallMovement))
             {
                 if (m_state.isGrounded == false)
@@ -845,6 +848,22 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                 }
                 return;
+            }
+        }
+
+        private void LedgeGrabMovementAction()
+        {
+            if(m_state.isGrounded == false)
+            {
+                if(m_vector2Input.x != 0)
+                {
+                    if (m_ledgeGrab?.IsDoable() ?? false)
+                    {
+                        m_wallMovement?.Cancel();
+                        m_wallStick?.Cancel();
+                        m_ledgeGrab?.Execute();
+                    }
+                }
             }
         }
 
