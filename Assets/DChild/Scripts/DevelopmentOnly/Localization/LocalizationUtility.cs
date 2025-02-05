@@ -1,7 +1,11 @@
 ﻿using DChild.Gameplay.ArmyBattle;
+using DChild.Gameplay.Characters.Players;
+using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Combat.StatusAilment;
 using DChild.Gameplay.Environment;
 using DChild.Gameplay.Items;
+using DChild.Gameplay.Systems.Journal;
+using DChild.Menu.Bestiary;
 using System;
 using System.Globalization;
 using TMPro;
@@ -26,6 +30,135 @@ namespace DChild.Localization
         {
             Name,
             SpecialSkill
+        }
+
+        public enum BestiaryField
+        {
+            Name,
+            Description,
+            Title,
+            StoreNotes,
+            HunterNotes
+        }
+
+        public enum PrimarySkillField
+        {
+            Name,
+            Description,
+            Instruction
+        }
+
+        public enum CombatArtField
+        {
+            Name,
+            Description,
+            Controls
+        }
+
+        public static string GetTermKey(PrimarySkillData data, PrimarySkillField field)
+        {
+            if (data == null)
+                return string.Empty;
+
+            var prefix = $"PrimarySkill/{data.skillName}/{data.skillName}_";
+
+            switch (field)
+            {
+                case PrimarySkillField.Name:
+                    return prefix + "Name";
+                case PrimarySkillField.Description:
+                    return prefix + "Description";
+                case PrimarySkillField.Instruction:
+                    return prefix + "Instruction";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public static string GetTermKey(CombatArtData data, CombatArtField field)
+        {
+            if (data == null)
+                return string.Empty;
+
+            var prefix = $"PrimarySkill/{data.connectedCombatArt}/{data.connectedCombatArt}_";
+
+            switch (field)
+            {
+                case CombatArtField.Name:
+                    return prefix + "Name";
+                case CombatArtField.Description:
+                    return prefix + "Description";
+                case CombatArtField.Controls:
+                    return prefix + "Controls";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public static string GetTermKey(BestiaryData data,BestiaryField field)
+        {
+            if (data == null)
+                return string.Empty;
+
+            var id = data.id;
+            var idString = id.ToString("000000");
+            var prefix = $"Bestiary/{idString}/{idString}_";
+
+            switch (field)
+            {
+                case BestiaryField.Name:
+                    return prefix + "Name";
+                case BestiaryField.Description:
+                    return prefix + "Description";
+                case BestiaryField.Title:
+                    return prefix + "Title";
+                case BestiaryField.StoreNotes:
+                    return prefix + "Store Notes";
+                case BestiaryField.HunterNotes:
+                    return prefix + "Hunter Notes";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public static string GetTermKey(SoulSkill soulSkill, BasicDatabaseElementField field)
+        {
+            if (soulSkill == null)
+                return string.Empty;
+
+            var id = soulSkill.id;
+            var idString = id.ToString("000000");
+            var prefix = $"SoulSkill/{idString}/{idString}_";
+
+            switch (field)
+            {
+                case BasicDatabaseElementField.Name:
+                    return prefix + "Name";
+                case BasicDatabaseElementField.Description:
+                    return prefix + "Description";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public static string GetTermKey(JournalData data, BasicDatabaseElementField field)
+        {
+            if (data == null)
+                return string.Empty;
+
+            var id = data.ID;
+            var idString = id.ToString("000000");
+            var prefix = $"SoulSkill/{idString}/{idString}_";
+
+            switch (field)
+            {
+                case BasicDatabaseElementField.Name:
+                    return prefix + "Name";
+                case BasicDatabaseElementField.Description:
+                    return prefix + "Description";
+                default:
+                    return string.Empty;
+            }
         }
 
         public static string GetTermKey(ItemData itemData, BasicDatabaseElementField field)
