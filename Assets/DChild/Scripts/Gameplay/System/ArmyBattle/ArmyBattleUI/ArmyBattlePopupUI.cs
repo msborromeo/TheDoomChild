@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using I2.Loc;
 
 namespace DChild.Gameplay.ArmyBattle.UI
 {
@@ -18,6 +19,13 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         private SignalReceiver m_signalReceiver;
         private SignalStream m_signalStream;
+
+        [TermsPopup]
+        public string m_victoryText;
+        [TermsPopup]
+        public string m_defeatText;
+        [TermsPopup]
+        public string m_battleText;
 
         private void Awake()
         {
@@ -40,7 +48,8 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
             if (signal.valueType != typeof(bool))
             {
-                m_popupLabel.text = "BATTLE";
+                //m_popupLabel.text = "BATTLE";
+                m_popupLabel.text = LocalizationManager.GetTranslation(m_battleText);
                 return;
             }
 
@@ -48,10 +57,12 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
             if (battleResult != true)
             {
-                m_popupLabel.text = "DEFEAT";
+                //m_popupLabel.text = "DEFEAT";
+                m_popupLabel.text = LocalizationManager.GetTranslation(m_defeatText);
                 return;
             }
-            m_popupLabel.text = "VICTORY";
+            //m_popupLabel.text = "VICTORY";
+            m_popupLabel.text = LocalizationManager.GetTranslation(m_victoryText);
         }
     }
 }
