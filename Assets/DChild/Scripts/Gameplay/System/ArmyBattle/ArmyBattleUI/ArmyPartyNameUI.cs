@@ -1,4 +1,5 @@
 using DChild.Gameplay.ArmyBattle.SpecialSkills;
+using DChild.Localization;
 using I2.Loc;
 using TMPro;
 using UnityEngine;
@@ -12,11 +13,14 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         public void Display(IAttackingGroup group)
         {
-            var paramManager = GetComponentInChildren<LocalizationParamsManager>();
-            paramManager.SetParameterValue("PARTY_NAME", group.GetCharacterGroup().name);
 
-            m_partyName.text = $"{paramManager.GetParameterValue("PARTY_NAME")}";
-        } 
+            var localize = GetComponentInChildren<Localize>();
+            var groupId = group.id.ToString("000");
+
+            localize.SetTerm($"ArmyBattle/Groups/{groupId}/AG_{groupId}_Name");
+
+            //m_partyName.text = $"{paramManager.GetParameterValue("PARTY_NAME")}";
+        }
 
         public void Display(ISpecialSkillGroup group)
         {
