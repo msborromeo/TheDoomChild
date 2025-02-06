@@ -14,6 +14,8 @@ namespace DChild.Menu.MainMenu
         [SerializeField]
         private ConfirmationRequestHandle m_applicationQuitRequest;
 
+        ConfirmationMessageLocalizer localizer;
+
         public void TransistionToCampaignSelect()
         {
             m_backgroundVideo.PlayEnd();
@@ -21,6 +23,10 @@ namespace DChild.Menu.MainMenu
         }
         public void RequestToExitGame()
         {
+            if(TryGetComponent(out localizer))
+            {
+                localizer.UpdateLocalizeation();
+            }
             m_applicationQuitRequest.Execute(OnAffirmation);
         }
 
@@ -33,6 +39,11 @@ namespace DChild.Menu.MainMenu
         {
             Debug.Log("Quitting");
             Application.Quit();
+        }
+
+        public void QuitConfirmationLocalization(ConfirmationRequestHandle ConfirmationRequest)
+        {
+            m_applicationQuitRequest = ConfirmationRequest;
         }
     }
 }

@@ -32,7 +32,13 @@ public class WallMouth : MonoBehaviour
     public EventAction<EventActionArgs> OnActivate;
     [SerializeField]
     private bool m_noAnticipation;
+    [SerializeField]
+    private bool m_isLeanDroSkytown;
     public bool stop;
+    [SerializeField]
+    private float m_idleLoopValue;
+    [SerializeField]
+    private float m_attackLoopValue;
 
     public void InitializeField(SpineRootAnimation spineRoot)
     {
@@ -51,14 +57,44 @@ public class WallMouth : MonoBehaviour
             else
             {
                 m_spine.SetAnimation(0, m_idle, true);
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(m_idleLoopValue);
                 m_spine.SetAnimation(0, m_afterAttackChargeLoop, false);
                 yield return new WaitForAnimationComplete(m_spine.animationState, m_afterAttackChargeLoop);
                 m_spine.SetAnimation(0, m_attackLoop, true);
-                yield return new WaitForSeconds(10f);
+                yield return new WaitForSeconds(m_attackLoopValue);
             }
         }
         m_spine.SetAnimation(0, m_idle, true);
+    }
+    public IEnumerator AttackSkyTown()
+    {
+        OnActivate?.Invoke(this, EventActionArgs.Empty);
+        if (m_noAnticipation)
+            {
+                m_spine.SetAnimation(0, m_attackLoop, true);
+                yield return null;
+                //yield return new WaitForSeconds(5f);
+            }
+            else
+            {
+                
+                m_spine.SetAnimation(0, m_toGrow, false);
+                yield return new WaitForAnimationComplete(m_spine.animationState, m_toGrow);
+                m_spine.SetAnimation(0, m_afterAttackChargeLoop, true);
+                yield return new WaitForSeconds(m_idleLoopValue);
+            m_laser.GetComponent<TheOneMiniLevelLaser>().stop = true;
+            m_spine.SetAnimation(0, m_attackLoop, true);
+                yield return new WaitForSeconds(m_attackLoopValue);
+            }
+        
+        m_spine.SetAnimation(0, m_afterAttack, false);
+        yield return new WaitForAnimationComplete(m_spine.animationState, m_afterAttack);
+    }
+
+    public void StartSkyTown()
+    {
+        StartCoroutine(AttackSkyTown());
+        OnActivate?.Invoke(this, EventActionArgs.Empty);
     }
     public void StartMovement()
     {
@@ -71,7 +107,15 @@ public class WallMouth : MonoBehaviour
     }
     void Start()
     {
-        m_spine.SetAnimation(0, m_idle, true);
+        if (m_isLeanDroSkytown)
+        {
+            m_spine.SetAnimation(0, m_waitForInitialize, true);
+        }
+        else
+        {
+            m_spine.SetAnimation(0, m_idle, true);
+        }
+        
     }
 
     void Update()

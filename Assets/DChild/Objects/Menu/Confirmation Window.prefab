@@ -37,6 +37,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1776698491566308156}
+  - {fileID: 3132410956379271122}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -241,6 +242,7 @@ GameObject:
   - component: {fileID: 1776698490960621989}
   - component: {fileID: 1776698490960621979}
   - component: {fileID: 1776698490960621988}
+  - component: {fileID: 3402111632428554630}
   m_Layer: 5
   m_Name: Message
   m_TagString: Untagged
@@ -298,7 +300,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <font="BACKCOUNTRY-Regular SDF">Do you really want to exit the game?
+  m_text: '"Which one of these sounds like a blunt weapon?"'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a576fbe1b6faba498194776bfd96bc4, type: 2}
   m_sharedMaterial: {fileID: 21892830720195836, guid: 6a576fbe1b6faba498194776bfd96bc4,
@@ -326,13 +328,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44
+  m_fontSize: 43.6
   m_fontSizeBase: 44
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 44
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -368,6 +370,45 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3402111632428554630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776698490960621990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: Confirmation/Messages/"Would you like to quit the game?"
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1 &1776698491134793781
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,12 +971,12 @@ PrefabInstance:
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
       propertyPath: m_text
-      value: YES
+      value: Premoaria
       objectReference: {fileID: 0}
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
       propertyPath: m_fontSize
-      value: 50
+      value: 19.9
       objectReference: {fileID: 0}
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
@@ -960,7 +1001,7 @@ PrefabInstance:
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
       propertyPath: m_fontStyle
-      value: 1
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
@@ -1011,6 +1052,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_firstOverflowCharacterIndex
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971314647620033502, guid: a38bd721f37cadc40a96c6797a60b4d8,
+        type: 3}
+      propertyPath: mTerm
+      value: Confirmation/Yes
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971314647620033502, guid: a38bd721f37cadc40a96c6797a60b4d8,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
@@ -1427,12 +1478,12 @@ PrefabInstance:
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
       propertyPath: m_text
-      value: NO
+      value: Scleabide
       objectReference: {fileID: 0}
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
       propertyPath: m_fontSize
-      value: 50
+      value: 21.85
       objectReference: {fileID: 0}
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
@@ -1457,7 +1508,7 @@ PrefabInstance:
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
       propertyPath: m_fontStyle
-      value: 1
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
@@ -1499,6 +1550,16 @@ PrefabInstance:
       propertyPath: m_textInfo.characterCount
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4971314647620033502, guid: a38bd721f37cadc40a96c6797a60b4d8,
+        type: 3}
+      propertyPath: mTerm
+      value: Confirmation/No
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971314647620033502, guid: a38bd721f37cadc40a96c6797a60b4d8,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a38bd721f37cadc40a96c6797a60b4d8, type: 3}
 --- !u!224 &1055616312190719752 stripped
@@ -1519,3 +1580,173 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c6d918500348269ab48ea9646e337b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &5313604820050779303
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1776698490630836318}
+    m_Modifications:
+    - target: {fileID: 2115090186684993818, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: m_Name
+      value: DChildLocalizationSource_ConfirmationWindow Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Term
+      value: Confirmation/Yes
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Term
+      value: Confirmation/No
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Term
+      value: Confirmation/Messages/"Would you like to quit the game?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Flags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Flags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Flags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Languages.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Languages.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[0]
+      value: Yes
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[1]
+      value: Ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[2]
+      value: Bantyum
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Languages.Array.data[0]
+      value: No
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Languages.Array.data[1]
+      value: NEIN
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Languages.Array.data[2]
+      value: Lotic
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Languages.Array.data[0]
+      value: '"Would you like to quit the game?"'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Languages.Array.data[1]
+      value: "\u201EM\xF6chten Sie das Spiel beenden?\u201C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585392352585659554, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Languages.Array.data[2]
+      value: '"Which one of these sounds like a blunt weapon?"'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117156657119441781, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117156657119441781, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117156657119441781, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117156657119441781, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117156657119441781, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117156657119441781, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117156657119441781, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117156657119441781, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117156657119441781, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117156657119441781, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117156657119441781, guid: ecf105a543ae6c642809ad1bc10c3801,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ecf105a543ae6c642809ad1bc10c3801, type: 3}
+--- !u!4 &3132410956379271122 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7117156657119441781, guid: ecf105a543ae6c642809ad1bc10c3801,
+    type: 3}
+  m_PrefabInstance: {fileID: 5313604820050779303}
+  m_PrefabAsset: {fileID: 0}
