@@ -194,7 +194,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.LevitateCancelledEvent += OnLevitateCancelledInput;
             m_inputReader.InteractStartedEvent += OnInteractInput;
             m_inputReader.ShadowMorphStartedEvent += OnShadowMorphStartedInput;
-
+            m_inputReader.SlashStartedEvent += OnSlashStartedInput;
+            m_inputReader.SlashPerformedEvent += OnSlashPerformedInput;
+            m_inputReader.SlashCancelledEvent += OnSlashCancelledInput;
         }
 
         private void OnDisable()
@@ -778,11 +780,78 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnStoreInput()
         {
             Debug.Log("Open Necronomicon");
+            //Call something in BaseGameplay or System to send signal to open UI
         }
 
         private void OnPauseInput()
         {
             Debug.Log("Open Pause Menu");
+            //Call something in BaseGameplay or System to send signal to open UI
+        }
+
+        private void OnSlashStartedInput()
+        {
+            
+        }
+
+        private void OnSlashPerformedInput()
+        {
+            if (m_state.canAttack)
+            {
+                if (m_state.isGrounded)
+                {
+                    PrepareForGroundAttack();
+                    m_whip.Cancel();
+                    m_whipCombo.Cancel();
+                    m_whipCombo.Reset();
+                    
+                    if(m_vector2Input.y > 0)
+                    {
+                        m_basicSlashes.Execute(BasicSlashes.Type.Ground_Overhead);
+                        return;
+                    }
+
+                    if(m_vector2Input.y == 0)
+                    {
+                        m_slashCombo.Execute();
+                    }
+                }
+                else
+                {
+                    if (m_basicSlashes.CanAirAttack())
+                    {
+                        PrepareForMidairAttack();
+                        m_devilWings?.EnableLevitate();
+                        m_extraJump?.Cancel();
+
+                        if (m_vector2Input.y > 0)
+                        {
+                            m_basicSlashes.Execute(BasicSlashes.Type.MidAir_Overhead);
+                            return;
+                        }
+
+                        if (m_vector2Input.y == 0)
+                        {
+                            m_basicSlashes.Execute(BasicSlashes.Type.MidAir_Forward);
+                            return;
+                        }
+
+                        if (m_vector2Input.y < 0)
+                        {
+                            if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
+                            {
+                                m_earthShaker.StartExecution();
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void OnSlashCancelledInput()
+        {
+            
         }
         #endregion
 

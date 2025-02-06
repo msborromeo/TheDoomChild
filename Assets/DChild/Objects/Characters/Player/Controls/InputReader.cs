@@ -43,6 +43,9 @@ namespace DChild.Inputs
         public event Action LevitateCancelledEvent;
         public event Action InteractStartedEvent;
         public event Action ShadowMorphStartedEvent;
+        public event Action SlashPerformedEvent;
+        public event Action SlashStartedEvent;
+        public event Action SlashCancelledEvent;
         #endregion
         #region Overworld Input
         public event Action<Vector2> OverworldMovePerformedEvent;
@@ -191,7 +194,20 @@ namespace DChild.Inputs
 
         public void OnSlash(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if(context.phase == InputActionPhase.Started)
+            {
+                SlashStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                SlashPerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Started)
+            {
+                SlashCancelledEvent?.Invoke();
+            }
         }
 
         public void OnStore(InputAction.CallbackContext context)
