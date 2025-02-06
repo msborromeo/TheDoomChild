@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 namespace DChild.Inputs
 {
@@ -24,8 +25,6 @@ namespace DChild.Inputs
                 m_playerControls.UI.SetCallbacks(this);
                 m_playerControls.ArmyBattle.SetCallbacks(this);
             }
-
-            SetInputModeToUnderworldGameplay(); //eventually change to UI because we expect to start at Main Menu
         }
 
         #region Input Events
@@ -44,6 +43,7 @@ namespace DChild.Inputs
         public event Action InteractStartedEvent;
         public event Action ShadowMorphStartedEvent;
         public event Action SlashPerformedEvent;
+        public event Action SlashHeldEvent;
         public event Action SlashStartedEvent;
         public event Action SlashCancelledEvent;
         #endregion
@@ -201,10 +201,17 @@ namespace DChild.Inputs
 
             if (context.phase == InputActionPhase.Performed)
             {
-                SlashPerformedEvent?.Invoke();
+                if (context.interaction is HoldInteraction)
+                {
+                    SlashHeldEvent?.Invoke();
+                }
+                else
+                {
+                    SlashPerformedEvent?.Invoke();
+                }
             }
 
-            if (context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Canceled)
             {
                 SlashCancelledEvent?.Invoke();
             }
