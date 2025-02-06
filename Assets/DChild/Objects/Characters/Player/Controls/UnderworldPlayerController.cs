@@ -101,6 +101,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #region Usual Unity Stuff
         private void Awake()
         {
+            m_inputReader.SetInputModeToUnderworldGameplay();
+
             m_chargeAttackHandle = new ChargeAttackHandle();
 
             m_tracker = m_character.GetComponentInChildren<PlayerStatisticTracker>();
@@ -197,6 +199,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.SlashStartedEvent += OnSlashStartedInput;
             m_inputReader.SlashPerformedEvent += OnSlashPerformedInput;
             m_inputReader.SlashCancelledEvent += OnSlashCancelledInput;
+            m_inputReader.SlashHeldEvent += OnSlashHeldInput;
         }
 
         private void OnDisable()
@@ -222,6 +225,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.LevitateCancelledEvent -= OnLevitateCancelledInput;
             m_inputReader.InteractStartedEvent -= OnInteractInput;
             m_inputReader.ShadowMorphStartedEvent -= OnShadowMorphStartedInput;
+            m_inputReader.SlashStartedEvent -= OnSlashStartedInput;
+            m_inputReader.SlashPerformedEvent -= OnSlashPerformedInput;
+            m_inputReader.SlashCancelledEvent -= OnSlashCancelledInput;
+            m_inputReader.SlashHeldEvent -= OnSlashHeldInput;
         }
 
         private void FixedUpdate()
@@ -496,6 +503,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_groundJump?.HandleCutoffTimer();
             }
 
+            SwordThrustAction();
             MoveAction();
             LevitateAction();
             LedgeGrabMovementAction();
@@ -791,29 +799,38 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashStartedInput()
         {
-            
-        }
-
-        private void OnSlashPerformedInput()
-        {
             if (m_state.canAttack)
             {
                 if (m_state.isGrounded)
                 {
+                    if (m_state.isInShadowMode)
+                    {
+                        if (m_shadowMorph.IsAttackAllowed() == false)
+                        {
+                            return;
+                        }
+                    }
                     PrepareForGroundAttack();
                     m_whip.Cancel();
                     m_whipCombo.Cancel();
                     m_whipCombo.Reset();
-                    
-                    if(m_vector2Input.y > 0)
+
+                    if (m_vector2Input.y > 0)
                     {
                         m_basicSlashes.Execute(BasicSlashes.Type.Ground_Overhead);
                         return;
                     }
 
-                    if(m_vector2Input.y == 0)
+                    if (m_vector2Input.y == 0)
                     {
                         m_slashCombo.Execute();
+                        return;
+                    }
+
+                    if (m_state.isCrouched)
+                    {
+                        m_basicSlashes.Execute(BasicSlashes.Type.Crouch);
+                        return;
                     }
                 }
                 else
@@ -849,13 +866,56 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
         }
 
+        private void OnSlashPerformedInput()
+        {
+
+        }
+
+        private void OnSlashHeldInput()
+        {
+            if (m_skills.IsModuleActive(PrimarySkill.SwordThrust))
+            {
+                if (m_state.isGrounded && m_state.isInShadowMode == false)
+                {
+
+                    m_chargeAttackHandle.Set(m_swordThrust, () => true);
+                    m_swordThrust?.StartCharge();
+                    return;
+                }
+            }
+        }
+
         private void OnSlashCancelledInput()
         {
-            
+            if (m_skills.IsModuleActive(PrimarySkill.SwordThrust))
+            {
+                if (m_state.isChargingAttack)
+                {
+                    if (m_swordThrust.IsChargeComplete())
+                    {
+                        m_swordThrust?.EndSwordThrust();
+                        m_swordThrust?.ResetCooldownTimer();
+                        m_swordThrust?.ResetDurationTimer();
+                        m_swordThrust?.Execute();
+                    }
+                    else
+                    {
+                        m_swordThrust?.Cancel();
+                    }
+                }
+            }
         }
         #endregion
 
         #region Action Functions
+        private void SwordThrustAction()
+        {
+            if (m_state.isChargingAttack)
+            {
+                m_swordThrust?.HandleDurationTimer();
+            }
+        }
+
         private void LevitateAction()
         {
             if (m_state.isLevitating)
@@ -870,6 +930,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
             }
         }
+
         private void WallStickMovementAction()
         {
             if (m_state.isStickingToWall)
@@ -983,11 +1044,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     {
                         GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.None);
                     }
-                }
-                else if (m_state.isDoingSwordThrust)
-                {
-                    HandleSwordThrust();
-                    return;
                 }
                 else
                 {
@@ -1534,5 +1590,3 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #endregion
     }
 }
-
-
