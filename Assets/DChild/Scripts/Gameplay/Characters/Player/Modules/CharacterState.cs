@@ -151,5 +151,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         [SerializeField, ReadOnly]
         private bool m_isShadowBlade;
         public bool isShadowBlade { get => m_isShadowBlade; set => m_isShadowBlade = value; }
+        [SerializeField, ReadOnly]
+        private bool m_isLedgeGrabbing;
+        public bool isLedgeGrabbing { get => m_isLedgeGrabbing; set => m_isLedgeGrabbing = value; }
     }
 }

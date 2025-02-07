@@ -14,10 +14,10 @@ namespace DChild.Gameplay.Systems
 
     public class GameplayInput : MonoBehaviour
     {
-        [SerializeField]
-        private InputSystemUIInputModule m_uiInput;
-        [SerializeField]
-        private InputActionReference m_storeToggleAction;
+        //[SerializeField]
+        //private InputSystemUIInputModule m_uiInput;
+        //[SerializeField]
+        //private InputActionReference m_storeToggleAction;
         [SerializeField]
         private bool m_actionIsCloseStore;
 
@@ -87,11 +87,11 @@ namespace DChild.Gameplay.Systems
 
         private void Start()
         {
-            if (m_storeToggleAction.action != null)
-            {
-                m_storeToggleAction.action.performed += OnOpenStoreAction;
-            }
-            m_uiMoveInput = m_uiInput.move;
+            //if (m_storeToggleAction.action != null)
+            //{
+            //    m_storeToggleAction.action.performed += OnOpenStoreAction;
+            //}
+            //m_uiMoveInput = m_uiInput.move;
 
             //Unity Input 1.4.X has a very weird bug This is a fix as advised by https://forum.unity.com/threads/input-system-1-4-1-released.1306062/
             InputSystem.settings.SetInternalFeatureFlag("DISABLE_SHORTCUT_SUPPORT", true);
