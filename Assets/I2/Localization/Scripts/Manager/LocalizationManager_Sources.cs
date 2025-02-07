@@ -9,11 +9,10 @@ namespace I2.Loc
 {
     public static partial class LocalizationManager
     {
-
         #region Variables: Misc
 
         public static List<LanguageSourceData> Sources = new List<LanguageSourceData>();
-        public static string[] GlobalSources = { "I2Languages", "I2Locations", "I2Fonts", "I2ArmyBattles", "I2Items" };
+        public static string[] GlobalSources = { "I2Languages", "I2Locations", "I2Fonts", "I2ArmyBattle", "I2Items", "I2Bestiary", "I2PrimarySkills", "I2SoulSkills", "I2Journal", "I2CombatArts" };
 
         #endregion
 
@@ -157,6 +156,5 @@ namespace I2.Loc
         }
 
         #endregion
-
     }
 }
