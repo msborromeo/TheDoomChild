@@ -46,6 +46,8 @@ namespace DChild.Inputs
         public event Action SlashHeldEvent;
         public event Action SlashStartedEvent;
         public event Action SlashCancelledEvent;
+        public event Action WhipStartedEvent;
+        public event Action WhipCancelledEvent;
         #endregion
         #region Overworld Input
         public event Action<Vector2> OverworldMovePerformedEvent;
@@ -239,7 +241,15 @@ namespace DChild.Inputs
 
         public void OnWhip(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if(context.phase == InputActionPhase.Started)
+            {
+                WhipStartedEvent?.Invoke();
+            }
+
+            if(context.phase == InputActionPhase.Canceled)
+            {
+                WhipCancelledEvent?.Invoke();
+            }
         }
 
         public void OnProjectileThrow(InputAction.CallbackContext context)
