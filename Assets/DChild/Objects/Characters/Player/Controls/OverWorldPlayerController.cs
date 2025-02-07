@@ -34,11 +34,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void Disable()
         {
-
+            m_inputReader.SetInputModeToUI();
         }
         public void Enable()
         {
-
+            m_inputReader.SetInputModeTOverworldGameplay();
         }
 
         public void OnDisable()

@@ -48,8 +48,8 @@ namespace DChild.Inputs
         public event Action SlashCancelledEvent;
         public event Action WhipStartedEvent;
         public event Action WhipCancelledEvent;
-        public event Action CycleQuickItemsStartedEvent;
-        public event Action UseQuickItemStartedEvent;
+        public event Action<float> CycleQuickItemsStartedEvent;
+        public event Action<float> UseQuickItemStartedEvent;
         public event Action ProjectileThrowStartedEvent;
         public event Action ProjectileThrowCancelledEvent;
         public event Action GrabStartedEvent;
@@ -198,7 +198,6 @@ namespace DChild.Inputs
             if(context.phase == InputActionPhase.Started)
             {
                 PauseStartedEvent?.Invoke();
-                SetInputModeToUI();  
             }
         }
 
@@ -206,7 +205,7 @@ namespace DChild.Inputs
         {
             if(context.phase == InputActionPhase.Started)
             {
-                CycleQuickItemsStartedEvent?.Invoke();
+                CycleQuickItemsStartedEvent?.Invoke(context.ReadValue<float>());
             }
         }
 
@@ -214,7 +213,7 @@ namespace DChild.Inputs
         {
             if(context.phase == InputActionPhase.Started)
             {
-                UseQuickItemStartedEvent?.Invoke();
+                UseQuickItemStartedEvent?.Invoke(context.ReadValue<float>());
             }
         }
 
@@ -248,7 +247,6 @@ namespace DChild.Inputs
             if(context.phase == InputActionPhase.Started)
             {
                 StoreStartedEvent?.Invoke();
-                SetInputModeToUI();
             }
         }
 

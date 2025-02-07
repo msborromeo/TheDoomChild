@@ -7,6 +7,8 @@ using System;
 using UnityEngine.UIElements;
 using System.ComponentModel;
 using DChild.Gameplay.Inventories;
+using DChild.Gameplay.Systems;
+using DChild.Menu;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -91,6 +93,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         [SerializeField]
         private QuickItemHandle m_handle;
+        [SerializeField]
+        private PauseHandle m_pauseHandle;
 
         private bool m_updateEnabled = true;
 
@@ -99,6 +103,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private Vector2 m_vector2Input;
         [SerializeField, ReadOnly(true)]
         private Vector2 m_mouseDelta;
+        private bool m_allowQuickItemCycle;
         #endregion
 
         public event EventAction<EventActionArgs> ControllerDisabled;
@@ -830,16 +835,45 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
         }
 
+
+        private void OnUseQuickItemsStartedInput(float obj)
+        {
+            if(obj == 1)
+            {
+                m_allowQuickItemCycle = false;
+                m_handle.UseCurrentItem();
+            }
+            else
+            {
+                m_allowQuickItemCycle = true;
+            }
+        }
+
+        private void OnCycleQuickItemsStartedInput(float obj)
+        {
+            if(m_allowQuickItemCycle)
+            {
+                if(obj < 0)
+                {
+                    m_handle.Previous();
+                }
+                else if(obj > 0)
+                {
+                    m_handle.Next();
+                }
+            }
+        }
+
         private void OnStoreInput()
         {
-            Debug.Log("Open Necronomicon");
-            //Call something in BaseGameplay or System to send signal to open UI
+            GameplaySystem.gamplayUIHandle.OpenStoreAtPage(StorePage.Map);
+            m_inputReader.SetInputModeToUI();
         }
 
         private void OnPauseInput()
         {
-            Debug.Log("Open Pause Menu");
-            //Call something in BaseGameplay or System to send signal to open UI
+            m_pauseHandle.PauseGame();
+            m_inputReader.SetInputModeToUI();
         }
 
         private void OnSlashStartedInput()
@@ -1058,16 +1092,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
         }
 
-
-        private void OnUseQuickItemsStartedInput()
-        {
-            //call quick item controller to do use item
-        }
-
-        private void OnCycleQuickItemsStartedInput()
-        {
-            //call quick item controller to do cycle 
-        }
 
         private void OnGrabCancelledInput()
         {
@@ -1562,6 +1586,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void Enable()
         {
             m_updateEnabled = true;
+            m_inputReader.SetInputModeToUnderworldGameplay();
             ControllerEnabled?.Invoke(this, EventActionArgs.Empty);
         }
 
@@ -1606,6 +1631,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 m_movement?.SwitchConfigTo(Movement.Type.Jog);
             }
+            m_inputReader.SetInputModeToUI();
             ControllerDisabled?.Invoke(this, EventActionArgs.Empty);
         }
         #endregion
