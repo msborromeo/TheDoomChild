@@ -1,9 +1,11 @@
 ﻿using TMPro;
 using UnityEngine;
+using DChild.Localization;
+using System;
 
 namespace DChild.Gameplay.UI.PrimarySkills
 {
-    public class PrimarySkillUIManager : MonoBehaviour
+    public class PrimarySkillUIManager : MonoBehaviour , IPrimarySkillLocalizer
     {
         [SerializeField]
         private PrimarySkillSelectableList m_skillList;
@@ -14,6 +16,8 @@ namespace DChild.Gameplay.UI.PrimarySkills
         [SerializeField]
         private TextMeshProUGUI m_skillNameLabel;
 
+        public event Action<PrimarySkillSelectable> localizePrimarySkill;
+
         public void UpdateSelectables()
         {
             m_skillList.UpdateListAvailability();
@@ -21,6 +25,11 @@ namespace DChild.Gameplay.UI.PrimarySkills
 
         public void Select(PrimarySkillSelectable selectable)
         {
+            if(localizePrimarySkill!=null)
+            {
+                localizePrimarySkill?.Invoke(selectable);
+                return;
+            }
             m_descriptionLabel.text = selectable.reference.description;
             m_controlsLabel.text = selectable.reference.instruction;
             m_skillNameLabel.text = selectable.reference.skillName;
