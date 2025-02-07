@@ -503,10 +503,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_groundJump?.HandleCutoffTimer();
             }
 
-            SwordThrustAction();
-            MoveAction();
+            if(m_state.isDoingSwordThrust == false)
+            {
+                MoveAction();
+            }
             LevitateAction();
             LedgeGrabMovementAction();
+            SwordThrustAction();
 
             if (m_skills.IsModuleActive(PrimarySkill.WallMovement))
             {
@@ -610,6 +613,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isGrounded)
             {
+                if (m_state.isChargingAttack)
+                {
+                    m_swordThrust?.Cancel();
+                }
+
                 if (m_platformDrop?.IsThereADroppablePlatform() == true && m_vector2Input.y < 0)
                 {
                     m_platformDrop.Execute();
@@ -893,13 +901,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     if (m_swordThrust.IsChargeComplete())
                     {
-                        m_swordThrust?.EndSwordThrust();
-                        m_swordThrust?.ResetCooldownTimer();
-                        m_swordThrust?.ResetDurationTimer();
                         m_swordThrust?.Execute();
                     }
                     else
                     {
+                        m_swordThrust?.EndSwordThrust();
+                        m_swordThrust?.ResetCooldownTimer();
+                        m_swordThrust?.ResetDurationTimer();
                         m_swordThrust?.Cancel();
                     }
                 }
