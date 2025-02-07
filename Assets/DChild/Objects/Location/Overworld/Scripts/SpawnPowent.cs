@@ -1,18 +1,31 @@
-﻿using UnityEngine;
+﻿using DChild.Gameplay;
+using DChild.Gameplay.Characters.Players;
+using UnityEngine;
 
 public class SpawnPowent: MonoBehaviour
 {
     [SerializeField]
-    private GameObject m_speedPic;
-
+    private GameObject m_sectionArea;
     [SerializeField]
+    private GameObject[] m_hideTommi;
+
+    [SerializeField]    
     private bool m_toEnter;
 
-
+    [SerializeField]
+    private bool m_heltisaTommi;
+    private void Awake()
+    {
+        if(m_sectionArea != null) 
+        {
+            m_sectionArea.SetActive(false);
+        }
+       
+    }
 
     private void Update()
     {
-        #region MyRegion
+        #region MyReligion
         //if (toPress)
         //{
         //    if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -37,37 +50,90 @@ public class SpawnPowent: MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Hitbox"))
+        if (m_heltisaTommi)
         {
-            if (m_toEnter)
+            //var playerObject = collision.gameObject.GetComponentInParent<PlayerControlledObject>();
+            if (collision.CompareTag("Hitbox"))
             {
-                m_speedPic.SetActive(true);
-            }
-            else
-            {
-                m_speedPic.SetActive(false);
-            }
-            
-        }
+                for (int i = 0; i < m_hideTommi.Length; i++)
+                {
+                    m_hideTommi[i].SetActive(false);
 
-        
-        
+                }
+            }
+
+        }
+        else
+        {
+            if (collision.CompareTag("Sensor") && collision.gameObject.layer == 8)
+            {
+                if (m_toEnter)
+                {
+                    m_sectionArea.SetActive(true);
+                }
+                else
+                {
+                    m_sectionArea.SetActive(false);
+                }
+            }
+        } 
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Hitbox"))
+        if (m_heltisaTommi)
         {
-          if(m_speedPic.activeInHierarchy == true)
+            //var playerObject = collision.gameObject.GetComponentInParent<PlayerControlledObject>();
+            if (collision.CompareTag("Hitbox"))
             {
-                m_speedPic.SetActive(false);
+                for (int i = 0; i < m_hideTommi.Length; i++)
+                {
+                    m_hideTommi[i].SetActive(true);
+
+                }
             }
-            else
-            {
-                m_speedPic.SetActive(true);
-            }
-           
+
         }
+        else
+        {
+            if (collision.CompareTag("Sensor") && collision.gameObject.layer == 8)
+            {
+                if (m_sectionArea.activeInHierarchy == true)
+                {
+                    m_sectionArea.SetActive(false);
+                }
+                else
+                {
+                    m_sectionArea.SetActive(true);
+                }
+            }
+        }
+
+        //if (collision.CompareTag("Sensor") && collision.gameObject.layer == 8)
+        //{
+        //    if (m_isTommi)
+        //    {
+        //        for (int i = 0; i < m_hideTommi.Length; i++)
+        //        {
+        //            m_hideTommi[i].SetActive(true);
+
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (m_sectionArea.activeInHierarchy == true)
+        //        {
+        //            m_sectionArea.SetActive(false);
+        //        }
+        //        else
+        //        {
+        //            m_sectionArea.SetActive(true);
+        //        }
+        //    }
+
+           
+           
+        //}
 
 
     }
