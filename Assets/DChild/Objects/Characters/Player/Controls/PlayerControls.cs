@@ -4679,6 +4679,281 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Minimap"",
+            ""id"": ""767b988e-127f-4340-921e-f4070b627e87"",
+            ""actions"": [
+                {
+                    ""name"": ""HorizontalInput"",
+                    ""type"": ""Button"",
+                    ""id"": ""90fedc22-dd7c-4400-a74d-ad0e5fcaf84d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""VerticalInput"",
+                    ""type"": ""Button"",
+                    ""id"": ""ddd4eb52-f685-4c93-a252-6a2dfdd87313"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""5f5cbdcc-bfa4-415f-91e7-0b684cd8a90c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Store"",
+                    ""type"": ""Button"",
+                    ""id"": ""42d5abf7-ad00-4848-bd53-9a82a8e8c5cd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""PC"",
+                    ""id"": ""8fc799b6-a3b2-4810-b653-0c3ee9f6085b"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""f0d604bb-bc0b-4612-a94a-859f00dc1f95"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""c0da6ba9-cf07-49fb-8a8f-d856d987d5c7"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""PS4"",
+                    ""id"": ""f3f8e1d9-e235-4894-b579-091330ab6f34"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""140c065e-9bbd-43a6-ba89-d8bda04c891c"",
+                    ""path"": ""<DualShockGamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""a0f94539-d065-4215-bca8-f61d7beddf20"",
+                    ""path"": ""<DualShockGamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""XBOX"",
+                    ""id"": ""4433f32a-8974-4487-a0a5-39681e729884"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""d99b7bb0-a761-42ca-abcb-b3efc4eb5e05"",
+                    ""path"": ""<XInputController>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""2e95a732-8fb6-41ca-a403-44aa022f5057"",
+                    ""path"": ""<XInputController>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""PC"",
+                    ""id"": ""a9ca2f1e-2018-44b4-af1b-32e86492b3ff"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""a61e17b2-f02c-45d1-a814-f6b7c4a40680"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""4a56af8a-0e3a-45a4-ba8a-b82d45246d45"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""PS4"",
+                    ""id"": ""563ce3de-9af6-4479-a7da-65254a857412"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""010d81fe-b6a9-4cc8-a567-14d222b0537e"",
+                    ""path"": ""<DualShockGamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""ece54eb5-bde0-4e6d-a7c5-6f050d8ea684"",
+                    ""path"": ""<DualShockGamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""XBOX"",
+                    ""id"": ""d16cbed5-155e-4ddc-b1bd-99df22bd7334"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""a6a007a3-fbce-46f1-99d6-f82a310ddaf9"",
+                    ""path"": ""<XInputController>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""463bf56e-2139-41b5-bf8a-59ad9bd8af3a"",
+                    ""path"": ""<XInputController>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1bf4b1d6-78e6-4e47-baf7-31135ce57da6"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""81459ff7-7e5b-4703-8b2e-d061325cd2de"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Store"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1a8fe904-cacf-4a4e-882a-d03af88f1751"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Store"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -4827,6 +5102,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Gameplay_LightningSpearReleased = m_Gameplay.FindAction("LightningSpearReleased", throwIfNotFound: true);
         m_Gameplay_IcarusWings = m_Gameplay.FindAction("IcarusWings", throwIfNotFound: true);
         m_Gameplay_TeleportingSkull = m_Gameplay.FindAction("TeleportingSkull", throwIfNotFound: true);
+        // Minimap
+        m_Minimap = asset.FindActionMap("Minimap", throwIfNotFound: true);
+        m_Minimap_HorizontalInput = m_Minimap.FindAction("HorizontalInput", throwIfNotFound: true);
+        m_Minimap_VerticalInput = m_Minimap.FindAction("VerticalInput", throwIfNotFound: true);
+        m_Minimap_Interact = m_Minimap.FindAction("Interact", throwIfNotFound: true);
+        m_Minimap_Store = m_Minimap.FindAction("Store", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -5824,6 +6105,63 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     }
     public GameplayActions @Gameplay => new GameplayActions(this);
+
+    // Minimap
+    private readonly InputActionMap m_Minimap;
+    private IMinimapActions m_MinimapActionsCallbackInterface;
+    private readonly InputAction m_Minimap_HorizontalInput;
+    private readonly InputAction m_Minimap_VerticalInput;
+    private readonly InputAction m_Minimap_Interact;
+    private readonly InputAction m_Minimap_Store;
+    public struct MinimapActions
+    {
+        private @PlayerControls m_Wrapper;
+        public MinimapActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @HorizontalInput => m_Wrapper.m_Minimap_HorizontalInput;
+        public InputAction @VerticalInput => m_Wrapper.m_Minimap_VerticalInput;
+        public InputAction @Interact => m_Wrapper.m_Minimap_Interact;
+        public InputAction @Store => m_Wrapper.m_Minimap_Store;
+        public InputActionMap Get() { return m_Wrapper.m_Minimap; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MinimapActions set) { return set.Get(); }
+        public void SetCallbacks(IMinimapActions instance)
+        {
+            if (m_Wrapper.m_MinimapActionsCallbackInterface != null)
+            {
+                @HorizontalInput.started -= m_Wrapper.m_MinimapActionsCallbackInterface.OnHorizontalInput;
+                @HorizontalInput.performed -= m_Wrapper.m_MinimapActionsCallbackInterface.OnHorizontalInput;
+                @HorizontalInput.canceled -= m_Wrapper.m_MinimapActionsCallbackInterface.OnHorizontalInput;
+                @VerticalInput.started -= m_Wrapper.m_MinimapActionsCallbackInterface.OnVerticalInput;
+                @VerticalInput.performed -= m_Wrapper.m_MinimapActionsCallbackInterface.OnVerticalInput;
+                @VerticalInput.canceled -= m_Wrapper.m_MinimapActionsCallbackInterface.OnVerticalInput;
+                @Interact.started -= m_Wrapper.m_MinimapActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_MinimapActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_MinimapActionsCallbackInterface.OnInteract;
+                @Store.started -= m_Wrapper.m_MinimapActionsCallbackInterface.OnStore;
+                @Store.performed -= m_Wrapper.m_MinimapActionsCallbackInterface.OnStore;
+                @Store.canceled -= m_Wrapper.m_MinimapActionsCallbackInterface.OnStore;
+            }
+            m_Wrapper.m_MinimapActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @HorizontalInput.started += instance.OnHorizontalInput;
+                @HorizontalInput.performed += instance.OnHorizontalInput;
+                @HorizontalInput.canceled += instance.OnHorizontalInput;
+                @VerticalInput.started += instance.OnVerticalInput;
+                @VerticalInput.performed += instance.OnVerticalInput;
+                @VerticalInput.canceled += instance.OnVerticalInput;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+                @Store.started += instance.OnStore;
+                @Store.performed += instance.OnStore;
+                @Store.canceled += instance.OnStore;
+            }
+        }
+    }
+    public MinimapActions @Minimap => new MinimapActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -5967,5 +6305,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnLightningSpearReleased(InputAction.CallbackContext context);
         void OnIcarusWings(InputAction.CallbackContext context);
         void OnTeleportingSkull(InputAction.CallbackContext context);
+    }
+    public interface IMinimapActions
+    {
+        void OnHorizontalInput(InputAction.CallbackContext context);
+        void OnVerticalInput(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnStore(InputAction.CallbackContext context);
     }
 }
