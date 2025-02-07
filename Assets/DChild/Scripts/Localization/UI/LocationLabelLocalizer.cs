@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using I2.Loc;
 using Sirenix.OdinInspector;
+using System.Runtime.CompilerServices;
 
 namespace DChild.Localization
 {
@@ -11,7 +12,6 @@ namespace DChild.Localization
     {
         public enum Type
         {
-            Direct,
             Term,
             Params
         }
@@ -28,25 +28,26 @@ namespace DChild.Localization
         private string m_paramsVariable;
 
         private ILocationLabelInjector m_injector;
+        private string m_currentTerm;
 
+        private TextMeshProUGUI m_uGUI;
+        private Location m_currentLocation;
 
         private void OnUpdate(TextMeshProUGUI uGUI, Location location)
         {
-            var toTerm = "Location/" + location.ToString().Replace('_', ' ');
+            m_uGUI = uGUI;
+            m_currentLocation = location;
+            var toTerm = LocalizationUtility.GetTermKey(location);
             switch (m_type)
             {
-                case Type.Direct:
-                    uGUI.text = LocalizationManager.GetTermTranslation(toTerm);
-                    break;
                 case Type.Term:
-                    m_localizer.mTerm = toTerm;
-                    m_localizer.OnLocalize(true);
+                    m_localizer.SetTerm(toTerm);
                     break;
                 case Type.Params:
                     m_paramsManager.SetParameterValue(m_paramsVariable, toTerm, true);
                     break;
             }
-
+            m_currentTerm = toTerm;
         }
 
         private void Awake()

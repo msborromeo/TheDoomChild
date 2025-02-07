@@ -27,9 +27,15 @@ public class TheOneMiniLevelLaser : MonoBehaviour
     [SerializeField]
     private bool m_dynamicRay;
     [SerializeField]
+    private bool m_leanDroSkyTown;
+    [SerializeField]
     private bool m_noAnticipation;
     public GameObject m_wallMouth;
 
+    [SerializeField]
+    private float m_idleLoopValue;
+    [SerializeField]
+    private float m_attackLoopValue;
     private void Awake()
     {
         m_anim = GetComponent<Animator>();
@@ -41,7 +47,15 @@ public class TheOneMiniLevelLaser : MonoBehaviour
     private void OnActivate(object sender, EventActionArgs eventArgs)
     {
         laserCoroutine = StartCoroutine(LaserLogic());
-        StartCoroutine(AnimationHandler());
+        if (m_leanDroSkyTown)
+        {
+            stop = false;
+            StartCoroutine(AnimationHandlerSkyTown());
+        }
+        else
+        {
+            StartCoroutine(AnimationHandler());
+        }
     }
 
     private void Start()
@@ -195,10 +209,30 @@ public class TheOneMiniLevelLaser : MonoBehaviour
             }
             else
             {
-                yield return new WaitForSeconds(5.167f);
+                yield return new WaitForSeconds(m_idleLoopValue);
                 m_anim.SetTrigger("WallMouthBlastAnticipation");
-                yield return new WaitForSeconds(10f);
+                yield return new WaitForSeconds(m_attackLoopValue);
                 m_anim.SetTrigger("TentacleBlastDissipation");
+            }
+        }
+    }
+    private IEnumerator AnimationHandlerSkyTown()
+    {
+        while (!stop)
+        {
+            if (m_noAnticipation)
+            {
+                //yield return new WaitForSeconds(5f);
+                m_anim.SetTrigger("NoAnticipationCeiling");
+                yield return null;
+            }
+            else
+            {
+                yield return new WaitForSeconds(m_idleLoopValue);
+                m_anim.SetTrigger("WallMouthBlastAnticipation");
+                yield return new WaitForSeconds(m_attackLoopValue);
+                m_anim.SetTrigger("TentacleBlastDissipation");
+                stop = true;
             }
         }
     }
