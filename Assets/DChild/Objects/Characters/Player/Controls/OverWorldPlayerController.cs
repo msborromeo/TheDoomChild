@@ -81,7 +81,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_animationhandler.UpdateAnimator(new Vector2(xVelocity, yVelocity));
         }
 
-       
+        private void Awake()
+        {
+            m_inputReader.SetInputModeTOverworldGameplay();
+        }
 
         void Start()
         {
