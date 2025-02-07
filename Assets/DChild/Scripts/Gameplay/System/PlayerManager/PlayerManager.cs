@@ -269,7 +269,7 @@ namespace DChild.Gameplay.Systems
 
         private void Update()
         {
-            m_playerInput = m_characterInput.GetComponent<PlayerInput>();
+            //m_playerInput = m_characterInput.GetComponent<PlayerInput>();
             //m_autoReflex.Update(Time.deltaTime);
             if (m_playerIsDead)
             {
