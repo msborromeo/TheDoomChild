@@ -21,6 +21,8 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField]
         private float m_chasingGroundTentacleAnimationSpeedMultiplier;
 
+        [SerializeField]
+        private List<ChasingGroundTentacle> m_singleGroundTentacle;
         [ShowInInspector]
         private StateHandle<AttackStyle> m_currentAttackState;
 
@@ -51,7 +53,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public IEnumerator ExecuteAttack()
         {
-            AttackStart?.Invoke(this, EventActionArgs.Empty);
+          //  AttackStart?.Invoke(this, EventActionArgs.Empty);
             var rollAttack = Random.Range(1, 4);
 
             switch (rollAttack)
@@ -109,7 +111,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
             }
 
-            AttackDone?.Invoke(this, EventActionArgs.Empty);
+          //  AttackDone?.Invoke(this, EventActionArgs.Empty);
         }
 
         public IEnumerator ExecuteAttack(Vector2 PlayerPosition)
@@ -117,6 +119,33 @@ namespace DChild.Gameplay.Characters.Enemies
             throw new System.NotImplementedException();
         }
 
+        public IEnumerator DelayTentacleSpawn()
+        {
+            for (int i = 0; i < m_singleGroundTentacle.Count; i++)
+            {
+                m_singleGroundTentacle[i].ErectTentacle();
+                yield return new WaitForSeconds(1f);
+            }
+
+        }
+        public IEnumerator DelayTentacleSpawnReverse()
+        {
+            for (int i = m_singleGroundTentacle.Count - 1; i >= 0; i--)
+            {
+                m_singleGroundTentacle[i].ErectTentacle();
+                yield return new WaitForSeconds(1f);
+            }
+        }
+        [Button]
+        public void TentacleGroundSpikeReverse()
+        {
+            StartCoroutine(DelayTentacleSpawnReverse());
+        }
+        [Button]
+        public void TentacleGroundSpikes()
+        {
+            StartCoroutine(DelayTentacleSpawn());
+        }
         [Button]
         private void GardenAttack()
         {

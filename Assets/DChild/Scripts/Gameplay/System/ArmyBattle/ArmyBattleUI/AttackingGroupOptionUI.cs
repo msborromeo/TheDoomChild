@@ -1,41 +1,52 @@
-﻿using System.Collections.Generic;
+﻿using DChild.Gameplay.ArmyBattle.SpecialSkills;
+using Doozy.Runtime.UIManager.Components;
+using Sirenix.OdinInspector;
+using System.Collections.Generic;
+using System.Runtime.Remoting;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace DChild.Gameplay.ArmyBattle.UI
 {
+
     public class AttackingGroupOptionUI : MonoBehaviour
     {
         [SerializeField]
         private ArmyPartyNameUI m_partyName;
-        [SerializeField]
-        private ArmyCharacterGroupUI m_characterGroupUI;
-        [SerializeField]
-        private AttackingGroupPowerUI m_attackPowerUI;
-        [SerializeField]
-        private SelectedSkillButton m_selectedSkill;
-        [SerializeField]
-        private List<Image> m_partyGlow;
+        public ArmyPartyNameUI partyName => m_partyName;
 
         [SerializeField]
+        private ArmyCharacterGroupUI m_characterGroupUI;
+        public ArmyCharacterGroupUI characterGroupUI => m_characterGroupUI;
+
+        [SerializeField]
+        private AttackingGroupPowerUI m_attackPowerUI;
+        public AttackingGroupPowerUI attackingPowerUI => m_attackPowerUI;
+
+        [SerializeField]
+        private SelectedSkillButton m_selectedSkill;
+        public SelectedSkillButton selectedSkill => m_selectedSkill;
+
+        [FoldoutGroup("GLOW OVERRIDE")]
+        [SerializeField, FoldoutGroup("GLOW OVERRIDE/ASSETS")]
         private Sprite m_meleeGlow;
-        [SerializeField]
+        [SerializeField, FoldoutGroup("GLOW OVERRIDE/ASSETS")]
         private Sprite m_rangeGlow;
-        [SerializeField]
+        [SerializeField, FoldoutGroup("GLOW OVERRIDE/ASSETS")]
         private Sprite m_magicGlow;
-        [SerializeField]
-        private Sprite m_specialGlow;
+        [SerializeField, FoldoutGroup("GLOW OVERRIDE/ASSETS")]
+        private List<Image> m_partyGlow;
+
 
         public virtual void Display(IAttackingGroup group)
         {
             DamageType m_damageType = group.GetDamageType();
-
-            m_partyName.Display(group);
             m_characterGroupUI.Display(group?.GetCharacterGroup() ?? null);
-            m_attackPowerUI.Display(group);
             m_selectedSkill.Display(m_damageType);
+            m_partyName.Display(group);
+            m_attackPowerUI.Display(group);
 
-            switch(m_damageType)
+            switch (m_damageType)
             {
                 case DamageType.Melee:
                     SelectGlow(m_meleeGlow);
@@ -46,13 +57,12 @@ namespace DChild.Gameplay.ArmyBattle.UI
                 case DamageType.Magic:
                     SelectGlow(m_magicGlow);
                     break;
-                default:
-                    SelectGlow(m_specialGlow);
-                    break;
+
             }
         }
 
-        private void SelectGlow(Sprite glow)
+
+        public virtual void SelectGlow(Sprite glow)
         {
             foreach (Image glowClass in m_partyGlow)
             {

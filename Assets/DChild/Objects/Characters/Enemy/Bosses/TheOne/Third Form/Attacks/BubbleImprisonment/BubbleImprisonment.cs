@@ -12,7 +12,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private Collider2D m_trapCollider;
         [SerializeField]
         private Collider2D m_damageCollider;
-        public float timeBetweenAnimations;
+        [SerializeField]
+        private float m_emergeAnimationCounter;
+        [SerializeField]
+        private float m_explodeAnimationCounter;
 
         [SerializeField]
         private Animator m_animatorPool;
@@ -22,6 +25,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private ParticleSystem m_particlePool;
         [SerializeField]
         private ParticleSystem m_particleExplode;
+        public float timeBetweenAnimations;
 
         private void Start()
         {
@@ -39,23 +43,26 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator BubbleEmerge()
         {
-            m_animatorImplode.SetInteger("BubPool_State", 1);
-            m_animatorPool.SetInteger("BubState", 1);
-            yield return new WaitForSeconds(timeBetweenAnimations);     
+          /*  m_animatorImplode.SetInteger("BubPool_State", 1);
+            m_animatorPool.SetInteger("BubState", 1);*/
+            yield return new WaitForSeconds(m_emergeAnimationCounter);
+            m_trapCollider.enabled = true;
         }
 
         private IEnumerator BubbleExplode()
         {
-            m_trapCollider.enabled = true;
-            yield return new WaitForSeconds(timeBetweenAnimations);
-            m_animatorImplode.SetInteger("BubState", 2);
+           
+            yield return new WaitForSeconds(m_explodeAnimationCounter);
+            /*  m_animatorImplode.SetInteger("BubState", 2);*/
+            m_trapCollider.enabled = false;
             m_damageCollider.enabled = true;
-            m_animatorPool.SetInteger("BubState", 2);
+            yield return new WaitForSeconds(0.5f);
+            /*m_animatorPool.SetInteger("BubState", 2);*/
         }
 
         private IEnumerator BubbleDespawn()
         {
-            m_particleExplode.Play();
+            //m_particleExplode.Play();
             DestroyInstance();
             yield return null;
         }

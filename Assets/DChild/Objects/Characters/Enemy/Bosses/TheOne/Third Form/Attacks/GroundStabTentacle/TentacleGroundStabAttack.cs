@@ -14,15 +14,23 @@ namespace DChild.Gameplay.Characters.Enemies
     public class TentacleGroundStabAttack : MonoBehaviour, IEyeBossAttacks
     {
         [SerializeField]
+        private GroundStabTwoTentacle m_groundStabTentacleTwo;
+        [SerializeField]
         private GameObject m_groundTentacleStab;
         [SerializeField]
-        private float m_tentacleSpawnInterval = 2f;
-        [SerializeField] 
+        private GameObject m_miniGroundTentacleStab;
+        [SerializeField]
+        private GameObject m_groundStabTwo;
+        [SerializeField]
+        private float m_tentacleSpawnInterval;
+        [SerializeField]
         private float m_spawnOffsetMin;
         [SerializeField]
         private float m_spawnOffsetMax;
         [SerializeField]
         private Transform m_tentacleSpawnHeight;
+        [SerializeField]
+        private Transform m_tentacleGroundspawnHeight;
 
         private int m_tentacleCount = 0;
 
@@ -60,7 +68,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public IEnumerator ExecuteAttack(Vector2 target)
         {
-            while(m_tentacleCount < 5)
+            while (m_tentacleCount < 5)
             {
                 m_tentacleCount++;
                 if (m_tentacleCount == 1)
@@ -68,7 +76,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     InstantiateTentacles(new Vector2(target.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_backgroundSortingLayerID, m_backgroundSortingLayerName);
                     yield return new WaitForSeconds(m_tentacleSpawnInterval);
                 }
-                else if(m_tentacleCount == 2)
+                else if (m_tentacleCount == 2)
                 {
                     InstantiateTentacles(new Vector2(target.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_midgroundSortingLayerID, m_midgroundSortingLayerName);
                     yield return new WaitForSeconds(m_tentacleSpawnInterval);
@@ -88,96 +96,118 @@ namespace DChild.Gameplay.Characters.Enemies
 
             yield return null;
         }
-
+        public bool m_attackDone;
         public IEnumerator ExecuteAttack(AITargetInfo Target)
         {
-            AttackStart?.Invoke(this, EventActionArgs.Empty);
-            while (m_tentacleCount < 5)
-            {
-                m_tentacleCount++;
-                if (m_tentacleCount == 1)
-                {
-                    InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_backgroundSortingLayerID, m_backgroundSortingLayerName);
-                    yield return new WaitForSeconds(m_tentacleSpawnInterval);
-                }
-                else if (m_tentacleCount == 2)
-                {
-                    if (m_tentaclesSpawnedXPositions.Contains(Target.position.x))
-                    {
-                        int randomRoll = UnityEngine.Random.Range(0, 2);
-                        float randomOffset = UnityEngine.Random.Range(m_spawnOffsetMin, m_spawnOffsetMax);
-                        if (randomRoll == 0)
-                        {
-                            InstantiateTentacles(new Vector2(m_tentaclesSpawnedXPositions[m_tentaclesSpawnedXPositions.Count - 1] + randomOffset, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_midgroundSortingLayerID, m_midgroundSortingLayerName);
-                        }
-                        else
-                        {
-                            InstantiateTentacles(new Vector2(m_tentaclesSpawnedXPositions[m_tentaclesSpawnedXPositions.Count - 1] - randomOffset, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_midgroundSortingLayerID, m_midgroundSortingLayerName);
-                        }
-                    }
-                    else
-                    {
-                        InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_midgroundSortingLayerID, m_midgroundSortingLayerName);
-                    }
-                    //InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_midgroundSortingLayerID, m_midgroundSortingLayerName);
-                    yield return new WaitForSeconds(m_tentacleSpawnInterval);
+            //  AttackStart?.Invoke(this, EventActionArgs.Empty);
+            m_attackDone = false;
+           
+                InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, 98, m_midgroundSortingLayerName);
+                yield return new WaitForSeconds(m_tentacleSpawnInterval);
+                InstantiateGroundTentacles(new Vector2(Target.position.x, m_tentacleGroundspawnHeight.position.y), m_miniGroundTentacleStab, m_playablegroundSortingLayerID, m_playablegroundSortingLayerName);
+                yield return new WaitForSeconds(5f);
 
-                }
-                else if (m_tentacleCount == 3)
-                {
-                    if (m_tentaclesSpawnedXPositions.Contains(Target.position.x))
-                    {
-                        int randomRoll = UnityEngine.Random.Range(0, 2);
-                        float randomOffset = UnityEngine.Random.Range(m_spawnOffsetMin, m_spawnOffsetMax);
-                        {
-                            if (randomRoll == 0)
-                            {
-                                InstantiateTentacles(new Vector2(m_tentaclesSpawnedXPositions[m_tentaclesSpawnedXPositions.Count - 1] + randomOffset, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_playablegroundSortingLayerID, m_playablegroundSortingLayerName);
-                            }
-                            else
-                            {
-                                InstantiateTentacles(new Vector2(m_tentaclesSpawnedXPositions[m_tentaclesSpawnedXPositions.Count - 1] - randomOffset, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_playablegroundSortingLayerID, m_playablegroundSortingLayerName);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_playablegroundSortingLayerID, m_playablegroundSortingLayerName);
-                    }
-                    yield return new WaitForSeconds(m_tentacleSpawnInterval);
-                }
-                else if (m_tentacleCount == 4)
-                {
-                    if (m_tentaclesSpawnedXPositions.Contains(Target.position.x))
-                    {
-                        int randomRoll = UnityEngine.Random.Range(0, 2);
-                        float randomOffset = UnityEngine.Random.Range(m_spawnOffsetMin, m_spawnOffsetMax);
-                        {
-                            if (randomRoll == 0)
-                            {
-                                InstantiateTentacles(new Vector2(m_tentaclesSpawnedXPositions[m_tentaclesSpawnedXPositions.Count - 1] + randomOffset, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_foregroundSortingLayerID, m_foregroundSortingLayerName);
-                            }
-                            else
-                            {
-                                InstantiateTentacles(new Vector2(m_tentaclesSpawnedXPositions[m_tentaclesSpawnedXPositions.Count - 1] - randomOffset, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_foregroundSortingLayerID, m_foregroundSortingLayerName);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_foregroundSortingLayerID, m_foregroundSortingLayerName);
-                    }
-                    yield return new WaitForSeconds(m_tentacleSpawnInterval);
-                }
-            }
+          /*  InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, 98, m_midgroundSortingLayerName);
+            yield return new WaitForSeconds(m_tentacleSpawnInterval);
+            InstantiateGroundTentacles(new Vector2(Target.position.x, m_tentacleGroundspawnHeight.position.y), m_miniGroundTentacleStab, m_playablegroundSortingLayerID, m_playablegroundSortingLayerName);
+            yield return new WaitForSeconds(5f);*/
+            m_attackDone = true;
+            #region Old Ground Stab One Routine
+            //while (m_tentacleCount < 5)
+            //{
+            //    m_tentacleCount++;
+            //    if (m_tentacleCount == 1)
+            //    {
+            //        InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_backgroundSortingLayerID, m_backgroundSortingLayerName);
+            //        yield return new WaitForSeconds(m_tentacleSpawnInterval);
+            //    }
+            //    else if (m_tentacleCount == 2)
+            //    {
+            //        if (m_tentaclesSpawnedXPositions.Contains(Target.position.x))
+            //        {
+            //            int randomRoll = UnityEngine.Random.Range(0, 2);
+            //            float randomOffset = UnityEngine.Random.Range(m_spawnOffsetMin, m_spawnOffsetMax);
+            //            if (randomRoll == 0)
+            //            {
+            //                InstantiateTentacles(new Vector2(m_tentaclesSpawnedXPositions[m_tentaclesSpawnedXPositions.Count - 1] + randomOffset, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_midgroundSortingLayerID, m_midgroundSortingLayerName);
+            //            }
+            //            else
+            //            {
+            //                InstantiateTentacles(new Vector2(m_tentaclesSpawnedXPositions[m_tentaclesSpawnedXPositions.Count - 1] - randomOffset, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_midgroundSortingLayerID, m_midgroundSortingLayerName);
+            //            }
+            //        }
+            //        else
+            //        {
+            //            InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_midgroundSortingLayerID, m_midgroundSortingLayerName);
+            //        }
+            //        InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_midgroundSortingLayerID, m_midgroundSortingLayerName);
+            //        yield return new WaitForSeconds(m_tentacleSpawnInterval);
+
+            //    }
+            //    else if (m_tentacleCount == 3)
+            //    {
+            //        if (m_tentaclesSpawnedXPositions.Contains(Target.position.x))
+            //        {
+            //            int randomRoll = UnityEngine.Random.Range(0, 2);
+            //            float randomOffset = UnityEngine.Random.Range(m_spawnOffsetMin, m_spawnOffsetMax);
+            //            {
+            //                if (randomRoll == 0)
+            //                {
+            //                    InstantiateTentacles(new Vector2(m_tentaclesSpawnedXPositions[m_tentaclesSpawnedXPositions.Count - 1] + randomOffset, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_playablegroundSortingLayerID, m_playablegroundSortingLayerName);
+            //                }
+            //                else
+            //                {
+            //                    InstantiateTentacles(new Vector2(m_tentaclesSpawnedXPositions[m_tentaclesSpawnedXPositions.Count - 1] - randomOffset, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_playablegroundSortingLayerID, m_playablegroundSortingLayerName);
+            //                }
+            //            }
+            //        }
+            //        else
+            //        {
+            //            InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_playablegroundSortingLayerID, m_playablegroundSortingLayerName);
+            //        }
+            //        yield return new WaitForSeconds(m_tentacleSpawnInterval);
+            //    }
+            //    else if (m_tentacleCount == 4)
+            //    {
+            //        if (m_tentaclesSpawnedXPositions.Contains(Target.position.x))
+            //        {
+            //            int randomRoll = UnityEngine.Random.Range(0, 2);
+            //            float randomOffset = UnityEngine.Random.Range(m_spawnOffsetMin, m_spawnOffsetMax);
+            //            {
+            //                if (randomRoll == 0)
+            //                {
+            //                    InstantiateTentacles(new Vector2(m_tentaclesSpawnedXPositions[m_tentaclesSpawnedXPositions.Count - 1] + randomOffset, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_foregroundSortingLayerID, m_foregroundSortingLayerName);
+            //                }
+            //                else
+            //                {
+            //                    InstantiateTentacles(new Vector2(m_tentaclesSpawnedXPositions[m_tentaclesSpawnedXPositions.Count - 1] - randomOffset, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_foregroundSortingLayerID, m_foregroundSortingLayerName);
+            //                }
+            //            }
+            //        }
+            //        else
+            //        {
+            //            InstantiateTentacles(new Vector2(Target.position.x, m_tentacleSpawnHeight.position.y), m_groundTentacleStab, m_foregroundSortingLayerID, m_foregroundSortingLayerName);
+            //        }
+            //        yield return new WaitForSeconds(m_tentacleSpawnInterval);
+            //    }
+            //}
+            #endregion
+
             m_tentacleCount = 0;
             m_tentaclesSpawned.Clear();
-            AttackDone?.Invoke(this, EventActionArgs.Empty);
+            //AttackDone?.Invoke(this, EventActionArgs.Empty);
 
             yield return null;
         }
 
-        private void InstantiateTentacles(Vector2 spawnPosition, GameObject tentacle, int sortingLayerID, string sortingLayerName)
+        public IEnumerator ExecuteAttackGroundStabTwo()
+        {
+            m_groundStabTwo.SetActive(true);
+            yield return m_groundStabTentacleTwo.StartAttackRoutine();
+            m_groundStabTwo.SetActive(false);
+        }
+       
+        private  void InstantiateTentacles(Vector2 spawnPosition, GameObject tentacle, int sortingLayerID, string sortingLayerName)
         {
             var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(tentacle, gameObject.scene);
             instance.SpawnAt(spawnPosition, Quaternion.identity);
@@ -185,10 +215,12 @@ namespace DChild.Gameplay.Characters.Enemies
             instance.GetComponentInChildren<MeshRenderer>().sortingLayerID = sortingLayerID;
             instance.GetComponentInChildren<MeshRenderer>().sortingLayerName = sortingLayerName;
 
-            if(sortingLayerName == "PlayableGround")
-            {
-                instance.GetComponent<TentacleGroundStab>().isOnPlayableGround = true;
-            }
+            //if(sortingLayerName == "PlayableGround")
+            //{
+                
+            //    instance.GetComponent<TentacleGroundStab>().isOnPlayableGround = true;
+            //    instance.GetComponent<TentacleGroundStrike>().isOnPlayableGround = true;
+            //}
 
             Component[] spriteRenderers;
             spriteRenderers = instance.GetComponentsInChildren(typeof(SpriteRenderer), true);
@@ -203,6 +235,34 @@ namespace DChild.Gameplay.Characters.Enemies
             m_tentaclesSpawned.Add(instance);
             m_tentaclesSpawnedXPositions.Add(instance.transform.position.x);
         }
+        private void InstantiateGroundTentacles(Vector2 spawnPosition, GameObject tentacle, int sortingLayerID, string sortingLayerName)
+        {
+            var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(tentacle, gameObject.scene);
+            instance.SpawnAt(spawnPosition, Quaternion.identity);
+
+            instance.GetComponentInChildren<MeshRenderer>().sortingLayerID = sortingLayerID;
+            instance.GetComponentInChildren<MeshRenderer>().sortingLayerName = sortingLayerName;
+
+            //if (sortingLayerName == "PlayableGround")
+            //{
+            //    instance.GetComponent<TentacleGroundStab>().isOnPlayableGround = true;
+            //}
+
+            Component[] spriteRenderers;
+            spriteRenderers = instance.GetComponentsInChildren(typeof(SpriteRenderer), true);
+            foreach (SpriteRenderer safeZone in spriteRenderers)
+            {
+                safeZone.sortingLayerID = sortingLayerID;
+                safeZone.sortingLayerName = sortingLayerName;
+                if (sortingLayerName != m_playablegroundSortingLayerName)
+                    safeZone.gameObject.layer = 12;
+            }
+
+            m_tentaclesSpawned.Add(instance);
+            m_tentaclesSpawnedXPositions.Add(instance.transform.position.x);
+        }
+
+        
     }
 }
 

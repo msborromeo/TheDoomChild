@@ -35,6 +35,16 @@ namespace DChild.Gameplay.ArmyBattle
             }
         }
 
+        public bool HasRecruitedCharacter(ArmyCharacterData characterData)
+        {
+            return m_recruitedCharacters.Contains(characterData.ID);
+        }
+
+        public int ArmySize()
+        {
+            return m_recruitedCharacters.Count;
+        }
+
         public void Initialize()
         {
             m_recruitedCharacters = new List<int>();

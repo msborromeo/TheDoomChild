@@ -48,6 +48,11 @@ namespace DChild.Gameplay.ArmyBattle.Visualizer
             StartCoroutine(m_deathHandle.DyingInBattleRoutine(result));
         }
 
+        public void VisualizeCombatEndResultImmidiate(ArmyBattleCombatResult result)
+        {
+            m_deathHandle.SyncPopulationImmidiately(result);
+        }
+
         private IEnumerator FightRoutine(ArmyBattleCombatResult result)
         {
             if (result.player.hasAttacked)

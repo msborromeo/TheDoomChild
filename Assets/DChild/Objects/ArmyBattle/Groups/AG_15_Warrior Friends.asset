@@ -17,7 +17,6 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 7664792620164013215, guid: 4fbda0d6f49e1ee40ab951abfe40293e, type: 3}
-    - {fileID: 6512915252441527121, guid: 4fbda0d6f49e1ee40ab951abfe40293e, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -26,18 +25,46 @@ MonoBehaviour:
     - Name: m_specialSkill
       Entry: 7
       Data: 0|DChild.Gameplay.ArmyBattle.SpecialSkills.SpecialSkill, Assembly-CSharp
+    - Name: m_icon
+      Entry: 6
+      Data: 
+    - Name: m_description
+      Entry: 1
+      Data: x% of Enemy Army Troops flee
     - Name: m_type
       Entry: 3
       Data: 0
-    - Name: m_description
-      Entry: 6
-      Data: 
+    - Name: m_delay
+      Entry: 3
+      Data: 0
     - Name: m_duration
       Entry: 3
       Data: 1
+    - Name: m_onSelect
+      Entry: 7
+      Data: 1|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
+        Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 2|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForDialogue, Assembly-CSharp
+    - Name: m_dialoguetitle
+      Entry: 1
+      Data: Flee Select Dialogue
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: m_visualizerInfo
       Entry: 7
-      Data: 1|DChild.Gameplay.ArmyBattle.SpecialSkillVisualizerInfo, Assembly-CSharp
+      Data: 3|DChild.Gameplay.ArmyBattle.SpecialSkillVisualizerInfo, Assembly-CSharp
     - Name: m_ownerFX
       Entry: 6
       Data: 
@@ -49,14 +76,14 @@ MonoBehaviour:
       Data: 
     - Name: m_specialSkillModules
       Entry: 7
-      Data: 2|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
+      Data: 4|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillIEnumeratorModule[],
         Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
-      Data: 3|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
+      Data: 5|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
     - Name: m_fx
       Entry: 10
       Data: 0
@@ -67,27 +94,39 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: m_fxStatus
-      Entry: 10
-      Data: 1
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.InstantSpecialSkill,
+      Data: 6|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.InstantSpecialSkill,
         Assembly-CSharp
     - Name: m_modules
       Entry: 7
-      Data: 5|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillModule[], Assembly-CSharp
+      Data: 7|DChild.Gameplay.ArmyBattle.SpecialSkills.ISpecialSkillModule[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 6|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.DealDamage, Assembly-CSharp
+      Data: 8|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.DealDamage, Assembly-CSharp
     - Name: m_damageDealt
       Entry: 3
       Data: 1000
+    - Name: m_damageDealtPercentage
+      Entry: 3
+      Data: 0
+    - Name: m_damageDealtTrackValues
+      Entry: 6
+      Data: 
+    - Name: m_damageType
+      Entry: 3
+      Data: 0
+    - Name: m_targetType
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -97,6 +136,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForDialogue, Assembly-CSharp
+    - Name: m_dialoguetitle
+      Entry: 1
+      Data: Flee Effect Dialogue
     - Name: 
       Entry: 8
       Data: 
@@ -118,4 +166,5 @@ MonoBehaviour:
   m_requiredCharactersToBeAValidGroup:
   - {fileID: 11400000, guid: 0a4473fbe7e388f4da7d0717d09383db, type: 2}
   m_damageType: 2
+  m_forcedDamageValue: 0
   m_hasSpecialSkill: 1

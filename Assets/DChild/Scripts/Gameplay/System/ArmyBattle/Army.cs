@@ -39,6 +39,8 @@ namespace DChild.Gameplay.ArmyBattle
 
         public ArmyModifier modifiers;
         public int troopCount => m_troopCount;
+        public int startingTroopCount => m_info.GetTroopCount();
+
         public float troopCountPercent => (m_troopCount / m_info.GetTroopCount()) * 100f;
 
         public ArmyOverviewData overview => m_info.overview;
@@ -57,7 +59,14 @@ namespace DChild.Gameplay.ArmyBattle
             m_usedSpecialSkills = new List<ISpecialSkillGroup>();
 
             ResetGroupAvailability();
+
+            modifiers = new ArmyModifier();
+            modifiers.Reset();
         }
+
+        public int GetGroupCount() => m_info.GetGroups().Length;
+
+        public ArmyGroup GetGroupInfo(int index) => m_info.GetGroups()[index];
 
         public void AddTroopCount(int additionalTroops)
         {
@@ -93,6 +102,28 @@ namespace DChild.Gameplay.ArmyBattle
         public List<IAttackingGroup> GetAvailableGroups(DamageType damageType)
         {
             return m_availableAttackingGroups.Where(x => x.GetDamageType() == damageType).OrderByDescending(x => x.GetAttackPower()).ToList();
+        }
+
+        public List<IAttackingGroup> GetAllUnvailableGroups()
+        {
+            return m_usedAttackingGroups;
+        }
+
+        public void SetAttackingGroupAvailability(int attackingGroupId, bool isAvailable)
+        {
+            if (isAvailable)
+            {
+                for (int i = 0; i < m_usedAttackingGroups.Count; i++)
+                {
+                    var setAvailability = m_usedAttackingGroups[i];
+
+                    if (setAvailability.id == attackingGroupId)
+                    {
+
+                        SetAttackingGroupAvailability(setAvailability, true);
+                    }
+                }
+            }
         }
 
         public void SetAttackingGroupAvailability(IAttackingGroup attackingGroup, bool isAvailable)
@@ -157,6 +188,11 @@ namespace DChild.Gameplay.ArmyBattle
 
             m_usedAttackingGroups.Clear();
             m_usedSpecialSkills.Clear();
+        }
+
+        public ISpecialSkillGroup GetSpecificGroup(ArmyGroupTemplateData group)
+        {
+            return GetAvailableGroup(group.id, m_availableSpecialSkills);
         }
 
         private IAttackingGroup GetAvailableGroup(int id, List<IAttackingGroup> reference)

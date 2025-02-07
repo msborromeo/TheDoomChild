@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Doozy.Runtime.UIManager.Components;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace DChild.Gameplay.ArmyBattle.UI
 {
@@ -6,13 +8,22 @@ namespace DChild.Gameplay.ArmyBattle.UI
     {
         [SerializeField]
         private PlayerArmyController m_player;
+        public PlayerArmyController player => m_player;
+
         [SerializeField]
         private ArmyDamageOptionSelection m_damageSelection;
         [SerializeField]
+        private UIButton m_specialSkillButton;
+        [SerializeField]
         private ArmyBattleAttackGroupSelection m_groupSelection;
         [SerializeField]
+        private ArmyBattleSpecialSkillSelection m_specialSelection;
+
+        [SerializeField]
         private ArmyGroupIndexHandle m_groupIndex;
-        
+        [SerializeField]
+        private SpecialGroupIndexHandle m_specialIndex;
+
 
         public void Initialize(PlayerArmyController player)
         {
@@ -23,6 +34,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         public void UpdateOptions()
         {
             m_damageSelection.UpdateSelectionAvailability();
+            m_specialSkillButton.interactable = ArmyBattleSystem.CanPlayerActivateSpecialSkill();
         }
 
         public void SetAttackGroupSelection(ArmyDamageTypeOptionUI option)
@@ -30,12 +42,18 @@ namespace DChild.Gameplay.ArmyBattle.UI
             var damageType = option.damageType;
             var playerGroups = m_player.controlledArmy.GetAvailableGroups(damageType);
 
-
-            m_groupSelection.SetSelectionList(playerGroups);
             m_groupSelection.SetSelectionIcon(damageType);
             m_groupSelection.SetPanelLabel(damageType);
+            m_groupSelection.SetSelectionList(playerGroups);
             m_groupIndex.SetAvailableGroups(playerGroups);
             SelectCurrentAttackingGroup();
+        }
+
+        public void SetSpecialSkillSelection()
+        {
+            var playerSpecialGroups = m_player.controlledArmy.GetAvailableSkills();
+            m_specialSelection.SetSpecialSelectionList(playerSpecialGroups);
+            m_specialIndex.SetAvailableSpecialGroups(playerSpecialGroups);
         }
 
         public void SelectCurrentAttackingGroup()
@@ -43,5 +61,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
             m_player.UseThisTurn(m_groupSelection.GetSelectedAttackGroup());
             Debug.Log($"Selecting To Attack With {m_groupSelection.GetSelectedAttackGroup().GetCharacterGroup().name}");
         }
+
+
     }
 }
