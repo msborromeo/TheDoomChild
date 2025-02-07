@@ -48,6 +48,13 @@ namespace DChild.Inputs
         public event Action SlashCancelledEvent;
         public event Action WhipStartedEvent;
         public event Action WhipCancelledEvent;
+        public event Action CycleQuickItemsStartedEvent;
+        public event Action UseQuickItemStartedEvent;
+        public event Action ProjectileThrowStartedEvent;
+        public event Action ProjectileThrowCancelledEvent;
+        public event Action GrabStartedEvent;
+        public event Action GrabCancelledEvent;
+        public event Action<Vector2> MouseDeltaPerformedEvent;
         #endregion
         #region Overworld Input
         public event Action<Vector2> OverworldMovePerformedEvent;
@@ -159,7 +166,15 @@ namespace DChild.Inputs
 
         public void OnGrab(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if(context.phase == InputActionPhase.Started)
+            {
+                GrabStartedEvent?.Invoke();
+            }
+
+            if(context.phase == InputActionPhase.Canceled)
+            {
+                GrabCancelledEvent?.Invoke();
+            }
         }
 
         public void OnInteract(InputAction.CallbackContext context)
@@ -172,7 +187,10 @@ namespace DChild.Inputs
 
         public void OnMouseDelta(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if(context.phase == InputActionPhase.Performed)
+            {
+                MouseDeltaPerformedEvent?.Invoke(context.ReadValue<Vector2>());
+            }
         }
 
         public void OnPause(InputAction.CallbackContext context)
@@ -186,12 +204,18 @@ namespace DChild.Inputs
 
         public void OnQuickItemCycle(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if(context.phase == InputActionPhase.Started)
+            {
+                CycleQuickItemsStartedEvent?.Invoke();
+            }
         }
 
         public void OnQuickItemUse(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if(context.phase == InputActionPhase.Started)
+            {
+                UseQuickItemStartedEvent?.Invoke();
+            }
         }
 
         public void OnSlash(InputAction.CallbackContext context)
@@ -254,7 +278,15 @@ namespace DChild.Inputs
 
         public void OnProjectileThrow(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if(context.phase == InputActionPhase.Started)
+            {
+                ProjectileThrowStartedEvent?.Invoke();
+            }
+
+            if(context.phase == InputActionPhase.Canceled)
+            {
+                ProjectileThrowCancelledEvent?.Invoke();
+            }
         }
 
         public void OnLevitate(InputAction.CallbackContext context)

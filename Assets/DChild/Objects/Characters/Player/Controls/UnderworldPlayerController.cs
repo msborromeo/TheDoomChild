@@ -5,6 +5,8 @@ using DChild.Gameplay.Characters.Players.BattleAbilityModule;
 using DChild.Inputs;
 using System;
 using UnityEngine.UIElements;
+using System.ComponentModel;
+using DChild.Gameplay.Inventories;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -87,12 +89,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private AirSlashRange m_airSlashRange;
         #endregion
 
+        [SerializeField]
+        private QuickItemHandle m_handle;
+
         private bool m_updateEnabled = true;
 
         #region Input Variables
-        [SerializeField]
+        [SerializeField, ReadOnly(true)]
         private Vector2 m_vector2Input;
-
+        [SerializeField, ReadOnly(true)]
+        private Vector2 m_mouseDelta;
         #endregion
 
         public event EventAction<EventActionArgs> ControllerDisabled;
@@ -202,6 +208,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.SlashHeldEvent += OnSlashHeldInput;
             m_inputReader.WhipStartedEvent += OnWhipStartedInput;
             m_inputReader.WhipCancelledEvent += OnWhipCancelledInput;
+            m_inputReader.CycleQuickItemsStartedEvent += OnCycleQuickItemsStartedInput;
+            m_inputReader.UseQuickItemStartedEvent += OnUseQuickItemsStartedInput;
+            m_inputReader.ProjectileThrowStartedEvent += OnProjectileThrowStartedInput;
+            m_inputReader.ProjectileThrowCancelledEvent += OnProjectileThrowCancelledInput;
+            m_inputReader.MouseDeltaPerformedEvent += OnMouseDeltaPerformedInput;
+            m_inputReader.GrabStartedEvent += OnGrabStartedInput;
+            m_inputReader.GrabCancelledEvent += OnGrabCancelledInput;
         }
 
         private void OnDisable()
@@ -233,6 +246,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.SlashHeldEvent -= OnSlashHeldInput;
             m_inputReader.WhipStartedEvent -= OnWhipStartedInput;
             m_inputReader.WhipCancelledEvent -= OnWhipCancelledInput;
+            m_inputReader.CycleQuickItemsStartedEvent -= OnCycleQuickItemsStartedInput;
+            m_inputReader.UseQuickItemStartedEvent -= OnUseQuickItemsStartedInput;
+            m_inputReader.ProjectileThrowStartedEvent -= OnProjectileThrowStartedInput;
+            m_inputReader.ProjectileThrowCancelledEvent -= OnProjectileThrowCancelledInput;
+            m_inputReader.MouseDeltaPerformedEvent -= OnMouseDeltaPerformedInput;
+            m_inputReader.GrabStartedEvent -= OnGrabStartedInput;
+            m_inputReader.GrabCancelledEvent -= OnGrabCancelledInput;
         }
 
         private void FixedUpdate()
@@ -507,9 +527,21 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_groundJump?.HandleCutoffTimer();
             }
 
+            if(m_state.isAimingProjectile)
+            {
+                ProjectileThrowAiming();
+            }
+
             if(CanMove())
             {
-                MoveAction();
+                if (m_state.isGrabbing)
+                {
+                    MoveAction();
+                }
+                else
+                {
+                    GrabMoveAction();
+                }
             }
             LevitateAction();
             LedgeGrabMovementAction();
@@ -993,9 +1025,83 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
             }   
         }
+
+
+        private void OnMouseDeltaPerformedInput(Vector2 vector)
+        {
+            m_mouseDelta = vector;
+        }
+
+        private void OnProjectileThrowStartedInput()
+        {
+            if (m_skills.IsModuleActive(PrimarySkill.SkullThrow))
+            {
+                PrepareForGroundAttack();
+
+                if (m_vector2Input.x != 0)
+                {
+                    m_movement.UpdateFaceDirection(m_vector2Input.x);
+                }
+
+                m_projectileThrow.StartAim();
+                m_projectileThrow.Execute();
+            }
+        }
+
+        private void OnProjectileThrowCancelledInput()
+        {
+            if(m_state.isAimingProjectile)
+            {
+                m_projectileThrow.EndAim();
+                m_projectileThrow.StartThrow();
+                GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.None);
+            }
+        }
+
+
+        private void OnUseQuickItemsStartedInput()
+        {
+            //call quick item controller to do use item
+        }
+
+        private void OnCycleQuickItemsStartedInput()
+        {
+            //call quick item controller to do cycle 
+        }
+
+        private void OnGrabCancelledInput()
+        {
+            m_movement?.SwitchConfigTo(Movement.Type.Jog);
+            m_objectManipulation?.Cancel();
+        }
+
+        private void OnGrabStartedInput()
+        {
+            if (m_objectManipulation?.IsThereAMovableObject() ?? false)
+            {
+                m_idle?.Cancel();
+                m_objectManipulation?.Execute();
+            }
+        }
         #endregion
 
         #region Action Functions
+        private void ProjectileThrowAiming()
+        {
+            m_projectileThrow.MoveAim(m_mouseDelta, GameplaySystem.cinema.mainCamera.ScreenToWorldPoint(m_mouseDelta));
+
+            if (m_projectileThrow?.HasReachedVerticalThreshold() == true)
+            {
+                GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.Up);
+            }
+            else
+            {
+                GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.None);
+            }
+
+            return;
+        }
+
         private void SwordThrustAction()
         {
             if (m_state.isChargingAttack)
@@ -1085,9 +1191,43 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
         }
 
+        private void GrabMoveAction()
+        {
+            if (m_objectManipulation.IsThereAMovableObject())
+            {
+                if (m_vector2Input.x == 0)
+                {
+                    if (m_objectManipulation.IsThereAMovableObject())
+                    {
+                        m_objectManipulation?.GrabIdle();
+                    }
+                }
+
+                if (m_vector2Input.x != 0)
+                {
+                    if (m_state.isPushing)
+                    {
+                        m_movement?.SwitchConfigTo(Movement.Type.Push);
+                    }
+                    else
+                    {
+                        m_movement?.SwitchConfigTo(Movement.Type.Pull);
+                    }
+
+                    m_objectManipulation?.MoveObject(m_vector2Input.x, m_character.facing);
+                } 
+            }
+            else
+            {
+                m_movement?.SwitchConfigTo(Movement.Type.Jog);
+                m_objectManipulation?.Cancel();
+            }
+
+            MoveCharacter(m_state.isGrabbing, m_vector2Input.x);
+        }
+
         private void MoveAction()
         {
-            Debug.Log("Is Moving");
             if (m_state.isDashing)
             {
                 return;
@@ -1642,7 +1782,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     && m_whip.CanMove() 
                     && isAllowedByDash
                     && isAllowedBySlide
-                    && m_state.isDoingSwordThrust == false;
+                    && m_state.isDoingSwordThrust == false
+                    && m_state.isAimingProjectile == false;
 
             return m_slashCombo.CanMove()
                     && isAllowedBySkills
