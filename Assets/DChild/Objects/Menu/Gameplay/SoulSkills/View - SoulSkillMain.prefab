@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 33829320794386633}
   - component: {fileID: 33829320794387255}
   - component: {fileID: 33829320794387253}
+  - component: {fileID: 161321274959392632}
   - component: {fileID: 33829320794386636}
   m_Layer: 5
   m_Name: View - SoulSkillInfo
@@ -122,6 +123,20 @@ MonoBehaviour:
   m_name: {fileID: 33829322519000658}
   m_capcity: {fileID: 33829320992711418}
   m_description: {fileID: 33829322434219657}
+--- !u!114 &161321274959392632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33829320794387251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fad42821c1b7216408da30b66f861bd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_localizeName: {fileID: 2104713193337887886}
+  m_localizeDescription: {fileID: 6511886984519378970}
 --- !u!114 &33829320794386636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -735,6 +750,7 @@ RectTransform:
   - {fileID: 33829320913624855}
   - {fileID: 33829322462290252}
   - {fileID: 33829320794387252}
+  - {fileID: 2537872906917627464}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1762,6 +1778,7 @@ GameObject:
   - component: {fileID: 33829322297777304}
   - component: {fileID: 33829322297777306}
   - component: {fileID: 33829322297777305}
+  - component: {fileID: 8253164123354576692}
   m_Layer: 5
   m_Name: SoulSkillListHeader
   m_TagString: Untagged
@@ -1817,7 +1834,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: captured souls
+  m_text: Captured Souls
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 21213444537982326, guid: 03de9f858562ece4c9ac9d91b56d9ad5,
@@ -1845,7 +1862,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31
+  m_fontSize: 34.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1887,6 +1904,45 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8253164123354576692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33829322297777287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: SoulSkillMain/Header/CapturedSouls
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1 &33829322434219767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1898,6 +1954,7 @@ GameObject:
   - component: {fileID: 33829322434219656}
   - component: {fileID: 33829322434219658}
   - component: {fileID: 33829322434219657}
+  - component: {fileID: 6511886984519378970}
   m_Layer: 5
   m_Name: CurrrentSelectedSoulSkillDescription
   m_TagString: Untagged
@@ -2029,6 +2086,45 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6511886984519378970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33829322434219767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: 
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1 &33829322462290251
 GameObject:
   m_ObjectHideFlags: 0
@@ -2233,6 +2329,7 @@ GameObject:
   - component: {fileID: 33829322519000657}
   - component: {fileID: 33829322519000659}
   - component: {fileID: 33829322519000658}
+  - component: {fileID: 2104713193337887886}
   m_Layer: 5
   m_Name: CurrrentSelectedSoulSkillName
   m_TagString: Untagged
@@ -2316,7 +2413,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 42.05
+  m_fontSize: 46.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2358,6 +2455,45 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2104713193337887886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33829322519000656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: 
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1001 &33829320718738381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5304,6 +5440,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 3.4000015
       objectReference: {fileID: 0}
+    - target: {fileID: 5728366911130679313, guid: 2c1b2ca5139e8ec4d9e85514c1a327b2,
+        type: 3}
+      propertyPath: ColorTarget
+      value: 
+      objectReference: {fileID: 7135794491614930075}
     - target: {fileID: 6099760937339962704, guid: 2c1b2ca5139e8ec4d9e85514c1a327b2,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5428,7 +5569,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 33829321574749928}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6818738232567463263}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -5467,6 +5608,25 @@ MonoBehaviour:
   m_orb: {fileID: 370499470443494663}
   m_icon: {fileID: 1890922147159396751}
   m_glow: {fileID: 0}
+--- !u!1 &6818738232567463263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6834539939480890295, guid: 2c1b2ca5139e8ec4d9e85514c1a327b2,
+    type: 3}
+  m_PrefabInstance: {fileID: 33829321574749928}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7135794491614930075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6818738232567463263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3af1f82fc2e48368b588587f1e87ccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 370499470443494663}
 --- !u!224 &8340809477627259563 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8338605552424434755, guid: 2c1b2ca5139e8ec4d9e85514c1a327b2,
@@ -7133,6 +7293,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoulCapacity
       objectReference: {fileID: 0}
+    - target: {fileID: 1621028254624724812, guid: 0da5bf0b2538b2c429605ef22cad1fcd,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 113.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8698215229311671362, guid: 0da5bf0b2538b2c429605ef22cad1fcd,
         type: 3}
       propertyPath: m_Pivot.x
@@ -8630,4 +8795,109 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4426680426410601119, guid: 137e196d4879e544ebe24d89721918b5,
     type: 3}
   m_PrefabInstance: {fileID: 33829322746264552}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7459584660421498076
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 33829321095340269}
+    m_Modifications:
+    - target: {fileID: 1862870691415168323, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1862870691415168323, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Term
+      value: SoulSkillMain/Header/CapturedSouls
+      objectReference: {fileID: 0}
+    - target: {fileID: 1862870691415168323, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1862870691415168323, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1862870691415168323, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[0]
+      value: Captured Souls
+      objectReference: {fileID: 0}
+    - target: {fileID: 1862870691415168323, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[1]
+      value: Gefangene Seelen
+      objectReference: {fileID: 0}
+    - target: {fileID: 4261221477952958715, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: m_Name
+      value: DChildLocalizationSource_SoulSkillMain
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953274936040460948, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953274936040460948, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953274936040460948, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953274936040460948, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953274936040460948, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953274936040460948, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953274936040460948, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953274936040460948, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953274936040460948, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953274936040460948, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953274936040460948, guid: 2ef537db9f1090e41b4820373865b978,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2ef537db9f1090e41b4820373865b978, type: 3}
+--- !u!4 &2537872906917627464 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4953274936040460948, guid: 2ef537db9f1090e41b4820373865b978,
+    type: 3}
+  m_PrefabInstance: {fileID: 7459584660421498076}
   m_PrefabAsset: {fileID: 0}
