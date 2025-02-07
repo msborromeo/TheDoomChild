@@ -79,5 +79,6 @@ namespace DChild.Gameplay.Characters.Players.State
         }
 
         public bool canWallCrawl { get => canWallCrawl; set => canWallCrawl = value; }
+        public bool isLedgeGrabbing { get => isLedgeGrabbing; set => isLedgeGrabbing = value; }
     }
 }

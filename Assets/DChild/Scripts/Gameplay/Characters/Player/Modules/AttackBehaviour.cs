@@ -82,6 +82,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.canAttack = true;
             m_animator = info.animator;
             m_animationParameter = info.animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsAttacking);
+            m_animator.SetBool(m_animationParameter, false);
         }
 
         public virtual void Reset()
