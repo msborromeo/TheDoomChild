@@ -127,6 +127,12 @@ MonoBehaviour:
     Runners: []
     Event:
       m_PersistentCalls:
+        m_Calls: []
+  OnHiddenCallback:
+    EventName: OnHiddenCallback
+    Runners: []
+    Event:
+      m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1467984357}
           m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.SpecialSkills.ExecuteAttackConfirmationUI,
@@ -141,12 +147,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  OnHiddenCallback:
-    EventName: OnHiddenCallback
-    Runners: []
-    Event:
-      m_PersistentCalls:
-        m_Calls: []
   OnVisibilityChangedCallback:
     m_PersistentCalls:
       m_Calls: []
@@ -1804,7 +1804,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Angriff Ausf\xFChren?"
+  m_text: Execute Attack?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 883de4789bbcff242a7daba6694cde8b, type: 2}
@@ -1831,7 +1831,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.5
+  m_fontSize: 48
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4184,10 +4184,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Localization - Source
       objectReference: {fileID: 0}
+    - target: {fileID: 5918547856532549885, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
         type: 3}
       propertyPath: mSource.mTerms.Array.size
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
         type: 3}
@@ -4206,6 +4211,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
         type: 3}
+      propertyPath: mSource.mTerms.Array.data[8].Term
+      value: ARMY BATTLE/Confirmation/Yes
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[9].Term
+      value: ARMY BATTLE/Confirmation/No
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
       propertyPath: mSource.mTerms.Array.data[5].Flags.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -4221,6 +4236,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
         type: 3}
+      propertyPath: mSource.mTerms.Array.data[8].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[9].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
       propertyPath: mSource.mTerms.Array.data[5].Languages.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -4232,6 +4257,16 @@ PrefabInstance:
     - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
         type: 3}
       propertyPath: mSource.mTerms.Array.data[7].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[8].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[9].Languages.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
@@ -4313,6 +4348,26 @@ PrefabInstance:
         type: 3}
       propertyPath: mSource.mTerms.Array.data[7].Languages.Array.data[1]
       value: "Spezialf\xE4higkeit Ausf\xFChren?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[8].Languages.Array.data[0]
+      value: Yes
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[8].Languages.Array.data[1]
+      value: Ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[9].Languages.Array.data[0]
+      value: No
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[9].Languages.Array.data[1]
+      value: NEIN
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d29e87ec186c2a340989a3e6c728d5b7, type: 3}
@@ -4537,7 +4592,7 @@ PrefabInstance:
     - target: {fileID: 6508849534040571611, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
       propertyPath: m_text
-      value: Nein
+      value: No
       objectReference: {fileID: 0}
     - target: {fileID: 6508849534040571611, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
@@ -6052,7 +6107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTerm: NO
+  mTerm: ARMY BATTLE/Confirmation/No
   mTermSecondary: 
   PrimaryTermModifier: 0
   SecondaryTermModifier: 0
@@ -6331,7 +6386,7 @@ PrefabInstance:
     - target: {fileID: 6508849534040571611, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
       propertyPath: m_text
-      value: Ja
+      value: Yes
       objectReference: {fileID: 0}
     - target: {fileID: 6508849534040571611, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
@@ -7457,7 +7512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTerm: YES
+  mTerm: ARMY BATTLE/Confirmation/Yes
   mTermSecondary: 
   PrimaryTermModifier: 0
   SecondaryTermModifier: 0
