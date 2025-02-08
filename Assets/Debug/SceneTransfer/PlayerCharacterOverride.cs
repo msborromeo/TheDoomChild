@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.Characters.Players.Behaviour;
 using DChild.Gameplay.Characters.Players.Modules;
+using DChild.Inputs;
 using PlayerNew;
 using Sirenix.OdinInspector;
 using System.Collections;
@@ -16,7 +17,7 @@ namespace DChild.Gameplay.Characters.Players
 
         [Title("Modules")]
         [SerializeField]
-        private InputTranslator m_input;
+        private InputReader m_input;
 
         public float moveDirectionInput { set { m_moveDirectionInput = Mathf.Clamp(value, -1f, 1f); } }
 
@@ -28,12 +29,13 @@ namespace DChild.Gameplay.Characters.Players
         private void OnDisable()
         {
             m_moveDirectionInput = 0;
-            m_input.horizontalInput = m_moveDirectionInput;
+            m_input.Disable();
+
         }
 
         private void FixedUpdate()
         {
-            m_input.horizontalInput = m_moveDirectionInput;
+            //m_input.horizontalInput = m_moveDirectionInput;
         }
     } 
 }
