@@ -12,8 +12,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
     {
         [SerializeField]
         private InputReader m_inputReader;
-        [SerializeField]
-        private PauseHandle m_pauseHandle;
 
         private void OnEnable()
         {
@@ -27,21 +25,29 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnResumeStartedInput()
         {
-            m_pauseHandle.ResumeGame();
-            if(GameplaySystem.GetCurrentWorldType() == WorldType.Underworld)
-            {
-                m_inputReader.SetInputModeToUnderworldGameplay();
-            }
+           
+        }
 
-            if (GameplaySystem.GetCurrentWorldType() == WorldType.Overworld)
-            {
-                m_inputReader.SetInputModeTOverworldGameplay();
-            }
+        public void SetInputModeToUI()
+        {
+            m_inputReader.SetInputModeToUI();
+        }
 
-            if (GameplaySystem.GetCurrentWorldType() == WorldType.ArmyBattle)
+        public void SetInputModeToCurrentGameplay()
+        {
+            switch(BaseGameplaySystem.GetCurrentWorldType())
             {
-                m_inputReader.SetInputModeToArmyBattleGameplay();
+                case WorldType.Underworld:
+                    m_inputReader.SetInputModeToUnderworldGameplay();
+                    break;
+                case WorldType.Overworld:
+                    m_inputReader.SetInputModeTOverworldGameplay();
+                    break;
+                case WorldType.ArmyBattle:
+                    m_inputReader.SetInputModeToArmyBattleGameplay();
+                    break;
             }
+            
         }
     }
 }
