@@ -519,7 +519,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                     , new AttackInfo<Attack>(Attack.Phase5Pattern10, m_info.phase5Pattern10Range)
                                     , new AttackInfo<Attack>(Attack.Phase5Pattern11, m_info.phase5Pattern11Range));*/
             #endregion
-            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab1AndCeiling, m_info.phase1Pattern1Range)
+            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.ChasingGroundBlast, m_info.phase1Pattern1Range)
                                     /*new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range)*/);
             //switch (m_phaseHandle.currentPhase)
             //{
@@ -1258,16 +1258,13 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
-            if (!m_targetInfo.isCharacterGrounded)
-            {
-                yield return null;
-            }
 
-            var monolithPlatformsPresent = FindObjectOfType<ObstacleChecker>().monolithSlamObstacleList;
+            var monolithPlatformsPresent = m_obstacleChecker.monolithSlamObstacleList;
 
             if (monolithPlatformsPresent != null)
             {
-                yield return null;
+                m_attackDecider.hasDecidedOnAttack = false;
+                m_stateHandle.ApplyQueuedState();
             }
             yield return m_theOneThirdFormAttacks.TentacleBlastTwo();
             yield return new WaitForSeconds(5f);
@@ -1303,52 +1300,72 @@ namespace DChild.Gameplay.Characters.Enemies
 
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
-            var blackBloodFloodPresent = FindObjectOfType<ObstacleChecker>().isFloodingBlackBlood;
+            var blackBloodFloodPresent = m_obstacleChecker.isFloodingBlackBlood;
 
             if (blackBloodFloodPresent)
             {
-                yield return null;
+                m_attackDecider.hasDecidedOnAttack = false;
+                m_stateHandle.ApplyQueuedState();
+                yield break;
             }
-
-            for (int i = 0; i < 3; i++)
+            yield return m_theOneThirdFormAttacks.MonolithSlam();
+            yield return new WaitForSeconds(cooldown);
+            yield return m_theOneThirdFormAttacks.RemovalMonolithSlamPhaseOne();
+            yield return new WaitForSeconds(cooldown);
+            yield return m_theOneThirdFormAttacks.MonolithSlamPhaseTwo();
+            yield return new WaitForSeconds(3f);
+            yield return m_theOneThirdFormAttacks.RemovalMonolithSlamPhaseTwo();
+            yield return new WaitForSeconds(1f);
+            yield return m_theOneThirdFormAttacks.MonolithSlamPhaseTwo();
+            yield return new WaitForSeconds(3f);
+            yield return m_theOneThirdFormAttacks.RemovalMonolithSlamPhaseTwo();
+            yield return new WaitForSeconds(1f);
+            //for (int i = 0; i < 2; i++)
+            //{
+            //    //yield return m_theOneThirdFormAttacks.MonolithSlam(m_targetInfo);
+            //    yield return new WaitForSeconds(cooldown);
+            //}
+            var randomShit = RandomShit(0, 3);
+            if(randomShit == 0)
             {
-                //yield return m_theOneThirdFormAttacks.MonolithSlam(m_targetInfo);
-                yield return new WaitForSeconds(cooldown);
-            }
-            var randomShit = Random.Range(1, 2);
-            if (randomShit == 1)
-            {
-                //temporary ground stab 2
-                yield return ChasingGroundTentacle(3f);
+                yield return m_theOneThirdFormAttacks.SlidingStoneWallAttack(m_targetInfo);
             }
             else
             {
-                yield return SlidingWallAttack();
-                //sliding stone wall;
+                yield return m_theOneThirdFormAttacks.TentacleGroundStabTwo();
             }
-
-            yield return new WaitForSeconds(3f);
+           
             Debug.Log("monolith done");
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
         }
         private IEnumerator MonolithSlamPhase2Attack(float cooldown)
         {
+            //pattern 4-1 ni ssob 
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
-            var blackBloodFloodPresent = FindObjectOfType<ObstacleChecker>().isFloodingBlackBlood;
+            var blackBloodFloodPresent = m_obstacleChecker.isFloodingBlackBlood;
 
             if (blackBloodFloodPresent)
             {
-                yield return null;
+                m_attackDecider.hasDecidedOnAttack = false;
+                m_stateHandle.ApplyQueuedState();
+                yield break;
             }
-
-            for (int i = 0; i < 2; i++)
-            {
-                //yield return m_theOneThirdFormAttacks.MonolithSlam(m_targetInfo);
-                yield return new WaitForSeconds(cooldown);
-            }
-            yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
+            yield return m_theOneThirdFormAttacks.MonolithSlam();
+            yield return new WaitForSeconds(cooldown);
+            yield return m_theOneThirdFormAttacks.RemovalMonolithSlamPhaseOne();
+            yield return new WaitForSeconds(cooldown);
+            yield return m_theOneThirdFormAttacks.MonolithSlamPhaseTwo();
+            yield return new WaitForSeconds(5f);
+            yield return m_theOneThirdFormAttacks.RemovalMonolithSlamPhaseTwo();
+            yield return new WaitForSeconds(1f);
+            //for (int i = 0; i < 2; i++)
+            //{
+            //    //yield return m_theOneThirdFormAttacks.MonolithSlam(m_targetInfo);
+            //    yield return new WaitForSeconds(cooldown);
+            //}
+            yield return m_theOneThirdFormAttacks.TentacleGroundStabTwo();
             Debug.Log("monolith done");
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
@@ -1361,6 +1378,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
             if (blackBloodFloodPresent)
             {
+                m_attackDecider.hasDecidedOnAttack = false;
+                m_stateHandle.ApplyQueuedState();
                 yield break;
             }
 
@@ -1369,7 +1388,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return m_theOneThirdFormAttacks.RemovalMonolithSlamPhaseOne();
             yield return new WaitForSeconds(1f);
             yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(5f);
             Debug.Log("monolith done");
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
@@ -1414,7 +1433,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator MouthBlastWall(float cooldown)
         {
-            var monolithPlatformsPresent = FindObjectOfType<ObstacleChecker>().monolithSlamObstacleList;
+            var monolithPlatformsPresent =  m_obstacleChecker.monolithSlamObstacleList;
 
             if (monolithPlatformsPresent != null)
                 yield return null;
@@ -1438,18 +1457,27 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
                 yield return new WaitForSeconds(1f);
             }
-            // temporary for ground stab 2
-            yield return ChasingGroundTentacle(3f);
+
+            yield return new WaitForSeconds(2f);
+            yield return m_theOneThirdFormAttacks.TentacleGroundStabTwo();
             yield return new WaitForSeconds(3f);
+            for (int i = 0; i < 2; i++)
+            {
+                yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
+                yield return new WaitForSeconds(1f);
+            }
+            yield return new WaitForSeconds(2f);
+            yield return m_theOneThirdFormAttacks.TentacleGroundStabTwo();
             Debug.Log("Done chasing ground tentakel");
+            yield return m_theOneThirdFormAttacks.TentacleCeilingAttackRetract();
             yield return MouthBlastWallCombo(3f);
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
         }
         private IEnumerator MouthBlastWallCombo(float cooldown)
         {
-            yield return MouthBlastWall(1f);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            yield return MouthBlastWall(1f);
             yield return new WaitForSeconds(cooldown);
             Debug.Log("Wall mouthblast done");
         }
@@ -1544,7 +1572,7 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         private IEnumerator SlidingWall(float cooldown)
         {
-            var blackBloodFloodPresent = FindObjectOfType<ObstacleChecker>().isFloodingBlackBlood;
+            var blackBloodFloodPresent = m_obstacleChecker.isFloodingBlackBlood;
 
             if (blackBloodFloodPresent)
             {
@@ -1569,10 +1597,10 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator ScriptedTentacleGrab(float cooldown)
         {
-            if (!m_targetInfo.isCharacterGrounded)
-            {
-                yield return null;
-            }
+            //if (!m_targetInfo.isCharacterGrounded)
+            //{
+            //    yield return null;  
+            //}
 
             yield return m_theOneThirdFormAttacks.TentacleGrab();
             yield return new WaitForSeconds(cooldown);
