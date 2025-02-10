@@ -414,8 +414,50 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: 
+  - id: 400
+    fields:
+    - title: Name
+      value: isArrivingAtTheBlacksmithTriggered
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 401
+    fields:
+    - title: Name
+      value: blacksmithThinkingExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 1
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 402
+    fields:
+    - title: Name
+      value: blacksmithIdleExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 2
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
   conversations:
-  - id: 223
+  - id: 229
     fields:
     - title: Title
       value: Arriving in the Garden
@@ -495,7 +537,7 @@ MonoBehaviour:
         value: SetPanel(Black Death, 1, true)
         type: 0
         typeString: 
-      conversationID: 223
+      conversationID: 229
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -503,9 +545,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 223
+      - originConversationID: 229
         originDialogueID: 0
-        destinationConversationID: 223
+        destinationConversationID: 229
         destinationDialogueID: 1
         isConnector: 0
         priority: 2
@@ -551,7 +593,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 223
+      conversationID: 229
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -559,9 +601,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 223
+      - originConversationID: 229
         originDialogueID: 1
-        destinationConversationID: 223
+        destinationConversationID: 229
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
@@ -607,7 +649,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 223
+      conversationID: 229
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -615,9 +657,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 223
+      - originConversationID: 229
         originDialogueID: 2
-        destinationConversationID: 223
+        destinationConversationID: 229
         destinationDialogueID: 3
         isConnector: 0
         priority: 2
@@ -663,7 +705,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 223
+      conversationID: 229
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -671,9 +713,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 223
+      - originConversationID: 229
         originDialogueID: 3
-        destinationConversationID: 223
+        destinationConversationID: 229
         destinationDialogueID: 4
         isConnector: 0
         priority: 2
@@ -719,7 +761,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 223
+      conversationID: 229
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -727,9 +769,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 223
+      - originConversationID: 229
         originDialogueID: 4
-        destinationConversationID: 223
+        destinationConversationID: 229
         destinationDialogueID: 5
         isConnector: 0
         priority: 2
@@ -775,7 +817,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 223
+      conversationID: 229
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -783,9 +825,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 223
+      - originConversationID: 229
         originDialogueID: 5
-        destinationConversationID: 223
+        destinationConversationID: 229
         destinationDialogueID: 6
         isConnector: 0
         priority: 2
@@ -831,7 +873,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 223
+      conversationID: 229
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -839,9 +881,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 223
+      - originConversationID: 229
         originDialogueID: 6
-        destinationConversationID: 223
+        destinationConversationID: 229
         destinationDialogueID: 7
         isConnector: 0
         priority: 2
@@ -887,7 +929,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 223
+      conversationID: 229
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2780,8 +2822,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Welcome! You'll be able to enhance your sword here! With my skill,
-          I'll be able to improve any of your weapons!
+        value: '[pic=blacksmithIdleExpression] Welcome! You''ll be able to enhance
+          your sword here! With my skill, I''ll be able to improve any of your weapons!'
         type: 0
         typeString: 
       - title: Sequence
