@@ -53,6 +53,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private float m_cacheGravity;
         private bool m_adjustGravity;
         private bool m_canAirAttack;
+        private int m_yInputParameter;
 
         private Animator m_fxAnimator;
         private SkeletonAnimation m_skeletonAnimation;
@@ -73,6 +74,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             m_fxAnimator = m_attackFX.gameObject.GetComponentInChildren<Animator>();
             m_skeletonAnimation = m_attackFX.gameObject.GetComponent<SkeletonAnimation>();
+            m_animator.SetBool(m_animationParameter, false);
+            m_yInputParameter = info.animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.YInput);
         }
 
         public void SetConfiguration(BasicSlashesStatsInfo info)
@@ -99,6 +102,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_executedTypes.Clear();
             }
 
+            m_animator.SetBool(m_animationParameter, false);
             m_rigidBody.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
         }
 
@@ -142,6 +146,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             switch (type)
             {
                 case Type.Ground_Overhead:
+                    m_animator.SetFloat(m_yInputParameter, 1);
                     m_timer = m_groundOverhead.nextAttackDelay;
                     m_attacker.SetDamageModifier(m_groundOverhead.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
                     m_rigidBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
@@ -164,6 +169,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                     break;
                 case Type.MidAir_Overhead:
+                    m_animator.SetFloat(m_yInputParameter, 1);
                     m_timer = m_midAirOverhead.nextAttackDelay;
                     m_attacker.SetDamageModifier(m_midAirOverhead.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
                     m_canAirAttack = false;
@@ -222,6 +228,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_state.isDoingCombo = false;
             }
 
+            m_animator.SetBool(m_animationParameter, false); 
+            m_animator.SetFloat(m_yInputParameter, 0);
             m_rigidbody.gravityScale = m_cacheGravity;
             m_adjustGravity = false;
             //m_fxAnimator.Play("Buffer");

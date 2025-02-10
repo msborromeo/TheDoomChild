@@ -24,6 +24,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private Rigidbody2D m_rigibody;
         private Animator m_animator;
         private int m_animationParameter;
+        private int m_yInputParameter;
 
         public void Initialize(ComplexCharacterInfo info)
         {
@@ -31,6 +32,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_rigibody = info.rigidbody;
             m_animator = info.animator;
             m_animationParameter = info.animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsWallCrawling);
+            m_yInputParameter = info.animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.YInput);
         }
 
         public void SetConfiguration(WallMovementStatsInfo info)
@@ -56,6 +58,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void Cancel()
         {
             m_animator.SetBool(m_animationParameter, false);
+            m_animator.SetFloat(m_yInputParameter, 0);
             m_rigibody.velocity = Vector2.zero;
         }
 
@@ -66,8 +69,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 if (direction != 0)
                 {
                     m_animator.SetBool(m_animationParameter, true);
+                
                     m_rigibody.velocity = new Vector2(m_rigibody.velocity.x, m_configuration.speed * direction);
                 }
+                m_animator.SetFloat(m_yInputParameter, direction);
             }
         }
     }
