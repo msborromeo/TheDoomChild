@@ -6,12 +6,15 @@ namespace DChild.Gameplay.ArmyBattle
     public class ArmyOverviewData : ScriptableObject
     {
         [SerializeField]
+        private int m_id;
+        [SerializeField]
         private string m_name;
-        [SerializeField] 
+        [SerializeField]
         private Sprite m_icon;
         [SerializeField]
         private bool m_localizeName;
 
+        public int ID => m_id;
         public string name => m_name;
         public Sprite icon => m_icon;
         public bool localize => m_localizeName;
