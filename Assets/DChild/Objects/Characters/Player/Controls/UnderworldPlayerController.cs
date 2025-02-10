@@ -104,6 +104,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         [SerializeField, ReadOnly(true)]
         private Vector2 m_mouseDelta;
         private bool m_allowQuickItemCycle;
+        private bool m_isGrabbing;
         #endregion
 
         public event EventAction<EventActionArgs> ControllerDisabled;
@@ -523,7 +524,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             }
 
-            if(m_state.isHighJumping)
+            m_objectManipulation?.LookForMoveableObject();
+
+            if (m_state.isHighJumping)
             {
                 if (m_rigidbody.velocity.y <= (m_groundJump?.highJumpCutoffThreshold ?? 0f))
                 {
@@ -541,11 +544,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 if (m_state.isGrabbing)
                 {
-                    MoveAction();
+                    GrabMoveAction();
                 }
                 else
                 {
-                    GrabMoveAction();
+                    MoveAction();
                 }
             }
             LevitateAction();
@@ -730,16 +733,18 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_skills.IsModuleActive(PrimarySkill.DevilWings))
             {
-                if (m_devilWings.CanLevitate())
+                if (m_state.isGrounded == false)
                 {
-                    if(m_devilWings?.HaveEnoughSourceForExecution() ?? false)
+                    if (m_devilWings.CanLevitate())
                     {
-                        if (m_state.isHighJumping)
+                        if (m_devilWings?.HaveEnoughSourceForExecution() ?? false)
                         {
-                            m_groundJump?.CutOffJump();
+                            if (m_state.isHighJumping)
+                            {
+                                m_groundJump?.CutOffJump();
+                            }
+                            m_devilWings?.Execute();
                         }
-                        m_devilWings?.Execute();
-
                     }
                 }
             }
@@ -1094,16 +1099,18 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnGrabCancelledInput()
         {
+            m_isGrabbing = false;
             m_movement?.SwitchConfigTo(Movement.Type.Jog);
             m_objectManipulation?.Cancel();
         }
 
         private void OnGrabStartedInput()
         {
-            if (m_objectManipulation?.IsThereAMovableObject() ?? false)
+            if(m_objectManipulation.IsThereAMovableObject())
             {
                 m_idle?.Cancel();
                 m_objectManipulation?.Execute();
+                m_isGrabbing = true;
             }
         }
         #endregion
