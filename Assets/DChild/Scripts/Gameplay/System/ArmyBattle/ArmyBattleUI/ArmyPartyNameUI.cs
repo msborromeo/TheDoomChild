@@ -24,7 +24,11 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         public void Display(ISpecialSkillGroup group)
         {
-            m_partyName.text = $"{group.GetCharacterGroup().name}";
+            var localize = GetComponentInChildren<Localize>();
+            var groupId = group.id.ToString("000");
+
+            localize.SetTerm($"ArmyBattle/Groups/{groupId}/AG_{groupId}_Name");
+            //m_partyName.text = $"{group.GetCharacterGroup().name}";
         }
     }
 }

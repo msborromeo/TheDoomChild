@@ -867,13 +867,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnStoreInput()
         {
             GameplaySystem.gamplayUIHandle.OpenStoreAtPage(StorePage.Map);
-            m_inputReader.SetInputModeToUI();
+            //m_inputReader.SetInputModeToUI();
         }
 
         private void OnPauseInput()
         {
-            m_pauseHandle.PauseGame();
-            m_inputReader.SetInputModeToUI();
+
         }
 
         private void OnSlashStartedInput()
