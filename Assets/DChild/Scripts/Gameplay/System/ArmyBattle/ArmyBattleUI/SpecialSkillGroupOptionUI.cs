@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.ArmyBattle.SpecialSkills;
 using Doozy.Runtime.UIManager.Components;
+using I2.Loc;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         [SerializeField]
         private ArmyBattleSpecialSkillSelection m_skillSelection;
         [SerializeField]
-        private TextMeshProUGUI m_description;
+        private Localize m_description;
         [SerializeField]
         private Image m_icon;
         [SerializeField]
@@ -32,9 +33,9 @@ namespace DChild.Gameplay.ArmyBattle.UI
                 partyName.Display(group);
                 gameObject.SetActive(true);
 
-                var skill = group.GetSpecialSkill();
+                var groupId = group.id.ToString("000");
 
-                m_description.text = skill.GetDescription();
+                m_description.SetTerm($"ArmyBattle/Groups/{groupId}/AG_{groupId}_SpecialSkill");
                 m_icon.sprite = group.GetSpecialSkill().icon;
 
                 m_icon.color = m_icon.sprite ? Color.white : Color.clear;
