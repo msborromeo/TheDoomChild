@@ -369,6 +369,7 @@ GameObject:
   - component: {fileID: 1228650607359291556}
   - component: {fileID: 1228650607359291558}
   - component: {fileID: 1228650607359291559}
+  - component: {fileID: 6627788101738735075}
   m_Layer: 5
   m_Name: Description
   m_TagString: Untagged
@@ -424,7 +425,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ARMY
+  m_text: Armee
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 21213444537982326, guid: 03de9f858562ece4c9ac9d91b56d9ad5,
@@ -458,7 +459,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 16
   m_fontSizeMax: 24
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -494,6 +495,45 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6627788101738735075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228650607359291557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: Banner/Army
+  mTermSecondary: Fonts/BACKCOUNTRY-Regular SDF
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1 &1228650607633460156
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,7 +634,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 8
   m_fontSizeMax: 40
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1226,6 +1266,7 @@ GameObject:
   - component: {fileID: 1228650608385097811}
   - component: {fileID: 5302292860514386810}
   - component: {fileID: 3974189359914002960}
+  - component: {fileID: 2370333773820305817}
   m_Layer: 5
   m_Name: ArmyBanner
   m_TagString: Untagged
@@ -1247,6 +1288,7 @@ RectTransform:
   m_Children:
   - {fileID: 1228650607964984155}
   - {fileID: 1228650606614509147}
+  - {fileID: 3754217712530990325}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1302,7 +1344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3be60ace2d004ba429981f4257c7010f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_armyPower: {fileID: 1228650608045264880}
+  battle: []
 --- !u!114 &1228650608385097811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1923,6 +1965,20 @@ MonoBehaviour:
       ToCustomValue: 1
       FromOffset: 0
       ToOffset: 0
+--- !u!114 &2370333773820305817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228650608385097774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce580b17bf15a94988a9eb2fcb26579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TermKey: ArmyName
+  m_localizer: {fileID: 0}
 --- !u!1 &1674156087990148379
 GameObject:
   m_ObjectHideFlags: 0
@@ -2192,3 +2248,173 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 5715462280856658401}
+--- !u!1001 &2722705202007898805
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1228650608385097809}
+    m_Modifications:
+    - target: {fileID: 1283900736084270656, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283900736084270656, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283900736084270656, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283900736084270656, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283900736084270656, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283900736084270656, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283900736084270656, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283900736084270656, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283900736084270656, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283900736084270656, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283900736084270656, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Term
+      value: Banner/Army
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Term
+      value: ArmyName/Black Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Term
+      value: ArmyName/The Bastards
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Flags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Flags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Flags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Languages.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Languages.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[0]
+      value: Army
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[1]
+      value: Armee
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[2]
+      value: Funny people
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Languages.Array.data[0]
+      value: Black Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Languages.Array.data[1]
+      value: Schwarzer Tod
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Languages.Array.data[2]
+      value: Gros michel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Languages.Array.data[0]
+      value: The Bastards
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Languages.Array.data[1]
+      value: Die Bastarde
+      objectReference: {fileID: 0}
+    - target: {fileID: 5527881172390664599, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Languages.Array.data[2]
+      value: Gooners
+      objectReference: {fileID: 0}
+    - target: {fileID: 7948329967224716335, guid: 7188702ccea19484d9e2f67da50ba2ef,
+        type: 3}
+      propertyPath: m_Name
+      value: DChildLocalizationSource_ArmyBanner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7188702ccea19484d9e2f67da50ba2ef, type: 3}
+--- !u!4 &3754217712530990325 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1283900736084270656, guid: 7188702ccea19484d9e2f67da50ba2ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 2722705202007898805}
+  m_PrefabAsset: {fileID: 0}

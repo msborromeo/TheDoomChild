@@ -37,6 +37,7 @@ RectTransform:
   - {fileID: 2882274343778199757}
   - {fileID: 2882274344598124540}
   - {fileID: 9055596546161318622}
+  - {fileID: 4013857485591520463}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -126,11 +127,18 @@ MonoBehaviour:
     Runners: []
     Event:
       m_PersistentCalls:
+        m_Calls: []
+  OnHiddenCallback:
+    EventName: OnHiddenCallback
+    Runners: []
+    Event:
+      m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
-          m_MethodName: Select
-          m_Mode: 1
+        - m_Target: {fileID: 1467984357}
+          m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.SpecialSkills.ExecuteAttackConfirmationUI,
+            Assembly-CSharp
+          m_MethodName: ToggleSpecialConfirmation
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -139,12 +147,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  OnHiddenCallback:
-    EventName: OnHiddenCallback
-    Runners: []
-    Event:
-      m_PersistentCalls:
-        m_Calls: []
   OnVisibilityChangedCallback:
     m_PersistentCalls:
       m_Calls: []
@@ -183,7 +185,7 @@ MonoBehaviour:
   m_specialSkillHandle: {fileID: 0}
   m_specialSelection: {fileID: 0}
   m_confirmationButton: {fileID: 2882274344598124542}
-  m_label: {fileID: 2882274343809649144}
+  m_label: {fileID: 3338625272309212934}
 --- !u!1 &2882274343778199756
 GameObject:
   m_ObjectHideFlags: 0
@@ -1746,6 +1748,7 @@ GameObject:
   - component: {fileID: 2882274343809649095}
   - component: {fileID: 2882274343809649145}
   - component: {fileID: 2882274343809649144}
+  - component: {fileID: 3338625272309212934}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -1801,7 +1804,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: EXECUTE ATTACK?
+  m_text: Execute Attack?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 883de4789bbcff242a7daba6694cde8b, type: 2}
@@ -1834,7 +1837,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 24
   m_fontSizeMax: 48
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1870,6 +1873,45 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3338625272309212934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882274343809649094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: ARMY BATTLE/Execute Attack
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1 &2882274344794098047
 GameObject:
   m_ObjectHideFlags: 0
@@ -4075,6 +4117,266 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &1876179033357760093
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2882274343388041867}
+    m_Modifications:
+    - target: {fileID: 3295949923268858514, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295949923268858514, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295949923268858514, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 142.49194
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295949923268858514, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295949923268858514, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295949923268858514, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295949923268858514, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295949923268858514, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295949923268858514, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295949923268858514, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295949923268858514, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5918547856532549885, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: m_Name
+      value: Localization - Source
+      objectReference: {fileID: 0}
+    - target: {fileID: 5918547856532549885, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Term
+      value: ARMY BATTLE/Attack Power
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[6].Term
+      value: ARMY BATTLE/Execute Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[7].Term
+      value: ARMY BATTLE/Execute Special
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[8].Term
+      value: ARMY BATTLE/Confirmation/Yes
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[9].Term
+      value: ARMY BATTLE/Confirmation/No
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[6].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[7].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[8].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[9].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[6].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[7].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[8].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[9].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[0]
+      value: '{[PARTY_NAME]}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[1]
+      value: '{[PARTY_NAME]}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Languages.Array.data[0]
+      value: '[Back]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Languages.Array.data[1]
+      value: "[Zur\xFCck]"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Languages.Array.data[0]
+      value: '[Scroll Right]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Languages.Array.data[1]
+      value: '[Nach Rechts Scrollen]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[3].Languages.Array.data[0]
+      value: '[Scroll Left]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[3].Languages.Array.data[1]
+      value: '[Nach Links Scrollen]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[4].Languages.Array.data[0]
+      value: '[Select Command]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[4].Languages.Array.data[1]
+      value: "[Befehl Ausw\xE4hlen]"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Languages.Array.data[0]
+      value: Attack Power
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Languages.Array.data[1]
+      value: Angriff Skraft
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[6].Languages.Array.data[0]
+      value: Execute Attack?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[6].Languages.Array.data[1]
+      value: "Angriff Ausf\xFChren?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[7].Languages.Array.data[0]
+      value: Execute Special Skill?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[7].Languages.Array.data[1]
+      value: "Spezialf\xE4higkeit Ausf\xFChren?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[8].Languages.Array.data[0]
+      value: Yes
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[8].Languages.Array.data[1]
+      value: Ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[9].Languages.Array.data[0]
+      value: No
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131881035960587589, guid: d29e87ec186c2a340989a3e6c728d5b7,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[9].Languages.Array.data[1]
+      value: NEIN
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d29e87ec186c2a340989a3e6c728d5b7, type: 3}
+--- !u!4 &4013857485591520463 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3295949923268858514, guid: d29e87ec186c2a340989a3e6c728d5b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1876179033357760093}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2882274344673770677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4146,6 +4448,36 @@ PrefabInstance:
         type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[1].Receiver.SignalProviderId.Category
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Select
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Selectable, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508849533566543465, guid: 8d7f54fca5db94b40abd92db48652cbd,
+        type: 3}
+      propertyPath: Behaviours.Behaviours.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6508849533566543467, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
@@ -4260,12 +4592,17 @@ PrefabInstance:
     - target: {fileID: 6508849534040571611, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
       propertyPath: m_text
-      value: NO
+      value: No
       objectReference: {fileID: 0}
     - target: {fileID: 6508849534040571611, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
       propertyPath: m_fontSize
       value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508849534040571611, guid: 8d7f54fca5db94b40abd92db48652cbd,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6508849534094674419, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
@@ -5752,6 +6089,51 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2882274344673770677}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &9055596546903769704 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6508849534040571613, guid: 8d7f54fca5db94b40abd92db48652cbd,
+    type: 3}
+  m_PrefabInstance: {fileID: 2882274344673770677}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5133193866996519001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9055596546903769704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: ARMY BATTLE/Confirmation/No
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1001 &9055596546347585943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6000,6 +6382,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ExecuteAttackButton - Yes
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508849534040571611, guid: 8d7f54fca5db94b40abd92db48652cbd,
+        type: 3}
+      propertyPath: m_text
+      value: Yes
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508849534040571611, guid: 8d7f54fca5db94b40abd92db48652cbd,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6508849534094674421, guid: 8d7f54fca5db94b40abd92db48652cbd,
         type: 3}
@@ -7102,3 +7494,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c6d918500348269ab48ea9646e337b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2882274345197580106 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6508849534040571613, guid: 8d7f54fca5db94b40abd92db48652cbd,
+    type: 3}
+  m_PrefabInstance: {fileID: 9055596546347585943}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5084291310807859096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882274345197580106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: ARMY BATTLE/Confirmation/Yes
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
