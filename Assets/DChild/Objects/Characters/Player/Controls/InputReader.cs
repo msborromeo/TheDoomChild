@@ -179,14 +179,19 @@ namespace DChild.Inputs
         //Underworld Actions
         public void OnVector2(InputAction.CallbackContext context)
         {
-            if (context.phase == InputActionPhase.Performed)
+            OnVector2(context.phase, context.ReadValue<Vector2>());
+        }
+
+        public void OnVector2(InputActionPhase phase, Vector2 value)
+        {
+            if (phase == InputActionPhase.Performed)
             {
-                Vector2InputPerformedEvent?.Invoke(context.ReadValue<Vector2>());
+                Vector2InputPerformedEvent?.Invoke(value);
             }
 
-            if (context.phase == InputActionPhase.Canceled)
+            if (phase == InputActionPhase.Canceled)
             {
-                Vector2CancelledInputEvent?.Invoke(context.ReadValue<Vector2>());
+                Vector2CancelledInputEvent?.Invoke(value);
             }
         }
 

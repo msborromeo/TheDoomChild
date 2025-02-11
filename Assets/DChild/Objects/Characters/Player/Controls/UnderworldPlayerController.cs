@@ -93,10 +93,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         [SerializeField]
         private QuickItemHandle m_handle;
-        [SerializeField]
-        private PauseHandle m_pauseHandle;
-
-        private bool m_updateEnabled = true;
 
         #region Input Variables
         [SerializeField, ReadOnly(true)]
@@ -181,7 +177,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             //Abilities
             m_abilities = GetComponentInParent<Player>().GetComponentInChildren<CombatArts>();
-            m_updateEnabled = true;
         }
 
         private void OnEnable()
@@ -385,9 +380,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void Update()
         {
-            if (m_updateEnabled == false)
-                return;
-
             if (m_state.isDead)
                 return;
 
@@ -1341,12 +1333,29 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnBarrierCancelledInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.Barrier))
+            {
+                if (m_barrier.IsDoingBarrier())
+                {
+                    if (m_barrier.CanMove())
+                    {
+                        m_barrier?.EndExecution();
+                    }
+                }
+            }     
         }
 
         private void OnBarrierPerformedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.Barrier))
+            {
+                if(m_state.isInShadowMode == false)
+                {
+                    PrepareForGroundAttack();
+                    m_barrier.Execute();
+                    return;
+                }
+            }
         }
 
         #endregion
@@ -1827,14 +1836,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void Enable()
         {
-            m_updateEnabled = true;
             m_inputReader.SetInputModeToUnderworldGameplay();
             ControllerEnabled?.Invoke(this, EventActionArgs.Empty);
         }
 
         public void Disable()
         {
-            m_updateEnabled = false;
             m_idle?.Execute(false);
             m_movement?.Cancel();
             m_crouch?.Cancel();
