@@ -233,8 +233,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_teleportingSkull.Teleported -= HasTeleported;
 
             //action handles
-            m_inputReader.Vector2InputPerformedEvent += OnVector2PerformedInput;
-            m_inputReader.Vector2CancelledInputEvent += OnVector2CancelledInput;
+            m_inputReader.Vector2InputPerformedEvent -= OnVector2PerformedInput;
+            m_inputReader.Vector2CancelledInputEvent -= OnVector2CancelledInput;
             m_inputReader.JumpPerformedEvent -= OnJumpPerformedInput;
             m_inputReader.JumpCancelledEvent -= OnJumpCancelledInput;
             m_inputReader.JumpStartedEvent -= OnJumpStartedInput;
@@ -1591,6 +1591,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void Enable()
         {
+            enabled = true;
             m_updateEnabled = true;
             m_inputReader.SetInputModeToUnderworldGameplay();
             ControllerEnabled?.Invoke(this, EventActionArgs.Empty);
@@ -1637,6 +1638,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 m_movement?.SwitchConfigTo(Movement.Type.Jog);
             }
+            enabled = false;
             m_inputReader.SetInputModeToUI();
             ControllerDisabled?.Invoke(this, EventActionArgs.Empty);
         }
