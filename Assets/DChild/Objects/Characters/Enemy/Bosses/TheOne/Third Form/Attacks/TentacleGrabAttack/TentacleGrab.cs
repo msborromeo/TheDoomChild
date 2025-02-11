@@ -63,7 +63,10 @@ public class TentacleGrab : MonoBehaviour
     {        
         StartCoroutine(GroundSlam());        
     }
-
+    public IEnumerator GroundSlamRoutine()
+    {
+        yield return GroundSlam();
+    }
     private IEnumerator Emerge()
     {
         m_grabHitbox.enabled = false;
@@ -72,7 +75,7 @@ public class TentacleGrab : MonoBehaviour
         m_animation.SetAnimation(0, m_anticipationLoopAnimation, true);
         yield return null;
     }
-
+    
     private IEnumerator DefaultRetract()
     {
         m_grabHitbox.enabled = false;
@@ -87,13 +90,14 @@ public class TentacleGrab : MonoBehaviour
         yield return new WaitForAnimationComplete(m_animation.animationState, m_grabAnimation);
         if (FindObjectOfType<ObstacleChecker>().monolithSlamObstacleList != null)
             FindObjectOfType<ObstacleChecker>().ClearMonoliths();
-        yield return null;
     }
 
     private IEnumerator GroundSlamRetract()
     {
+        isPlayerGrabbed = false;
         m_grabHitbox.enabled = false;
         m_dummyPlayer.SetActive(false);
+        GameplaySystem.playerManager.EnableControls();
         GameplaySystem.playerManager.player.gameObject.SetActive(true);
         GameplaySystem.playerManager.player.character.gameObject.SetActive(true);
 
@@ -120,6 +124,16 @@ public class TentacleGrab : MonoBehaviour
         if (isPlayerGrabbed)
         {
             GameplaySystem.playerManager.DisableControls();
+            yield return HardcodedGroundSlamSequence();
+        }
+        else
+        {
+            yield return DefaultRetract();
+        }
+        
+        /*if (isPlayerGrabbed)
+        {
+            GameplaySystem.playerManager.DisableControls();
             if (m_groundSlamTimelineCall != null)
             {
                 yield return TimelineGroundSlamSequence();
@@ -131,15 +145,17 @@ public class TentacleGrab : MonoBehaviour
 
             GameplaySystem.playerManager.EnableControls();
             GameplaySystem.playerManager.player.transform.parent = null;
+            *//*GameplaySystem.playerManager.player.gameObject.SetActive(true);
+            GameplaySystem.playerManager.player.character.gameObject.SetActive(true);*//*
             isAttackDone = false;
             yield return null;
         }
         else
         {
             yield return DefaultRetract();
-        }
+        }*/
 
-        isPlayerGrabbed = false;
+       // isPlayerGrabbed = false;
 
        // AttackDone?.Invoke(this, EventActionArgs.Empty);
     }
@@ -160,13 +176,14 @@ public class TentacleGrab : MonoBehaviour
         GameplaySystem.playerManager.player.character.gameObject.SetActive(true);
     }
 
+    public void ShowDummyPlayer()
+    {
+        m_dummyPlayer.SetActive(true);
+    }
     private IEnumerator HardcodedGroundSlamSequence()
     {
-        GameplaySystem.playerManager.player.transform.SetParent(m_tentacleGrabHand);
-        GameplaySystem.playerManager.player.gameObject.SetActive(false);
-        GameplaySystem.playerManager.player.character.gameObject.SetActive(false);
-        m_dummyPlayer.SetActive(true);
-
+     
+        //GameplaySystem.playerManager.player.transform.SetParent(m_tentacleGrabHand);
         m_animation.SetAnimation(0, m_grabbingAnimation, false);
         yield return new WaitForAnimationComplete(m_animation.animationState, m_grabbingAnimation);
         m_animation.SetAnimation(0, m_groundSlamAnimation, false);
