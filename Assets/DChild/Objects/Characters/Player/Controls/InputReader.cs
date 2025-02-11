@@ -27,6 +27,21 @@ namespace DChild.Inputs
             }
         }
 
+        public void Disable()
+        {
+            m_playerControls.Underworld.Disable();
+            m_playerControls.Overworld.Disable();
+            m_playerControls.UI.Enable();
+        }
+
+        public void Enable()
+        {
+            m_playerControls.Underworld.Enable();
+            m_playerControls.Overworld.Enable();
+            m_playerControls.UI.Disable();
+
+        }
+
         #region Input Events
         #region Underworld Input
         public event Action<Vector2> Vector2InputPerformedEvent;
@@ -127,12 +142,12 @@ namespace DChild.Inputs
         //Underworld Actions
         public void OnVector2(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Performed)
+            if (context.phase == InputActionPhase.Performed)
             {
                 Vector2InputPerformedEvent?.Invoke(context.ReadValue<Vector2>());
             }
 
-            if(context.phase == InputActionPhase.Canceled)
+            if (context.phase == InputActionPhase.Canceled)
             {
                 Vector2CancelledInputEvent?.Invoke(context.ReadValue<Vector2>());
             }
@@ -140,17 +155,17 @@ namespace DChild.Inputs
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 JumpStartedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Performed)
+            if (context.phase == InputActionPhase.Performed)
             {
                 JumpPerformedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Canceled)
+            if (context.phase == InputActionPhase.Canceled)
             {
                 JumpCancelledEvent?.Invoke();
             }
@@ -166,12 +181,12 @@ namespace DChild.Inputs
 
         public void OnGrab(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 GrabStartedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Canceled)
+            if (context.phase == InputActionPhase.Canceled)
             {
                 GrabCancelledEvent?.Invoke();
             }
@@ -179,7 +194,7 @@ namespace DChild.Inputs
 
         public void OnInteract(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 InteractStartedEvent?.Invoke();
             }
@@ -187,7 +202,7 @@ namespace DChild.Inputs
 
         public void OnMouseDelta(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Performed)
+            if (context.phase == InputActionPhase.Performed)
             {
                 MouseDeltaPerformedEvent?.Invoke(context.ReadValue<Vector2>());
             }
@@ -195,7 +210,7 @@ namespace DChild.Inputs
 
         public void OnPause(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 PauseStartedEvent?.Invoke();
             }
@@ -203,7 +218,7 @@ namespace DChild.Inputs
 
         public void OnQuickItemCycle(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 CycleQuickItemsStartedEvent?.Invoke(context.ReadValue<float>());
             }
@@ -211,7 +226,7 @@ namespace DChild.Inputs
 
         public void OnQuickItemUse(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 UseQuickItemStartedEvent?.Invoke(context.ReadValue<float>());
             }
@@ -219,7 +234,7 @@ namespace DChild.Inputs
 
         public void OnSlash(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 SlashStartedEvent?.Invoke();
             }
@@ -244,7 +259,7 @@ namespace DChild.Inputs
 
         public void OnStore(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 StoreStartedEvent?.Invoke();
             }
@@ -255,7 +270,7 @@ namespace DChild.Inputs
         #region Primary Skills
         public void OnShadowMorph(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 ShadowMorphStartedEvent?.Invoke();
             }
@@ -263,12 +278,12 @@ namespace DChild.Inputs
 
         public void OnWhip(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 WhipStartedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Canceled)
+            if (context.phase == InputActionPhase.Canceled)
             {
                 WhipCancelledEvent?.Invoke();
             }
@@ -276,12 +291,12 @@ namespace DChild.Inputs
 
         public void OnProjectileThrow(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 ProjectileThrowStartedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Canceled)
+            if (context.phase == InputActionPhase.Canceled)
             {
                 ProjectileThrowCancelledEvent?.Invoke();
             }
@@ -289,17 +304,17 @@ namespace DChild.Inputs
 
         public void OnLevitate(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 LevitateStartedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Performed)
+            if (context.phase == InputActionPhase.Performed)
             {
                 LevitatePerformedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Canceled)
+            if (context.phase == InputActionPhase.Canceled)
             {
                 LevitateCancelledEvent?.Invoke();
             }
@@ -377,7 +392,7 @@ namespace DChild.Inputs
         #region Overworld Controls
         public void OnMove(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 OverworldMoveStartedEvent?.Invoke(context.ReadValue<Vector2>());
             }
@@ -397,7 +412,7 @@ namespace DChild.Inputs
         #region UI Controls
         public void OnNavigate(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 UINavigateStartedEvent?.Invoke(context.ReadValue<Vector2>());
             }
