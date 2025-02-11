@@ -215,6 +215,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.MouseDeltaPerformedEvent += OnMouseDeltaPerformedInput;
             m_inputReader.GrabStartedEvent += OnGrabStartedInput;
             m_inputReader.GrabCancelledEvent += OnGrabCancelledInput;
+            m_inputReader.BarrierStartedEvent += OnBarrierStartedInput;
             m_inputReader.BarrierPerformedEvent += OnBarrierPerformedInput;
             m_inputReader.BarrierCancelledEvent += OnBarrierCancelledInput;
             m_inputReader.AirSlashStartedEvent += OnAirSlashStartedInput;
@@ -288,6 +289,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.MouseDeltaPerformedEvent -= OnMouseDeltaPerformedInput;
             m_inputReader.GrabStartedEvent -= OnGrabStartedInput;
             m_inputReader.GrabCancelledEvent -= OnGrabCancelledInput;
+            m_inputReader.BarrierStartedEvent += OnBarrierStartedInput;
             m_inputReader.BarrierPerformedEvent -= OnBarrierPerformedInput;
             m_inputReader.BarrierCancelledEvent -= OnBarrierCancelledInput;
             m_inputReader.AirSlashStartedEvent -= OnAirSlashStartedInput;
@@ -812,7 +814,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             
         }
 
-
         private void OnLevitateCancelledInput()
         {
             if (m_state.isLevitating)
@@ -1330,6 +1331,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             throw new NotImplementedException();
         }
+
+        private void OnBarrierStartedInput()
+        {
+            if (m_abilities.IsAbilityActivated(CombatArt.Barrier))
+            {
+                //if barrier II activate
+            }
+        }
+
 
         private void OnBarrierCancelledInput()
         {

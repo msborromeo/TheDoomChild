@@ -72,6 +72,7 @@ namespace DChild.Inputs
         public event Action<Vector2> MouseDeltaPerformedEvent;
         #endregion
         #region Combat Arts Input
+        public event Action BarrierStartedEvent;
         public event Action BarrierPerformedEvent;
         public event Action BarrierCancelledEvent;
         public event Action AirSlashStartedEvent;
@@ -403,6 +404,11 @@ namespace DChild.Inputs
 
         public void OnBarrier(InputAction.CallbackContext context)
         {
+            if(context.phase == InputActionPhase.Started)
+            {
+                BarrierStartedEvent?.Invoke();
+            }
+
             if(context.phase == InputActionPhase.Performed)
             {
                 BarrierPerformedEvent?.Invoke();
