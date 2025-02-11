@@ -109,12 +109,9 @@ namespace DChild.Gameplay.Systems
 
         public PlayerCharacterOverride OverrideCharacterControls()
         {
-            m_gameplayInput?.SetStoreInputActive(false);
-            m_characterInput?.Disable();
-            m_player.controller.Disable();
-            m_player.controller.Enable();
+            DisableControls();
             m_overrideController.enabled = true;
-            m_player.state.allowExtendedIdle = false;
+            m_player.state.allowExtendedIdle = true;
             return m_overrideController;
         }
 
@@ -172,9 +169,7 @@ namespace DChild.Gameplay.Systems
         public void StopCharacterControlOverride()
         {
             m_overrideController.enabled = false;
-            m_gameplayInput?.SetStoreInputActive(true);
-            m_characterInput?.Enable();
-            m_player.controller.Enable();
+            EnableControls();
             m_player.state.allowExtendedIdle = true;
         }
 
