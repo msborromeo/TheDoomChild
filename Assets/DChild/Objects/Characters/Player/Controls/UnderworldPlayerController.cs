@@ -220,6 +220,41 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.MouseDeltaPerformedEvent += OnMouseDeltaPerformedInput;
             m_inputReader.GrabStartedEvent += OnGrabStartedInput;
             m_inputReader.GrabCancelledEvent += OnGrabCancelledInput;
+            m_inputReader.BarrierPerformedEvent += OnBarrierPerformedInput;
+            m_inputReader.BarrierCancelledEvent += OnBarrierCancelledInput;
+            m_inputReader.AirSlashStartedEvent += OnAirSlashStartedInput;
+            m_inputReader.AirSlashCancelledEvent += OnAirSlashCancelledInput;
+            m_inputReader.AirSlashPerformedEvent += OnAirSlashPerformedInput;
+            m_inputReader.HellTridentStartedEvent += OnHellTridentStartedInput;
+            m_inputReader.HellTridentCancelledEvent += OnHellTridentCancelledInput;
+            m_inputReader.HellTridentPerformedEvent += OnHellTridentPerformedInput;
+            m_inputReader.SoulFireBlastStartedEvent += OnSoulFireBlastStartedInput;
+            m_inputReader.SoulFireBlastCancelledEvent += OnSoulFireBlastCancelledInput;
+            m_inputReader.SoulFireBlastPerformedEvent += OnSoulFireBlastPerformedInput;
+            m_inputReader.BackDiverStartedEvent += OnBackDiverStartedInput;
+            m_inputReader.BackDiverCancelledEvent += OnBackDiverCancelledInput;
+            m_inputReader.BackDiverPerformedEvent += OnBackDiverPerformedInput;
+            m_inputReader.SovereignImpaleStartedEvent += OnSovereignImpaleStartedInput;
+            m_inputReader.SovereignImpaleCancelledEvent += OnSovereignImpaleCancelledInput;
+            m_inputReader.SovereignImpalePerformedEvent += OnSovereignImpalePerformedInput;
+            m_inputReader.DiagonalSwordDashStartedEvent += OnDiagonalSwordDashStartedInput;
+            m_inputReader.DiagonalSwordDashCancelledEvent += OnDiagonalSwordDashCancelledInput;
+            m_inputReader.DiagonalSwordDashPerformedEvent += OnDiagonalSwordDashPerformedInput;
+            m_inputReader.EdgedFuryStartedEvent += OnEdgedFuryStartedInput;
+            m_inputReader.EdgedFuryCancelledEvent += OnEdgedFuryCancelledInput;
+            m_inputReader.EdgedFuryPerformedEvent += OnEdgedFuryPerformedInput;
+            m_inputReader.ReapersHarvestStartedEvent += OnReapersHarvestStartedInput;
+            m_inputReader.ReapersHarvestCancelledEvent += OnReapersHarvestCancelledInput;
+            m_inputReader.ReapersHarvestPerformedEvent += OnReapersHarvestPerformedInput;
+            m_inputReader.IcarusWingsStartedEvent += OnIcarusWingsStartedInput;
+            m_inputReader.IcarusWingsCancelledEvent += OnIcarusWingsCancelledInput;
+            m_inputReader.IcarusWingsPerformedEvent += OnIcarusWingsPerformedInput;
+            m_inputReader.TeleportingSkullStartedEvent += OnTeleportingSkullStartedInput;
+            m_inputReader.TeleportingSkullPerformedEvent += OnTeleportingSkullPerformedInput;
+            m_inputReader.TeleportingSkullCancelledEvent += OnTeleportingSkullCancelledInput;
+            m_inputReader.LightningSpearStartedEvent += OnLightningSpearStartedInput;
+            m_inputReader.LightningSpearCancelledEvent += OnLightningSpearCancelledInput;
+            m_inputReader.LightningSpearPerformedEvent += OnLightningSpearPerformedInput;
         }
 
         private void OnDisable()
@@ -258,6 +293,41 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.MouseDeltaPerformedEvent -= OnMouseDeltaPerformedInput;
             m_inputReader.GrabStartedEvent -= OnGrabStartedInput;
             m_inputReader.GrabCancelledEvent -= OnGrabCancelledInput;
+            m_inputReader.BarrierPerformedEvent -= OnBarrierPerformedInput;
+            m_inputReader.BarrierCancelledEvent -= OnBarrierCancelledInput;
+            m_inputReader.AirSlashStartedEvent -= OnAirSlashStartedInput;
+            m_inputReader.AirSlashCancelledEvent -= OnAirSlashCancelledInput;
+            m_inputReader.AirSlashPerformedEvent -= OnAirSlashPerformedInput;
+            m_inputReader.HellTridentStartedEvent -= OnHellTridentStartedInput;
+            m_inputReader.HellTridentCancelledEvent -= OnHellTridentCancelledInput;
+            m_inputReader.HellTridentPerformedEvent -= OnHellTridentPerformedInput;
+            m_inputReader.SoulFireBlastStartedEvent -= OnSoulFireBlastStartedInput;
+            m_inputReader.SoulFireBlastCancelledEvent -= OnSoulFireBlastCancelledInput;
+            m_inputReader.SoulFireBlastPerformedEvent -= OnSoulFireBlastPerformedInput;
+            m_inputReader.BackDiverStartedEvent -= OnBackDiverStartedInput;
+            m_inputReader.BackDiverCancelledEvent -= OnBackDiverCancelledInput;
+            m_inputReader.BackDiverPerformedEvent -= OnBackDiverPerformedInput;
+            m_inputReader.SovereignImpaleStartedEvent -= OnSovereignImpaleStartedInput;
+            m_inputReader.SovereignImpaleCancelledEvent -= OnSovereignImpaleCancelledInput;
+            m_inputReader.SovereignImpalePerformedEvent -= OnSovereignImpalePerformedInput;
+            m_inputReader.DiagonalSwordDashStartedEvent -= OnDiagonalSwordDashStartedInput;
+            m_inputReader.DiagonalSwordDashCancelledEvent -= OnDiagonalSwordDashCancelledInput;
+            m_inputReader.DiagonalSwordDashPerformedEvent -= OnDiagonalSwordDashPerformedInput;
+            m_inputReader.EdgedFuryStartedEvent -= OnEdgedFuryStartedInput;
+            m_inputReader.EdgedFuryCancelledEvent -= OnEdgedFuryCancelledInput;
+            m_inputReader.EdgedFuryPerformedEvent -= OnEdgedFuryPerformedInput;
+            m_inputReader.ReapersHarvestStartedEvent -= OnReapersHarvestStartedInput;
+            m_inputReader.ReapersHarvestCancelledEvent -= OnReapersHarvestCancelledInput;
+            m_inputReader.ReapersHarvestPerformedEvent -= OnReapersHarvestPerformedInput;
+            m_inputReader.IcarusWingsStartedEvent -= OnIcarusWingsStartedInput;
+            m_inputReader.IcarusWingsCancelledEvent -= OnIcarusWingsCancelledInput;
+            m_inputReader.IcarusWingsPerformedEvent -= OnIcarusWingsPerformedInput;
+            m_inputReader.TeleportingSkullStartedEvent -= OnTeleportingSkullStartedInput;
+            m_inputReader.TeleportingSkullPerformedEvent -= OnTeleportingSkullPerformedInput;
+            m_inputReader.TeleportingSkullCancelledEvent -= OnTeleportingSkullCancelledInput;
+            m_inputReader.LightningSpearStartedEvent -= OnLightningSpearStartedInput;
+            m_inputReader.LightningSpearCancelledEvent -= OnLightningSpearCancelledInput;
+            m_inputReader.LightningSpearPerformedEvent -= OnLightningSpearPerformedInput;
         }
 
         private void FixedUpdate()
@@ -835,7 +905,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
         }
 
-
         private void OnUseQuickItemsStartedInput(float obj)
         {
             if(obj == 1)
@@ -867,7 +936,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnStoreInput()
         {
             GameplaySystem.gamplayUIHandle.OpenStoreAtPage(StorePage.Map);
-            //m_inputReader.SetInputModeToUI();
         }
 
         private void OnPauseInput()
@@ -1059,7 +1127,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }   
         }
 
-
         private void OnMouseDeltaPerformedInput(Vector2 vector)
         {
             m_mouseDelta = vector;
@@ -1091,7 +1158,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
         }
 
-
         private void OnGrabCancelledInput()
         {
             m_movement?.SwitchConfigTo(Movement.Type.Jog);
@@ -1106,6 +1172,183 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_objectManipulation?.Execute();
             }
         }
+
+
+        private void OnLightningSpearPerformedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnLightningSpearCancelledInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnLightningSpearStartedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnTeleportingSkullCancelledInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnTeleportingSkullPerformedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnTeleportingSkullStartedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnIcarusWingsPerformedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnIcarusWingsCancelledInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnIcarusWingsStartedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnReapersHarvestPerformedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnReapersHarvestCancelledInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnReapersHarvestStartedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnEdgedFuryPerformedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnEdgedFuryCancelledInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnEdgedFuryStartedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnDiagonalSwordDashPerformedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnDiagonalSwordDashCancelledInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnDiagonalSwordDashStartedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnSovereignImpalePerformedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnSovereignImpaleCancelledInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnSovereignImpaleStartedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnBackDiverPerformedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnBackDiverCancelledInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnBackDiverStartedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnSoulFireBlastPerformedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnSoulFireBlastCancelledInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnSoulFireBlastStartedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnHellTridentPerformedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnHellTridentCancelledInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnHellTridentStartedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnAirSlashPerformedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnAirSlashCancelledInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnAirSlashStartedInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnBarrierCancelledInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnBarrierPerformedInput()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region Action Functions
