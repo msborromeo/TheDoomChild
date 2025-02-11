@@ -49,7 +49,7 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private GameplayInput m_gameplayInput;
         [SerializeField]
-        private InputTranslator m_characterInput;
+        private InputReader m_characterInput;
         [SerializeField]
         private PlayerCharacterOverride m_overrideController;
         [SerializeField]
