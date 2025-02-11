@@ -29,8 +29,12 @@ namespace DChild.Gameplay.Characters.Players
         private void OnDisable()
         {
             m_moveDirectionInput = 0;
-            m_input.Disable();
+            m_input.Enable();
 
+        }
+        private void OnEnable()
+        {
+            m_input.Disable();
         }
 
         private void FixedUpdate()
