@@ -2059,7 +2059,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     && m_sovereignImpale.CanMove()
                     && m_hellTrident.CanMove()
                     && m_foolsVerdict.CanMove()
-                    && m_barrier.CanMove();
+                    && m_barrier.CanMove()
+                    && m_barrier.IsDoingBarrier() == false;
 
             var isAllowedByDash = m_activeDash?.IsDashDurationOver() ?? true;
             var isAllowedBySlide = m_activeSlide?.IsSlideDurationOver() ?? true;
