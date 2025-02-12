@@ -1258,17 +1258,34 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnBackDiverStartedInput()
         {
-            throw new NotImplementedException();
+
         }
 
         private void OnBackDiverCancelledInput()
         {
-            throw new NotImplementedException();
+
         }
 
         private void OnBackDiverPerformedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.BackDiver))
+            {
+                if (m_state.isGrounded)
+                {
+                    if (m_backDiver.CanBackDiver() && m_backDiver.HaveSpacetoExecute())
+                    {
+                        if (m_state.isInShadowMode == false)
+                        {
+                            m_crouch?.Cancel();
+                            m_backDiver.Reset();
+                            PrepareForGroundAttack();
+                            m_movement?.SwitchConfigTo(Movement.Type.Jog);
+                            m_backDiver.Execute();
+                            return;
+                        }
+                    }
+                }
+            }
         }
 
         private void OnSovereignImpaleStartedInput()
