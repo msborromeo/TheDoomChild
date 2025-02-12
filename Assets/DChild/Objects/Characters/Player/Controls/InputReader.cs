@@ -71,6 +71,44 @@ namespace DChild.Inputs
         public event Action GrabCancelledEvent;
         public event Action<Vector2> MouseDeltaPerformedEvent;
         #endregion
+        #region Combat Arts Input
+        public event Action BarrierStartedEvent;
+        public event Action BarrierPerformedEvent;
+        public event Action BarrierCancelledEvent;
+        public event Action AirSlashStartedEvent;
+        public event Action AirSlashCancelledEvent;
+        public event Action AirSlashPerformedEvent;
+        public event Action HellTridentStartedEvent;
+        public event Action HellTridentCancelledEvent;
+        public event Action HellTridentPerformedEvent;
+        public event Action SoulFireBlastStartedEvent;
+        public event Action SoulFireBlastCancelledEvent;
+        public event Action SoulFireBlastPerformedEvent;
+        public event Action BackDiverStartedEvent;
+        public event Action BackDiverCancelledEvent;
+        public event Action BackDiverPerformedEvent;
+        public event Action SovereignImpaleStartedEvent;
+        public event Action SovereignImpaleCancelledEvent;
+        public event Action SovereignImpalePerformedEvent;
+        public event Action DiagonalSwordDashStartedEvent;
+        public event Action DiagonalSwordDashCancelledEvent;
+        public event Action DiagonalSwordDashPerformedEvent;
+        public event Action EdgedFuryStartedEvent;
+        public event Action EdgedFuryCancelledEvent;
+        public event Action EdgedFuryPerformedEvent;
+        public event Action ReapersHarvestStartedEvent;
+        public event Action ReapersHarvestCancelledEvent;
+        public event Action ReapersHarvestPerformedEvent;
+        public event Action IcarusWingsStartedEvent;
+        public event Action IcarusWingsCancelledEvent;
+        public event Action IcarusWingsPerformedEvent;
+        public event Action TeleportingSkullStartedEvent;
+        public event Action TeleportingSkullPerformedEvent;
+        public event Action TeleportingSkullCancelledEvent;
+        public event Action LightningSpearStartedEvent;
+        public event Action LightningSpearCancelledEvent;
+        public event Action LightningSpearPerformedEvent;
+        #endregion
         #region Overworld Input
         public event Action<Vector2> OverworldMovePerformedEvent;
         public event Action<Vector2> OverworldMoveCancelledEvent;
@@ -142,14 +180,19 @@ namespace DChild.Inputs
         //Underworld Actions
         public void OnVector2(InputAction.CallbackContext context)
         {
-            if (context.phase == InputActionPhase.Performed)
+            OnVector2(context.phase, context.ReadValue<Vector2>());
+        }
+
+        public void OnVector2(InputActionPhase phase, Vector2 value)
+        {
+            if (phase == InputActionPhase.Performed)
             {
-                Vector2InputPerformedEvent?.Invoke(context.ReadValue<Vector2>());
+                Vector2InputPerformedEvent?.Invoke(value);
             }
 
-            if (context.phase == InputActionPhase.Canceled)
+            if (phase == InputActionPhase.Canceled)
             {
-                Vector2CancelledInputEvent?.Invoke(context.ReadValue<Vector2>());
+                Vector2CancelledInputEvent?.Invoke(value);
             }
         }
 
@@ -325,67 +368,218 @@ namespace DChild.Inputs
         //Combat Arts
         public void OnAirSlashCombo(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if(context.phase == InputActionPhase.Started)
+            {
+                AirSlashStartedEvent?.Invoke();
+            }
+
+            if(context.phase == InputActionPhase.Performed)
+            {
+                AirSlashPerformedEvent?.Invoke();
+            }
+
+            if(context.phase == InputActionPhase.Canceled)
+            {
+                AirSlashCancelledEvent?.Invoke();
+            }
         }
 
         public void OnBackDiver(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if (context.phase == InputActionPhase.Started)
+            {
+                BackDiverStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                BackDiverPerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                BackDiverCancelledEvent?.Invoke();
+            }
         }
 
         public void OnBarrier(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if(context.phase == InputActionPhase.Started)
+            {
+                BarrierStartedEvent?.Invoke();
+            }
+
+            if(context.phase == InputActionPhase.Performed)
+            {
+                BarrierPerformedEvent?.Invoke();
+            }
+
+            if(context.phase == InputActionPhase.Canceled)
+            {
+                BarrierCancelledEvent?.Invoke();
+            }
         }
 
         public void OnReaperHarvest(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if (context.phase == InputActionPhase.Started)
+            {
+                ReapersHarvestStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                ReapersHarvestPerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                ReapersHarvestCancelledEvent?.Invoke();
+            }
         }
 
         public void OnSoulFireBlast(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if (context.phase == InputActionPhase.Started)
+            {
+                SoulFireBlastStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                SoulFireBlastPerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                SoulFireBlastCancelledEvent?.Invoke();
+            }
         }
 
         public void OnSovereignImpale(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if (context.phase == InputActionPhase.Started)
+            {
+                SovereignImpaleStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                SovereignImpalePerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                SovereignImpaleCancelledEvent?.Invoke();
+            }
         }
 
         public void OnTeleportingSkull(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if (context.phase == InputActionPhase.Started)
+            {
+                TeleportingSkullStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                TeleportingSkullPerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                TeleportingSkullCancelledEvent?.Invoke();
+            }
         }
 
         public void OnDiagonalSwordDash(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if (context.phase == InputActionPhase.Started)
+            {
+                DiagonalSwordDashStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                DiagonalSwordDashPerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                DiagonalSwordDashCancelledEvent?.Invoke();
+            }
         }
 
         public void OnEdgedFury(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if (context.phase == InputActionPhase.Started)
+            {
+                EdgedFuryStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                EdgedFuryPerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                EdgedFuryCancelledEvent?.Invoke();
+            }
         }
 
         public void OnHellTrident(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if (context.phase == InputActionPhase.Started)
+            {
+                HellTridentStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                HellTridentPerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                HellTridentCancelledEvent?.Invoke();
+            }
         }
 
         public void OnIcarusWings(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
-        }
+            if (context.phase == InputActionPhase.Started)
+            {
+                IcarusWingsStartedEvent?.Invoke();
+            }
 
-        public void OnEarthShaker(InputAction.CallbackContext context)
-        {
-            throw new NotImplementedException();
+            if (context.phase == InputActionPhase.Performed)
+            {
+                IcarusWingsPerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                IcarusWingsCancelledEvent?.Invoke();
+            }
         }
 
         public void OnLightningSpear(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if (context.phase == InputActionPhase.Started)
+            {
+                LightningSpearStartedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                LightningSpearPerformedEvent?.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                LightningSpearCancelledEvent?.Invoke();
+            }
         }
         #endregion
 

@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 4253619938820414330}
   - component: {fileID: 8032354876506231939}
   - component: {fileID: 8080143051523180862}
+  - component: {fileID: 5805370960604638814}
   m_Layer: 5
   m_Name: Header
   m_TagString: Untagged
@@ -218,7 +219,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: codex
+  m_text: <font="BACKCOUNTRY-Regular SDF">C</font>odex  <size=80%>(??/??) </size>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 21213444537982326, guid: 03de9f858562ece4c9ac9d91b56d9ad5,
@@ -246,7 +247,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
+  m_fontSize: 98
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -288,6 +289,45 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5805370960604638814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4227891213032674650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: CodexUI/CodexLabel
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1 &5081498114461340168
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,6 +364,7 @@ RectTransform:
   m_Children:
   - {fileID: 4668499169973166227}
   - {fileID: 6089547590632498755}
+  - {fileID: 2491958109467211952}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1771,12 +1812,22 @@ PrefabInstance:
     - target: {fileID: 442644422758619937, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
       propertyPath: m_text
-      value: <font="BACKCOUNTRY-Regular SDF">Q</font>uest <size=80%>(??/??) </size>
+      value: <font="BACKCOUNTRY-Regular SDF">Q</font>uest  <size=80%>(??/??) </size>
       objectReference: {fileID: 0}
     - target: {fileID: 592222748073404237, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
       propertyPath: Id.Name
       value: Quests
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632315736461103684, guid: 13d0ccf0e91f70f469c2c932fa32651e,
+        type: 3}
+      propertyPath: mTerm
+      value: CodexUI/QuestLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632315736461103684, guid: 13d0ccf0e91f70f469c2c932fa32651e,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4051109316882809226, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
@@ -1906,12 +1957,22 @@ PrefabInstance:
     - target: {fileID: 442644422758619937, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
       propertyPath: m_text
-      value: <font="BACKCOUNTRY-Regular SDF">L</font>ocation <size=80%>(??/??) </size>
+      value: <font="BACKCOUNTRY-Regular SDF">L</font>ocation  <size=80%>(??/??) </size>
       objectReference: {fileID: 0}
     - target: {fileID: 592222748073404237, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
       propertyPath: Id.Name
       value: Location
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632315736461103684, guid: 13d0ccf0e91f70f469c2c932fa32651e,
+        type: 3}
+      propertyPath: mTerm
+      value: CodexUI/LocationLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632315736461103684, guid: 13d0ccf0e91f70f469c2c932fa32651e,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4051109316882809226, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
@@ -2043,6 +2104,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4928939049297451304}
     m_Modifications:
+    - target: {fileID: 442644422758619937, guid: 13d0ccf0e91f70f469c2c932fa32651e,
+        type: 3}
+      propertyPath: m_text
+      value: <font="BACKCOUNTRY-Regular SDF">B</font>estiary  <size=80%>(??/??) </size>
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632315736461103684, guid: 13d0ccf0e91f70f469c2c932fa32651e,
+        type: 3}
+      propertyPath: mTerm
+      value: CodexUI/BestiaryLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632315736461103684, guid: 13d0ccf0e91f70f469c2c932fa32651e,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4051109316882809226, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
       propertyPath: m_Name
@@ -2171,13 +2247,23 @@ PrefabInstance:
     - target: {fileID: 442644422758619937, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
       propertyPath: m_text
-      value: <font="BACKCOUNTRY-Regular SDF">C</font>haracters <size=80%>(??/??)
+      value: <font="BACKCOUNTRY-Regular SDF">C</font>haracters  <size=80%>(??/??)
         </size>
       objectReference: {fileID: 0}
     - target: {fileID: 592222748073404237, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
       propertyPath: Id.Name
       value: Characters
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632315736461103684, guid: 13d0ccf0e91f70f469c2c932fa32651e,
+        type: 3}
+      propertyPath: mTerm
+      value: CodexUI/CharactersLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632315736461103684, guid: 13d0ccf0e91f70f469c2c932fa32651e,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4051109316882809226, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
@@ -2302,6 +2388,265 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5305323297611223612}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5521845469891911947
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2045004487813761039}
+    m_Modifications:
+    - target: {fileID: 1273331859914013652, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_Name
+      value: DChildLocalizationSource
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Term
+      value: CodexUI/CharactersLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Term
+      value: CodexUI/CodexLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Term
+      value: CodexUI/LoreLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[3].Term
+      value: CodexUI/BestiaryLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[4].Term
+      value: CodexUI/QuestLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Term
+      value: CodexUI/LocationLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[6].Term
+      value: CodexUI/TutorialLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[3].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[4].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[6].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[3].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[4].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[6].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[0]
+      value: <font="BACKCOUNTRY-Regular SDF">C</font>haracters  <size=80%>(??/??)
+        </size>
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[1]
+      value: <font="BACKCOUNTRY-Regular SDF">C</font>haraktere  <size=80%>(??/??)
+        </size>
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Languages.Array.data[0]
+      value: <font="BACKCOUNTRY-Regular SDF">C</font>odex
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[1].Languages.Array.data[1]
+      value: <font="BACKCOUNTRY-Regular SDF">K</font>odex
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Languages.Array.data[0]
+      value: <font="BACKCOUNTRY-Regular SDF">L</font>ore  <size=80%>(??/??) </size>
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[2].Languages.Array.data[1]
+      value: "<font=\"BACKCOUNTRY-Regular SDF\">\xDC</font>berlieferung  <size=80%>(??/??)
+        </size>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[3].Languages.Array.data[0]
+      value: <font="BACKCOUNTRY-Regular SDF">B</font>estiary  <size=80%>(??/??) </size>
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[3].Languages.Array.data[1]
+      value: <font="BACKCOUNTRY-Regular SDF">B</font>estiarium  <size=80%>(??/??)
+        </size>
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[4].Languages.Array.data[0]
+      value: <font="BACKCOUNTRY-Regular SDF">Q</font>uest  <size=80%>(??/??) </size>
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[4].Languages.Array.data[1]
+      value: <font="BACKCOUNTRY-Regular SDF">S</font>uche  <size=80%>(??/??) </size>
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Languages.Array.data[0]
+      value: <font="BACKCOUNTRY-Regular SDF">L</font>ocation  <size=80%>(??/??) </size>
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Languages.Array.data[1]
+      value: <font="BACKCOUNTRY-Regular SDF">S</font>tandort  <size=80%>(??/??) </size>
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[6].Languages.Array.data[0]
+      value: <font="BACKCOUNTRY-Regular SDF">T</font>utorial  <size=80%>(??/??) </size>
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[6].Languages.Array.data[1]
+      value: <font="BACKCOUNTRY-Regular SDF">T</font>utorial  <size=80%>(??/??) </size>
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2ca539a3458c72a449b2b1c3c35a9783, type: 3}
+--- !u!4 &2491958109467211952 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+    type: 3}
+  m_PrefabInstance: {fileID: 5521845469891911947}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7486371456532268831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2312,12 +2657,22 @@ PrefabInstance:
     - target: {fileID: 442644422758619937, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
       propertyPath: m_text
-      value: <font="BACKCOUNTRY-Regular SDF">L</font>ore <size=80%>(??/??) </size>
+      value: <font="BACKCOUNTRY-Regular SDF">L</font>ore  <size=80%>(??/??) </size>
       objectReference: {fileID: 0}
     - target: {fileID: 592222748073404237, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
       propertyPath: Id.Name
       value: Lore
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632315736461103684, guid: 13d0ccf0e91f70f469c2c932fa32651e,
+        type: 3}
+      propertyPath: mTerm
+      value: CodexUI/LoreLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632315736461103684, guid: 13d0ccf0e91f70f469c2c932fa32651e,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4051109316882809226, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
@@ -2452,12 +2807,22 @@ PrefabInstance:
     - target: {fileID: 442644422758619937, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
       propertyPath: m_text
-      value: <font="BACKCOUNTRY-Regular SDF">T</font>ocation <size=80%>(??/??) </size>
+      value: <font="BACKCOUNTRY-Regular SDF">T</font>utorial  <size=80%>(??/??) </size>
       objectReference: {fileID: 0}
     - target: {fileID: 592222748073404237, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
       propertyPath: Id.Name
       value: Tutorials
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632315736461103684, guid: 13d0ccf0e91f70f469c2c932fa32651e,
+        type: 3}
+      propertyPath: mTerm
+      value: CodexUI/TutorialLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632315736461103684, guid: 13d0ccf0e91f70f469c2c932fa32651e,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4051109316882809226, guid: 13d0ccf0e91f70f469c2c932fa32651e,
         type: 3}
