@@ -49,7 +49,7 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private GameplayInput m_gameplayInput;
         [SerializeField]
-        private InputTranslator m_characterInput;
+        private InputReader m_characterInput;
         [SerializeField]
         private PlayerCharacterOverride m_overrideController;
         [SerializeField]
@@ -269,7 +269,7 @@ namespace DChild.Gameplay.Systems
 
         private void Update()
         {
-            m_playerInput = m_characterInput.GetComponent<PlayerInput>();
+            //m_playerInput = m_characterInput.GetComponent<PlayerInput>();
             //m_autoReflex.Update(Time.deltaTime);
             if (m_playerIsDead)
             {

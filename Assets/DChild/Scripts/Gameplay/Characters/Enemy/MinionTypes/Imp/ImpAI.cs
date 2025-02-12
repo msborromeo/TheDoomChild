@@ -165,6 +165,9 @@ namespace DChild.Gameplay.Characters.Enemies
         private State m_turnState;
         [ShowInInspector]
         private RandomAttackDecider<Attack> m_attackDecider;
+
+        [SerializeField]
+        private bool m_willBeSummoned;
         //private Attack m_currentAttack;
         //private float m_currentAttackRange;
 
@@ -374,7 +377,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_skeletomAnimation.maskInteraction = SpriteMaskInteraction.None;
             m_spriteMask.SetActive(false);
             var reappearAnim = UnityEngine.Random.Range(0, 2) == 0 ? m_info.reappearing1Animation : m_info.reappearing2Animation;
-            m_animation.SetAnimation(0, reappearAnim, false).TimeScale = 1.5f;
+            m_animation.SetAnimation(0, reappearAnim, false)/*.TimeScale = 1.5f*/;
             yield return new WaitForAnimationComplete(m_animation.animationState, reappearAnim);
             m_hitbox.Enable();
             m_animation.SetAnimation(0, m_info.detectAnimation, false);
@@ -569,7 +572,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         protected override void Awake()
         {
-            Debug.Log(m_info);
+            Debug.Log("AI Brain" + m_info);
             base.Awake();
             
             m_patrolHandle.TurnRequest += OnTurnRequest;

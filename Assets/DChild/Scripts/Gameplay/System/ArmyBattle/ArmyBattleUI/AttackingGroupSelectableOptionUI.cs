@@ -66,7 +66,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
             m_highlightGlow.enabled = true;
             m_targetCommandIcon.enabled = true;
             m_targetPartyName.enabled = true;
-            m_targetPowerLabel.text = "<color=#EA9E03>ATTACK POWER</color>";
+            m_targetPowerLabel.color = new Color32(233, 204, 36, 255);
             m_targetPowerValue.enabled = true;
         }
 
@@ -77,7 +77,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
             m_highlightGlow.enabled = false;
             m_targetCommandIcon.enabled = false;
             m_targetPartyName.enabled = false;
-            m_targetPowerLabel.text = $"<color=#82A4C7>ATTACK POWER</color>";
+            m_targetPowerLabel.color = new Color32(130, 164, 199, 255);
             m_targetPowerValue.enabled = false;
             
 

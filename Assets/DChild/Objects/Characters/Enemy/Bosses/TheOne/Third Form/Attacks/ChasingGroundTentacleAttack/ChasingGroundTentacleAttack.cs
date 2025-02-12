@@ -123,8 +123,11 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             for (int i = 0; i < m_singleGroundTentacle.Count; i++)
             {
+                m_singleGroundTentacle[i].GetComponentInChildren<CapsuleCollider2D>().enabled = true;
                 m_singleGroundTentacle[i].ErectTentacle();
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.2f);
+                m_singleGroundTentacle[i].GetComponentInChildren<CapsuleCollider2D>().enabled = false;
+                // yield return null;
             }
 
         }
@@ -132,8 +135,10 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             for (int i = m_singleGroundTentacle.Count - 1; i >= 0; i--)
             {
+                m_singleGroundTentacle[i].GetComponentInChildren<CapsuleCollider2D>().enabled = true;
                 m_singleGroundTentacle[i].ErectTentacle();
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.2f);
+                m_singleGroundTentacle[i].GetComponentInChildren<CapsuleCollider2D>().enabled = false;
             }
         }
         [Button]
