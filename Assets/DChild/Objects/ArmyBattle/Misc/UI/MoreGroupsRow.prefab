@@ -1398,6 +1398,7 @@ GameObject:
   - component: {fileID: 7461409966488990348}
   - component: {fileID: 7461409966488990350}
   - component: {fileID: 7461409966488990349}
+  - component: {fileID: 7203788461369144816}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -1453,7 +1454,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HERO PARTY NAME
+  m_text: Heldenparty
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 21213444537982326, guid: 03de9f858562ece4c9ac9d91b56d9ad5,
@@ -1487,7 +1488,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 12
   m_fontSizeMax: 32
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1523,6 +1524,45 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7203788461369144816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7461409966488990347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: ArmyBattle/Groups/018/AG_018_Name
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1 &7461409966941115590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2824,12 +2864,22 @@ PrefabInstance:
     - target: {fileID: 2850514561286220689, guid: afa26ce088f92b846aa2dbc83ff1f9a8,
         type: 3}
       propertyPath: m_text
-      value: Attack Power
+      value: Angriff Skraft
       objectReference: {fileID: 0}
     - target: {fileID: 2850514561286220689, guid: afa26ce088f92b846aa2dbc83ff1f9a8,
         type: 3}
       propertyPath: m_fontSize
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 2850514561286220689, guid: afa26ce088f92b846aa2dbc83ff1f9a8,
+        type: 3}
+      propertyPath: m_margin.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2850514561286220689, guid: afa26ce088f92b846aa2dbc83ff1f9a8,
+        type: 3}
+      propertyPath: m_margin.z
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2850514561286220689, guid: afa26ce088f92b846aa2dbc83ff1f9a8,
         type: 3}
@@ -3084,8 +3134,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3576643847951895157, guid: afa26ce088f92b846aa2dbc83ff1f9a8,
         type: 3}
+      propertyPath: IgnoreRTL
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576643847951895157, guid: afa26ce088f92b846aa2dbc83ff1f9a8,
+        type: 3}
       propertyPath: mLocalizeTarget
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576643847951895157, guid: afa26ce088f92b846aa2dbc83ff1f9a8,
+        type: 3}
+      propertyPath: MaxCharactersInRTL
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576643847951895157, guid: afa26ce088f92b846aa2dbc83ff1f9a8,
+        type: 3}
+      propertyPath: CorrectAlignmentForRTL
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576643847951895157, guid: afa26ce088f92b846aa2dbc83ff1f9a8,
+        type: 3}
+      propertyPath: AddSpacesToJoinedLanguages
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afa26ce088f92b846aa2dbc83ff1f9a8, type: 3}

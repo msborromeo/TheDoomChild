@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.ArmyBattle.UI;
 using Doozy.Runtime.UIManager.Components;
+using I2.Loc;
 using TMPro;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
         [SerializeField]
         private UIButton m_confirmationButton;
         [SerializeField]
-        private TextMeshProUGUI m_label;
+        private Localize m_label;
 
         private bool m_isSpecial = false;
 
@@ -26,7 +27,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
         {
             m_isSpecial = toggle;
             m_confirmationButton.Id.Name = m_isSpecial ? "ExecuteSpecial" : "ExecuteAttack";
-            m_label.text = m_isSpecial ? "EXECUTE SPECIAL SKILL?" : "EXECUTE ATTACK?";
+            m_label.SetTerm(m_isSpecial ? "ARMY BATTLE/Execute Special" : "ARMY BATTLE/Execute Attack");
         }
 
         public void ExecuteAttack()
