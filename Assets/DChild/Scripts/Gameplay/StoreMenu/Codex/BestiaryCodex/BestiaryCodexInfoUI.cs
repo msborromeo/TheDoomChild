@@ -1,5 +1,7 @@
-﻿using DChild.Gameplay.Environment;
+﻿using Dchild.Localization;
+using DChild.Gameplay.Environment;
 using DChild.Menu.Bestiary;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,7 +9,7 @@ using UnityEngine.UI;
 
 namespace DChild.Menu.Codex.Bestiary
 {
-    public class BestiaryCodexInfoUI : CodexInfoUI<BestiaryData>
+    public class BestiaryCodexInfoUI : CodexInfoUI<BestiaryData> , ICodexBestiaryLocalizer
     {
         [SerializeField]
         private TextMeshProUGUI m_alphabetName;
@@ -26,6 +28,8 @@ namespace DChild.Menu.Codex.Bestiary
         private TextMeshProUGUI m_storeNotes;
         [SerializeField]
         private TextMeshProUGUI m_hunterNotes;
+
+        public event Action<BestiaryData> localizeBestiaryData;
 
         private string creatureNameText
         {
@@ -57,6 +61,7 @@ namespace DChild.Menu.Codex.Bestiary
                 m_description.text = m_showDataOf.description;
                 m_storeNotes.text = m_showDataOf.storeNotes;
                 m_hunterNotes.text = m_showDataOf.hunterNotes;
+                localizeBestiaryData?.Invoke(m_showDataOf);
             }
         }
 
