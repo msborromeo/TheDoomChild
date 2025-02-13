@@ -1182,11 +1182,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnBarrierStartedInput()
         {
-            
+            //Handle Barrier 2 here
         }
 
         private void OnBarrierPerformedInput()
         {
+            //Skip if Barrier 2 is unlocked
             if (m_abilities.IsAbilityActivated(CombatArt.Barrier))
             {
                if(m_state.isInShadowMode == false)
@@ -1213,17 +1214,31 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnAirSlashStartedInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnAirSlashCancelledInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnAirSlashPerformedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.AirSlashRange))
+            {
+                if(m_state.isGrounded == false)
+                {
+                    if (m_airSlashRange.CanAirSlashRange())
+                    {
+                        if (m_state.isInShadowMode == false)
+                        {
+                            PrepareForMidairAttack();
+                            m_airSlashRange.Execute();
+                            return;
+                        }
+                    }   
+                }
+            }
         }
 
         private void OnHellTridentStartedInput()
