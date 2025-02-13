@@ -1365,17 +1365,26 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnIcarusWingsStartedInput()
         {
-            throw new NotImplementedException();
+            m_basicSlashes.Cancel();
+            m_groundJump.Cancel();
+            m_extraJump.Cancel();
         }
 
         private void OnIcarusWingsCancelledInput()
         {
-            throw new NotImplementedException();
+        
         }
 
         private void OnIcarusWingsPerformedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings))
+            {
+                if (m_icarusWings.CanIcarusWings() == true)
+                {
+                    PrepareForGroundAttack();
+                    m_icarusWings.Execute();
+                }         
+            }
         }
 
         private void OnTeleportingSkullStartedInput()
