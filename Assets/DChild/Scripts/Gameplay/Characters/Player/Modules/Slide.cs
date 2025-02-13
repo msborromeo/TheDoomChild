@@ -50,6 +50,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_rigidbody.AddForce(new Vector2(direction * m_configuration.velocity, 0), ForceMode2D.Impulse);
         }
 
+        public void ContinueSlide()
+        {
+            var direction = (float)m_character.facing;
+            m_rigidbody.velocity = new Vector2(m_configuration.continuousSlideVelocity * direction, m_rigidbody.velocity.y);            
+        }
+
         public void Reset()
         {
             m_state.canSlide = true;
