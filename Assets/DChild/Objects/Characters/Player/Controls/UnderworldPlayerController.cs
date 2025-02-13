@@ -638,6 +638,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnVector2PerformedInput(Vector2 vector)
         {
             m_vector2Input = vector;
+            
 
             if (m_state.isGrounded)
             {
@@ -848,12 +849,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         if (m_vector2Input.y < 0 && m_state.canSlide)
                         {
                             ExecuteSlide();
+                            return;
                         }
                     }
 
                     if ((m_skills.IsModuleActive(PrimarySkill.Dash) || m_skills.IsModuleActive(PrimarySkill.ShadowDash)) && m_state.canDash)
                     {
                         ExecuteDash();
+                        return;
                     }
                 }
                 else
@@ -872,6 +875,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         }
 
                         ExecuteDash();
+                        return;
                     }
                 }
             }
