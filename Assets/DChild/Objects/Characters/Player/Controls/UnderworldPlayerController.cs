@@ -9,6 +9,7 @@ using System.ComponentModel;
 using DChild.Gameplay.Inventories;
 using DChild.Gameplay.Systems;
 using DChild.Menu;
+using DChild.Gameplay.Characters.Players.State;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -504,6 +505,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_lightningSpear.HandleMovementTimer();
             }
 
+            if(m_reaperHarvest.CanReaperHarvest() == false)
+            {
+                m_reaperHarvest.HandleAttackTimer();
+            }
+
             if (m_icarusWings.CanIcarusWings() == false)
             {
                 m_icarusWings.HandleAttackTimer();
@@ -722,6 +728,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnJumpStartedInput()
         {
             if(m_state.isLedgeGrabbing)
+            {
+                return;
+            }
+            if (m_state.waitForBehaviour)
             {
                 return;
             }
@@ -1258,17 +1268,30 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSoulFireBlastStartedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast))
+            {
+                m_devilWings?.Cancel();
+                m_extraJump?.Cancel();
+            }
         }
 
         private void OnSoulFireBlastCancelledInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnSoulFireBlastPerformedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast))
+            {
+                if(m_state.isGrounded == false)
+                {
+                    PrepareForMidairAttack();
+
+                    m_soulFireBlast.Execute();
+                    return;
+                }
+            }
         }
 
         private void OnBackDiverStartedInput()
@@ -1350,32 +1373,54 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnReapersHarvestStartedInput()
         {
-            throw new NotImplementedException();
+           
         }
 
         private void OnReapersHarvestCancelledInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnReapersHarvestPerformedInput()
         {
-            throw new NotImplementedException();
+            m_state.waitForBehaviour = true;
+            m_state.isHighJumping = false;
+            if (m_state.isGrounded)
+            {
+                if (m_abilities.IsAbilityActivated(CombatArt.ReaperHarvest))
+                {
+                    m_reaperHarvest.Reset();
+                    PrepareForGroundAttack();
+                    m_reaperHarvest.Execute(ReaperHarvest.ReaperHarvestState.Grounded);
+                    m_state.waitForBehaviour = false;
+
+                }
+            }
+            
         }
 
         private void OnIcarusWingsStartedInput()
         {
-            throw new NotImplementedException();
+            m_basicSlashes.Cancel();
+            m_groundJump.CutOffJump();
+            m_extraJump.Cancel();
         }
 
         private void OnIcarusWingsCancelledInput()
         {
-            throw new NotImplementedException();
+        
         }
 
         private void OnIcarusWingsPerformedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings))
+            {
+                if (m_icarusWings.CanIcarusWings() == true)
+                {
+                    PrepareForGroundAttack();
+                    m_icarusWings.Execute();
+                }         
+            }
         }
 
         private void OnTeleportingSkullStartedInput()
