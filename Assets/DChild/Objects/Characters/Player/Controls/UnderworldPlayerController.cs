@@ -1376,17 +1376,32 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnDiagonalSwordDashStartedInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnDiagonalSwordDashCancelledInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnDiagonalSwordDashPerformedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.DiagonalSwordDash))
+            {
+                if(m_state.isGrounded == false)
+                {
+                    if (m_diagonalSwordDash.CanDiagonalSwordDash())
+                    {
+                        PrepareForMidairAttack();
+                        m_devilWings?.Cancel();
+                        m_extraJump?.Cancel();
+
+                        m_diagonalSwordDash.Execute();
+                        return;
+                    }
+
+                }
+            }
         }
 
         private void OnEdgedFuryStartedInput()
