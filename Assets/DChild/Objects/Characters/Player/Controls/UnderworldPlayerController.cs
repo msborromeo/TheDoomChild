@@ -1119,7 +1119,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     if (m_whip.CanAirWhip())
                     {
-                        PrepareForGroundAttack();
                         PrepareForMidairAttack();
                         m_devilWings?.EnableLevitate();
                         m_extraJump?.Cancel();
@@ -1345,17 +1344,30 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnEdgedFuryStartedInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnEdgedFuryCancelledInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnEdgedFuryPerformedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.EdgedFury))
+            {
+                if(m_state.isGrounded == false)
+                {
+                    m_edgedFury.Reset();
+                    PrepareForMidairAttack();
+                    m_whipCombo?.Cancel();
+                    m_devilWings?.Cancel();
+                    m_extraJump?.Cancel();
+                    m_whip?.Cancel();
+                    m_edgedFury.Execute();
+                }
+                
+            }
         }
 
         private void OnReapersHarvestStartedInput()
@@ -1372,9 +1384,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_state.waitForBehaviour = true;
             m_state.isHighJumping = false;
-            if (m_state.isGrounded)
+            if (m_abilities.IsAbilityActivated(CombatArt.ReaperHarvest))
             {
-                if (m_abilities.IsAbilityActivated(CombatArt.ReaperHarvest))
+                if (m_state.isGrounded)
                 {
                     m_reaperHarvest.Reset();
                     PrepareForGroundAttack();
