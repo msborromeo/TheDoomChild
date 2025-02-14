@@ -51,7 +51,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""95527310-afc7-43e1-911b-2332c9c4751a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -69,7 +69,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""c981b6a5-3e67-4bf4-9916-d9599928b8c3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -258,7 +258,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""6fd0d997-0772-4cac-87dc-d1cc564d0537"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=0.5)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -1794,7 +1794,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": ""Keyboard"",
                     ""id"": ""8fc98339-e1e0-40c5-b494-a0be97b65021"",
                     ""path"": ""OneModifier"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""IcarusWings"",
@@ -1807,7 +1807,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""IcarusWings"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -1818,7 +1818,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""IcarusWings"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true

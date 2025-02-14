@@ -1182,11 +1182,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnBarrierStartedInput()
         {
-            
+            //Handle Barrier 2 here
         }
 
         private void OnBarrierPerformedInput()
         {
+            //Skip if Barrier 2 is unlocked
             if (m_abilities.IsAbilityActivated(CombatArt.Barrier))
             {
                if(m_state.isInShadowMode == false)
@@ -1213,17 +1214,31 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnAirSlashStartedInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnAirSlashCancelledInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnAirSlashPerformedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.AirSlashRange))
+            {
+                if(m_state.isGrounded == false)
+                {
+                    if (m_airSlashRange.CanAirSlashRange())
+                    {
+                        if (m_state.isInShadowMode == false)
+                        {
+                            PrepareForMidairAttack();
+                            m_airSlashRange.Execute();
+                            return;
+                        }
+                    }   
+                }
+            }
         }
 
         private void OnHellTridentStartedInput()
@@ -1258,17 +1273,34 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnBackDiverStartedInput()
         {
-            throw new NotImplementedException();
+
         }
 
         private void OnBackDiverCancelledInput()
         {
-            throw new NotImplementedException();
+
         }
 
         private void OnBackDiverPerformedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.BackDiver))
+            {
+                if (m_state.isGrounded)
+                {
+                    if (m_backDiver.CanBackDiver() && m_backDiver.HaveSpacetoExecute())
+                    {
+                        if (m_state.isInShadowMode == false)
+                        {
+                            m_crouch?.Cancel();
+                            m_backDiver.Reset();
+                            PrepareForGroundAttack();
+                            m_movement?.SwitchConfigTo(Movement.Type.Jog);
+                            m_backDiver.Execute();
+                            return;
+                        }
+                    }
+                }
+            }
         }
 
         private void OnSovereignImpaleStartedInput()
@@ -1333,17 +1365,26 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnIcarusWingsStartedInput()
         {
-            throw new NotImplementedException();
+            m_basicSlashes.Cancel();
+            m_groundJump.Cancel();
+            m_extraJump.Cancel();
         }
 
         private void OnIcarusWingsCancelledInput()
         {
-            throw new NotImplementedException();
+        
         }
 
         private void OnIcarusWingsPerformedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings))
+            {
+                if (m_icarusWings.CanIcarusWings() == true)
+                {
+                    PrepareForGroundAttack();
+                    m_icarusWings.Execute();
+                }         
+            }
         }
 
         private void OnTeleportingSkullStartedInput()
