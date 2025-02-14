@@ -1344,17 +1344,34 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSovereignImpaleStartedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.SovereignImpale))
+            {
+                if (m_sovereignImpale.CanSovereignImpale())
+                {
+                    if (m_state.isInShadowMode == false)
+                    {
+                        if (m_state.isGrounded)
+                        {
+                            m_crouch?.Cancel();
+                            m_sovereignImpale.Reset();
+                            PrepareForGroundAttack();
+                            m_movement?.SwitchConfigTo(Movement.Type.Jog);
+                            m_sovereignImpale?.Execute();
+                            return;
+                        }
+                    }
+                }
+            }
         }
 
         private void OnSovereignImpaleCancelledInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnSovereignImpalePerformedInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnDiagonalSwordDashStartedInput()
