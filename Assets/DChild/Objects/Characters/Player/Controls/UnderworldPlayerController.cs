@@ -1257,17 +1257,29 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnHellTridentStartedInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnHellTridentCancelledInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnHellTridentPerformedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.HellTrident))
+            {
+                if(m_state.isInShadowMode == false)
+                {
+                    if(m_state.isGrounded)
+                    {
+                        PrepareForGroundAttack();
+
+                        m_hellTrident.Execute();
+                        return;
+                    }
+                }
+            }
         }
 
         private void OnSoulFireBlastStartedInput()
