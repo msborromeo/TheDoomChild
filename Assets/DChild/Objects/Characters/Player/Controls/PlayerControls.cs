@@ -240,7 +240,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""c4afc068-fd30-4d7a-ab4e-3fcfd1e43b13"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
+                    ""interactions"": ""Hold(duration=0.5)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -1530,7 +1530,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": ""Keyboard"",
                     ""id"": ""15f62804-bd00-4c81-a01c-49d4e5d9ebb7"",
                     ""path"": ""OneModifier"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""EdgedFury"",
