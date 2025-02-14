@@ -12,5 +12,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         bool HasGroundToSlideOn();
 
         void Execute();
+        void ContinueSlide();
     }
 }
