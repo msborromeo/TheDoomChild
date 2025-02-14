@@ -1444,17 +1444,26 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnLightningSpearStartedInput()
         {
-            throw new NotImplementedException();
+           
         }
 
         private void OnLightningSpearCancelledInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnLightningSpearPerformedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.LightningSpear))
+            {
+                if(m_state.isGrounded == false && m_lightningSpear.CanLightningSpear())
+                {
+                    PrepareForMidairAttack();
+
+                    m_lightningSpear.Execute();
+                    return;
+                }
+            }
         }
         #endregion
 
