@@ -1268,17 +1268,30 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSoulFireBlastStartedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast))
+            {
+                m_devilWings?.Cancel();
+                m_extraJump?.Cancel();
+            }
         }
 
         private void OnSoulFireBlastCancelledInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnSoulFireBlastPerformedInput()
         {
-            throw new NotImplementedException();
+            if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast))
+            {
+                if(m_state.isGrounded == false)
+                {
+                    PrepareForMidairAttack();
+
+                    m_soulFireBlast.Execute();
+                    return;
+                }
+            }
         }
 
         private void OnBackDiverStartedInput()
