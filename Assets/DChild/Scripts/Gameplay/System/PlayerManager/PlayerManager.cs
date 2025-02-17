@@ -60,7 +60,7 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private AutoReflexHandler m_autoReflex;
         [SerializeField]
-        private ArmyBattleCharacterRecruiter m_armyBattleCharacterRecruiter; 
+        private ArmyBattleCharacterRecruiter m_armyBattleCharacterRecruiter;
 
         private CollisionRegistrator m_collisionRegistrator;
         private InteractableDetector m_interactableDetector;
@@ -139,6 +139,7 @@ namespace DChild.Gameplay.Systems
             m_characterInput?.Disable();
             m_player.controller.Disable();
             m_playerInput?.DeactivateInput();
+            m_player.state.allowExtendedIdle = false;
         }
 
         [Button]
@@ -148,6 +149,8 @@ namespace DChild.Gameplay.Systems
             m_characterInput?.Enable();
             m_player.controller.Enable();
             m_playerInput?.ActivateInput();
+
+            m_player.state.allowExtendedIdle = true;
         }
 
         public void EnableIntroControls()
@@ -241,10 +244,10 @@ namespace DChild.Gameplay.Systems
         public IEnumerator PlayerActionChange(Action<PlayerInput> CallBack)
         {
 
-            m_playerInput.enabled = false;
+            // m_playerInput.enabled = false;
             yield return null;
             CallBack(m_playerInput);
-            m_playerInput.enabled = true;
+            //m_playerInput.enabled = true;
             yield return null;
 
         }
