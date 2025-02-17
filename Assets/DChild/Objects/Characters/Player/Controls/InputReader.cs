@@ -8,8 +8,9 @@ using UnityEngine.InputSystem.Interactions;
 
 namespace DChild.Inputs
 {
+
     [CreateAssetMenu(menuName = "Input Reader")]
-    public class InputReader : ScriptableObject, PlayerControls.IUnderworldActions, PlayerControls.IOverworldActions, PlayerControls.IUIActions, PlayerControls.IArmyBattleActions
+    public class InputReader : ScriptableObject
     {
         [SerializeField]
         private PlayerControls m_playerControls;
@@ -20,10 +21,10 @@ namespace DChild.Inputs
             {
                 m_playerControls = new PlayerControls();
 
-                m_playerControls.Underworld.SetCallbacks(this);
-                m_playerControls.Overworld.SetCallbacks(this);
-                m_playerControls.UI.SetCallbacks(this);
-                m_playerControls.ArmyBattle.SetCallbacks(this);
+                //m_playerControls.Underworld.SetCallbacks(this);
+                //m_playerControls.Overworld.SetCallbacks(this);
+                //m_playerControls.UI.SetCallbacks(this);
+                //m_playerControls.ArmyBattle.SetCallbacks(this);
             }
         }
 
