@@ -107,6 +107,7 @@ namespace DChild.Gameplay.Systems
             }
         }
 
+        [Button]
         public PlayerCharacterOverride OverrideCharacterControls()
         {
             DisableControls();
@@ -131,6 +132,7 @@ namespace DChild.Gameplay.Systems
             return isPartOfPlayer;
         }
 
+        [Button]
         public void DisableControls()
         {
             m_gameplayInput?.SetStoreInputActive(false);
@@ -138,6 +140,7 @@ namespace DChild.Gameplay.Systems
             m_player.controller.Disable();
         }
 
+        [Button]
         public void EnableControls()
         {
             m_gameplayInput?.SetStoreInputActive(true);
@@ -166,6 +169,7 @@ namespace DChild.Gameplay.Systems
             m_interactableDetector?.ClearAllInteractableReferences();
         }
 
+        [Button]
         public void StopCharacterControlOverride()
         {
             m_overrideController.enabled = false;
