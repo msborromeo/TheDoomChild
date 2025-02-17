@@ -1040,10 +1040,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 if (m_state.isGrounded && m_state.isInShadowMode == false)
                 {
-
-                    m_chargeAttackHandle.Set(m_swordThrust, () => true);
+                    m_swordThrust.Reset();
+                    PrepareForGroundAttack();
+                    m_groundJump?.Cancel();
+                    m_extraJump?.Cancel();
+                    m_devilWings?.Cancel();
+                    m_whip?.Cancel();
+                    m_whipCombo?.Cancel();
+                    m_chargeAttackHandle.Set(m_swordThrust, () => true);              
                     m_swordThrust?.StartCharge();
-                    return;
                 }
             }
         }
@@ -1056,6 +1061,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     if (m_swordThrust.IsChargeComplete())
                     {
+                        PrepareForGroundAttack();
+                        m_groundJump?.Cancel();
+                        m_extraJump?.Cancel();
+                        m_devilWings?.Cancel();
+                        m_whip?.Cancel();
+                        m_whipCombo?.Cancel();
                         m_swordThrust?.Execute();
                     }
                     else
@@ -1078,6 +1089,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_skills.IsModuleActive(PrimarySkill.Whip))
             {
+                if (m_state.isChargingAttack)
+                {
+                    return;
+                }
                 if (m_state.isInShadowMode)
                 {
                     if (m_state.canAttackInShadowMode == false)
