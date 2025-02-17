@@ -1485,17 +1485,29 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnTeleportingSkullStartedInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnTeleportingSkullPerformedInput()
         {
-            throw new NotImplementedException();
+            if(m_abilities.IsAbilityActivated(CombatArt.TeleportingSkull))
+            {
+                if (m_teleportingSkull.canTeleport)
+                {
+                    m_teleportingSkull.TeleportToProjectile();
+                    return;
+                }
+
+                m_projectileThrow.SetProjectileInfo(m_teleportingSkull.projectile);
+                m_projectileThrow.WillResetProjectile();
+                m_teleportingSkull.Execute();
+                return;
+            }
         }
 
         private void OnTeleportingSkullCancelledInput()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnLightningSpearStartedInput()
@@ -1999,7 +2011,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void Enable()
         {
-            enabled = true;
             m_inputReader.SetInputModeToUnderworldGameplay();
             ControllerEnabled?.Invoke(this, EventActionArgs.Empty);
         }
@@ -2044,7 +2055,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 m_movement?.SwitchConfigTo(Movement.Type.Jog);
             }
-            enabled = false;
             m_inputReader.SetInputModeToUI();
             ControllerDisabled?.Invoke(this, EventActionArgs.Empty);
         }
