@@ -4,14 +4,16 @@ using UnityEngine.InputSystem;
 
 namespace DChild.CustomInput.Keybind
 {
-    public class KeyboardBindUI : MonoBehaviour
+    public class KeybindFieldUI : MonoBehaviour
     {
         [SerializeField]
-        private TextMeshProUGUI m_inputText;
+        private TextMeshProUGUI m_buttonLabel;
+
+        public string buttonLabel => m_buttonLabel.text;
 
         public void UpdateVisual(InputBinding binding)
         {
-            m_inputText.text = binding.effectivePath;
+            m_buttonLabel.text = binding.effectivePath;
         }
     }
 }
