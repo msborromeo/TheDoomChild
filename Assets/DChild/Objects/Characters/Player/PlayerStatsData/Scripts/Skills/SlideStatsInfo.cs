@@ -10,6 +10,9 @@ public struct SlideStatsInfo
     private float m_velocity;
     public float velocity => m_velocity;
     [SerializeField, MinValue(0)]
+    private float m_continuousSlideVelocity;
+    public float continuousSlideVelocity => m_continuousSlideVelocity;
+    [SerializeField, MinValue(0)]
 
     private float m_cooldown;
     public float cooldown => m_cooldown;
@@ -23,5 +26,6 @@ public struct SlideStatsInfo
         m_velocity = reference.velocity;
         m_cooldown = reference.cooldown;
         m_duration = reference.duration;
+        m_continuousSlideVelocity = reference.continuousSlideVelocity;
     }
 }

@@ -1,11 +1,13 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using DChild.Localization;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace DChild.Gameplay.Inventories.UI
 {
-    public class FullItemDetailsUI : ItemDetailsUI
+    public class FullItemDetailsUI : ItemDetailsUI, IItemViewLocalizer
     {
         [SerializeField]
         private TextMeshProUGUI m_name;
@@ -17,6 +19,8 @@ namespace DChild.Gameplay.Inventories.UI
         private TextMeshProUGUI m_quantityLimit;
 
         private Canvas m_canvas;
+
+        public event Action<IStoredItem> localizeItemView;
 
         public override void Hide()
         {
@@ -53,6 +57,7 @@ namespace DChild.Gameplay.Inventories.UI
                     m_quantityLimit.text = data.quantityLimit.ToString();
                 }
             }
+            localizeItemView?.Invoke(reference);
         }
 
         private void Awake()
