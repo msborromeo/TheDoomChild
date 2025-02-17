@@ -138,6 +138,7 @@ namespace DChild.Gameplay.Systems
             m_gameplayInput?.SetStoreInputActive(false);
             m_characterInput?.Disable();
             m_player.controller.Disable();
+            m_playerInput?.DeactivateInput();
         }
 
         [Button]
@@ -146,6 +147,7 @@ namespace DChild.Gameplay.Systems
             m_gameplayInput?.SetStoreInputActive(true);
             m_characterInput?.Enable();
             m_player.controller.Enable();
+            m_playerInput?.ActivateInput();
         }
 
         public void EnableIntroControls()
@@ -262,6 +264,8 @@ namespace DChild.Gameplay.Systems
                 var playerCharacter = m_player.character;
                 m_playerOriginalScene = playerCharacter.gameObject.scene;
                 m_playerOriginalParent = playerCharacter.transform.parent;
+
+                m_playerInput = m_player.GetComponentInChildren<PlayerInput>();
             }
             //m_autoReflex.Initialize();
         }

@@ -2011,7 +2011,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void Enable()
         {
-            enabled = true;
             m_inputReader.SetInputModeToUnderworldGameplay();
             ControllerEnabled?.Invoke(this, EventActionArgs.Empty);
         }
@@ -2056,7 +2055,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 m_movement?.SwitchConfigTo(Movement.Type.Jog);
             }
-            enabled = false;
             m_inputReader.SetInputModeToUI();
             ControllerDisabled?.Invoke(this, EventActionArgs.Empty);
         }
