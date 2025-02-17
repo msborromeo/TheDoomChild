@@ -39,7 +39,8 @@ public class WallMouth : MonoBehaviour
     private float m_idleLoopValue;
     [SerializeField]
     private float m_attackLoopValue;
-
+    [SerializeField]
+    private bool m_isCeilingLoopValueStephenIndiPagTanduga;
     public void InitializeField(SpineRootAnimation spineRoot)
     {
         m_spine = spineRoot;
@@ -84,7 +85,15 @@ public class WallMouth : MonoBehaviour
                 yield return new WaitForSeconds(m_idleLoopValue);
             m_laser.GetComponent<TheOneMiniLevelLaser>().stop = true;
             m_spine.SetAnimation(0, m_attackLoop, true);
+            if (m_isCeilingLoopValueStephenIndiPagTanduga)
+            {
+                yield return new WaitForSeconds(6f);
+            }
+            else
+            {
                 yield return new WaitForSeconds(m_attackLoopValue);
+            }
+               
             }
         
         m_spine.SetAnimation(0, m_afterAttack, false);
