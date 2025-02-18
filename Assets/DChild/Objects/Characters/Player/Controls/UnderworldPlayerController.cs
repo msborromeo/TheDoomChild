@@ -730,6 +730,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 return;
             }
+            if (m_state.isInShadowMode)
+            {
+                return;
+            }
             if (m_state.isGrounded)
             {
                 if (m_state.isChargingAttack)
@@ -761,19 +765,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
             else
             {
-                if (m_state.isInShadowMode == false)
+                if (m_skills.IsModuleActive(PrimarySkill.DoubleJump))
                 {
-                    if (m_skills.IsModuleActive(PrimarySkill.DoubleJump))
+                    if (m_extraJump?.HasExtras() ?? false)
                     {
-                        if (m_extraJump?.HasExtras() ?? false)
+                        if (m_state.isLevitating)
                         {
-                            if (m_state.isLevitating)
-                            {
-                                m_devilWings?.Cancel();
-                            }
-
-                            m_extraJump?.Execute();
+                            m_devilWings?.Cancel();
                         }
+
+                        m_extraJump?.Execute();
                     }
                 }
 
@@ -806,16 +807,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 if (m_state.isGrounded == false)
                 {
-                    if (m_devilWings.CanLevitate())
+                    if (m_devilWings?.HaveEnoughSourceForExecution() ?? false)
                     {
-                        if (m_devilWings?.HaveEnoughSourceForExecution() ?? false)
+                        if (m_state.isHighJumping)
                         {
-                            if (m_state.isHighJumping)
-                            {
-                                m_groundJump?.CutOffJump();
-                            }
-                            m_devilWings?.Execute();
+                            m_groundJump?.CutOffJump();
                         }
+                        m_devilWings?.Execute();
                     }
                 }
             }
@@ -897,6 +895,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_skills.IsModuleActive(PrimarySkill.ShadowMorph))
             {
+                if (m_state.isHighJumping ||
+                    m_state.isDashing ||
+                    m_state.isGrounded == false||
+                    m_state.isSliding)
+                {
+                    return;
+                }
                 m_idle?.Cancel();
                 m_movement?.Cancel();
                 m_objectManipulation?.Cancel();
@@ -910,6 +915,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     m_shadowGaugeRegen?.Enable(false);
                     m_shadowMorph.Execute();
+
                 }
             }
         }
@@ -1463,10 +1469,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnReapersHarvestPerformedInput()
         {
-            m_state.waitForBehaviour = true;
-            m_state.isHighJumping = false;
             if (m_abilities.IsAbilityActivated(CombatArt.ReaperHarvest))
             {
+                m_state.waitForBehaviour = true;
+                m_state.isHighJumping = false;
                 if (m_state.isGrounded)
                 {
                     m_reaperHarvest.Reset();
@@ -1481,6 +1487,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnIcarusWingsStartedInput()
         {
+            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
+            {
+                return;
+            }
             m_basicSlashes.Cancel();
             m_groundJump.CutOffJump();
             m_extraJump.Cancel();
@@ -1493,14 +1503,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnIcarusWingsPerformedInput()
         {
-            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings))
+            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
             {
-                if (m_icarusWings.CanIcarusWings() == true)
-                {
-                    PrepareForGroundAttack();
-                    m_icarusWings.Execute();
-                }
+                return;
             }
+
+            PrepareForGroundAttack();
+            m_icarusWings.Execute();
         }
 
         private void OnTeleportingSkullStartedInput()
@@ -1526,21 +1535,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         }
 
         private void OnTeleportingSkullCancelledInput()
-        {
-            
-        }
-
-        private void OnLightningSpearStartedInput()
-        {
-           
-        }
-
-        private void OnLightningSpearCancelledInput()
-        {
-            
-        }
-
-        private void OnLightningSpearPerformedInput()
         {
             
         }
