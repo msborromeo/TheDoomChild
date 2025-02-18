@@ -252,9 +252,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportingSkullStartedEvent += OnTeleportingSkullStartedInput;
             m_inputReader.TeleportingSkullPerformedEvent += OnTeleportingSkullPerformedInput;
             m_inputReader.TeleportingSkullCancelledEvent += OnTeleportingSkullCancelledInput;
-            m_inputReader.LightningSpearStartedEvent += OnLightningSpearStartedInput;
-            m_inputReader.LightningSpearCancelledEvent += OnLightningSpearCancelledInput;
-            m_inputReader.LightningSpearPerformedEvent += OnLightningSpearPerformedInput;
         }
 
         private void OnDisable()
@@ -326,9 +323,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportingSkullStartedEvent -= OnTeleportingSkullStartedInput;
             m_inputReader.TeleportingSkullPerformedEvent -= OnTeleportingSkullPerformedInput;
             m_inputReader.TeleportingSkullCancelledEvent -= OnTeleportingSkullCancelledInput;
-            m_inputReader.LightningSpearStartedEvent -= OnLightningSpearStartedInput;
-            m_inputReader.LightningSpearCancelledEvent -= OnLightningSpearCancelledInput;
-            m_inputReader.LightningSpearPerformedEvent -= OnLightningSpearPerformedInput;
         }
 
         private void FixedUpdate()
@@ -1252,6 +1246,17 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnAirSlashPerformedInput()
         {
+            if (m_abilities.IsAbilityActivated(CombatArt.LightningSpear))
+            {
+                if (m_state.isGrounded == false && m_lightningSpear.CanLightningSpear())
+                {
+                    PrepareForMidairAttack();
+
+                    m_lightningSpear.Execute();
+                    return;
+                }
+            }
+
             if (m_abilities.IsAbilityActivated(CombatArt.AirSlashRange))
             {
                 if (m_state.isGrounded == false)
@@ -1537,16 +1542,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnLightningSpearPerformedInput()
         {
-            if (m_abilities.IsAbilityActivated(CombatArt.LightningSpear))
-            {
-                if(m_state.isGrounded == false && m_lightningSpear.CanLightningSpear())
-                {
-                    PrepareForMidairAttack();
-
-                    m_lightningSpear.Execute();
-                    return;
-                }
-            }
+            
         }
         #endregion
 
