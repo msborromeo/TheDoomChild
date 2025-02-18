@@ -2133,7 +2133,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
                 else
                 {
-                    if (m_crouch.IsThereNoCeiling() == false)
+                    if (m_slide.IsThereACeiling())
                     {
                         m_activeSlide?.ContinueSlide();
                         return;
