@@ -3,10 +3,12 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
+using DChild.Localization;
+using System;
 
 namespace DChild.Gameplay.UI.CombatArts
 {
-    public class CombatArtUIDetail : MonoBehaviour
+    public class CombatArtUIDetail : MonoBehaviour , ICombatArtLocalizer
     {
         [SerializeField]
         private TextMeshProUGUI m_artNameLabel;
@@ -19,6 +21,8 @@ namespace DChild.Gameplay.UI.CombatArts
         [SerializeField]
         private TextMeshProUGUI m_controlsLabel;
 
+        public event Action<CombatArtData,int> localizeCombatArt;
+
         public void Display(CombatArtData data, int level)
         {
             if (data != null)
@@ -30,6 +34,7 @@ namespace DChild.Gameplay.UI.CombatArts
                     m_artNameLabel.text += $" {level}";
                 }
                 Display(data.GetCombatArtLevelData(level));
+                localizeCombatArt?.Invoke(data,level);
             }
         }
 

@@ -12,14 +12,14 @@ namespace DChild.Gameplay.Characters.Enemies
     {
         [SerializeField, TabGroup("Reference")]
         protected SpineRootAnimation m_animation;
+        [SerializeField, TabGroup("Reference")]
+        private SpineEventListener m_spineEventListener;
         [SerializeField]
         private SkeletonAnimation m_skeletonAnimation;
         [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
         private string m_emergeAnimation;
         [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
         private string m_waitForInputAnimation;
-        [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
-        private string m_attackAnimation;
         [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
         private string m_retractAnimation;
 
@@ -29,27 +29,76 @@ namespace DChild.Gameplay.Characters.Enemies
         private RaySensor m_floorSensor;
 
         [SerializeField, TabGroup("Colliders")]
-        private GameObject m_floorSlamCollider;
+        private Collider2D m_floorSlamCollider;
         [SerializeField, TabGroup("Colliders")]
-        private GameObject m_wallSlamCollider;
+        private Collider2D m_wallSlamCollider;
         [SerializeField, TabGroup("Colliders")]
-        private GameObject m_wallCollider;
+        private Collider2D m_wallCollider;
 
-        [SerializeField]
-        private SlidingStoneWallAttack m_slidingStoneWallAttack;
-        [SerializeField]
-        private float m_attackAnimationSpeedMultiplier => m_slidingStoneWallAttack.attackAnimationSpeedMultiplier;
-
-
+        [SerializeField,SpineEvent,TabGroup("Events")]
+        private string m_wallBreakOn;
+        [SerializeField, SpineEvent, TabGroup("Events")]
+        private string m_wallBreakOff;
+        [SerializeField, SpineEvent, TabGroup("Events")]
+        private string m_wallStickOn;
+        [SerializeField, SpineEvent, TabGroup("Events")]
+        private string m_wallStickOff;
+        [SerializeField, SpineEvent, TabGroup("Events")]
+        private string m_floorSmashOn;
+        [SerializeField, SpineEvent, TabGroup("Events")]
+        private string m_floorSmashOff;
         public event EventAction<EventActionArgs> AttackStart;
         public event EventAction<EventActionArgs> AttackDone;
 
         // Start is called before the first frame update
         void Start()
         {
-            m_floorSlamCollider.SetActive(false);
-            m_wallSlamCollider.SetActive(false);
-            m_wallCollider.SetActive(false);
+            m_animation.SetAnimation(0, m_waitForInputAnimation, false);
+            m_floorSlamCollider.enabled = false;
+            m_wallSlamCollider.enabled = false;
+            m_wallCollider.enabled = false;
+            m_spineEventListener.Subscribe(m_wallBreakOn, ActivateWallSmashDamageOrFX);
+            m_spineEventListener.Subscribe(m_wallBreakOff, DeActivateWallSmashDamageOrFX);
+            m_spineEventListener.Subscribe(m_wallStickOn, ActivateWallStick);
+            m_spineEventListener.Subscribe(m_wallStickOff, DeActivateWallStick);
+            m_spineEventListener.Subscribe(m_floorSmashOn, ActivateFloorSlamCollider);
+            m_spineEventListener.Subscribe(m_floorSmashOff, DeActivateFloorSlamCollider);
+        }
+
+        private void ActivateFloorSlamCollider()
+        {
+            m_floorSlamCollider.enabled = true;
+        }
+        private void DeActivateFloorSlamCollider()
+        {
+            m_floorSlamCollider.enabled = false;
+        }
+
+        private void ActivateWallStick()
+        {
+            m_wallCollider.enabled = true;
+        }
+        private void DeActivateWallStick()
+        {
+            m_wallCollider.enabled = false;
+            ActivateWallSmashDamageOrFX();
+        }
+        private void ActivateWallSmashDamageOrFX()
+        {
+            m_wallSlamCollider.enabled = true;
+        }
+
+        private void DeActivateWallSmashDamageOrFX()
+        {
+            m_wallSlamCollider.enabled = false;
+        }
+
+
+        private void DisableColliders()
+        {
+            m_floorSlamCollider.enabled = false;
+            m_wallSlamCollider.enabled = false;
+            m_wallCollider.enabled = false;
         }
 
         private IEnumerator EmergeTentacle()
@@ -57,62 +106,44 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_emergeAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_emergeAnimation);
         }
-
-        private IEnumerator AttackTentacle()
-        {
-            m_animation.SetAnimation(0, m_attackAnimation, false).TimeScale = m_attackAnimationSpeedMultiplier; //use timescale to adjust tentacle attack speed
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_attackAnimation);
-        }
-
         private IEnumerator RetractTentacle()
         {
             m_animation.SetAnimation(0, m_retractAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_retractAnimation);
+            m_animation.SetAnimation(0,m_waitForInputAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_waitForInputAnimation);
         }
 
         private IEnumerator MonolithGroundSmashImpact()
         {
-            m_floorSlamCollider.SetActive(true);
-
+            
+            yield return new WaitForSeconds(6f);
+            m_floorSlamCollider.enabled = true;
             yield return new WaitForSeconds(0.5f);
-
-            m_floorSlamCollider.SetActive(false);
-            m_wallCollider.SetActive(true);
+            m_floorSlamCollider.enabled = false;
+            m_wallCollider.enabled = true;
         }
 
         private IEnumerator MonolithWallSlamImpact()
         {
-            m_wallCollider.SetActive(false);
-            m_wallSlamCollider.SetActive(true);
-
+            m_wallCollider.enabled = false;
+            m_wallSlamCollider.enabled = true;
             yield return new WaitForSeconds(0.5f);
-
-            m_wallSlamCollider.SetActive(false);
+            m_wallSlamCollider.enabled = false;
         }
 
         public IEnumerator CompleteSlidingWallAttackSequence()
         {
-           //AttackStart?.Invoke(this, EventActionArgs.Empty);
+            //AttackStart?.Invoke(this, EventActionArgs.Empty);
+           // StopAllCoroutines();
             yield return EmergeTentacle();
-            yield return AttackTentacle();
             yield return RetractTentacle();
+            //yield return AttackTentacle();
+            //yield return RetractTentacle();
             //AttackDone?.Invoke(this, EventActionArgs.Empty);
         }
 
-        public void GroundSmashEffect()
-        {
-            StartCoroutine(MonolithGroundSmashImpact());
-        }
-
-        public void WallSlamEffect()
-        {
-            StartCoroutine(MonolithWallSlamImpact());
-        }
-
-       public void SlidingStoneWallAttack()
-        {
-            StartCoroutine(CompleteSlidingWallAttackSequence());
-        }
+     
     }   
 }
 

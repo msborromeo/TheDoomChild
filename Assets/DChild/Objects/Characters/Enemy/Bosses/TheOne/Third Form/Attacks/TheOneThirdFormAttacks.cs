@@ -6,11 +6,14 @@ using DChild.Gameplay.Characters.AI;
 using UnityEngine;
 using Holysoft.Event;
 using System;
+using System.Runtime.CompilerServices;
 
 public class TheOneThirdFormAttacks : MonoBehaviour
 {
     [SerializeField, BoxGroup("The One Third Form Attacks")]
     private TentacleGroundStabAttack m_tentacleGroundStabAttack;
+    [SerializeField, BoxGroup("The One Third Form Attacks")]
+    private SphereBombAttack m_sphereBombAttack;
     [SerializeField, BoxGroup("The One Third Form Attacks")]
     private TentacleCeilingAttack m_tentacleCeilingAttack;
     [SerializeField, BoxGroup("The One Third Form Attacks")]
@@ -18,7 +21,9 @@ public class TheOneThirdFormAttacks : MonoBehaviour
     [SerializeField, BoxGroup("The One Third Form Attacks")]
     private ChasingGroundTentacleAttack m_chasingGroundTentacleAttack;
     [SerializeField, BoxGroup("The One Third Form Attacks")]
-    private MouthBlastIIAttack m_mouthBlastIIAttack;
+    private MouthBlastIIAttack[] m_mouthBlastIIAttack;
+    [SerializeField, BoxGroup("The One Third Form Attacks")]
+    private MouthBlastIIAttack m_mouthBlastOneCeiling;
     [SerializeField, BoxGroup("The One Third Form Attacks")]
     private SlidingStoneWallAttack m_slidingWallAttack;
     [SerializeField, BoxGroup("The One Third Form Attacks")]
@@ -59,7 +64,10 @@ public class TheOneThirdFormAttacks : MonoBehaviour
         AttackDone += OnAttackDone;
         m_tentacleGrabScriptedAttack.AttackDone += OnGrabAttackDone;
         m_tentacleGroundStabAttack.AttackDone += OnGroundStabDone;
-        m_mouthBlastIIAttack.AttackDone += OnMouthBlastWallDone;
+        for (int i = 0; i < m_mouthBlastIIAttack.Length; i++)
+        {
+            m_mouthBlastIIAttack[i].AttackDone += OnMouthBlastWallDone;
+        }        
         m_movingTentacleGroundAttack.AttackDone += OnMovingTentacleGroundDone;
         m_monolithSlamAttack.AttackDone += OnMonolithSlamDone;
         m_chasingGroundTentacleAttack.AttackDone += OnChasingGroundTentacleDone;
@@ -157,12 +165,16 @@ public class TheOneThirdFormAttacks : MonoBehaviour
     public IEnumerator TentacleGrab()
     {
         yield return m_tentacleGrabScriptedAttack.ExecuteAttack();
-        yield return null;
     }
 
+    public IEnumerator MouthBlastOneCeiling()
+    {
+        yield return m_mouthBlastOneCeiling.ExecuteAttack();
+    }
     public IEnumerator MouthBlastWall()
     {
-        yield return m_mouthBlastIIAttack.ExecuteAttack();
+        var randomShit = UnityEngine.Random.Range(0, 2);
+        yield return m_mouthBlastIIAttack[randomShit].ExecuteAttack();
     }
 
     public IEnumerator TentacleGroundStab(AITargetInfo Target)
@@ -204,7 +216,10 @@ public class TheOneThirdFormAttacks : MonoBehaviour
     {
         yield return m_chasingGroundTentacleAttack.ExecuteAttack();
     }
-
+    public IEnumerator MonolithSlamPhaseTwo()
+    {
+        yield return m_monolithSlamAttack.PhaseTwoMonolithSlam();
+    }
     public IEnumerator MonolithSlam()
     {
         yield return m_monolithSlamAttack.PhaseOneMonolithSlam();
@@ -225,12 +240,34 @@ public class TheOneThirdFormAttacks : MonoBehaviour
             }
             
         }
-      
+    
         m_monolithSlamAttack.m_monolithsSpawned.Clear();
         m_monolithSlamAttack.monolithsToDestroy.Clear();
         m_monolithSlamAttack.monolithsToActuallyKeep.Clear();
 
         
+        yield return null;
+    }
+
+    public IEnumerator RemovalMonolithSlamPhaseTwo()
+    {
+        for (int i = 0; i < m_monolithSlamAttack.m_monolithsSpawned.Count; i++)
+        {
+            m_monolithSlamAttack.m_monolithsSpawned[i].GetComponent<MonolithSlam>().SpawnShatterFX();
+            m_monolithSlamAttack.m_monolithsSpawned[i].GetComponent<MonolithSlam>().OffImpactCollider();
+        }
+        for (int i = 0; i < m_monolithSlamAttack.m_PatternTwoTentacleSpawn.Count; i++)
+        {
+            if (m_monolithSlamAttack.m_PatternTwoTentacleSpawn[i].activeInHierarchy)
+            {
+                m_monolithSlamAttack.m_PatternTwoTentacleSpawn[i].SetActive(false);
+            }
+
+        }
+
+        m_monolithSlamAttack.m_monolithsSpawned.Clear();
+        m_monolithSlamAttack.monolithsToDestroy.Clear();
+        m_monolithSlamAttack.monolithsToActuallyKeep.Clear();
         yield return null;
     }
 
@@ -240,6 +277,14 @@ public class TheOneThirdFormAttacks : MonoBehaviour
       
     }
 
+    private IEnumerator SphereBombTwo()
+    {
+        yield return null;
+    }
+    public IEnumerator SphereBombOneAttack()
+    {
+        yield return m_sphereBombAttack.SpawnSphereBomb();
+    }
     public IEnumerator TentacleBlastTwo()
     {
         yield return m_tentacleBlastAttack.ExecuteAttack();
@@ -248,7 +293,6 @@ public class TheOneThirdFormAttacks : MonoBehaviour
     public IEnumerator SlidingStoneWallAttack(AITargetInfo Target)
     {
         yield return m_slidingWallAttack.ExecuteAttack(Target);
-        yield return null;
     }
 
     public IEnumerator BubbleImprisonment(AITargetInfo Target)

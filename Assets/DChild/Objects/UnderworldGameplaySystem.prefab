@@ -1719,6 +1719,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2984493700997397161}
   - component: {fileID: 1545669049967821395}
+  - component: {fileID: 6168822362483496899}
   - component: {fileID: 3951483400078990134}
   - component: {fileID: 7132930369399272247}
   - component: {fileID: 1051951913548788863}
@@ -1757,10 +1758,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b66272d8dcbcb044b9691b51f0b9939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_uiInput: {fileID: 0}
-  m_storeToggleAction: {fileID: 5916718078611979554, guid: 2e0d81e8951c3384cba5207fae67c9a4,
-    type: 3}
   m_actionIsCloseStore: 0
+--- !u!114 &6168822362483496899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7562656585876090279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa96d497585c39b44a82c68b89d37932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inputReader: {fileID: 11400000, guid: f10ab9566613cb14b98648d2d13c9ed9, type: 2}
 --- !u!114 &3951483400078990134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2239,7 +2250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_player: {fileID: 0}
   m_gameplayInput: {fileID: 1545669049967821395}
-  m_characterInput: {fileID: 0}
+  m_characterInput: {fileID: 11400000, guid: f10ab9566613cb14b98648d2d13c9ed9, type: 2}
   m_overrideController: {fileID: 0}
   m_respawnDelay:
     m_startTime: 3

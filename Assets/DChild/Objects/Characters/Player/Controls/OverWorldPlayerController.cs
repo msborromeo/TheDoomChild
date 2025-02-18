@@ -1,3 +1,4 @@
+using DChild.Gameplay.Systems;
 using DChild.Inputs;
 using Holysoft.Event;
 using PlayerNew;
@@ -34,11 +35,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void Disable()
         {
-
+            m_inputReader.SetInputModeToUI();
         }
         public void Enable()
         {
-
+            m_inputReader.SetInputModeTOverworldGameplay();
         }
 
         public void OnDisable()
@@ -46,6 +47,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.OverworldMovePerformedEvent -= OnVector2Input;
             m_inputReader.OverworldMoveCancelledEvent -= OnVector2InputCancelled;
             m_inputReader.InteractStartedEvent -= OnInteract;
+            m_inputReader.StoreStartedEvent -= OnStoreStartedInput;
 
         }
 
@@ -54,6 +56,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.OverworldMovePerformedEvent += OnVector2Input;
             m_inputReader.OverworldMoveCancelledEvent += OnVector2InputCancelled;
             m_inputReader.InteractStartedEvent += OnInteract;
+            m_inputReader.StoreStartedEvent += OnStoreStartedInput;
+        }
+
+        private void OnStoreStartedInput()
+        {
+            GameplaySystem.gamplayUIHandle.OpenStoreAtPage(StorePage.Map);
         }
 
         private void OnVector2InputCancelled(Vector2 vector)
@@ -81,7 +89,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_animationhandler.UpdateAnimator(new Vector2(xVelocity, yVelocity));
         }
 
-       
+        private void Awake()
+        {
+            m_inputReader.SetInputModeTOverworldGameplay();
+        }
 
         void Start()
         {

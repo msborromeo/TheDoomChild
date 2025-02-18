@@ -11,6 +11,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private SlideStatsInfo m_configuration;
         [SerializeField, BoxGroup("Sensors")]
         private RaySensor m_groundSensor;
+        [SerializeField, BoxGroup("Sensors")]
+        private RaySensor m_ceilingSensor;
 
         private float m_cooldownTimer;
         private float m_durationTimer;
@@ -49,6 +51,20 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_rigidbody.velocity = new Vector2(0, m_rigidbody.velocity.y);
             m_rigidbody.AddForce(new Vector2(direction * m_configuration.velocity, 0), ForceMode2D.Impulse);
         }
+
+        public void ContinueSlide()
+        {
+            var direction = (float)m_character.facing;
+            m_rigidbody.velocity = new Vector2(m_configuration.continuousSlideVelocity * direction, m_rigidbody.velocity.y);            
+        }
+
+        public bool IsThereACeiling()
+        {
+            m_ceilingSensor.Cast();
+
+            return m_ceilingSensor.isDetecting;
+        }
+
 
         public void Reset()
         {
