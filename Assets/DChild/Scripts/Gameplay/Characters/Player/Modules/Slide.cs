@@ -75,7 +75,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_rigidbody.velocity = Vector2.zero;
             m_state.isSliding = false;
-            m_cooldownTimer = 0;
+            m_durationTimer = -1;
             m_animator.SetBool(m_animationParameter, false);
         }
 
