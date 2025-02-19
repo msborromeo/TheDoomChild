@@ -620,17 +620,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             LevitateAction();
             LedgeGrabMovementAction();
             SwordThrustAction();
-
-            if (m_skills.IsModuleActive(PrimarySkill.WallMovement))
-            {
-                if (m_state.isGrounded == false)
-                {
-                    if (m_wallStick?.IsThereAWall() ?? false)
-                    {
-                        m_wallStick.Execute();
-                    }
-                }
-            }
+            HandleWallMovement();
         }
         #endregion
 
@@ -639,6 +629,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_vector2Input = vector;
 
+            if (m_state.isChargingAttack)
+            {
+                return;
+            }
 
             if (m_state.isGrounded)
             {
@@ -658,32 +652,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                 }
             }
-            else
-            {
-                //Air Movement
-                if (m_skills.IsModuleActive(PrimarySkill.WallMovement))
-                {
-                    Debug.Log("Checking Vector2 input in midair");
-                    if (m_wallStick?.IsThereAWall() ?? false)
-                    {
-                        if (vector.x != 0 && (Mathf.Sign(vector.x) == (float)m_character.facing))
-                        {
-                            //m_wallStick?.Execute();
-                            if (m_state.isLevitating)
-                            {
-                                m_devilWings?.Cancel();
-                            }
-                            m_dash?.Reset();
-                            m_extraJump?.Reset();
-                        }
-                    }
-                }
-            }
         }
 
         private void OnVector2CancelledInput(Vector2 vector)
         {
             m_vector2Input = new Vector2(0, 0);
+
+            if (m_state.isChargingAttack)
+            {
+                return;
+            }
 
             if (m_state.isCrouched)
             {
@@ -722,25 +700,17 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnJumpStartedInput()
         {
-            if (m_state.isLedgeGrabbing || m_crouch.IsThereNoCeiling() == false)
+            if (m_state.isLedgeGrabbing || 
+                m_crouch.IsThereNoCeiling() == false ||
+                m_state.waitForBehaviour ||
+                m_state.isInShadowMode ||
+                m_state.isChargingAttack)
             {
                 return;
             }
-            if (m_state.waitForBehaviour)
-            {
-                return;
-            }
-            if (m_state.isInShadowMode)
-            {
-                return;
-            }
+            
             if (m_state.isGrounded)
             {
-                if (m_state.isChargingAttack)
-                {
-                    m_swordThrust?.Cancel();
-                }
-
                 if (m_platformDrop?.IsThereADroppablePlatform() == true && m_vector2Input.y < 0)
                 {
                     m_platformDrop.Execute();
@@ -835,6 +805,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnDashStartedInput()
         {
+            if (m_state.isChargingAttack)
+            {
+                return;
+            }
             if (m_state.isInShadowMode == false)
             {
                 m_idle?.Cancel();
@@ -962,8 +936,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashStartedInput()
         {
+            if (m_state.isSliding)
+            {
+                return;
+            }
             if (m_state.canAttack)
             {
+                if (m_state.isDashing)
+                {
+                    m_activeDash.Cancel();
+                }
                 if (m_state.isGrounded)
                 {
                     if (m_state.isInShadowMode)
@@ -1036,6 +1018,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashHeldInput()
         {
+            if (m_state.isSliding)
+            {
+                return;
+            }
             if (m_skills.IsModuleActive(PrimarySkill.SwordThrust))
             {
                 if (m_state.isGrounded && m_state.isInShadowMode == false)
@@ -1157,7 +1143,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
             }
         }
-
 
         private void OnMouseDeltaPerformedInput(Vector2 vector)
         {
@@ -1541,6 +1526,39 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #endregion
 
         #region Action Functions
+        private void HandleWallMovement()
+        {
+            if (m_skills.IsModuleActive(PrimarySkill.WallMovement))
+            {
+                if(m_state.isGrounded == false)
+                {
+                    var hasIntentionToWallStick = m_vector2Input.x != 0;
+
+                    if(hasIntentionToWallStick)
+                    {
+                        var allowedToWallStick = m_state.isHighJumping == false && m_state.isInShadowMode == false;
+
+                        if (allowedToWallStick)
+                        {
+                            var isWallStickRequirementAchieved = (m_wallStick?.IsHeightRequirementAchieved() ?? false) && (m_wallStick?.IsThereAWall() ?? false);
+
+                            if (isWallStickRequirementAchieved)
+                            {
+                                if (m_state.isLevitating)
+                                {
+                                    m_devilWings?.Cancel();
+                                }
+
+                                m_dash?.Reset();
+                                m_extraJump?.Reset();
+                                m_wallStick.Execute();
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         private void ProjectileThrowAiming()
         {
             m_projectileThrow.MoveAim(m_mouseDelta, GameplaySystem.cinema.mainCamera.ScreenToWorldPoint(m_mouseDelta));

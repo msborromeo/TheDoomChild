@@ -44,6 +44,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_rigidbody.velocity = Vector2.zero;
             m_state.isDashing = false;
+            m_cooldownTimer = 0;
             m_animator.SetBool(m_animationParameter, false);
             //m_skeletonGhost.enabled = false;
         }
