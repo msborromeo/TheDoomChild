@@ -1093,9 +1093,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                 }
 
-                if (m_state.isDashing)
+                if (m_state.isDashing || m_state.isSliding)
                 {
-                    m_activeDash.Cancel();
                     return;
                 }
 

@@ -1718,7 +1718,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Gamepad"",
                     ""id"": ""f669545e-f96d-4883-9c58-eda36a8c54cd"",
-                    ""path"": ""TwoModifiers"",
+                    ""path"": ""OneModifier"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1727,19 +1727,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Modifier 1"",
+                    ""name"": ""Modifier"",
                     ""id"": ""8f84dc68-85d6-48f2-9905-d01b9bf376b7"",
-                    ""path"": ""<Gamepad>/leftStickPress"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""IcarusWings"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Modifier 2"",
-                    ""id"": ""c20da644-60ef-4fcc-82ee-81c535fcf814"",
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1750,7 +1739,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Binding"",
-                    ""id"": ""24b4d252-63cc-453a-be9e-010b2fe15f16"",
+                    ""id"": ""c20da644-60ef-4fcc-82ee-81c535fcf814"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
