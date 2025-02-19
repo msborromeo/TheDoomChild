@@ -942,12 +942,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
             if (m_state.canAttack)
             {
-                if (m_state.isDashing)
-                {
-                    m_activeDash.Cancel();
-                }
                 if (m_state.isGrounded)
                 {
+                    if (m_state.isDashing)
+                    {
+                        m_activeDash.Cancel();
+                    }
+
                     if (m_state.isInShadowMode)
                     {
                         if (m_shadowMorph.IsAttackAllowed() == false)
@@ -980,6 +981,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
                 else
                 {
+                    if (m_state.isDashing)
+                    {
+                        return;
+                    }
+
                     if (m_basicSlashes.CanAirAttack())
                     {
                         PrepareForMidairAttack();
@@ -1085,6 +1091,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     {
                         return;
                     }
+                }
+
+                if (m_state.isDashing || m_state.isSliding)
+                {
+                    return;
                 }
 
                 if (m_state.isGrounded)
