@@ -10,6 +10,8 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using DChild.Gameplay.Items;
+using I2.Loc;
+using DChild.Localization;
 
 namespace DChild.Gameplay.Trade
 {
@@ -36,6 +38,13 @@ namespace DChild.Gameplay.Trade
 
         [SerializeField]
         private ConfirmationHandler m_tradeConfirmation;
+
+        // Localizations
+        [TermsPopup]
+        public string _localizeMessage;
+        private TradeShopVariableLocalizer m_termLocalizer;
+        [SerializeField]
+        private bool Localize = true;
 
         public void SetupTrade(ITradeInventory buyer, ITradeInventory seller, CurrencyType type)
         {
@@ -96,6 +105,12 @@ namespace DChild.Gameplay.Trade
             var transaction = m_tradeHandle.transactionInfo;
             var pluralization = transaction.count > 1 ? "s " : " ";
             var currencyTypeMsg = GetCurrencyTypeInString();
+            if (Localize)
+            {
+                m_termLocalizer.TradeValueLocalize(transaction.count.ToString(), transaction.item, pluralization, currencyTypeMsg, transaction.totalCost.ToString());
+                m_tradeConfirmation.RequestConfirmation(OnTradeConfirmed, null, true);
+                return;
+            }
             var message = $"Would you like to Trade {transaction.count} {transaction.item.itemName}{pluralization} for {currencyTypeMsg} {transaction.totalCost}";
             m_tradeConfirmation.RequestConfirmation(OnTradeConfirmed, message);
         }
@@ -136,6 +151,7 @@ namespace DChild.Gameplay.Trade
         private void Awake()
         {
             m_transactionDetails.SetTransactionReference(m_tradeHandle.transactionInfo);
+            m_termLocalizer = GetComponentInChildren<TradeShopVariableLocalizer>();
         }
 
     }
