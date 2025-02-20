@@ -39,7 +39,7 @@ namespace PixelCrushers.DialogueSystem.I2Support
 
         protected virtual void Start()
         {
-            I2.Loc.LocalizationManager.SetLanguageAndCode("French", "fr");
+            //I2.Loc.LocalizationManager.SetLanguageAndCode("French", "fr");
             UseCurrentI2Language();
         }
 

@@ -277,9 +277,10 @@ public class TheOneThirdFormAttacks : MonoBehaviour
       
     }
 
-    private IEnumerator SphereBombTwo()
+    public IEnumerator SphereBombTwoAttack()
     {
-        yield return null;
+        
+        yield return m_sphereBombAttack.SphereBombTwo();
     }
     public IEnumerator SphereBombOneAttack()
     {
