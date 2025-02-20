@@ -102,6 +102,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isDoingSwordThrust == false)
             {
+                m_state.isAttacking = true;
                 m_state.isChargingAttack = false;
                 m_state.isDoingSwordThrust = true;
                 m_rigidBody.WakeUp();

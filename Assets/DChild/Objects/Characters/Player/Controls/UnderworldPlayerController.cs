@@ -846,6 +846,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     if (m_state.isStickingToWall)
                     {
                         m_wallStick?.Cancel();
+                        m_wallMovement?.Cancel();
                         FlipCharacter();
                     }
 
@@ -1550,7 +1551,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 if(m_state.isGrounded == false)
                 {
-                    var hasIntentionToWallStick = m_vector2Input.x != 0;
+                    var hasIntentionToWallStick = m_vector2Input.x != 0 && (m_state.isDashing == false);
 
                     if(hasIntentionToWallStick)
                     {
@@ -1620,6 +1621,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isStickingToWall)
             {
+                if (m_vector2Input.x != 0 && Mathf.Sign(m_vector2Input.x) != (float)m_character.facing)
+                {
+                    m_wallStick?.Cancel();
+                    m_wallMovement?.Cancel();
+                    FlipCharacter();
+                    //m_wallJump?.JumpAway();
+                    return;
+                }
+
                 if (m_state.canWallCrawl == true)
                 {
                     m_wallSlide?.Cancel();
@@ -1651,6 +1661,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         if (m_wallSlide.IsThereAWall())
                         {
                             m_wallSlide?.Execute();
+
                             m_groundedness?.Evaluate();
                             if (m_state.isGrounded)
                                 return;
