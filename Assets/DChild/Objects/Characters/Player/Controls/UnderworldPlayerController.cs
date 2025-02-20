@@ -724,10 +724,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             m_activeDash?.Cancel();
                         }
 
-                        if(m_state.isSliding && m_slide.IsThereACeiling() == false)
-                        {
-                            m_activeSlide?.Cancel();
-                        }
                         m_activeSlide?.Cancel();
                         m_groundedness?.ChangeValue(false);
                         m_groundJump?.Execute();
@@ -871,7 +867,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnShadowMorphStartedInput()
         {
-            if (m_skills.IsModuleActive(PrimarySkill.ShadowMorph))
+            if (m_skills.IsModuleActive(PrimarySkill.ShadowMorph) == false)
                 return;
             if (m_state.isGrounded == false)
                 return;
@@ -934,10 +930,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashStartedInput()
         {
-            if (m_state.isSliding || m_state.canAttack == false)
-            {
+            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall)
                 return;
-            }
+
             if (m_state.isGrounded)
             {
                 if (m_state.isDashing)
