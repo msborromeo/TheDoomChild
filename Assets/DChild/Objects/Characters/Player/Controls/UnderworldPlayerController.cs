@@ -94,8 +94,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         [SerializeField]
         private QuickItemHandle m_handle;
-        [SerializeField]
-        private PauseHandle m_pauseHandle;
 
         #region Input Variables
         [SerializeField, ReadOnly(true)]
@@ -214,6 +212,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.WhipCancelledEvent += OnWhipCancelledInput;
             m_inputReader.CycleQuickItemsStartedEvent += OnCycleQuickItemsStartedInput;
             m_inputReader.UseQuickItemStartedEvent += OnUseQuickItemsStartedInput;
+            m_inputReader.UseQuickItemCancelledEvent += OnUseQuickItemsCancelledInput;
             m_inputReader.ProjectileThrowStartedEvent += OnProjectileThrowStartedInput;
             m_inputReader.ProjectileThrowCancelledEvent += OnProjectileThrowCancelledInput;
             m_inputReader.MouseDeltaPerformedEvent += OnMouseDeltaPerformedInput;
@@ -285,6 +284,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.WhipCancelledEvent -= OnWhipCancelledInput;
             m_inputReader.CycleQuickItemsStartedEvent -= OnCycleQuickItemsStartedInput;
             m_inputReader.UseQuickItemStartedEvent -= OnUseQuickItemsStartedInput;
+            m_inputReader.UseQuickItemCancelledEvent -= OnUseQuickItemsCancelledInput;
             m_inputReader.ProjectileThrowStartedEvent -= OnProjectileThrowStartedInput;
             m_inputReader.ProjectileThrowCancelledEvent -= OnProjectileThrowCancelledInput;
             m_inputReader.MouseDeltaPerformedEvent -= OnMouseDeltaPerformedInput;
@@ -896,28 +896,26 @@ namespace DChild.Gameplay.Characters.Players.Modules
         }
 
 
-        private void OnUseQuickItemsStartedInput(float obj)
+        private void OnUseQuickItemsStartedInput()
         {
-            if (obj == 1)
-            {
-                m_allowQuickItemCycle = false;
-                m_handle.UseCurrentItem();
-            }
-            else
-            {
-                m_allowQuickItemCycle = true;
-            }
+            m_allowQuickItemCycle = false;
+            m_handle.UseCurrentItem();
+        }
+
+        private void OnUseQuickItemsCancelledInput()
+        {
+            m_allowQuickItemCycle = true;
         }
 
         private void OnCycleQuickItemsStartedInput(float obj)
         {
             if (m_allowQuickItemCycle)
             {
-                if (obj < 0)
+                if (obj == -1)
                 {
                     m_handle.Previous();
                 }
-                else if (obj > 0)
+                else
                 {
                     m_handle.Next();
                 }
@@ -927,7 +925,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnStoreInput()
         {
             GameplaySystem.gamplayUIHandle.OpenStoreAtPage(StorePage.Map);
-            //m_inputReader.SetInputModeToUI();
         }
 
         private void OnPauseInput()
@@ -1134,7 +1131,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 PrepareForMidairAttack();
                 m_devilWings?.EnableLevitate();
-                m_extraJump?.Cancel();
 
                 if (m_vector2Input.y > 0)
                 {
