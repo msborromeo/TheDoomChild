@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -152,6 +153,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         /// When an interactive rebind is in progress, this is the rebind operation controller.
         /// Otherwise, it is <c>null</c>.
         /// </summary>
+         public event EventHandler<MyEventArgs> MyEvent;
         public InputActionRebindingExtensions.RebindingOperation ongoingRebind => m_RebindOperation;
 
         /// <summary>
@@ -285,10 +287,12 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                         action.Enable();
                         m_RebindOverlay?.SetActive(false);
                         m_RebindStopEvent?.Invoke(this, operation);
-                        if(CheckDuplicateBinding(action, bindingIndex, allCompositeParts))
+                        if (CheckDuplicateBinding(action, bindingIndex, allCompositeParts))
                         {
                             action.RemoveBindingOverride(bindingIndex);
                             CleanUp();
+                            MyEventArgs eventArgs = new MyEventArgs { Duplicate = true };
+                            MyEvent(this, eventArgs);
                             PerformInteractiveRebind(action, bindingIndex, allCompositeParts);
                             return;
                         }
@@ -341,7 +345,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 {
                     continue;
                 }
-                if(binding.effectivePath == newBinding.effectivePath)
+                if (binding.effectivePath == newBinding.effectivePath)
                 {
                     Debug.Log("Duplicate Binding Found:" + newBinding.effectivePath);
                     return true;
@@ -349,7 +353,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             }
             if (allCompositeParts)
             {
-                for(int i = 0; i < bindingIndex; i++)
+                for (int i = 0; i < bindingIndex; i++)
                 {
                     if (action.bindings[i].effectivePath == newBinding.effectivePath)
                     {
@@ -381,7 +385,18 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 InputSystem.onActionChange -= OnActionChange;
             }
         }
+        private void OnMyEvent(object sender, MyEventArgs e)
+        {
+            if (e.Duplicate == true)
+            {
+                Debug.Log("Duplicate Key");
+            }
 
+        }
+        public class MyEventArgs : EventArgs
+        {
+            public bool Duplicate { get; set; }
+        }
         // When the action system re-resolves bindings, we want to update our UI in response. While this will
         // also trigger from changes we made ourselves, it ensures that we react to changes made elsewhere. If
         // the user changes keyboard layout, for example, we will get a BoundControlsChanged notification and
@@ -417,7 +432,14 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         private string m_BindingId;
 
         [SerializeField]
+        private bool m_useCustomDisplayName;
+
+        [SerializeField, ShowIf("m_useCustomDisplayName")]
+        private string m_CustomDisplayName;
+
+        [SerializeField, HideIf("m_useCustomDisplayName")]
         private InputBinding.DisplayStringOptions m_DisplayStringOptions;
+
 
         [Tooltip("Text label that will receive the name of the action. Optional. Set to None to have the "
             + "rebind UI not show a label for the action.")]
@@ -457,21 +479,27 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
 
         // We want the label for the action name to update in edit mode, too, so
         // we kick that off from here.
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         protected void OnValidate()
         {
             UpdateActionLabel();
             UpdateBindingDisplay();
         }
 
-        #endif
+#endif
 
         private void UpdateActionLabel()
         {
             if (m_ActionLabel != null)
             {
                 var action = m_Action?.action;
-                m_ActionLabel.text = action != null ? action.name : string.Empty;
+                if (!m_useCustomDisplayName)
+                {
+                    m_ActionLabel.text = action != null ? action.name : string.Empty;
+                    return;
+                }
+
+                m_ActionLabel.text = m_CustomDisplayName;
             }
         }
 

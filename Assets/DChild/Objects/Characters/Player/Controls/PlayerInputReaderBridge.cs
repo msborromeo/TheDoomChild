@@ -147,11 +147,6 @@ namespace DChild.Inputs
         {
             m_reader.OnIcarusWings(context);
         }
-
-        public void OnLightningSpear(InputAction.CallbackContext context)
-        {
-            m_reader.OnLightningSpear(context);
-        }
         #endregion
 
         #region Overworld Controls
