@@ -1,7 +1,7 @@
-using Sirenix.OdinInspector;
+
 using System;
 using System.Collections.Generic;
-using TMPro;
+using System.Diagnostics.Tracing;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -14,6 +14,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
     /// <summary>
     /// A reusable component with a self-contained UI for rebinding a single action.
     /// </summary>
+    /// 
+  
     public class RebindActionUI : MonoBehaviour
     {
         /// <summary>
@@ -57,7 +59,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         /// <summary>
         /// Text component that receives the name of the action. Optional.
         /// </summary>
-        public TextMeshProUGUI actionLabel
+        public Text actionLabel
         {
             get => m_ActionLabel;
             set
@@ -71,7 +73,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         /// Text component that receives the display string of the binding. Can be <c>null</c> in which
         /// case the component entirely relies on <see cref="updateBindingUIEvent"/>.
         /// </summary>
-        public TextMeshProUGUI bindingText
+        public Text bindingText
         {
             get => m_BindingText;
             set
@@ -86,7 +88,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         /// </summary>
         /// <seealso cref="startRebindEvent"/>
         /// <seealso cref="rebindOverlay"/>
-        public TextMeshProUGUI rebindPrompt
+        public Text rebindPrompt
         {
             get => m_RebindText;
             set => m_RebindText = value;
@@ -148,6 +150,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 return m_RebindStopEvent;
             }
         }
+
+        public event EventHandler<MyEventArgs> MyEvent;
 
         /// <summary>
         /// When an interactive rebind is in progress, this is the rebind operation controller.
@@ -283,13 +287,18 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 .OnComplete(
                     operation =>
                     {
+
                         action.Enable();
                         m_RebindOverlay?.SetActive(false);
                         m_RebindStopEvent?.Invoke(this, operation);
-                        if (CheckDuplicateBinding(action, bindingIndex, allCompositeParts))
+                        if(CheckDuplicateBinding(action, bindingIndex, allCompositeParts))
                         {
                             action.RemoveBindingOverride(bindingIndex);
                             CleanUp();
+                            MyEventArgs eventArgs = new MyEventArgs { Duplicate = true };
+                            MyEvent(this, eventArgs);
+
+
                             PerformInteractiveRebind(action, bindingIndex, allCompositeParts);
                             return;
                         }
@@ -342,7 +351,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 {
                     continue;
                 }
-                if (binding.effectivePath == newBinding.effectivePath)
+                if(binding.effectivePath == newBinding.effectivePath)
                 {
                     Debug.Log("Duplicate Binding Found:" + newBinding.effectivePath);
                     return true;
@@ -350,7 +359,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             }
             if (allCompositeParts)
             {
-                for (int i = 0; i < bindingIndex; i++)
+                for(int i = 0; i < bindingIndex; i++)
                 {
                     if (action.bindings[i].effectivePath == newBinding.effectivePath)
                     {
@@ -382,7 +391,18 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 InputSystem.onActionChange -= OnActionChange;
             }
         }
-
+        private void OnMyEvent(object sender, MyEventArgs e)
+        {
+            if (e.Duplicate == true)
+            {
+                Debug.Log("Duplicate Key");
+            }
+            
+        }
+        public class MyEventArgs : EventArgs
+        {
+            public bool Duplicate { get; set; }
+        }
         // When the action system re-resolves bindings, we want to update our UI in response. While this will
         // also trigger from changes we made ourselves, it ensures that we react to changes made elsewhere. If
         // the user changes keyboard layout, for example, we will get a BoundControlsChanged notification and
@@ -418,23 +438,16 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         private string m_BindingId;
 
         [SerializeField]
-        private bool m_useCustomDisplayName;
-
-        [SerializeField, ShowIf("m_useCustomDisplayName")]
-        private string m_CustomDisplayName;
-
-        [SerializeField, HideIf("m_useCustomDisplayName")]
         private InputBinding.DisplayStringOptions m_DisplayStringOptions;
-
 
         [Tooltip("Text label that will receive the name of the action. Optional. Set to None to have the "
             + "rebind UI not show a label for the action.")]
         [SerializeField]
-        private TextMeshProUGUI m_ActionLabel;
+        private Text m_ActionLabel;
 
         [Tooltip("Text label that will receive the current, formatted binding string.")]
         [SerializeField]
-        private TextMeshProUGUI m_BindingText;
+        private Text m_BindingText;
 
         [Tooltip("Optional UI that will be shown while a rebind is in progress.")]
         [SerializeField]
@@ -442,7 +455,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
 
         [Tooltip("Optional text label that will be updated with prompt for user input.")]
         [SerializeField]
-        private TextMeshProUGUI m_RebindText;
+        private Text m_RebindText;
 
         [Tooltip("Event that is triggered when the way the binding is display should be updated. This allows displaying "
             + "bindings in custom ways, e.g. using images instead of text.")]
@@ -465,27 +478,21 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
 
         // We want the label for the action name to update in edit mode, too, so
         // we kick that off from here.
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
         protected void OnValidate()
         {
             UpdateActionLabel();
             UpdateBindingDisplay();
         }
 
-#endif
+        #endif
 
         private void UpdateActionLabel()
         {
             if (m_ActionLabel != null)
             {
                 var action = m_Action?.action;
-                if (!m_useCustomDisplayName)
-                {
-                    m_ActionLabel.text = action != null ? action.name : string.Empty;
-                    return;
-                }
-
-                m_ActionLabel.text = m_CustomDisplayName;
+                m_ActionLabel.text = action != null ? action.name : string.Empty;
             }
         }
 
