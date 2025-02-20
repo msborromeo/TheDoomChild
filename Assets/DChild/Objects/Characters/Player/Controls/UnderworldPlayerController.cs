@@ -701,7 +701,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnJumpStartedInput()
         {
-            if (m_state.isLedgeGrabbing ||m_state.waitForBehaviour ||m_state.isInShadowMode ||m_state.isChargingAttack)
+            if (m_state.isLedgeGrabbing ||m_state.waitForBehaviour ||m_state.isInShadowMode ||m_state.isChargingAttack || m_state.isAttacking)
                 return;
             if (m_crouch.IsThereNoCeiling() == false)
                 return;
@@ -1077,7 +1077,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnWhipStartedInput()
         {
-            if (m_skills.IsModuleActive(PrimarySkill.Whip))
+            if (m_skills.IsModuleActive(PrimarySkill.Whip) == false)
                 return;
 
             if (m_state.isChargingAttack)
@@ -1132,23 +1132,23 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
             else
             {
-                if (m_whip.CanAirWhip())
+                if ((m_whip.CanAirWhip() == false) && m_state.isAttacking)
+                    return;
+
+                PrepareForMidairAttack();
+                m_devilWings?.EnableLevitate();
+                m_extraJump?.Cancel();
+
+                if (m_vector2Input.y > 0)
                 {
-                    PrepareForMidairAttack();
-                    m_devilWings?.EnableLevitate();
-                    m_extraJump?.Cancel();
+                    m_whip.Execute(WhipAttack.Type.MidAir_Overhead);
+                    return;
+                }
 
-                    if (m_vector2Input.y > 0)
-                    {
-                        m_whip.Execute(WhipAttack.Type.MidAir_Overhead);
-                        return;
-                    }
-
-                    if (m_vector2Input.y == 0)
-                    {
-                        m_whip.Execute(WhipAttack.Type.MidAir_Forward);
-                        return;
-                    }
+                if (m_vector2Input.y == 0)
+                {
+                    m_whip.Execute(WhipAttack.Type.MidAir_Forward);
+                    return;
                 }
             }
         }
@@ -1568,6 +1568,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                                     m_devilWings?.Cancel();
                                 }
 
+                                m_basicSlashes.ResetAirAttacks();
                                 m_dash?.Reset();
                                 m_extraJump?.Reset();
                                 m_wallStick.Execute();
