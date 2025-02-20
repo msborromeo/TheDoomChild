@@ -1022,7 +1022,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashHeldInput()
         {
-            if (m_state.isSliding)
+            if (m_state.isSliding || m_state.isCrouched)
             {
                 return;
             }
