@@ -701,7 +701,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnJumpStartedInput()
         {
-            if (m_state.isLedgeGrabbing ||m_state.waitForBehaviour ||m_state.isInShadowMode ||m_state.isChargingAttack)
+            if (m_state.isLedgeGrabbing ||m_state.waitForBehaviour ||m_state.isInShadowMode ||m_state.isChargingAttack || m_state.isAimingProjectile)
                 return;
             if (m_crouch.IsThereNoCeiling() == false)
                 return;
@@ -777,7 +777,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_skills.IsModuleActive(PrimarySkill.DevilWings) == false)
                 return;
-            if (m_state.isGrounded == false)
+            if (m_state.isGrounded)
                 return;
             if (m_state.isInShadowMode)
                 return;
@@ -785,7 +785,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isAttacking)
                 return;
-            if (m_devilWings?.HaveEnoughSourceForExecution() ?? false)
+            if ((m_devilWings?.HaveEnoughSourceForExecution() ?? false) == false)
                 return;
 
             if (m_state.isHighJumping)
@@ -1191,8 +1191,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnGrabCancelledInput()
         {
-            if (m_objectManipulation.IsThereAMovableObject())
-                return;
             m_isGrabbing = false;
             m_movement?.SwitchConfigTo(Movement.Type.Jog);
             m_objectManipulation?.Cancel();
@@ -1200,7 +1198,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnGrabStartedInput()
         {
-            if (m_objectManipulation.IsThereAMovableObject())
+            Debug.Log("Grab pressed");
+            if (m_objectManipulation.IsThereAMovableObject() == false)
                 return;
             m_idle?.Cancel();
             m_objectManipulation?.Execute();
