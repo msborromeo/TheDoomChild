@@ -1157,7 +1157,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isGrounded == false)
                 return;
-            if (m_state.isDashing || m_state.isStickingToWall || m_state.isAttacking || m_state.isLedgeGrabbing)
+            if (m_state.isDashing || m_state.isStickingToWall || m_state.isAttacking || m_state.isLedgeGrabbing || m_state.isCrouched)
                 return;
 
             PrepareForGroundAttack();
@@ -1187,6 +1187,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnGrabCancelledInput()
         {
+            if (m_state.isGrabbing == false)
+                return;
             m_isGrabbing = false;
             m_movement?.SwitchConfigTo(Movement.Type.Jog);
             m_objectManipulation?.Cancel();
@@ -1194,7 +1196,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnGrabStartedInput()
         {
-            Debug.Log("Grab pressed");
             if (m_objectManipulation.IsThereAMovableObject() == false)
                 return;
             m_idle?.Cancel();
