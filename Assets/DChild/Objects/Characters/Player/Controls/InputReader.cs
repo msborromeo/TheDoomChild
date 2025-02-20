@@ -106,9 +106,6 @@ namespace DChild.Inputs
         public event Action TeleportingSkullStartedEvent;
         public event Action TeleportingSkullPerformedEvent;
         public event Action TeleportingSkullCancelledEvent;
-        public event Action LightningSpearStartedEvent;
-        public event Action LightningSpearCancelledEvent;
-        public event Action LightningSpearPerformedEvent;
         #endregion
         #region Overworld Input
         public event Action<Vector2> OverworldMovePerformedEvent;
@@ -562,24 +559,6 @@ namespace DChild.Inputs
             if (context.phase == InputActionPhase.Canceled)
             {
                 IcarusWingsCancelledEvent?.Invoke();
-            }
-        }
-
-        public void OnLightningSpear(InputAction.CallbackContext context)
-        {
-            if (context.phase == InputActionPhase.Started)
-            {
-                LightningSpearStartedEvent?.Invoke();
-            }
-
-            if (context.phase == InputActionPhase.Performed)
-            {
-                LightningSpearPerformedEvent?.Invoke();
-            }
-
-            if (context.phase == InputActionPhase.Canceled)
-            {
-                LightningSpearCancelledEvent?.Invoke();
             }
         }
         #endregion
