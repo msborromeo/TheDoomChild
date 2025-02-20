@@ -701,7 +701,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnJumpStartedInput()
         {
-            if (m_state.isLedgeGrabbing ||m_state.waitForBehaviour ||m_state.isInShadowMode ||m_state.isChargingAttack || m_state.isAttacking)
+            if (m_state.isLedgeGrabbing ||m_state.waitForBehaviour ||m_state.isInShadowMode ||m_state.isChargingAttack)
                 return;
             if (m_crouch.IsThereNoCeiling() == false)
                 return;
@@ -1080,7 +1080,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_skills.IsModuleActive(PrimarySkill.Whip) == false)
                 return;
 
-            if (m_state.isChargingAttack)
+            if (m_state.isChargingAttack || m_state.isDoingSwordThrust || m_state.isAttacking)
                 return;
 
             if (m_state.isDashing || m_state.isSliding || m_state.isLedgeGrabbing || m_state.isStickingToWall)
@@ -1132,9 +1132,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
             else
             {
-                if ((m_whip.CanAirWhip() == false) && m_state.isAttacking)
-                    return;
-
                 PrepareForMidairAttack();
                 m_devilWings?.EnableLevitate();
                 m_extraJump?.Cancel();
