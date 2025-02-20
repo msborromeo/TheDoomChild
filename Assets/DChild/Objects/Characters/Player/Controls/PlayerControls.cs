@@ -69,7 +69,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""c981b6a5-3e67-4bf4-9916-d9599928b8c3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -163,7 +163,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""AirSlashCombo"",
+                    ""name"": ""AirSlashRanged"",
                     ""type"": ""Button"",
                     ""id"": ""e0284d41-3608-46e9-816d-08b866d2fa21"",
                     ""expectedControlType"": ""Button"",
@@ -184,15 +184,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": ""HellTrident"",
                     ""type"": ""Button"",
                     ""id"": ""89e1049e-7b63-44dd-82e7-335d3087c10a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""LightningSpear"",
-                    ""type"": ""Button"",
-                    ""id"": ""ac85a422-db12-490f-96ce-bc7c679ce25d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
@@ -240,7 +231,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""c4afc068-fd30-4d7a-ab4e-3fcfd1e43b13"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
+                    ""interactions"": ""Hold(duration=0.5)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -258,7 +249,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""6fd0d997-0772-4cac-87dc-d1cc564d0537"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=0.5)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -774,7 +765,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""AirSlashCombo"",
+                    ""action"": ""AirSlashRanged"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -785,7 +776,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirSlashCombo"",
+                    ""action"": ""AirSlashRanged"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -796,7 +787,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""AirSlashCombo"",
+                    ""action"": ""AirSlashRanged"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -807,7 +798,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""AirSlashCombo"",
+                    ""action"": ""AirSlashRanged"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -818,7 +809,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""AirSlashCombo"",
+                    ""action"": ""AirSlashRanged"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -829,7 +820,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirSlashCombo"",
+                    ""action"": ""AirSlashRanged"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -840,7 +831,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""AirSlashCombo"",
+                    ""action"": ""AirSlashRanged"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -851,7 +842,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""AirSlashCombo"",
+                    ""action"": ""AirSlashRanged"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -862,7 +853,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""AirSlashCombo"",
+                    ""action"": ""AirSlashRanged"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -1039,105 +1030,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""HellTrident"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""be842385-7ba7-436c-9d7b-4b4779a5e2e2"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""LightningSpear"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Keyboard"",
-                    ""id"": ""9c6f9c70-489c-46bc-9e56-2033328caa17"",
-                    ""path"": ""TwoModifiers"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LightningSpear"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier1"",
-                    ""id"": ""b060f6d5-1f4d-4d27-b08c-919cc5cf2606"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""LightningSpear"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""modifier2"",
-                    ""id"": ""981f582e-b973-4f09-aaa5-c557bde05d0c"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""LightningSpear"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""8625f5fb-59d9-4428-8ea7-8f7258f6e538"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""LightningSpear"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Gamepad"",
-                    ""id"": ""1eef3b05-eb68-40c8-ab7c-d60c99e2c716"",
-                    ""path"": ""TwoModifiers"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LightningSpear"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier1"",
-                    ""id"": ""54b7df6e-7386-47f9-a420-c4ec416051ed"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""LightningSpear"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""modifier2"",
-                    ""id"": ""1df4af33-ec6b-4c72-9433-6fd75860de68"",
-                    ""path"": ""<Gamepad>/leftStick/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""LightningSpear"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""5022c9e6-ac82-46cb-bb58-15d38753b49c"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""LightningSpear"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -1530,7 +1422,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": ""Keyboard"",
                     ""id"": ""15f62804-bd00-4c81-a01c-49d4e5d9ebb7"",
                     ""path"": ""OneModifier"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""EdgedFury"",
@@ -1794,7 +1686,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": ""Keyboard"",
                     ""id"": ""8fc98339-e1e0-40c5-b494-a0be97b65021"",
                     ""path"": ""OneModifier"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""IcarusWings"",
@@ -1807,7 +1699,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""IcarusWings"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -1818,7 +1710,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""IcarusWings"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -1826,7 +1718,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Gamepad"",
                     ""id"": ""f669545e-f96d-4883-9c58-eda36a8c54cd"",
-                    ""path"": ""TwoModifiers"",
+                    ""path"": ""OneModifier"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1835,19 +1727,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Modifier 1"",
+                    ""name"": ""Modifier"",
                     ""id"": ""8f84dc68-85d6-48f2-9905-d01b9bf376b7"",
-                    ""path"": ""<Gamepad>/leftStickPress"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""IcarusWings"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Modifier 2"",
-                    ""id"": ""c20da644-60ef-4fcc-82ee-81c535fcf814"",
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1858,7 +1739,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Binding"",
-                    ""id"": ""24b4d252-63cc-453a-be9e-010b2fe15f16"",
+                    ""id"": ""c20da644-60ef-4fcc-82ee-81c535fcf814"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -3152,10 +3033,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Underworld_Pause = m_Underworld.FindAction("Pause", throwIfNotFound: true);
         m_Underworld_Store = m_Underworld.FindAction("Store", throwIfNotFound: true);
         m_Underworld_MouseDelta = m_Underworld.FindAction("MouseDelta", throwIfNotFound: true);
-        m_Underworld_AirSlashCombo = m_Underworld.FindAction("AirSlashCombo", throwIfNotFound: true);
+        m_Underworld_AirSlashRanged = m_Underworld.FindAction("AirSlashRanged", throwIfNotFound: true);
         m_Underworld_Barrier = m_Underworld.FindAction("Barrier", throwIfNotFound: true);
         m_Underworld_HellTrident = m_Underworld.FindAction("HellTrident", throwIfNotFound: true);
-        m_Underworld_LightningSpear = m_Underworld.FindAction("LightningSpear", throwIfNotFound: true);
         m_Underworld_SoulFireBlast = m_Underworld.FindAction("SoulFireBlast", throwIfNotFound: true);
         m_Underworld_BackDiver = m_Underworld.FindAction("BackDiver", throwIfNotFound: true);
         m_Underworld_SovereignImpale = m_Underworld.FindAction("SovereignImpale", throwIfNotFound: true);
@@ -3263,10 +3143,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Underworld_Pause;
     private readonly InputAction m_Underworld_Store;
     private readonly InputAction m_Underworld_MouseDelta;
-    private readonly InputAction m_Underworld_AirSlashCombo;
+    private readonly InputAction m_Underworld_AirSlashRanged;
     private readonly InputAction m_Underworld_Barrier;
     private readonly InputAction m_Underworld_HellTrident;
-    private readonly InputAction m_Underworld_LightningSpear;
     private readonly InputAction m_Underworld_SoulFireBlast;
     private readonly InputAction m_Underworld_BackDiver;
     private readonly InputAction m_Underworld_SovereignImpale;
@@ -3294,10 +3173,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_Underworld_Pause;
         public InputAction @Store => m_Wrapper.m_Underworld_Store;
         public InputAction @MouseDelta => m_Wrapper.m_Underworld_MouseDelta;
-        public InputAction @AirSlashCombo => m_Wrapper.m_Underworld_AirSlashCombo;
+        public InputAction @AirSlashRanged => m_Wrapper.m_Underworld_AirSlashRanged;
         public InputAction @Barrier => m_Wrapper.m_Underworld_Barrier;
         public InputAction @HellTrident => m_Wrapper.m_Underworld_HellTrident;
-        public InputAction @LightningSpear => m_Wrapper.m_Underworld_LightningSpear;
         public InputAction @SoulFireBlast => m_Wrapper.m_Underworld_SoulFireBlast;
         public InputAction @BackDiver => m_Wrapper.m_Underworld_BackDiver;
         public InputAction @SovereignImpale => m_Wrapper.m_Underworld_SovereignImpale;
@@ -3360,18 +3238,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @MouseDelta.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnMouseDelta;
                 @MouseDelta.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnMouseDelta;
                 @MouseDelta.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnMouseDelta;
-                @AirSlashCombo.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnAirSlashCombo;
-                @AirSlashCombo.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnAirSlashCombo;
-                @AirSlashCombo.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnAirSlashCombo;
+                @AirSlashRanged.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnAirSlashRanged;
+                @AirSlashRanged.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnAirSlashRanged;
+                @AirSlashRanged.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnAirSlashRanged;
                 @Barrier.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnBarrier;
                 @Barrier.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnBarrier;
                 @Barrier.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnBarrier;
                 @HellTrident.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnHellTrident;
                 @HellTrident.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnHellTrident;
                 @HellTrident.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnHellTrident;
-                @LightningSpear.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnLightningSpear;
-                @LightningSpear.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnLightningSpear;
-                @LightningSpear.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnLightningSpear;
                 @SoulFireBlast.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnSoulFireBlast;
                 @SoulFireBlast.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnSoulFireBlast;
                 @SoulFireBlast.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnSoulFireBlast;
@@ -3445,18 +3320,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @MouseDelta.started += instance.OnMouseDelta;
                 @MouseDelta.performed += instance.OnMouseDelta;
                 @MouseDelta.canceled += instance.OnMouseDelta;
-                @AirSlashCombo.started += instance.OnAirSlashCombo;
-                @AirSlashCombo.performed += instance.OnAirSlashCombo;
-                @AirSlashCombo.canceled += instance.OnAirSlashCombo;
+                @AirSlashRanged.started += instance.OnAirSlashRanged;
+                @AirSlashRanged.performed += instance.OnAirSlashRanged;
+                @AirSlashRanged.canceled += instance.OnAirSlashRanged;
                 @Barrier.started += instance.OnBarrier;
                 @Barrier.performed += instance.OnBarrier;
                 @Barrier.canceled += instance.OnBarrier;
                 @HellTrident.started += instance.OnHellTrident;
                 @HellTrident.performed += instance.OnHellTrident;
                 @HellTrident.canceled += instance.OnHellTrident;
-                @LightningSpear.started += instance.OnLightningSpear;
-                @LightningSpear.performed += instance.OnLightningSpear;
-                @LightningSpear.canceled += instance.OnLightningSpear;
                 @SoulFireBlast.started += instance.OnSoulFireBlast;
                 @SoulFireBlast.performed += instance.OnSoulFireBlast;
                 @SoulFireBlast.canceled += instance.OnSoulFireBlast;
@@ -3765,10 +3637,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnStore(InputAction.CallbackContext context);
         void OnMouseDelta(InputAction.CallbackContext context);
-        void OnAirSlashCombo(InputAction.CallbackContext context);
+        void OnAirSlashRanged(InputAction.CallbackContext context);
         void OnBarrier(InputAction.CallbackContext context);
         void OnHellTrident(InputAction.CallbackContext context);
-        void OnLightningSpear(InputAction.CallbackContext context);
         void OnSoulFireBlast(InputAction.CallbackContext context);
         void OnBackDiver(InputAction.CallbackContext context);
         void OnSovereignImpale(InputAction.CallbackContext context);

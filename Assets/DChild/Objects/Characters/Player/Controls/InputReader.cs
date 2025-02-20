@@ -8,8 +8,9 @@ using UnityEngine.InputSystem.Interactions;
 
 namespace DChild.Inputs
 {
+
     [CreateAssetMenu(menuName = "Input Reader")]
-    public class InputReader : ScriptableObject, PlayerControls.IUnderworldActions, PlayerControls.IOverworldActions, PlayerControls.IUIActions, PlayerControls.IArmyBattleActions
+    public class InputReader : ScriptableObject
     {
         [SerializeField]
         private PlayerControls m_playerControls;
@@ -20,10 +21,10 @@ namespace DChild.Inputs
             {
                 m_playerControls = new PlayerControls();
 
-                m_playerControls.Underworld.SetCallbacks(this);
-                m_playerControls.Overworld.SetCallbacks(this);
-                m_playerControls.UI.SetCallbacks(this);
-                m_playerControls.ArmyBattle.SetCallbacks(this);
+                //m_playerControls.Underworld.SetCallbacks(this);
+                //m_playerControls.Overworld.SetCallbacks(this);
+                //m_playerControls.UI.SetCallbacks(this);
+                //m_playerControls.ArmyBattle.SetCallbacks(this);
             }
         }
 
@@ -105,9 +106,6 @@ namespace DChild.Inputs
         public event Action TeleportingSkullStartedEvent;
         public event Action TeleportingSkullPerformedEvent;
         public event Action TeleportingSkullCancelledEvent;
-        public event Action LightningSpearStartedEvent;
-        public event Action LightningSpearCancelledEvent;
-        public event Action LightningSpearPerformedEvent;
         #endregion
         #region Overworld Input
         public event Action<Vector2> OverworldMovePerformedEvent;
@@ -561,24 +559,6 @@ namespace DChild.Inputs
             if (context.phase == InputActionPhase.Canceled)
             {
                 IcarusWingsCancelledEvent?.Invoke();
-            }
-        }
-
-        public void OnLightningSpear(InputAction.CallbackContext context)
-        {
-            if (context.phase == InputActionPhase.Started)
-            {
-                LightningSpearStartedEvent?.Invoke();
-            }
-
-            if (context.phase == InputActionPhase.Performed)
-            {
-                LightningSpearPerformedEvent?.Invoke();
-            }
-
-            if (context.phase == InputActionPhase.Canceled)
-            {
-                LightningSpearCancelledEvent?.Invoke();
             }
         }
         #endregion

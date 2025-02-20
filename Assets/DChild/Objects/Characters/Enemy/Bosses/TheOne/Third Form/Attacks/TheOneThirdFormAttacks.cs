@@ -6,11 +6,14 @@ using DChild.Gameplay.Characters.AI;
 using UnityEngine;
 using Holysoft.Event;
 using System;
+using System.Runtime.CompilerServices;
 
 public class TheOneThirdFormAttacks : MonoBehaviour
 {
     [SerializeField, BoxGroup("The One Third Form Attacks")]
     private TentacleGroundStabAttack m_tentacleGroundStabAttack;
+    [SerializeField, BoxGroup("The One Third Form Attacks")]
+    private SphereBombAttack m_sphereBombAttack;
     [SerializeField, BoxGroup("The One Third Form Attacks")]
     private TentacleCeilingAttack m_tentacleCeilingAttack;
     [SerializeField, BoxGroup("The One Third Form Attacks")]
@@ -19,6 +22,8 @@ public class TheOneThirdFormAttacks : MonoBehaviour
     private ChasingGroundTentacleAttack m_chasingGroundTentacleAttack;
     [SerializeField, BoxGroup("The One Third Form Attacks")]
     private MouthBlastIIAttack[] m_mouthBlastIIAttack;
+    [SerializeField, BoxGroup("The One Third Form Attacks")]
+    private MouthBlastIIAttack m_mouthBlastOneCeiling;
     [SerializeField, BoxGroup("The One Third Form Attacks")]
     private SlidingStoneWallAttack m_slidingWallAttack;
     [SerializeField, BoxGroup("The One Third Form Attacks")]
@@ -162,6 +167,10 @@ public class TheOneThirdFormAttacks : MonoBehaviour
         yield return m_tentacleGrabScriptedAttack.ExecuteAttack();
     }
 
+    public IEnumerator MouthBlastOneCeiling()
+    {
+        yield return m_mouthBlastOneCeiling.ExecuteAttack();
+    }
     public IEnumerator MouthBlastWall()
     {
         var randomShit = UnityEngine.Random.Range(0, 2);
@@ -268,6 +277,15 @@ public class TheOneThirdFormAttacks : MonoBehaviour
       
     }
 
+    public IEnumerator SphereBombTwoAttack()
+    {
+        
+        yield return m_sphereBombAttack.SphereBombTwo();
+    }
+    public IEnumerator SphereBombOneAttack()
+    {
+        yield return m_sphereBombAttack.SpawnSphereBomb();
+    }
     public IEnumerator TentacleBlastTwo()
     {
         yield return m_tentacleBlastAttack.ExecuteAttack();

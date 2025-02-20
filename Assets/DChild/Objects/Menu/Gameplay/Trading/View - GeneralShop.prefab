@@ -798,6 +798,8 @@ GameObject:
   - component: {fileID: 6751511825993349922}
   - component: {fileID: 6751511825993349921}
   - component: {fileID: 6751511825993349920}
+  - component: {fileID: 1005257912038956848}
+  - component: {fileID: 7038516423877632932}
   m_Layer: 5
   m_Name: Message
   m_TagString: Untagged
@@ -855,9 +857,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Are you sure you want to buy
-
-    <color = ""> something'
+  m_text: Would you like to Trade {[COUNT]} {[ITEMNAME]}{[PLURALIZATION]} for {[CURRENCY]}
+    {[COST]}
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a576fbe1b6faba498194776bfd96bc4, type: 2}
   m_sharedMaterial: {fileID: 21892830720195836, guid: 6a576fbe1b6faba498194776bfd96bc4,
@@ -885,7 +886,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.8
+  m_fontSize: 29.65
   m_fontSizeBase: 44
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -927,6 +928,59 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1005257912038956848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6751511825993349927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9586cfd190ca384a8dd72aa92c86152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Params: []
+  _IsGlobalManager: 0
+--- !u!114 &7038516423877632932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6751511825993349927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: Confirmation/Messages/TradeConfirmation
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1 &6751511826043743338
 GameObject:
   m_ObjectHideFlags: 0
@@ -6227,6 +6281,7 @@ GameObject:
   - component: {fileID: 6751511827037162570}
   - component: {fileID: 6751511827037162563}
   - component: {fileID: 6751511827037162562}
+  - component: {fileID: 9214701763361214724}
   m_Layer: 5
   m_Name: View - PurchaseConfirmation
   m_TagString: Untagged
@@ -6990,6 +7045,19 @@ MonoBehaviour:
       ToCustomValue: 0
       FromOffset: 0
       ToOffset: 0
+--- !u!114 &9214701763361214724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6751511827037162568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4640e24cd76298445bba1289f1d1b42d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paramsManager: {fileID: 1005257912038956848}
 --- !u!1 &6751511827050192716
 GameObject:
   m_ObjectHideFlags: 0
@@ -9797,6 +9865,7 @@ RectTransform:
   - {fileID: 1387390602876626573}
   - {fileID: 6751511827037162569}
   - {fileID: 6751511826276023911}
+  - {fileID: 6014977982861468613}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9928,6 +9997,8 @@ MonoBehaviour:
   m_sellerProfile: {fileID: 6751511827438679422}
   m_highlight: {fileID: 6751511826274805028}
   m_tradeConfirmation: {fileID: 6751511827037162571}
+  _localizeMessage: 
+  Localize: 1
 --- !u!114 &6751511827678236657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10859,6 +10930,113 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &4417399131970173566
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6751511827678236665}
+    m_Modifications:
+    - target: {fileID: 1273331859914013652, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_Name
+      value: DChildLocalizationSource
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Term
+      value: Confirmation/Messages/TradeConfirmation
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[0]
+      value: Would you like to Trade {[COUNT]} {[ITEMNAME]}{[PLURALIZATION]} for
+        {[CURRENCY]} {[COST]}
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[1]
+      value: "M\xF6chten Sie {[COUNT]} {[ITEMNAME]}{[PLURALIZATION]} gegen {[CURRENCY]}
+        {[COST]} eintauschen?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2ca539a3458c72a449b2b1c3c35a9783, type: 3}
+--- !u!4 &6014977982861468613 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+    type: 3}
+  m_PrefabInstance: {fileID: 4417399131970173566}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6751511825656066152
 PrefabInstance:
   m_ObjectHideFlags: 0
