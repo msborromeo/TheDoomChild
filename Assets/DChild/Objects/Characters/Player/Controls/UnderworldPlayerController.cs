@@ -606,6 +606,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 ProjectileThrowAiming();
             }
 
+            HandleCrouchMovement();
+
             if (CanMove())
             {
                 if (m_state.isGrabbing)
@@ -631,28 +633,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             
             m_vector2Input = vector;
-
-            if (m_state.isGrounded)
-            {
-                //Grounded Movement
-                //Crouch handling
-                if (vector.y < 0)
-                {
-                    if(m_state.isGrabbing == false)
-                    {
-                        m_crouch?.Execute();
-                        m_movement?.SwitchConfigTo(Movement.Type.Crouch);
-                    }                 
-                }
-                else
-                {
-                    if (m_crouch?.IsThereNoCeiling() ?? true)
-                    {
-                        m_crouch?.Cancel();
-                        m_movement?.SwitchConfigTo(Movement.Type.Jog);
-                    }
-                }
-            }
         }
 
         private void OnVector2CancelledInput(Vector2 vector)
@@ -1193,6 +1173,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_objectManipulation.IsThereAMovableObject() == false)
                 return;
+            if(m_state.isCrouched || m_state.isLevitating)
+                return;
             m_idle?.Cancel();
             m_objectManipulation?.Execute();
             m_isGrabbing = true;
@@ -1715,6 +1697,31 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
 
             MoveCharacter(m_state.isGrabbing, m_vector2Input.x);
+        }
+
+        private void HandleCrouchMovement()
+        {
+            if (m_state.isGrounded)
+            {
+                //Grounded Movement
+                //Crouch handling
+                if (m_vector2Input.y < 0)
+                {
+                    if (m_state.isGrabbing == false)
+                    {
+                        m_crouch?.Execute();
+                        m_movement?.SwitchConfigTo(Movement.Type.Crouch);
+                    }
+                }
+                else
+                {
+                    if (m_crouch?.IsThereNoCeiling() ?? true)
+                    {
+                        m_crouch?.Cancel();
+                        m_movement?.SwitchConfigTo(Movement.Type.Jog);
+                    }
+                }
+            }
         }
 
         private void MoveAction()
