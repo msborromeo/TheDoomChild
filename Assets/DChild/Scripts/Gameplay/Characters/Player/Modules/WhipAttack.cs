@@ -140,7 +140,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_canMove = false;
             m_state.canAttack = false;
             m_state.isAttacking = true;
-            m_state.waitForBehaviour = true;
+            //m_state.waitForBehaviour = true;
             m_animator.SetBool(m_animationParameter, true);
             m_animator.SetBool(m_whipAttackAnimationParameter, true);
 

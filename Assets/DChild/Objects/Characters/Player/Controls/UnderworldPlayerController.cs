@@ -681,7 +681,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnJumpStartedInput()
         {
-            if (m_state.isLedgeGrabbing ||m_state.waitForBehaviour ||m_state.isInShadowMode ||m_state.isChargingAttack || m_state.isAimingProjectile)
+            if (m_state.isLedgeGrabbing ||m_state.waitForBehaviour ||m_state.isInShadowMode 
+                ||m_state.isChargingAttack || m_state.isAimingProjectile || m_state.isDoingSwordThrust)
                 return;
             if (m_crouch.IsThereNoCeiling() == false)
                 return;
@@ -910,6 +911,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashStartedInput()
         {
+            
+        }
+
+        private void OnSlashPerformedInput()
+        {
             if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall)
                 return;
 
@@ -987,23 +993,17 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
         }
 
-        private void OnSlashPerformedInput()
-        {
-
-        }
-
         private void OnSlashHeldInput()
         {
             if (m_state.isSliding || m_state.isCrouched)
-            {
                 return;
-            }
+
             if (m_skills.IsModuleActive(PrimarySkill.SwordThrust))
             {
                 if (m_state.isGrounded && m_state.isInShadowMode == false)
                 {
-                    m_swordThrust.Reset();
                     PrepareForGroundAttack();
+                    m_swordThrust.Reset();
                     m_groundJump?.Cancel();
                     m_extraJump?.Cancel();
                     m_devilWings?.Cancel();

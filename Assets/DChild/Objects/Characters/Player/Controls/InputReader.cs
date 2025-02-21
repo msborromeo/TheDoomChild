@@ -292,7 +292,8 @@ namespace DChild.Inputs
                 {
                     SlashHeldEvent?.Invoke();
                 }
-                else
+                
+                if(context.interaction is TapInteraction)
                 {
                     SlashPerformedEvent?.Invoke();
                 }
