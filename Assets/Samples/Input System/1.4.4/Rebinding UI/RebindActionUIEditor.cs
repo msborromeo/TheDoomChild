@@ -26,6 +26,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             m_RebindStopEventProperty = serializedObject.FindProperty("m_RebindStopEvent");
             m_DisplayStringOptionsProperty = serializedObject.FindProperty("m_DisplayStringOptions");
 
+            m_useCustomDisplayNameProperty = serializedObject.FindProperty("m_useCustomDisplayName");
+            m_customDisplayNameProperty = serializedObject.FindProperty("m_CustomDisplayName");
             RefreshBindingOptions();
         }
 
@@ -47,10 +49,20 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                     m_SelectedBindingOption = newSelectedBinding;
                 }
 
-                var optionsOld = (InputBinding.DisplayStringOptions)m_DisplayStringOptionsProperty.intValue;
-                var optionsNew = (InputBinding.DisplayStringOptions)EditorGUILayout.EnumFlagsField(m_DisplayOptionsLabel, optionsOld);
-                if (optionsOld != optionsNew)
-                    m_DisplayStringOptionsProperty.intValue = (int)optionsNew;
+                var newValue = EditorGUILayout.Toggle(m_useCustomDisplayNameProperty.displayName, m_useCustomDisplayNameProperty.boolValue);
+
+                m_useCustomDisplayNameProperty.boolValue = newValue;
+                if (m_useCustomDisplayNameProperty.boolValue)
+                {
+                    m_customDisplayNameProperty.stringValue = EditorGUILayout.TextField(m_customDisplayNameProperty.displayName, m_customDisplayNameProperty.stringValue);
+                }
+                else
+                {
+                    var optionsOld = (InputBinding.DisplayStringOptions)m_DisplayStringOptionsProperty.intValue;
+                    var optionsNew = (InputBinding.DisplayStringOptions)EditorGUILayout.EnumFlagsField(m_DisplayOptionsLabel, optionsOld);
+                    if (optionsOld != optionsNew)
+                        m_DisplayStringOptionsProperty.intValue = (int)optionsNew;
+                }
             }
 
             // UI section.
@@ -159,6 +171,9 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         private SerializedProperty m_RebindStopEventProperty;
         private SerializedProperty m_UpdateBindingUIEventProperty;
         private SerializedProperty m_DisplayStringOptionsProperty;
+
+        private SerializedProperty m_useCustomDisplayNameProperty;
+        private SerializedProperty m_customDisplayNameProperty;
 
         private GUIContent m_BindingLabel = new GUIContent("Binding");
         private GUIContent m_DisplayOptionsLabel = new GUIContent("Display Options");
