@@ -65,8 +65,7 @@ namespace DChild.Inputs
         public event Action WhipStartedEvent;
         public event Action WhipCancelledEvent;
         public event Action<float> CycleQuickItemsStartedEvent;
-        public event Action UseQuickItemStartedEvent;
-        public event Action UseQuickItemCancelledEvent;
+        public event Action<float> UseQuickItemStartedEvent;
         public event Action ProjectileThrowStartedEvent;
         public event Action ProjectileThrowCancelledEvent;
         public event Action GrabStartedEvent;
@@ -270,12 +269,7 @@ namespace DChild.Inputs
         {
             if (context.phase == InputActionPhase.Started)
             {
-                UseQuickItemStartedEvent?.Invoke();
-            }
-
-            if(context.phase == InputActionPhase.Canceled)
-            {
-                UseQuickItemCancelledEvent?.Invoke();
+                UseQuickItemStartedEvent?.Invoke(context.ReadValue<float>());
             }
         }
 

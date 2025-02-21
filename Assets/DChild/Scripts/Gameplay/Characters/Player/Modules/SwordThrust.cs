@@ -100,7 +100,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void Execute()
         {
-            m_state.isAttacking = true;
             if (m_state.isDoingSwordThrust == false)
             {
                 m_state.isChargingAttack = false;

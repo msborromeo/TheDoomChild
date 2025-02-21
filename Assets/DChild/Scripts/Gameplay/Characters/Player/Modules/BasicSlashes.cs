@@ -61,7 +61,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public event EventAction<BasicSlashEventArgs> OnSlash;
 
         public bool CanAirAttack() => m_canAirAttack;
-        public bool IsGravityAdjusted() => m_adjustGravity;
 
         public override void Initialize(ComplexCharacterInfo info)
         {
@@ -88,6 +87,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_rigidbody.gravityScale = m_cacheGravity;
             m_adjustGravity = true;
+            m_canAirAttack = false;
 
             if (m_executedTypes.Count > 0)
             {
