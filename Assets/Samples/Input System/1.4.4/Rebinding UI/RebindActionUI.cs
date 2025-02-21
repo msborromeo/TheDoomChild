@@ -153,6 +153,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         /// When an interactive rebind is in progress, this is the rebind operation controller.
         /// Otherwise, it is <c>null</c>.
         /// </summary>
+         public event EventHandler<MyEventArgs> MyEvent;
         public InputActionRebindingExtensions.RebindingOperation ongoingRebind => m_RebindOperation;
 
         /// <summary>
@@ -290,6 +291,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                         {
                             action.RemoveBindingOverride(bindingIndex);
                             CleanUp();
+                            MyEventArgs eventArgs = new MyEventArgs { Duplicate = true };
+                            MyEvent(this, eventArgs);
                             PerformInteractiveRebind(action, bindingIndex, allCompositeParts);
                             return;
                         }
@@ -382,7 +385,18 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 InputSystem.onActionChange -= OnActionChange;
             }
         }
+        private void OnMyEvent(object sender, MyEventArgs e)
+        {
+            if (e.Duplicate == true)
+            {
+                Debug.Log("Duplicate Key");
+            }
 
+        }
+        public class MyEventArgs : EventArgs
+        {
+            public bool Duplicate { get; set; }
+        }
         // When the action system re-resolves bindings, we want to update our UI in response. While this will
         // also trigger from changes we made ourselves, it ensures that we react to changes made elsewhere. If
         // the user changes keyboard layout, for example, we will get a BoundControlsChanged notification and
