@@ -13,11 +13,15 @@ namespace DChild.Menu
 
         public ConfirmationWindow window => m_confirmationWindow;
 
-        public void RequestConfirmation(EventAction<EventActionArgs> listener, string message)
+        public void RequestConfirmation(EventAction<EventActionArgs> listener, string message, bool noMessage = false)
         {
             m_listener = listener;
            // m_confirmationWindow.RequestAffirmed += m_listener;
             m_isListenerSubscribed = true;
+            if(noMessage)
+            {
+                return;
+            }
             m_confirmationWindow.SetMessage(message);
         }
 

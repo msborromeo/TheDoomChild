@@ -29,14 +29,17 @@ namespace DChild.Gameplay.Combat
 
             if (player.state?.canFlinch ?? true)
             {
+                player.state.canFlinch = false;
                 m_hitStopHandle.Execute(false);
-                StartCoroutine(m_iFrameHandle.DisableInputTemporarily(player));
+                StartCoroutine(m_iFrameHandle.DisableInputTemporarily(player));             
             }
 
             StartCoroutine(m_iFrameHandle.ExecuteTemporaryInvulnerability(player));
             m_reactiveCamera.HandleOnDamageRecieveShake();
             m_hitScreenFX?.Show();
             m_spawnHandle.InstantiateFX(m_hitFX, player.character.centerMass.position);
+         
+            
         }
 
         public void ResolveDamageDealt(CombatConclusionEventArgs eventArgs)
