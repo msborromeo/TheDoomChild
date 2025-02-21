@@ -328,7 +328,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void FixedUpdate()
         {
             if (m_state.isDead)
-                return;
+            {
+                Disable();
+              
+            }
+            else
+            {
+                Enable();
+            }
 
             if (m_introController.IsUsingIntroControls())
             {
@@ -381,7 +388,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void Update()
         {
             if (m_state.isDead)
+            {
+                m_groundedness.Evaluate();
                 return;
+            }
+            else
+            {
+                m_groundedness.Evaluate();
+            }
 
             if (m_introController.IsUsingIntroControls())
             {
