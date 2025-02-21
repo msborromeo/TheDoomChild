@@ -61,6 +61,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public bool CanMove() => m_canMove;
         public bool CanAirWhip() => m_canAirWhip;
+        public bool IsGravityAdjusted() => m_adjustGravity;
 
         public override void Initialize(ComplexCharacterInfo info)
         {
