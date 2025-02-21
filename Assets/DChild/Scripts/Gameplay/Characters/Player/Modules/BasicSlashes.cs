@@ -88,6 +88,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_rigidbody.gravityScale = m_cacheGravity;
             m_adjustGravity = true;
+            m_state.waitForBehaviour = false;
 
             if (m_executedTypes.Count > 0)
             {
@@ -140,7 +141,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_state.canAttack = false;
             m_state.isAttacking = true;
-            //m_state.waitForBehaviour = true;
+            m_state.waitForBehaviour = true;
             m_animator.SetBool(m_animationParameter, true);
 
             switch (type)
@@ -238,6 +239,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //m_skeletonAnimation.state.SetEmptyAnimation(0, 0);
             //m_fxAnimator.Play("Buffer");
             m_rigidBody.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+            Debug.Log("Slash Attack Over");
         }
 
         public void ClearFXFor(Type type)
@@ -261,7 +263,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void ResetAttackDelay()
         {
-            m_timer = 1;
+            m_timer = 1.5f;
             m_state.canAttack = true;
         }
 
@@ -272,7 +274,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_timer -= GameplaySystem.time.deltaTime;
                 if (m_timer <= 0)
                 {
-                    m_timer = 1;
+                    m_timer = 1.5f;
                     m_state.canAttack = true;
                 }
             }

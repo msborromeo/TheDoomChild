@@ -208,7 +208,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.SlashPerformedEvent += OnSlashPerformedInput;
             m_inputReader.SlashCancelledEvent += OnSlashCancelledInput;
             m_inputReader.SlashHeldEvent += OnSlashHeldInput;
-            m_inputReader.WhipStartedEvent += OnWhipStartedInput;
+            m_inputReader.WhipPerformedEvent += OnWhipPerformedInput;
             m_inputReader.WhipCancelledEvent += OnWhipCancelledInput;
             m_inputReader.CycleQuickItemsStartedEvent += OnCycleQuickItemsStartedInput;
             m_inputReader.UseQuickItemStartedEvent += OnUseQuickItemsStartedInput;
@@ -280,7 +280,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.SlashPerformedEvent -= OnSlashPerformedInput;
             m_inputReader.SlashCancelledEvent -= OnSlashCancelledInput;
             m_inputReader.SlashHeldEvent -= OnSlashHeldInput;
-            m_inputReader.WhipStartedEvent -= OnWhipStartedInput;
+            m_inputReader.WhipPerformedEvent -= OnWhipPerformedInput;
             m_inputReader.WhipCancelledEvent -= OnWhipCancelledInput;
             m_inputReader.CycleQuickItemsStartedEvent -= OnCycleQuickItemsStartedInput;
             m_inputReader.UseQuickItemStartedEvent -= OnUseQuickItemsStartedInput;
@@ -409,9 +409,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
             }
 
-            if (m_state.waitForBehaviour /*|| !m_earthShaker.CanEarthShaker()*/)
-                return;
-
             if (m_state.isCombatReady)
             {
                 m_combatReadiness?.HandleDuration();
@@ -536,6 +533,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_projectileThrow.HandleNextAttackDelay();
                 }
             }
+
+            if (m_state.waitForBehaviour)
+                return;
 
             if (m_state.isGrounded)
             {
@@ -916,7 +916,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashPerformedInput()
         {
-            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall)
+            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall || 
+                m_state.isAttacking || m_state.waitForBehaviour)
                 return;
 
             if (m_state.isGrounded)
@@ -933,6 +934,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         return;
                     }
                 }
+                Debug.Log("Slash Attack");
                 PrepareForGroundAttack();
                 m_whip.Cancel();
                 m_whipCombo.Cancel();
@@ -955,6 +957,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_basicSlashes.Execute(BasicSlashes.Type.Crouch);
                     return;
                 }
+                
             }
             else
             {
@@ -995,7 +998,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashHeldInput()
         {
-            if (m_state.isSliding || m_state.isCrouched)
+            if (m_state.isSliding || m_state.isCrouched || m_state.isAttacking)
                 return;
 
             if (m_skills.IsModuleActive(PrimarySkill.SwordThrust))
@@ -1047,12 +1050,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         }
 
-        private void OnWhipStartedInput()
+        private void OnWhipPerformedInput()
         {
             if (m_skills.IsModuleActive(PrimarySkill.Whip) == false)
                 return;
 
-            if (m_state.isChargingAttack || m_state.isDoingSwordThrust || m_state.isAttacking)
+            if (m_state.isChargingAttack || m_state.isDoingSwordThrust || m_state.isAttacking 
+                || m_state.waitForBehaviour || m_state.canAttack == false)
                 return;
 
             if (m_state.isDashing || m_state.isSliding || m_state.isLedgeGrabbing || m_state.isStickingToWall)
@@ -1132,7 +1136,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isGrounded == false)
                 return;
-            if (m_state.isDashing || m_state.isStickingToWall || m_state.isAttacking || m_state.isLedgeGrabbing || m_state.isCrouched)
+            if (m_state.isDashing || m_state.isStickingToWall || m_state.isAttacking || m_state.isLedgeGrabbing || 
+                m_state.isCrouched)
                 return;
 
             PrepareForGroundAttack();

@@ -85,6 +85,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public override void Cancel()
         {
             m_rigidbody.gravityScale = m_cacheGravity;
+            m_state.waitForBehaviour = false;
             m_adjustGravity = true;
 
             if (m_executedTypes.Count > 0)
@@ -140,7 +141,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_canMove = false;
             m_state.canAttack = false;
             m_state.isAttacking = true;
-            //m_state.waitForBehaviour = true;
+            m_state.waitForBehaviour = true;
             m_animator.SetBool(m_animationParameter, true);
             m_animator.SetBool(m_whipAttackAnimationParameter, true);
 
@@ -274,7 +275,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_timer -= GameplaySystem.time.deltaTime;
                 if (m_timer <= 0)
                 {
-                    m_timer = 1;
+                    m_timer = 1.5f;
                     m_state.canAttack = true;
                 }
             }
