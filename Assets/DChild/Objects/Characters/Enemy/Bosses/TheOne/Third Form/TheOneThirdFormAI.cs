@@ -1,26 +1,14 @@
-﻿using DChild.Gameplay;
-using DChild.Gameplay.Characters;
+﻿using DChild.Gameplay.Characters.AI;
 using DChild.Gameplay.Combat;
+using DChild.Gameplay.Pooling;
+using DChild.Gameplay.Projectiles;
 using Holysoft.Event;
-using DChild.Gameplay.Characters.AI;
-using UnityEngine;
-using Spine;
-using Spine.Unity;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-using DChild;
-using DChild.Gameplay.Characters.Enemies;
-using Spine.Unity.Modules;
-using Spine.Unity.Examples;
-using DChild.Gameplay.Pooling;
-using UnityEngine.Playables;
-using DChild.Temp;
-using System;
-using Random = UnityEngine.Random;
-using DChild.Gameplay.Projectiles;
-using System.Drawing.Text;
 using System.Linq;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
@@ -377,7 +365,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         [SerializeField, TabGroup("Reference")]
         private Boss m_boss;
-        [SerializeField, TabGroup("Reference")]
+        [SerializeField, TabGroup("Sphere Bombs")]
         private Transform[] m_projectilePoint;
         [SerializeField, TabGroup("Reference")]
         private Hitbox m_hitbox;
@@ -385,6 +373,26 @@ namespace DChild.Gameplay.Characters.Enemies
         private GameObject m_model;
         [SerializeField, TabGroup("Reference")]
         private ObstacleChecker m_obstacleChecker;
+        [SerializeField, TabGroup("Reference")]
+        private GameObject m_theOneHitbox;
+        [SerializeField, TabGroup("Eye")]
+        private Vector2 m_eyeCenter;
+        [SerializeField, TabGroup("Eye")]
+        private float m_maxDistance;
+        [SerializeField, TabGroup("Eye")]
+        private Transform m_eyeTheOne;
+        [SerializeField, TabGroup("Eye")]
+        private GameObject m_eyeSquint;
+        [SerializeField, TabGroup("Eye")]
+        private GameObject m_eyeOpen;
+        [SerializeField, TabGroup("Eye")]
+        private float m_eyeTimerToOpenFromSquint;
+        [SerializeField, ReadOnly, TabGroup("Eye")]
+        private int m_hitCounter;
+        [ReadOnly,SerializeField, TabGroup("Eye")]
+        private float m_storeMaxDistance;
+        [TabGroup("Sphere Bombs")]
+        public List<Projectile> m_sphereBombList;
         [SerializeField]
         private SpineEventListener m_spineListener;
 
@@ -392,6 +400,9 @@ namespace DChild.Gameplay.Characters.Enemies
         private StateHandle<State> m_stateHandle;
         [ShowInInspector]
         private PhaseHandle<Phase, PhaseInfo> m_phaseHandle;
+
+        public PhaseHandle<Phase, PhaseInfo> phaseHandle => m_phaseHandle;
+
         [ShowInInspector]
         private RandomAttackDecider<Attack> m_attackDecider;
         private Attack m_currentAttack;
@@ -407,7 +418,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private Vector2 m_lastTargetPos;
         private float m_currentCooldown;
         private float m_pickedCooldown;
-        public List<Projectile> m_sphereBombList;
+       
 
 
         #region Behavior Coroutines
@@ -779,6 +790,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
 
             base.Awake();
+            m_storeMaxDistance = m_maxDistance;
             //for (int i = 0; i < m_projectilePoint.Length; i++)
             //{
             //    m_projectileLauncher = new ProjectileLauncher(m_info.sphereBomb.projectileInfo, m_projectilePoint[i]);
@@ -786,9 +798,11 @@ namespace DChild.Gameplay.Characters.Enemies
             //m_damageable.DamageTaken += OnDamageTaken;
             //m_damageable.DamageTaken += OnDamageBlocked;
             //m_patternDecider = new RandomAttackDecider<Pattern>();
+            m_damageable.DamageTaken += M_damageable_DamageTaken;
             m_attackDecider = new RandomAttackDecider<Attack>();
             m_stateHandle = new StateHandle<State>(State.Idle, State.WaitBehaviourEnd);
             m_sphereBombList = new List<Projectile>();
+
             UpdateAttackDeciderList();
 
             #region Caches
@@ -884,7 +898,7 @@ namespace DChild.Gameplay.Characters.Enemies
             //m_theOneThirdFormAttacks.AttackStart += OnAttackStart;
             m_theOneThirdFormAttacks.AttackDone += OnAttackDone;
             AttackDone += OnAttackDone;
-
+            
             ObstaclesAdded += OnObstaclesAdded;
             ObstaclesCleared += OnObstaclesEmptied;
             m_obstacleChecker.ObstacleAdded += OnObstaclesAdded;
@@ -897,6 +911,20 @@ namespace DChild.Gameplay.Characters.Enemies
             m_isBlackBloodFloodPresent = FindObjectOfType<ObstacleChecker>().isFloodingBlackBlood;
         }
 
+        private void M_damageable_DamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
+        {
+            Debug.Log("Damage by Player boss?");
+            m_hitCounter += 1;
+            if(m_hitCounter >= 15)
+            {
+                m_theOneHitbox.SetActive(false);
+                m_damageable.DamageTaken -= M_damageable_DamageTaken;
+                m_maxDistance = 5f;
+                m_eyeSquint.SetActive(true);
+                m_eyeOpen.SetActive(false);
+                Invoke("EyeStateController", m_eyeTimerToOpenFromSquint);
+            }
+        }
         private void OnMonolithEmptied(object sender, EventActionArgs eventArgs)
         {
             m_areMonolithsSpawned = false;
@@ -922,7 +950,11 @@ namespace DChild.Gameplay.Characters.Enemies
             //base.Start();
 
             //m_animation.DisableRootMotion();
-            
+            if (m_eyeTheOne != null)
+            {
+                // Set the initial center position of the eye
+                m_eyeCenter = m_eyeTheOne.position;
+            }
             m_phaseHandle = new PhaseHandle<Phase, PhaseInfo>();
             m_phaseHandle.Initialize(Phase.PhaseOne, m_info.phaseInfo, m_character, ChangeState, ApplyPhaseData);
             m_phaseHandle.ApplyChange();
@@ -1791,7 +1823,23 @@ namespace DChild.Gameplay.Characters.Enemies
 
             return Random.Range(minValue, maxValue); // Range in Unity is [minValue, maxValue-1] for integers
         }
-
+      
+        private void EyeStateController()
+        {
+            m_theOneHitbox.SetActive(true);
+            m_eyeSquint.SetActive(false);
+            m_eyeOpen.SetActive(true);
+            m_damageable.DamageTaken += M_damageable_DamageTaken;
+            m_maxDistance = m_storeMaxDistance;
+            m_hitCounter = 0;
+        }
+        private void LeanDroSirEoOptical()
+        {
+            if (m_targetInfo == null || m_eyeTheOne == null) return;
+            Vector2 direction = (m_targetInfo.position - m_eyeCenter).normalized;
+            Vector2 targetPosition = m_eyeCenter + (direction * Mathf.Min(Vector2.Distance(m_targetInfo.position, m_eyeCenter), m_maxDistance));
+            m_eyeTheOne.position = Vector2.Lerp(m_eyeTheOne.position, targetPosition, Time.deltaTime * 10f);
+        }
         #endregion
 
         #region AttackButtons
@@ -1834,7 +1882,7 @@ namespace DChild.Gameplay.Characters.Enemies
         //private void TriggerChasingGroundTentacle()
         //{
         //    StartCoroutine(ChasingGroundTentacle(3f));
-            
+
         //}
 
         ////[Button, FoldoutGroup("Trigger Attacks")]
@@ -1890,7 +1938,7 @@ namespace DChild.Gameplay.Characters.Enemies
         void Update()
         {
             m_phaseHandle.MonitorPhase();
-
+            LeanDroSirEoOptical();
             switch (m_stateHandle.currentState)
             {
                 case State.Idle:
