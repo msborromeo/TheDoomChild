@@ -66,7 +66,7 @@ namespace DChild.Gameplay.Inventories.QuickItem
 
         private void Awake()
         {
-            var actionMap = m_input.actions.FindActionMap("Gameplay");
+            var actionMap = m_input.actions.FindActionMap("Underworld");
             var itemUse = m_itemUse.action;
             var itemCycle = m_itemCycle.action;
             actionMap.FindAction(itemUse.id).performed += OnUseAction;
