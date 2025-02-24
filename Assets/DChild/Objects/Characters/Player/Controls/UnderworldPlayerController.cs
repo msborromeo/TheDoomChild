@@ -619,7 +619,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 ProjectileThrowAiming();
             }
-
+            
             HandleCrouchMovement();
 
             if (CanMove())
@@ -651,12 +651,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnVector2CancelledInput(Vector2 vector)
         {
-            m_vector2Input = new Vector2(0, 0);
-
-            if (m_state.isChargingAttack)
-            {
+            if (m_state.isChargingAttack || m_state.isDoingSwordThrust)
                 return;
-            }
+
+            m_vector2Input = new Vector2(0, 0);
 
             if (m_state.isCrouched)
             {
@@ -2326,6 +2324,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             return m_slashCombo.CanMove()
                     && isAllowedBySkills
                     && allowedByCombatArts
+                    && m_state.isAttacking == false
                     && m_state.isChargingAttack == false;
         }
 
