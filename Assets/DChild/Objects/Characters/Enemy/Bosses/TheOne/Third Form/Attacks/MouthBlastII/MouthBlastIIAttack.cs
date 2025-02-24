@@ -12,6 +12,12 @@ namespace DChild.Gameplay.Characters.Enemies
 {
     public class MouthBlastIIAttack : MonoBehaviour, IEyeBossAttacks
     {
+        [SerializeField ,TabGroup("Reference")]
+        private Transform leftLimitTransform;
+        [SerializeField, TabGroup("Reference")]
+        private Transform rightLimitTransform;
+        [SerializeField, TabGroup("Reference")]
+        private float speed = 5f;
         [SerializeField, TabGroup("Reference")]
         protected SpineRootAnimation m_animation;
         [SerializeField, TabGroup("Reference")]
@@ -34,21 +40,47 @@ namespace DChild.Gameplay.Characters.Enemies
 
         [SerializeField]
         private float m_blastDuration;
-
+        [SerializeField]
+        private bool m_isCeilingBlast;
+        private int direction;
         public event EventAction<EventActionArgs> AttackStart;
         public event EventAction<EventActionArgs> AttackDone;
 
         public IEnumerator ExecuteAttack()
         {
-            // AttackStart?.Invoke(this, EventActionArgs.Empty);
-            //yield return GrowMouth();
-           // m_wallMouth.StartSkyTown();
+            if (m_isCeilingBlast)
+            {
+                StartCoroutine(MoveRoutine());
+            }
+            
             yield return m_wallMouth.AttackSkyTown();
-           // yield return null;
-           // AttackDone?.Invoke(this, EventActionArgs.Empty);
-            //yield return null;
+          
         }
+        IEnumerator MoveRoutine()
+        {
+            direction = Random.value > 0.5f ? 1 : -1;
+            transform.position = direction == 1 ? leftLimitTransform.position : rightLimitTransform.position;
+            yield return new WaitForSeconds(4f);
+           
+            while (true)
+            {
+                transform.Translate(Vector2.right * speed * direction * Time.deltaTime);
 
+                // Check boundaries
+                if (transform.position.x >= rightLimitTransform.position.x)
+                {
+                    transform.position = new Vector2(rightLimitTransform.position.x, transform.position.y);
+                    yield break; // Stop coroutine
+                }
+                else if (transform.position.x <= leftLimitTransform.position.x)
+                {
+                    transform.position = new Vector2(leftLimitTransform.position.x, transform.position.y);
+                    yield break; // Stop coroutine
+                }
+
+                yield return null; // Wait for next frame
+            }
+        }
         public IEnumerator ExecuteAttack(Vector2 PlayerPosition)
         {
             throw new System.NotImplementedException();

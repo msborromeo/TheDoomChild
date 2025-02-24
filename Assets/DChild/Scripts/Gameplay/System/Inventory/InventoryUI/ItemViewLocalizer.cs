@@ -27,7 +27,15 @@ public class ItemViewLocalizer : MonoBehaviour
 
     private void onUpdate(IStoredItem itemReference)
     {
-        m_localizeDescriptionLabel.SetTerm(LocalizationUtility.GetTermKey(itemReference.data, LocalizationUtility.BasicDatabaseElementField.Description));
-        m_localizeItemName.SetTerm(LocalizationUtility.GetTermKey(itemReference.data, LocalizationUtility.BasicDatabaseElementField.Name));
+        if(itemReference==null)
+        {
+            m_localizeItemName.SetTerm("Items/Nothing_Name");
+            m_localizeDescriptionLabel.SetTerm("Items/Nothing_Description");
+        }else
+        {
+            m_localizeDescriptionLabel.SetTerm(LocalizationUtility.GetTermKey(itemReference.data, LocalizationUtility.BasicDatabaseElementField.Description));
+            m_localizeItemName.SetTerm(LocalizationUtility.GetTermKey(itemReference.data, LocalizationUtility.BasicDatabaseElementField.Name));
+        }
+        
     }
 }

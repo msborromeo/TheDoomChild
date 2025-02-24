@@ -60,7 +60,7 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private AutoReflexHandler m_autoReflex;
         [SerializeField]
-        private ArmyBattleCharacterRecruiter m_armyBattleCharacterRecruiter; 
+        private ArmyBattleCharacterRecruiter m_armyBattleCharacterRecruiter;
 
         private CollisionRegistrator m_collisionRegistrator;
         private InteractableDetector m_interactableDetector;
@@ -107,6 +107,7 @@ namespace DChild.Gameplay.Systems
             }
         }
 
+        [Button]
         public PlayerCharacterOverride OverrideCharacterControls()
         {
             DisableControls();
@@ -131,18 +132,25 @@ namespace DChild.Gameplay.Systems
             return isPartOfPlayer;
         }
 
+        [Button]
         public void DisableControls()
         {
             m_gameplayInput?.SetStoreInputActive(false);
             m_characterInput?.Disable();
             m_player.controller.Disable();
+            m_playerInput?.DeactivateInput();
+            m_player.state.allowExtendedIdle = false;
         }
 
+        [Button]
         public void EnableControls()
         {
             m_gameplayInput?.SetStoreInputActive(true);
             m_characterInput?.Enable();
             m_player.controller.Enable();
+            m_playerInput?.ActivateInput();
+
+            m_player.state.allowExtendedIdle = true;
         }
 
         public void EnableIntroControls()
@@ -166,6 +174,7 @@ namespace DChild.Gameplay.Systems
             m_interactableDetector?.ClearAllInteractableReferences();
         }
 
+        [Button]
         public void StopCharacterControlOverride()
         {
             m_overrideController.enabled = false;
@@ -235,10 +244,10 @@ namespace DChild.Gameplay.Systems
         public IEnumerator PlayerActionChange(Action<PlayerInput> CallBack)
         {
 
-            m_playerInput.enabled = false;
+            // m_playerInput.enabled = false;
             yield return null;
             CallBack(m_playerInput);
-            m_playerInput.enabled = true;
+            //m_playerInput.enabled = true;
             yield return null;
 
         }
@@ -258,6 +267,8 @@ namespace DChild.Gameplay.Systems
                 var playerCharacter = m_player.character;
                 m_playerOriginalScene = playerCharacter.gameObject.scene;
                 m_playerOriginalParent = playerCharacter.transform.parent;
+
+                m_playerInput = m_player.GetComponentInChildren<PlayerInput>();
             }
             //m_autoReflex.Initialize();
         }

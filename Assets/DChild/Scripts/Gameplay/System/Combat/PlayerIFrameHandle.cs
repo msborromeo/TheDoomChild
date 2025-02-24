@@ -23,9 +23,11 @@ namespace DChild.Gameplay.Combat
 
         public IEnumerator DisableInputTemporarily(IPlayer player)
         {
-            player.controller.Disable();
+            
+            GameplaySystem.playerManager.DisableControls();
             yield return new WaitForWorldSeconds(m_inputDisableDuration);
-            player.controller.Enable();
+            GameplaySystem.playerManager.EnableControls();
+            player.state.canFlinch = true;
         }
     }
 }
