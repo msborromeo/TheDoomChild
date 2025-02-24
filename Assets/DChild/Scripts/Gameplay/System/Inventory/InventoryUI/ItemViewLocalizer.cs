@@ -27,7 +27,7 @@ public class ItemViewLocalizer : MonoBehaviour
 
     private void onUpdate(IStoredItem itemReference)
     {
-        if(itemReference==null)
+        if(itemReference?.data==null)
         {
             m_localizeItemName.SetTerm("Items/Nothing_Name");
             m_localizeDescriptionLabel.SetTerm("Items/Nothing_Description");
