@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6391619754232285835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9119692645079392796}
+  - component: {fileID: 4505478656050220926}
+  m_Layer: 0
+  m_Name: ViewTransitionSignal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9119692645079392796
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6391619754232285835}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -825.40607, y: -25.093246, z: -0.026715063}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5501536676528944942}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4505478656050220926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6391619754232285835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f003aa0ad0a4c469338c205df004d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Payload:
+    StreamId:
+      Category: General
+      Name: ViewTransitionStart
+      Custom: 0
+    SignalValueType: 0
+    IntegerValue: 0
+    BooleanValue: 0
+    FloatValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  SendOnStart: 0
+  SendOnEnable: 0
+  SendOnDisable: 0
+  SendOnDestroy: 0
 --- !u!1001 &4381598766255132378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26,6 +88,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093523181116580237, guid: 998ab1a4ccd137c41ac33dcc21478a78,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[7].m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093523181116580237, guid: 998ab1a4ccd137c41ac33dcc21478a78,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093523181116580237, guid: 998ab1a4ccd137c41ac33dcc21478a78,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4505478656050220926}
+    - target: {fileID: 2093523181116580237, guid: 998ab1a4ccd137c41ac33dcc21478a78,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093523181116580237, guid: 998ab1a4ccd137c41ac33dcc21478a78,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SendSignal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093523181116580237, guid: 998ab1a4ccd137c41ac33dcc21478a78,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Doozy.Runtime.Signals.SignalSender, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093523181116580237, guid: 998ab1a4ccd137c41ac33dcc21478a78,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2208577447394302940, guid: 998ab1a4ccd137c41ac33dcc21478a78,
         type: 3}
@@ -205,7 +302,7 @@ PrefabInstance:
     - target: {fileID: 8459269286182963914, guid: 998ab1a4ccd137c41ac33dcc21478a78,
         type: 3}
       propertyPath: m_SceneBindings.Array.size
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8459269286182963914, guid: 998ab1a4ccd137c41ac33dcc21478a78,
         type: 3}
@@ -248,6 +345,12 @@ PrefabInstance:
       propertyPath: m_SceneBindings.Array.data[13].key
       value: 
       objectReference: {fileID: -4874226241534722277, guid: 4dfdeea25441b79438da533a0c103575,
+        type: 2}
+    - target: {fileID: 8459269286182963914, guid: 998ab1a4ccd137c41ac33dcc21478a78,
+        type: 3}
+      propertyPath: m_SceneBindings.Array.data[15].key
+      value: 
+      objectReference: {fileID: 8938931380418515391, guid: 4dfdeea25441b79438da533a0c103575,
         type: 2}
     - target: {fileID: 8459269286182963914, guid: 998ab1a4ccd137c41ac33dcc21478a78,
         type: 3}
@@ -441,6 +544,12 @@ MonoBehaviour:
   - {fileID: 3434360898189118154}
   - {fileID: 4584228181078110706}
   m_defaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+--- !u!4 &5501536676528944942 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8113220063569852916, guid: 998ab1a4ccd137c41ac33dcc21478a78,
+    type: 3}
+  m_PrefabInstance: {fileID: 4381598766255132378}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7056690154460344694 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6710634552789286828, guid: 998ab1a4ccd137c41ac33dcc21478a78,
