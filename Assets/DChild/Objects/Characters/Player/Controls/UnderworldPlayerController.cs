@@ -1034,8 +1034,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_skills.IsModuleActive(PrimarySkill.SwordThrust) == false)
                 return;
-            if (m_state.isAttacking || m_state.waitForBehaviour)
-                return;
 
             if (m_state.isChargingAttack)
             {
