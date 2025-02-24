@@ -189,7 +189,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                     break;
                 case Type.Crouch_Forward:
-                    m_animator.SetFloat(m_yInputParameter, 0);
+                    m_animator.SetFloat(m_yInputParameter, -1);
                     m_timer = m_crouchForward.nextAttackDelay;
                     m_attacker.SetDamageModifier(m_crouchForward.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
                     break;
