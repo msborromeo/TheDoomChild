@@ -676,6 +676,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isStickingToWall == false)
             {
                 m_movement.Cancel();
+                m_state.isAttacking = false;
+                m_state.waitForBehaviour = false;
                 m_idle?.Execute(m_state.allowExtendedIdle);
             }
         }
