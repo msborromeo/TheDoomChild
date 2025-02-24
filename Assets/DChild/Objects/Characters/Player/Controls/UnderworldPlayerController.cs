@@ -932,6 +932,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_state.isAttacking || m_state.waitForBehaviour)
                 return;
 
+            m_idle?.Cancel();
+
             if (m_state.isGrounded)
             {
                 if (m_state.isDashing)
@@ -946,7 +948,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         return;
                     }
                 }
-                Debug.Log("Slash Attack");
+                
                 PrepareForGroundAttack();
                 m_whip.Cancel();
                 m_whipCombo.Cancel();
@@ -1077,6 +1079,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             if (m_earthShaker.CanEarthShaker() == false)
                 return;
+
+            m_idle?.Cancel();
 
             if (m_state.isInShadowMode)
             {
@@ -1733,17 +1737,19 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isAttacking || m_state.waitForBehaviour)
                 return;
+
             if (m_state.isGrounded)
             {
-                //Grounded Movement
-                //Crouch handling
                 if (m_vector2Input.y < 0)
                 {
-                    if (m_state.isGrabbing == false)
-                    {
-                        m_crouch?.Execute();
-                        m_movement?.SwitchConfigTo(Movement.Type.Crouch);
-                    }
+                    if (m_state.isGrabbing)
+                        return;
+
+                    m_state.isAttacking = false;
+                    m_state.waitForBehaviour = false;
+                    m_idle?.Cancel();
+                    m_crouch?.Execute();
+                    m_movement?.SwitchConfigTo(Movement.Type.Crouch);
                 }
                 else
                 {
@@ -1758,12 +1764,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void MoveAction()
         {
-            if (m_state.isDashing)
+            if (m_state.isDashing || m_state.isAttacking)
                 return;
 
             if (m_vector2Input.x == 0)
             {
                 m_movement.Cancel();
+                m_state.isAttacking = false;
+                m_state.waitForBehaviour = false;
                 m_idle?.Execute(m_state.allowExtendedIdle);
                 return;
             }
