@@ -56,7 +56,7 @@ public class MiniLevelTeleport : MonoBehaviour
                 if (m_teleportPoints.Count == 1)
                 {
                     player.transform.position = m_teleportPoints[0];
-                    m_teleportPoints.RemoveAt(0);
+
                 }
                 else
                 {
