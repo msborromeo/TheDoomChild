@@ -16,6 +16,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using DChild.Gameplay.ArmyBattle;
+using PixelCrushers.DialogueSystem;
 
 namespace DChild.Gameplay.Systems
 {
@@ -223,6 +224,7 @@ namespace DChild.Gameplay.Systems
         }
         private void OnPlayerDeath(object sender, EventActionArgs eventArgs)
         {
+            DialogueManager.StopAllConversations();
             GameplaySystem.gamplayUIHandle.ShowGameOverScreen();
             // m_input.Disable();
             //  m_player.controller.Disable();
