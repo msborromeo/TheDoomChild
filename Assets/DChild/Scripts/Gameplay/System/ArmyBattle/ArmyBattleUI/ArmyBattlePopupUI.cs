@@ -16,6 +16,8 @@ namespace DChild.Gameplay.ArmyBattle.UI
         [SerializeField]
         private TextMeshProUGUI m_popupLabel;
 
+        private Localize m_localize;
+
 
         private SignalReceiver m_signalReceiver;
         private SignalStream m_signalStream;
@@ -31,6 +33,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         {
             m_signalStream = SignalStream.Get(m_signalCategory, m_signalName);
             m_signalReceiver = new SignalReceiver().SetOnSignalCallback(OnSignal);
+            m_localize = m_popupLabel.gameObject.GetComponentInChildren<Localize>();
         }
 
         private void OnEnable()
@@ -49,7 +52,8 @@ namespace DChild.Gameplay.ArmyBattle.UI
             if (signal.valueType != typeof(bool))
             {
                 //m_popupLabel.text = "BATTLE";
-                m_popupLabel.text = LocalizationManager.GetTranslation(m_battleText);
+                //m_popupLabel.text = LocalizationManager.GetTranslation(m_battleText);
+                m_localize.SetTerm(m_battleText);
                 return;
             }
 
@@ -58,11 +62,13 @@ namespace DChild.Gameplay.ArmyBattle.UI
             if (battleResult != true)
             {
                 //m_popupLabel.text = "DEFEAT";
-                m_popupLabel.text = LocalizationManager.GetTranslation(m_defeatText);
+                //m_popupLabel.text = LocalizationManager.GetTranslation(m_defeatText);
+                m_localize.SetTerm(m_defeatText);
                 return;
             }
             //m_popupLabel.text = "VICTORY";
-            m_popupLabel.text = LocalizationManager.GetTranslation(m_victoryText);
+            //m_popupLabel.text = LocalizationManager.GetTranslation(m_victoryText);
+            m_localize.SetTerm(m_victoryText);
         }
     }
 }
