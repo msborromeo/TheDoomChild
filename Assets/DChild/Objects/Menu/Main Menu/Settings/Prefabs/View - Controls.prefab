@@ -2005,7 +2005,7 @@ RectTransform:
   m_Father: {fileID: 5559970325439012326}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5083256, y: 0.88518554}
+  m_AnchorMin: {x: 0.08389791, y: 0.88518554}
   m_AnchorMax: {x: 0.9160775, y: 0.96250516}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
@@ -3808,10 +3808,10 @@ RectTransform:
   m_Father: {fileID: 4727138829136480264}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.23003802, y: 0.23333333}
-  m_AnchorMax: {x: 1, y: 0.76666665}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -202.5, y: 0}
+  m_SizeDelta: {x: 405, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3239809501509380053
 CanvasRenderer:
@@ -4107,7 +4107,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4272649760362775034}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.5878696
+  m_Size: 0.58749694
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4123,6 +4123,7 @@ GameObject:
   - component: {fileID: 8607543979058878053}
   - component: {fileID: 4872893627793405339}
   - component: {fileID: 3839502091388988594}
+  - component: {fileID: 8963363175148009819}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -4178,7 +4179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Input
+  m_text: Eingang
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 21213444537982326, guid: 03de9f858562ece4c9ac9d91b56d9ad5,
@@ -4213,7 +4214,7 @@ MonoBehaviour:
   m_fontSizeMin: 16
   m_fontSizeMax: 32
   m_fontStyle: 16
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -4242,12 +4243,51 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 40, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8963363175148009819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5988092833852919960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: SETTINGS/Controls/Input
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1 &6015891149201872598
 GameObject:
   m_ObjectHideFlags: 0
@@ -4935,6 +4975,7 @@ GameObject:
   - component: {fileID: 6816493620319079193}
   - component: {fileID: 2216584854509946724}
   - component: {fileID: 1579011453666484887}
+  - component: {fileID: 5285665735760776853}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -4990,7 +5031,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Action
+  m_text: Aktion
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 21213444537982326, guid: 03de9f858562ece4c9ac9d91b56d9ad5,
@@ -5060,6 +5101,45 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5285665735760776853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6649218583345274274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: SETTINGS/Controls/Action
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1 &6767042896442833667
 GameObject:
   m_ObjectHideFlags: 0
@@ -7856,6 +7936,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Use Item
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
 --- !u!224 &4853480766646300224 stripped
@@ -8061,6 +8156,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Grab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
@@ -8278,6 +8388,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
 --- !u!224 &5004721956900055515 stripped
@@ -8483,6 +8608,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Jump
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
@@ -8710,6 +8850,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Move Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
 --- !u!224 &8057215276505392567 stripped
@@ -8915,6 +9070,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
@@ -9142,6 +9307,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Crouch
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
 --- !u!224 &8885758890511437210 stripped
@@ -9368,6 +9548,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Move Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
 --- !u!224 &8684243094239091128 stripped
@@ -9573,6 +9768,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Levitate
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
@@ -9790,6 +10000,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Shadow Morph
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
 --- !u!224 &1043753640522449419 stripped
@@ -10005,6 +10230,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
@@ -10232,6 +10467,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Item Scroll - Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
 --- !u!224 &3629810284978232370 stripped
@@ -10438,6 +10688,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Dash
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
 --- !u!224 &3550277127999899247 stripped
@@ -10622,6 +10887,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
@@ -10849,6 +11129,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Item Scroll - Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
 --- !u!224 &4300362002683461567 stripped
@@ -11054,6 +11349,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Store
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
@@ -11270,6 +11580,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mTerm
+      value: SETTINGS/Controls/Action/Whip
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294921553784425720, guid: 8fdd59c6f62239547b3f13b118cb0747,
+        type: 3}
+      propertyPath: mLocalizeTargetName
+      value: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdd59c6f62239547b3f13b118cb0747, type: 3}
