@@ -68,6 +68,7 @@ namespace DChild.Inputs
         public event Action UseQuickItemStartedEvent;
         public event Action UseQuickItemCancelledEvent;
         public event Action ProjectileThrowStartedEvent;
+        public event Action ProjectileThrowPerformedEvent;
         public event Action ProjectileThrowCancelledEvent;
         public event Action GrabStartedEvent;
         public event Action GrabCancelledEvent;
@@ -200,16 +201,22 @@ namespace DChild.Inputs
             if (context.phase == InputActionPhase.Started)
             {
                 JumpStartedEvent?.Invoke();
+                Debug.Log("jUMP Started Context:" + context.ReadValueAsButton());
+                Debug.Log("JuMP Started Context:" + context.ReadValue<float>());
             }
 
             if (context.phase == InputActionPhase.Performed)
             {
                 JumpPerformedEvent?.Invoke();
+                Debug.Log("jUMP PERFORMED Context:" + context.ReadValueAsButton());
+                Debug.Log("JuMP PERFORMED Context:" + context.ReadValue<float>());
             }
 
             if (context.phase == InputActionPhase.Canceled)
             {
                 JumpCancelledEvent?.Invoke();
+                Debug.Log("jUMP cANCELLED Context:" + context.ReadValueAsButton());
+                Debug.Log("JuMP cANECLEED Context:" + context.ReadValue<float>());
             }
         }
 
@@ -342,11 +349,22 @@ namespace DChild.Inputs
             if (context.phase == InputActionPhase.Started)
             {
                 ProjectileThrowStartedEvent?.Invoke();
+                Debug.Log("Projectile Throw Started Context:" + context.ReadValueAsButton());
+                Debug.Log("Projectile Throw Started Context:" + context.ReadValue<float>());
+            }
+
+            if (context.phase == InputActionPhase.Performed)
+            {
+                ProjectileThrowPerformedEvent?.Invoke();
+                Debug.Log("Projectile Throw Performed Context:"+ context.ReadValueAsButton()); 
+                Debug.Log("Projectile Throw Performed Context:" + context.ReadValue<float>());
             }
 
             if (context.phase == InputActionPhase.Canceled)
             {
                 ProjectileThrowCancelledEvent?.Invoke();
+                Debug.Log("Projectile Throw Cancelled Context:" + context.ReadValueAsButton());
+                Debug.Log("Projectile Throw Cancelled Context:" + context.ReadValue<float>());
             }
         }
 
