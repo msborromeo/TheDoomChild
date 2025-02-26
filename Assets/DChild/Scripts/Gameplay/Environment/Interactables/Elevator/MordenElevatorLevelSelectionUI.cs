@@ -34,7 +34,7 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
             m_locationLabel.text = "received elevator location data here...";
             foreach (var button in m_elevatorButtons)
             {
-                button.Display();
+                button.Display("left works", "right works");
             }
         }
     }
