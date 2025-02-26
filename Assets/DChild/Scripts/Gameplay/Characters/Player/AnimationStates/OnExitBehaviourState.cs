@@ -46,12 +46,13 @@ namespace DChild.Gameplay.Characters.Players
             base.OnStateExit(animator, stateInfo, layerIndex);
 
             var player = animator.GetComponent<PlayerFunctions>();
-
+            Debug.Log("Search for player function");
             if (player != null)
             {
                 switch (m_toExecute)
                 {
                     case Command.EndAttack:
+                        Debug.Log("initiate attack over");
                         player.FinishAttackAnim();
                         break;
                     case Command.EndEarthShaker:
