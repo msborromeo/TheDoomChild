@@ -17,18 +17,18 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         private void Awake()
         {
             locationMap = new Dictionary<string, GameObject> {
-                { "west", m_west },
-                { "upper west", m_upperWest },
-                { "upper east", m_upperEast },
-                { "east", m_east }
+                { "West", m_west },
+                { "UpperWest", m_upperWest },
+                { "UpperEast", m_upperEast },
+                { "East", m_east }
             };
         }
 
-        public void HighlightLocation(string location)
+        public void HighlightLocation(ElevatorLocation location)
         {
             ResetLocationVisibility();
 
-            if (locationMap.TryGetValue(location, out GameObject targetLocation))
+            if (locationMap.TryGetValue(location.ToString(), out GameObject targetLocation))
                 targetLocation.SetActive(true);
         }
 

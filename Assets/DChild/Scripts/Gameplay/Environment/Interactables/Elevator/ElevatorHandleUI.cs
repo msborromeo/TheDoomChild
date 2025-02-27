@@ -20,7 +20,7 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         }
 
         [Button]
-        private void HandleElevatorEvent(string location)
+        private void HandleElevatorEvent(ElevatorLocation location)
         {
             //m_mordenElevatorLevelSelection.Display(m_location);
             GameplaySystem.gamplayUIHandle.ShowMordenElevatorUI(location);

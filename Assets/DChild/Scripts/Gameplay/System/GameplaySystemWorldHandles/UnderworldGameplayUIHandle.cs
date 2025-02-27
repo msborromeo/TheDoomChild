@@ -107,7 +107,7 @@ namespace DChild.Gameplay.Systems
             m_storeNavigator.OpenStore();
         }
 
-        public void OpenElevator(string location)
+        public void OpenElevator(ElevatorLocation location)
         {
             m_elevator.Display(location);
         }
