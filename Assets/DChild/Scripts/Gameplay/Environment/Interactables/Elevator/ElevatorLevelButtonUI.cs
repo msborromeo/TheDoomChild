@@ -9,7 +9,6 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
     {
         [SerializeField] private ElevatorLabelUI m_leftLabel;
         [SerializeField] private ElevatorLabelUI m_rightLabel;
-        [SerializeField] private Image m_locationImage;
 
         private int m_level;
 
@@ -26,7 +25,6 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
             //if right side is null
             m_rightLabel.Display(right ?? "right location");
 
-            m_locationImage.gameObject.SetActive(true);
         }
 
         public void SelectElevatorLevel(MovingPlatform elevator)

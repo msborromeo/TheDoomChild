@@ -53,5 +53,7 @@ namespace DChild.Gameplay.Systems
         void DeactivateHealthRegenEffect();
         void ActivateShadowRegenEffect();
         void DeactivateShadowRegenEffect();
+
+        void ShowMordenElevatorUI(string location);
     }
 }

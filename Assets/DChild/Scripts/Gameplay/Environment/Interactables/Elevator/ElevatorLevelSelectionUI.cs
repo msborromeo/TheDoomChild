@@ -10,14 +10,18 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 {
     public class ElevatorLevelSelectionUI : MonoBehaviour
     {
-        [SerializeField]
-        private TextMeshProUGUI m_locationLabel;
-        [SerializeField]
-        private List<ElevatorLevelButtonUI> m_elevatorButtons;
-        [SerializeField]
-        private Image m_pillar;
-        [SerializeField]
-        private MovingPlatform m_elevator;
+        [SerializeField] private TextMeshProUGUI m_locationLabel;
+        [SerializeField] private LocationHighlighterUI m_locationHighlight;
+        [SerializeField] private List<ElevatorLevelButtonUI> m_elevatorButtons;
+        [SerializeField] private Image m_pillar;
+
+        
+        //[SerializeField] private MovingPlatform m_elevator;
+
+        private void SetElevatorLocation()
+        {
+
+        }
 
         private void AdjustPillarHeight(List<ElevatorLevelButtonUI> levelButtons)
         {
@@ -33,7 +37,12 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 
         public void Display(string location)
         {
+            m_locationLabel.text = location;
+
             List<ElevatorLevelButtonUI> updatedLevelButtons;
+            SetupLevelButtons();
+            m_locationHighlight.HighlightLocation(location);
+
             switch (location)
             {
                 case "east":
@@ -46,16 +55,12 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
                     updatedLevelButtons = m_elevatorButtons;
                     break;
             }
-
+            
             AdjustPillarHeight(updatedLevelButtons);
-            SetupUI();
         }
 
-
-        //setup ui based on elevator location
-        private void SetupUI()
+        private void SetupLevelButtons()
         {
-            m_locationLabel.text = "received elevator location data here";
 
             for (int i = 0; i < m_elevatorButtons.Count; i++)
             {

@@ -148,6 +148,11 @@ namespace DChild.Gameplay.Systems
             UnderworldGameplayUIHandle.Instance.ShowJournalNotificationPrompt(duration);
         }
 
+        public void ShowMordenElevatorUI(string location)
+        {
+            UnderworldGameplayUIHandle.Instance.OpenElevator(location);
+        }
+
         public void ShowMovableObjectPrompt(bool willshow)
         {
             UnderworldGameplayUIHandle.Instance.ShowMovableObjectPrompt(willshow);

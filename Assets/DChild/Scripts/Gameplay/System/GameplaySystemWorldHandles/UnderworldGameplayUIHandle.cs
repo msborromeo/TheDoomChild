@@ -8,6 +8,7 @@ using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
 using DChild.Menu;
 using DChild.Menu.Trade;
+using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
 using DChild.Temp;
 using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
@@ -41,6 +42,8 @@ namespace DChild.Gameplay.Systems
         private NavigationMapManager m_navMap;
         [SerializeField]
         private RegenerationEffectsHandler m_regen;
+        [SerializeField]
+        private ElevatorLevelSelectionUI m_elevator;
 
         [SerializeField, FoldoutGroup("Side Notification")]
         private UIContainer m_journalNotification;
@@ -102,6 +105,11 @@ namespace DChild.Gameplay.Systems
         public void OpenStore()
         {
             m_storeNavigator.OpenStore();
+        }
+
+        public void OpenElevator(string location)
+        {
+            m_elevator.Display(location);
         }
 
         public void MonitorBoss(Boss boss)
