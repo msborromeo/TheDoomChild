@@ -14,6 +14,7 @@ namespace DChild.Inputs
     {
         [SerializeField]
         private PlayerControls m_playerControls;
+        private bool wasPressed;
 
         private void OnEnable()
         {
@@ -280,7 +281,7 @@ namespace DChild.Inputs
                 UseQuickItemStartedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Canceled)
+            if (context.phase == InputActionPhase.Canceled)
             {
                 UseQuickItemCancelledEvent?.Invoke();
             }
@@ -299,8 +300,8 @@ namespace DChild.Inputs
                 {
                     SlashHeldEvent?.Invoke();
                 }
-                
-                if(context.interaction is TapInteraction)
+
+                if (context.interaction is TapInteraction)
                 {
                     SlashPerformedEvent?.Invoke();
                 }
@@ -348,23 +349,27 @@ namespace DChild.Inputs
         {
             if (context.phase == InputActionPhase.Started)
             {
-                ProjectileThrowStartedEvent?.Invoke();
-                Debug.Log("Projectile Throw Started Context:" + context.ReadValueAsButton());
-                Debug.Log("Projectile Throw Started Context:" + context.ReadValue<float>());
+                //ProjectileThrowStartedEvent?.Invoke();
             }
 
             if (context.phase == InputActionPhase.Performed)
             {
-                ProjectileThrowPerformedEvent?.Invoke();
-                Debug.Log("Projectile Throw Performed Context:"+ context.ReadValueAsButton()); 
-                Debug.Log("Projectile Throw Performed Context:" + context.ReadValue<float>());
+                //Need to keep action interaction as pass through with control type button for this to work on  controller and keyboard
+                if (context.ReadValueAsButton() == true)
+                {
+                    ProjectileThrowStartedEvent?.Invoke();
+
+                }
+
+                if(context.ReadValueAsButton() == false)
+                {
+                    ProjectileThrowPerformedEvent?.Invoke();
+                }
             }
 
             if (context.phase == InputActionPhase.Canceled)
             {
-                ProjectileThrowCancelledEvent?.Invoke();
-                Debug.Log("Projectile Throw Cancelled Context:" + context.ReadValueAsButton());
-                Debug.Log("Projectile Throw Cancelled Context:" + context.ReadValue<float>());
+                //ProjectileThrowCancelledEvent?.Invoke();
             }
         }
 
@@ -391,17 +396,17 @@ namespace DChild.Inputs
         //Combat Arts
         public void OnAirSlashCombo(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 AirSlashStartedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Performed)
+            if (context.phase == InputActionPhase.Performed)
             {
                 AirSlashPerformedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Canceled)
+            if (context.phase == InputActionPhase.Canceled)
             {
                 AirSlashCancelledEvent?.Invoke();
             }
@@ -427,17 +432,17 @@ namespace DChild.Inputs
 
         public void OnBarrier(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 BarrierStartedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Performed)
+            if (context.phase == InputActionPhase.Performed)
             {
                 BarrierPerformedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Canceled)
+            if (context.phase == InputActionPhase.Canceled)
             {
                 BarrierCancelledEvent?.Invoke();
             }

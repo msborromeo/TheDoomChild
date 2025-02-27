@@ -645,7 +645,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #region Input Handles
         private void OnVector2PerformedInput(Vector2 vector)
         {
-            if (m_state.isChargingAttack || m_state.isDoingSwordThrust)
+            if (m_state.isChargingAttack || m_state.isDoingSwordThrust || m_state.isAimingProjectile)
                 return;
             
             m_vector2Input = vector;
@@ -653,7 +653,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnVector2CancelledInput(Vector2 vector)
         {
-            if (m_state.isChargingAttack || m_state.isDoingSwordThrust)
+            if (m_state.isChargingAttack || m_state.isDoingSwordThrust || m_state.isAimingProjectile)
                 return;
 
             m_vector2Input = new Vector2(0, 0);
@@ -1165,12 +1165,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnProjectileThrowStartedInput()
         {
-            Debug.Log("Skull throw started");
-           
-        }
-        private void OnProjectileThrowPerformedInput()
-        {
-            Debug.Log("Skull throw Performed");
             if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
                 return;
             if (m_state.isGrounded == false)
@@ -1180,19 +1174,23 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
 
             PrepareForGroundAttack();
-            m_projectileThrow.Reset();
-
-            if (m_vector2Input.x != 0)
-            {
-                m_movement.UpdateFaceDirection(m_vector2Input.x);
-            }
 
             m_projectileThrow.StartAim();
             m_projectileThrow.Execute();
         }
+        private void OnProjectileThrowPerformedInput()
+        {
+            if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
+                return;
+            if (m_state.isDashing || m_state.isStickingToWall || m_state.isLedgeGrabbing || m_state.isCrouched)
+                return;
+
+            m_projectileThrow.EndAim();
+            m_projectileThrow.StartThrow();
+            GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.None);
+        }
         private void OnProjectileThrowCancelledInput()
         {
-            Debug.Log("Skull throw Cancelled");
             //if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
             //    return;
             //if (m_state.isDashing || m_state.isStickingToWall || m_state.isAttacking || m_state.isLedgeGrabbing ||
@@ -1208,18 +1206,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.None);
 
             
-            if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
-                return;
-            if (m_state.isDashing || m_state.isStickingToWall || m_state.isLedgeGrabbing ||
-              m_state.isCrouched)
-                return;
-            //if (m_state.isAimingProjectile == false)
-            //    return;
-
-            m_projectileThrow.EndAim();
-            m_projectileThrow.StartThrow();
-            m_projectileThrow.AttackOver();
-            GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.None);
+            
         }
 
 
@@ -1615,6 +1602,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void ProjectileThrowAiming()
         {
             m_projectileThrow.MoveAim(m_mouseDelta, GameplaySystem.cinema.mainCamera.ScreenToWorldPoint(m_mouseDelta));
+
+            m_movement.UpdateFaceDirection(m_mouseDelta.x);
 
             if (m_projectileThrow?.HasReachedVerticalThreshold() == true)
             {
