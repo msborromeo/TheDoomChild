@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class TommiChangeKas : MonoBehaviour
 {
-    [SerializeField, ShowIf("m_isTotoSkyTown")]
+    [SerializeField]
     private bool m_isTotoJakRC;
 
     [SerializeField, ShowIf("m_isTotoJakRC")]
