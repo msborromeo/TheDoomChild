@@ -11,7 +11,13 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 
         public void Display(string text)
         {
-            gameObject.SetActive(text != null);
+            if (string.IsNullOrEmpty(text))
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
+            gameObject.SetActive(true);
             m_label.text = text;
             m_background.enabled = true;
         }

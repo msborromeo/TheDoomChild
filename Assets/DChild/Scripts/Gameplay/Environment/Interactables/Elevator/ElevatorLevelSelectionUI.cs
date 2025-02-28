@@ -8,17 +8,6 @@ using UnityEngine.UI;
 
 namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 {
-    public enum ElevatorLocation
-    {
-        West,
-        UpperWest,
-        UpperEast,
-        East,
-        [HideInInspector]
-        _COUNT
-    }
-
-
     public class ElevatorLevelSelectionUI : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI m_locationLabel;
@@ -26,31 +15,16 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         [SerializeField] private List<ElevatorLevelButtonUI> m_elevatorButtons;
         [SerializeField] private Image m_pillar;
 
-
-        //[SerializeField] private MovingPlatform m_elevator;
-        
-       
-        private void AdjustPillarHeight(List<ElevatorLevelButtonUI> levelButtons)
+        public void Display(ElevatorLocation location, ElevatorLevelInfo[] labels)
         {
-            var levels = 0;
-            levels = levelButtons.Where(button => button.gameObject.activeSelf).Count();
-
-            var spacing = 32;
-            var pillarWidth = m_pillar.rectTransform.sizeDelta.x;
-            var pillarHeight = ((40 * levels) + (spacing * levels)) - spacing;
-
-            m_pillar.rectTransform.sizeDelta = new Vector2(pillarWidth, pillarHeight);
-        }
-
-        public void Display(ElevatorLocation location)
-        {
-            m_locationLabel.text = location.ToString();
+            m_locationLabel.text = location.ToString().Replace("_", " ");
             m_locationHighlight.HighlightLocation(location);
-            SetupFloorLevels(location);
+            SetupFloorLevels(location, labels);
         }
 
-        private void SetupFloorLevels(ElevatorLocation location)
+        private void SetupFloorLevels(ElevatorLocation location, ElevatorLevelInfo[] labels)
         {
+
             int levelCount;
 
             switch (location)
@@ -58,22 +32,35 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
                 case ElevatorLocation.East:
                     levelCount = 4;
                     break;
-                case ElevatorLocation.UpperWest:
+                case ElevatorLocation.Upper_West:
                     levelCount = 3;
                     break;
                 default:
                     levelCount = m_elevatorButtons.Count;
                     break;
             }
-
-            for (int i = 0; i < m_elevatorButtons.Count; i++)
+            AdjustPillarHeight(levelCount);
+            for (int j = 0; j < labels.Length; j++)
             {
-                m_elevatorButtons[i].SetLevel(i);
-                m_elevatorButtons[i].Display("left", "right");
+                m_elevatorButtons[j].Display(labels[j]);
             }
 
-            AdjustPillarHeight(m_elevatorButtons.GetRange(0, levelCount));
+            for (int i = m_elevatorButtons.Count - 1; i >= levelCount; i--)
+            {
+                m_elevatorButtons[i].Display(null);
+            }
         }
 
+
+        private void AdjustPillarHeight(int levels)
+        {
+            var spacing = 32;
+            var pillarWidth = m_pillar.rectTransform.sizeDelta.x;
+            var pillarHeight = ((40 * levels) + (spacing * levels)) - spacing;
+
+            m_pillar.rectTransform.sizeDelta = new Vector2(pillarWidth, pillarHeight);
+        }
     }
+
+
 }

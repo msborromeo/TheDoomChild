@@ -12,15 +12,15 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         [BoxGroup("Elevator Locations"), SerializeField] private GameObject m_upperEast;
         [BoxGroup("Elevator Locations"), SerializeField] private GameObject m_east;
 
-        private Dictionary<string, GameObject> locationMap;
+        private Dictionary<ElevatorLocation, GameObject> locationMap;
 
         private void Awake()
         {
-            locationMap = new Dictionary<string, GameObject> {
-                { "West", m_west },
-                { "UpperWest", m_upperWest },
-                { "UpperEast", m_upperEast },
-                { "East", m_east }
+            locationMap = new Dictionary<ElevatorLocation, GameObject> {
+                { ElevatorLocation.West, m_west },
+                { ElevatorLocation.Upper_West, m_upperWest },
+                {  ElevatorLocation.Upper_East, m_upperEast },
+                {  ElevatorLocation.East, m_east }
             };
         }
 
@@ -28,7 +28,7 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         {
             ResetLocationVisibility();
 
-            if (locationMap.TryGetValue(location.ToString(), out GameObject targetLocation))
+            if (locationMap.TryGetValue(location, out GameObject targetLocation))
                 targetLocation.SetActive(true);
         }
 

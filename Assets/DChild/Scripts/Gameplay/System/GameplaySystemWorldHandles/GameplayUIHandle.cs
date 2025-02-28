@@ -149,9 +149,9 @@ namespace DChild.Gameplay.Systems
             UnderworldGameplayUIHandle.Instance.ShowJournalNotificationPrompt(duration);
         }
 
-        public void ShowMordenElevatorUI(ElevatorLocation location)
+        public void ShowMordenElevatorUI(ElevatorLocation location, ElevatorLevelInfo[] labels)
         {
-            UnderworldGameplayUIHandle.Instance.OpenElevator(location);
+            UnderworldGameplayUIHandle.Instance.OpenElevator(location, labels);
         }
 
         public void ShowMovableObjectPrompt(bool willshow)

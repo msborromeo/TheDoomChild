@@ -1,7 +1,5 @@
 ﻿using DChild.Gameplay.Environment;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 {
@@ -12,19 +10,22 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 
         private int m_level;
 
-        public void SetLevel(int value)
+        private void SetPathLabel(ElevatorLevelInfo info)
         {
-            m_level = value;
+            m_leftLabel.Display(info.leftLabel);
+            m_rightLabel.Display(info.rightLabel);
         }
 
-        public void Display(string left, string right)
+        public void Display(ElevatorLevelInfo info)
         {
-            //if left side is null
-            m_leftLabel.Display(left ?? "left location");
-            
-            //if right side is null
-            m_rightLabel.Display(right ?? "right location");
+            bool hasInfo = info != null;
 
+            gameObject.SetActive(hasInfo);
+            if (hasInfo)
+            {
+                m_level = info.destinationIndex;
+                SetPathLabel(info);
+            }
         }
 
         public void SelectElevatorLevel(MovingPlatform elevator)

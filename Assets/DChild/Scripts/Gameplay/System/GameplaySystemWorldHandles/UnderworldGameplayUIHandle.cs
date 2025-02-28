@@ -107,9 +107,9 @@ namespace DChild.Gameplay.Systems
             m_storeNavigator.OpenStore();
         }
 
-        public void OpenElevator(ElevatorLocation location)
+        public void OpenElevator(ElevatorLocation location, ElevatorLevelInfo[] labels)
         {
-            m_elevator.Display(location);
+            m_elevator.Display(location, labels);
         }
 
         public void MonitorBoss(Boss boss)
