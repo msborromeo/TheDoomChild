@@ -13,10 +13,13 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         [SerializeField] private TextMeshProUGUI m_locationLabel;
         [SerializeField] private LocationHighlighterUI m_locationHighlight;
         [SerializeField] private List<ElevatorLevelButtonUI> m_elevatorButtons;
-        [SerializeField] private Image m_pillar;
+        [SerializeField] private RectTransform m_pillarRect;
 
-        public void Display(ElevatorLocation location, ElevatorLevelInfo[] labels)
+        private MovingPlatform m_elevator;
+
+        public void Display(ElevatorLocation location, ElevatorLevelInfo[] labels, MovingPlatform elevator)
         {
+            m_elevator = elevator;
             m_locationLabel.text = location.ToString().Replace("_", " ");
             m_locationHighlight.HighlightLocation(location);
             SetupFloorLevels(location, labels);
@@ -40,12 +43,14 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
                     break;
             }
             AdjustPillarHeight(levelCount);
-            for (int j = 0; j < labels.Length; j++)
+
+            for (int i = 0; i < labels.Length; i++)
             {
-                m_elevatorButtons[j].Display(labels[j]);
+                m_elevatorButtons[i].SetElevatorLevel(m_elevator, i);
+                m_elevatorButtons[i].Display(labels[i]);
             }
 
-            for (int i = m_elevatorButtons.Count - 1; i >= levelCount; i--)
+            for (int i = levelCount; i < m_elevatorButtons.Count; i++)
             {
                 m_elevatorButtons[i].Display(null);
             }
@@ -55,10 +60,10 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         private void AdjustPillarHeight(int levels)
         {
             var spacing = 32;
-            var pillarWidth = m_pillar.rectTransform.sizeDelta.x;
+            var pillarWidth = m_pillarRect.sizeDelta.x;
             var pillarHeight = ((40 * levels) + (spacing * levels)) - spacing;
 
-            m_pillar.rectTransform.sizeDelta = new Vector2(pillarWidth, pillarHeight);
+            m_pillarRect.sizeDelta = new Vector2(pillarWidth, pillarHeight);
         }
     }
 

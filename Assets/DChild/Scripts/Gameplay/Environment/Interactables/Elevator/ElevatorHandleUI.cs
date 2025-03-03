@@ -1,4 +1,6 @@
 ﻿using DChild.Gameplay;
+using DChild.Gameplay.Environment;
+using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -13,6 +15,7 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 
         private int m_destinationIndex;
 
+
         public bool isEmpty => string.IsNullOrEmpty(m_leftLabel) && string.IsNullOrEmpty(m_rightLabel);
 
         public int destinationIndex => m_destinationIndex;
@@ -22,25 +25,21 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 
     public class ElevatorHandleUI : MonoBehaviour
     {
-        //[SerializeField] private string m_location;
-        [SerializeField]
-        private ElevatorLevelInfo[] m_infos;
+        [SerializeField] private ElevatorLevelInfo[] m_infos;
 
-        [SerializeField]
-        private ElevatorLocation m_location;
+        [SerializeField] private ElevatorLocation m_location;
 
-        //private ElevatorLevelSelectionUI m_mordenElevatorLevelSelection;
+        [SerializeField] private SignalSender m_elevatorSignal;
 
-        //private UnderworldGameplayUIHandle m_uiHandle;
-        [SerializeField] private UIView m_view;
+        private MovingPlatform m_elevator;
 
+        private void Start() => m_elevator = GetComponent<MovingPlatform>();
 
         [Button(ButtonSizes.Large)]
         private void HandleElevatorEvent()
         {
-            //m_mordenElevatorLevelSelection.Display(m_location);
-            GameplaySystem.gamplayUIHandle.ShowMordenElevatorUI(m_location, m_infos);
-            m_view.Show();
+            GameplaySystem.gamplayUIHandle.ShowMordenElevatorUI(m_location, m_infos, m_elevator);
+            m_elevatorSignal.SendSignal();
         }
 
     }

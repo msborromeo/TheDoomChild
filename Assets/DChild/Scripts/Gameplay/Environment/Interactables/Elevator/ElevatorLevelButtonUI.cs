@@ -8,7 +8,15 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         [SerializeField] private ElevatorLabelUI m_leftLabel;
         [SerializeField] private ElevatorLabelUI m_rightLabel;
 
+        private MovingPlatform m_elevator;
         private int m_level;
+
+        public void SetElevatorLevel(MovingPlatform elevator, int level)
+        {
+            m_elevator = elevator;
+            m_level = level;
+        }
+
 
         private void SetPathLabel(ElevatorLevelInfo info)
         {
@@ -18,6 +26,8 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 
         public void Display(ElevatorLevelInfo info)
         {
+
+
             bool hasInfo = info != null;
 
             gameObject.SetActive(hasInfo);
@@ -28,10 +38,10 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
             }
         }
 
-        public void SelectElevatorLevel(MovingPlatform elevator)
+        public void SelectLevel()
         {
-            if (elevator == null) return;
-            elevator.GoDestination(m_level);
+            if (m_elevator == null) return;
+            m_elevator.GoDestination(m_level);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Runtime.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,14 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
     {
         [SerializeField] private TextMeshProUGUI m_label;
         [SerializeField] private Image m_background;
+
+
+        [SerializeField, OptionalField] private Image m_exitPortal;
+
+        private void ShowExit()
+        {
+            m_exitPortal.gameObject.SetActive(m_label.text.Contains("exit"));
+        }
 
         public void Display(string text)
         {
@@ -20,6 +29,9 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
             gameObject.SetActive(true);
             m_label.text = text;
             m_background.enabled = true;
+
+            if (m_exitPortal != null)
+                ShowExit();
         }
     }
 }

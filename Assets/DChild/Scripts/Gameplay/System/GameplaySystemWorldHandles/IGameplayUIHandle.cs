@@ -55,6 +55,6 @@ namespace DChild.Gameplay.Systems
         void ActivateShadowRegenEffect();
         void DeactivateShadowRegenEffect();
 
-        void ShowMordenElevatorUI(ElevatorLocation location, ElevatorLevelInfo[] labels);
+        void ShowMordenElevatorUI(ElevatorLocation location, ElevatorLevelInfo[] labels, MovingPlatform elevator);
     }
 }
