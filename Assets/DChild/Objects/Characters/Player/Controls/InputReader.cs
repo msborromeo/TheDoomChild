@@ -62,10 +62,11 @@ namespace DChild.Inputs
         public event Action SlashHeldEvent;
         public event Action SlashStartedEvent;
         public event Action SlashCancelledEvent;
-        public event Action WhipStartedEvent;
+        public event Action WhipPerformedEvent;
         public event Action WhipCancelledEvent;
         public event Action<float> CycleQuickItemsStartedEvent;
-        public event Action<float> UseQuickItemStartedEvent;
+        public event Action UseQuickItemStartedEvent;
+        public event Action UseQuickItemCancelledEvent;
         public event Action ProjectileThrowStartedEvent;
         public event Action ProjectileThrowCancelledEvent;
         public event Action GrabStartedEvent;
@@ -269,7 +270,12 @@ namespace DChild.Inputs
         {
             if (context.phase == InputActionPhase.Started)
             {
-                UseQuickItemStartedEvent?.Invoke(context.ReadValue<float>());
+                UseQuickItemStartedEvent?.Invoke();
+            }
+
+            if(context.phase == InputActionPhase.Canceled)
+            {
+                UseQuickItemCancelledEvent?.Invoke();
             }
         }
 
@@ -286,7 +292,8 @@ namespace DChild.Inputs
                 {
                     SlashHeldEvent?.Invoke();
                 }
-                else
+                
+                if(context.interaction is TapInteraction)
                 {
                     SlashPerformedEvent?.Invoke();
                 }
@@ -319,9 +326,9 @@ namespace DChild.Inputs
 
         public void OnWhip(InputAction.CallbackContext context)
         {
-            if (context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Performed)
             {
-                WhipStartedEvent?.Invoke();
+                WhipPerformedEvent?.Invoke();
             }
 
             if (context.phase == InputActionPhase.Canceled)

@@ -61,6 +61,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public bool CanMove() => m_canMove;
         public bool CanAirWhip() => m_canAirWhip;
+        public bool IsGravityAdjusted() => m_adjustGravity;
 
         public override void Initialize(ComplexCharacterInfo info)
         {
@@ -84,6 +85,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public override void Cancel()
         {
             m_rigidbody.gravityScale = m_cacheGravity;
+            m_state.waitForBehaviour = false;
             m_adjustGravity = true;
 
             if (m_executedTypes.Count > 0)
@@ -187,7 +189,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                     break;
                 case Type.Crouch_Forward:
-                    m_animator.SetFloat(m_yInputParameter, 0);
+                    m_animator.SetFloat(m_yInputParameter, -1);
                     m_timer = m_crouchForward.nextAttackDelay;
                     m_attacker.SetDamageModifier(m_crouchForward.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
                     break;
@@ -273,7 +275,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_timer -= GameplaySystem.time.deltaTime;
                 if (m_timer <= 0)
                 {
-                    m_timer = 1;
+                    m_timer = 1.5f;
                     m_state.canAttack = true;
                 }
             }

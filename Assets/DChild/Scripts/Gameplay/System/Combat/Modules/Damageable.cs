@@ -4,6 +4,8 @@ using DChild.Gameplay.Characters;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using Holysoft.Gameplay;
+using DChild.Gameplay.Characters.Players;
+using static Cinemachine.DocumentationSortingAttribute;
 
 namespace DChild.Gameplay.Combat
 {
@@ -23,6 +25,18 @@ namespace DChild.Gameplay.Combat
             public DamageType type { get; }
         }
 
+        public struct InvulnerabilityEventArgs : IEventActionArgs
+        {
+            public InvulnerabilityEventArgs(IDamageable damageable, Invulnerability invulnearabilityLevel) : this()
+            {
+                this.damageables = damageable;
+                this.invulnerabilityLevel = invulnearabilityLevel;
+            }
+
+            public IDamageable damageables { get; }
+            public Invulnerability invulnerabilityLevel { get; }
+        }
+
         [SerializeField]
         private Transform m_centerMass;
         [SerializeField]
@@ -36,6 +50,7 @@ namespace DChild.Gameplay.Combat
         public event EventAction<DamageEventArgs> DamageBlock;
         public event EventAction<EventActionArgs> Destroyed;
         public event EventAction<EventActionArgs> Healed;
+        public event EventAction<InvulnerabilityEventArgs> InvulnerabilityChanged;
 
         public Vector2 position => m_centerMass.position;
 
@@ -99,6 +114,8 @@ namespace DChild.Gameplay.Combat
             {
                 m_hitboxes[i].SetInvulnerability(level);
             }
+
+            InvulnerabilityChanged?.Invoke(this, new InvulnerabilityEventArgs(this, level));
         }
 
         protected void CallDamageTaken(int totalDamage, DamageType type)

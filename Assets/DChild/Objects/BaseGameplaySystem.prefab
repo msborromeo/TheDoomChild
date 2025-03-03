@@ -260,6 +260,8 @@ GameObject:
   - component: {fileID: 3624352417133690119}
   - component: {fileID: 7080931480721302645}
   - component: {fileID: 256970806261176358}
+  - component: {fileID: 5631925211537150027}
+  - component: {fileID: 8915080040133482442}
   m_Layer: 0
   m_Name: BackButton-PauseGame
   m_TagString: Untagged
@@ -355,6 +357,75 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pauseGameSignal: {fileID: 7080931480721302645}
+  m_UITransitionInProgress: 0
+--- !u!114 &5631925211537150027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906412781797905480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec4976bef1d463b82e8013afa2cb347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Callback:
+    EventName: Callback triggered every time a signal is received
+    Runners: []
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 256970806261176358}
+          m_TargetAssemblyTypeName: PauseGameGuard, Assembly-CSharp
+          m_MethodName: SetUITransitionInProgress
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  StreamId:
+    Category: General
+    Name: ViewTransistionDone
+    Custom: 0
+--- !u!114 &8915080040133482442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906412781797905480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec4976bef1d463b82e8013afa2cb347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Callback:
+    EventName: Callback triggered every time a signal is received
+    Runners: []
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 256970806261176358}
+          m_TargetAssemblyTypeName: PauseGameGuard, Assembly-CSharp
+          m_MethodName: SetUITransitionInProgress
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  StreamId:
+    Category: General
+    Name: ViewTransitionStart
+    Custom: 0
 --- !u!1 &2457540533068367656
 GameObject:
   m_ObjectHideFlags: 0
