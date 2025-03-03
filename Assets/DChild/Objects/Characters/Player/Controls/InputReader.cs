@@ -202,22 +202,16 @@ namespace DChild.Inputs
             if (context.phase == InputActionPhase.Started)
             {
                 JumpStartedEvent?.Invoke();
-                Debug.Log("jUMP Started Context:" + context.ReadValueAsButton());
-                Debug.Log("JuMP Started Context:" + context.ReadValue<float>());
             }
 
             if (context.phase == InputActionPhase.Performed)
             {
                 JumpPerformedEvent?.Invoke();
-                Debug.Log("jUMP PERFORMED Context:" + context.ReadValueAsButton());
-                Debug.Log("JuMP PERFORMED Context:" + context.ReadValue<float>());
             }
 
             if (context.phase == InputActionPhase.Canceled)
             {
                 JumpCancelledEvent?.Invoke();
-                Debug.Log("jUMP cANCELLED Context:" + context.ReadValueAsButton());
-                Debug.Log("JuMP cANECLEED Context:" + context.ReadValue<float>());
             }
         }
 
@@ -349,28 +343,40 @@ namespace DChild.Inputs
         {
             if (context.phase == InputActionPhase.Started)
             {
-                //ProjectileThrowStartedEvent?.Invoke();
+                Debug.Log("Projectile Throw Started");
+                return;
             }
 
             if (context.phase == InputActionPhase.Performed)
             {
-                //Need to keep action interaction as pass through with control type button for this to work on  controller and keyboard
-                if (context.ReadValueAsButton() == true)
-                {
-                    ProjectileThrowStartedEvent?.Invoke();
+                Debug.Log("Projectile Throw: " + context.ReadValueAsButton());
+                Debug.Log("Projectile Throw interaction " + context.interaction);
 
+                if(context.interaction is TapInteraction)
+                {
+                    return;
                 }
 
-                if(context.ReadValueAsButton() == false)
+                if(context.ReadValue<float>() == 1)
+                {
+                    ProjectileThrowStartedEvent?.Invoke();
+                }
+
+                if (context.ReadValue<float>() == 0)
                 {
                     ProjectileThrowPerformedEvent?.Invoke();
                 }
+                return;
             }
 
             if (context.phase == InputActionPhase.Canceled)
             {
+                Debug.Log("Projectile Throw Cancelled");
                 //ProjectileThrowCancelledEvent?.Invoke();
+                return;
             }
+
+            Debug.Log("Projectile Throw Debug Triggered");
         }
 
         public void OnLevitate(InputAction.CallbackContext context)
