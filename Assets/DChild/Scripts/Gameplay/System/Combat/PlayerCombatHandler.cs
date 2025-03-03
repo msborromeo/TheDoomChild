@@ -26,7 +26,7 @@ namespace DChild.Gameplay.Combat
         public void ResolveDamageRecieved(IPlayer player)
         {
             StopAllCoroutines();
-
+            Debug.Log("Player Received Damage");
             if (player.state?.canFlinch ?? true)
             {
                 player.state.canFlinch = false;
