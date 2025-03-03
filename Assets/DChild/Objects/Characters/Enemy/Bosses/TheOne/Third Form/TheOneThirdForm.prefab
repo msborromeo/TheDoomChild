@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514930686958503116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 93.9, y: 0, z: 0}
+  m_LocalPosition: {x: 55.3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -150,7 +150,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643487964110924935}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -102.6, y: 0, z: 0}
+  m_LocalPosition: {x: -54.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -796,7 +796,9 @@ MonoBehaviour:
   m_maxDistance: 10
   m_eyeTheOne: {fileID: 0}
   m_eyeSquint: {fileID: 0}
+  m_eyeExhausted: {fileID: 0}
   m_eyeOpen: {fileID: 0}
+  m_eyeTimerToOpenFromSquint: 0
   m_hitCounter: 0
   m_storeMaxDistance: 0
   m_sphereBombList: []
@@ -1505,7 +1507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d65502d98619e438c6388e3da86e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 5000
+  m_maxHealth: 3000
 --- !u!114 &4269384280951534908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2242,7 +2244,7 @@ MonoBehaviour:
   m_mouthBlastIIAttack:
   - {fileID: 8436261223159258305}
   - {fileID: 3563902577063933676}
-  m_mouthBlastOneCeiling: {fileID: 0}
+  m_mouthBlastOneCeiling: {fileID: 6003281631130958019}
   m_slidingWallAttack: {fileID: 3601399332827307323}
   m_monolithSlamAttack: {fileID: 6497036398069119881}
   m_tentacleBlastAttack: {fileID: 7641428553381898717}
@@ -10100,6 +10102,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2543853542318265883, guid: 77fc0e7a75474f94a969a47178b4aafc,
         type: 3}
+      propertyPath: speed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2543853542318265883, guid: 77fc0e7a75474f94a969a47178b4aafc,
+        type: 3}
       propertyPath: m_animation
       value: 
       objectReference: {fileID: 7245497924452333135}
@@ -10110,9 +10117,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2543853542318265883, guid: 77fc0e7a75474f94a969a47178b4aafc,
         type: 3}
+      propertyPath: m_isCeilingBlast
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2543853542318265883, guid: 77fc0e7a75474f94a969a47178b4aafc,
+        type: 3}
       propertyPath: m_toGrowAnimation
       value: toGrow
       objectReference: {fileID: 0}
+    - target: {fileID: 2543853542318265883, guid: 77fc0e7a75474f94a969a47178b4aafc,
+        type: 3}
+      propertyPath: leftLimitTransform
+      value: 
+      objectReference: {fileID: 8225918772711882889}
     - target: {fileID: 2543853542318265883, guid: 77fc0e7a75474f94a969a47178b4aafc,
         type: 3}
       propertyPath: m_mouthBlastEntity
@@ -10123,6 +10140,11 @@ PrefabInstance:
       propertyPath: m_skeletonAnimation
       value: 
       objectReference: {fileID: 3338652278657173484}
+    - target: {fileID: 2543853542318265883, guid: 77fc0e7a75474f94a969a47178b4aafc,
+        type: 3}
+      propertyPath: rightLimitTransform
+      value: 
+      objectReference: {fileID: 8694353290010032660}
     - target: {fileID: 2543853542318265883, guid: 77fc0e7a75474f94a969a47178b4aafc,
         type: 3}
       propertyPath: m_attackLoopAnimation
@@ -10192,6 +10214,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 172.062
+      objectReference: {fileID: 0}
+    - target: {fileID: 5010296631856305205, guid: 77fc0e7a75474f94a969a47178b4aafc,
+        type: 3}
+      propertyPath: m_attackLoopValue
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5010296631856305205, guid: 77fc0e7a75474f94a969a47178b4aafc,
+        type: 3}
+      propertyPath: m_isCeilingLoopValueStephenIndiPagTanduga
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6933251846007114707, guid: 77fc0e7a75474f94a969a47178b4aafc,
         type: 3}
@@ -10374,6 +10406,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8071125115520151256}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6003281631130958019 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2543853542318265883, guid: 77fc0e7a75474f94a969a47178b4aafc,
+    type: 3}
+  m_PrefabInstance: {fileID: 8071125115520151256}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67f08d17b5a6e71418c15d6af024f261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &6347315648400500027 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2888026119527680995, guid: 77fc0e7a75474f94a969a47178b4aafc,
