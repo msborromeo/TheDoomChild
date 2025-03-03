@@ -349,8 +349,7 @@ namespace DChild.Inputs
 
             if (context.phase == InputActionPhase.Performed)
             {
-                Debug.Log("Projectile Throw: " + context.ReadValueAsButton());
-                Debug.Log("Projectile Throw interaction " + context.interaction);
+               
 
                 if(context.interaction is TapInteraction)
                 {
@@ -359,11 +358,15 @@ namespace DChild.Inputs
 
                 if(context.ReadValue<float>() == 1)
                 {
+                    Debug.Log("Projectile Throw: " + context.ReadValueAsButton());
+                    Debug.Log("Projectile Throw interaction " + context.interaction);
                     ProjectileThrowStartedEvent?.Invoke();
                 }
 
                 if (context.ReadValue<float>() == 0)
                 {
+                    Debug.Log("Projectile Throw: " + context.ReadValueAsButton());
+                    Debug.Log("Projectile Throw Released " + context.interaction);
                     ProjectileThrowPerformedEvent?.Invoke();
                 }
                 return;

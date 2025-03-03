@@ -105,7 +105,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""45bdfdf7-5e75-4839-be13-6dc77f575e8d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Tap,Press(behavior=2)"",
+                    ""interactions"": ""Tap(pressPoint=0.9),Press(pressPoint=0.2,behavior=2)"",
                     ""initialStateCheck"": false
                 },
                 {
