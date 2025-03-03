@@ -105,7 +105,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""45bdfdf7-5e75-4839-be13-6dc77f575e8d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -155,12 +155,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""MouseDelta"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""604b8edc-904e-40a3-842e-19972de2258b"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""AirSlashRanged"",
@@ -642,7 +642,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""de629988-6db7-4e2f-b3b4-0d64f57583de"",
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
-                    ""processors"": ""NormalizeVector2"",
+                    ""processors"": ""StickDeadzone(min=0.125,max=0.925),NormalizeVector2"",
                     ""groups"": ""Gamepad"",
                     ""action"": ""MouseDelta"",
                     ""isComposite"": false,
