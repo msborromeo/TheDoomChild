@@ -17,7 +17,7 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField, TabGroup("Reference")]
         private Transform rightLimitTransform;
         [SerializeField, TabGroup("Reference")]
-        private float speed = 5f;
+        private float speed;
         [SerializeField, TabGroup("Reference")]
         protected SpineRootAnimation m_animation;
         [SerializeField, TabGroup("Reference")]
