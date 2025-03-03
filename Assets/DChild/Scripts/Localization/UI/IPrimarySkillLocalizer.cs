@@ -1,11 +1,11 @@
 using TMPro;
 using System;
-using DChild.Gameplay.UI.PrimarySkills;
+using DChild.Gameplay.Characters.Players;
 
 namespace DChild.Localization
 {
     public interface IPrimarySkillLocalizer
     {
-        event Action<PrimarySkillSelectable> localizePrimarySkill;
+        event Action<PrimarySkillData> localizePrimarySkill;
     }
 }
