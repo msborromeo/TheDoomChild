@@ -86,6 +86,7 @@ namespace DChild.Gameplay.ArmyBattle
 
         public Vector3 promptPosition => transform.position + m_promptOffset;
 
+        [Button]
         public void GiveReward()
         {
             m_CharacterGiver?.RecruitCharacter(m_CharacterReward);
