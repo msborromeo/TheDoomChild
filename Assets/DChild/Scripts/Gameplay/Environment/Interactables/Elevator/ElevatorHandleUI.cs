@@ -31,9 +31,9 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 
         [SerializeField] private SignalSender m_elevatorSignal;
 
-        private MovingPlatform m_elevator;
+        [SerializeField] private MovingPlatform m_elevator;
 
-        private void Start() => m_elevator = GetComponent<MovingPlatform>();
+        //private void Start() => m_elevator = GetComponent<MovingPlatform>();
 
         [Button(ButtonSizes.Large)]
         private void HandleElevatorEvent()
