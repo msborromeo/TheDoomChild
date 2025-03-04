@@ -4,10 +4,12 @@ using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
+using DChild.Localization;
+using System;
 
 namespace DChild.Gameplay.Items
 {
-    public class KeystoneFragmentUI : SerializedMonoBehaviour, IItemNotificationUI
+    public class KeystoneFragmentUI : SerializedMonoBehaviour, IItemNotificationUI, IItemViewLocalizer
     {
         [System.Serializable]
         private class Info
@@ -37,6 +39,8 @@ namespace DChild.Gameplay.Items
 
         private int m_previousAcquiredIndex;
 
+        public event Action<ItemData> LocalizeItemView;
+
         public void AddListenerToOnNotificationHidden(UnityAction action)
         {
             m_container.OnHiddenCallback.Event.AddListener(action);
@@ -58,6 +62,7 @@ namespace DChild.Gameplay.Items
         {
             m_container.Show();
             ExecuteCommands();
+            LocalizeItemView?.Invoke(itemData);
         }
 
         public void ExecuteCommands()

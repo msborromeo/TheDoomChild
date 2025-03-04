@@ -1,4 +1,5 @@
 ﻿using System;
+using DChild.Gameplay.Items;
 using DChild.Localization;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -20,7 +21,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         private Canvas m_canvas;
 
-        public event Action<IStoredItem> localizeItemView;
+        public event Action<ItemData> LocalizeItemView;
 
         public override void Hide()
         {
@@ -57,7 +58,7 @@ namespace DChild.Gameplay.Inventories.UI
                     m_quantityLimit.text = data.quantityLimit.ToString();
                 }
             }
-            localizeItemView?.Invoke(reference);
+            LocalizeItemView?.Invoke(reference.data);
         }
 
         private void Awake()

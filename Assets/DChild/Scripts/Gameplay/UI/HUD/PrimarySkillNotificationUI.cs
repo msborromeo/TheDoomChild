@@ -5,10 +5,11 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DChild.Localization;
 
 namespace DChild.Gameplay
 {
-    public class PrimarySkillNotificationUI : NotificationUI
+    public class PrimarySkillNotificationUI : NotificationUI , IPrimarySkillLocalizer
     {
         [SerializeField]
         private PrimarySkillList m_notifiedSkill;
@@ -23,12 +24,15 @@ namespace DChild.Gameplay
 
         private const string INSTRUCTION_HEADER = "<color=#710B0D>Button:</color><indent=15%>";
 
+        public event Action<PrimarySkillData> localizePrimarySkill;
+
         public void SetNotifiedSkill(PrimarySkillData skill)
         {
             m_icon.DisplayAs(skill);
             m_skillName.text = skill.skillName;
             m_description.text = skill.description;
             m_instruction.text = INSTRUCTION_HEADER + skill.instruction;
+            localizePrimarySkill?.Invoke(skill);
         }
 
         public void SetNotifiedSkill(PrimarySkill skill)
