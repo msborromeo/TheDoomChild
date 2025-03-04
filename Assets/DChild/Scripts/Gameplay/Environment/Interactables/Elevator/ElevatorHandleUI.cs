@@ -36,7 +36,7 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         //private void Start() => m_elevator = GetComponent<MovingPlatform>();
 
         [Button(ButtonSizes.Large)]
-        private void HandleElevatorEvent()
+        public void HandleElevatorEvent()
         {
             GameplaySystem.gamplayUIHandle.ShowMordenElevatorUI(m_location, m_infos, m_elevator);
             m_elevatorSignal.SendSignal();

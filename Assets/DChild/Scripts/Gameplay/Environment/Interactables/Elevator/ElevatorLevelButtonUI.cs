@@ -13,8 +13,8 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 
         public void SetElevatorLevel(MovingPlatform elevator, int level)
         {
-            m_elevator = elevator;
-            m_level = level;
+            this.m_elevator = elevator;
+            this.m_level = level;
         }
 
 
@@ -26,8 +26,6 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 
         public void Display(ElevatorLevelInfo info)
         {
-
-
             bool hasInfo = info != null;
 
             gameObject.SetActive(hasInfo);
@@ -40,6 +38,7 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 
         public void SelectLevel()
         {
+            Debug.Log($"m_elevator : {m_elevator.gameObject.name}");
             if (m_elevator == null) return;
             m_elevator.GoDestination(m_level);
         }
