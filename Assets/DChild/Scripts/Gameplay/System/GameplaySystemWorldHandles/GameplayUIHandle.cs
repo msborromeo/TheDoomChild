@@ -5,6 +5,7 @@ using DChild.Gameplay.Environment;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
 using DChild.Menu.Trade;
+using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -146,6 +147,11 @@ namespace DChild.Gameplay.Systems
         public void ShowJournalNotificationPrompt(float duration)
         {
             UnderworldGameplayUIHandle.Instance.ShowJournalNotificationPrompt(duration);
+        }
+
+        public void ShowMordenElevatorUI(ElevatorLocation location, ElevatorLevelInfo[] labels, MovingPlatform elevator)
+        {
+            UnderworldGameplayUIHandle.Instance.OpenElevator(location, labels, elevator);
         }
 
         public void ShowMovableObjectPrompt(bool willshow)

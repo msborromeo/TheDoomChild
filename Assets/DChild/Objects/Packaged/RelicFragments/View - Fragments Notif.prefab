@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1638434123252115041}
   - component: {fileID: 1638434123252115046}
   - component: {fileID: 1638434123252115040}
+  - component: {fileID: 3806759178329975208}
   m_Layer: 5
   m_Name: View - Fragments Notif
   m_TagString: Untagged
@@ -39,6 +40,7 @@ RectTransform:
   m_Children:
   - {fileID: 1638434124297641258}
   - {fileID: 6363537331115295050}
+  - {fileID: 7901968193636110235}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -898,6 +900,20 @@ MonoBehaviour:
   SendOnEnable: 0
   SendOnDisable: 0
   SendOnDestroy: 0
+--- !u!114 &3806759178329975208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638434123252115053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74179c78ea481ff4ca48571c76580a54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_localizeDescriptionLabel: {fileID: 6972262979046815037}
+  m_localizeItemName: {fileID: 0}
 --- !u!1 &1638434123325727061
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,6 +925,7 @@ GameObject:
   - component: {fileID: 1638434123325727062}
   - component: {fileID: 1638434123325727056}
   - component: {fileID: 1638434123325727063}
+  - component: {fileID: 6101708268060953844}
   m_Layer: 5
   m_Name: Header
   m_TagString: Untagged
@@ -965,7 +982,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: FRAGMENT RECOVERED!
+  m_text: Fragment Wiederhergestellt!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 21213444537982326, guid: 03de9f858562ece4c9ac9d91b56d9ad5,
@@ -993,13 +1010,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.25
+  m_fontSize: 36.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 65
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
@@ -1035,6 +1052,45 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6101708268060953844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638434123325727061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: Notification/Fragments/Fragment Recovered!
+  mTermSecondary: Fonts/BACKCOUNTRY-Regular SDF
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1 &1638434123805798922
 GameObject:
   m_ObjectHideFlags: 0
@@ -2645,6 +2701,7 @@ GameObject:
   - component: {fileID: 1638434124282226830}
   - component: {fileID: 1638434124282226824}
   - component: {fileID: 1638434124282226831}
+  - component: {fileID: 7389905166015467336}
   m_Layer: 5
   m_Name: Header
   m_TagString: Untagged
@@ -2700,7 +2757,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'DESCRIPTION:'
+  m_text: Beschreibung
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a576fbe1b6faba498194776bfd96bc4, type: 2}
   m_sharedMaterial: {fileID: 21892830720195836, guid: 6a576fbe1b6faba498194776bfd96bc4,
@@ -2728,13 +2785,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.7
+  m_fontSize: 33.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 33.7
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
@@ -2770,6 +2827,45 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7389905166015467336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638434124282226829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: Codex/BestiaryUI/DescriptionLabel
+  mTermSecondary: Fonts/MyriadPro-Regular SDF
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1 &1638434124289117481
 GameObject:
   m_ObjectHideFlags: 0
@@ -6036,6 +6132,7 @@ GameObject:
   - component: {fileID: 1638434125150308933}
   - component: {fileID: 1638434125150308935}
   - component: {fileID: 1638434125150308934}
+  - component: {fileID: 6972262979046815037}
   m_Layer: 5
   m_Name: Message
   m_TagString: Untagged
@@ -6163,6 +6260,45 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6972262979046815037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638434125150308932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: 
+  mTermSecondary: Fonts/MyriadPro-Regular SDF
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1 &1638434125173945672
 GameObject:
   m_ObjectHideFlags: 0
@@ -6902,6 +7038,111 @@ MonoBehaviour:
       ToCustomValue: 0
       FromOffset: 0
       ToOffset: 0
+--- !u!1001 &260594928045659680
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1638434123252115054}
+    m_Modifications:
+    - target: {fileID: 1273331859914013652, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_Name
+      value: DChildLocalizationSource
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Term
+      value: Notification/Fragments/Fragment Recovered!
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Flags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[0]
+      value: FRAGMENT RECOVERED!
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[1]
+      value: Fragment Wiederhergestellt!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2ca539a3458c72a449b2b1c3c35a9783, type: 3}
+--- !u!4 &7901968193636110235 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7941182601525696955, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+    type: 3}
+  m_PrefabInstance: {fileID: 260594928045659680}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1638434123258532450
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6913,6 +7154,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Navigation Instructions
+      objectReference: {fileID: 0}
+    - target: {fileID: 3653165682807459187, guid: 79a4749d7b0c9924288be4706d0de4ce,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5688943922649535272, guid: 79a4749d7b0c9924288be4706d0de4ce,
         type: 3}
@@ -7019,6 +7265,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5735307148774594449, guid: 79a4749d7b0c9924288be4706d0de4ce,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8638918552469163392, guid: 79a4749d7b0c9924288be4706d0de4ce,
         type: 3}
       propertyPath: m_textInfo.lineCount
@@ -7084,6 +7335,11 @@ PrefabInstance:
       propertyPath: m_padding
       value: 1.25
       objectReference: {fileID: 0}
+    - target: {fileID: 8638918552696409503, guid: 79a4749d7b0c9924288be4706d0de4ce,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8638918552751082397, guid: 79a4749d7b0c9924288be4706d0de4ce,
         type: 3}
       propertyPath: m_textAlignment
@@ -7118,6 +7374,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.characterCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638918552928439370, guid: 79a4749d7b0c9924288be4706d0de4ce,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8638918552928439371, guid: 79a4749d7b0c9924288be4706d0de4ce,
         type: 3}

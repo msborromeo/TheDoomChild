@@ -2,7 +2,7 @@ using DChild.Gameplay.ArmyBattle;
 using TMPro;
 using UnityEngine;
 
-namespace DChild.Scripts.Gameplay.System.ArmyBattle.ArmyBattleUI
+namespace DChild.Scripts.Gameplay.Systems.ArmyBattle.ArmyBattleUI
 {
     public class ArmyHealthUI : MonoBehaviour
     {
