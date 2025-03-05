@@ -24,7 +24,7 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         {
             m_leftLabel.Display(info.leftLabel);
             m_rightLabel.Display(info.rightLabel);
-            m_levelNumber.text = m_level.ToString();
+            m_levelNumber.text = $"{m_level + 1}";
         }
 
         public void Display(ElevatorLevelInfo info)
