@@ -133,9 +133,6 @@ namespace DChild.Gameplay.Characters.Enemies
             private BasicAnimationInfo m_deathAnimation;
             public BasicAnimationInfo deathAnimation => m_deathAnimation;
             [SerializeField]
-            private BasicAnimationInfo m_flinchAnimation;
-            public BasicAnimationInfo flinchAnimation => m_flinchAnimation;
-            [SerializeField]
             private BasicAnimationInfo m_idleWithCoverAnimation;
             public BasicAnimationInfo idleWithCoverAnimation => m_idleWithCoverAnimation;
             [SerializeField]
@@ -194,7 +191,6 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_lastHitDamageFlinchAnimation.SetData(m_skeletonDataAsset);
                 m_noMaskFlinchAnimation.SetData(m_skeletonDataAsset);
                 m_deathAnimation.SetData(m_skeletonDataAsset);
-                m_flinchAnimation.SetData(m_skeletonDataAsset);
                 m_idleWithCoverAnimation.SetData(m_skeletonDataAsset);
                 m_idleWithoutCoverAnimation.SetData(m_skeletonDataAsset);
                 m_rageQuakeAnimation.SetData(m_skeletonDataAsset);
@@ -333,7 +329,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator FlinchRoutine()
         {
-            var flinch = m_info.flinchAnimation;
+            var flinch = GetCurrentFlinchAnimation();
             m_animation.SetAnimation(0, flinch, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, flinch);
         }
@@ -429,6 +425,35 @@ namespace DChild.Gameplay.Characters.Enemies
             }
         }
 
+        private string GetCurrentFlinchAnimation()
+        {
+            var flinchAnim = m_info.noDamageFlinchAnimation.animation; ;
+            if (m_health.currentValue > m_health.currentValue * 0.85)
+            {
+                flinchAnim = m_info.noDamageFlinchAnimation.animation;
+            }
+            if ((m_health.currentValue < m_health.currentValue * 0.85) && (m_health.currentValue > m_health.currentValue * 0.7))
+            {
+                flinchAnim = m_info.slightDamageFlinchAnimation.animation;
+            }
+
+            if ((m_health.currentValue < m_health.currentValue * 0.7) && (m_health.currentValue > m_health.currentValue * 0.7))
+            {
+                flinchAnim = m_info.mediumDamageFlinchAnimation.animation;
+            }
+
+            if ((m_health.currentValue < m_health.currentValue * 0.65) && (m_health.currentValue > m_health.currentValue * 0.5))
+            {
+                flinchAnim = m_info.heavyDamageFlinchAnimation.animation;
+            }
+
+            if (m_health.currentValue < m_health.currentValue * 0.5)
+            {
+                flinchAnim = m_info.noMaskFlinchAnimation.animation;
+            }
+            return flinchAnim;
+        }
+
         private void SetCurrentHead()
         {
             if(m_health.currentValue > m_health.currentValue * 0.85)
@@ -477,6 +502,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private void Update()
         {
             m_phaseHandle.MonitorPhase();
+            SetCurrentHead();
 
            switch(m_stateHandle.currentState)
             {
@@ -495,6 +521,23 @@ namespace DChild.Gameplay.Characters.Enemies
                     StartCoroutine(ChangePhaseRoutine());
                     break;
                 case State.Attacking:
+                    m_currentAttackDecider.DecideOnAttack();
+
+                    switch (m_currentAttackDecider.chosenAttack.attack)
+                    {
+                        case Attack.PillarSlam:
+                            StartCoroutine(PillarSmashRoutine());
+                            break;
+                        case Attack.HeavyPillarSlam:
+                            StartCoroutine(HeavyPillarSmashRoutine());
+                            break;
+                        case Attack.SwordProjectile:
+                            StartCoroutine(SwordProjectileRoutine());
+                            break;
+                        case Attack.LaserBlast:
+                            StartCoroutine(LaserRoutine());
+                            break;
+                    }
                     break;
             }
         }
