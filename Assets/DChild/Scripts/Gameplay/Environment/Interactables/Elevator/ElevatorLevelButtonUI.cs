@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.Environment;
+using TMPro;
 using UnityEngine;
 
 namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
@@ -7,6 +8,7 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
     {
         [SerializeField] private ElevatorLabelUI m_leftLabel;
         [SerializeField] private ElevatorLabelUI m_rightLabel;
+        [SerializeField] private TextMeshProUGUI m_levelNumber;
 
         private MovingPlatform m_elevator;
         private int m_level;
@@ -22,6 +24,7 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         {
             m_leftLabel.Display(info.leftLabel);
             m_rightLabel.Display(info.rightLabel);
+            m_levelNumber.text = m_level.ToString();
         }
 
         public void Display(ElevatorLevelInfo info)
