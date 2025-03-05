@@ -31,10 +31,11 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
             gameObject.SetActive(hasInfo);
             if (hasInfo)
             {
-                m_level = info.destinationIndex;
                 SetPathLabel(info);
             }
         }
+
+
 
         public void SelectLevel()
         {
