@@ -26,6 +26,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private List<float> m_monolithsSpawnedXPositions = new List<float>();
         private ObstacleChecker m_obstacleChecker;
 
+        public List<GameObject> m_PatternTwoTentacleSpawn = new List<GameObject>();
         public List<GameObject> m_PatternOneTentacleSpawn = new List<GameObject>();
         public List<GameObject> m_monolithsSpawned = new List<GameObject>();
         public List<GameObject> monolithsToDestroy;
@@ -44,7 +45,49 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             throw new System.NotImplementedException();
         }
-        
+        private IEnumerator PhaseThreeMonolithSlam()
+        {
+            yield return null;
+        }
+        public IEnumerator PhaseTwoMonolithSlam()
+        {
+            m_PatternTwoTentacleSpawn = m_PatternTwoTentacleSpawn.OrderBy(x => Random.value).ToList();
+            // Instantiate all monoliths
+            foreach (var item in m_PatternTwoTentacleSpawn)
+            {
+                yield return InstantiateAndKeepMonolith(item);
+            }
+
+            // Wait before deciding which to keep or destroy
+            yield return new WaitForSeconds(2f);
+
+            // Decide how many to keep (1 or 2 randomly)
+            int monolithsToKeep = Random.Range(1, 3);
+
+            // Select the monoliths to keep and the rest to destroy
+            monolithsToDestroy = m_monolithsSpawned.Skip(monolithsToKeep).ToList();
+            monolithsToActuallyKeep = m_monolithsSpawned.Take(monolithsToKeep).ToList();
+
+            var allMonoliths = new List<GameObject>(monolithsToActuallyKeep);
+            allMonoliths.AddRange(monolithsToDestroy);
+            allMonoliths = allMonoliths.OrderBy(x => Random.value).ToList();
+
+            foreach (var item in allMonoliths)
+            {
+                if (monolithsToActuallyKeep.Contains(item))
+                {
+                    item.GetComponent<MonolithSlam>().AttackKeepMonolith();
+                }
+                else
+                {
+                    item.GetComponent<MonolithSlam>().AttackDestroyMonolith();
+                    m_monolithsSpawned.Remove(item); // Now safe to remove
+                }
+
+                yield return new WaitForSeconds(1f);
+            }
+            yield return null;
+        }
         public IEnumerator PhaseOneMonolithSlam()
         {
             m_PatternOneTentacleSpawn = m_PatternOneTentacleSpawn.OrderBy(x => Random.value).ToList();

@@ -1,7 +1,10 @@
 ﻿using DChild.Gameplay.Characters.Players;
+using Holysoft.Event;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using UnityEngine;
+using static DChild.Gameplay.Combat.Damageable;
 
 namespace DChild.Gameplay.Combat
 {
@@ -17,15 +20,30 @@ namespace DChild.Gameplay.Combat
         {
             var damageableModule = player.damageableModule;
             damageableModule.SetInvulnerability(Invulnerability.MAX);
+            //Subscribe to OnInvulnerability changed
+            damageableModule.InvulnerabilityChanged += OnInvulnerabilityChanged;
             yield return new WaitForWorldSeconds(m_invulnerabilityDuration);
+            //Unsubscribe to OnInvulnerability changed
+            damageableModule.InvulnerabilityChanged -= OnInvulnerabilityChanged;
             damageableModule.SetInvulnerability(Invulnerability.None);
+        }
+
+        private void OnInvulnerabilityChanged(object sender, InvulnerabilityEventArgs eventArgs)
+        {
+            if (eventArgs.invulnerabilityLevel != Invulnerability.MAX)
+            {
+                eventArgs.damageables.SetInvulnerability(Invulnerability.MAX);
+            }
         }
 
         public IEnumerator DisableInputTemporarily(IPlayer player)
         {
-            player.controller.Disable();
+            Debug.Log("Flinch Disable Input");
+            GameplaySystem.playerManager.DisableControls();
             yield return new WaitForWorldSeconds(m_inputDisableDuration);
-            player.controller.Enable();
+            GameplaySystem.playerManager.EnableControls();
+            Debug.Log("Flinch Enable Input");
+            player.state.canFlinch = true;
         }
     }
 }

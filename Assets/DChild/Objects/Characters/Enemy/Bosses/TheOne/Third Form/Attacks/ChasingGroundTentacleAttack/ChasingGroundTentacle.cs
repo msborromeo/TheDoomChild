@@ -4,6 +4,7 @@ using UnityEngine;
 using DChild.Gameplay.Pooling;
 using Sirenix.OdinInspector;
 using Spine.Unity;
+using DChild.Gameplay.Combat;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
@@ -12,19 +13,24 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField]
         private Collider2D m_hitbox;
         [SerializeField]
+        private ParticleSystem m_groundBlastVfx;
+        [SerializeField]
         public float chasingGroundTentacleAnimationSpeedMultiplier;
 
-        [SerializeField, TabGroup("Reference")]
-        protected SpineRootAnimation m_animation;
+
         [SerializeField]
+        private bool m_showAnimations;
+        [SerializeField, ShowIf("m_showAnimations"),TabGroup("Reference")]
+        protected SpineRootAnimation m_animation;
+        [SerializeField,ShowIf("m_showAnimations")]
         private SkeletonAnimation m_skeletonAnimation;
-        [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
+        [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation"), ShowIf("m_showAnimations")]
         private string m_anticipationLoopAnimation;
-        [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
+        [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation"),ShowIf("m_showAnimations")]
         private string m_extendedAnimation;
-        [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
+        [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation"), ShowIf("m_showAnimations")]
         private string m_retractAnimation;
-        [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
+        [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation"), ShowIf("m_showAnimations")]
         private string m_waitForInputAnimation;
 
         // Start is called before the first frame update
@@ -35,15 +41,18 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         public IEnumerator ActualStartTentacle()
         {
+            m_hitbox.enabled = true;
             yield return Anticipation();
-            yield return new WaitForSeconds(2f);
-            yield return Retract();
+            m_hitbox.enabled = false;
+            // yield return Retract();
         }
         private IEnumerator Anticipation()
         {
-            m_animation.SetAnimation(0, m_anticipationLoopAnimation, false);
+            m_groundBlastVfx.Play();
+            yield return new WaitForSeconds(0.3f);
+         /*   m_animation.SetAnimation(0, m_anticipationLoopAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_anticipationLoopAnimation);
-            yield return Extended();
+            yield return Extended();*/
         }
 
         private IEnumerator Extended()
@@ -52,8 +61,8 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_extendedAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_extendedAnimation);
 
-            if (FindObjectOfType<ObstacleChecker>().monolithSlamObstacleList != null)
-                FindObjectOfType<ObstacleChecker>().ClearMonoliths();
+            //if (FindObjectOfType<ObstacleChecker>().monolithSlamObstacleList != null)
+            //    FindObjectOfType<ObstacleChecker>().ClearMonoliths();
         }
 
         private IEnumerator Retract()
@@ -78,13 +87,13 @@ namespace DChild.Gameplay.Characters.Enemies
             StartCoroutine(Retract());
         }
 
-        [Button]
+        [Button, ShowIf("m_showAnimations")]
         private void Attack()
         {
             ErectTentacle();
         }
 
-        [Button]
+        [Button,ShowIf("m_showAnimations")]
         private void UnAttack()
         {
             RetractTentacle();

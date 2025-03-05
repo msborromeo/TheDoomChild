@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1179462217863756884}
   - component: {fileID: 1078687143684678846}
   - component: {fileID: 4355515495767735115}
+  - component: {fileID: 728579509899981791}
   m_Layer: 11
   m_Name: WallCollider
   m_TagString: InvisibleWall
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881160532758325743}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5642693, y: 12.449803, z: 0}
+  m_LocalPosition: {x: 0.5445107, y: 12.449801, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -40,13 +41,13 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881160532758325743}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.15}
+  m_Offset: {x: 1.3533783, y: 3.8240051}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -57,7 +58,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 14.8218155, y: 32.266815}
+  m_Size: {x: 20.235992, y: 41.48224}
   m_EdgeRadius: 0
 --- !u!114 &4355515495767735115
 MonoBehaviour:
@@ -80,6 +81,19 @@ MonoBehaviour:
   followLocalScale: 0
   initializeOnAwake: 1
   m_updateOnFixedUpdate: 0
+--- !u!114 &728579509899981791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881160532758325743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53225741fa1374744a3334286005bac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_toParent: {fileID: 1179462217863756884}
 --- !u!1 &4283899536807294572
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +122,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4283899536807294572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5642693, y: 12.449803, z: 0}
+  m_LocalPosition: {x: 0.5445107, y: 12.449801, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -122,7 +136,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4283899536807294572}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -325,6 +339,7 @@ GameObject:
   - component: {fileID: 4283899538521273879}
   - component: {fileID: 4283899538521273882}
   - component: {fileID: 3957209092607491899}
+  - component: {fileID: 1797693800185391895}
   m_Layer: 11
   m_Name: MonolithWall
   m_TagString: Untagged
@@ -363,16 +378,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_poolableItemData: {fileID: 11400000, guid: 581434c072e3f454fa9798e950ae9314, type: 2}
   m_animation: {fileID: 3957209092607491899}
+  m_spineEventListener: {fileID: 1797693800185391895}
   m_skeletonAnimation: {fileID: 41510594679977029}
-  m_emergeAnimation: Emerge
-  m_waitForInputAnimation: WaitforInput
-  m_attackAnimation: Attack
-  m_retractAnimation: Retract
+  m_emergeAnimation: Emerge_new2
+  m_waitForInputAnimation: WaitforInput_update
+  m_retractAnimation: retract
   m_wallSensor: {fileID: 4283899537132965560}
   m_floorSensor: {fileID: 4283899537295341746}
-  m_floorSlamCollider: {fileID: 4283899536807294572}
-  m_wallSlamCollider: {fileID: 4283899538884919049}
-  m_wallCollider: {fileID: 0}
+  m_floorSlamCollider: {fileID: 4283899536807294568}
+  m_wallSlamCollider: {fileID: 4283899538884919047}
+  m_wallCollider: {fileID: 1078687143684678846}
+  m_wallBreakOn: wall break
+  m_wallBreakOff: WallBreakOff
+  m_wallStickOn: WallStickOn
+  m_wallStickOff: WallStickOff
+  m_floorSmashOn: FloorSlamOn
+  m_floorSmashOff: FloorSlamOff
 --- !u!114 &3957209092607491899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,6 +408,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_animationTracks: []
   m_skeletonAnimation: {fileID: 41510594679977029}
+--- !u!114 &1797693800185391895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283899538521273883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd8599297ea1c84ba2f23b8f6c74e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 41510594679977029}
 --- !u!1 &4283899538850232655
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,7 +503,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4283899538884919049}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5642693, y: 12.449803, z: 0}
+  m_LocalPosition: {x: 0.5445107, y: 12.449801, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -483,13 +517,13 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4283899538884919049}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 7.98, y: 0.18179321}
+  m_Offset: {x: 0.996994, y: -4.74897}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -500,7 +534,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 13.9887705, y: 32.391754}
+  m_Size: {x: 21.144867, y: 42.25328}
   m_EdgeRadius: 0
 --- !u!114 &4283899538884919045
 MonoBehaviour:
@@ -574,7 +608,6 @@ GameObject:
   - component: {fileID: 4961635264462662681}
   - component: {fileID: 6742501379907068460}
   - component: {fileID: 41510594679977029}
-  - component: {fileID: 4013247704960340108}
   m_Layer: 11
   m_Name: Model
   m_TagString: Untagged
@@ -628,7 +661,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e03c4767647cb754cb1f535041f9c124, type: 2}
+  - {fileID: 2100000, guid: e25dfdef43ae58348830a88bc9ca55ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -662,7 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 9c689b7024be1e342a6a288fcea13236, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: e78918fbf58686e41907fdf7a3caf550, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -687,50 +720,3 @@ MonoBehaviour:
   loop: 0
   timeScale: 1
   m_alwaysUpdateMesh: 1
---- !u!114 &4013247704960340108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6253671908393012715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90293750f472d3340b452cec6fea2606, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  events:
-  - spineEvent: impactGroundFX
-    unityHandler:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4283899538521273882}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Characters.Enemies.SlidingStoneWall,
-            Assembly-CSharp
-          m_MethodName: GroundSmashEffect
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - spineEvent: DestroyFX
-    unityHandler:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4283899538521273882}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Characters.Enemies.SlidingStoneWall,
-            Assembly-CSharp
-          m_MethodName: WallSlamEffect
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2

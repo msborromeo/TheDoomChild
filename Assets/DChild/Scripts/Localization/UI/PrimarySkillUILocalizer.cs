@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using I2.Loc;
 using DChild.Gameplay.UI.PrimarySkills;
+using DChild.Gameplay.Characters.Players;
 
 namespace DChild.Localization
 {
@@ -31,11 +32,11 @@ namespace DChild.Localization
             m_Injector.localizePrimarySkill -= onUpdate;
         }
 
-        private void onUpdate(PrimarySkillSelectable soulSkill)
+        private void onUpdate(PrimarySkillData soulSkill)
         {
-            m_localizeDescriptionLabel.SetTerm(LocalizationUtility.GetTermKey(soulSkill.reference,LocalizationUtility.PrimarySkillField.Description));
-            m_localizeControlLabel.SetTerm(LocalizationUtility.GetTermKey(soulSkill.reference, LocalizationUtility.PrimarySkillField.Instruction));
-            m_localizeSkillNameLabel.SetTerm(LocalizationUtility.GetTermKey(soulSkill.reference, LocalizationUtility.PrimarySkillField.Name));
+            m_localizeDescriptionLabel.SetTerm(LocalizationUtility.GetTermKey(soulSkill,LocalizationUtility.PrimarySkillField.Description));
+            m_localizeControlLabel.SetTerm(LocalizationUtility.GetTermKey(soulSkill, LocalizationUtility.PrimarySkillField.Instruction));
+            m_localizeSkillNameLabel.SetTerm(LocalizationUtility.GetTermKey(soulSkill, LocalizationUtility.PrimarySkillField.Name));
         }
     }
 }

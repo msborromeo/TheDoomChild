@@ -1,22 +1,13 @@
-﻿using DChild.Gameplay;
-using DChild.Gameplay.Characters;
+﻿using DChild.Gameplay.Characters.AI;
 using DChild.Gameplay.Combat;
+using DChild.Gameplay.Pooling;
+using DChild.Gameplay.Projectiles;
 using Holysoft.Event;
-using DChild.Gameplay.Characters.AI;
-using UnityEngine;
-using Spine;
-using Spine.Unity;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-using DChild;
-using DChild.Gameplay.Characters.Enemies;
-using Spine.Unity.Modules;
-using Spine.Unity.Examples;
-using DChild.Gameplay.Pooling;
-using UnityEngine.Playables;
-using DChild.Temp;
-using System;
+using System.Linq;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace DChild.Gameplay.Characters.Enemies
@@ -32,6 +23,9 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField]
             private PhaseInfo<Phase> m_phaseInfo;
             public PhaseInfo<Phase> phaseInfo => m_phaseInfo;
+            [SerializeField]
+            private PhaseInfo<Phase> m_phaseInfo_2;
+            public PhaseInfo<Phase> phaseInfo_2 => m_phaseInfo_2;
 
             [SerializeField]
             private MovementInfo m_moveSideways = new MovementInfo();
@@ -233,6 +227,10 @@ namespace DChild.Gameplay.Characters.Enemies
             private string m_animationAnimation;
             public string animationAnimation => m_animationAnimation;
 
+
+            [SerializeField, BoxGroup("Projectile")]
+            private ProjectileInfo m_sphereBomb;
+            public ProjectileInfo sphereBomb =>  m_sphereBomb;
             #endregion
 
             public override void Initialize()
@@ -328,7 +326,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
             //TentacleGroundStab2
             TentacleStab1AndCeilingPhase3,
-            //ChasingGroundBlast,
+            ChasingGroundBlastPhaseTree,
             //TentacleBlast2,
             MonolithSlamPhase3,
             //MouthBlast2
@@ -370,12 +368,36 @@ namespace DChild.Gameplay.Characters.Enemies
 
         [SerializeField, TabGroup("Reference")]
         private Boss m_boss;
+        [SerializeField, TabGroup("Sphere Bombs")]
+        private Transform[] m_projectilePoint;
         [SerializeField, TabGroup("Reference")]
         private Hitbox m_hitbox;
         [SerializeField, TabGroup("Reference")]
         private GameObject m_model;
         [SerializeField, TabGroup("Reference")]
         private ObstacleChecker m_obstacleChecker;
+        [SerializeField, TabGroup("Reference")]
+        private GameObject m_theOneHitbox;
+        [SerializeField, TabGroup("Eye")]
+        private Vector2 m_eyeCenter;
+        [SerializeField, TabGroup("Eye")]
+        private float m_maxDistance;
+        [SerializeField, TabGroup("Eye")]
+        private Transform m_eyeTheOne;
+        [SerializeField, TabGroup("Eye")]
+        private GameObject m_eyeSquint;
+        [SerializeField, TabGroup("Eye")]
+        private GameObject m_eyeExhausted;
+        [SerializeField, TabGroup("Eye")]
+        private GameObject m_eyeOpen;
+        [SerializeField, TabGroup("Eye")]
+        private float m_eyeTimerToOpenFromSquint;
+        [SerializeField, ReadOnly, TabGroup("Eye")]
+        private int m_hitCounter;
+        [ReadOnly, SerializeField, TabGroup("Eye")]
+        private float m_storeMaxDistance;
+        [TabGroup("Sphere Bombs")]
+        public List<Projectile> m_sphereBombList;
         [SerializeField]
         private SpineEventListener m_spineListener;
 
@@ -383,6 +405,9 @@ namespace DChild.Gameplay.Characters.Enemies
         private StateHandle<State> m_stateHandle;
         [ShowInInspector]
         private PhaseHandle<Phase, PhaseInfo> m_phaseHandle;
+
+        public PhaseHandle<Phase, PhaseInfo> phaseHandle => m_phaseHandle;
+
         [ShowInInspector]
         private RandomAttackDecider<Attack> m_attackDecider;
         private Attack m_currentAttack;
@@ -398,6 +423,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Vector2 m_lastTargetPos;
         private float m_currentCooldown;
         private float m_pickedCooldown;
+       
+
 
         #region Behavior Coroutines
         private Coroutine m_changePhaseCoroutine;
@@ -416,61 +443,62 @@ namespace DChild.Gameplay.Characters.Enemies
         public event EventAction<EventActionArgs> ObstaclesCleared;
 
         [SerializeField]
-        private bool m_removeTentacleBlastOneAttack;
+        private bool m_removeTentacleBlastAttacks;
+
+        private ProjectileLauncher m_projectileLauncher;
         private void UpdateAttackDeciderListTentacleBlast()
         {
             Debug.Log("decider list two");
-          
-            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab1, m_info.phase1Pattern1Range),
-                                    new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range));
-            //switch (m_phaseHandle.currentPhase)
-            //{
-            //    case Phase.PhaseOne:
-            //        m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab1, m_info.phase1Pattern1Range),
-            //                                new AttackInfo<Attack>(Attack.TentacleGroundStab2,m_info.phase1Pattern1Range),
-            //                                new AttackInfo<Attack>(Attack.TentacleBlast1,m_info.phase1Pattern1Range),
-            //                                new AttackInfo<Attack>(Attack.MonolithSlamPhase1,m_info.phase1Pattern1Range),
-            //                                new AttackInfo<Attack>(Attack.BubbleImprisonment,m_info.phase1Pattern1Range));    
-            //        break;
-            //case Phase.PhaseTwo:
-            //    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.TentacleGroundStab1AndCeiling, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.ChasingGroundBlast, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.TentacleBlast2, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.MonolithSlamPhase2, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.MouthBlast2, m_info.phase1Pattern1Range));
-            //        break;
-            //    case Phase.PhaseThree:
-            //        m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range),
-            //                             new AttackInfo<Attack>(Attack.TentacleStab1AndCeilingPhase3, m_info.phase1Pattern1Range),
-            //                             new AttackInfo<Attack>(Attack.ChasingGroundBlast, m_info.phase1Pattern1Range),
-            //                             new AttackInfo<Attack>(Attack.TentacleBlast2, m_info.phase1Pattern1Range),
-            //                             new AttackInfo<Attack>(Attack.MonolithSlamPhase3, m_info.phase1Pattern1Range),
-            //                             new AttackInfo<Attack>(Attack.MouthBlast2, m_info.phase1Pattern1Range),
-            //                             new AttackInfo<Attack>(Attack.GrabberSwipeAndWallSlam, m_info.phase1Pattern1Range),
-            //                             new AttackInfo<Attack>(Attack.SlidingStoneWall, m_info.phase1Pattern1Range));
-            //        break;
-            //    case Phase.PhaseFour:
-            //        m_attackDecider.SetList(new AttackInfo<Attack>(Attack.ChasingGroundBlastAndMouthBlast2, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.TentacleBlast2, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.MouthBlastCeiling1, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.SphereBomb1, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.MonolithSlamPhase3, m_info.phase1Pattern1Range),          
-            //                            new AttackInfo<Attack>(Attack.BubbleImprisonment, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.SlidingStoneWall, m_info.phase1Pattern1Range));
-            //        break;
-            //    case Phase.PhaseFive:
-            //        m_attackDecider.SetList(new AttackInfo<Attack>(Attack.ChasingGroundBlastMouthBlast2AndMouthBlast1, m_info.phase1Pattern1Range),
-            //                           new AttackInfo<Attack>(Attack.MouthBlastCeiling1, m_info.phase1Pattern1Range),
-            //                           new AttackInfo<Attack>(Attack.MouthBlast1And2, m_info.phase1Pattern1Range),
-            //                           new AttackInfo<Attack>(Attack.SphereBomb1, m_info.phase1Pattern1Range),
-            //                           new AttackInfo<Attack>(Attack.SphereBomb2, m_info.phase1Pattern1Range),
-            //                           new AttackInfo<Attack>(Attack.GrabberSwipeAndWallSlam, m_info.phase1Pattern1Range),
-            //                           new AttackInfo<Attack>(Attack.BubbleImprisonment, m_info.phase1Pattern1Range));
-            //        break;
-            //}
-            m_attackDecider.hasDecidedOnAttack = false;
-            m_removeTentacleBlastOneAttack = false;
+            //m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab1, m_info.phase1Pattern1Range),
+            //                        new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range));
+            switch (m_phaseHandle.currentPhase)
+            {
+                case Phase.PhaseOne:
+                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab1, m_info.phase1Pattern1Range),
+                                            new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range),
+                                            // new AttackInfo<Attack>(Attack.TentacleBlast1,m_info.phase1Pattern1Range),
+                                            new AttackInfo<Attack>(Attack.MonolithSlamPhase1, m_info.phase1Pattern1Range),
+                                            new AttackInfo<Attack>(Attack.BubbleImprisonment, m_info.phase1Pattern1Range));
+                    break;
+                case Phase.PhaseTwo:
+                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range),
+                                            new AttackInfo<Attack>(Attack.TentacleGroundStab1AndCeiling, m_info.phase1Pattern1Range),
+                                            new AttackInfo<Attack>(Attack.ChasingGroundBlast, m_info.phase1Pattern1Range),
+                                            //new AttackInfo<Attack>(Attack.TentacleBlast2, m_info.phase1Pattern1Range),
+                                            new AttackInfo<Attack>(Attack.MonolithSlamPhase2, m_info.phase1Pattern1Range),
+                                            new AttackInfo<Attack>(Attack.MouthBlast2, m_info.phase1Pattern1Range));
+                    break;
+                case Phase.PhaseThree:
+                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range),
+                                         new AttackInfo<Attack>(Attack.TentacleStab1AndCeilingPhase3, m_info.phase1Pattern1Range),
+                                         new AttackInfo<Attack>(Attack.ChasingGroundBlastPhaseTree, m_info.phase1Pattern1Range),
+                                         new AttackInfo<Attack>(Attack.TentacleBlast2, m_info.phase1Pattern1Range),
+                                         new AttackInfo<Attack>(Attack.MonolithSlamPhase3, m_info.phase1Pattern1Range),
+                                         new AttackInfo<Attack>(Attack.MouthBlast2, m_info.phase1Pattern1Range),
+                                         new AttackInfo<Attack>(Attack.GrabberSwipeAndWallSlam, m_info.phase1Pattern1Range),
+                                         new AttackInfo<Attack>(Attack.SlidingStoneWall, m_info.phase1Pattern1Range));
+                    break;
+                case Phase.PhaseFour:
+                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.ChasingGroundBlastAndMouthBlast2, m_info.phase1Pattern1Range),
+                                        //new AttackInfo<Attack>(Attack.TentacleBlast2PhaseFour, m_info.phase1Pattern1Range),
+                                        new AttackInfo<Attack>(Attack.MouthBlastCeiling1, m_info.phase1Pattern1Range),
+                                        new AttackInfo<Attack>(Attack.SphereBomb1, m_info.phase1Pattern1Range),
+                                        new AttackInfo<Attack>(Attack.MonolithSlamPhase3, m_info.phase1Pattern1Range),
+                                        new AttackInfo<Attack>(Attack.BubbleImprisonment, m_info.phase1Pattern1Range),
+                                        new AttackInfo<Attack>(Attack.SlidingStoneWall, m_info.phase1Pattern1Range));
+                    break;
+                case Phase.PhaseFive:
+                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.ChasingGroundBlastMouthBlast2AndMouthBlast1, m_info.phase1Pattern1Range),
+                                       new AttackInfo<Attack>(Attack.MouthBlastCeiling1, m_info.phase1Pattern1Range),
+                                       new AttackInfo<Attack>(Attack.MouthBlast1And2, m_info.phase1Pattern1Range),
+                                       new AttackInfo<Attack>(Attack.SphereBomb1, m_info.phase1Pattern1Range),
+                                       new AttackInfo<Attack>(Attack.SphereBomb2, m_info.phase1Pattern1Range),
+                                       new AttackInfo<Attack>(Attack.GrabberSwipeAndWallSlam, m_info.phase1Pattern1Range),
+                                       new AttackInfo<Attack>(Attack.BubbleImprisonment, m_info.phase1Pattern1Range));
+                    break;
+            }
+           // m_attackDecider.hasDecidedOnAttack = false;
+            m_removeTentacleBlastAttacks = false;
         }
         private void UpdateAttackDeciderList()
         {
@@ -519,24 +547,24 @@ namespace DChild.Gameplay.Characters.Enemies
                                     , new AttackInfo<Attack>(Attack.Phase5Pattern10, m_info.phase5Pattern10Range)
                                     , new AttackInfo<Attack>(Attack.Phase5Pattern11, m_info.phase5Pattern11Range));*/
             #endregion
-            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab1AndCeiling, m_info.phase1Pattern1Range)
-                                    /*new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range)*/);
+            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.SphereBomb2, m_info.phase1Pattern1Range));
+            /*new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range));*/
             //switch (m_phaseHandle.currentPhase)
             //{
             //    case Phase.PhaseOne:
             //        m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab1, m_info.phase1Pattern1Range),
-            //                                new AttackInfo<Attack>(Attack.TentacleGroundStab2,m_info.phase1Pattern1Range),
-            //                                //remove this shit new AttackInfo<Attack>(Attack.TentacleBlast1,m_info.phase1Pattern1Range),
-            //                                new AttackInfo<Attack>(Attack.MonolithSlamPhase1,m_info.phase1Pattern1Range),
-            //                                new AttackInfo<Attack>(Attack.BubbleImprisonment,m_info.phase1Pattern1Range));    
+            //                                new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range),
+            //                                new AttackInfo<Attack>(Attack.TentacleBlast1,m_info.phase1Pattern1Range),
+            //                                new AttackInfo<Attack>(Attack.MonolithSlamPhase1, m_info.phase1Pattern1Range),
+            //                                new AttackInfo<Attack>(Attack.BubbleImprisonment, m_info.phase1Pattern1Range));
             //        break;
-            //case Phase.PhaseTwo:
-            //    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.TentacleGroundStab1AndCeiling, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.ChasingGroundBlast, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.TentacleBlast2, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.MonolithSlamPhase2, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.MouthBlast2, m_info.phase1Pattern1Range));
+            //    case Phase.PhaseTwo:
+            //        m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range),
+            //                                new AttackInfo<Attack>(Attack.TentacleGroundStab1AndCeiling, m_info.phase1Pattern1Range),
+            //                                new AttackInfo<Attack>(Attack.ChasingGroundBlast, m_info.phase1Pattern1Range),
+            //                                new AttackInfo<Attack>(Attack.TentacleBlast2, m_info.phase1Pattern1Range),
+            //                                new AttackInfo<Attack>(Attack.MonolithSlamPhase2, m_info.phase1Pattern1Range),
+            //                                new AttackInfo<Attack>(Attack.MouthBlast2, m_info.phase1Pattern1Range));
             //        break;
             //    case Phase.PhaseThree:
             //        m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range),
@@ -553,7 +581,7 @@ namespace DChild.Gameplay.Characters.Enemies
             //                            new AttackInfo<Attack>(Attack.TentacleBlast2, m_info.phase1Pattern1Range),
             //                            new AttackInfo<Attack>(Attack.MouthBlastCeiling1, m_info.phase1Pattern1Range),
             //                            new AttackInfo<Attack>(Attack.SphereBomb1, m_info.phase1Pattern1Range),
-            //                            new AttackInfo<Attack>(Attack.MonolithSlamPhase3, m_info.phase1Pattern1Range),          
+            //                            new AttackInfo<Attack>(Attack.MonolithSlamPhase3, m_info.phase1Pattern1Range),
             //                            new AttackInfo<Attack>(Attack.BubbleImprisonment, m_info.phase1Pattern1Range),
             //                            new AttackInfo<Attack>(Attack.SlidingStoneWall, m_info.phase1Pattern1Range));
             //        break;
@@ -567,19 +595,27 @@ namespace DChild.Gameplay.Characters.Enemies
             //                           new AttackInfo<Attack>(Attack.BubbleImprisonment, m_info.phase1Pattern1Range));
             //        break;
             //}
-            m_attackDecider.hasDecidedOnAttack = false;
+            //m_attackDecider.hasDecidedOnAttack = false;
         }
 
         private IEnumerator IntroRoutine()
         {
-            m_stateHandle.Wait(State.Chasing);
-            //m_movement.Stop();
-            //m_hitbox.Disable();
-            //m_animation.animationState.TimeScale = 1;
-            //m_animation.EnableRootMotion(true, false);
+            m_stateHandle.Wait(State.Attacking);
+            m_hitbox.Disable();
+            //add cinematics
+            m_animation.SetAnimation(0, m_info.eyeShakeAnimation, true);
+            yield return new WaitForSeconds(5f);
+            var ramdomAttack = RandomShit(1, 3);
+            if (ramdomAttack == 1)
+            {
+                m_attackDecider.DecideOnAttack(Attack.TentacleGroundStab1);
+            }
+            else
+            {
+                m_attackDecider.DecideOnAttack(Attack.TentacleGroundStab2);
+            }
             m_hitbox.Enable();
             m_stateHandle.ApplyQueuedState();
-            yield return null;
         }
 
         #region UnusedShit
@@ -764,12 +800,23 @@ namespace DChild.Gameplay.Characters.Enemies
 
         protected override void Awake()
         {
-            base.Awake();
+
+
+            #region PossibleNeededCode
+            //for (int i = 0; i < m_projectilePoint.Length; i++)
+            //{
+            //    m_projectileLauncher = new ProjectileLauncher(m_info.sphereBomb.projectileInfo, m_projectilePoint[i]);
+            //}
             //m_damageable.DamageTaken += OnDamageTaken;
             //m_damageable.DamageTaken += OnDamageBlocked;
             //m_patternDecider = new RandomAttackDecider<Pattern>();
+            #endregion
+            base.Awake();
+            m_storeMaxDistance = m_maxDistance;
+            m_damageable.DamageTaken += M_damageable_DamageTaken;
             m_attackDecider = new RandomAttackDecider<Attack>();
             m_stateHandle = new StateHandle<State>(State.Idle, State.WaitBehaviourEnd);
+            m_sphereBombList = new List<Projectile>();
             UpdateAttackDeciderList();
 
             #region Caches
@@ -865,7 +912,6 @@ namespace DChild.Gameplay.Characters.Enemies
             //m_theOneThirdFormAttacks.AttackStart += OnAttackStart;
             m_theOneThirdFormAttacks.AttackDone += OnAttackDone;
             AttackDone += OnAttackDone;
-
             ObstaclesAdded += OnObstaclesAdded;
             ObstaclesCleared += OnObstaclesEmptied;
             m_obstacleChecker.ObstacleAdded += OnObstaclesAdded;
@@ -876,6 +922,22 @@ namespace DChild.Gameplay.Characters.Enemies
             //m_areMonolithsSpawned = FindObjectOfType<ObstacleChecker>().isMonolithSlamObstaclePresent;
             m_areTentacleWallsPresent = FindObjectOfType<ObstacleChecker>().isWallTentaclesPresent;
             m_isBlackBloodFloodPresent = FindObjectOfType<ObstacleChecker>().isFloodingBlackBlood;
+        }
+       
+        private void M_damageable_DamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
+        {
+       
+            Debug.Log("Damage by Player boss?");
+            m_hitCounter += 1;
+            if(m_hitCounter >= 15)
+            {
+                m_theOneHitbox.SetActive(false);
+                m_damageable.DamageTaken -= M_damageable_DamageTaken;
+                m_maxDistance = 5f;
+                m_eyeSquint.SetActive(true);
+                m_eyeOpen.SetActive(false);
+                Invoke("EyeStateController", m_eyeTimerToOpenFromSquint);
+            }
         }
 
         private void OnMonolithEmptied(object sender, EventActionArgs eventArgs)
@@ -903,6 +965,11 @@ namespace DChild.Gameplay.Characters.Enemies
             //base.Start();
 
             //m_animation.DisableRootMotion();
+            if (m_eyeTheOne != null)
+            {
+                // Set the initial center position of the eye
+                m_eyeCenter = m_eyeTheOne.position;
+            }
             m_phaseHandle = new PhaseHandle<Phase, PhaseInfo>();
             m_phaseHandle.Initialize(Phase.PhaseOne, m_info.phaseInfo, m_character, ChangeState, ApplyPhaseData);
             m_phaseHandle.ApplyChange();
@@ -957,7 +1024,7 @@ namespace DChild.Gameplay.Characters.Enemies
             if (damageable != null)
             {
                 base.SetTarget(damageable, m_target);
-                m_stateHandle.OverrideState(State.Intro);
+                m_stateHandle.OverrideState(State.Attacking);
                 //GameEventMessage.SendEvent("Boss Encounter");
             }
         }
@@ -966,7 +1033,8 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             //StopCurrentAttackRoutine();
             //SetAIToPhasing();
-            StartCoroutine(SmartChangePhaseRoutine());
+            Debug.Log("Change phase");
+            m_stateHandle.SetState(State.Phasing);
         }
 
         private void ApplyPhaseData(PhaseInfo obj)
@@ -1031,36 +1099,100 @@ namespace DChild.Gameplay.Characters.Enemies
             }
         }
 
-
-        private IEnumerator SmartChangePhaseRoutine()
-        {
-            yield return new WaitWhile(() => !m_phaseHandle.allowPhaseChange);
-            //StopCurrentBehaviorRoutine();
-            //StopComboCounts();
-            //ResetCounterCounts();
-            SetAIToPhasing();
-            yield return null;
-        }
-
         private IEnumerator ChangePhaseRoutine()
         {
-            enabled = false;
-            m_stateHandle.Wait(State.Chasing);
-            if (IsFacingTarget())
-                CustomTurn();
-
+            m_stateHandle.Wait(State.Attacking);
             m_hitbox.Disable();
-            m_animation.EnableRootMotion(true, false);
-            m_animation.SetAnimation(0, m_info.eyeClosedAnimation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.eyeClosedAnimation);
-            m_animation.SetAnimation(0, m_info.eyeShakeAnimation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.eyeShakeAnimation);
-            //m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            m_animation.SetAnimation(0, m_info.eyeClosedAnimation, true);
+            yield return new WaitForSeconds(2f);
+            m_animation.SetAnimation(0, m_info.eyeShakeAnimation, true);
+            yield return new WaitForSeconds(4f);
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            yield return  ExhaustedState();
+            switch (m_phaseHandle.currentPhase)
+            {
+                case Phase.PhaseTwo:
+                    m_damageable.health.SetMaxValue(17000);
+                    m_damageable.health.ResetValueToMax();
+                    var randomAttackPhaseTwo = RandomShit(1, 4);
+                    if (randomAttackPhaseTwo == 1)
+                    {
+                        m_attackDecider.DecideOnAttack(Attack.ChasingGroundBlast);
+                    }
+                    else if (randomAttackPhaseTwo == 2)
+                    {
+                        m_attackDecider.DecideOnAttack(Attack.TentacleBlast2);
+                    }
+                    else
+                    {
+                        m_attackDecider.DecideOnAttack(Attack.MouthBlast2);
+                    }
+                    Debug.Log("Done transitioning to phase two");
+                    break;
+                case Phase.PhaseThree:
+                    var randomAttackPhaseThre = RandomShit(1, 4);
+                    if (randomAttackPhaseThre == 1)
+                    {
+                        m_attackDecider.DecideOnAttack(Attack.ChasingGroundBlastPhaseTree);
+                    }
+                    else if (randomAttackPhaseThre == 2)
+                    {
+                        m_attackDecider.DecideOnAttack(Attack.TentacleBlast2);
+                    }
+                    else
+                    {
+                        m_attackDecider.DecideOnAttack(Attack.MouthBlast2);
+                    }
+                    Debug.Log("Done transitioning to phase three");
+                    break;
+                case Phase.PhaseFour:
+                    var randomAttackPhaseFour = RandomShit(1, 4);
+                    if (randomAttackPhaseFour == 1)
+                    {
+                        m_attackDecider.DecideOnAttack(Attack.ChasingGroundBlastAndMouthBlast2);
+                    }
+                    else if (randomAttackPhaseFour == 2)
+                    {
+                        m_attackDecider.DecideOnAttack(Attack.TentacleBlast2);
+                    }
+                    else
+                    {
+                        m_attackDecider.DecideOnAttack(Attack.MouthBlastCeiling1);
+                    }
+                    Debug.Log("Done transitioning to phase four");
+                    break;
+                case Phase.PhaseFive:
+                    var randomAttackPhaseFive= RandomShit(1, 4);
+                    if (randomAttackPhaseFive == 1)
+                    {
+                        m_attackDecider.DecideOnAttack(Attack.ChasingGroundBlastMouthBlast2AndMouthBlast1);
+                    }
+                    else if (randomAttackPhaseFive == 2)
+                    {
+                        m_attackDecider.DecideOnAttack(Attack.MouthBlastCeiling1);
+                    }
+                    else
+                    {
+                        m_attackDecider.DecideOnAttack(Attack.SphereBomb2);
+                    }
+                    Debug.Log("Done transitioning to phase five");
+                    break;
+            }
+            NormalStateEye();
             m_hitbox.Enable();
             m_hitbox.SetCanBlockDamageState(false);
-            m_changePhaseCoroutine = null;
-            yield return null;
-            enabled = true;
+            m_phaseHandle.ApplyChange();
+
+            //change hp
+            if(m_phaseHandle.currentPhase == Phase.PhaseTwo)
+            {
+                m_phaseHandle = new PhaseHandle<Phase, PhaseInfo>();
+                m_phaseHandle.Initialize(Phase.PhaseTwo, m_info.phaseInfo_2, m_character, ChangeState, ApplyPhaseData);
+                m_phaseHandle.ApplyChange();
+
+            }
+
+            m_stateHandle.ApplyQueuedState();
         }
 
         private IEnumerator TentacleGroundStabAttack1()
@@ -1092,7 +1224,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_phaseHandle.ApplyChange();
             m_animation.DisableRootMotion();
             m_animation.SetEmptyAnimation(0, 0);
-            m_stateHandle.OverrideState(State.Phasing);
+            m_stateHandle.SetState(State.Phasing);
         }
 
         #region MouthBlastOne Attack
@@ -1103,7 +1235,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.eyeMouthBlastAnticipationAnimation, true);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.eyeMouthBlastAnticipationAnimation);
 
-            StartCoroutine(m_theOneThirdFormAttacks.mouthBlastOneAttack.ExecuteAttack());
+            StartCoroutine(m_theOneThirdFormAttacks.MouthBlastOneCeiling()); 
 
             yield return SetPositionForMouthBlast();
         }
@@ -1204,14 +1336,10 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForSeconds(cooldown);
 
         }
-
+    
         private IEnumerator TentacleBlastOne(float cooldown)
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
-            if (!m_targetInfo.isCharacterGrounded)
-            {
-                yield return null;
-            }
             var obstaclePresent = m_obstacleChecker.monolithSlamObstacleList;
             // var monolithPlatformsPresent = FindObjectOfType<ObstacleChecker>().monolithSlamObstacleList;
             if(obstaclePresent.Count > 0)
@@ -1226,8 +1354,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
                 yield return m_theOneThirdFormAttacks.TentacleBlastOne(m_targetInfo);
                 yield return new WaitForSeconds(cooldown);
-           
-                m_removeTentacleBlastOneAttack = true;
+                m_removeTentacleBlastAttacks = true;
                 m_attackDecider.hasDecidedOnAttack = false;
                 m_stateHandle.ApplyQueuedState();
             }
@@ -1238,19 +1365,10 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
-            if (!m_targetInfo.isCharacterGrounded)
-            {
-                yield return null;
-            }
-
-            var monolithPlatformsPresent = FindObjectOfType<ObstacleChecker>().monolithSlamObstacleList;
-
-            if (monolithPlatformsPresent != null)
-            {
-                yield return null;
-            }
             yield return m_theOneThirdFormAttacks.TentacleBlastTwo();
+
             Debug.Log("skip part?");
+            m_removeTentacleBlastAttacks = true;
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
         }
@@ -1258,22 +1376,24 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
-            if (!m_targetInfo.isCharacterGrounded)
-            {
-                yield return null;
-            }
 
-            var monolithPlatformsPresent = FindObjectOfType<ObstacleChecker>().monolithSlamObstacleList;
+            var monolithPlatformsPresent = m_obstacleChecker.monolithSlamObstacleList.Count;
 
-            if (monolithPlatformsPresent != null)
+            if (monolithPlatformsPresent > 0)
             {
-                yield return null;
+                m_attackDecider.hasDecidedOnAttack = false;
+                m_stateHandle.ApplyQueuedState();
             }
-            yield return m_theOneThirdFormAttacks.TentacleBlastTwo();
-            yield return new WaitForSeconds(5f);
-            Debug.Log("skip part?");
-            m_attackDecider.hasDecidedOnAttack = false;
-            m_stateHandle.ApplyQueuedState();
+            else
+            {
+                yield return m_theOneThirdFormAttacks.TentacleBlastTwo();
+                yield return new WaitForSeconds(5f);
+                Debug.Log("skip part?");
+                m_removeTentacleBlastAttacks = true;
+                m_attackDecider.hasDecidedOnAttack = false;
+                m_stateHandle.ApplyQueuedState();
+
+            }
 
         }
         private IEnumerator TentacleBlastTwo(float cooldown)
@@ -1303,52 +1423,72 @@ namespace DChild.Gameplay.Characters.Enemies
 
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
-            var blackBloodFloodPresent = FindObjectOfType<ObstacleChecker>().isFloodingBlackBlood;
+            var blackBloodFloodPresent = m_obstacleChecker.isFloodingBlackBlood;
 
             if (blackBloodFloodPresent)
             {
-                yield return null;
+                m_attackDecider.hasDecidedOnAttack = false;
+                m_stateHandle.ApplyQueuedState();
+                yield break;
             }
-
-            for (int i = 0; i < 3; i++)
+            yield return m_theOneThirdFormAttacks.MonolithSlam();
+            yield return new WaitForSeconds(cooldown);
+            yield return m_theOneThirdFormAttacks.RemovalMonolithSlamPhaseOne();
+            yield return new WaitForSeconds(cooldown);
+            yield return m_theOneThirdFormAttacks.MonolithSlamPhaseTwo();
+            yield return new WaitForSeconds(3f);
+            yield return m_theOneThirdFormAttacks.RemovalMonolithSlamPhaseTwo();
+            yield return new WaitForSeconds(1f);
+            yield return m_theOneThirdFormAttacks.MonolithSlamPhaseTwo();
+            yield return new WaitForSeconds(3f);
+            yield return m_theOneThirdFormAttacks.RemovalMonolithSlamPhaseTwo();
+            yield return new WaitForSeconds(1f);
+            //for (int i = 0; i < 2; i++)
+            //{
+            //    //yield return m_theOneThirdFormAttacks.MonolithSlam(m_targetInfo);
+            //    yield return new WaitForSeconds(cooldown);
+            //}
+            var randomShit = RandomShit(0, 3);
+            if(randomShit == 0)
             {
-                //yield return m_theOneThirdFormAttacks.MonolithSlam(m_targetInfo);
-                yield return new WaitForSeconds(cooldown);
-            }
-            var randomShit = Random.Range(1, 2);
-            if (randomShit == 1)
-            {
-                //temporary ground stab 2
-                yield return ChasingGroundTentacle(3f);
+                yield return m_theOneThirdFormAttacks.SlidingStoneWallAttack(m_targetInfo);
             }
             else
             {
-                yield return SlidingWallAttack();
-                //sliding stone wall;
+                yield return m_theOneThirdFormAttacks.TentacleGroundStabTwo();
             }
-
-            yield return new WaitForSeconds(3f);
+           
             Debug.Log("monolith done");
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
         }
         private IEnumerator MonolithSlamPhase2Attack(float cooldown)
         {
+            //pattern 4-1 ni ssob 
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
-            var blackBloodFloodPresent = FindObjectOfType<ObstacleChecker>().isFloodingBlackBlood;
+            var blackBloodFloodPresent = m_obstacleChecker.isFloodingBlackBlood;
 
             if (blackBloodFloodPresent)
             {
-                yield return null;
+                m_attackDecider.hasDecidedOnAttack = false;
+                m_stateHandle.ApplyQueuedState();
+                yield break;
             }
-
-            for (int i = 0; i < 2; i++)
-            {
-                //yield return m_theOneThirdFormAttacks.MonolithSlam(m_targetInfo);
-                yield return new WaitForSeconds(cooldown);
-            }
-            yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
+            yield return m_theOneThirdFormAttacks.MonolithSlam();
+            yield return new WaitForSeconds(cooldown);
+            yield return m_theOneThirdFormAttacks.RemovalMonolithSlamPhaseOne();
+            yield return new WaitForSeconds(cooldown);
+            yield return m_theOneThirdFormAttacks.MonolithSlamPhaseTwo();
+            yield return new WaitForSeconds(5f);
+            yield return m_theOneThirdFormAttacks.RemovalMonolithSlamPhaseTwo();
+            yield return new WaitForSeconds(1f);
+            //for (int i = 0; i < 2; i++)
+            //{
+            //    //yield return m_theOneThirdFormAttacks.MonolithSlam(m_targetInfo);
+            //    yield return new WaitForSeconds(cooldown);
+            //}
+            yield return m_theOneThirdFormAttacks.TentacleGroundStabTwo();
             Debug.Log("monolith done");
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
@@ -1361,6 +1501,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
             if (blackBloodFloodPresent)
             {
+                m_attackDecider.hasDecidedOnAttack = false;
+                m_stateHandle.ApplyQueuedState();
                 yield break;
             }
 
@@ -1369,7 +1511,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return m_theOneThirdFormAttacks.RemovalMonolithSlamPhaseOne();
             yield return new WaitForSeconds(1f);
             yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(5f);
             Debug.Log("monolith done");
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
@@ -1396,9 +1538,9 @@ namespace DChild.Gameplay.Characters.Enemies
 
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
-            yield return MouthBlastWall(1f);
-            yield return MouthBlastOne(1f);
-            yield return null;
+            StartCoroutine(MouthBlastWall(1f));
+            yield return m_theOneThirdFormAttacks.MouthBlastOneCeiling();
+            yield return new WaitForSeconds(3f);    
         }
         private IEnumerator MouthBlastTwoWallAttack(float cooldown)
         {
@@ -1414,7 +1556,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator MouthBlastWall(float cooldown)
         {
-            var monolithPlatformsPresent = FindObjectOfType<ObstacleChecker>().monolithSlamObstacleList;
+            var monolithPlatformsPresent =  m_obstacleChecker.monolithSlamObstacleList;
 
             if (monolithPlatformsPresent != null)
                 yield return null;
@@ -1438,18 +1580,27 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
                 yield return new WaitForSeconds(1f);
             }
-            // temporary for ground stab 2
-            yield return ChasingGroundTentacle(3f);
+
+            yield return new WaitForSeconds(2f);
+            yield return m_theOneThirdFormAttacks.TentacleGroundStabTwo();
             yield return new WaitForSeconds(3f);
+            for (int i = 0; i < 2; i++)
+            {
+                yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
+                yield return new WaitForSeconds(1f);
+            }
+            yield return new WaitForSeconds(2f);
+            yield return m_theOneThirdFormAttacks.TentacleGroundStabTwo();
             Debug.Log("Done chasing ground tentakel");
+            yield return m_theOneThirdFormAttacks.TentacleCeilingAttackRetract();
             yield return MouthBlastWallCombo(3f);
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
         }
         private IEnumerator MouthBlastWallCombo(float cooldown)
         {
-            yield return MouthBlastWall(1f);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            yield return MouthBlastWall(1f);
             yield return new WaitForSeconds(cooldown);
             Debug.Log("Wall mouthblast done");
         }
@@ -1496,7 +1647,25 @@ namespace DChild.Gameplay.Characters.Enemies
             m_currentAttackCoroutine = null;
             m_stateHandle.ApplyQueuedState();
         }
-
+        private IEnumerator MouthBlastPosition()
+        {
+            yield return m_theOneThirdFormAttacks.MouthBlastOneCeiling();
+            yield return null;
+        }
+        private IEnumerator ChasingGroundBlastMouthBlast2AndMouthBlast1()
+        {
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            yield return m_theOneThirdFormAttacks.TentacleCeilingAttack();
+            yield return m_theOneThirdFormAttacks.ChasingGroundBlast();
+            yield return new WaitForSeconds(5f);
+            yield return m_theOneThirdFormAttacks.TentacleCeilingAttackRetract();
+            yield return m_theOneThirdFormAttacks.MouthBlastWall();
+            yield return m_theOneThirdFormAttacks.ChasingGroundBlast();
+            yield return new WaitForSeconds(5f);
+            yield return m_theOneThirdFormAttacks.MouthBlastOneCeiling();
+            m_attackDecider.hasDecidedOnAttack = false;
+            m_stateHandle.ApplyQueuedState();
+        }
         private IEnumerator ChasingGroundBlast(float cooldown)
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
@@ -1505,17 +1674,73 @@ namespace DChild.Gameplay.Characters.Enemies
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
         }
+        private IEnumerator ChasingGroundBlastPhaseThree(float cooldown)
+        {
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            var obstacleCheck = m_obstacleChecker.monolithSlamObstacleList.Count;
+            if (obstacleCheck > 0)
+            {
+                m_attackDecider.hasDecidedOnAttack = false;
+                m_stateHandle.ApplyQueuedState();
+            }
+            else
+            {
+                var choice = RandomShit(1, 3);
+                Debug.Log(choice);
+                StartCoroutine(m_theOneThirdFormAttacks.ChasingGroundBlast());
+                yield return m_theOneThirdFormAttacks.MouthBlastWall();
+                if(choice == 1)
+                {
+                    yield return m_theOneThirdFormAttacks.MouthBlastWall();
+                    yield return new WaitForSeconds(cooldown);
+                    m_attackDecider.hasDecidedOnAttack = false;
+                    m_stateHandle.ApplyQueuedState();
+                }
+                else
+                {
+                    m_attackDecider.hasDecidedOnAttack = false;
+                    m_stateHandle.ApplyQueuedState();
+                }
+                
+            }
+            
+            
+            
+        }
+        private IEnumerator ChasingGroundBlastWithMouthBlastTwo()
+        {
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            yield return m_theOneThirdFormAttacks.TentacleCeilingAttack();
+            yield return m_theOneThirdFormAttacks.ChasingGroundBlast();
+            yield return new WaitForSeconds(5f);
+            yield return m_theOneThirdFormAttacks.TentacleCeilingAttackRetract();
+            yield return MouthBlastWall(1f);
+            // yield return m_theOneThirdFormAttacks            
+            yield return new WaitForSeconds(5f);
+            var randomShit = RandomShit(0, 2);
+            if (randomShit == 0)
+            {
+                yield return MouthBlastWall(1f);
+            }
+            else
+            {
+                yield return m_theOneThirdFormAttacks.ChasingGroundBlast();
+            }
+            m_attackDecider.hasDecidedOnAttack = false;
+            m_stateHandle.ApplyQueuedState();
+        }
         private IEnumerator MouthblastOneAttack(float cooldown)
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             var randomShit = RandomShit(1, 3);
-            yield return MouthBlastOne(cooldown);
+            yield return m_theOneThirdFormAttacks.MouthBlastOneCeiling();
 
             if (randomShit == 1)
             {
                 // sphere bomb
-                Debug.Log("sphere bomb :D");
+                yield return m_theOneThirdFormAttacks.SphereBombOneAttack();
             }
             else
             {
@@ -1544,11 +1769,11 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         private IEnumerator SlidingWall(float cooldown)
         {
-            var blackBloodFloodPresent = FindObjectOfType<ObstacleChecker>().isFloodingBlackBlood;
+            var blackBloodFloodPresent = m_obstacleChecker.isFloodingBlackBlood;
 
             if (blackBloodFloodPresent)
             {
-                yield return null;
+                yield break;
             }
 
             yield return m_theOneThirdFormAttacks.SlidingStoneWallAttack(m_targetInfo);
@@ -1566,23 +1791,102 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.ApplyQueuedState();
 
         }
+       
+        private IEnumerator SphereBombTwoPhaseFive()
+        {
 
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            m_sphereBombList.Clear();
+            for (int i = 0; i < 2; i++)
+            {
+                Debug.Log(i + " number of re iteration");
+                yield return SphereBombSetSpawning();
+            }
+            
+            yield return new WaitForSeconds(3f);
+            m_attackDecider.hasDecidedOnAttack = false;
+            m_stateHandle.ApplyQueuedState();
+        }
+
+        private IEnumerator SphereBombSetSpawning()
+        {
+            for (int i = 0; i < m_projectilePoint.Length; i++)
+            {
+                var instance = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(m_info.sphereBomb.projectile);
+                instance.SpawnAt(new Vector2(m_projectilePoint[i].position.x, m_projectilePoint[i].position.y), Quaternion.identity);
+                m_sphereBombList.Add(instance);
+            }
+            yield return new WaitForSeconds(2f);
+            for (int i = 0; i < m_projectilePoint.Length; i++)
+            {
+                var projectile = m_sphereBombList[i];
+                projectile.GetComponent<ParticleSystem>().Play();
+            }
+            yield return new WaitForSeconds(3f);
+            List<Projectile> shuffledProjectiles = new List<Projectile>(m_sphereBombList);
+            shuffledProjectiles = shuffledProjectiles.OrderBy(x => Random.value).ToList();
+
+            for (int i = 0; i < shuffledProjectiles.Count; i++)
+            {
+                if (i >= shuffledProjectiles.Count) break; 
+                var projectile = shuffledProjectiles[i]; 
+                Vector2 launchPosition = projectile.transform.position;
+                Vector2 toTarget = (m_targetInfo.position - launchPosition).normalized;
+                projectile.Launch(toTarget, m_info.sphereBomb.speed);
+                projectile.GetComponent<Collider2D>().enabled = true;
+
+                yield return new WaitForSeconds(1f);
+            }
+            m_sphereBombList.Clear();
+        }
+
+        private IEnumerator SphereBombPhaseFour()
+        {
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            yield return m_theOneThirdFormAttacks.SphereBombOneAttack();
+            yield return new WaitForSeconds(3f);
+            m_attackDecider.hasDecidedOnAttack = false;
+            m_stateHandle.ApplyQueuedState();
+        }
+        private IEnumerator SphereBombOnePhaseFive()
+        {
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            var randomShit = 1f;
+            yield return m_theOneThirdFormAttacks.SphereBombOneAttack();
+            yield return new WaitForSeconds(2f);
+            if (randomShit == 1)
+            {
+                yield return ChasingGroundBlastWithMouthBlastTwo();
+            }
+            else
+            {
+                
+                m_attackDecider.hasDecidedOnAttack = false;
+                m_stateHandle.ApplyQueuedState();
+
+            }
+          
+        }
         private IEnumerator ScriptedTentacleGrab(float cooldown)
         {
-            if (!m_targetInfo.isCharacterGrounded)
-            {
-                yield return null;
-            }
+            //if (!m_targetInfo.isCharacterGrounded)
+            //{
+            //    yield return null;  
+            //}
 
             yield return m_theOneThirdFormAttacks.TentacleGrab();
             yield return new WaitForSeconds(cooldown);
             //Temporary
         }
+
         private IEnumerator BubbleImprisonmentAttackPhaseFour()
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
-            var randomAttack = RandomShit(1, 3);
+            var randomAttack = RandomShit(1, 2);
             yield return m_theOneThirdFormAttacks.BubbleImprisonment(m_targetInfo);
             yield return new WaitForSeconds(0.5f);
             if(randomAttack == 1)
@@ -1591,7 +1895,8 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             else
             {
-                Debug.Log("Chose random pattern");
+                m_attackDecider.hasDecidedOnAttack = false;
+                m_stateHandle.ApplyQueuedState();
             }
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
@@ -1627,106 +1932,149 @@ namespace DChild.Gameplay.Characters.Enemies
 
             return Random.Range(minValue, maxValue); // Range in Unity is [minValue, maxValue-1] for integers
         }
-
+      
+        private void EyeStateController()
+        {
+            m_theOneHitbox.SetActive(true);
+            m_eyeSquint.SetActive(false);
+            m_eyeOpen.SetActive(true);
+            m_damageable.DamageTaken += M_damageable_DamageTaken;
+            m_maxDistance = m_storeMaxDistance;
+            m_hitCounter = 0;
+        }
+        private void LeanDroSirEoOptical()
+        {
+            if (m_targetInfo == null || m_eyeTheOne == null) return;
+            Vector2 direction = (m_targetInfo.position - m_eyeCenter).normalized;
+            Vector2 targetPosition = m_eyeCenter + (direction * Mathf.Min(Vector2.Distance(m_targetInfo.position, m_eyeCenter), m_maxDistance));
+            m_eyeTheOne.position = Vector2.Lerp(m_eyeTheOne.position, targetPosition, Time.deltaTime * 10f);
+        }
         #endregion
 
         #region AttackButtons
-        [Button, FoldoutGroup("Trigger Attacks")]
-        [HideInEditorMode]
-        private void TriggerMouthBlastI()
-        {
-            StartCoroutine(FullMouthBlastOneSequence());
-        }
-
-        [Button, FoldoutGroup("Trigger Attacks")]
-        [HideInEditorMode]
-        private void TriggerTentacleGroundStab()
-        {
-            if (m_stateHandle.currentState == State.Attacking)
-            {
-                if (m_currentAttackCoroutine != null)
-                    StopCoroutine(m_currentAttackCoroutine);
-
-                m_currentAttackCoroutine = StartCoroutine(m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo));
-            }
-        }
-
-        [Button, FoldoutGroup("Trigger Attacks")]
-        [HideInEditorMode]
-        private void TriggerTentacleCeiling()
-        {
-            StartCoroutine(TentacleCeiling(3f));
-        }
-
-        [Button, FoldoutGroup("Trigger Attacks")]
-        [HideInEditorMode]
-        private void TriggerMovingTentacleGround()
-        {
-            StartCoroutine(MovingTentacleGround(3f));
-        }
-
-        [Button, FoldoutGroup("Trigger Attacks")]
-        [HideInEditorMode]
-        private void TriggerChasingGroundTentacle()
-        {
-            StartCoroutine(ChasingGroundTentacle(3f));
-            
-        }
+        //[Button, FoldoutGroup("Trigger Attacks")]
+        //[HideInEditorMode]
+        //private void TriggerMouthBlastI()
+        //{
+        //    StartCoroutine(FullMouthBlastOneSequence());
+        //}
 
         //[Button, FoldoutGroup("Trigger Attacks")]
         //[HideInEditorMode]
-        //private void TriggerMouthBlastWall()
+        //private void TriggerTentacleGroundStab()
         //{
-        //    StartCoroutine(MouthBlastWall(3f));
+        //    if (m_stateHandle.currentState == State.Attacking)
+        //    {
+        //        if (m_currentAttackCoroutine != null)
+        //            StopCoroutine(m_currentAttackCoroutine);
+
+        //        m_currentAttackCoroutine = StartCoroutine(m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo));
+        //    }
         //}
 
-        [Button, FoldoutGroup("Trigger Attacks")]
-        [HideInEditorMode]
-        private void TriggerSlidingWall()
-        {
-            StartCoroutine(SlidingWall(3f));
-        }
+        //[Button, FoldoutGroup("Trigger Attacks")]
+        //[HideInEditorMode]
+        //private void TriggerTentacleCeiling()
+        //{
+        //    StartCoroutine(TentacleCeiling(3f));
+        //}
 
-        [Button, FoldoutGroup("Trigger Attacks")]
-        [HideInEditorMode]
-        private void TriggerMonolithSlam()
-        {
-            StartCoroutine(MonolithSlam(3f));
-        }
+        //[Button, FoldoutGroup("Trigger Attacks")]
+        //[HideInEditorMode]
+        //private void TriggerMovingTentacleGround()
+        //{
+        //    StartCoroutine(MovingTentacleGround(3f));
+        //}
 
-        [Button, FoldoutGroup("Trigger Attacks")]
-        [HideInEditorMode]
-        private void TriggerTentacleBlastOne()
-        {
-            StartCoroutine(TentacleBlastOne(3f));
-        }
+        //[Button, FoldoutGroup("Trigger Attacks")]
+        //[HideInEditorMode]
+        //private void TriggerChasingGroundTentacle()
+        //{
+        //    StartCoroutine(ChasingGroundTentacle(3f));
 
-        [Button, FoldoutGroup("Trigger Attacks")]
-        [HideInEditorMode]
-        private void TriggerTentacleBlastTwo()
-        {
-            StartCoroutine(TentacleBlastTwo(3f));
-        }
+        //}
 
-        [Button, FoldoutGroup("Trigger Attacks")]
-        [HideInEditorMode]
-        private void TriggerScriptedGrab()
-        {
-            StartCoroutine(ScriptedTentacleGrab(3f));
-        }
+        ////[Button, FoldoutGroup("Trigger Attacks")]
+        ////[HideInEditorMode]
+        ////private void TriggerMouthBlastWall()
+        ////{
+        ////    StartCoroutine(MouthBlastWall(3f));
+        ////}
 
-        [Button, FoldoutGroup("Trigger Attacks")]
-        [HideInEditorMode]
-        private void TriggerBubbleImprisonment()
-        {
-            StartCoroutine(BubbleImprisonment(3f));
-        }
+        //[Button, FoldoutGroup("Trigger Attacks")]
+        //[HideInEditorMode]
+        //private void TriggerSlidingWall()
+        //{
+        //    StartCoroutine(SlidingWall(3f));
+        //}
+
+        //[Button, FoldoutGroup("Trigger Attacks")]
+        //[HideInEditorMode]
+        //private void TriggerMonolithSlam()
+        //{
+        //    StartCoroutine(MonolithSlam(3f));
+        //}
+
+        //[Button, FoldoutGroup("Trigger Attacks")]
+        //[HideInEditorMode]
+        //private void TriggerTentacleBlastOne()
+        //{
+        //    StartCoroutine(TentacleBlastOne(3f));
+        //}
+
+        //[Button, FoldoutGroup("Trigger Attacks")]
+        //[HideInEditorMode]
+        //private void TriggerTentacleBlastTwo()
+        //{
+        //    StartCoroutine(TentacleBlastTwo(3f));
+        //}
+
+        //[Button, FoldoutGroup("Trigger Attacks")]
+        //[HideInEditorMode]
+        //private void TriggerScriptedGrab()
+        //{
+        //    StartCoroutine(ScriptedTentacleGrab(3f));
+        //}
+
+        //[Button, FoldoutGroup("Trigger Attacks")]
+        //[HideInEditorMode]
+        //private void TriggerBubbleImprisonment()
+        //{
+        //    StartCoroutine(BubbleImprisonment(3f));
+        //}
         #endregion
+        
+       
+        private IEnumerator ExhaustedState()
+        {
+            ExhaustedStateEye();
+            Debug.Log("ExhaustedState");
+            yield return new WaitForSeconds(2f);
+        }
+
+        private void ExhaustedStateEye()
+        {
+            m_eyeSquint.SetActive(false);
+            m_eyeOpen.SetActive(false);
+            m_eyeExhausted.SetActive(true);
+        }
+        private void NormalStateEye()
+        {
+            m_eyeSquint.SetActive(false);
+            m_eyeOpen.SetActive(true);
+            m_eyeExhausted.SetActive(false);
+        }
+        private void SquintStateEye()
+        {
+            m_eyeSquint.SetActive(true);
+            m_eyeOpen.SetActive(false);
+            m_eyeExhausted.SetActive(true);
+        }
 
         void Update()
         {
             m_phaseHandle.MonitorPhase();
-
+            LeanDroSirEoOptical();
             switch (m_stateHandle.currentState)
             {
                 case State.Idle:
@@ -1736,17 +2084,17 @@ namespace DChild.Gameplay.Characters.Enemies
                     StartCoroutine(IntroRoutine());
                     break;
                 case State.Phasing:
-                    if (m_changePhaseCoroutine == null)
-                    {
-                        m_changePhaseCoroutine = StartCoroutine(ChangePhaseRoutine());
-                    }
+                    StopAllCoroutines();
+                    Debug.Log("State Changing Phase");
+                    StartCoroutine(ChangePhaseRoutine());
                     break;
                 case State.Attacking:
                     StopAllCoroutines();
                     m_stateHandle.Wait(State.ReevaluateSituation);
+                    NormalStateEye();
                     m_lastTargetPos = m_targetInfo.position;
                     m_animation.SetAnimation(0, m_info.eyeSquintAnimation, true);
-                    if(m_removeTentacleBlastOneAttack == true)
+                    if(m_removeTentacleBlastAttacks == true)
                     {
                         UpdateAttackDeciderListTentacleBlast();
                     }
@@ -1799,6 +2147,9 @@ namespace DChild.Gameplay.Characters.Enemies
                         case Attack.TentacleStab1AndCeilingPhase3:
                             StartCoroutine(TentacleGroundStabCeilingAttackPhase3());
                             break;
+                        case Attack.ChasingGroundBlastPhaseTree:
+                            StartCoroutine(ChasingGroundBlastPhaseThree(1));
+                            break;
                         case Attack.MonolithSlamPhase3:
                             StartCoroutine(MonolithSlamPhase3Attack(1f));
                             break;
@@ -1809,6 +2160,7 @@ namespace DChild.Gameplay.Characters.Enemies
                             StartCoroutine(SlidingWallAttack());
                             break;
                         case Attack.ChasingGroundBlastAndMouthBlast2:
+                            StartCoroutine(ChasingGroundBlastWithMouthBlastTwo());
                             break;
                         case Attack.TentacleBlast2PhaseFour:
                             StartCoroutine(TentacleBlastTwoPhase4());
@@ -1817,17 +2169,22 @@ namespace DChild.Gameplay.Characters.Enemies
                             StartCoroutine(MouthblastOneAttack(3f));
                             break;
                         case Attack.SphereBomb:
+                            StartCoroutine(SphereBombPhaseFour());
                             break;
                         case Attack.BubbleImprisonmentPhaseFour:
                             StartCoroutine(BubbleImprisonmentAttackPhaseFour());
                             break;
                         case Attack.ChasingGroundBlastMouthBlast2AndMouthBlast1:
+                            StartCoroutine(ChasingGroundBlastMouthBlast2AndMouthBlast1());
                             break;
                         case Attack.MouthBlast1And2:
+                            StartCoroutine(MouthBlastOneAndTwo());
                             break;
                         case Attack.SphereBomb1:
+                            StartCoroutine(SphereBombOnePhaseFive());
                             break;
                         case Attack.SphereBomb2:
+                            StartCoroutine(SphereBombTwoPhaseFive()); 
                             break;
                         case Attack.WaitAttackEnd:
                             break;
@@ -2160,23 +2517,16 @@ namespace DChild.Gameplay.Characters.Enemies
 
                     break;
 
+
+                #region gayniggas
                 //case State.Cooldown:
                 //    //m_animation.SetAnimation(0, m_idleAnimation, true).TimeScale = 1;
-
-                //    if (m_currentCooldown <= m_pickedCooldown)
-                //    {
-                //        m_currentCooldown += Time.deltaTime;
-                //    }
-                //    else
-                //    {
-                //        m_currentCooldown = 0;
-                //        m_attackDecider.hasDecidedOnAttack = false;
-                //        m_currentAttackCoroutine = null;
-                //        //m_stateHandle.OverrideState(State.ReevaluateSituation);
-                //        m_stateHandle.OverrideState(State.ReevaluateSituation);
-                //    }
+                //    StopAllCoroutines();
+                //    StartCoroutine(ExhaustedState());
 
                 //    break;
+                #endregion
+
 
                 case State.Chasing:
                     m_stateHandle.SetState(State.Attacking);

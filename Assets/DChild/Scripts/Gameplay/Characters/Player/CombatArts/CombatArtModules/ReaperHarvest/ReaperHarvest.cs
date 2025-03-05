@@ -119,17 +119,18 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 
             m_physics.velocity = Vector2.zero;
             m_reaperHarvestAnimation.gameObject.SetActive(true);
-            switch (m_currentState)
-            {
-                case ReaperHarvestState.Grounded:
-                    m_reaperHarvestAnimation.StartGrounded();
-                    break;
-                case ReaperHarvestState.Midair:
-                    m_cacheGravity = m_physics.gravityScale;
-                    m_physics.gravityScale = 0;
-                    m_reaperHarvestAnimation.StartMidair();
-                    break;
-            }
+            m_reaperHarvestAnimation.StartGrounded();
+            //switch (m_currentState)
+            //{
+            //    case ReaperHarvestState.Grounded:
+            //        m_reaperHarvestAnimation.StartGrounded();
+            //        break;
+            //    case ReaperHarvestState.Midair:
+            //        m_cacheGravity = m_physics.gravityScale;
+            //        m_physics.gravityScale = 0;
+            //        m_reaperHarvestAnimation.StartMidair();
+            //        break;
+            //}
         }
 
         public void EndExecution()

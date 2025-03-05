@@ -28,8 +28,7 @@ public class TentacleGrabAttack : MonoBehaviour, IEyeBossAttacks
     public IEnumerator ExecuteAttack()
     {
         //Make it so different types of grab attacks can happen later
-        tentacleGrab.GroundSlamAttack();
-        yield return null;
+        yield return tentacleGrab.GroundSlamRoutine();
     }
 
     public IEnumerator ExecuteAttack(Vector2 PlayerPosition)

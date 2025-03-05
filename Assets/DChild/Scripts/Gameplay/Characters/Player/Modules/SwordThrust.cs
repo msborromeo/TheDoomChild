@@ -84,6 +84,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_state.canAttack = true;
             }
 
+            m_state.waitForBehaviour = false;
             m_rigidBody.velocity = Vector2.zero;
             m_thrust.ShowCollider(false);
             m_state.isChargingAttack = false;
@@ -100,6 +101,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void Execute()
         {
+            m_state.isAttacking = true;
             if (m_state.isDoingSwordThrust == false)
             {
                 m_state.isChargingAttack = false;

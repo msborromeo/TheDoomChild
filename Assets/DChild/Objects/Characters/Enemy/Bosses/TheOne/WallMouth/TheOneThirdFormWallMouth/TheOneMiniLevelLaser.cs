@@ -36,6 +36,8 @@ public class TheOneMiniLevelLaser : MonoBehaviour
     private float m_idleLoopValue;
     [SerializeField]
     private float m_attackLoopValue;
+    [SerializeField]
+    private bool m_forCeilingBlastAttackDPagTandugaStephenTigAGid;
     private void Awake()
     {
         m_anim = GetComponent<Animator>();
@@ -230,7 +232,15 @@ public class TheOneMiniLevelLaser : MonoBehaviour
             {
                 yield return new WaitForSeconds(m_idleLoopValue);
                 m_anim.SetTrigger("WallMouthBlastAnticipation");
-                yield return new WaitForSeconds(m_attackLoopValue);
+                if (m_forCeilingBlastAttackDPagTandugaStephenTigAGid)
+                {
+                     yield return new WaitForSeconds(9f);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(m_attackLoopValue);
+                }
+                
                 m_anim.SetTrigger("TentacleBlastDissipation");
                 stop = true;
             }

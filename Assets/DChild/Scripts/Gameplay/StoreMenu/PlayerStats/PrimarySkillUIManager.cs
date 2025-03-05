@@ -2,6 +2,7 @@
 using UnityEngine;
 using DChild.Localization;
 using System;
+using DChild.Gameplay.Characters.Players;
 
 namespace DChild.Gameplay.UI.PrimarySkills
 {
@@ -16,7 +17,7 @@ namespace DChild.Gameplay.UI.PrimarySkills
         [SerializeField]
         private TextMeshProUGUI m_skillNameLabel;
 
-        public event Action<PrimarySkillSelectable> localizePrimarySkill;
+        public event Action<PrimarySkillData> localizePrimarySkill;
 
         public void UpdateSelectables()
         {
@@ -25,9 +26,9 @@ namespace DChild.Gameplay.UI.PrimarySkills
 
         public void Select(PrimarySkillSelectable selectable)
         {
-            if(localizePrimarySkill!=null)
+            if(localizePrimarySkill != null)
             {
-                localizePrimarySkill?.Invoke(selectable);
+                localizePrimarySkill?.Invoke(selectable.reference);
                 return;
             }
             m_descriptionLabel.text = selectable.reference.description;

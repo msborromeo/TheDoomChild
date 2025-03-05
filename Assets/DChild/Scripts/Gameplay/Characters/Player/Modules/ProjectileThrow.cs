@@ -343,7 +343,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void StartThrow()
         {
-            m_state.waitForBehaviour = true;
+            //commented out because simultaneously pressing crouch and projectile throw causes player to be
+            //stuck in wait for behaviour and unable to move despite crouch guard for projectile throw
+            //m_state.waitForBehaviour = true;
         }
 
         public bool HasReachedVerticalThreshold()

@@ -17,6 +17,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private IWallJumpState m_state;
         private Animator m_animator;
         private int m_animationParameter;
+        private int m_wallJumpParameter;
 
         public event EventAction<EventActionArgs> ExecuteModule;
 
@@ -27,6 +28,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state = info.state;
             m_animator = info.animator;
             m_animationParameter = info.animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.Jump);
+            m_wallJumpParameter = info.animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WallJump);
         }
 
         public void SetConfiguration(WallJumpStatsInfo info)
@@ -40,6 +42,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             velocity.x *= (float)m_character.facing;
             m_rigidbody.velocity = velocity;
             ExecuteModule?.Invoke(this, EventActionArgs.Empty);
+            m_animator.SetBool(m_wallJumpParameter, true);
 
             StartCoroutine(DisableInputRoutine());
         }
@@ -49,6 +52,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.waitForBehaviour = true;
             yield return new WaitForSeconds(m_configuration.disableInputDuration);
             m_state.waitForBehaviour = false;
+            m_animator.SetBool(m_wallJumpParameter, false);
         }
     }
 }

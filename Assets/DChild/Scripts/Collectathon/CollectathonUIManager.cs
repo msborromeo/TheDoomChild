@@ -11,10 +11,12 @@ using UnityEditor;
 using System.Linq;
 using System.Xml.Schema;
 using Holysoft.Collections;
+using DChild.Localization;
+using System;
 
 namespace DChild.UI
 {
-    public class CollectathonUIManager : MonoBehaviour
+    public class CollectathonUIManager : MonoBehaviour , ILocationLabelInjector
     {
         [SerializeField]
         private TextMeshProUGUI m_currentMapName;
@@ -29,6 +31,8 @@ namespace DChild.UI
 
         [SerializeField]
         private Location m_currentLocation;
+
+        public event Action<TextMeshProUGUI, Location> LocationLabelUpdated;
 
         public void SetCollectathonDetails(Location currentLocation)
         {
@@ -49,6 +53,8 @@ namespace DChild.UI
                 $" / {DialogueLua.GetVariable(CollecathonUtility.GenerateCurrentTotalVariableName(CollectathonTypes.SoulSkillChest, m_currentLocation)).AsInt}");
             m_soulShardCountText.SetText($"{DialogueLua.GetVariable(CollecathonUtility.GenerateCurrentCountVariableName(CollectathonTypes.ShardChest, m_currentLocation)).AsInt} /" +
                 $" {DialogueLua.GetVariable(CollecathonUtility.GenerateCurrentTotalVariableName(CollectathonTypes.ShardChest, m_currentLocation)).AsInt}");
+
+            LocationLabelUpdated?.Invoke(m_currentMapName,m_currentLocation);
         }
     }
 
