@@ -46,8 +46,9 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 
             for (int i = 0; i < labels.Length; i++)
             {
-                m_elevatorButtons[i].SetElevatorLevel(m_elevator, i);
-                m_elevatorButtons[i].Display(labels[i]);
+                var info = labels[i];
+                m_elevatorButtons[i].SetElevatorLevel(m_elevator, info.destinationIndex);
+                m_elevatorButtons[i].Display(info);
             }
 
             for (int i = levelCount; i < m_elevatorButtons.Count; i++)
