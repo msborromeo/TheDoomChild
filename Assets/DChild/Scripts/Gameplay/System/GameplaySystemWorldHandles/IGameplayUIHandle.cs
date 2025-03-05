@@ -5,6 +5,7 @@ using DChild.Gameplay.Environment;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
 using DChild.Menu.Trade;
+using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -53,5 +54,7 @@ namespace DChild.Gameplay.Systems
         void DeactivateHealthRegenEffect();
         void ActivateShadowRegenEffect();
         void DeactivateShadowRegenEffect();
+
+        void ShowMordenElevatorUI(ElevatorLocation location, ElevatorLevelInfo[] labels, MovingPlatform elevator);
     }
 }
