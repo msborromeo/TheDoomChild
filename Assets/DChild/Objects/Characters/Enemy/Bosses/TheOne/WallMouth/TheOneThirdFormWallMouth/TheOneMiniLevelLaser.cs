@@ -74,10 +74,12 @@ public class TheOneMiniLevelLaser : MonoBehaviour
     }
     [SerializeField, ShowIf("m_dynamicRay"), CustomValueDrawer("PenetrationPower")]
     private float m_penetrationPower;
+# if UNITY_EDITOR
     private static float PenetrationPower(float value, GUIContent label)
     {
         return EditorGUILayout.Slider(label, value, 1f, 10000f);
     }
+#endif
     private IEnumerator LaserLogic()
     {
         while (!stop)
