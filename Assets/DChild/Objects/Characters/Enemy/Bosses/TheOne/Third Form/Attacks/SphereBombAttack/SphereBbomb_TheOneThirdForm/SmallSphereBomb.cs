@@ -38,7 +38,7 @@ public class SmallSphereBomb : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 11)
+        if (collision.gameObject.layer == 11 || collision.CompareTag("Hitbox") && collision.gameObject.layer == 8)
         {
             Debug.Log("I will make the world kaboom");
             var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_spherebombFX, gameObject.scene);
