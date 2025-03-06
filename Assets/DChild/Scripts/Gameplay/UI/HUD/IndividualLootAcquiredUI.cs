@@ -1,11 +1,13 @@
-﻿using DChild.Gameplay.Items;
+﻿using System;
+using DChild.Gameplay.Items;
+using DChild.Localization;
 using TMPro;
 using UnityEngine;
 
 namespace DChild.Gameplay.UI
 {
 
-    public class IndividualLootAcquiredUI : MonoBehaviour
+    public class IndividualLootAcquiredUI : MonoBehaviour , IItemViewLocalizer
     {
         [SerializeField]
         private TextMeshProUGUI m_nameLabel;
@@ -13,6 +15,9 @@ namespace DChild.Gameplay.UI
         private TextMeshProUGUI m_countLabel;
 
         private Canvas m_canvas;
+
+        public event Action<ItemData> LocalizeItemView;
+
         //Assumin Soul Essence is the only loot without data
         public void SetDetails(ItemData item, int count)
         {
@@ -26,6 +31,7 @@ namespace DChild.Gameplay.UI
 
             }
             m_countLabel.text = $"+ {count}";
+            LocalizeItemView?.Invoke(item);
         }
 
         public void Show()
