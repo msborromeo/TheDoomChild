@@ -194,7 +194,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_idleWithCoverAnimation.SetData(m_skeletonDataAsset);
                 m_idleWithoutCoverAnimation.SetData(m_skeletonDataAsset);
                 m_rageQuakeAnimation.SetData(m_skeletonDataAsset);
-                m_slightDamageFlinchAnimation.SetData(m_skeletonDataAsset);
+                m_slightlyDamagedHeadAnimation.SetData(m_skeletonDataAsset);
                 m_mediumDamagedHeadAnimation.SetData(m_skeletonDataAsset);
                 m_heavyDamagedHeadAnimation.SetData(m_skeletonDataAsset);
                 #endregion
@@ -246,8 +246,6 @@ namespace DChild.Gameplay.Characters.Enemies
         private Hitbox m_hitbox;
         [SerializeField, TabGroup("Reference")]
         private Transform m_arenaCenter;
-        [SerializeField, TabGroup("Reference")]
-        private Attacker m_attacker;
 
         [SerializeField, TabGroup("Modules")]
         private DeathHandle m_deathHandle;
@@ -296,6 +294,11 @@ namespace DChild.Gameplay.Characters.Enemies
             UpdateAttackDeciderList();
         }
 
+        public override void ApplyData()
+        {
+            base.ApplyData();
+        }
+
         private void ChangeState()
         {
             StopAllCoroutines();
@@ -340,7 +343,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
             m_currentAttackDecider.hasDecidedOnAttack = false;
 
-            yield return FlinchRoutine();
+            m_animation.SetAnimation(0, m_info.lastHitDamageFlinchAnimation.animation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.lastHitDamageFlinchAnimation);
             m_animation.SetAnimation(0, m_info.rageQuakeAnimation.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.rageQuakeAnimation.animation);
 
@@ -356,8 +360,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator DefeatRoutine()
         {
-            m_animation.SetAnimation(0, m_info.deathAnimation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathAnimation);
+            m_animation.SetAnimation(0, m_info.deathAnimation.animation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathAnimation.animation);
             this.gameObject.SetActive(false);
         }
 
@@ -365,6 +369,17 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator PillarSmashRoutine()
         {
             m_stateHandle.Wait(State.Idle);
+
+            if (IsPlayerOnRightSide())
+            {
+                m_animation.SetAnimation(0, m_info.pillarSmashRightToLeftAttack.animation, false);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.pillarSmashRightToLeftAttack.animation);
+            }
+            else
+            {
+                m_animation.SetAnimation(0, m_info.pillarSmashLeftToRightAttack.animation, false);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.pillarSmashLeftToRightAttack.animation);
+            }
 
             m_currentAttackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
@@ -428,26 +443,26 @@ namespace DChild.Gameplay.Characters.Enemies
         private string GetCurrentFlinchAnimation()
         {
             var flinchAnim = m_info.noDamageFlinchAnimation.animation; ;
-            if (m_health.currentValue > m_health.currentValue * 0.85)
+            if (m_health.currentValue > m_health.maxValue * 0.85)
             {
                 flinchAnim = m_info.noDamageFlinchAnimation.animation;
             }
-            if ((m_health.currentValue < m_health.currentValue * 0.85) && (m_health.currentValue > m_health.currentValue * 0.7))
+            if ((m_health.currentValue < m_health.maxValue * 0.85) && (m_health.currentValue > m_health.maxValue * 0.7))
             {
                 flinchAnim = m_info.slightDamageFlinchAnimation.animation;
             }
 
-            if ((m_health.currentValue < m_health.currentValue * 0.7) && (m_health.currentValue > m_health.currentValue * 0.7))
+            if ((m_health.currentValue < m_health.maxValue * 0.7) && (m_health.currentValue > m_health.maxValue * 0.7))
             {
                 flinchAnim = m_info.mediumDamageFlinchAnimation.animation;
             }
 
-            if ((m_health.currentValue < m_health.currentValue * 0.65) && (m_health.currentValue > m_health.currentValue * 0.5))
+            if ((m_health.currentValue < m_health.maxValue * 0.65) && (m_health.currentValue > m_health.maxValue * 0.5))
             {
                 flinchAnim = m_info.heavyDamageFlinchAnimation.animation;
             }
 
-            if (m_health.currentValue < m_health.currentValue * 0.5)
+            if (m_health.currentValue < m_health.maxValue * 0.5)
             {
                 flinchAnim = m_info.noMaskFlinchAnimation.animation;
             }
@@ -456,44 +471,91 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void SetCurrentHead()
         {
-            if(m_health.currentValue > m_health.currentValue * 0.85)
+            if(m_health.currentValue > m_health.maxValue * 0.85)
             {
                 m_animation.SetEmptyAnimation(1, 0);
             }
-            if((m_health.currentValue < m_health.currentValue * 0.85) && (m_health.currentValue > m_health.currentValue * 0.7))
+            if((m_health.currentValue < m_health.maxValue * 0.85) && (m_health.currentValue > m_health.maxValue * 0.7))
             {
                 m_animation.SetAnimation(1, m_info.slightDamageFlinchAnimation.animation, true);
             }
 
-            if ((m_health.currentValue < m_health.currentValue * 0.7) && (m_health.currentValue > m_health.currentValue * 0.7))
+            if ((m_health.currentValue < m_health.maxValue * 0.7) && (m_health.currentValue > m_health.maxValue * 0.7))
             {
                 m_animation.SetAnimation(1, m_info.mediumDamagedHeadAnimation.animation, true);
             }
 
-            if ((m_health.currentValue < m_health.currentValue * 0.65) && (m_health.currentValue > m_health.currentValue * 0.5))
+            if ((m_health.currentValue < m_health.maxValue * 0.65) && (m_health.currentValue > m_health.maxValue * 0.5))
             {
                 m_animation.SetAnimation(1, m_info.heavyDamagedHeadAnimation.animation, true);
             }
 
-            if(m_health.currentValue < m_health.currentValue * 0.5)
+            if(m_health.currentValue < m_health.maxValue * 0.5)
             {
                 m_animation.SetEmptyAnimation(1, 0);
             }
+        }
+
+
+        private void OnDamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
+        {
+            StopAllCoroutines();
+            StartCoroutine(FlinchRoutine());
+        }
+
+        private bool IsPlayerOnRightSide()
+        {
+            if(m_targetInfo.position.x > m_arenaCenter.position.x)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void TurnOffPillarColliders()
+        {
+            m_leftPillarDamageCollider.enabled = false;
+            m_rightPillarDamageCollider.enabled = false;
+
+            m_leftPillarEnvironmentCollider.enabled = false;
+            m_rightPillarEnvironmentCollider.enabled = false;
+        }
+
+        public void TurnOnPillarDamageColliders()
+        {
+            m_leftPillarDamageCollider.enabled = true;
+            m_rightPillarDamageCollider.enabled = true;
+
+            m_leftPillarEnvironmentCollider.enabled = false;
+            m_rightPillarEnvironmentCollider.enabled = false;
+        }
+
+        public void TurnOnPillarEnvironmentCollider()
+        {
+            m_leftPillarDamageCollider.enabled = false;
+            m_rightPillarDamageCollider.enabled = false;
+
+            m_leftPillarEnvironmentCollider.enabled = true;
+            m_rightPillarEnvironmentCollider.enabled = true;
         }
 
         protected override void Awake()
         {
             base.Awake();
-
+            m_damageable.DamageTaken += OnDamageTaken;
             m_deathHandle.SetAnimation(m_info.deathAnimation.animation);
+            m_currentAttackDecider = new RandomAttackDecider<Attack>();
             m_stateHandle = new StateHandle<State>(State.Idle, State.WaitBehaviourEnd);
-            UpdateAttackDeciderList();
         }
 
         protected override void Start()
         {
             base.Start();
-            m_animation.DisableRootMotion();
+
+            TurnOffPillarColliders();
             m_phaseHandle = new PhaseHandle<Phase, PhaseInfo>();
             m_phaseHandle.Initialize(Phase.PhaseOne, m_info.phaseInfo, m_character, ChangeState, ApplyPhaseData);
             m_phaseHandle.ApplyChange();
@@ -507,13 +569,14 @@ namespace DChild.Gameplay.Characters.Enemies
            switch(m_stateHandle.currentState)
             {
                 case State.Idle:
-                    if (m_health.currentValue < m_health.currentValue * 0.5)
+                    //Note: Make sure the Model's initial animation is not <None> nor <Idle_1_without_cover> because it causes this to bug out for some reason
+                    if (m_phaseHandle.currentPhase == Phase.PhaseTwo)
                     {
-                        m_animation.SetAnimation(0, m_info.idleWithoutCoverAnimation, true);
+                        m_animation.SetAnimation(0, m_info.idleWithoutCoverAnimation.animation, true);
                     }
                     else
                     {
-                        m_animation.SetAnimation(0, m_info.idleWithCoverAnimation, true);
+                        m_animation.SetAnimation(0, m_info.idleWithCoverAnimation.animation, true);
                     }
                     break;
                 case State.Phasing:
@@ -539,6 +602,20 @@ namespace DChild.Gameplay.Characters.Enemies
                             break;
                     }
                     break;
+                case State.ReevaluateSituation:
+                    if (m_testingMode)
+                    {
+                        m_stateHandle.SetState(State.Idle);
+                        return;
+                    }
+                    else
+                    {
+
+                    }
+                    break;
+                case State.WaitBehaviourEnd:
+                    return;
+
             }
         }
 
