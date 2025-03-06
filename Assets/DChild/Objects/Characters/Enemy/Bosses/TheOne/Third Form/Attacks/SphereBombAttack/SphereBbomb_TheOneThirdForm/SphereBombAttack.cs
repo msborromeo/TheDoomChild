@@ -43,6 +43,9 @@ public class SphereBombAttack : MonoBehaviour
     {
         var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_mainSphereBomb, gameObject.scene);
         instance.SpawnAt(new Vector2(m_spawnSpot.position.x, m_spawnSpot.position.y), Quaternion.identity);
+        instance.GetComponent<Rigidbody2D>().isKinematic = true;
+        yield return new WaitForSeconds(3f);
+        instance.GetComponent<Rigidbody2D>().isKinematic = false;
         yield return null;
 
     }

@@ -13,7 +13,7 @@ public class SphereBomb : MonoBehaviour
     private GameObject[] m_smallSphereBomb;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 11) 
+        if (collision.gameObject.layer == 11 || collision.CompareTag("Hitbox") && collision.gameObject.layer == 8) 
         {
             var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_spherebombFX, gameObject.scene);
             instance.SpawnAt(new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
