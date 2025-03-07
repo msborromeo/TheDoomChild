@@ -1,17 +1,20 @@
+using DChild.Gameplay.Pooling;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
-    public class ColossusSwordProjectile : MonoBehaviour
+    public class ColossusSwordProjectile : PoolableObject
     {
-        private Transform m_target;
+        private Vector3 m_target;
         private float m_moveSpeed;
         private float m_trajectoryMaxRelativeHeight;
         private float m_maxMoveSpeed;
         [SerializeField]
         private float m_distanceToTargetToDestroyProjectile = 1f;
+        [SerializeField]
+        private Renderer m_renderer;
         private AnimationCurve m_trajectoryCurve;
         private AnimationCurve m_axisCorrectionCurve;
         private AnimationCurve m_speedCurve;
@@ -26,15 +29,16 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             UpdateProjectilePosition();
 
-            if(Vector3.Distance(transform.position, m_target.position) < m_distanceToTargetToDestroyProjectile)
+            if (Vector3.Distance(transform.position, m_target) <= m_distanceToTargetToDestroyProjectile
+                || m_renderer.isVisible == false)
             {
-                Destroy(gameObject);
+                this.DestroyInstance();
             }
         }
 
         private void UpdateProjectilePosition()
         {
-            Vector3 trajectoryRange = m_target.position - m_trajectoryStartPoint;
+            Vector3 trajectoryRange = m_target - m_trajectoryStartPoint;
 
             if(trajectoryRange.x < 0f)
             {
@@ -65,11 +69,11 @@ namespace DChild.Gameplay.Characters.Enemies
             m_moveSpeed = nextMoveSpeedNormalized * m_maxMoveSpeed;
         }
 
-        public void InitializeProjectile(Transform target, float maxMoveSpeed, float trajectoryMaxHeight)
+        public void InitializeProjectile(Vector3 target, float maxMoveSpeed, float trajectoryMaxHeight)
         {
             this.m_target = target;
             this.m_maxMoveSpeed = maxMoveSpeed;
-            float xDistanceToTarget = target.position.x - transform.position.x;
+            float xDistanceToTarget = target.x - transform.position.x;
             this.m_trajectoryMaxRelativeHeight = Mathf.Abs(xDistanceToTarget) * trajectoryMaxHeight;
         }
 
@@ -79,7 +83,6 @@ namespace DChild.Gameplay.Characters.Enemies
             this.m_axisCorrectionCurve = axisCorrectionCurve;
             this.m_speedCurve = speedCurve;
         }
-
     }
 }
 

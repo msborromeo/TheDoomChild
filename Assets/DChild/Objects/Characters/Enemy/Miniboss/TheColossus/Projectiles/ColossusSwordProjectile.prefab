@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6809508471114081213}
   - component: {fileID: 3549046924734016514}
   - component: {fileID: 3401859828651694279}
+  - component: {fileID: 2827832764340554895}
   m_Layer: 13
   m_Name: ColossusSwordProjectile
   m_TagString: Untagged
@@ -103,7 +104,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c04174571125caf44a507b128b5aef85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_poolableItemData: {fileID: 11400000, guid: a818f1395e48add4ea5533b580738d44, type: 2}
   m_distanceToTargetToDestroyProjectile: 1
+  m_renderer: {fileID: 7100915082953630744}
+--- !u!58 &2827832764340554895
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6071327051010074932}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.20739508}
+  serializedVersion: 2
+  m_Radius: 3.6109285
 --- !u!1001 &4066787791791504589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -198,6 +217,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a14b5e424a6e4094b8d74c9f836cbfac, type: 3}
+--- !u!199 &7100915082953630744 stripped
+ParticleSystemRenderer:
+  m_CorrespondingSourceObject: {fileID: 6556015472981743829, guid: a14b5e424a6e4094b8d74c9f836cbfac,
+    type: 3}
+  m_PrefabInstance: {fileID: 4066787791791504589}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7100915082953630751 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6556015472981743826, guid: a14b5e424a6e4094b8d74c9f836cbfac,
