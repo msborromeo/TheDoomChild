@@ -246,6 +246,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private Hitbox m_hitbox;
         [SerializeField, TabGroup("Reference")]
         private Transform m_arenaCenter;
+        [SerializeField, TabGroup("Reference")]
+        private ColossusSwordProjectileShooter m_leftSwordProjectileShooter;
+        [SerializeField, TabGroup("Reference")]
+        private ColossusSwordProjectileShooter m_rightSwordProjectileShooter;
 
         [SerializeField, TabGroup("Modules")]
         private DeathHandle m_deathHandle;
