@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace DChild.Codex.Quest.UI
 {
-    public class TypeBackgroundUI : MonoBehaviour
+    public class QuestTypeBackgroundUI : MonoBehaviour
     {
         [SerializeField] private Sprite m_mainQuest;
         [SerializeField] private Sprite m_sideQuest;
