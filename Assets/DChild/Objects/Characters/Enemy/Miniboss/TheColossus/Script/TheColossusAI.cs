@@ -75,6 +75,12 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, TabGroup("SwordProjectile")]
             private SimpleAttackInfo m_swordProjectileLeftPillarAttackEnd = new SimpleAttackInfo();
             public SimpleAttackInfo swordProjectileLeftPillarAttackEnd => m_swordProjectileLeftPillarAttackEnd;
+            [SerializeField, TabGroup("Sword Projectile")]
+            private int m_projectileTimesFired;
+            public int projectileTimesFired => m_projectileTimesFired;
+            [SerializeField, TabGroup("Sword Projectile")]
+            private float m_projectileInterval;
+            public float projectileInterval => m_projectileInterval;
 
             [SerializeField, TabGroup("HeavyPillarSmash")]
             private SimpleAttackInfo m_heavyPillarSmashAttack = new SimpleAttackInfo();
@@ -246,6 +252,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private Hitbox m_hitbox;
         [SerializeField, TabGroup("Reference")]
         private Transform m_arenaCenter;
+        [SerializeField, TabGroup("Reference")]
+        private ColossusSwordProjectileShooter m_leftSwordProjectileShooter;
+        [SerializeField, TabGroup("Reference")]
+        private ColossusSwordProjectileShooter m_rightSwordProjectileShooter;
 
         [SerializeField, TabGroup("Modules")]
         private DeathHandle m_deathHandle;
@@ -398,6 +408,17 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator SwordProjectileRoutine()
         {
             m_stateHandle.Wait(State.Idle);
+
+            m_animation.SetAnimation(0, m_info.swordProjectileBothPillarsAttackLoop.animation, true);
+
+            for(int i = 0;  i < m_info.projectileInterval; i++)
+            {
+                m_leftSwordProjectileShooter.ShootProjectile(m_targetInfo.position);
+
+                yield return new WaitForSeconds(m_info.projectileInterval);
+
+                m_rightSwordProjectileShooter.ShootProjectile(m_targetInfo.position);
+            }
 
             m_currentAttackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
