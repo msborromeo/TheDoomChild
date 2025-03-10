@@ -16,10 +16,9 @@ namespace DChild.Codex.Quest.UI
         //[BoxGroup("Placeholder Values"), SerializeField] private string m_name;
         //[BoxGroup("Placeholder Values"), SerializeField] private QuestStatus m_status;
 
-        [Button(ButtonSizes.Large)]
-        public void Display(QuestProgressData quest)
+        public void Display(QuestProgressData quest, int index)
         {
-            m_questOrder.text = $"{toRomanNumeral(quest.sequence)}";
+            m_questOrder.text = $"{toRomanNumeral(index+1)}";
             m_questName.text = quest.sectionName;
             m_questStatus.text = $"{quest.status}".Replace("_", " ");
         }

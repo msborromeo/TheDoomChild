@@ -24,10 +24,10 @@ namespace DChild.Codex.Quest.UI
     {
         [SerializeField] private string m_sectionName;
         [SerializeField] private QuestStatus m_status;
-        [SerializeField] private int m_sequence;
+        //[SerializeField] private int m_sequence;
 
         public string sectionName => m_sectionName;
         public QuestStatus status => m_status;
-        public int sequence => m_sequence;
+        //public int sequence => m_sequence;
     }
 }

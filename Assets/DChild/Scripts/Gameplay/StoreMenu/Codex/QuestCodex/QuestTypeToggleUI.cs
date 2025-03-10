@@ -14,7 +14,7 @@ namespace DChild.Codex.Quest.UI
         [SerializeField] private List<SampleDummyQuestData> m_questList;
 
 
-        [Button(ButtonSizes.Large)]
+        //[Button(ButtonSizes.Large)]
         public void Display()
         {
             for (int i = 0; i < m_questButtons.Count; i++)
