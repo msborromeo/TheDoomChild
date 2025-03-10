@@ -7,14 +7,11 @@ namespace DChild.Gameplay.Characters.Enemies
 {
     public class ColossusSwordProjectile : PoolableObject
     {
+        [SerializeField]
         private Vector3 m_target;
         private float m_moveSpeed;
         private float m_trajectoryMaxRelativeHeight;
         private float m_maxMoveSpeed;
-        [SerializeField]
-        private float m_distanceToTargetToDestroyProjectile = 1f;
-        [SerializeField]
-        private Renderer m_renderer;
         private AnimationCurve m_trajectoryCurve;
         private AnimationCurve m_axisCorrectionCurve;
         private AnimationCurve m_speedCurve;
