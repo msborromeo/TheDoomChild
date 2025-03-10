@@ -1,10 +1,13 @@
 ﻿using DChild.Gameplay.Characters.Enemies;
 using TMPro;
 using UnityEngine;
+using Dchild.Localization;
+using DChild.Menu.Bestiary;
+using System;
 
 namespace DChild.Gameplay.Combat.UI
 {
-    public class BossNameUI : MonoBehaviour
+    public class BossNameUI : MonoBehaviour , ICodexBestiaryLocalizer
     {
         [SerializeField]
         private TextMeshProUGUI m_bossName;
@@ -12,6 +15,8 @@ namespace DChild.Gameplay.Combat.UI
         private TextMeshProUGUI m_bossTitle;
         [SerializeField]
         private TextMeshProUGUI m_bossNameOnly;
+
+        public event Action<BestiaryData> localizeBestiaryData;
 
         public void SetName(Boss boss)
         {
@@ -28,6 +33,7 @@ namespace DChild.Gameplay.Combat.UI
             m_bossName.enabled = hasTitle;
             m_bossTitle.enabled = hasTitle;
             m_bossNameOnly.enabled = !hasTitle;
+            localizeBestiaryData?.Invoke(boss.GetBestiaryData());
         }
     }
 }
