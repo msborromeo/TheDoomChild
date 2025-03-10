@@ -42,9 +42,7 @@ namespace DChild.Gameplay.Characters.Enemies
             private SimpleAttackInfo m_pillarSmashBothAttackLoop = new SimpleAttackInfo();
             public SimpleAttackInfo pillarSmashBothAttackLoop => m_pillarSmashBothAttackLoop;
 
-            [SerializeField, TabGroup("SwordProjectile")]
-            private GameObject m_swordProjectilePrefab;
-            public GameObject swordProjectilePrefab => m_swordProjectilePrefab; //change variable type to colossus sword projectile 
+            [Title("Attacks Info")]
             [SerializeField, TabGroup("SwordProjectile")]
             private SimpleAttackInfo m_swordProjectileLeftPillarAttack = new SimpleAttackInfo();
             public SimpleAttackInfo swordProjectileLeftPillarAttack => m_swordProjectileLeftPillarAttack;
@@ -75,13 +73,16 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, TabGroup("SwordProjectile")]
             private SimpleAttackInfo m_swordProjectileLeftPillarAttackEnd = new SimpleAttackInfo();
             public SimpleAttackInfo swordProjectileLeftPillarAttackEnd => m_swordProjectileLeftPillarAttackEnd;
-            [SerializeField, TabGroup("Sword Projectile")]
+
+            [Title("Other")]
+            [SerializeField, TabGroup("SwordProjectile")]
             private int m_projectileTimesFired;
             public int projectileTimesFired => m_projectileTimesFired;
-            [SerializeField, TabGroup("Sword Projectile")]
+            [SerializeField, TabGroup("SwordProjectile")]
             private float m_projectileInterval;
             public float projectileInterval => m_projectileInterval;
 
+            [Title("Attacks Info")]
             [SerializeField, TabGroup("HeavyPillarSmash")]
             private SimpleAttackInfo m_heavyPillarSmashAttack = new SimpleAttackInfo();
             public SimpleAttackInfo heavyPillarSmashAttack => m_heavyPillarSmashAttack;
@@ -92,6 +93,7 @@ namespace DChild.Gameplay.Characters.Enemies
             private SimpleAttackInfo m_heavyPillarSmashAttackEnd = new SimpleAttackInfo();
             public SimpleAttackInfo heavyPillarSmashAttackEnd => m_heavyPillarSmashAttackEnd;
 
+            [Title("Attacks Info")]
             [SerializeField, TabGroup("LaserBlast")]
             private SimpleAttackInfo m_clockwiseLaserAttack = new SimpleAttackInfo();
             public SimpleAttackInfo clockwiseLaserAttack => m_clockwiseLaserAttack;
@@ -410,15 +412,21 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.Idle);
 
             m_animation.SetAnimation(0, m_info.swordProjectileBothPillarsAttackLoop.animation, true);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.swordProjectileBothPillarsAttackLoop.animation);
 
-            for(int i = 0;  i < m_info.projectileInterval; i++)
+            for (int i = 0;  i < m_info.projectileInterval; i++)
             {
                 m_leftSwordProjectileShooter.ShootProjectile(m_targetInfo.position);
 
                 yield return new WaitForSeconds(m_info.projectileInterval);
 
                 m_rightSwordProjectileShooter.ShootProjectile(m_targetInfo.position);
+
+                yield return new WaitForSeconds(m_info.projectileInterval);
             }
+
+            m_animation.SetAnimation(0, m_info.swordProjectileBothPillarsAttackEnd.animation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.swordProjectileBothPillarsAttackEnd.animation);
 
             m_currentAttackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
