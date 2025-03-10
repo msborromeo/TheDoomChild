@@ -20,20 +20,18 @@ namespace DChild.Gameplay.Characters.Enemies
         private AnimationCurve m_speedCurve;
 
         private Vector3 m_trajectoryStartPoint;
+        private Collider2D m_collider;
+        private Rigidbody2D m_rigidbody;
 
         private void Start()
         {
             m_trajectoryStartPoint = transform.position;
+            m_collider = GetComponent<Collider2D>();
+            m_rigidbody = GetComponent<Rigidbody2D>();
         }
         private void Update()
         {
             UpdateProjectilePosition();
-
-            if (Vector3.Distance(transform.position, m_target) <= m_distanceToTargetToDestroyProjectile
-                || m_renderer.isVisible == false)
-            {
-                this.DestroyInstance();
-            }
         }
 
         private void UpdateProjectilePosition()
@@ -59,7 +57,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
             CalculateProjectileSpeed(nextPositionXNormalized);
 
-            transform.position = nextPosition;
+            //transform.position = nextPosition;
+            m_rigidbody.MovePosition(nextPosition);
         }
 
         private void CalculateProjectileSpeed(float nextNormalizedXPosition)
@@ -82,6 +81,12 @@ namespace DChild.Gameplay.Characters.Enemies
             this.m_trajectoryCurve = trajectoryAnimationCurve;
             this.m_axisCorrectionCurve = axisCorrectionCurve;
             this.m_speedCurve = speedCurve;
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if(collision.gameObject.layer == 8 || collision.gameObject.layer == 11)
+                this.DestroyInstance();
         }
     }
 }
