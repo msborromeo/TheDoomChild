@@ -261,10 +261,12 @@ public class TheOneMiniLevelLaser : MonoBehaviour
     }
     public void ColliderDamageOn()
     {
+        Debug.Log("On");
         m_laserCollider.enabled = true;
     }
     public void ColliderDamageOff()
     {
+        Debug.Log("Off");
         m_laserCollider.enabled = false;
     }
 }

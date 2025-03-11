@@ -792,6 +792,9 @@ MonoBehaviour:
   m_model: {fileID: 4269384281560032765}
   m_obstacleChecker: {fileID: 236450176631910836}
   m_theOneHitbox: {fileID: 4269384282197895440}
+  m_isPlayerBackArena: 0
+  m_theOneMiniBlackHole: {fileID: 0}
+  m_theOneMiniBlackHoleVFX: {fileID: 0}
   m_eyeCenter: {x: -7.1, y: -64.5}
   m_maxDistance: 30
   m_eyeTheOne: {fileID: 0}
@@ -814,7 +817,6 @@ MonoBehaviour:
   m_removeTentacleBlastAttacks: 0
   m_agent: {fileID: 4269384281896939962}
   m_theOneThirdFormAttacks: {fileID: 352779732458433666}
-  m_isPlayerBackArena: 0
 --- !u!114 &4269384281139691438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1736,7 +1738,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bb919fc59c69d6d408879ec97a5b0dc7, type: 2}
+  - {fileID: 2100000, guid: b06bdca77671ec246a43040323747ece, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1770,7 +1772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 0eda87a85dba73043bd667ee967ab686, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 5d7797e7c94b1e74f88120779f052090, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -1791,7 +1793,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: 
+  _animationName: Idle
   loop: 0
   timeScale: 1
   m_alwaysUpdateMesh: 1
@@ -1876,7 +1878,7 @@ MonoBehaviour:
   m_collider2Ds:
   - {fileID: 2678902488797569077}
   m_damageFXInfo:
-    m_fx: {fileID: 0}
+    m_fx: {fileID: 281740024539040691, guid: fce636f0410b9b54ebd916a77bd526cf, type: 3}
     m_overrideColor: 0
     m_colorToUse: {r: 0, g: 0, b: 0, a: 0}
     m_overrideScale: 0
@@ -1946,6 +1948,7 @@ GameObject:
   - component: {fileID: 4269384281896939962}
   - component: {fileID: 4269384281896939972}
   - component: {fileID: 4019444135269968620}
+  - component: {fileID: 7027717623263221814}
   m_Layer: 13
   m_Name: Behaviour
   m_TagString: Untagged
@@ -2037,6 +2040,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_animation: {fileID: 5957908220351474545}
+--- !u!114 &7027717623263221814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269384281896939960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5830f2bbb3b8ac149905b0850dbf3c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_source: {fileID: 4269384281139691426}
+  m_animator: {fileID: 5600551746639060255}
+  m_animation: Exhausted
+  m_bodyDuration:
+    m_startTime: 1
+  m_fx: []
+  m_destroySource: 0
 --- !u!1 &4269384282161770208
 GameObject:
   m_ObjectHideFlags: 0
