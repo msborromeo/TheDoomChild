@@ -9,52 +9,64 @@ using UnityEngine.UI;
 
 namespace PixelCrushers.DialogueSystem
 {
-    public class QuestLogDataRetriever : MonoBehaviour
+
+    public class QuestLogDataRetriever
     {
-        [SerializeField]
-        private DialogueDatabase m_dialogueDatabase;
-
-        [SerializeField]
-        private Quest m_quest;
-        [SerializeField]
-        private int m_entryCount = 0;
-
-        [Button, HideInPrefabAssets]
-        public Quest RetrieveQuestData()
+        public Quest[] RetrieveQuestDatas(DialogueDatabase[] databases, bool lookForMainQuests)
         {
-            // m_questName = m_dialogueDatabase.GetItem(m_questid).Name;
-
-            int questnumber = m_dialogueDatabase.items.Count;
-            Debug.Log("questnumber:" + questnumber);
-            for (int i = 0; i <= questnumber; i++)
+            List<Quest> quests = new List<Quest>();
+            foreach (DialogueDatabase database in databases)
             {
-                var quest = RetrieveQuest(m_dialogueDatabase.items[i]);
+                if (database.name.Contains("Auto-Backup"))
+                    continue;
+
+                var quest = RetrieveQuestData(database, lookForMainQuests);
+
                 if (quest == null)
                     continue;
 
-                m_quest = quest;
+                quests.Add(quest);
+            }
+
+            return quests.ToArray();
+        }
+
+        public Quest RetrieveQuestData(DialogueDatabase dialogueDatabase, bool lookForMainQuests)
+        {
+            int questnumber = dialogueDatabase.items.Count;
+            for (int i = 0; i < questnumber; i++)
+            {
+                var quest = RetrieveQuest(dialogueDatabase.items[i], lookForMainQuests);
+                if (quest == null)
+                    continue;
+
                 return quest;
             }
 
             return null;
         }
 
-        public Quest RetrieveQuest(Item item)
+     
+
+        public Quest RetrieveQuest(Item item, bool lookForMainQuests =true)
         {
-            if (item.IsItem)
+            if (item.IsItem || item.LookupBool("Trackable") == false)
+                return null;
+
+            if (item.LookupBool("IsMainQuest") != lookForMainQuests)
                 return null;
 
             var questName = item.Name;
             var questState = ConvertString(item.LookupValue("State").ToString());
 
-            m_entryCount = 0;
-            m_entryCount = item.LookupInt("Entry Count");
+            var entryCount = 0;
+            entryCount = item.LookupInt("Entry Count");
             QuestEntry[] entries = null;
 
-            if (m_entryCount > 0)
+            if (entryCount > 0)
             {
-                entries = new QuestEntry[m_entryCount];
-                for (int x = 0; x <= m_entryCount; x++)
+                entries = new QuestEntry[entryCount];
+                for (int x = 0; x < entryCount; x++)
                 {
                     var entryNumber = (x + 1);
                     var entryName = item.LookupValue("Entry " + entryNumber);
@@ -72,6 +84,7 @@ namespace PixelCrushers.DialogueSystem
 
         private QuestState ConvertString(string str)
         {
+            str = str.ToLower();
             switch (str)
             {
                 case "unassigned":
@@ -81,7 +94,7 @@ namespace PixelCrushers.DialogueSystem
                 case "success":
                     return QuestState.Success;
                 default:
-                    throw new ArgumentException("string cannot be converted to QuestState");
+                    throw new ArgumentException($"{str} string cannot be converted to QuestState");
             }
         }
     }
