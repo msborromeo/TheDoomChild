@@ -108,6 +108,14 @@ namespace DChild.Gameplay.Characters.Enemies
             private SimpleAttackInfo m_heavyPillarSmashAttackEnd = new SimpleAttackInfo();
             public SimpleAttackInfo heavyPillarSmashAttackEnd => m_heavyPillarSmashAttackEnd;
 
+            [Title("Others")]
+            [SerializeField, TabGroup("HeavyPillarSmash")]
+            private float m_heavyPillarSlamDownDuration;
+            public float heavyPillarSlamDownDuration => m_heavyPillarSlamDownDuration;
+            [SerializeField, TabGroup("HeavyPillarSmash")]
+            private float m_heavyPillarSlamShockwaveVFXDelay;
+            public float heavyPillarSlamShockwaveVFXDelay => m_heavyPillarSlamShockwaveVFXDelay;
+
             [Title("Attacks Info")]
             [SerializeField, TabGroup("LaserBlast")]
             private SimpleAttackInfo m_clockwiseLaserAttack = new SimpleAttackInfo();
@@ -313,6 +321,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Collider2D m_pillarSmashImpactSmallDamageCollider;
         [SerializeField, TabGroup("Colliders")]
         private Collider2D m_pillarSmashImpactLargeDamageCollider;
+        [SerializeField, TabGroup("Colliders")]
+        private Collider2D m_heavyPillarSmashImpactDamageCollider;
 
         [ShowInInspector]
         private StateHandle<State> m_stateHandle;
@@ -471,6 +481,16 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_pillarSmashImpactSmallDamageCollider.transform.position = smashVFX.transform.position;
             }
         }
+
+        private void SpawnHeavyPillarSmashAnticipationVFX()
+        {
+            var leftSmashVFX = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_heavySlamAnticipationFX.gameObject, m_leftPillarSmashFXSpawnPoint.position, Quaternion.identity);
+            var rightSmashVFX = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_heavySlamAnticipationFX.gameObject, m_rightPillarSmashFXSpawnPoint.position, Quaternion.identity);
+
+            leftSmashVFX.GetComponent<ParticleFX>().Play();
+            rightSmashVFX.GetComponent<ParticleFX>().Play();
+        }
+
         #endregion
 
         #region Attacks
@@ -529,6 +549,23 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator HeavyPillarSmashRoutine()
         {
             m_stateHandle.Wait(State.Idle);
+
+            TurnOnPillarDamageColliders();
+            m_animation.SetAnimation(0, m_info.heavyPillarSmashAttackStart.animation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.heavyPillarSmashAttackStart.animation);
+            SpawnHeavyPillarSmashAnticipationVFX();
+
+            m_animation.SetAnimation(0, m_info.heavyPillarSmashAttackLoop.animation, true);
+            TurnOnPillarEnvironmentCollider();
+            yield return new WaitForSeconds(m_info.heavyPillarSlamShockwaveVFXDelay);
+            m_heavySlamFX.Play();
+            yield return new WaitForSeconds(2f);
+            m_heavyPillarSmashImpactDamageCollider.enabled = true;
+
+            m_animation.SetAnimation(0, m_info.heavyPillarSmashAttackEnd.animation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.heavyPillarSmashAttackEnd.animation);
+            m_heavyPillarSmashImpactDamageCollider.enabled = false;
+            TurnOffPillarColliders();
 
             m_currentAttackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
@@ -673,6 +710,7 @@ namespace DChild.Gameplay.Characters.Enemies
             base.Start();
 
             TurnOffPillarColliders();
+            m_heavyPillarSmashImpactDamageCollider.enabled = false;
             m_phaseHandle = new PhaseHandle<Phase, PhaseInfo>();
             m_phaseHandle.Initialize(Phase.PhaseOne, m_info.phaseInfo, m_character, ChangeState, ApplyPhaseData);
             m_phaseHandle.ApplyChange();
