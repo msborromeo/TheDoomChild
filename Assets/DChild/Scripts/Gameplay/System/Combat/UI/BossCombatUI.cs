@@ -6,10 +6,12 @@ using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using Dchild.Localization;
+using DChild.Menu.Bestiary;
 
 namespace DChild.Gameplay.Combat.UI
 {
-    public class BossCombatUI : MonoBehaviour
+    public class BossCombatUI : MonoBehaviour ,ICodexBestiaryLocalizer
     {
         [SerializeField]
         private UIContainer m_container;
@@ -28,6 +30,8 @@ namespace DChild.Gameplay.Combat.UI
         private TextMeshProUGUI m_bossLabelField;
         [SerializeField]
         private TextMeshProUGUI m_bossShadowField;
+
+        public event Action<BestiaryData> localizeBestiaryData;
 
         public void Show()
         {
@@ -72,6 +76,7 @@ namespace DChild.Gameplay.Combat.UI
             m_bossLabelField.text = bossName;
             m_bossShadowField.text = bossName;
 
+            localizeBestiaryData?.Invoke(boss.GetBestiaryData());
             //if (m_segmentedBossHealth)
             //{
             //    var healthSegments = boss.healthSegments;

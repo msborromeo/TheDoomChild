@@ -1,5 +1,6 @@
 using DChild.Gameplay.Inventories;
 using DChild.Gameplay.Items;
+using DChild.Localization;
 using Sirenix.OdinInspector;
 using System;
 using TMPro;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.UI
 {
-    public class ShardNotificationUI : MonoBehaviour
+    public class ShardNotificationUI : MonoBehaviour , IItemViewLocalizer
     {
         [SerializeField]
         private ItemData m_shardToMonitor;
@@ -24,6 +25,8 @@ namespace DChild.Gameplay.UI
 
         private const string TAG_CURRENTAMOUNT = "<amount>";
         private const string TAG_MAXAMOUNT = "<maxAmount>";
+
+        public event Action<ItemData> LocalizeItemView;
 
         private void OnItemUpdate(object sender, ItemEventArgs eventArgs)
         {
@@ -52,6 +55,7 @@ namespace DChild.Gameplay.UI
                 }
 
                 UpdateMessage(eventArgs.currentCount, m_amountToComplete);
+                LocalizeItemView?.Invoke(m_shardToMonitor);
             }
         }
 

@@ -69,9 +69,9 @@ namespace DChild.Gameplay.Combat
         public void StartCombat()
         {
             //GameplaySystem.gamplayUIHandle.MonitorBoss(m_boss);
-            GameplaySystem.gamplayUIHandle.ToggleBossHealth(true);
             m_boss.SetTarget(m_targetTuple.damageable, m_targetTuple.character);
             m_boss.Enable();
+            GameplaySystem.gamplayUIHandle.ToggleBossHealth(true);
         }
 
         public void SetupBossUI()

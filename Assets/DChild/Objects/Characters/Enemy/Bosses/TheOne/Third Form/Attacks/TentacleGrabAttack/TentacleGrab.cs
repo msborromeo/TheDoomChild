@@ -97,7 +97,7 @@ public class TentacleGrab : MonoBehaviour
         isPlayerGrabbed = false;
         m_grabHitbox.enabled = false;
         m_dummyPlayer.SetActive(false);
-        GameplaySystem.playerManager.EnableControls();
+       // GameplaySystem.playerManager.EnableControls();
         GameplaySystem.playerManager.player.gameObject.SetActive(true);
         GameplaySystem.playerManager.player.character.gameObject.SetActive(true);
 
@@ -123,7 +123,7 @@ public class TentacleGrab : MonoBehaviour
 
         if (isPlayerGrabbed)
         {
-            GameplaySystem.playerManager.DisableControls();
+            //GameplaySystem.playerManager.DisableControls();
             yield return HardcodedGroundSlamSequence();
         }
         else
