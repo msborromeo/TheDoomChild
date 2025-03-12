@@ -145,7 +145,69 @@ MonoBehaviour:
         m_PersistentCalls:
           m_Calls: []
   Behaviours:
-    Behaviours: []
+    Behaviours:
+    - EventName: PointerLeftClick
+      Runners: []
+      Event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 1010943720198087246}
+            m_TargetAssemblyTypeName: DChild.Codex.Quest.UI.QuestProgressUI, Assembly-CSharp
+            m_MethodName: ShowDialogueHistory
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      BehaviourName: 7
+      Receiver:
+        ConnectionMode: 1
+        SignalProviderId:
+          Type: 0
+          Category: Pointer
+          Name: LeftClick
+        ProviderReference: {fileID: 0}
+        StreamId:
+          Category: None
+          Name: None
+          Custom: 0
+      Cooldown: 0
+      Selectable: {fileID: 2989095392240352826}
+    - EventName: Submit
+      Runners: []
+      Event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 1010943720198087246}
+            m_TargetAssemblyTypeName: DChild.Codex.Quest.UI.QuestProgressUI, Assembly-CSharp
+            m_MethodName: ShowDialogueHistory
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      BehaviourName: 12
+      Receiver:
+        ConnectionMode: 1
+        SignalProviderId:
+          Type: 0
+          Category: UI
+          Name: Submit
+        ProviderReference: {fileID: 0}
+        StreamId:
+          Category: None
+          Name: None
+          Custom: 0
+      Cooldown: 0
+      Selectable: {fileID: 2989095392240352826}
     SignalSource: {fileID: 1127591224136024071}
     Selectable: {fileID: 2989095392240352826}
   Id:
@@ -206,9 +268,22 @@ MonoBehaviour:
   m_questOrder: {fileID: 6577092485836133072}
   m_questName: {fileID: 7438092009236156127}
   m_questStatus: {fileID: 7081527689183127911}
-  m_order: 1
-  m_name: quest name
-  m_status: 0
+  m_conversationList:
+  - objective: convo 1
+    m_dialogues:
+    - m_characterName: Toto
+      m_dialogue: sakit unto ko
+    - m_characterName: Tommi
+      m_dialogue: baw unto nmn kuno ho
+    - m_characterName: Kent
+      m_dialogue: allemae kas
+  - objective: convo 2
+    m_dialogues:
+    - m_characterName: hurly
+      m_dialogue: kalbo ko
+    - m_characterName: osoi
+      m_dialogue: stalker ba
+  m_UIPanels: []
 --- !u!1 &1997778602783615526
 GameObject:
   m_ObjectHideFlags: 0

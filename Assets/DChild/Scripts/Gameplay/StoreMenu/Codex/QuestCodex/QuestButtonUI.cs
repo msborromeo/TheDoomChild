@@ -1,8 +1,5 @@
-﻿using NUnit.Framework.Interfaces;
-using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor.Validation;
+﻿using PixelCrushers.DialogueSystem;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 namespace DChild.Codex.Quest.UI
@@ -25,23 +22,18 @@ namespace DChild.Codex.Quest.UI
             SetQuestData(questData);
 
             m_background.SetBackground(m_questData.isMainQuest);
-            m_name.Display(m_questData.questName, m_questData.status == QuestStatus.Completed);
+            m_name.Display(m_questData.questName, m_questData.status == QuestState.Success);
         }
 
         public void ShowProgress()
         {
-            var subquestCount = m_questData.subQuests.Count;
-
+            int count = m_questData.subQuests.Count;
             for (int i = 0; i < m_subQuestList.Count; i++)
             {
-                if (i < subquestCount)
-                {
-                    QuestProgressData subquestData = m_questData.subQuests[i];
-                    m_subQuestList[i].Display(subquestData, i);
-                    m_subQuestList[i].gameObject.SetActive(true);
-                    continue;
-                }
-                m_subQuestList[i].gameObject.SetActive(false);
+                bool isActive = i < count;
+                m_subQuestList[i].gameObject.SetActive(isActive);
+                if (isActive)
+                    m_subQuestList[i].Display(m_questData.subQuests[i], i);
             }
         }
     }

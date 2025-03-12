@@ -19,7 +19,11 @@ namespace DChild.Codex.Quest.UI
         {
             for (int i = 0; i < m_questButtons.Count; i++)
             {
-                m_questButtons[i].Display(m_questList[i] ?? null);
+                if (i < m_questList.Count)
+                {
+                    m_questButtons[i].Display(m_questList[i]);
+                    continue;
+                }
             }
         }
     }
