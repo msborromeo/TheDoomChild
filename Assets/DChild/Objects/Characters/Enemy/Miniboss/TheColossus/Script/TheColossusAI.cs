@@ -1,5 +1,6 @@
 using DChild.Gameplay.Characters.AI;
 using DChild.Gameplay.Combat;
+using DChild.Gameplay.Pooling;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System;
@@ -21,26 +22,40 @@ namespace DChild.Gameplay.Characters.Enemies
 
             [Title("Attacks Info")]
             [SerializeField, TabGroup("PillarSmash")]
-            private SimpleAttackInfo m_pillarSmashLeftAttack = new SimpleAttackInfo();
-            public SimpleAttackInfo pillarSmashLeftAttack => m_pillarSmashLeftAttack;
+            private SimpleAttackInfo m_leftRightPillarSmashFirstSmashDown = new SimpleAttackInfo();
+            public SimpleAttackInfo leftRightPillarSmashFirstSmashDown => m_leftRightPillarSmashFirstSmashDown;
             [SerializeField, TabGroup("PillarSmash")]
-            private SimpleAttackInfo m_pillarSmashRightAttack = new SimpleAttackInfo();
-            public SimpleAttackInfo pillarSmashRightAttack => m_pillarSmashRightAttack;
+            private SimpleAttackInfo m_leftRightPillarSmashFirstSmashLoop = new SimpleAttackInfo();
+            public SimpleAttackInfo leftRightPillarSmashFirstSmashLoop => m_leftRightPillarSmashFirstSmashLoop;
             [SerializeField, TabGroup("PillarSmash")]
-            private SimpleAttackInfo m_pillarSmashRightToLeftAttack = new SimpleAttackInfo();
-            public SimpleAttackInfo pillarSmashRightToLeftAttack => m_pillarSmashRightToLeftAttack;
+            private SimpleAttackInfo m_pillarSmashLeftAttackEnd = new SimpleAttackInfo();
+            public SimpleAttackInfo pillarSmashLeftAttackEnd => m_pillarSmashLeftAttackEnd;
             [SerializeField, TabGroup("PillarSmash")]
-            private SimpleAttackInfo m_pillarSmashLeftToRightAttack = new SimpleAttackInfo();
-            public SimpleAttackInfo pillarSmashLeftToRightAttack => m_pillarSmashLeftToRightAttack;
+            private SimpleAttackInfo m_leftRightPillarSmashSecondSmashDown = new SimpleAttackInfo();
+            public SimpleAttackInfo leftRightPillarSmashSecondSmashDown => m_leftRightPillarSmashSecondSmashDown;
             [SerializeField, TabGroup("PillarSmash")]
-            private SimpleAttackInfo m_pillarSmashLeftAttackLoop = new SimpleAttackInfo();
-            public SimpleAttackInfo pillarSmashLeftAttackLoop => m_pillarSmashLeftAttackLoop;
+            private SimpleAttackInfo m_rightLeftPillarSmashFirstSmashDown = new SimpleAttackInfo();
+            public SimpleAttackInfo rightLeftPillarSmashFirstSmashDown => m_rightLeftPillarSmashFirstSmashDown;
             [SerializeField, TabGroup("PillarSmash")]
-            private SimpleAttackInfo m_pillarSmashRighttAttackLoop = new SimpleAttackInfo();
-            public SimpleAttackInfo pillarSmashRighttAttackLoop => m_pillarSmashRighttAttackLoop;
+            private SimpleAttackInfo m_rightLeftPillarSmashFirstSmashLoop = new SimpleAttackInfo();
+            public SimpleAttackInfo rightLeftPillarSmashFirstSmashLoop => m_rightLeftPillarSmashFirstSmashLoop;
+            [SerializeField, TabGroup("PillarSmash")]
+            private SimpleAttackInfo m_pillarSmashRightAttackEnd = new SimpleAttackInfo();
+            public SimpleAttackInfo pillarSmashRightAttackEnd => m_pillarSmashRightAttackEnd;
+            [SerializeField, TabGroup("PillarSmash")]
+            private SimpleAttackInfo m_rightLeftPillarSmashSecondSmashDown = new SimpleAttackInfo();
+            public SimpleAttackInfo rightLeftPillarSmashSecondSmashDown => m_rightLeftPillarSmashSecondSmashDown;
             [SerializeField, TabGroup("PillarSmash")]
             private SimpleAttackInfo m_pillarSmashBothAttackLoop = new SimpleAttackInfo();
             public SimpleAttackInfo pillarSmashBothAttackLoop => m_pillarSmashBothAttackLoop;
+            [SerializeField, TabGroup("PillarSmash")]
+            private SimpleAttackInfo m_pillarSmashBothAttackEnd = new SimpleAttackInfo();
+            public SimpleAttackInfo pillarSmashBothAttackEnd => m_pillarSmashBothAttackEnd;
+
+            [Title("Other")]
+            [SerializeField, TabGroup("PillarSmash")]
+            private float m_pillarSmashDownDuration = 2f;
+            public float pillarSmashDownDuration => m_pillarSmashDownDuration;
 
             [Title("Attacks Info")]
             [SerializeField, TabGroup("SwordProjectile")]
@@ -84,8 +99,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
             [Title("Attacks Info")]
             [SerializeField, TabGroup("HeavyPillarSmash")]
-            private SimpleAttackInfo m_heavyPillarSmashAttack = new SimpleAttackInfo();
-            public SimpleAttackInfo heavyPillarSmashAttack => m_heavyPillarSmashAttack;
+            private SimpleAttackInfo m_heavyPillarSmashAttackStart = new SimpleAttackInfo();
+            public SimpleAttackInfo heavyPillarSmashAttackStart => m_heavyPillarSmashAttackStart;
             [SerializeField, TabGroup("HeavyPillarSmash")]
             private SimpleAttackInfo m_heavyPillarSmashAttackLoop = new SimpleAttackInfo();
             public SimpleAttackInfo heavyPillarSmashAttackLoop => m_heavyPillarSmashAttackLoop;
@@ -163,13 +178,16 @@ namespace DChild.Gameplay.Characters.Enemies
             {
 #if UNITY_EDITOR
                 #region Attack Animations
-                m_pillarSmashLeftAttack.SetData(m_skeletonDataAsset);
-                m_pillarSmashRightAttack.SetData(m_skeletonDataAsset);
-                m_pillarSmashRightToLeftAttack.SetData(m_skeletonDataAsset);
-                m_pillarSmashLeftToRightAttack.SetData(m_skeletonDataAsset);
-                m_pillarSmashLeftAttackLoop.SetData(m_skeletonDataAsset);
-                m_pillarSmashRighttAttackLoop.SetData(m_skeletonDataAsset);
+                m_leftRightPillarSmashFirstSmashDown.SetData(m_skeletonDataAsset);
+                m_leftRightPillarSmashFirstSmashLoop.SetData(m_skeletonDataAsset);
+                m_pillarSmashLeftAttackEnd.SetData(m_skeletonDataAsset);
+                m_rightLeftPillarSmashFirstSmashDown.SetData(m_skeletonDataAsset);
+                m_rightLeftPillarSmashFirstSmashLoop.SetData(m_skeletonDataAsset);
+                m_pillarSmashRightAttackEnd.SetData(m_skeletonDataAsset);
                 m_pillarSmashBothAttackLoop.SetData(m_skeletonDataAsset);
+                m_pillarSmashBothAttackEnd.SetData(m_skeletonDataAsset);
+                m_rightLeftPillarSmashSecondSmashDown.SetData(m_skeletonDataAsset);
+                m_leftRightPillarSmashSecondSmashDown.SetData(m_skeletonDataAsset);
                 m_swordProjectileLeftPillarAttack.SetData(m_skeletonDataAsset);
                 m_swordProjectileRightPillarAttack.SetData(m_skeletonDataAsset);
                 m_swordProjectileLeftPillarThenRightPillarAttack.SetData(m_skeletonDataAsset);
@@ -180,7 +198,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_swordProjectileRightPillarAttackEnd.SetData(m_skeletonDataAsset);
                 m_swordProjectileLeftPillarAttackLoop.SetData(m_skeletonDataAsset);
                 m_swordProjectileLeftPillarAttackEnd.SetData(m_skeletonDataAsset);
-                m_heavyPillarSmashAttack.SetData(m_skeletonDataAsset);
+                m_heavyPillarSmashAttackStart.SetData(m_skeletonDataAsset);
                 m_heavyPillarSmashAttackLoop.SetData(m_skeletonDataAsset);
                 m_heavyPillarSmashAttackEnd.SetData(m_skeletonDataAsset);
                 m_clockwiseLaserAttack.SetData(m_skeletonDataAsset);
@@ -212,7 +230,7 @@ namespace DChild.Gameplay.Characters.Enemies
         [System.Serializable]
         public class PhaseInfo : IPhaseInfo
         {
-          
+
         }
 
         private enum State
@@ -258,6 +276,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private ColossusSwordProjectileShooter m_leftSwordProjectileShooter;
         [SerializeField, TabGroup("Reference")]
         private ColossusSwordProjectileShooter m_rightSwordProjectileShooter;
+        [SerializeField, TabGroup("Reference")]
+        private Transform m_leftPillarSmashFXSpawnPoint;
+        [SerializeField, TabGroup("Reference")]
+        private Transform m_rightPillarSmashFXSpawnPoint;
 
         [SerializeField, TabGroup("Modules")]
         private DeathHandle m_deathHandle;
@@ -266,6 +288,10 @@ namespace DChild.Gameplay.Characters.Enemies
 
         [SerializeField, TabGroup("FX")]
         private ParticleFX m_pillarSmashFX;
+        [SerializeField, TabGroup("FX")]
+        private ParticleFX m_heavySlamAnticipationFX;
+        [SerializeField, TabGroup("FX")]
+        private ParticleFX m_heavySlamFX;
         [SerializeField, TabGroup("FX")]
         private ParticleFX m_swordProjectileFX;
         [SerializeField, TabGroup("FX")]
@@ -283,6 +309,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private Collider2D m_leftPillarDamageCollider;
         [SerializeField, TabGroup("Colliders")]
         private Collider2D m_rightPillarDamageCollider;
+        [SerializeField, TabGroup("Colliders")]
+        private Collider2D m_pillarSmashImpactSmallDamageCollider;
+        [SerializeField, TabGroup("Colliders")]
+        private Collider2D m_pillarSmashImpactLargeDamageCollider;
 
         [ShowInInspector]
         private StateHandle<State> m_stateHandle;
@@ -299,6 +329,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private bool m_testingMode;
 
         private PhaseInfo m_phaseInfo;
+        private bool m_isCurrentPillarSmashStartingOnRight = false;
 
         private void ApplyPhaseData(PhaseInfo obj)
         {
@@ -322,12 +353,12 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public override void ReturnToSpawnPoint()
         {
-            
+
         }
 
         protected override void OnTargetDisappeared()
         {
-            
+
         }
 
         public override void SetTarget(IDamageable damageable, Character m_target = null)
@@ -377,21 +408,118 @@ namespace DChild.Gameplay.Characters.Enemies
             this.gameObject.SetActive(false);
         }
 
+        #region Attacks Utility
+        private bool IsPlayerOnRightSide()
+        {
+            if (m_targetInfo.position.x > m_arenaCenter.position.x)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void TurnOffPillarColliders()
+        {
+            m_leftPillarDamageCollider.enabled = false;
+            m_rightPillarDamageCollider.enabled = false;
+
+            m_leftPillarEnvironmentCollider.enabled = false;
+            m_rightPillarEnvironmentCollider.enabled = false;
+
+            m_pillarSmashImpactLargeDamageCollider.enabled = false;
+            m_pillarSmashImpactSmallDamageCollider.enabled = false;
+        }
+
+        public void TurnOnPillarDamageColliders()
+        {
+            m_leftPillarDamageCollider.enabled = true;
+            m_rightPillarDamageCollider.enabled = true;
+
+            m_leftPillarEnvironmentCollider.enabled = false;
+            m_rightPillarEnvironmentCollider.enabled = false;
+        }
+
+        public void TurnOnPillarEnvironmentCollider()
+        {
+            m_leftPillarDamageCollider.enabled = false;
+            m_rightPillarDamageCollider.enabled = false;
+
+            m_leftPillarEnvironmentCollider.enabled = true;
+            m_rightPillarEnvironmentCollider.enabled = true;
+        }
+
+        public void SpawnPillarSmashVFX(Vector2 position, bool IsLargeDamageCollider)
+        {
+            var smashVFX = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_pillarSmashFX.gameObject, position, Quaternion.identity);
+            if (IsLargeDamageCollider)
+            {
+                smashVFX.transform.localScale.Set(m_pillarSmashImpactLargeDamageCollider.GetComponent<BoxCollider2D>().size.x, 1f, 1f);
+            }
+            smashVFX.GetComponent<ParticleFX>().Play();
+
+            if (IsLargeDamageCollider)
+            {
+                m_pillarSmashImpactLargeDamageCollider.enabled = true;
+                m_pillarSmashImpactLargeDamageCollider.transform.position = smashVFX.transform.position;
+            }
+            else
+            {
+                m_pillarSmashImpactSmallDamageCollider.enabled = true;
+                m_pillarSmashImpactSmallDamageCollider.transform.position = smashVFX.transform.position;
+            }
+        }
+        #endregion
+
         #region Attacks
         private IEnumerator PillarSmashRoutine()
         {
             m_stateHandle.Wait(State.Idle);
 
+            var SmashDownDuration = UnityEngine.Random.Range(1, 3);
+
             if (IsPlayerOnRightSide())
             {
-                m_animation.SetAnimation(0, m_info.pillarSmashRightToLeftAttack.animation, false);
-                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.pillarSmashRightToLeftAttack.animation);
+                m_animation.SetAnimation(0, m_info.rightLeftPillarSmashFirstSmashDown.animation, false);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.rightLeftPillarSmashFirstSmashDown.animation);
+                SpawnPillarSmashVFX(m_rightPillarSmashFXSpawnPoint.position, false);
+
+                m_animation.SetAnimation(0, m_info.rightLeftPillarSmashFirstSmashLoop.animation, true);
+                yield return new WaitForSeconds(m_info.pillarSmashDownDuration);
+
+                m_animation.SetAnimation(0, m_info.rightLeftPillarSmashSecondSmashDown.animation, false);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.rightLeftPillarSmashSecondSmashDown.animation);
+                SpawnPillarSmashVFX(m_leftPillarSmashFXSpawnPoint.position, true);
+
+                m_animation.SetAnimation(0, m_info.pillarSmashBothAttackLoop.animation, true);
+                yield return new WaitForSeconds(m_info.pillarSmashDownDuration);
+
+                m_animation.SetAnimation(0, m_info.swordProjectileBothPillarsAttackEnd.animation, false);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.swordProjectileBothPillarsAttackEnd.animation);
             }
             else
             {
-                m_animation.SetAnimation(0, m_info.pillarSmashLeftToRightAttack.animation, false);
-                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.pillarSmashLeftToRightAttack.animation);
+                m_animation.SetAnimation(0, m_info.leftRightPillarSmashFirstSmashDown.animation, false);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leftRightPillarSmashFirstSmashDown.animation);
+                SpawnPillarSmashVFX(m_leftPillarSmashFXSpawnPoint.position, false);
+
+                m_animation.SetAnimation(0, m_info.leftRightPillarSmashFirstSmashLoop.animation, false);
+                yield return new WaitForSeconds(SmashDownDuration);
+
+                m_animation.SetAnimation(0, m_info.leftRightPillarSmashSecondSmashDown.animation, false);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leftRightPillarSmashSecondSmashDown.animation);
+                SpawnPillarSmashVFX(m_rightPillarSmashFXSpawnPoint.position, true);
+
+                m_animation.SetAnimation(0, m_info.pillarSmashBothAttackLoop.animation, true);
+                yield return new WaitForSeconds(SmashDownDuration);
+
+                m_animation.SetAnimation(0, m_info.pillarSmashBothAttackEnd.animation, false);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.pillarSmashBothAttackEnd.animation);
             }
+
+            TurnOffPillarColliders();
 
             m_currentAttackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
@@ -525,50 +653,10 @@ namespace DChild.Gameplay.Characters.Enemies
             }
         }
 
-
         private void OnDamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
         {
             StopAllCoroutines();
             StartCoroutine(FlinchRoutine());
-        }
-
-        private bool IsPlayerOnRightSide()
-        {
-            if(m_targetInfo.position.x > m_arenaCenter.position.x)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private void TurnOffPillarColliders()
-        {
-            m_leftPillarDamageCollider.enabled = false;
-            m_rightPillarDamageCollider.enabled = false;
-
-            m_leftPillarEnvironmentCollider.enabled = false;
-            m_rightPillarEnvironmentCollider.enabled = false;
-        }
-
-        public void TurnOnPillarDamageColliders()
-        {
-            m_leftPillarDamageCollider.enabled = true;
-            m_rightPillarDamageCollider.enabled = true;
-
-            m_leftPillarEnvironmentCollider.enabled = false;
-            m_rightPillarEnvironmentCollider.enabled = false;
-        }
-
-        public void TurnOnPillarEnvironmentCollider()
-        {
-            m_leftPillarDamageCollider.enabled = false;
-            m_rightPillarDamageCollider.enabled = false;
-
-            m_leftPillarEnvironmentCollider.enabled = true;
-            m_rightPillarEnvironmentCollider.enabled = true;
         }
 
         protected override void Awake()
