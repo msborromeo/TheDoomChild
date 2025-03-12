@@ -60,6 +60,12 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private WeaponUpgradeHandle m_upgradeWeaponHandler;
 
+        [SerializeField, FoldoutGroup("Extra References")]
+        private RectTransform m_BossHealth;
+        [SerializeField, FoldoutGroup("Extra References")]
+        private RectTransform m_QuickItems;
+
+        private UIHandlerExtraReference _ExtraReference = new UIHandlerExtraReference();
 
         public IUINotificationManager notificationManager => m_notificationManager;
 
@@ -236,6 +242,15 @@ namespace DChild.Gameplay.Systems
         private void OnPostDeserialization(object sender, CampaignSlotUpdateEventArgs eventArgs)
         {
             m_navMap.ForceMapUpdateOnNextOpen();
+        }
+        
+        public UIHandlerExtraReference getReference()
+        {
+            //Initialization
+            _ExtraReference.m_BossHealth = m_BossHealth;
+            _ExtraReference.m_QuickItems = m_QuickItems;
+            
+            return _ExtraReference;
         }
 
         private void Awake()
