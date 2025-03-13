@@ -108,6 +108,20 @@ namespace DChild.Gameplay.Characters.Enemies
             private SimpleAttackInfo m_heavyPillarSmashAttackEnd = new SimpleAttackInfo();
             public SimpleAttackInfo heavyPillarSmashAttackEnd => m_heavyPillarSmashAttackEnd;
 
+            [Title("Others")]
+            [SerializeField, TabGroup("HeavyPillarSmash")]
+            private float m_heavyPillarSmashDownDuration;
+            public float heavyPillarSmashDownDuration => m_heavyPillarSmashDownDuration;
+            [SerializeField, TabGroup("HeavyPillarSmash")]
+            private float m_heavyPillarSmashShockwaveVFXDelay;
+            public float heavyPillarSmashShockwaveVFXDelay => m_heavyPillarSmashShockwaveVFXDelay;
+            [SerializeField, TabGroup("HeavyPillarSmash")]
+            private float m_heavyPillarSmashColliderDelay;
+            public float heavyPillarSmashColliderDelay => m_heavyPillarSmashColliderDelay;
+            [SerializeField, TabGroup("HeavyPillarSmash")]
+            private float m_heavyPillarSmashColliderDuration;
+            public float heavyPillarSmashColliderDuration => m_heavyPillarSmashColliderDuration;
+
             [Title("Attacks Info")]
             [SerializeField, TabGroup("LaserBlast")]
             private SimpleAttackInfo m_clockwiseLaserAttack = new SimpleAttackInfo();
@@ -313,6 +327,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Collider2D m_pillarSmashImpactSmallDamageCollider;
         [SerializeField, TabGroup("Colliders")]
         private Collider2D m_pillarSmashImpactLargeDamageCollider;
+        [SerializeField, TabGroup("Colliders")]
+        private Collider2D m_heavyPillarSmashImpactDamageCollider;
 
         [ShowInInspector]
         private StateHandle<State> m_stateHandle;
@@ -330,6 +346,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private PhaseInfo m_phaseInfo;
         private bool m_isCurrentPillarSmashStartingOnRight = false;
+        private bool m_canFlinch;
 
         private void ApplyPhaseData(PhaseInfo obj)
         {
@@ -471,12 +488,23 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_pillarSmashImpactSmallDamageCollider.transform.position = smashVFX.transform.position;
             }
         }
+
+        private void SpawnHeavyPillarSmashAnticipationVFX()
+        {
+            var leftSmashVFX = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_heavySlamAnticipationFX.gameObject, m_leftPillarSmashFXSpawnPoint.position, Quaternion.identity);
+            var rightSmashVFX = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_heavySlamAnticipationFX.gameObject, m_rightPillarSmashFXSpawnPoint.position, Quaternion.identity);
+
+            leftSmashVFX.GetComponent<ParticleFX>().Play();
+            rightSmashVFX.GetComponent<ParticleFX>().Play();
+        }
+
         #endregion
 
         #region Attacks
         private IEnumerator PillarSmashRoutine()
         {
             m_stateHandle.Wait(State.Idle);
+            m_canFlinch = false;
 
             var SmashDownDuration = UnityEngine.Random.Range(1, 3);
 
@@ -521,6 +549,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
             TurnOffPillarColliders();
 
+            m_canFlinch = true;
             m_currentAttackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
             yield return null;
@@ -529,7 +558,27 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator HeavyPillarSmashRoutine()
         {
             m_stateHandle.Wait(State.Idle);
+            m_canFlinch = false;
 
+            TurnOnPillarDamageColliders();
+            m_animation.SetAnimation(0, m_info.heavyPillarSmashAttackStart.animation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.heavyPillarSmashAttackStart.animation);
+            SpawnHeavyPillarSmashAnticipationVFX();
+
+            m_animation.SetAnimation(0, m_info.heavyPillarSmashAttackLoop.animation, true);
+            TurnOnPillarEnvironmentCollider();
+            yield return new WaitForSeconds(m_info.heavyPillarSmashShockwaveVFXDelay);
+            m_heavySlamFX.Play();
+            yield return new WaitForSeconds(m_info.heavyPillarSmashColliderDelay);
+            m_heavyPillarSmashImpactDamageCollider.enabled = true;
+            yield return new WaitForSeconds(m_info.heavyPillarSmashColliderDuration);
+            m_heavyPillarSmashImpactDamageCollider.enabled = false;
+
+            m_animation.SetAnimation(0, m_info.heavyPillarSmashAttackEnd.animation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.heavyPillarSmashAttackEnd.animation);
+            TurnOffPillarColliders();
+
+            m_canFlinch = true;
             m_currentAttackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
             yield return null;
@@ -538,6 +587,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator SwordProjectileRoutine()
         {
             m_stateHandle.Wait(State.Idle);
+            m_canFlinch = false;
 
             m_animation.SetAnimation(0, m_info.swordProjectileBothPillarsAttackLoop.animation, true);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.swordProjectileBothPillarsAttackLoop.animation);
@@ -556,6 +606,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.swordProjectileBothPillarsAttackEnd.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.swordProjectileBothPillarsAttackEnd.animation);
 
+            m_canFlinch = true;
             m_currentAttackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
             yield return null;
@@ -564,7 +615,9 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator LaserRoutine()
         {
             m_stateHandle.Wait(State.Idle);
+            m_canFlinch = false;
 
+            m_canFlinch = true;
             m_currentAttackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
             yield return null;
@@ -655,6 +708,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void OnDamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
         {
+            if (m_canFlinch == false)
+                return;
             StopAllCoroutines();
             StartCoroutine(FlinchRoutine());
         }
@@ -673,6 +728,7 @@ namespace DChild.Gameplay.Characters.Enemies
             base.Start();
 
             TurnOffPillarColliders();
+            m_heavyPillarSmashImpactDamageCollider.enabled = false;
             m_phaseHandle = new PhaseHandle<Phase, PhaseInfo>();
             m_phaseHandle.Initialize(Phase.PhaseOne, m_info.phaseInfo, m_character, ChangeState, ApplyPhaseData);
             m_phaseHandle.ApplyChange();
