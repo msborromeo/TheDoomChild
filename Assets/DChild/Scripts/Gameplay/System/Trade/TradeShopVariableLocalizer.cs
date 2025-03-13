@@ -15,8 +15,6 @@ namespace DChild.Localization
             paramsManager.SetParameterValue("PLURALIZATION", _pluralization);
             paramsManager.SetParameterValue("CURRENCY", _currencyMSG);
             paramsManager.SetParameterValue("COST", _Cost);
-
-            //paramsManager.
         }
     }
 }
