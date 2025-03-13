@@ -1,4 +1,6 @@
+using DChild;
 using DChild.Gameplay.Combat;
+using DChild.Gameplay.Pooling;
 using Holysoft.Event;
 using System;
 using System.Collections;
@@ -13,6 +15,10 @@ public class MiniThirdFormAI : MonoBehaviour
     private Collider2D m_hitbox;
     [SerializeField]
     private Damageable m_damageable;
+    [SerializeField]
+    private GameObject m_teleportFX;
+    [SerializeField]
+    private Transform m_teleportLocation;
 
     private int m_damageReceived;
 
@@ -33,6 +39,9 @@ public class MiniThirdFormAI : MonoBehaviour
         m_hitbox.enabled = false;
         OnDeath?.Invoke(this, EventActionArgs.Empty);
         this.gameObject.SetActive(false);
+        //InstantiateTeleportVFX();
+        m_teleportFX.transform.position = m_teleportLocation.position;
+        m_teleportFX.SetActive(true);
     }
 
     void Start()
@@ -40,6 +49,12 @@ public class MiniThirdFormAI : MonoBehaviour
         int maxHealth = 1200;
         m_damageable.health.SetMaxValue(maxHealth);
         m_damageable.health.SetHealthPercentage(1f);
+    }
+    private GameObject InstantiateTeleportVFX()
+    {
+        var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_teleportFX, gameObject.scene);
+        instance.SpawnAt(m_teleportLocation.position, Quaternion.identity);
+        return instance.gameObject;
     }
 
     void Update()
