@@ -260,8 +260,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1320763464896713842}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7259899, w: 0.6877054}
-  m_LocalPosition: {x: 3.0117128, y: -20.772568, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.695798, w: 0.7182376}
+  m_LocalPosition: {x: 0.28300312, y: -12.522657, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6589,6 +6589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6083965747193608343}
   - component: {fileID: 3886429936129792299}
+  - component: {fileID: 5081235324613443847}
   - component: {fileID: 3138838171224468361}
   m_Layer: 13
   m_Name: LazerDamager
@@ -6634,6 +6635,29 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &5081235324613443847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5693434518519041117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e10454193b54c9a4eb8bfb67b80c746d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_centerMass: {fileID: 6083965747193608343}
+  m_data: {fileID: 0}
+  m_currentAttackInfo:
+    damage:
+      m_type: 0
+      m_value: 0
+    criticalDamageInfo:
+      chance: 0
+      damageModifier: 0
+    ignoreInvulnerability: 0
+    ignoresBlock: 0
 --- !u!114 &3138838171224468361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12144,6 +12168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_animation: {fileID: 1341035588875037446}
   m_laserLunch: {fileID: 0}
+  m_attacker: {fileID: 0}
   m_spineListener: {fileID: 3249336843458334107}
   m_startCharge: chargeFXStart
   m_endCharge: BeamEnd

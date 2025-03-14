@@ -1,6 +1,6 @@
-﻿using TMPro;
+﻿using DChild.Gameplay.Environment;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 {
@@ -8,14 +8,43 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
     {
         [SerializeField] private ElevatorLabelUI m_leftLabel;
         [SerializeField] private ElevatorLabelUI m_rightLabel;
+        [SerializeField] private TextMeshProUGUI m_levelNumber;
 
-        public void Display()
+        private MovingPlatform m_elevator;
+        private int m_level;
+
+        public void SetElevatorLevel(MovingPlatform elevator, int level)
         {
-            //if left side is null
-            m_leftLabel.Display("left location");
-            
-            //if right side is not null
-            m_rightLabel.Display("right location");
+            this.m_elevator = elevator;
+            this.m_level = level;
+        }
+
+
+        private void SetPathLabel(ElevatorLevelInfo info)
+        {
+            m_leftLabel.Display(info.leftLabel);
+            m_rightLabel.Display(info.rightLabel);
+            m_levelNumber.text = $"{m_level + 1}";
+        }
+
+        public void Display(ElevatorLevelInfo info)
+        {
+            bool hasInfo = info != null;
+
+            gameObject.SetActive(hasInfo);
+            if (hasInfo)
+            {
+                SetPathLabel(info);
+            }
+        }
+
+
+
+        public void SelectLevel()
+        {
+            Debug.Log($"m_elevator : {m_elevator.gameObject.name}");
+            if (m_elevator == null) return;
+            m_elevator.GoDestination(m_level);
         }
     }
 }

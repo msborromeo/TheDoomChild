@@ -59,7 +59,7 @@ public class GroundStabTwoTentacle : PoolableObject
         if (randomShit == 1)
         {
             m_multipleGroundStabWithPatternAncticipation[0].SetActive(true);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(4f);
             m_multipleGroundStabWithPatternAncticipation[0].SetActive(false);
             m_multipleGroundStabWithPattern[0].SetActive(true);
 
@@ -67,7 +67,7 @@ public class GroundStabTwoTentacle : PoolableObject
         else
         {
             m_multipleGroundStabWithPatternAncticipation[1].SetActive(true);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(4f);
             m_multipleGroundStabWithPatternAncticipation[1].SetActive(false);
             m_multipleGroundStabWithPattern[1].SetActive(true);
         }
