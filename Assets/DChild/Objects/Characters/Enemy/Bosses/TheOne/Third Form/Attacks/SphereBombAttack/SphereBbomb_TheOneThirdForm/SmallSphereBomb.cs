@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Holysoft.Event;
+using DChild.Gameplay.Combat;
 
 public class SmallSphereBomb : MonoBehaviour
 {
@@ -17,6 +19,16 @@ public class SmallSphereBomb : MonoBehaviour
     private float flightTime = 1.0f;
     [SerializeField]
     private GameObject m_spherebombFX;
+    //private void Awake()
+    //{
+    //    m_attackerSmallSphereBomb.TargetDamaged += attackerSmallSphereBomb_TargetDamaged;
+    //}
+
+    //private void attackerSmallSphereBomb_TargetDamaged(object sender, CombatConclusionEventArgs eventArgs)
+    //{
+    //    HasDamageTarget?.Invoke(this,EventActionArgs.Empty);
+    //    Debug.Log("Got hit by small sphere bomb in small sphere bomb script");
+    //}
 
     void Start()
     {
@@ -44,6 +56,9 @@ public class SmallSphereBomb : MonoBehaviour
             var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_spherebombFX, gameObject.scene);
             instance.SpawnAt(new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
             Destroy(gameObject);
+
+
         }
+
     }
 }
