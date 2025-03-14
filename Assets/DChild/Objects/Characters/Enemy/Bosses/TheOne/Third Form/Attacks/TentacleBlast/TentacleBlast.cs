@@ -1,4 +1,5 @@
-﻿using Holysoft.Event;
+﻿using DChild.Gameplay.Combat;
+using Holysoft.Event;
 using Sirenix.OdinInspector;
 using Spine.Unity;
 using System.Collections;
@@ -14,7 +15,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
         [SerializeField, TabGroup("Reference")]
         protected TheOneThirdFormLaserLauncher m_laserLunch;
-
+        [SerializeField, TabGroup("Reference")]
+        private Attacker m_attacker;
         [SerializeField]
         private SpineEventListener m_spineListener;
         [Title("Events")]
@@ -53,10 +55,11 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public bool isDoneTentacleAttack = false;
 
-       /* private void BeamStartCollider()
-        {
-            m_laserLunch.UpdateEdgeCollider();
-        }*/
+        public event EventAction<EventActionArgs> HasDamageTarget;
+        /* private void BeamStartCollider()
+         {
+             m_laserLunch.UpdateEdgeCollider();
+         }*/
         private void EndChargeFX()
         {
             m_anim.SetTrigger("TentacleBlastDissipation");
@@ -94,10 +97,18 @@ namespace DChild.Gameplay.Characters.Enemies
         public IEnumerator TentacleBlastAttack()
         {
             //AttackStart?.Invoke(this, EventActionArgs.Empty);
+            m_attacker.TargetDamaged += attacker_TargetDamaged;
             yield return EmergeTentacle();
             yield return ShootTentacleBeam();
             yield return DespawnTentacle();
-          //  AttackDone?.Invoke(this, EventActionArgs.Empty);
+            m_attacker.TargetDamaged -= attacker_TargetDamaged;
+            //  AttackDone?.Invoke(this, EventActionArgs.Empty);
+        }
+
+        private void attacker_TargetDamaged(object sender, CombatConclusionEventArgs eventArgs)
+        {
+            HasDamageTarget?.Invoke(this, EventActionArgs.Empty);
+            Debug.Log("Hit in tentacle blast script");
         }
 
         // Start is called before the first frame update
