@@ -145,6 +145,11 @@ namespace DChild.Gameplay.Characters.Enemies
             private SimpleAttackInfo m_leftToRightToLeftLaserAttack = new SimpleAttackInfo();
             public SimpleAttackInfo leftToRightToLeftLaserAttack => m_leftToRightToLeftLaserAttack;
 
+            [Title("Other")]
+            [SerializeField, TabGroup("LaserBlast")]
+            private float m_laserDuration;
+            public float laserDuration => m_laserDuration;
+
             [Title("Flinch Animations")]
             [SerializeField]
             private BasicAnimationInfo m_noDamageFlinchAnimation;
@@ -294,6 +299,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Transform m_leftPillarSmashFXSpawnPoint;
         [SerializeField, TabGroup("Reference")]
         private Transform m_rightPillarSmashFXSpawnPoint;
+        [SerializeField, TabGroup("Reference")]
+        private ColossusLaserShooter m_laserShooter;
 
         [SerializeField, TabGroup("Modules")]
         private DeathHandle m_deathHandle;
@@ -617,6 +624,22 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.Idle);
             m_canFlinch = false;
 
+            TurnOnPillarEnvironmentCollider();
+
+            if(IsPlayerOnRightSide())
+            {
+                m_laserShooter.FireLaser(false, m_info.laserDuration);
+                m_animation.SetAnimation(0, m_info.counterClockwiseLaserAttack.animation, true);
+            }
+            else
+            {
+                m_laserShooter.FireLaser(true, m_info.laserDuration);
+                m_animation.SetAnimation(0, m_info.clockwiseLaserAttack.animation, true);
+            }
+
+            yield return new WaitForSeconds(m_info.laserDuration);
+
+            TurnOffPillarColliders();
             m_canFlinch = true;
             m_currentAttackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
