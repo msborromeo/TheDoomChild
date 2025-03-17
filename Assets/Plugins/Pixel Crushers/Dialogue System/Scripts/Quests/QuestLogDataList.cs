@@ -24,5 +24,9 @@ namespace PixelCrushers.DialogueSystem
         private Quest[] m_mainQuests;
         [SerializeField, TabGroup("Side Quest")]
         private Quest[] m_sideQuests;
+
+        public Quest[] mainQuests => m_mainQuests;
+        public Quest[] sideQuests => m_sideQuests;
+
     }
 }

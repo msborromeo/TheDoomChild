@@ -17,10 +17,16 @@ namespace DChild.Codex.Quests.UI
         private Quest[] m_quests;
         private Quest[] m_filteredQuests;
 
+        private bool m_isMain;
         private int m_page, m_maxRows = 8, m_startingIndex = 0;
 
         public int currentPage => throw new System.NotImplementedException();
         public event EventAction<EventActionArgs> PageChange;
+
+        public void SetSectionType(bool value)
+        {
+            m_isMain = value;
+        }
 
         public void Initialize(Quest[] quests)
         {
@@ -40,13 +46,14 @@ namespace DChild.Codex.Quests.UI
             {
                 var questButton = m_questButtons[i];
 
-                if (i < quests.Length)
+                if (i >= quests.Length)
                 {
-                    questButton.SetSelectionIndex(m_startingIndex + i);
-                    questButton.Display(quests[i]);
+                    questButton.Display(null);
                     continue;
                 }
-                questButton.Display(null);
+                questButton.background.SetBackground(m_isMain);
+                questButton.SetSelectionIndex(m_startingIndex + i);
+                questButton.Display(quests[i]);
             }
         }
 
