@@ -5,10 +5,12 @@ using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using DChild.Localization;
+using System;
 
 namespace DChild.Gameplay.UI
 {
-    public class InteractablePrompt : MonoBehaviour
+    public class InteractablePrompt : MonoBehaviour ,IPromptLocalizer 
     {
         [SerializeField]
         private InteractableDetector m_detector;
@@ -26,6 +28,8 @@ namespace DChild.Gameplay.UI
         private Vector3 m_showStartPosition;
 
         private Vector3 m_newPromptPosition;
+
+        public event Action<string> LocalizeText;
 
         private void OnInteractableDetected(object sender, DetectedInteractableEventArgs eventArgs)
         {
@@ -47,6 +51,7 @@ namespace DChild.Gameplay.UI
                 m_promptMessage.text = eventArgs.message;
                 m_requirementMessage.text = eventArgs.message;
                 GameplaySystem.gamplayUIHandle.ShowInteractionPrompt(true);
+                LocalizeText?.Invoke(eventArgs.message);
             }
         }
 
