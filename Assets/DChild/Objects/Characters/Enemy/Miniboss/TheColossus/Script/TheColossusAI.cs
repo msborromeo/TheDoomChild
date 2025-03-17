@@ -523,9 +523,9 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_leftPillarDamageCollider.enabled = false;
                 m_leftPillarEnvironmentCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.pillarSmashBothAttackLoop.animation, true);
-                m_pillarSmashImpactLargeDamageCollider.enabled = false;
                 yield return new WaitForSeconds(m_info.pillarSmashDownDuration);
 
+                m_pillarSmashImpactLargeDamageCollider.enabled = false;
                 m_animation.SetAnimation(0, m_info.pillarSmashBothAttackEnd.animation, false);
                 TurnOffPillarColliders();
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.pillarSmashBothAttackEnd.animation);
@@ -550,9 +550,9 @@ namespace DChild.Gameplay.Characters.Enemies
 
                 m_rightPillarEnvironmentCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.pillarSmashBothAttackLoop.animation, true);
-                m_pillarSmashImpactLargeDamageCollider.enabled = false;
                 yield return new WaitForSeconds(m_info.pillarSmashDownDuration);
 
+                m_pillarSmashImpactLargeDamageCollider.enabled = false;
                 m_animation.SetAnimation(0, m_info.pillarSmashBothAttackEnd.animation, false);
                 TurnOffPillarColliders();
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.pillarSmashBothAttackEnd.animation);
@@ -710,7 +710,7 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             if((m_health.currentValue < m_health.maxValue * 0.85) && (m_health.currentValue > m_health.maxValue * 0.7))
             {
-                m_animation.SetAnimation(1, m_info.slightDamageFlinchAnimation.animation, true);
+                m_animation.SetAnimation(1, m_info.slightlyDamagedHeadAnimation.animation, true);
             }
 
             if ((m_health.currentValue < m_health.maxValue * 0.7) && (m_health.currentValue > m_health.maxValue * 0.7))
