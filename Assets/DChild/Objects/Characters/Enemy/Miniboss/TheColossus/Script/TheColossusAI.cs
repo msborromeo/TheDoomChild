@@ -185,7 +185,7 @@ namespace DChild.Gameplay.Characters.Enemies
             public BasicAnimationInfo rageQuakeAnimation => m_rageQuakeAnimation;
             [SerializeField]
             private BasicAnimationInfo m_slightlyDamagedHeadAnimation;
-            public BasicAnimationInfo slightlyDamagedHeadAnimation => m_slightDamageFlinchAnimation;
+            public BasicAnimationInfo slightlyDamagedHeadAnimation => m_slightlyDamagedHeadAnimation;
             [SerializeField]
             private BasicAnimationInfo m_mediumDamagedHeadAnimation;
             public BasicAnimationInfo mediumDamagedHeadAnimation => m_mediumDamagedHeadAnimation;
@@ -402,6 +402,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
 
+            TurnOffPillarColliders();
             m_currentAttackDecider.hasDecidedOnAttack = false;
 
             m_animation.SetAnimation(0, m_info.lastHitDamageFlinchAnimation.animation, false);
@@ -630,13 +631,13 @@ namespace DChild.Gameplay.Characters.Enemies
 
             if(IsPlayerOnRightSide())
             {
-                m_laserShooter.FireLaser(false, m_info.laserDuration);
-                m_animation.SetAnimation(0, m_info.counterClockwiseLaserAttack.animation, true);
+                m_laserShooter.FireLaser(true, m_info.laserDuration);
+                m_animation.SetAnimation(0, m_info.clockwiseLaserAttack.animation, true);
             }
             else
             {
-                m_laserShooter.FireLaser(true, m_info.laserDuration);
-                m_animation.SetAnimation(0, m_info.clockwiseLaserAttack.animation, true);
+                m_laserShooter.FireLaser(false, m_info.laserDuration);
+                m_animation.SetAnimation(0, m_info.counterClockwiseLaserAttack.animation, true);
             }
 
             yield return new WaitForSeconds(m_info.laserDuration);
@@ -732,6 +733,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private void OnDamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
         {
             m_flinchFX.Play();
+            SetCurrentHead();
 
             if (m_health.currentValue <= m_health.maxValue * 0.5)
                 m_canFlinch = true;
@@ -766,7 +768,6 @@ namespace DChild.Gameplay.Characters.Enemies
         private void Update()
         {
             m_phaseHandle.MonitorPhase();
-            SetCurrentHead();
 
            switch(m_stateHandle.currentState)
             {
