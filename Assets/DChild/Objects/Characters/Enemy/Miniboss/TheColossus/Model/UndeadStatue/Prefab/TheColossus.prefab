@@ -885,7 +885,7 @@ MonoBehaviour:
   m_animator: {fileID: 1403796527}
   m_animation: Death_2
   m_bodyDuration:
-    m_startTime: 0
+    m_startTime: 5
   m_fx: []
   m_destroySource: 0
 --- !u!1 &406892476
@@ -2452,6 +2452,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1297358136}
+  - {fileID: 6992980973802292434}
   m_Father: {fileID: 339963358121276839}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5267,10 +5268,7 @@ MonoBehaviour:
   m_heavySlamAnticipationFX: {fileID: 9211855800992715355, guid: 75ed2bec8c8566e439ac73b9a7d8cfcc,
     type: 3}
   m_heavySlamFX: {fileID: 8436630335885783288}
-  m_swordProjectileFX: {fileID: 0}
-  m_laserBeamChargeFX: {fileID: 0}
-  m_laserBeamImpactFX: {fileID: 0}
-  m_flinchFX: {fileID: 0}
+  m_flinchFX: {fileID: 4603934525102450728}
   m_leftPillarEnvironmentCollider: {fileID: 995704118}
   m_rightPillarEnvironmentCollider: {fileID: 165073666}
   m_leftPillarDamageCollider: {fileID: 1923570288}
@@ -5747,75 +5745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90293750f472d3340b452cec6fea2606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  events:
-  - spineEvent: Normal_Smash_Collider_Off
-    unityHandler:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1403796524}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Characters.Enemies.TheColossusAI,
-            Assembly-CSharp
-          m_MethodName: TurnOnPillarEnvironmentCollider
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - spineEvent: Normal_Smash_Collider_On
-    unityHandler:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1403796524}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Characters.Enemies.TheColossusAI,
-            Assembly-CSharp
-          m_MethodName: TurnOnPillarDamageColliders
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - spineEvent: Normal_Smash_FX_On
-    unityHandler:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1403796524}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Characters.Enemies.TheColossusAI,
-            Assembly-CSharp
-          m_MethodName: PlayPillarSmashFX
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - spineEvent: Normal_Smash_FX_Off
-    unityHandler:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1403796524}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Characters.Enemies.TheColossusAI,
-            Assembly-CSharp
-          m_MethodName: StopPillarSmashFX
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  events: []
 --- !u!114 &1918977115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7186,6 +7116,113 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6178cd111cba844a6e236cfbee492c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &3266122267592602561
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1133771492}
+    m_Modifications:
+    - target: {fileID: 5503284124323198736, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: m_Name
+      value: UndeadStatueFlinch_FX
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124323198739, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124323198739, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124323198739, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 32.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124323198739, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124323198739, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124323198739, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124323198739, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124323198739, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124323198739, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124323198739, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124323198739, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124664207919, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: startColor.m_ColorMin.a
+      value: 2.07e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124664207919, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: startColor.m_ColorMin.b
+      value: 851430.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124664207919, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: startColor.m_ColorMin.g
+      value: 2.07e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503284124664207919, guid: 23d1532d66c8c2141ac41d2889609187,
+        type: 3}
+      propertyPath: startColor.m_ColorMin.r
+      value: 851444
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 23d1532d66c8c2141ac41d2889609187, type: 3}
+--- !u!114 &4603934525102450728 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1348809306526112745, guid: 23d1532d66c8c2141ac41d2889609187,
+    type: 3}
+  m_PrefabInstance: {fileID: 3266122267592602561}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6178cd111cba844a6e236cfbee492c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &6992980973802292434 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5503284124323198739, guid: 23d1532d66c8c2141ac41d2889609187,
+    type: 3}
+  m_PrefabInstance: {fileID: 3266122267592602561}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6600522849181544806
 PrefabInstance:
   m_ObjectHideFlags: 0

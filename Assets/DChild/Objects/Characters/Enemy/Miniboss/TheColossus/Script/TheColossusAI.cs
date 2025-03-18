@@ -185,7 +185,7 @@ namespace DChild.Gameplay.Characters.Enemies
             public BasicAnimationInfo rageQuakeAnimation => m_rageQuakeAnimation;
             [SerializeField]
             private BasicAnimationInfo m_slightlyDamagedHeadAnimation;
-            public BasicAnimationInfo slightlyDamagedHeadAnimation => m_slightDamageFlinchAnimation;
+            public BasicAnimationInfo slightlyDamagedHeadAnimation => m_slightlyDamagedHeadAnimation;
             [SerializeField]
             private BasicAnimationInfo m_mediumDamagedHeadAnimation;
             public BasicAnimationInfo mediumDamagedHeadAnimation => m_mediumDamagedHeadAnimation;
@@ -314,12 +314,6 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField, TabGroup("FX")]
         private ParticleFX m_heavySlamFX;
         [SerializeField, TabGroup("FX")]
-        private ParticleFX m_swordProjectileFX;
-        [SerializeField, TabGroup("FX")]
-        private ParticleFX m_laserBeamChargeFX;
-        [SerializeField, TabGroup("FX")]
-        private ParticleFX m_laserBeamImpactFX;
-        [SerializeField, TabGroup("FX")]
         private ParticleFX m_flinchFX;
 
         [SerializeField, TabGroup("Colliders")]
@@ -406,21 +400,15 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator ChangePhaseRoutine()
         {
-            m_stateHandle.Wait(State.Attacking);
+            m_stateHandle.Wait(State.ReevaluateSituation);
 
+            TurnOffPillarColliders();
             m_currentAttackDecider.hasDecidedOnAttack = false;
 
             m_animation.SetAnimation(0, m_info.lastHitDamageFlinchAnimation.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.lastHitDamageFlinchAnimation);
             m_animation.SetAnimation(0, m_info.rageQuakeAnimation.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.rageQuakeAnimation.animation);
-
-            if (m_phaseHandle.currentPhase == Phase.PhaseTwo)
-            {
-                m_currentAttackDecider = new RandomAttackDecider<Attack>();
-                m_currentAttackDecider.DecideOnAttack(Attack.SwordProjectile);
-                m_currentAttackDecider.hasDecidedOnAttack = true;
-            }
 
             m_stateHandle.ApplyQueuedState();
         }
@@ -510,51 +498,66 @@ namespace DChild.Gameplay.Characters.Enemies
         #region Attacks
         private IEnumerator PillarSmashRoutine()
         {
-            m_stateHandle.Wait(State.Idle);
+            m_stateHandle.Wait(State.ReevaluateSituation);
             m_canFlinch = false;
 
-            var SmashDownDuration = UnityEngine.Random.Range(1, 3);
+            TurnOffPillarColliders();
 
             if (IsPlayerOnRightSide())
             {
+                m_rightPillarDamageCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.rightLeftPillarSmashFirstSmashDown.animation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.rightLeftPillarSmashFirstSmashDown.animation);
                 SpawnPillarSmashVFX(m_rightPillarSmashFXSpawnPoint.position, false);
 
+                m_rightPillarDamageCollider.enabled = false;
+                m_rightPillarEnvironmentCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.rightLeftPillarSmashFirstSmashLoop.animation, true);
                 yield return new WaitForSeconds(m_info.pillarSmashDownDuration);
 
+                m_pillarSmashImpactSmallDamageCollider.enabled = false;
+                m_leftPillarDamageCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.rightLeftPillarSmashSecondSmashDown.animation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.rightLeftPillarSmashSecondSmashDown.animation);
                 SpawnPillarSmashVFX(m_leftPillarSmashFXSpawnPoint.position, true);
 
+                m_leftPillarDamageCollider.enabled = false;
+                m_leftPillarEnvironmentCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.pillarSmashBothAttackLoop.animation, true);
                 yield return new WaitForSeconds(m_info.pillarSmashDownDuration);
 
-                m_animation.SetAnimation(0, m_info.swordProjectileBothPillarsAttackEnd.animation, false);
-                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.swordProjectileBothPillarsAttackEnd.animation);
+                m_pillarSmashImpactLargeDamageCollider.enabled = false;
+                m_animation.SetAnimation(0, m_info.pillarSmashBothAttackEnd.animation, false);
+                TurnOffPillarColliders();
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.pillarSmashBothAttackEnd.animation);
             }
             else
             {
+                m_leftPillarDamageCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.leftRightPillarSmashFirstSmashDown.animation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leftRightPillarSmashFirstSmashDown.animation);
                 SpawnPillarSmashVFX(m_leftPillarSmashFXSpawnPoint.position, false);
 
+                m_leftPillarDamageCollider.enabled = false;
+                m_leftPillarEnvironmentCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.leftRightPillarSmashFirstSmashLoop.animation, false);
-                yield return new WaitForSeconds(SmashDownDuration);
+                yield return new WaitForSeconds(m_info.pillarSmashDownDuration);
 
+                m_pillarSmashImpactSmallDamageCollider.enabled = false;
+                m_rightPillarDamageCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.leftRightPillarSmashSecondSmashDown.animation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leftRightPillarSmashSecondSmashDown.animation);
                 SpawnPillarSmashVFX(m_rightPillarSmashFXSpawnPoint.position, true);
 
+                m_rightPillarEnvironmentCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.pillarSmashBothAttackLoop.animation, true);
-                yield return new WaitForSeconds(SmashDownDuration);
+                yield return new WaitForSeconds(m_info.pillarSmashDownDuration);
 
+                m_pillarSmashImpactLargeDamageCollider.enabled = false;
                 m_animation.SetAnimation(0, m_info.pillarSmashBothAttackEnd.animation, false);
+                TurnOffPillarColliders();
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.pillarSmashBothAttackEnd.animation);
             }
-
-            TurnOffPillarColliders();
 
             m_canFlinch = true;
             m_currentAttackDecider.hasDecidedOnAttack = false;
@@ -564,8 +567,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator HeavyPillarSmashRoutine()
         {
-            m_stateHandle.Wait(State.Idle);
-            m_canFlinch = false;
+            //m_stateHandle.Wait(State.Idle);
+            //m_canFlinch = false;
 
             TurnOnPillarDamageColliders();
             m_animation.SetAnimation(0, m_info.heavyPillarSmashAttackStart.animation, false);
@@ -585,15 +588,15 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.heavyPillarSmashAttackEnd.animation);
             TurnOffPillarColliders();
 
-            m_canFlinch = true;
-            m_currentAttackDecider.hasDecidedOnAttack = false;
-            m_stateHandle.ApplyQueuedState();
-            yield return null;
+            //m_canFlinch = true;
+            //m_currentAttackDecider.hasDecidedOnAttack = false;
+            //m_stateHandle.ApplyQueuedState();
+            yield return LaserRoutine();
         }
 
         private IEnumerator SwordProjectileRoutine()
         {
-            m_stateHandle.Wait(State.Idle);
+            m_stateHandle.Wait(State.ReevaluateSituation);
             m_canFlinch = false;
 
             m_animation.SetAnimation(0, m_info.swordProjectileBothPillarsAttackLoop.animation, true);
@@ -613,28 +616,28 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.swordProjectileBothPillarsAttackEnd.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.swordProjectileBothPillarsAttackEnd.animation);
 
-            m_canFlinch = true;
-            m_currentAttackDecider.hasDecidedOnAttack = false;
-            m_stateHandle.ApplyQueuedState();
-            yield return null;
+            //m_canFlinch = true;
+            //m_currentAttackDecider.hasDecidedOnAttack = false;
+            //m_stateHandle.ApplyQueuedState();
+            yield return HeavyPillarSmashRoutine();
         }
 
         private IEnumerator LaserRoutine()
         {
-            m_stateHandle.Wait(State.Idle);
-            m_canFlinch = false;
+            //m_stateHandle.Wait(State.Idle);
+            //m_canFlinch = false;
 
             TurnOnPillarEnvironmentCollider();
 
             if(IsPlayerOnRightSide())
             {
-                m_laserShooter.FireLaser(false, m_info.laserDuration);
-                m_animation.SetAnimation(0, m_info.counterClockwiseLaserAttack.animation, true);
+                m_laserShooter.FireLaser(true, m_info.laserDuration);
+                m_animation.SetAnimation(0, m_info.clockwiseLaserAttack.animation, true);
             }
             else
             {
-                m_laserShooter.FireLaser(true, m_info.laserDuration);
-                m_animation.SetAnimation(0, m_info.clockwiseLaserAttack.animation, true);
+                m_laserShooter.FireLaser(false, m_info.laserDuration);
+                m_animation.SetAnimation(0, m_info.counterClockwiseLaserAttack.animation, true);
             }
 
             yield return new WaitForSeconds(m_info.laserDuration);
@@ -654,9 +657,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_currentAttackDecider.SetList(new AttackInfo<Attack>(Attack.PillarSlam, 0));
                     break;
                 case Phase.PhaseTwo:
-                    m_currentAttackDecider.SetList(new AttackInfo<Attack>(Attack.HeavyPillarSlam, 0),
-                                                    new AttackInfo<Attack>(Attack.SwordProjectile, 0),
-                                                    new AttackInfo<Attack>(Attack.LaserBlast, 0));
+                    m_currentAttackDecider.SetList( new AttackInfo<Attack>(Attack.SwordProjectile, 0));
                     break;
             }
         }
@@ -710,7 +711,7 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             if((m_health.currentValue < m_health.maxValue * 0.85) && (m_health.currentValue > m_health.maxValue * 0.7))
             {
-                m_animation.SetAnimation(1, m_info.slightDamageFlinchAnimation.animation, true);
+                m_animation.SetAnimation(1, m_info.slightlyDamagedHeadAnimation.animation, true);
             }
 
             if ((m_health.currentValue < m_health.maxValue * 0.7) && (m_health.currentValue > m_health.maxValue * 0.7))
@@ -731,10 +732,17 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void OnDamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
         {
+            m_flinchFX.Play();
+            SetCurrentHead();
+
+            if (m_health.currentValue <= m_health.maxValue * 0.5)
+                m_canFlinch = true;
+
             if (m_canFlinch == false)
                 return;
-            StopAllCoroutines();
-            StartCoroutine(FlinchRoutine());
+
+            //StopAllCoroutines();
+            //StartCoroutine(FlinchRoutine());
         }
 
         protected override void Awake()
@@ -760,7 +768,6 @@ namespace DChild.Gameplay.Characters.Enemies
         private void Update()
         {
             m_phaseHandle.MonitorPhase();
-            SetCurrentHead();
 
            switch(m_stateHandle.currentState)
             {
@@ -787,14 +794,8 @@ namespace DChild.Gameplay.Characters.Enemies
                         case Attack.PillarSlam:
                             StartCoroutine(PillarSmashRoutine());
                             break;
-                        case Attack.HeavyPillarSlam:
-                            StartCoroutine(HeavyPillarSmashRoutine());
-                            break;
                         case Attack.SwordProjectile:
                             StartCoroutine(SwordProjectileRoutine());
-                            break;
-                        case Attack.LaserBlast:
-                            StartCoroutine(LaserRoutine());
                             break;
                     }
                     break;
@@ -806,7 +807,19 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     else
                     {
+                        switch (m_phaseHandle.currentPhase)
+                        {
+                            case Phase.PhaseOne:
+                                m_currentAttackDecider.DecideOnAttack(Attack.PillarSlam);
+                                m_currentAttackDecider.hasDecidedOnAttack = true;
+                                break;
+                            case Phase.PhaseTwo:
+                                m_currentAttackDecider.DecideOnAttack(Attack.SwordProjectile);
+                                m_currentAttackDecider.hasDecidedOnAttack = true;
+                                break;
+                        }
 
+                        m_stateHandle.SetState(State.Attacking);
                     }
                     break;
                 case State.WaitBehaviourEnd:
