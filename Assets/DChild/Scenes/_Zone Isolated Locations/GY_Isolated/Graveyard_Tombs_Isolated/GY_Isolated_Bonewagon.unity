@@ -237,6 +237,12 @@ Transform:
   m_Father: {fileID: 2061268484}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &81501550 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 4129063877467918675, guid: c862096fd584e9f45b0085d793d4d940,
+    type: 3}
+  m_PrefabInstance: {fileID: 202614813}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &89460429
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +279,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &96739330 stripped
+CapsuleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5192597124300632497, guid: c862096fd584e9f45b0085d793d4d940,
+    type: 3}
+  m_PrefabInstance: {fileID: 202614813}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &102455689
 GameObject:
   m_ObjectHideFlags: 0
@@ -6065,7 +6077,7 @@ MonoBehaviour:
   IncludeChildColliders: 1
   RuntimeFollower: {fileID: 0}
   colliderMaxDistance: 0
-  lastTimeMaxDistanceCalced: 638775728565347773
+  lastTimeMaxDistanceCalced: 638778931333729037
 --- !u!4 &354566235 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4313152878195319206, guid: 3a6c41e91860af1409e9436986a162a2,
@@ -15264,6 +15276,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &766860192 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 2389293403181607479, guid: c862096fd584e9f45b0085d793d4d940,
+    type: 3}
+  m_PrefabInstance: {fileID: 202614813}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &767573119
 GameObject:
   m_ObjectHideFlags: 0
@@ -20204,6 +20222,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &1914428311 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 657383225878936460, guid: c862096fd584e9f45b0085d793d4d940,
+    type: 3}
+  m_PrefabInstance: {fileID: 202614813}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1931780456
 GameObject:
   m_ObjectHideFlags: 0
@@ -354203,13 +354227,14 @@ GameObject:
   - component: {fileID: 6260862807286311898}
   - component: {fileID: 6260862807286311908}
   - component: {fileID: 6260862807286311909}
+  - component: {fileID: 6260862807286311910}
   m_Layer: 11
   m_Name: patform_collider (3)
   m_TagString: InvisibleWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &6260862807286311908
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -354288,6 +354313,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
+--- !u!114 &6260862807286311910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6260862807286311899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b6c802266f85b7479a6e396638ffa34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bonewagonColliders:
+  - {fileID: 1914428311}
+  - {fileID: 766860192}
+  - {fileID: 81501550}
+  - {fileID: 96739330}
 --- !u!4 &6260862807313422376
 Transform:
   m_ObjectHideFlags: 0
@@ -359561,13 +359603,14 @@ GameObject:
   - component: {fileID: 6260862808296729484}
   - component: {fileID: 6260862808296729486}
   - component: {fileID: 6260862808296729487}
+  - component: {fileID: 6260862808296729488}
   m_Layer: 11
   m_Name: patform_collider (2)
   m_TagString: InvisibleWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &6260862808296729486
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -359646,6 +359689,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
+--- !u!114 &6260862808296729488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6260862808296729485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b6c802266f85b7479a6e396638ffa34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bonewagonColliders:
+  - {fileID: 1914428311}
+  - {fileID: 766860192}
+  - {fileID: 81501550}
+  - {fileID: 96739330}
 --- !u!114 &6260862808297801072
 MonoBehaviour:
   m_ObjectHideFlags: 0
