@@ -84,11 +84,11 @@ namespace DChild.Gameplay.Characters.Enemies
                 //Use Lerp? rotate within laser duration
                 if (isLaserClockwise)
                 {
-                    transform.Rotate(Vector3.forward, speed * Time.deltaTime);
+                    transform.Rotate(Vector3.forward, -speed * Time.deltaTime);
                 }
                 else
                 {
-                    transform.Rotate(Vector3.forward, -speed * Time.deltaTime);
+                    transform.Rotate(Vector3.forward, speed * Time.deltaTime);
                 }
 
                 UpdateLaser(transform.position, transform.right, m_maxLaserDistance);
