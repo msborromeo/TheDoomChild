@@ -1,39 +1,54 @@
 ﻿using PixelCrushers.DialogueSystem;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DChild.Codex.Quest.UI
+namespace DChild.Codex.Quests.UI
 {
     public class QuestButtonUI : MonoBehaviour
     {
-        [SerializeField] private QuestTypeBackgroundUI m_background;
+        [BoxGroup("Display State"), SerializeField] private QuestTypeBackgroundUI m_background;
+        [BoxGroup("Display State"), SerializeField] private GameObject m_lockedBackground;
+
+
         [SerializeField] private QuestNameUI m_name;
         [SerializeField] private List<QuestProgressUI> m_subQuestList;
 
-        private SampleDummyQuestData m_questData;
+        private Quest m_questData;
+        private int m_selectionIndex;
 
-        private void SetQuestData(SampleDummyQuestData data)
-        {
-            m_questData = data;
-        }
+        public QuestTypeBackgroundUI background => m_background;
 
-        public void Display(SampleDummyQuestData questData)
+        public virtual int selectionIndex => m_selectionIndex;
+
+
+        public void SetSelectionIndex(int index) => m_selectionIndex = index;
+        private void SetQuestData(Quest data) => m_questData = data;
+
+        public void Display(Quest questData)
         {
+            if (questData == null)
+            {
+                m_background.gameObject.SetActive(false);
+                m_lockedBackground.SetActive(true);
+                return;
+            }
+            m_lockedBackground.SetActive(false);
+            m_background.gameObject.SetActive(true);
+
             SetQuestData(questData);
-
-            m_background.SetBackground(m_questData.isMainQuest);
-            m_name.Display(m_questData.questName, m_questData.status == QuestState.Success);
+            m_name.Display(m_questData.name, m_questData.state == QuestState.Success);
         }
 
         public void ShowProgress()
         {
-            int count = m_questData.subQuests.Count;
+            int count = m_questData.entryCount;
             for (int i = 0; i < m_subQuestList.Count; i++)
             {
                 bool isActive = i < count;
                 m_subQuestList[i].gameObject.SetActive(isActive);
                 if (isActive)
-                    m_subQuestList[i].Display(m_questData.subQuests[i], i);
+                    m_subQuestList[i].Display(m_questData.GetEntry(i), i);
             }
         }
     }
