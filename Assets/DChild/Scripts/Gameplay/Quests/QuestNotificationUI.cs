@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using PixelCrushers.DialogueSystem;
 using TMPro;
-using DChild.Temp;
-using Doozy.Runtime.UIManager.Containers;
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace DChild.Gameplay.Quests
 {
@@ -11,17 +12,44 @@ namespace DChild.Gameplay.Quests
         [SerializeField]
         private TextMeshProUGUI m_questTitle;
         [SerializeField]
-        private TextMeshProUGUI m_questEntry;
+        private List<TextMeshProUGUI> m_questEntries;
 
+        /// <summary>
+        /// entryNumber will be treated as entryCount
+        /// </summary>
+        /// <param name="questInfo"></param>
+        [Button]
         public void UpdateLog(QuestEntryArgs questInfo)
         {
+            ResetEntries();
             m_questTitle.text = FormattedText.Parse(questInfo.questName).text;
-            m_questEntry.text = "";
-            if (questInfo.entryNumber >= 0)
+            
+            var entryCount = questInfo.entryNumber;
+
+            for (int i = 0; i < entryCount; i++)
             {
-                var entryName = QuestLog.GetQuestEntry(questInfo.questName, questInfo.entryNumber);
-                m_questEntry.text = FormattedText.Parse(entryName).text;
+                m_questEntries[i].text = "";
+                if (questInfo.entryNumber >= 0)
+                {
+                    var parent = m_questEntries[i].transform.parent;
+                    parent.gameObject.SetActive(true);
+
+                    var entryName = QuestLog.GetQuestEntry(questInfo.questName, i + 1);
+                    m_questEntries[i].text = FormattedText.Parse(entryName).text;
+                }                
             }
         }
+
+        private void ResetEntries()
+        {
+            foreach ( var entry in m_questEntries)
+            {
+                entry.text = "";
+                
+                var parent = entry.transform.parent;
+                parent.gameObject.SetActive(false);
+            }
+        }
+
     }
 }

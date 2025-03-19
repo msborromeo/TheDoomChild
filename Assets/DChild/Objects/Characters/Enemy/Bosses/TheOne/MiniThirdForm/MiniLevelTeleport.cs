@@ -26,13 +26,13 @@ public class MiniLevelTeleport : MonoBehaviour
 
         switch (phase)
         {
-            case TheOneThirdFormAI.Phase.PhaseTwo:
+            case TheOneThirdFormAI.Phase.PhaseThree:
                 teleportCount = 3;
                 break;
-            case TheOneThirdFormAI.Phase.PhaseThree:
+            case TheOneThirdFormAI.Phase.PhaseFour:
                 teleportCount = 4;
                 break;
-            case TheOneThirdFormAI.Phase.PhaseFour:
+            case TheOneThirdFormAI.Phase.PhaseFive:
                 teleportCount = 2;
                 break;
         }
@@ -46,12 +46,12 @@ public class MiniLevelTeleport : MonoBehaviour
             }
 
             yield return new WaitForSeconds(3f);
-            if (phase == TheOneThirdFormAI.Phase.PhaseTwo && teleportationsDone != 3)
+            if (phase == TheOneThirdFormAI.Phase.PhaseThree && teleportationsDone != 3)
             {
                 player.transform.position = m_teleportPoints[randomIndex];
                 m_teleportPoints.RemoveAt(randomIndex);
             }
-            else if (phase == TheOneThirdFormAI.Phase.PhaseThree && teleportationsDone != 7)
+            else if (phase == TheOneThirdFormAI.Phase.PhaseFour && teleportationsDone != 7)
             {
                 if (m_teleportPoints.Count == 1)
                 {
@@ -64,15 +64,17 @@ public class MiniLevelTeleport : MonoBehaviour
                     m_teleportPoints.RemoveAt(randomIndex);
                 }
             }
-            else if (phase == TheOneThirdFormAI.Phase.PhaseFour && teleportationsDone != 9)
+            else if (phase == TheOneThirdFormAI.Phase.PhaseFive && teleportationsDone != 9)
             {
                 player.transform.position = m_bossArenaLoc;
             }
             else
             {
+                m_thirdForm.m_isPlayerBackArena = true;
                 player.transform.position = m_thirdFormLocation;
             }
             this.gameObject.SetActive(false);
+            
         }
     }
 

@@ -33,7 +33,7 @@ public class SphereBombTwo : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 11 || collision.CompareTag("Hitbox"))
+        if (collision.gameObject.layer == 11 || collision.CompareTag("Hitbox") && collision.gameObject.layer == 8)
         {
             //Destroy(gameObject);    
             gameObject.SetActive(false);

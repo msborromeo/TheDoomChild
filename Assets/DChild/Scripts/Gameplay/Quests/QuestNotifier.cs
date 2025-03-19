@@ -11,7 +11,8 @@ namespace DChild.Gameplay.Quests
             if (IsQuestBeingLogged(questName, state) == false)
                 return;
 
-            var questInfo = new QuestEntryArgs(questName, -1);
+            var entryCount = QuestLog.GetQuestEntryCount(questName);
+            var questInfo = new QuestEntryArgs(questName, entryCount);
             ShowNotification(questInfo);
         }
 

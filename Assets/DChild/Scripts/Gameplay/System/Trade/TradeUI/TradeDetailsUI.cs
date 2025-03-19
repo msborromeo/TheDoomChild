@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.Inventories;
 using DChild.Gameplay.Inventories.UI;
+using DChild.Localization;
 using System;
 using TMPro;
 using UnityEngine;
