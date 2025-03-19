@@ -56,6 +56,12 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, TabGroup("PillarSmash")]
             private float m_pillarSmashDownDuration = 2f;
             public float pillarSmashDownDuration => m_pillarSmashDownDuration;
+            [SerializeField, TabGroup("PillarSmash")]
+            private float m_pillarSmashImpactColliderDelay;
+            public float pillarSmashImpactColliderDelay => m_pillarSmashImpactColliderDelay;
+            [SerializeField, TabGroup("PillarSmash")]
+            private float m_pillarSmashImpactColliderDuration;
+            public float pillarSmashImpactColliderDuration => m_pillarSmashImpactColliderDuration;
 
             [Title("Attacks Info")]
             [SerializeField, TabGroup("SwordProjectile")]
@@ -463,25 +469,24 @@ namespace DChild.Gameplay.Characters.Enemies
             m_rightPillarEnvironmentCollider.enabled = true;
         }
 
-        public void SpawnPillarSmashVFX(Vector2 position, bool IsLargeDamageCollider)
+        private IEnumerator SpawnPillarSmashVFXAndCollider(Vector2 position, bool IsLargeDamageCollider)
         {
             var smashVFX = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_pillarSmashFX.gameObject, position, Quaternion.identity);
             if (IsLargeDamageCollider)
             {
-                smashVFX.transform.localScale.Set(m_pillarSmashImpactLargeDamageCollider.GetComponent<BoxCollider2D>().size.x, 1f, 1f);
+                smashVFX.transform.localScale = new Vector3(6f, 6f, 1f); //magic number for getting vfx to match size on document because same vfx for big and small smash
             }
-            smashVFX.GetComponent<ParticleFX>().Play();
+            var currentPillarCollider = IsLargeDamageCollider ? m_pillarSmashImpactLargeDamageCollider : m_pillarSmashImpactSmallDamageCollider;
 
-            if (IsLargeDamageCollider)
-            {
-                m_pillarSmashImpactLargeDamageCollider.enabled = true;
-                m_pillarSmashImpactLargeDamageCollider.transform.position = smashVFX.transform.position;
-            }
-            else
-            {
-                m_pillarSmashImpactSmallDamageCollider.enabled = true;
-                m_pillarSmashImpactSmallDamageCollider.transform.position = smashVFX.transform.position;
-            }
+            smashVFX.GetComponent<ParticleFX>().Play();
+            yield return new WaitForSeconds(m_info.pillarSmashImpactColliderDelay);
+            currentPillarCollider.enabled = true;
+            currentPillarCollider.transform.position = smashVFX.transform.position;
+
+            yield return new WaitForSeconds(m_info.pillarSmashImpactColliderDuration);
+            currentPillarCollider.enabled = false;
+
+            smashVFX.DestroyInstance();
         }
 
         private void SpawnHeavyPillarSmashAnticipationVFX()
@@ -508,7 +513,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_rightPillarDamageCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.rightLeftPillarSmashFirstSmashDown.animation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.rightLeftPillarSmashFirstSmashDown.animation);
-                SpawnPillarSmashVFX(m_rightPillarSmashFXSpawnPoint.position, false);
+                StartCoroutine(SpawnPillarSmashVFXAndCollider(m_rightPillarSmashFXSpawnPoint.position, false));
 
                 m_rightPillarDamageCollider.enabled = false;
                 m_rightPillarEnvironmentCollider.enabled = true;
@@ -519,7 +524,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_leftPillarDamageCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.rightLeftPillarSmashSecondSmashDown.animation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.rightLeftPillarSmashSecondSmashDown.animation);
-                SpawnPillarSmashVFX(m_leftPillarSmashFXSpawnPoint.position, true);
+                StartCoroutine(SpawnPillarSmashVFXAndCollider(m_leftPillarSmashFXSpawnPoint.position, true));
 
                 m_leftPillarDamageCollider.enabled = false;
                 m_leftPillarEnvironmentCollider.enabled = true;
@@ -536,7 +541,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_leftPillarDamageCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.leftRightPillarSmashFirstSmashDown.animation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leftRightPillarSmashFirstSmashDown.animation);
-                SpawnPillarSmashVFX(m_leftPillarSmashFXSpawnPoint.position, false);
+                StartCoroutine(SpawnPillarSmashVFXAndCollider(m_leftPillarSmashFXSpawnPoint.position, false));
 
                 m_leftPillarDamageCollider.enabled = false;
                 m_leftPillarEnvironmentCollider.enabled = true;
@@ -547,8 +552,9 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_rightPillarDamageCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.leftRightPillarSmashSecondSmashDown.animation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leftRightPillarSmashSecondSmashDown.animation);
-                SpawnPillarSmashVFX(m_rightPillarSmashFXSpawnPoint.position, true);
+                StartCoroutine(SpawnPillarSmashVFXAndCollider(m_rightPillarSmashFXSpawnPoint.position, true));
 
+                m_rightPillarDamageCollider.enabled = false;
                 m_rightPillarEnvironmentCollider.enabled = true;
                 m_animation.SetAnimation(0, m_info.pillarSmashBothAttackLoop.animation, true);
                 yield return new WaitForSeconds(m_info.pillarSmashDownDuration);
@@ -665,6 +671,12 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
         {
             base.OnDestroyed(sender, eventArgs);
+            TurnOffPillarColliders();
+            m_pillarSmashImpactLargeDamageCollider.enabled = false;
+            m_pillarSmashImpactSmallDamageCollider.enabled = false;
+            m_heavyPillarSmashImpactDamageCollider.enabled = false;
+            m_laserShooter.StopLaser();
+            m_heavySlamFX.Stop();
             StopAllCoroutines();
             m_hitbox.Disable();
             if (!m_deathHandle.gameObject.activeSelf)

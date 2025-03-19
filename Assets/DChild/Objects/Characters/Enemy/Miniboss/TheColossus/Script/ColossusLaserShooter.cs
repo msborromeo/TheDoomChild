@@ -97,10 +97,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return null;
             }
 
-            m_edgeCollider.enabled = false;
-            m_lineRenderer.enabled = false;
-            m_chargeFX.Stop();
-            m_impactFX.Stop();
+            StopLaser();
 
             yield return null;
         }
@@ -152,6 +149,15 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_lineRenderer.SetPosition(1, point);
             m_impactFX.transform.position = point;
+        }
+
+        public void StopLaser()
+        {
+            m_edgeCollider.enabled = false;
+            m_lineRenderer.enabled = false;
+            m_chargeFX.Stop();
+            m_impactFX.Stop();
+            StopAllCoroutines();
         }
     }
 }
