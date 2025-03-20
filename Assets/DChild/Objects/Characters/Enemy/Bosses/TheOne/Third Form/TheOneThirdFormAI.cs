@@ -495,7 +495,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentacleGroundStab2, m_info.phase1Pattern1Range),
                                          new AttackInfo<Attack>(Attack.TentacleStab1AndCeilingPhase3, m_info.phase1Pattern1Range),
                                          new AttackInfo<Attack>(Attack.ChasingGroundBlastPhaseTree, m_info.phase1Pattern1Range),
-                                         new AttackInfo<Attack>(Attack.TentacleBlast2, m_info.phase1Pattern1Range),
+                                         //new AttackInfo<Attack>(Attack.TentacleBlast2, m_info.phase1Pattern1Range),
                                          new AttackInfo<Attack>(Attack.MonolithSlamPhase3, m_info.phase1Pattern1Range),
                                          new AttackInfo<Attack>(Attack.MouthBlast2, m_info.phase1Pattern1Range),
                                          new AttackInfo<Attack>(Attack.GrabberSwipeAndWallSlam, m_info.phase1Pattern1Range),
@@ -791,38 +791,7 @@ namespace DChild.Gameplay.Characters.Enemies
             //        }
             //    }
             //}
-        }
-
-        private void IsAllAttackComplete()
-        {
-            for (int i = 0; i < m_attackUsed.Length; ++i)
-            {
-                if (!m_attackUsed[i])
-                {
-                    return;
-                }
-            }
-            for (int i = 0; i < m_attackUsed.Length; ++i)
-            {
-                m_attackUsed[i] = false;
-            }
-        }
-
-        void AddToAttackCache(params Attack[] list)
-        {
-            for (int i = 0; i < list.Length; i++)
-            {
-                m_attackCache.Add(list[i]);
-            }
-        }
-
-        void AddToRangeCache(params float[] list)
-        {
-            for (int i = 0; i < list.Length; i++)
-            {
-                m_attackRangeCache.Add(list[i]);
-            }
-        }
+        } 
 
         #endregion
 
@@ -1168,7 +1137,7 @@ namespace DChild.Gameplay.Characters.Enemies
             if (m_phaseHandle.currentPhase == Phase.PhaseTwo)
             {
                 //cinematics;
-                GameplaySystem.gamplayUIHandle.ToggleBossHealth(false);
+                //GameplaySystem.gamplayUIHandle.ToggleBossHealth(false);
                 m_animation.SetAnimation(0, m_info.exhaustedAnimation, true);
                 if (m_skipCinematics)
                 {
@@ -1207,7 +1176,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 case Phase.PhaseTwo:
                     m_damageable.health.SetMaxValue(17000);
                     m_damageable.health.ResetValueToMax();
-                    GameplaySystem.gamplayUIHandle.ToggleBossHealth(true);
+                    //GameplaySystem.gamplayUIHandle.ToggleBossHealth(true);
                     m_hitCounterChangeable = m_hitCounterPhaseTwo;
                     var randomAttackPhaseTwo = RandomShit(1, 4);
                     if (randomAttackPhaseTwo == 1)
@@ -1332,6 +1301,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return SquintStateForTentacleStab();
             for (int i = 0; i < 2; i++)
             {
+                
                 yield return m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo);
                 yield return new WaitForSeconds(3f);
             }
@@ -1749,10 +1719,6 @@ namespace DChild.Gameplay.Characters.Enemies
 
             yield return m_theOneThirdFormAttacks.MouthBlastWall();
             yield return new WaitForSeconds(cooldown);
-            //Temporary
-            //m_attackDecider.hasDecidedOnAttack = false;
-            //m_currentAttackCoroutine = null;
-            //m_stateHandle.ApplyQueuedState();
         }
         private IEnumerator TentacleGroundStabCeilingAttackPhase3()
         {
@@ -2185,99 +2151,6 @@ namespace DChild.Gameplay.Characters.Enemies
             Vector2 targetPosition = m_eyeCenter + (direction * Mathf.Min(Vector2.Distance(m_targetInfo.position, m_eyeCenter), m_maxDistance));
             m_eyeTheOne.position = Vector2.Lerp(m_eyeTheOne.position, targetPosition, Time.deltaTime * 5f);
         }
-        #endregion
-
-        #region AttackButtons
-        //[Button, FoldoutGroup("Trigger Attacks")]
-        //[HideInEditorMode]
-        //private void TriggerMouthBlastI()
-        //{
-        //    StartCoroutine(FullMouthBlastOneSequence());
-        //}
-
-        //[Button, FoldoutGroup("Trigger Attacks")]
-        //[HideInEditorMode]
-        //private void TriggerTentacleGroundStab()
-        //{
-        //    if (m_stateHandle.currentState == State.Attacking)
-        //    {
-        //        if (m_currentAttackCoroutine != null)
-        //            StopCoroutine(m_currentAttackCoroutine);
-
-        //        m_currentAttackCoroutine = StartCoroutine(m_theOneThirdFormAttacks.TentacleGroundStab(m_targetInfo));
-        //    }
-        //}
-
-        //[Button, FoldoutGroup("Trigger Attacks")]
-        //[HideInEditorMode]
-        //private void TriggerTentacleCeiling()
-        //{
-        //    StartCoroutine(TentacleCeiling(3f));
-        //}
-
-        //[Button, FoldoutGroup("Trigger Attacks")]
-        //[HideInEditorMode]
-        //private void TriggerMovingTentacleGround()
-        //{
-        //    StartCoroutine(MovingTentacleGround(3f));
-        //}
-
-        //[Button, FoldoutGroup("Trigger Attacks")]
-        //[HideInEditorMode]
-        //private void TriggerChasingGroundTentacle()
-        //{
-        //    StartCoroutine(ChasingGroundTentacle(3f));
-
-        //}
-
-        ////[Button, FoldoutGroup("Trigger Attacks")]
-        ////[HideInEditorMode]
-        ////private void TriggerMouthBlastWall()
-        ////{
-        ////    StartCoroutine(MouthBlastWall(3f));
-        ////}
-
-        //[Button, FoldoutGroup("Trigger Attacks")]
-        //[HideInEditorMode]
-        //private void TriggerSlidingWall()
-        //{
-        //    StartCoroutine(SlidingWall(3f));
-        //}
-
-        //[Button, FoldoutGroup("Trigger Attacks")]
-        //[HideInEditorMode]
-        //private void TriggerMonolithSlam()
-        //{
-        //    StartCoroutine(MonolithSlam(3f));
-        //}
-
-        //[Button, FoldoutGroup("Trigger Attacks")]
-        //[HideInEditorMode]
-        //private void TriggerTentacleBlastOne()
-        //{
-        //    StartCoroutine(TentacleBlastOne(3f));
-        //}
-
-        //[Button, FoldoutGroup("Trigger Attacks")]
-        //[HideInEditorMode]
-        //private void TriggerTentacleBlastTwo()
-        //{
-        //    StartCoroutine(TentacleBlastTwo(3f));
-        //}
-
-        //[Button, FoldoutGroup("Trigger Attacks")]
-        //[HideInEditorMode]
-        //private void TriggerScriptedGrab()
-        //{
-        //    StartCoroutine(ScriptedTentacleGrab(3f));
-        //}
-
-        //[Button, FoldoutGroup("Trigger Attacks")]
-        //[HideInEditorMode]
-        //private void TriggerBubbleImprisonment()
-        //{
-        //    StartCoroutine(BubbleImprisonment(3f));
-        //}
         #endregion
 
 
