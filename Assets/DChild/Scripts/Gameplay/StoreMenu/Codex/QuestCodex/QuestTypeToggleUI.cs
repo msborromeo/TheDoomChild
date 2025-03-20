@@ -1,30 +1,23 @@
-﻿using Sirenix.OdinInspector;
+﻿using PixelCrushers.DialogueSystem;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-namespace DChild.Codex.Quest.UI
+namespace DChild.Codex.Quests.UI
 {
 
 
     public class QuestTypeToggleUI : MonoBehaviour
     {
+        [SerializeField] private QuestLogUIManager m_uiManager;
+        private Quest[] m_quests;
 
-        [SerializeField] private List<QuestButtonUI> m_questButtons;
-        [SerializeField] private List<SampleDummyQuestData> m_questList;
-
-
-        //[Button(ButtonSizes.Large)]
-        public void Display()
+        public void Display(bool isMain)
         {
-            for (int i = 0; i < m_questButtons.Count; i++)
-            {
-                if (i < m_questList.Count)
-                {
-                    m_questButtons[i].Display(m_questList[i]);
-                    continue;
-                }
-            }
+            m_quests = isMain ? m_uiManager.questList.mainQuests : m_uiManager.questList.sideQuests;
+            
+            m_uiManager.indexHandle.SetSectionType(isMain);
+            m_uiManager.indexHandle.Initialize(m_quests);
         }
     }
 }
