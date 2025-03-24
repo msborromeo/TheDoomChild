@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DChild.Codex.Quest.UI
+namespace DChild.Codex.Quests.UI
 {
     public class QuestInfoUI : MonoBehaviour
     {
