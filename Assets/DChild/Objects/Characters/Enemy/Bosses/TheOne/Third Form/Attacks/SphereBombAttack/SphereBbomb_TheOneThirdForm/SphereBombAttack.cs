@@ -25,6 +25,7 @@ public class SphereBombAttack : MonoBehaviour
     public List<PoolableObject> m_instantiatedSmallBombs;
     public event EventAction<EventActionArgs> HasDamageTarget;
     public event EventAction<EventActionArgs> HasDamageTargetSmallBomb;
+    public event EventAction<EventActionArgs> HasDamageTargetSmallBombTwo;
     private PoolableObject instance;
     Vector2[] targetPositions = {
     new Vector2(17, 3.5f),
@@ -44,13 +45,20 @@ public class SphereBombAttack : MonoBehaviour
     {
         for (int i = 0; i < m_spawnSpotSphereBombTwo.Length; i++)
         {
-            var instance = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(m_sphereBombTwo, gameObject.scene);
-            instance.SpawnAt(new Vector2(m_spawnSpotSphereBombTwo[i].position.x, m_spawnSpotSphereBombTwo[i].position.y), Quaternion.identity);
+            var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_sphereBombTwo, gameObject.scene);
+            instance.SpawnAt(new Vector2(m_spawnSpotSphereBombTwo[i].position.x, m_spawnSpotSphereBombTwo[i].position.y), Quaternion.identity); 
             yield return new WaitForSeconds(1f);
             m_sphereList.Add(instance.gameObject);
         }
         yield return null;
     }
+
+    private void SmallBombTwo_TargetDamaged(object sender, CombatConclusionEventArgs eventArgs)
+    {
+        HasDamageTargetSmallBombTwo?.Invoke(this, EventActionArgs.Empty);
+        Debug.Log("target has been damaged by small bomb two");
+    }
+
     public IEnumerator SpawnSphereBomb()
     {
         instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_mainSphereBomb, gameObject.scene);
