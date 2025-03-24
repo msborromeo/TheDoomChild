@@ -206,7 +206,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
 
             // Set on label (if any).
             if (m_BindingText != null)
-                m_BindingText.text = displayString;
+                //m_BindingText.text = displayString;
 
             // Give listeners a chance to configure UI in response.
             m_UpdateBindingUIEvent?.Invoke(this, displayString, deviceLayoutName, controlPath);
@@ -267,11 +267,11 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             action.Disable();
             // Configure the rebind.
             m_RebindOperation = action.PerformInteractiveRebinding(bindingIndex)
-                .WithControlsExcluding("<Mouse>/leftButton")
-                .WithControlsExcluding("<Mouse>/rightButton")
-                .WithControlsExcluding("<Mouse>/press")
-                .WithControlsExcluding("<Pointer>/position")
-                .WithCancelingThrough("<KeyBoard>/escape")
+                //.WithControlsExcluding("<Mouse>/leftButton")
+                //.WithControlsExcluding("<Mouse>/rightButton")
+                //.WithControlsExcluding("<Mouse>/press")
+                //.WithControlsExcluding("<Pointer>/position")
+                //.WithCancelingThrough("<KeyBoard>/escape")
                 .OnCancel(
                     operation =>
                     {
