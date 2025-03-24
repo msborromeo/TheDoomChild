@@ -29,11 +29,15 @@ namespace DChild.Gameplay.Projectiles
         {
             base.Collide();
             var projectileAttacker = GetComponent<Attacker>();
-            var explosion = m_spawnHandle.InstantiateFX(projectileData.impactFX, transform.position);
-            var explosionAttacker = explosion.gameObject.GetComponent<Attacker>();
-            PassProjectileAttacker(projectileAttacker);
-            explosion.transform.parent = null;
-            SetImpactFxInfo(explosionAttacker);
+            if (projectileData.impactFX != null)
+            {
+
+                var explosion = m_spawnHandle.InstantiateFX(projectileData.impactFX, transform.position);
+                var explosionAttacker = explosion.gameObject.GetComponent<Attacker>();
+                PassProjectileAttacker(projectileAttacker);
+                explosion.transform.parent = null;
+                SetImpactFxInfo(explosionAttacker);
+            }
             UnloadProjectile();
             CallImpactedEvent();
 
