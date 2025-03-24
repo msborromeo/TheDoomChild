@@ -5,30 +5,39 @@ using DChild.Gameplay.Pooling;
 using DChild.Gameplay.Characters.AI;
 using Sirenix.OdinInspector;
 using Holysoft.Event;
+using DChild.Gameplay.Combat;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
     public class ChasingGroundTentacleAttack : MonoBehaviour, IEyeBossAttacks
     {
-        [SerializeField]
-        private GameObject m_groundChaseTentaclesOne;
-        [SerializeField]
-        private GameObject m_groundChaseTentaclesTwo;
-        [SerializeField]
-        private float m_tentacleEmergeInterval;
-        [SerializeField]
-        private float m_timeBeforeTentacleRetract;
-        [SerializeField]
-        private float m_chasingGroundTentacleAnimationSpeedMultiplier;
+        public bool m_showOldTentacleVariables;
 
+        [SerializeField,ShowIf("m_showOldTentacleVariables")]
+        private GameObject m_groundChaseTentaclesOne;
+        [SerializeField, ShowIf("m_showOldTentacleVariables")]
+        private GameObject m_groundChaseTentaclesTwo;
+        [SerializeField, ShowIf("m_showOldTentacleVariables")]
+        private float m_tentacleEmergeInterval;
+        [SerializeField, ShowIf("m_showOldTentacleVariables")]
+        private float m_timeBeforeTentacleRetract;
+        [SerializeField, ShowIf("m_showOldTentacleVariables")]
+        private float m_chasingGroundTentacleAnimationSpeedMultiplier;
+        [SerializeField, ShowIf("m_showOldTentacleVariables")]
+        private StateHandle<AttackStyle> m_currentAttackState;
+        [SerializeField]
+        private float m_blastColliderTimer;
         [SerializeField]
         private List<ChasingGroundTentacle> m_singleGroundTentacle;
-        [ShowInInspector]
-        private StateHandle<AttackStyle> m_currentAttackState;
+        [SerializeField]
+        private List<Attacker> m_attacker;
+       
 
         public event EventAction<EventActionArgs> AttackStart;
         public event EventAction<EventActionArgs> AttackDone;
 
+        public event EventAction<EventActionArgs> HasDamageTarget;
+        
         private void Start()
         {
             for(int i = 0; i < m_groundChaseTentaclesOne.transform.childCount; i++)
@@ -121,23 +130,36 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public IEnumerator DelayTentacleSpawn()
         {
+            
             for (int i = 0; i < m_singleGroundTentacle.Count; i++)
             {
                 m_singleGroundTentacle[i].GetComponentInChildren<CapsuleCollider2D>().enabled = true;
+                m_singleGroundTentacle[i].GetComponentInChildren<Attacker>().TargetDamaged += ChasingGroundTentacleAttack_TargetDamaged;
                 m_singleGroundTentacle[i].ErectTentacle();
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(m_blastColliderTimer);
                 m_singleGroundTentacle[i].GetComponentInChildren<CapsuleCollider2D>().enabled = false;
+                m_singleGroundTentacle[i].GetComponentInChildren<Attacker>().TargetDamaged -= ChasingGroundTentacleAttack_TargetDamaged;
                 // yield return null;
             }
 
         }
+
+        private void ChasingGroundTentacleAttack_TargetDamaged(object sender, CombatConclusionEventArgs eventArgs)
+        {
+            HasDamageTarget?.Invoke(this, EventActionArgs.Empty);
+            Debug.Log("Got hit by chasing ground blast");
+        }
+
         public IEnumerator DelayTentacleSpawnReverse()
         {
             for (int i = m_singleGroundTentacle.Count - 1; i >= 0; i--)
             {
                 m_singleGroundTentacle[i].GetComponentInChildren<CapsuleCollider2D>().enabled = true;
+                m_singleGroundTentacle[i].GetComponentInChildren<Attacker>().TargetDamaged += ChasingGroundTentacleAttack_TargetDamaged;
                 m_singleGroundTentacle[i].ErectTentacle();
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(m_blastColliderTimer);
+                m_singleGroundTentacle[i].GetComponentInChildren<Attacker>().TargetDamaged -= ChasingGroundTentacleAttack_TargetDamaged;
+
                 m_singleGroundTentacle[i].GetComponentInChildren<CapsuleCollider2D>().enabled = false;
             }
         }

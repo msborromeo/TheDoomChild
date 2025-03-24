@@ -200,5 +200,10 @@ namespace DChild.Gameplay.Systems
                 UnderworldGameplayUIHandle.Instance.UpdateNavMapConfiguration(location, sceneIndex, inGameReference, mapReferencePoint, calculationOffset);
             }
         }
+
+        public UIHandlerExtraReference reference()
+        {
+            return UnderworldGameplayUIHandle.Instance.getReference();
+        }
     }
 }
