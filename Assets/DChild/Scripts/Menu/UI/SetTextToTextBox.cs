@@ -1,4 +1,6 @@
+using Holysoft.Event;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -33,6 +35,15 @@ namespace DChild.Gameplay.UI
 
         private TMP_Text m_textbox;
 
+        public static event Action<CurrentDeviceType> DeviceTypeChanged;
+
+        public static void ChangeDeviceType(CurrentDeviceType deviceType)
+        {
+            DeviceTypeChanged?.Invoke(deviceType);
+        }
+
+        public CurrentDeviceType deviceType { get { return m_deviceType; } set { m_deviceType = value; } }
+
         [Button]
         public void SetText()
         {
@@ -46,10 +57,10 @@ namespace DChild.Gameplay.UI
             }
 
 
-            if(m_inputaction.action.bindings.Count > (int)CurrentDeviceType._COUNT)
+            if (m_inputaction.action.bindings.Count > (int)CurrentDeviceType._COUNT)
             {
                 var inputBinding = m_inputaction.action.bindings;
-             
+
                 // Optimize this later
                 for (int x = 0; x < inputBinding.Count; x++)
                 {
@@ -59,17 +70,18 @@ namespace DChild.Gameplay.UI
                     }
                     if (inputBinding[x].isPartOfComposite)
                     {
+
                         currentBinding.Add(inputBinding[x]);
                     }
 
                 }
             }
-            if(currentBinding.Count > 0)
+            if (currentBinding.Count > 0)
             {
                 var keyBoardList = new List<InputBinding>();
                 var gamepadList = new List<InputBinding>();
                 var psList = new List<InputBinding>();
-                for(int x = 0; x < currentBinding.Count; x++)
+                for (int x = 0; x < currentBinding.Count; x++)
                 {
                     var curBind = currentBinding[x];
                     if (curBind.effectivePath.Contains("Keyboard"))
@@ -83,8 +95,8 @@ namespace DChild.Gameplay.UI
                         {
                             keyBoardList.Add(curBind);
                         }
-                        
-                        
+
+
                     }
                     if (curBind.effectivePath.Contains("Gamepad"))
                     {
@@ -115,9 +127,9 @@ namespace DChild.Gameplay.UI
                 //var buttonIndex = startIndex + 1;
                 //Debug.Log("Modifier "+currentBinding[startIndex]);
                 //Debug.Log("Button "+currentBinding[buttonIndex]);
-                if(keyBoardList.Count > 2)
+                if (keyBoardList.Count > 2)
                 {
-                    if(m_deviceType == CurrentDeviceType.Keyboard)
+                    if (m_deviceType == CurrentDeviceType.Keyboard)
                     {
                         m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceCompositeBinding(m_message, keyBoardList[0], keyBoardList[1], keyBoardList[2], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
                     }
@@ -133,7 +145,7 @@ namespace DChild.Gameplay.UI
                 }
                 else
                 {
-                    if(m_deviceType == CurrentDeviceType.Keyboard)
+                    if (m_deviceType == CurrentDeviceType.Keyboard)
                     {
                         m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceCompositeBinding(m_message, keyBoardList[0], keyBoardList[1], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
                     }
@@ -148,16 +160,36 @@ namespace DChild.Gameplay.UI
 
 
                 }
-                
 
-                    //m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceCompositeBinding(m_message, currentBinding[startIndex], currentBinding[startIndex + 1], currentBinding[startIndex + 2], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+
+                //m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceCompositeBinding(m_message, currentBinding[startIndex], currentBinding[startIndex + 1], currentBinding[startIndex + 2], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
 
             }
             else
             {
-                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                if (m_inputaction.action.name.Contains("Down"))
+                {
+                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                }
+                if (m_inputaction.action.name.Contains("Up"))
+                {
+                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                }
+                if (m_inputaction.action.name.Contains("Left"))
+                {
+                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                }
+                if (m_inputaction.action.name.Contains("Right"))
+                {
+                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                }
+                else
+                {
+                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                }
+
             }
-            
+
             //m_textbox.text = FillInTextWithButtonSprite.ReplaceBindings(m_message, m_deviceType,m_inputManager, m_spriteButtonList);
         }
 
@@ -179,11 +211,29 @@ namespace DChild.Gameplay.UI
         }
         // Start is called before the first frame update
         void Start()
-        {  
+        {
             SetText();
 
         }
 
+        private void OnEnable()
+        {
+            DeviceTypeChanged += OnDeviceTypeChanged;
+        }
+
+        private void OnDisable()
+        {
+            DeviceTypeChanged -= OnDeviceTypeChanged;
+        }
+
+        private void OnDeviceTypeChanged(CurrentDeviceType type)
+        {
+            if (deviceType == type)
+                return;
+
+            deviceType = type;
+            SetText();
+        }
     }
 }
 
