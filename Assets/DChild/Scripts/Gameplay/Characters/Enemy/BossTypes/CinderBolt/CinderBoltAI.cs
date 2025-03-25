@@ -438,8 +438,6 @@ namespace DChild.Gameplay.Characters.Enemies
 
         [SerializeField, TabGroup("FX")]
         private ParticleFX m_flamethrower1FX;
-        /*[SerializeField, TabGroup("FX")]
-        private ParticleFX m_firebeamFX;*/
         [SerializeField, TabGroup("FX")]
         private ParticleFX m_firebeamAnticipationFX;
         [SerializeField, TabGroup("FX")]
@@ -468,6 +466,31 @@ namespace DChild.Gameplay.Characters.Enemies
         private GameObject RecoveryFX;
         [SerializeField, TabGroup("FX")]
         private ParticleFX m_firebeamFX;
+
+        [SerializeField, TabGroup("FX Overcharged")]
+        private ParticleFX m_flamethrower1OverchargedFX;
+        [SerializeField, TabGroup("FX Overcharged")]
+        private ParticleFX m_firebeamAnticipationOverchargedFX;
+        [SerializeField, TabGroup("FX Overcharged")]
+        private ParticleFX m_spinAttackOverchargedFX;
+        [SerializeField, TabGroup("FX Overcharged")]
+        private ParticleFX m_longDashOverchargedFX;
+        [SerializeField, TabGroup("FX Overcharged")]
+        private ParticleFX m_shortDashOverchargedFX;
+        [SerializeField, TabGroup("FX Overcharged")]
+        private ParticleFX m_flamethrower2OverchargedFX;
+        [SerializeField, TabGroup("FX Overcharged")]
+        private ParticleFX m_meteorSmashOverchargedFX;
+        [SerializeField, TabGroup("FX Overcharged")]
+        private GameObject m_meteorSmashTrailOverchargedFX;
+        [SerializeField, TabGroup("FX Overcharged")]
+        private ParticleFX m_steamMalfAndOverOvercharged;
+        [SerializeField, TabGroup("FX Overcharged")]
+        private GameObject m_steamThrustOverchargedFX;
+        [SerializeField, TabGroup("FX Overcharged")]
+        private ParticleFX m_boosterChargeOverchargedFX;
+        [SerializeField, TabGroup("FX Overcharged")]
+        private ParticleFX m_firebeamOverchargedFX;
 
         [SerializeField, TabGroup("Sensors")]
         private RaySensor m_groundSensor;
