@@ -3,10 +3,12 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DChild.Localization;
+using DChild.Gameplay.Items;
 
 namespace DChild.Gameplay.Inventories
 {
-    public class QuickItemElement : ItemDetailsUI
+    public class QuickItemElement : ItemDetailsUI, IItemViewLocalizer
     {
         [SerializeField]
         private Image m_icon;
@@ -16,6 +18,8 @@ namespace DChild.Gameplay.Inventories
         private TextMeshProUGUI m_count;
 
         private IStoredItem m_currentSlot;
+
+        public event Action<ItemData> LocalizeItemView;
 
         public override void Hide()
         {
@@ -69,7 +73,9 @@ namespace DChild.Gameplay.Inventories
                         //m_currentSlot.reference += OnCountChange;
                     }
                 }
+                LocalizeItemView?.Invoke(reference.data);
             }
+
         }
 
         //private void OnCountChange(object sender, ItemSlot.InfoChangeEventArgs eventArgs)

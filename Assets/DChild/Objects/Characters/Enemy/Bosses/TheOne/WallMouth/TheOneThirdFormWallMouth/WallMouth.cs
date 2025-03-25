@@ -87,7 +87,7 @@ public class WallMouth : MonoBehaviour
             m_spine.SetAnimation(0, m_attackLoop, true);
             if (m_isCeilingLoopValueStephenIndiPagTanduga)
             {
-                yield return new WaitForSeconds(6f);
+                yield return new WaitForSeconds(3f);
             }
             else
             {

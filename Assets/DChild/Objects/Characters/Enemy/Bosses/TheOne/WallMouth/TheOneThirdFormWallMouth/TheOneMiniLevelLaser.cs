@@ -74,10 +74,12 @@ public class TheOneMiniLevelLaser : MonoBehaviour
     }
     [SerializeField, ShowIf("m_dynamicRay"), CustomValueDrawer("PenetrationPower")]
     private float m_penetrationPower;
+# if UNITY_EDITOR
     private static float PenetrationPower(float value, GUIContent label)
     {
         return EditorGUILayout.Slider(label, value, 1f, 10000f);
     }
+#endif
     private IEnumerator LaserLogic()
     {
         while (!stop)
@@ -234,7 +236,7 @@ public class TheOneMiniLevelLaser : MonoBehaviour
                 m_anim.SetTrigger("WallMouthBlastAnticipation");
                 if (m_forCeilingBlastAttackDPagTandugaStephenTigAGid)
                 {
-                     yield return new WaitForSeconds(9f);
+                     yield return new WaitForSeconds(6f);
                 }
                 else
                 {
@@ -259,10 +261,12 @@ public class TheOneMiniLevelLaser : MonoBehaviour
     }
     public void ColliderDamageOn()
     {
+        Debug.Log("On");
         m_laserCollider.enabled = true;
     }
     public void ColliderDamageOff()
     {
+        Debug.Log("Off");
         m_laserCollider.enabled = false;
     }
 }
