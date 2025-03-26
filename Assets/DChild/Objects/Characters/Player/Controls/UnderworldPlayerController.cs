@@ -92,6 +92,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private AirSlashRange m_airSlashRange;
         #endregion
 
+        private IInterruptableCombatArtModule m_currentCombatArt;
+
         [SerializeField]
         private QuickItemHandle m_handle;
 
@@ -643,7 +645,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #region Input Handles
         private void OnVector2PerformedInput(Vector2 vector)
         {
-            if (m_state.isChargingAttack || m_state.isDoingSwordThrust)
+            if (m_state.isChargingAttack || m_state.isDoingSwordThrust || m_state.isExecutingCombatArt)
                 return;
             
             m_vector2Input = vector;
@@ -696,7 +698,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnJumpStartedInput()
         {
             if (m_state.isLedgeGrabbing ||m_state.waitForBehaviour ||m_state.isInShadowMode 
-                ||m_state.isChargingAttack || m_state.isAimingProjectile || m_state.isDoingSwordThrust)
+                ||m_state.isChargingAttack || m_state.isAimingProjectile || m_state.isDoingSwordThrust || m_state.isExecutingCombatArt)
                 return;
             if (m_crouch.IsThereNoCeiling() == false)
                 return;
@@ -776,6 +778,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isAttacking)
                 return;
+            if(m_state.isExecutingCombatArt)
+            {
+                return;
+            }
             if ((m_devilWings?.HaveEnoughSourceForExecution() ?? false) == false)
                 return;
 
@@ -812,6 +818,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_whipCombo?.Reset();
             m_earthShaker?.Cancel();
             m_objectManipulation?.Cancel();
+
+            if (m_state.isExecutingCombatArt)
+            {
+                m_currentCombatArt?.Cancel();
+            }
 
             if (m_state.isGrounded)
             {
@@ -866,7 +877,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isGrounded == false)
                 return;
-            if (m_state.isDashing || m_state.isSliding || m_state.isAttacking || m_state.isLedgeGrabbing)
+            if (m_state.isDashing || m_state.isSliding || m_state.isAttacking || m_state.isLedgeGrabbing || m_state.isExecutingCombatArt)
                 return;
 
             m_idle?.Cancel();
@@ -931,7 +942,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnSlashPerformedInput()
         {
             if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall || 
-                m_state.isAttacking || m_state.waitForBehaviour)
+                m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
                 return;
 
             m_idle?.Cancel();
@@ -1073,7 +1084,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
 
             if (m_state.isChargingAttack || m_state.isDoingSwordThrust || m_state.isAttacking 
-                || m_state.waitForBehaviour || m_state.canAttack == false)
+                || m_state.waitForBehaviour || m_state.canAttack == false || m_state.isExecutingCombatArt)
                 return;
 
             if (m_state.isDashing || m_state.isSliding || m_state.isLedgeGrabbing || m_state.isStickingToWall)
@@ -1230,6 +1241,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 if (m_state.isInShadowMode == false)
                 {
                     PrepareForGroundAttack();
+                    m_currentCombatArt = m_barrier;
                     m_barrier?.Execute();
                 }
             }
@@ -1266,7 +1278,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 if (m_state.isGrounded == false && m_lightningSpear.CanLightningSpear())
                 {
                     PrepareForMidairAttack();
-
+                    m_currentCombatArt = m_lightningSpear;
                     m_lightningSpear.Execute();
                     return;
                 }
@@ -1281,6 +1293,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         if (m_state.isInShadowMode == false)
                         {
                             PrepareForMidairAttack();
+                            m_currentCombatArt = m_airSlashRange;
                             m_airSlashRange.Execute();
                             return;
                         }
@@ -1309,6 +1322,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     {
                         PrepareForGroundAttack();
 
+                        m_currentCombatArt = m_hellTrident;
                         m_hellTrident.Execute();
                         return;
                     }
@@ -1337,7 +1351,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 if(m_state.isGrounded == false)
                 {
                     PrepareForMidairAttack();
-
+                    m_currentCombatArt = m_soulFireBlast;
                     m_soulFireBlast.Execute();
                     return;
                 }
@@ -1368,6 +1382,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             m_backDiver.Reset();
                             PrepareForGroundAttack();
                             m_movement?.SwitchConfigTo(Movement.Type.Jog);
+                            m_currentCombatArt = m_backDiver;
                             m_backDiver.Execute();
                             return;
                         }
@@ -1390,6 +1405,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             m_sovereignImpale.Reset();
                             PrepareForGroundAttack();
                             m_movement?.SwitchConfigTo(Movement.Type.Jog);
+                            m_currentCombatArt = m_sovereignImpale;
                             m_sovereignImpale?.Execute();
                             return;
                         }
@@ -1429,7 +1445,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         PrepareForMidairAttack();
                         m_devilWings?.Cancel();
                         m_extraJump?.Cancel();
-
+                        m_currentCombatArt = m_diagonalSwordDash;
                         m_diagonalSwordDash.Execute();
                         return;
                     }
@@ -1460,6 +1476,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_devilWings?.Cancel();
                     m_extraJump?.Cancel();
                     m_whip?.Cancel();
+                    m_currentCombatArt = m_edgedFury;
                     m_edgedFury.Execute();
                 }
                 
@@ -1486,6 +1503,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     m_reaperHarvest.Reset();
                     PrepareForGroundAttack();
+                    m_currentCombatArt = m_reaperHarvest;
                     m_reaperHarvest.Execute(ReaperHarvest.ReaperHarvestState.Grounded);
                     m_state.waitForBehaviour = false;
 
@@ -1512,12 +1530,18 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnIcarusWingsPerformedInput()
         {
+            if (m_state.isExecutingCombatArt)
+            {
+                return;
+            }
+
             if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
             {
                 return;
             }
 
             PrepareForGroundAttack();
+            m_currentCombatArt = m_icarusWings;
             m_icarusWings.Execute();
         }
 
