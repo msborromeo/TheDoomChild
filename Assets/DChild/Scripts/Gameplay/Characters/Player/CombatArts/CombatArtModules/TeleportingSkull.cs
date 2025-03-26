@@ -14,7 +14,7 @@ using static DG.Tweening.DOTweenModuleUtils;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class TeleportingSkull : AttackBehaviour
+    public class TeleportingSkull : AttackBehaviour, IInterruptableCombatArtModule
     {
         [SerializeField]
         private Info m_teleportingSkullInfo;
