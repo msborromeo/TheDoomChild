@@ -1,5 +1,6 @@
 using DChild.Gameplay.Environment;
 using DChild.Gameplay.FastTravel;
+using DChild.Gameplay.UI;
 using DChild.Menu;
 using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
@@ -27,6 +28,8 @@ namespace DChild.Gameplay.Systems
 
         [SerializeField]
         private ConfirmationHandler m_confirmationWindow;
+        [SerializeField]
+        private UIAlertManager m_uiAlertManager;
 
 
         [SerializeField]
@@ -40,6 +43,8 @@ namespace DChild.Gameplay.Systems
         private CinematicVideoHandle m_cinematicVideoHandle;
         [SerializeField]
         private UIView m_cinematicBars;
+
+        public UIAlertManager uiAlertManager => m_uiAlertManager;
 
         public void ToggleCinematicMode(bool on)
         {

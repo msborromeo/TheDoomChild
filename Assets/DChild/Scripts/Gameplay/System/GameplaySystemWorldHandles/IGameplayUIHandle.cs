@@ -16,6 +16,7 @@ namespace DChild.Gameplay.Systems
 
     public interface IGameplayUIHandle
     {
+        UIAlertManager alertManager { get; }
         IUINotificationManager notificationManager { get; }
 
         void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null);
@@ -56,5 +57,7 @@ namespace DChild.Gameplay.Systems
         void DeactivateShadowRegenEffect();
 
         void ShowMordenElevatorUI(ElevatorLocation location, ElevatorLevelInfo[] labels, MovingPlatform elevator);
+
+        UIHandlerExtraReference GetReference();
     }
 }

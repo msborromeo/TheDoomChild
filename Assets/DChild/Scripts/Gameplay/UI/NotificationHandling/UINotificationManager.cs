@@ -4,6 +4,7 @@ using DChild.Gameplay.Items;
 using DChild.Gameplay.Systems;
 using DChild.Gameplay.Systems.Journal;
 using DChild.Gameplay.Systems.Lore;
+using DChild.Serialization;
 using DChild.UI;
 using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
@@ -98,7 +99,7 @@ namespace DChild.Gameplay.UI
                 m_promptnotificationHandles[i].RemoveAllQueuedNotifications();
             }
         }
-        
+
         public void InitializeFullPriorityHandling()
         {
             if (m_fullscreennotificationHandles == null)
@@ -133,7 +134,7 @@ namespace DChild.Gameplay.UI
             m_fullscreennotificationHandles.Add(m_fullscreenNotificationHandle);
 
             m_fullscreenNotificationHandle.Initialize();
-            m_fullscreenNotificationHandle.AddListenerToOnNotificationHidden(CloseCurrentFullNotification); 
+            m_fullscreenNotificationHandle.AddListenerToOnNotificationHidden(CloseCurrentFullNotification);
         }
         private void InitializePromptNotificationHandles()
         {

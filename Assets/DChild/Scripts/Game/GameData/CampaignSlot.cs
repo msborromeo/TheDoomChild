@@ -8,6 +8,7 @@ using UnityEditor;
 using PixelCrushers.DialogueSystem;
 using DLocation = DChild.Gameplay.Environment.Location;
 using DChild.Gameplay.ArmyBattle;
+using DChild.Gameplay.UI;
 
 namespace DChild.Serialization
 {
@@ -41,8 +42,13 @@ namespace DChild.Serialization
         private ArmyCharactersSaveData m_armyCharacterSaveData;
         [SerializeField, HideReferenceObjectPicker, HideIf("m_newGame"), TabGroup("Zone")]
         private SerializeDataList m_zoneDatas;
+        [SerializeField, HideReferenceObjectPicker, HideIf("m_newGame"), TabGroup("UI")]
+        private UIAlertManager.SaveData m_uiAlertSaveData;
         [SerializeField, DrawWithUnity, TabGroup("ZoneSlots Importable")]
         private ZoneSlot[] m_importable;
+
+
+
         [Button, TabGroup("ZoneSlots Importable")]
         public void Import()
         {
@@ -104,6 +110,7 @@ namespace DChild.Serialization
         public ArmyCharactersSaveData armyCharactersSaveData => m_armyCharacterSaveData;
 
         public SerializeDataList campaignProgress => m_campaignProgress;
+        public UIAlertManager.SaveData uiAlertSaveData => m_uiAlertSaveData;
         public SerializeDataList zoneDatas => m_zoneDatas;
         public string dialogueSaveData => m_dialogueSaveData;
         public ZoneSlot[] Importable => m_importable;
@@ -154,6 +161,7 @@ namespace DChild.Serialization
 
         public void UpdateCharacterData(PlayerCharacterData data) => m_characterData = data;
         public void UpdateArmyCharacterData(ArmyCharactersSaveData data) => m_armyCharacterSaveData = data;
+        public void UpdateUIAlertSaveData(UIAlertManager.SaveData data) => m_uiAlertSaveData = data;
 
         public void UpdateCampaignProgress(SerializeID ID, ISaveData saveData) => m_campaignProgress.UpdateData(ID, saveData);
 
