@@ -7,6 +7,7 @@ using Sirenix.OdinInspector;
 using Spine.Unity;
 using DChild.Gameplay.Characters.AI;
 using Holysoft.Event;
+using DChild.Gameplay.Combat;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
@@ -17,7 +18,7 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField, TabGroup("Reference")]
         private Transform rightLimitTransform;
         [SerializeField, TabGroup("Reference")]
-        private float speed = 5f;
+        private float speed;
         [SerializeField, TabGroup("Reference")]
         protected SpineRootAnimation m_animation;
         [SerializeField, TabGroup("Reference")]
@@ -43,19 +44,35 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField]
         private bool m_isCeilingBlast;
         private int direction;
+        [SerializeField]
+        private Attacker m_attacker;
+
         public event EventAction<EventActionArgs> AttackStart;
         public event EventAction<EventActionArgs> AttackDone;
 
+        public event EventAction<EventActionArgs> HasDamageTarget;
+
+        
         public IEnumerator ExecuteAttack()
         {
+            m_attacker.TargetDamaged += on_TargetDamage;
             if (m_isCeilingBlast)
             {
                 StartCoroutine(MoveRoutine());
             }
             
             yield return m_wallMouth.AttackSkyTown();
-          
+
+            m_attacker.TargetDamaged -= on_TargetDamage;
         }
+
+        private void on_TargetDamage(object sender, CombatConclusionEventArgs eventArgs)
+        {
+            Debug.Log(" hit player on mouth blast two script");
+            HasDamageTarget?.Invoke(this, EventActionArgs.Empty);
+            
+        }
+
         IEnumerator MoveRoutine()
         {
             direction = Random.value > 0.5f ? 1 : -1;

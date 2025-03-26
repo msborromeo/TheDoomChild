@@ -5,6 +5,7 @@ using DChild.Gameplay.Environment;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
 using DChild.Menu.Trade;
+using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -148,6 +149,11 @@ namespace DChild.Gameplay.Systems
             UnderworldGameplayUIHandle.Instance.ShowJournalNotificationPrompt(duration);
         }
 
+        public void ShowMordenElevatorUI(ElevatorLocation location, ElevatorLevelInfo[] labels, MovingPlatform elevator)
+        {
+            UnderworldGameplayUIHandle.Instance.OpenElevator(location, labels, elevator);
+        }
+
         public void ShowMovableObjectPrompt(bool willshow)
         {
             UnderworldGameplayUIHandle.Instance.ShowMovableObjectPrompt(willshow);
@@ -193,6 +199,11 @@ namespace DChild.Gameplay.Systems
             {
                 UnderworldGameplayUIHandle.Instance.UpdateNavMapConfiguration(location, sceneIndex, inGameReference, mapReferencePoint, calculationOffset);
             }
+        }
+
+        public UIHandlerExtraReference reference()
+        {
+            return UnderworldGameplayUIHandle.Instance.getReference();
         }
     }
 }
