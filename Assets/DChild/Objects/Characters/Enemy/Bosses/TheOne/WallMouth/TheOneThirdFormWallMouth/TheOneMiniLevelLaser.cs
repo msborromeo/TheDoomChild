@@ -236,7 +236,7 @@ public class TheOneMiniLevelLaser : MonoBehaviour
                 m_anim.SetTrigger("WallMouthBlastAnticipation");
                 if (m_forCeilingBlastAttackDPagTandugaStephenTigAGid)
                 {
-                     yield return new WaitForSeconds(9f);
+                     yield return new WaitForSeconds(6f);
                 }
                 else
                 {

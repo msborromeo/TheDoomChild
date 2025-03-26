@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace DChild.Gameplay.Combat.StatusAilment
 {
@@ -115,6 +116,11 @@ namespace DChild.Gameplay.Combat.StatusAilment
                 {
                     m_modules[i].Stop(m_character);
                 }
+            }
+
+            for (int i = 0; i < m_updatableModules.Length; i++)
+            {
+                m_updatableModules[i].Deinitialize();
             }
         }
 

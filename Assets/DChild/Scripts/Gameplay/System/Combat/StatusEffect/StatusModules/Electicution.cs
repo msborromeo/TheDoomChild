@@ -32,6 +32,11 @@ namespace DChild.Gameplay.Combat.StatusAilment
             StartStun();
         }
 
+        public void Deinitialize()
+        {
+
+        }
+
         public void Update(float delta)
         {
             if (m_currentTimer <= 0)
@@ -82,6 +87,7 @@ namespace DChild.Gameplay.Combat.StatusAilment
             } while (timeElapse <= duration);
 
         }
+
 #endif
     }
 }

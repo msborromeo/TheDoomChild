@@ -41,15 +41,15 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         public IEnumerator ActualStartTentacle()
         {
-            m_hitbox.enabled = true;
+            //m_hitbox.enabled = true;
             yield return Anticipation();
-            m_hitbox.enabled = false;
+            //m_hitbox.enabled = false;
             // yield return Retract();
         }
         private IEnumerator Anticipation()
         {
             m_groundBlastVfx.Play();
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(1f);
          /*   m_animation.SetAnimation(0, m_anticipationLoopAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_anticipationLoopAnimation);
             yield return Extended();*/
