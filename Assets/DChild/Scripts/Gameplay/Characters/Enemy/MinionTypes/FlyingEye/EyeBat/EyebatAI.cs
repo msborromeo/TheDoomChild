@@ -360,7 +360,7 @@ namespace DChild.Gameplay.Characters.Enemies
             //m_Audiosource.clip = m_DeadClip;
             //m_Audiosource.Play();
             base.OnDestroyed(sender, eventArgs);
-            
+
             StopAllCoroutines();
             if (m_executeMoveCoroutine != null)
             {
@@ -443,11 +443,14 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_animation.SetAnimation(0, m_info.detectAnimation, false);
             m_lazerAudio.enabled = true;
+            m_telegraphLineRenderer.enabled = true;
             StartCoroutine(TelegraphLineRoutine());
             StartCoroutine(m_aimRoutine);
             yield return new WaitForSeconds(1f);
             StopCoroutine(m_aimRoutine);
+            m_telegraphLineRenderer.enabled = false;
             //m_muzzleLoopFX.Play();
+            m_lineRenderer.enabled = true;
             m_lineRenderer.SetPosition(1, m_telegraphLineRenderer.GetPosition(1));
             //var hitPointFX = this.InstantiateToScene(m_muzzleLoopFX.gameObject, m_telegraphLineRenderer.GetPosition(1), Quaternion.identity);
             //hitPointFX.GetComponent<ParticleFX>().Play();
@@ -479,6 +482,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.animationState.GetCurrent(0).MixDuration = 0;
             m_bodycollider.enabled = false;
             m_stateHandle.ApplyQueuedState();
+            m_lineRenderer.enabled = false;
             yield return null;
         }
 
@@ -699,22 +703,22 @@ namespace DChild.Gameplay.Characters.Enemies
                 case State.ReturnToPatrol:
                     //if (IsFacing(m_startPos))
                     //{
-                        if (Vector2.Distance(m_startPos, transform.position) > 10f)
-                        {
-                            //var rb2d = GetComponent<Rigidbody2D>();
-                            //m_bodycollider.enabled = false;
-                            //m_agent.Stop();
-                            //Vector3 dir = (m_startPos - (Vector2)m_rigidbody2D.transform.position).normalized;
-                            //Debug.Log("Return to Patrol Direction: " + dir);
-                            //m_rigidbody2D.MovePosition(m_rigidbody2D.transform.position + dir * m_info.move.speed * Time.fixedDeltaTime);
-                            //m_animation.SetAnimation(0, m_info.patrol.animation, true);
-                            m_turnState = State.ReturnToPatrol;
-                            DynamicMovement(m_startPos, m_info.move.speed);
-                        }
-                        else
-                        {
-                            m_stateHandle.OverrideState(State.Patrol);
-                        }
+                    if (Vector2.Distance(m_startPos, transform.position) > 10f)
+                    {
+                        //var rb2d = GetComponent<Rigidbody2D>();
+                        //m_bodycollider.enabled = false;
+                        //m_agent.Stop();
+                        //Vector3 dir = (m_startPos - (Vector2)m_rigidbody2D.transform.position).normalized;
+                        //Debug.Log("Return to Patrol Direction: " + dir);
+                        //m_rigidbody2D.MovePosition(m_rigidbody2D.transform.position + dir * m_info.move.speed * Time.fixedDeltaTime);
+                        //m_animation.SetAnimation(0, m_info.patrol.animation, true);
+                        m_turnState = State.ReturnToPatrol;
+                        DynamicMovement(m_startPos, m_info.move.speed);
+                    }
+                    else
+                    {
+                        m_stateHandle.OverrideState(State.Patrol);
+                    }
                     //}
                     //else
                     //{
@@ -863,6 +867,8 @@ namespace DChild.Gameplay.Characters.Enemies
             m_targetInfo.Set(null, null);
             m_isDetecting = false;
             m_stateHandle.OverrideState(State.ReevaluateSituation);
+            m_lineRenderer.enabled = false;
+            m_telegraphLineRenderer.enabled = false;
             enabled = true;
         }
 
