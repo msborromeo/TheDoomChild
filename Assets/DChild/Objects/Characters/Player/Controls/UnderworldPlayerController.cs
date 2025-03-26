@@ -104,6 +104,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private bool m_isGrabbing;
         #endregion
 
+        public InputReader inputReader => m_inputReader;
+
         public event EventAction<EventActionArgs> ControllerDisabled;
         public event EventAction<EventActionArgs> ControllerEnabled;
 
@@ -330,7 +332,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isDead)
             {
                 Disable();
-              
+
             }
             else
             {
@@ -619,7 +621,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 ProjectileThrowAiming();
             }
-            
+
             HandleCrouchMovement();
 
             if (CanMove())
@@ -645,7 +647,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isChargingAttack || m_state.isDoingSwordThrust)
                 return;
-            
+
             m_vector2Input = vector;
         }
 
@@ -695,8 +697,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnJumpStartedInput()
         {
-            if (m_state.isLedgeGrabbing ||m_state.waitForBehaviour ||m_state.isInShadowMode 
-                ||m_state.isChargingAttack || m_state.isAimingProjectile || m_state.isDoingSwordThrust)
+            if (m_state.isLedgeGrabbing || m_state.waitForBehaviour || m_state.isInShadowMode
+                || m_state.isChargingAttack || m_state.isAimingProjectile || m_state.isDoingSwordThrust)
                 return;
             if (m_crouch.IsThereNoCeiling() == false)
                 return;
@@ -925,12 +927,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashStartedInput()
         {
-            
+
         }
 
         private void OnSlashPerformedInput()
         {
-            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall || 
+            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
                 m_state.isAttacking || m_state.waitForBehaviour)
                 return;
 
@@ -950,7 +952,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         return;
                     }
                 }
-                
+
                 PrepareForGroundAttack();
                 m_whip.Cancel();
                 m_whipCombo.Cancel();
@@ -973,7 +975,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_basicSlashes.Execute(BasicSlashes.Type.Crouch);
                     return;
                 }
-                
+
             }
             else
             {
@@ -1072,7 +1074,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_skills.IsModuleActive(PrimarySkill.Whip) == false)
                 return;
 
-            if (m_state.isChargingAttack || m_state.isDoingSwordThrust || m_state.isAttacking 
+            if (m_state.isChargingAttack || m_state.isDoingSwordThrust || m_state.isAttacking
                 || m_state.waitForBehaviour || m_state.canAttack == false)
                 return;
 
@@ -1167,7 +1169,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isGrounded == false)
                 return;
-            if (m_state.isDashing || m_state.isStickingToWall || m_state.isAttacking || m_state.isLedgeGrabbing || 
+            if (m_state.isDashing || m_state.isStickingToWall || m_state.isAttacking || m_state.isLedgeGrabbing ||
                 m_state.isCrouched)
                 return;
 
@@ -1189,7 +1191,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             if (m_state.isAimingProjectile == false)
                 return;
-                
+
             m_projectileThrow.EndAim();
             m_projectileThrow.StartThrow();
             GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.None);
@@ -1209,7 +1211,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_objectManipulation.IsThereAMovableObject() == false)
                 return;
-            if(m_state.isCrouched || m_state.isLevitating)
+            if (m_state.isCrouched || m_state.isLevitating)
                 return;
             m_idle?.Cancel();
             m_objectManipulation?.Execute();
@@ -1291,21 +1293,21 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnHellTridentStartedInput()
         {
-            
+
         }
 
         private void OnHellTridentCancelledInput()
         {
-            
+
         }
 
         private void OnHellTridentPerformedInput()
         {
             if (m_abilities.IsAbilityActivated(CombatArt.HellTrident))
             {
-                if(m_state.isInShadowMode == false)
+                if (m_state.isInShadowMode == false)
                 {
-                    if(m_state.isGrounded)
+                    if (m_state.isGrounded)
                     {
                         PrepareForGroundAttack();
 
@@ -1327,14 +1329,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSoulFireBlastCancelledInput()
         {
-            
+
         }
 
         private void OnSoulFireBlastPerformedInput()
         {
             if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast))
             {
-                if(m_state.isGrounded == false)
+                if (m_state.isGrounded == false)
                 {
                     PrepareForMidairAttack();
 
@@ -1400,29 +1402,29 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSovereignImpaleCancelledInput()
         {
-            
+
         }
 
         private void OnSovereignImpalePerformedInput()
         {
-            
+
         }
 
         private void OnDiagonalSwordDashStartedInput()
         {
-            
+
         }
 
         private void OnDiagonalSwordDashCancelledInput()
         {
-            
+
         }
 
         private void OnDiagonalSwordDashPerformedInput()
         {
             if (m_abilities.IsAbilityActivated(CombatArt.DiagonalSwordDash))
             {
-                if(m_state.isGrounded == false)
+                if (m_state.isGrounded == false)
                 {
                     if (m_diagonalSwordDash.CanDiagonalSwordDash())
                     {
@@ -1440,19 +1442,19 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnEdgedFuryStartedInput()
         {
-            
+
         }
 
         private void OnEdgedFuryCancelledInput()
         {
-            
+
         }
 
         private void OnEdgedFuryPerformedInput()
         {
             if (m_abilities.IsAbilityActivated(CombatArt.EdgedFury))
             {
-                if(m_state.isGrounded == false)
+                if (m_state.isGrounded == false)
                 {
                     m_edgedFury.Reset();
                     PrepareForMidairAttack();
@@ -1462,18 +1464,18 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_whip?.Cancel();
                     m_edgedFury.Execute();
                 }
-                
+
             }
         }
 
         private void OnReapersHarvestStartedInput()
         {
-           
+
         }
 
         private void OnReapersHarvestCancelledInput()
         {
-            
+
         }
 
         private void OnReapersHarvestPerformedInput()
@@ -1491,7 +1493,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                 }
             }
-            
+
         }
 
         private void OnIcarusWingsStartedInput()
@@ -1523,12 +1525,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnTeleportingSkullStartedInput()
         {
-            
+
         }
 
         private void OnTeleportingSkullPerformedInput()
         {
-            if(m_abilities.IsAbilityActivated(CombatArt.TeleportingSkull))
+            if (m_abilities.IsAbilityActivated(CombatArt.TeleportingSkull))
             {
                 if (m_teleportingSkull.canTeleport)
                 {
@@ -1545,7 +1547,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnTeleportingSkullCancelledInput()
         {
-            
+
         }
         #endregion
         #endregion
@@ -1555,11 +1557,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_skills.IsModuleActive(PrimarySkill.WallMovement))
             {
-                if(m_state.isGrounded == false)
+                if (m_state.isGrounded == false)
                 {
                     var hasIntentionToWallStick = m_vector2Input.x != 0 && (m_state.isDashing == false);
 
-                    if(hasIntentionToWallStick)
+                    if (hasIntentionToWallStick)
                     {
                         var allowedToWallStick = m_state.isHighJumping == false && m_state.isInShadowMode == false;
 
