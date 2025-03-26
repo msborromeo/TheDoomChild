@@ -154,5 +154,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         [SerializeField, ReadOnly]
         private bool m_isLedgeGrabbing;
         public bool isLedgeGrabbing { get => m_isLedgeGrabbing; set => m_isLedgeGrabbing = value; }
+        [SerializeField, ReadOnly]
+        private bool m_isExecutingCombatArt;
+        public bool isExecutingCombatArt { get => m_isExecutingCombatArt; set => m_isExecutingCombatArt = value; }
     }
 }
