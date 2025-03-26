@@ -684,21 +684,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
         }
 
-        private void OnJumpCancelledInput()
-        {
-            if (m_state.isHighJumping)
-            {
-                if (m_groundJump?.CanCutoffJump() ?? true)
-                {
-                    m_groundJump?.CutOffJump();
-                }
-            }
-        }
-
         private void OnJumpStartedInput()
         {
-            if (m_state.isLedgeGrabbing ||m_state.waitForBehaviour ||m_state.isInShadowMode 
-                ||m_state.isChargingAttack || m_state.isAimingProjectile || m_state.isDoingSwordThrust || m_state.isExecutingCombatArt)
+            
+        }
+
+        private void OnJumpPerformedInput()
+        {
+            if (m_state.isLedgeGrabbing || m_state.waitForBehaviour || m_state.isInShadowMode
+                || m_state.isChargingAttack || m_state.isAimingProjectile || m_state.isDoingSwordThrust || m_state.isExecutingCombatArt)
                 return;
             if (m_crouch.IsThereNoCeiling() == false)
                 return;
@@ -761,9 +755,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
         }
 
-        private void OnJumpPerformedInput()
+        private void OnJumpCancelledInput()
         {
-
+            if (m_state.isHighJumping)
+            {
+                if (m_groundJump?.CanCutoffJump() ?? true)
+                {
+                    m_groundJump?.CutOffJump();
+                }
+            }
         }
 
         private void OnLevitateStartedInput()
@@ -1518,6 +1518,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 return;
             }
+
             m_basicSlashes.Cancel();
             m_groundJump.CutOffJump();
             m_extraJump.Cancel();
@@ -1525,7 +1526,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnIcarusWingsCancelledInput()
         {
-
+           
         }
 
         private void OnIcarusWingsPerformedInput()
