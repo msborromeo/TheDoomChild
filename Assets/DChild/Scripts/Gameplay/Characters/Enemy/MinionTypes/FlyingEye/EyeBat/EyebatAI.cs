@@ -868,6 +868,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_isDetecting = false;
             m_stateHandle.OverrideState(State.ReevaluateSituation);
             m_lineRenderer.enabled = false;
+            m_telegraphLineRenderer.enabled = false;
             enabled = true;
         }
 
