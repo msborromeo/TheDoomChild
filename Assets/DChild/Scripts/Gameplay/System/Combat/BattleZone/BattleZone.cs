@@ -17,8 +17,11 @@ namespace DChild.Gameplay.Combat
 
         private SpawnHandle m_spawnHandle;
 
+        [ShowInInspector, ReadOnly, HideInEditorMode]
         private int m_entityCount;
+        [ShowInInspector, ReadOnly, HideInEditorMode]
         private int m_waveIndex;
+        [ShowInInspector, ReadOnly, HideInEditorMode]
         private bool m_spawnEnded;
         private bool m_noMoreWaves;
 

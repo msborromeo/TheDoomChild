@@ -173,6 +173,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private List<GameObject> m_minions;
         private List<ISummonedEnemy> m_summons;
         private int m_currentSummonID;
+        [SerializeField]
+        private Collider2D m_aggroCollider;
 
         private ProjectileLauncher m_projectileLauncher;
 
@@ -260,6 +262,7 @@ namespace DChild.Gameplay.Characters.Enemies
         //Patience Handler
         private void Patience()
         {
+            m_aggroCollider.enabled = false;
             if (m_patienceRoutine == null)
             {
                 m_patienceRoutine = StartCoroutine(PatienceRoutine());
@@ -407,7 +410,8 @@ namespace DChild.Gameplay.Characters.Enemies
             switch (m_currentSummonID)
             {
                 case 0:
-                    if(m_character.facing == HorizontalDirection.Left){
+                    if (m_character.facing == HorizontalDirection.Left)
+                    {
                         m_summonLocation = new Vector2(m_summonMinionLocation.position.x - 1f, m_summonMinionLocation.position.y);
                     }
                     else
@@ -418,7 +422,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 case 1:
                     if (m_character.facing == HorizontalDirection.Left)
                     {
-                        m_summonLocation = new Vector2(m_summonMinionLocation.position.x -1f, m_summonMinionLocation.position.y - 5f);
+                        m_summonLocation = new Vector2(m_summonMinionLocation.position.x - 1f, m_summonMinionLocation.position.y - 5f);
                     }
                     else
                     {
@@ -629,6 +633,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
                 case State.Patrol:
+                    m_aggroCollider.enabled = true;
                     if (!m_wallSensor.isDetecting && m_groundSensor.isDetecting)
                     {
                         m_turnState = State.ReevaluateSituation;
