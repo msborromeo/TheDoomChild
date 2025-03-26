@@ -32,6 +32,11 @@ namespace DChild.Gameplay.Combat.StatusAilment
             m_currentTimer = 0;
         }
 
+        public void Deinitialize()
+        {
+
+        }
+
         public void Update(float delta)
         {
             if (m_currentTimer <= 0)
@@ -55,6 +60,8 @@ namespace DChild.Gameplay.Combat.StatusAilment
         {
             m_totalDamage = Mathf.FloorToInt(duration / m_interval) * m_damagePerInterval.value;
         }
+
+ 
 #endif
     }
 }
