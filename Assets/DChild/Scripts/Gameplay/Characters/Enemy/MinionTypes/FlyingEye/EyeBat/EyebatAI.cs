@@ -443,14 +443,11 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_animation.SetAnimation(0, m_info.detectAnimation, false);
             m_lazerAudio.enabled = true;
-            m_telegraphLineRenderer.enabled = true;
             StartCoroutine(TelegraphLineRoutine());
             StartCoroutine(m_aimRoutine);
             yield return new WaitForSeconds(1f);
             StopCoroutine(m_aimRoutine);
-            m_telegraphLineRenderer.enabled = false;
             //m_muzzleLoopFX.Play();
-            m_lineRenderer.enabled = true;
             m_lineRenderer.SetPosition(1, m_telegraphLineRenderer.GetPosition(1));
             //var hitPointFX = this.InstantiateToScene(m_muzzleLoopFX.gameObject, m_telegraphLineRenderer.GetPosition(1), Quaternion.identity);
             //hitPointFX.GetComponent<ParticleFX>().Play();
@@ -482,7 +479,6 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.animationState.GetCurrent(0).MixDuration = 0;
             m_bodycollider.enabled = false;
             m_stateHandle.ApplyQueuedState();
-            m_lineRenderer.enabled = false;
             yield return null;
         }
 
@@ -867,7 +863,6 @@ namespace DChild.Gameplay.Characters.Enemies
             m_targetInfo.Set(null, null);
             m_isDetecting = false;
             m_stateHandle.OverrideState(State.ReevaluateSituation);
-            m_lineRenderer.enabled = false;
             enabled = true;
         }
 
