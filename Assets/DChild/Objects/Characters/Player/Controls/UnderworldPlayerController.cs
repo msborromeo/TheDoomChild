@@ -1235,6 +1235,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnBarrierPerformedInput()
         {
+            if (m_state.isExecutingCombatArt)
+                return;
             //Skip if Barrier 2 is unlocked
             if (m_abilities.IsAbilityActivated(CombatArt.Barrier))
             {
@@ -1273,6 +1275,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnAirSlashPerformedInput()
         {
+            if (m_state.isExecutingCombatArt)
+                return;
             if (m_abilities.IsAbilityActivated(CombatArt.LightningSpear))
             {
                 if (m_state.isGrounded == false && m_lightningSpear.CanLightningSpear())
@@ -1314,6 +1318,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnHellTridentPerformedInput()
         {
+            if (m_state.isExecutingCombatArt)
+                return;
             if (m_abilities.IsAbilityActivated(CombatArt.HellTrident))
             {
                 if(m_state.isInShadowMode == false)
@@ -1332,6 +1338,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSoulFireBlastStartedInput()
         {
+            if (m_state.isExecutingCombatArt)
+                return;
             if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast))
             {
                 m_devilWings?.Cancel();
@@ -1346,6 +1354,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSoulFireBlastPerformedInput()
         {
+            if (m_state.isExecutingCombatArt)
+                return;
             if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast))
             {
                 if(m_state.isGrounded == false)
@@ -1370,6 +1380,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnBackDiverPerformedInput()
         {
+            if (m_state.isExecutingCombatArt)
+                return;
             if (m_abilities.IsAbilityActivated(CombatArt.BackDiver))
             {
                 if (m_state.isGrounded)
@@ -1393,6 +1405,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSovereignImpaleStartedInput()
         {
+            if (m_state.isExecutingCombatArt)
+                return;
             if (m_abilities.IsAbilityActivated(CombatArt.SovereignImpale))
             {
                 if (m_sovereignImpale.CanSovereignImpale())
@@ -1436,6 +1450,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnDiagonalSwordDashPerformedInput()
         {
+            if (m_state.isExecutingCombatArt)
+                return;
             if (m_abilities.IsAbilityActivated(CombatArt.DiagonalSwordDash))
             {
                 if(m_state.isGrounded == false)
@@ -1466,6 +1482,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnEdgedFuryPerformedInput()
         {
+            if (m_state.isExecutingCombatArt)
+                return;
+
             if (m_abilities.IsAbilityActivated(CombatArt.EdgedFury))
             {
                 if(m_state.isGrounded == false)
@@ -1495,6 +1514,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnReapersHarvestPerformedInput()
         {
+            if (m_state.isExecutingCombatArt)
+                return;
             if (m_abilities.IsAbilityActivated(CombatArt.ReaperHarvest))
             {
                 m_state.waitForBehaviour = true;
@@ -1514,14 +1535,24 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnIcarusWingsStartedInput()
         {
+            if (m_state.isExecutingCombatArt)
+                return;
+
+            //is grounded guard is not viable because jump input is being called before this function is called which automatically makes you ungrounded
+            //if (m_state.isGrounded == false)
+            //    return;
+
             if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
             {
                 return;
             }
 
             m_basicSlashes.Cancel();
-            m_groundJump.CutOffJump();
-            m_extraJump.Cancel();
+            if (m_state.isHighJumping)
+            {
+                m_groundJump.Cancel();
+            }
+            //m_extraJump.Cancel();
         }
 
         private void OnIcarusWingsCancelledInput()
@@ -1532,9 +1563,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnIcarusWingsPerformedInput()
         {
             if (m_state.isExecutingCombatArt)
-            {
                 return;
-            }
+            if (m_state.isGrounded == false)
+                return;
 
             if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
             {
@@ -1543,6 +1574,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             PrepareForGroundAttack();
             m_currentCombatArt = m_icarusWings;
+
             m_icarusWings.Execute();
         }
 
@@ -1553,7 +1585,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnTeleportingSkullPerformedInput()
         {
-            if(m_abilities.IsAbilityActivated(CombatArt.TeleportingSkull))
+            if (m_state.isExecutingCombatArt)
+                return;
+
+            if (m_abilities.IsAbilityActivated(CombatArt.TeleportingSkull))
             {
                 if (m_teleportingSkull.canTeleport)
                 {
