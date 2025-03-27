@@ -3,7 +3,7 @@ using DChild.Gameplay.UI;
 using Holysoft.Event;
 using UnityEngine;
 
-namespace DChild.UI
+namespace DChild.Gameplay.UI.Alerts
 {
     public abstract class UIAlertDataObserver : UIAlertElement
     {

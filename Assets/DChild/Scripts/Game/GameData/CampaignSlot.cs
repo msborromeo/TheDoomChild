@@ -1,14 +1,10 @@
-﻿using Holysoft.Event;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
-using System;
 using Holysoft.Collections;
-using DChild.Gameplay.Environment;
-using UnityEditor;
 using PixelCrushers.DialogueSystem;
 using DLocation = DChild.Gameplay.Environment.Location;
 using DChild.Gameplay.ArmyBattle;
-using DChild.Gameplay.UI;
+using DChild.Gameplay.UI.Alerts;
 
 namespace DChild.Serialization
 {

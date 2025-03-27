@@ -2,7 +2,7 @@
 using DChild.Gameplay.UI;
 using UnityEngine;
 
-namespace DChild.UI
+namespace DChild.Gameplay.UI.Alerts
 {
     public abstract class UIAlertIconElement<T> : UIAlertIconBase where T : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using DChild.Gameplay.Environment;
 using DChild.Gameplay.FastTravel;
-using DChild.Gameplay.UI;
+using DChild.Gameplay.UI.Alerts;
 using DChild.Menu;
 using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;

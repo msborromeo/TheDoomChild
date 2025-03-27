@@ -1,7 +1,7 @@
 ﻿using Holysoft.Event;
 using UnityEngine;
 
-namespace DChild.UI
+namespace DChild.Gameplay.UI.Alerts
 {
     public abstract class UIAlertElement : MonoBehaviour
     {
