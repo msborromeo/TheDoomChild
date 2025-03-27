@@ -1,8 +1,4 @@
 using DChild.Gameplay;
-using DChild.Gameplay.Characters.Players;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 public class GrabPlayerChecker : MonoBehaviour
