@@ -157,5 +157,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         [SerializeField, ReadOnly]
         private bool m_isExecutingCombatArt;
         public bool isExecutingCombatArt { get => m_isExecutingCombatArt; set => m_isExecutingCombatArt = value; }
+        [SerializeField, ReadOnly]
+        private bool m_isDoingEarthShaker;
+        public bool isDoingEarthShaker { get => m_isDoingEarthShaker; set => m_isDoingEarthShaker = value; }
     }
 }
