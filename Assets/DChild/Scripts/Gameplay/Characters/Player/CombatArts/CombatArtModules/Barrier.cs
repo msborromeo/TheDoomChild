@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class Barrier : AttackBehaviour
+    public class Barrier : AttackBehaviour, IInterruptableCombatArtModule
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -94,6 +94,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         {
             m_barrierHoldRoutine = StartCoroutine(BarrierHoldRoutine());
             m_state.waitForBehaviour = false;
+            m_state.isExecutingCombatArt = true;
             m_state.isAttacking = true;
             m_state.canAttack = false;
             //m_physics.velocity = Vector2.zero;
@@ -122,6 +123,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_materialReplacement.replacementEnabled = false;
             m_isDoingBarrier = false;
             m_animator.SetBool(m_barrierStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
             base.AttackOver();
         }
 
@@ -139,6 +141,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_materialReplacement.replacementEnabled = false;
             m_isDoingBarrier = false;
             m_animator.SetBool(m_barrierStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
             base.Cancel();
         }
 

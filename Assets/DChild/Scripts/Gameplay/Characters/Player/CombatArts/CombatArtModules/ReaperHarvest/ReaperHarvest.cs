@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class ReaperHarvest : AttackBehaviour
+    public class ReaperHarvest : AttackBehaviour, IInterruptableCombatArtModule
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -105,6 +105,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         {
             m_hasExecuted = true;
             m_state.waitForBehaviour = true;
+            m_state.isExecutingCombatArt = true;
             m_currentState = state;
             StopAllCoroutines();
             m_state.isAttacking = true;
@@ -146,6 +147,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_hitbox.Enable();
             }
             m_animator.SetBool(m_reaperHarvestStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
             base.AttackOver();
         }
 
@@ -164,6 +166,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             }
             m_animator.SetBool(m_reaperHarvestStateAnimationParameter, false);
             m_reaperHarvestAfterImageFX.Stop();
+            m_state.isExecutingCombatArt = false;
             base.Cancel();
         }
 
