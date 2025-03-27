@@ -1,6 +1,9 @@
-﻿using DChild.Gameplay.Characters.Players.Modules;
+﻿using DChild.Gameplay.Characters.Players;
+using DChild.Gameplay.Characters.Players.Modules;
 using DChild.Gameplay.Characters.Players.State;
+using DChild.Inputs;
 using Sirenix.OdinInspector;
+using System;
 using UnityEngine;
 
 namespace DChild.Gameplay.Combat.StatusAilment
@@ -13,7 +16,8 @@ namespace DChild.Gameplay.Combat.StatusAilment
         private Vector2 m_lockIntoPosition;
 
         private Character m_character;
-        private InputTranslator m_playerInput; //This is very dangerous need to find a way to check if player is moving without checking for input
+        private InputReader m_playerInput; //This is very dangerous need to find a way to check if player is moving without checking for input
+        private bool m_playerIsAttemptingToMove;
 
         public PlayerPositionLock(float maxXDistanceChange)
         {
@@ -34,17 +38,34 @@ namespace DChild.Gameplay.Combat.StatusAilment
         {
             m_character = character;
             m_lockIntoPosition = character.transform.localPosition;
-            if(character = GameplaySystem.playerManager.player.character)
+            var player = GameplaySystem.playerManager.player;
+            if (character = player.character)
             {
 
-                m_playerInput = GameplaySystem.playerManager.player.GetComponentInChildren<InputTranslator>();
-                
+                m_playerInput = player.GetComponentInChildren<UnderworldPlayerController>().inputReader;
+                m_playerInput.Vector2InputPerformedEvent += OnMovementPerformed;
+                m_playerInput.Vector2CancelledInputEvent += OnMovementPerformed;
+                m_playerIsAttemptingToMove = true; //Since There is no way to find out if player is holding input when this is initialized, forcing this as true will make sure that player is locked in.
             }
+        }
+
+        public void Deinitialize()
+        {
+            if (m_playerInput == null)
+                return;
+
+            m_playerInput.Vector2InputPerformedEvent -= OnMovementPerformed;
+            m_playerInput.Vector2CancelledInputEvent -= OnMovementPerformed;
+        }
+
+        private void OnMovementPerformed(Vector2 vector)
+        {
+            m_playerIsAttemptingToMove = vector.x != 0;
         }
 
         public void Update(float delta)
         {
-            if (m_playerInput.horizontalInput != 0)
+            if (m_playerIsAttemptingToMove)
             {
                 var currentlocalPosition = m_character.transform.localPosition;
                 if(Mathf.Abs(m_lockIntoPosition.x - currentlocalPosition.x) > m_maxXDistanceChange)
@@ -63,5 +84,7 @@ namespace DChild.Gameplay.Combat.StatusAilment
                 m_character.transform.localPosition = new Vector3(m_lockIntoPosition.x, m_character.transform.localPosition.y, m_character.transform.localPosition.z);
             }
         }
+
+
     }
 }
