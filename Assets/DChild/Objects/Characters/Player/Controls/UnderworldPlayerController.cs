@@ -10,6 +10,7 @@ using DChild.Gameplay.Inventories;
 using DChild.Gameplay.Systems;
 using DChild.Menu;
 using DChild.Gameplay.Characters.Players.State;
+using System.Runtime.Remoting.Messaging;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -695,6 +696,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isLedgeGrabbing || m_state.waitForBehaviour || m_state.isInShadowMode
                 || m_state.isChargingAttack || m_state.isAimingProjectile || m_state.isDoingSwordThrust || m_state.isExecutingCombatArt)
                 return;
+            if (m_state.isDoingEarthShaker)
+                return;
             if (m_crouch.IsThereNoCeiling() == false)
                 return;
 
@@ -780,9 +783,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isAttacking)
                 return;
             if(m_state.isExecutingCombatArt)
-            {
                 return;
-            }
+            if (m_state.isDoingEarthShaker)
+                return;
             if ((m_devilWings?.HaveEnoughSourceForExecution() ?? false) == false)
                 return;
 
@@ -811,6 +814,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isAttacking || m_state.isLedgeGrabbing)
                 return;
             if (m_state.isInShadowMode)
+                return;
+            if(m_state.isDoingSwordThrust)
+                return;
+            if (m_state.isDoingEarthShaker)
+                return;
+            if ((m_skills.IsModuleActive(PrimarySkill.Slide) == false || m_skills.IsModuleActive(PrimarySkill.ShadowSlide) == false
+                || (m_skills.IsModuleActive(PrimarySkill.Dash) == false || m_skills.IsModuleActive(PrimarySkill.ShadowDash) == false)))
                 return;
 
             m_idle?.Cancel();
@@ -937,12 +947,26 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashStartedInput()
         {
-            
+            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
+                m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
+                return;
+
+            if (m_state.isGrounded == false)
+            {
+                if (m_vector2Input.y < 0)
+                {
+                    if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
+                    {
+                        m_earthShaker.StartExecution();
+                        return;
+                    }
+                }
+            }
         }
 
         private void OnSlashPerformedInput()
         {
-            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall || 
+            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
                 m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
                 return;
 
@@ -962,7 +986,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         return;
                     }
                 }
-                
+
                 PrepareForGroundAttack();
                 m_whip.Cancel();
                 m_whipCombo.Cancel();
@@ -985,7 +1009,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_basicSlashes.Execute(BasicSlashes.Type.Crouch);
                     return;
                 }
-                
+
             }
             else
             {
@@ -1010,16 +1034,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     {
                         m_basicSlashes.Execute(BasicSlashes.Type.MidAir_Forward);
                         return;
-                    }
-
-                    if (m_vector2Input.y < 0)
-                    {
-                        if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
-                        {
-                            m_earthShaker.StartExecution();
-                            return;
-                        }
-                    }
+                    }        
                 }
             }
         }
