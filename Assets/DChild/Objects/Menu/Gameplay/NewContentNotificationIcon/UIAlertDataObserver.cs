@@ -1,19 +1,39 @@
 ﻿using DChild.Gameplay;
 using DChild.Gameplay.UI;
 using Holysoft.Event;
+using Sirenix.OdinInspector;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace DChild.Gameplay.UI.Alerts
 {
     public abstract class UIAlertDataObserver : UIAlertElement
     {
-        [SerializeField]
+        [SerializeField,ValueDropdown("GetAllObservables",IsUniqueList = true)]
         private UIAlertIconBase[] m_toObserve;
 
         protected UIAlertManager UIAlertManager => GameplaySystem.gamplayUIHandle.alertManager;
-        private void OnAlertRenderedUseless(object sender, EventActionArgs eventArgs)
+        
+        private IEnumerable GetAllObservables()
+        {
+            var rootParent = transform.root;
+
+            Func<Transform, string> getPath = null;
+            getPath = x => (x ? getPath(x.parent) + "/" + x.gameObject.name : "");
+            return rootParent.GetComponentsInChildren<UIAlertIconBase>().Select(x => new ValueDropdownItem(getPath(x.transform), x));
+        }
+        
+        public void UpdateState()
         {
             hasAlert = HasAlert();
+        }
+
+        private void OnAlertRenderedUseless(object sender, EventActionArgs eventArgs)
+        {
+            UpdateState();
         }
 
         private void Awake()

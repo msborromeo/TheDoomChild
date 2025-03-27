@@ -3,6 +3,7 @@ using DChild.Gameplay.Combat;
 using DChild.Menu.Bestiary;
 using UnityEngine;
 using DChild.Gameplay.UI;
+using Sirenix.OdinInspector;
 
 namespace DChild.Menu.Codex.Bestiary
 {
@@ -15,11 +16,12 @@ namespace DChild.Menu.Codex.Bestiary
         {
             if (HasInfoOf(ID) == false)
             {
-                GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(StoreNotificationType.Bestiary,ID);
+                GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(StoreNotificationType.Bestiary, ID);
             }
             SetProgress(ID, true);
         }
 
+        [Button]
         public void RecordCreatureToBestiary(BestiaryData data)
         {
             RecordCreatureToBestiary(data.id);

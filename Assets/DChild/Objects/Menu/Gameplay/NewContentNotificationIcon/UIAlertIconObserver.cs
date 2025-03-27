@@ -1,11 +1,16 @@
 ﻿using Holysoft.Event;
+using Sirenix.OdinInspector;
+using System.Linq;
+using System;
 using UnityEngine;
+using System.Collections;
 
 namespace DChild.Gameplay.UI.Alerts
 {
+
     public class UIAlertIconObserver : UIAlertIconBase
     {
-        [SerializeField]
+        [SerializeField, ValueDropdown("GetAllObservables", IsUniqueList = true)]
         private UIAlertElement[] m_toObserve;
 
         public override bool HasAlert()
@@ -18,9 +23,19 @@ namespace DChild.Gameplay.UI.Alerts
 
             return false;
         }
+
+        private IEnumerable GetAllObservables()
+        {
+            var rootParent = transform.root;
+
+            Func<Transform, string> getPath = null;
+            getPath = x => (x ? getPath(x.parent) + "/" + x.gameObject.name : "");
+            return rootParent.GetComponentsInChildren<UIAlertElement>().Select(x => new ValueDropdownItem(getPath(x.transform), x));
+        }
+
         private void OnStateChange(object sender, EventActionArgs eventArgs)
         {
-            hasAlert = HasAlert();
+            UpdateState();
         }
 
         private void Awake()

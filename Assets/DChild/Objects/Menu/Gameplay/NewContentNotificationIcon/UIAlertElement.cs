@@ -1,11 +1,12 @@
 ﻿using Holysoft.Event;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace DChild.Gameplay.UI.Alerts
 {
     public abstract class UIAlertElement : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField,ReadOnly]
         private bool m_hasAlert;
         protected bool hasAlert
         {

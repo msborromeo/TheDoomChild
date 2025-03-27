@@ -12,6 +12,18 @@ namespace DChild.Gameplay.UI.Alerts
 
         public event EventAction<EventActionArgs> RenderedUseless;
 
+        public void UpdateState()
+        {
+            hasAlert = HasAlert();
+            if (hasAlert)
+            {
+                ShowIcon();
+            }
+            else
+            {
+                HideIcon();
+            }
+        }
 
         protected void InvokeRenderedUseless()
         {
