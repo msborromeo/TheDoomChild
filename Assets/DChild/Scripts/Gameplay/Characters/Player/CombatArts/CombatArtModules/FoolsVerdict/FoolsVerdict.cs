@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class FoolsVerdict : AttackBehaviour
+    public class FoolsVerdict : AttackBehaviour, IInterruptableCombatArtModule
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -89,6 +89,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         public void Execute()
         {
             m_state.waitForBehaviour = true;
+            m_state.isExecutingCombatArt = true;
             m_state.isAttacking = true;
             m_state.canAttack = false;
             m_canFoolsVerdict = false;
@@ -108,6 +109,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_canMove = true;
             StopAllCoroutines();
             m_animator.SetBool(m_foolsVerdictStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
             base.AttackOver();
         }
 
@@ -117,6 +119,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             StopAllCoroutines();
             m_fxAnimator.Play("Buffer");
             m_animator.SetBool(m_foolsVerdictStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
             base.Cancel();
         }
 
