@@ -15,7 +15,7 @@ namespace DChild.Menu.Codex.Bestiary
         {
             if (HasInfoOf(ID) == false)
             {
-                GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(StoreNotificationType.Bestiary);
+                GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(StoreNotificationType.Bestiary,ID);
             }
             SetProgress(ID, true);
         }

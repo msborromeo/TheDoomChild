@@ -81,10 +81,25 @@ namespace DChild.Gameplay.UI
         }
 
         [Button("Store Notification"), FoldoutGroup("Options"), HideInEditorMode]
-        public void QueueNotification(StoreNotificationType notificationType)
+        public void QueueNotification(StoreNotificationType notificationType,int ID)
         {
             m_promptNotificationHandle.QueueNotification(notificationType);
             EnablePromptNotificationRoutine();
+
+            switch (notificationType)
+            {
+                case StoreNotificationType.Bestiary:
+                    GameplaySystem.gamplayUIHandle.alertManager.bestiaryAlerts.RecordNewNotification(ID);
+                    break;
+                case StoreNotificationType.Character:
+                    break;
+                case StoreNotificationType.Location:
+                    break;
+                case StoreNotificationType.Lore:
+                    break;
+                case StoreNotificationType.Extras:
+                    break;
+            }
         }
         #endregion
 
