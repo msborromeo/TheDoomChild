@@ -10,6 +10,7 @@ using DChild.Gameplay.Inventories;
 using DChild.Gameplay.Systems;
 using DChild.Menu;
 using DChild.Gameplay.Characters.Players.State;
+using System.Runtime.Remoting.Messaging;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -695,6 +696,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isLedgeGrabbing || m_state.waitForBehaviour || m_state.isInShadowMode
                 || m_state.isChargingAttack || m_state.isAimingProjectile || m_state.isDoingSwordThrust || m_state.isExecutingCombatArt)
                 return;
+            if (m_state.isDoingEarthShaker)
+                return;
             if (m_crouch.IsThereNoCeiling() == false)
                 return;
 
@@ -780,9 +783,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isAttacking)
                 return;
             if(m_state.isExecutingCombatArt)
-            {
                 return;
-            }
+            if (m_state.isDoingEarthShaker)
+                return;
             if ((m_devilWings?.HaveEnoughSourceForExecution() ?? false) == false)
                 return;
 
@@ -811,6 +814,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isAttacking || m_state.isLedgeGrabbing)
                 return;
             if (m_state.isInShadowMode)
+                return;
+            if(m_state.isDoingSwordThrust)
+                return;
+            if (m_state.isDoingEarthShaker)
                 return;
             if ((m_skills.IsModuleActive(PrimarySkill.Slide) == false || m_skills.IsModuleActive(PrimarySkill.ShadowSlide) == false
                 || (m_skills.IsModuleActive(PrimarySkill.Dash) == false || m_skills.IsModuleActive(PrimarySkill.ShadowDash) == false)))
