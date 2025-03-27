@@ -53309,6 +53309,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 1189910758}
     - {fileID: 1877889393}
     - {fileID: 11637099}
     - {fileID: 186886586}
@@ -53340,7 +53341,6 @@ MonoBehaviour:
     - {fileID: 1213720035}
     - {fileID: 20592786}
     - {fileID: 1390490661}
-    - {fileID: 1189910758}
     - {fileID: 657451930}
     - {fileID: 453813126}
     - {fileID: 1652142406}
@@ -53395,10 +53395,10 @@ MonoBehaviour:
       Data: 0
     - Name: m_saveData
       Entry: 7
-      Data: 6|DChild.Gameplay.Environment.CelestialMechanism+SaveData, Assembly-CSharp
-    - Name: m_numberOfActivatedSlots
-      Entry: 3
-      Data: 0
+      Data: 6|DChild.Gameplay.Environment.LootChest+SaveData, Assembly-CSharp
+    - Name: m_isLooted
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -53416,7 +53416,7 @@ MonoBehaviour:
       Data: 8|DChild.Gameplay.Environment.CelestialMechanism+SaveData, Assembly-CSharp
     - Name: m_numberOfActivatedSlots
       Entry: 3
-      Data: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -53431,10 +53431,10 @@ MonoBehaviour:
       Data: 2
     - Name: m_saveData
       Entry: 7
-      Data: 10|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
-    - Name: m_isDestroyed
-      Entry: 5
-      Data: false
+      Data: 10|DChild.Gameplay.Environment.CelestialMechanism+SaveData, Assembly-CSharp
+    - Name: m_numberOfActivatedSlots
+      Entry: 3
+      Data: 3
     - Name: 
       Entry: 8
       Data: 
@@ -53467,8 +53467,8 @@ MonoBehaviour:
       Data: 4
     - Name: m_saveData
       Entry: 7
-      Data: 14|DChild.Gameplay.Items.ItemPickup+SaveData, Assembly-CSharp
-    - Name: m_isPickedUp
+      Data: 14|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
+    - Name: m_isDestroyed
       Entry: 5
       Data: false
     - Name: 
@@ -53485,8 +53485,8 @@ MonoBehaviour:
       Data: 5
     - Name: m_saveData
       Entry: 7
-      Data: 16|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
-    - Name: m_isDestroyed
+      Data: 16|DChild.Gameplay.Items.ItemPickup+SaveData, Assembly-CSharp
+    - Name: m_isPickedUp
       Entry: 5
       Data: false
     - Name: 
@@ -53503,7 +53503,25 @@ MonoBehaviour:
       Data: 6
     - Name: m_saveData
       Entry: 7
-      Data: 18|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
+      Data: 18|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
+    - Name: m_isDestroyed
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 19|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
+    - Name: m_serializer
+      Entry: 10
+      Data: 7
+    - Name: m_saveData
+      Entry: 7
+      Data: 20|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
     - Name: m_position
       Entry: 7
       Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
@@ -53530,13 +53548,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 19|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
+      Data: 21|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
     - Name: m_serializer
       Entry: 10
-      Data: 7
+      Data: 8
     - Name: m_saveData
       Entry: 7
-      Data: 20|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
+      Data: 22|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
     - Name: m_isDestroyed
       Entry: 5
       Data: false
@@ -53548,13 +53566,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 21|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
+      Data: 23|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
     - Name: m_serializer
       Entry: 10
-      Data: 8
+      Data: 9
     - Name: m_saveData
       Entry: 7
-      Data: 22|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
+      Data: 24|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
     - Name: m_position
       Entry: 7
       Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
@@ -53573,24 +53591,6 @@ MonoBehaviour:
     - Name: m_canBeMoved
       Entry: 5
       Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 23|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
-    - Name: m_serializer
-      Entry: 10
-      Data: 9
-    - Name: m_saveData
-      Entry: 7
-      Data: 24|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
-    - Name: m_isDestroyed
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -53623,7 +53623,25 @@ MonoBehaviour:
       Data: 11
     - Name: m_saveData
       Entry: 7
-      Data: 28|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
+      Data: 28|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
+    - Name: m_isDestroyed
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 29|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
+    - Name: m_serializer
+      Entry: 10
+      Data: 12
+    - Name: m_saveData
+      Entry: 7
+      Data: 30|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
     - Name: m_position
       Entry: 7
       Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
@@ -53650,13 +53668,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 29|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
+      Data: 31|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
     - Name: m_serializer
       Entry: 10
-      Data: 12
+      Data: 13
     - Name: m_saveData
       Entry: 7
-      Data: 30|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
+      Data: 32|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
     - Name: m_isDestroyed
       Entry: 5
       Data: false
@@ -53668,13 +53686,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 31|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
+      Data: 33|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
     - Name: m_serializer
       Entry: 10
-      Data: 13
+      Data: 14
     - Name: m_saveData
       Entry: 7
-      Data: 32|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
+      Data: 34|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
     - Name: m_position
       Entry: 7
       Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
@@ -53701,49 +53719,16 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 33|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
-    - Name: m_serializer
-      Entry: 10
-      Data: 14
-    - Name: m_saveData
-      Entry: 7
-      Data: 34|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
-    - Name: m_isDestroyed
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
       Data: 35|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
     - Name: m_serializer
       Entry: 10
       Data: 15
     - Name: m_saveData
       Entry: 7
-      Data: 36|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
-    - Name: m_position
-      Entry: 7
-      Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
-    - Name: x
-      Entry: 4
-      Data: 172.4
-    - Name: y
-      Entry: 4
-      Data: 289.35
-    - Name: z
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: m_canBeMoved
+      Data: 36|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
+    - Name: m_isDestroyed
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -53764,10 +53749,10 @@ MonoBehaviour:
       Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
     - Name: x
       Entry: 4
-      Data: 440.9
+      Data: 172.4
     - Name: y
       Entry: 4
-      Data: 12.1
+      Data: 289.35
     - Name: z
       Entry: 4
       Data: 0
@@ -53797,10 +53782,10 @@ MonoBehaviour:
       Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
     - Name: x
       Entry: 4
-      Data: 206.8
+      Data: 440.9
     - Name: y
       Entry: 4
-      Data: 93.81
+      Data: 12.1
     - Name: z
       Entry: 4
       Data: 0
@@ -53824,10 +53809,25 @@ MonoBehaviour:
       Data: 18
     - Name: m_saveData
       Entry: 7
-      Data: 42|DChild.Gameplay.Environment.ItemRequiredUnlockable+SaveData, Assembly-CSharp
-    - Name: m_isUnlocked
+      Data: 42|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
+    - Name: m_position
+      Entry: 7
+      Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
+    - Name: x
+      Entry: 4
+      Data: 206.8
+    - Name: y
+      Entry: 4
+      Data: 93.81
+    - Name: z
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: m_canBeMoved
       Entry: 5
-      Data: false
+      Data: true
     - Name: 
       Entry: 8
       Data: 
@@ -53842,8 +53842,8 @@ MonoBehaviour:
       Data: 19
     - Name: m_saveData
       Entry: 7
-      Data: 44|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
-    - Name: m_isDestroyed
+      Data: 44|DChild.Gameplay.Environment.ItemRequiredUnlockable+SaveData, Assembly-CSharp
+    - Name: m_isUnlocked
       Entry: 5
       Data: false
     - Name: 
@@ -54022,8 +54022,8 @@ MonoBehaviour:
       Data: 29
     - Name: m_saveData
       Entry: 7
-      Data: 64|DChild.Gameplay.PlayerSkillUnlocker+SaveData, Assembly-CSharp
-    - Name: m_isUsed
+      Data: 64|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
+    - Name: m_isDestroyed
       Entry: 5
       Data: false
     - Name: 
@@ -54040,8 +54040,8 @@ MonoBehaviour:
       Data: 30
     - Name: m_saveData
       Entry: 7
-      Data: 66|DChild.Gameplay.Environment.LootChest+SaveData, Assembly-CSharp
-    - Name: m_isLooted
+      Data: 66|DChild.Gameplay.PlayerSkillUnlocker+SaveData, Assembly-CSharp
+    - Name: m_isUsed
       Entry: 5
       Data: false
     - Name: 
@@ -54191,6 +54191,7 @@ MonoBehaviour:
     m_ID: 193
     m_showHandle: 1
   m_componentSerializers:
+  - {fileID: 1189910758}
   - {fileID: 1877889393}
   - {fileID: 11637099}
   - {fileID: 186886586}
@@ -54222,7 +54223,6 @@ MonoBehaviour:
   - {fileID: 1213720035}
   - {fileID: 20592786}
   - {fileID: 1390490661}
-  - {fileID: 1189910758}
   - {fileID: 657451930}
   - {fileID: 453813126}
   - {fileID: 1652142406}
@@ -138196,7 +138196,7 @@ PrefabInstance:
     - target: {fileID: 3007834288492346115, guid: 7e9ace828767c6d4ab3ab03c8862f417,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.16752782
+      value: 0.16752754
       objectReference: {fileID: 0}
     - target: {fileID: 3058316103717285102, guid: 7e9ace828767c6d4ab3ab03c8862f417,
         type: 3}
@@ -146691,6 +146691,7 @@ PrefabInstance:
     - {fileID: 2388083445558082003, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 1847602125087919022, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 8887423305702328254, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 862290075603976437, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
 --- !u!4 &294462388 stripped
 Transform:
@@ -146704,7 +146705,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 294462387}
   m_PrefabAsset: {fileID: 0}
---- !u!60 &294462395
+--- !u!60 &294462390
 PolygonCollider2D:
   m_ObjectHideFlags: 8
   m_CorrespondingSourceObject: {fileID: 0}
@@ -239110,6 +239111,7 @@ PrefabInstance:
     - {fileID: 2388083445558082003, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 1847602125087919022, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 8887423305702328254, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 862290075603976437, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
 --- !u!4 &626026261 stripped
 Transform:
@@ -239123,7 +239125,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 626026260}
   m_PrefabAsset: {fileID: 0}
---- !u!60 &626026268
+--- !u!60 &626026263
 PolygonCollider2D:
   m_ObjectHideFlags: 8
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260311,6 +260313,38 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 711985447}
   m_PrefabAsset: {fileID: 0}
+--- !u!60 &711985450
+PolygonCollider2D:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711985449}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.66550004, y: 2.4231}
+      - {x: -3.2868, y: -5.8978996}
+      - {x: 0.5232, y: -8.885}
+      - {x: -0.2898, y: -6.9391994}
+      - {x: 3.9369, y: -5.9284}
+      - {x: 0.9499, y: 2.4536}
+      - {x: -0.0255, y: 3.2156}
 --- !u!1 &712041570
 GameObject:
   m_ObjectHideFlags: 0
@@ -269311,6 +269345,7 @@ PrefabInstance:
     - {fileID: 2388083445558082003, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 1847602125087919022, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 8887423305702328254, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 862290075603976437, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
 --- !u!4 &752987878 stripped
 Transform:
@@ -472301,6 +472336,7 @@ PrefabInstance:
     - {fileID: 2388083445558082003, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 1847602125087919022, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 8887423305702328254, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 862290075603976437, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
 --- !u!4 &1570667299 stripped
 Transform:
@@ -472314,6 +472350,41 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1570667298}
   m_PrefabAsset: {fileID: 0}
+--- !u!60 &1570667301
+PolygonCollider2D:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570667300}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -1.1932, y: -3.6332998}
+      - {x: 0.138, y: -3.7605999}
+      - {x: 1.1099, y: -2.558}
+      - {x: 1.8867999, y: -0.6357}
+      - {x: 1.0751, y: 0.3245}
+      - {x: -1.8888999, y: 2.3223}
+      - {x: -2.9943, y: 2.2208}
+      - {x: -4.2314, y: 0.8199}
+      - {x: -4.5266, y: -0.4691}
+      - {x: -3.3416, y: -2.0274}
 --- !u!1 &1572763517
 GameObject:
   m_ObjectHideFlags: 0
@@ -483907,41 +483978,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &1628184411
-PolygonCollider2D:
-  m_ObjectHideFlags: 8
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1570667300}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -1.1932, y: -3.6332998}
-      - {x: 0.138, y: -3.7605999}
-      - {x: 1.1099, y: -2.558}
-      - {x: 1.8867999, y: -0.6357}
-      - {x: 1.0751, y: 0.3245}
-      - {x: -1.8888999, y: 2.3223}
-      - {x: -2.9943, y: 2.2208}
-      - {x: -4.2314, y: 0.8199}
-      - {x: -4.5266, y: -0.4691}
-      - {x: -3.3416, y: -2.0274}
 --- !u!1 &1628417284
 GameObject:
   m_ObjectHideFlags: 0
@@ -549574,38 +549610,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &1854175894
-PolygonCollider2D:
-  m_ObjectHideFlags: 8
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711985449}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.66550004, y: 2.4231}
-      - {x: -3.2868, y: -5.8978996}
-      - {x: 0.5232, y: -8.885}
-      - {x: -0.2898, y: -6.9391994}
-      - {x: 3.9369, y: -5.9284}
-      - {x: 0.9499, y: 2.4536}
-      - {x: -0.0255, y: 3.2156}
 --- !u!1 &1854208625
 GameObject:
   m_ObjectHideFlags: 0
@@ -560103,6 +560107,7 @@ PrefabInstance:
     - {fileID: 2388083445558082003, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 1847602125087919022, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 8887423305702328254, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 862290075603976437, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
 --- !u!4 &1895862885 stripped
 Transform:
