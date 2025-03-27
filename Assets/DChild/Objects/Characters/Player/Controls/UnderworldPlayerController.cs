@@ -17,6 +17,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
     {
         [SerializeField]
         private InputReader m_inputReader;
+        public InputReader inputReader => m_inputReader;
         [SerializeField]
         private PlayerModuleActivator m_skills;
         [SerializeField]
