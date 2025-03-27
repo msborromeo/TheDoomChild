@@ -1108,20 +1108,28 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 PrepareForGroundAttack();
 
-                if (m_vector2Input.x != 0)
+
+                if (m_vector2Input.y > 0)
                 {
-                    if (m_vector2Input.y > 0)
-                    {
-                        m_whip.Execute(WhipAttack.Type.Ground_Overhead);
-                        return;
-                    }
+                    m_whip.Execute(WhipAttack.Type.Ground_Overhead);
+                    return;
+                }
 
-                    if (m_state.isCrouched && m_vector2Input.y < 0)
-                    {
-                        m_whip.Execute(WhipAttack.Type.Crouch_Forward);
-                        return;
-                    }
+                if (m_state.isCrouched && m_vector2Input.y < 0)
+                {
+                    m_whip.Execute(WhipAttack.Type.Crouch_Forward);
+                    return;
+                }
 
+                if (m_vector2Input.x == 0)
+                {
+                    m_whipCombo.Cancel();
+
+                    m_whip.Execute(WhipAttack.Type.Ground_Forward);
+                    return;
+                }
+                else if (m_vector2Input.x != 0)
+                {
                     if (IsFacingInput(m_vector2Input.x))
                     {
                         if (m_whipCombo.CanWhipCombo())
@@ -1130,23 +1138,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             return;
                         }
                     }
-                }
-                else if (m_vector2Input.x == 0)
-                {
-                    if (m_vector2Input.y > 0)
-                    {
-                        m_whip.Execute(WhipAttack.Type.Ground_Overhead);
-                        return;
-                    }
-
-                    if (m_state.isCrouched && m_vector2Input.y < 0)
-                    {
-                        m_whip.Execute(WhipAttack.Type.Crouch_Forward);
-                        return;
-                    }
-
-                    m_whip.Execute(WhipAttack.Type.Ground_Forward);
-                    return;
                 }
             }
             else
