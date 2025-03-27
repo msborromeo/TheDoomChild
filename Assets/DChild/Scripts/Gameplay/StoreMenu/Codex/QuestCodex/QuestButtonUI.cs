@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
+using DChild.Localization;
 
 namespace DChild.Codex.Quests.UI
 {
@@ -21,6 +22,8 @@ namespace DChild.Codex.Quests.UI
 
         public virtual int selectionIndex => m_selectionIndex;
 
+        public QuestDataLocalizer localizer;
+
 
         public void SetSelectionIndex(int index) => m_selectionIndex = index;
         private void SetQuestData(Quest data) => m_questData = data;
@@ -36,7 +39,8 @@ namespace DChild.Codex.Quests.UI
             m_lockedBackground.SetActive(false);
             m_background.gameObject.SetActive(true);
 
-            SetQuestData(questData);
+            //SetQuestData(questData);
+            SetQuestData(localizer.LocalizeQuest(questData));
             m_name.Display(m_questData.name, m_questData.state == QuestState.Success);
         }
 
@@ -49,6 +53,15 @@ namespace DChild.Codex.Quests.UI
                 m_subQuestList[i].gameObject.SetActive(isActive);
                 if (isActive)
                     m_subQuestList[i].Display(m_questData.GetEntry(i), i);
+
+                /*if(m_subQuestList[i].TryGetComponent(out QuestDataLocalizer localize))
+                {
+                    Item t = DialogueManager.masterDatabase.GetItem(m_questData?.name);
+                    if(t!=null)
+                    {
+                        localize.SetQuestID(t.id);
+                    }
+                }*/
             }
         }
     }

@@ -4,10 +4,12 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using DChild.Localization;
+using System;
 
 namespace DChild.Codex.Quests.UI
 {
-    public class QuestProgressUI : MonoBehaviour
+    public class QuestProgressUI : MonoBehaviour , IQuestDataLocalize
     {
 
         [BoxGroup("TMP Fields"), SerializeField] private TextMeshProUGUI m_questOrder;
@@ -21,6 +23,8 @@ namespace DChild.Codex.Quests.UI
 
         private string m_currentQuestDescription;
 
+        public event Action<QuestEntry, int> LocalizeEntry;
+
         private void SetQuestDescription(string description) => m_currentQuestDescription = description;
 
         public void Display(QuestEntry entry, int index)
@@ -29,6 +33,8 @@ namespace DChild.Codex.Quests.UI
             m_questName.text = entry.name;
             m_questStatus.text = $"{entry.state}".Replace("_", " ");
             SetQuestDescription(entry.description);
+
+            LocalizeEntry?.Invoke(entry, index);
         }
 
         [Button(ButtonSizes.Large)]

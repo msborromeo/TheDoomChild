@@ -8,7 +8,7 @@ using DChild.Gameplay.Items;
 
 namespace DChild.Gameplay.Inventories
 {
-    public class QuickItemElement : ItemDetailsUI , IItemViewLocalizer
+    public class QuickItemElement : ItemDetailsUI, IItemViewLocalizer
     {
         [SerializeField]
         private Image m_icon;
@@ -73,9 +73,9 @@ namespace DChild.Gameplay.Inventories
                         //m_currentSlot.reference += OnCountChange;
                     }
                 }
+                LocalizeItemView?.Invoke(reference.data);
             }
 
-            LocalizeItemView?.Invoke(reference.data);
         }
 
         //private void OnCountChange(object sender, ItemSlot.InfoChangeEventArgs eventArgs)
