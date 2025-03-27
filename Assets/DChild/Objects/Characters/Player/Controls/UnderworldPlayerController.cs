@@ -812,6 +812,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isInShadowMode)
                 return;
+            if ((m_skills.IsModuleActive(PrimarySkill.Slide) == false || m_skills.IsModuleActive(PrimarySkill.ShadowSlide) == false
+                || (m_skills.IsModuleActive(PrimarySkill.Dash) == false || m_skills.IsModuleActive(PrimarySkill.ShadowDash) == false)))
+                return;
 
             m_idle?.Cancel();
             m_movement?.Cancel();
@@ -937,12 +940,26 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashStartedInput()
         {
-            
+            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
+                m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
+                return;
+
+            if (m_state.isGrounded == false)
+            {
+                if (m_vector2Input.y < 0)
+                {
+                    if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
+                    {
+                        m_earthShaker.StartExecution();
+                        return;
+                    }
+                }
+            }
         }
 
         private void OnSlashPerformedInput()
         {
-            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall || 
+            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
                 m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
                 return;
 
@@ -962,7 +979,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         return;
                     }
                 }
-                
+
                 PrepareForGroundAttack();
                 m_whip.Cancel();
                 m_whipCombo.Cancel();
@@ -985,7 +1002,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_basicSlashes.Execute(BasicSlashes.Type.Crouch);
                     return;
                 }
-                
+
             }
             else
             {
@@ -1010,16 +1027,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     {
                         m_basicSlashes.Execute(BasicSlashes.Type.MidAir_Forward);
                         return;
-                    }
-
-                    if (m_vector2Input.y < 0)
-                    {
-                        if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
-                        {
-                            m_earthShaker.StartExecution();
-                            return;
-                        }
-                    }
+                    }        
                 }
             }
         }
