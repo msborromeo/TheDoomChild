@@ -36,6 +36,11 @@ namespace DChild.Gameplay.Combat.StatusAilment
             m_controller = character.GetComponent<IController>();
         }
 
+        public void Deinitialize()
+        {
+
+        }
+
         public void Update(float delta)
         {
             m_currentTimer -= delta;
@@ -73,6 +78,8 @@ namespace DChild.Gameplay.Combat.StatusAilment
                 m_totalElectricutionTimes++;
             } while (duration > 0);
         }
+
+       
 #endif
     }
 }
