@@ -1839,7 +1839,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void MoveAction()
         {
-            if (m_state.isDashing || m_state.isAttacking)
+            if (m_state.isDashing || m_state.isAttacking || m_state.waitForBehaviour || m_state.isLedgeGrabbing)
                 return;
 
             if (m_vector2Input.x == 0)
