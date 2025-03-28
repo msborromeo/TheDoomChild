@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class AirSlashRange : AttackBehaviour
+    public class AirSlashRange : AttackBehaviour, IInterruptableCombatArtModule
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -99,6 +99,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         {
             m_hasExecuted = true;
             m_state.waitForBehaviour = true; // Temporary (Delete after)
+            m_state.isExecutingCombatArt = true;
             //m_airSlashRangeChargingRoutine = StartCoroutine(airSlashRangeChargingRoutine()); //Temporary Disabled
             //m_state.waitForBehaviour = false; //Temporary Disabled
             m_state.isAttacking = true;
@@ -162,6 +163,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_airSlashRangeChargingRoutine = null;
             }
             m_animator.SetBool(m_airSlashRangeStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
             base.AttackOver();
         }
 
@@ -181,6 +183,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                     m_airSlashRangeChargingRoutine = null;
                 }
                 m_animator.SetBool(m_airSlashRangeStateAnimationParameter, false);
+                m_state.isExecutingCombatArt = false;
                 base.Cancel();
             }
         }
