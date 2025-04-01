@@ -71,6 +71,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_rigidbody.velocity = Vector2.zero;
             m_canEarthShaker = true;
             m_animator.SetBool(m_earthShakerAnimationParameter, !m_canEarthShaker);
+            m_state.isDoingEarthShaker = false;
             base.Cancel();
         }
 
@@ -118,6 +119,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_chargeFX?.Play(true);
             m_state.isAttacking = true;
             m_state.canAttack = false;
+            m_state.isDoingEarthShaker = true;
             m_animator.SetBool(m_animationParameter, true);
             m_canEarthShaker = false;
             m_animator.SetBool(m_earthShakerAnimationParameter, !m_canEarthShaker);
@@ -135,6 +137,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //m_state.isAttacking = false;
             m_rigidbody.gravityScale = m_originalGravity;
             m_animator.SetBool(m_earthShakerAnimationParameter, !m_canEarthShaker);
+            m_state.isDoingEarthShaker = false;
             base.AttackOver();
         }
     }
