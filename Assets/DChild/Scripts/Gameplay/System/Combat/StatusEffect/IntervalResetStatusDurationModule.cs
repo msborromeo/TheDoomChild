@@ -28,6 +28,11 @@ public class IntervalStatusResetModule : IStatusEffectUpdatableModule
         m_timer = 0;
     }
 
+    public void Deinitialize()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void Update(float delta)
     {
        if (m_timer <= 0)
@@ -52,6 +57,8 @@ public class IntervalStatusResetModule : IStatusEffectUpdatableModule
     {
         m_totalDuration = Mathf.FloorToInt(duration / m_interval);
     }
+
+  
 
 #endif
 }

@@ -8,5 +8,7 @@
         bool isAttacking { get; set; }
         bool waitForBehaviour { get; set; }
         bool isDoingSwordThrust { get; set; }
+        bool isExecutingCombatArt { get; set; }
+        bool isDoingEarthShaker { get; set; }
     }
 }
