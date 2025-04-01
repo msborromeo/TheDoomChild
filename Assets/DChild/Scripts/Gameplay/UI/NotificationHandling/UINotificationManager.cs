@@ -43,6 +43,8 @@ namespace DChild.Gameplay.UI
         {
             m_fullscreenNotificationHandle.QueueNotification(primarySkillData);
             EnableFullNotificationRoutine();
+
+            GameplaySystem.gamplayUIHandle.alertManager.primarySkillAlerts.RecordNewNotification(primarySkillData);
         }
 
         [Button("Soul Skill Notification"), FoldoutGroup("Options"), HideInEditorMode]
@@ -50,6 +52,8 @@ namespace DChild.Gameplay.UI
         {
             m_fullscreenNotificationHandle.QueueNotification(soulSkill);
             EnableFullNotificationRoutine();
+
+            GameplaySystem.gamplayUIHandle.alertManager.soulSkillAlerts.RecordNewNotification(soulSkill);
         }
 
         [Button("Lore Notification"), FoldoutGroup("Options"), HideInEditorMode]
@@ -64,6 +68,8 @@ namespace DChild.Gameplay.UI
         {
             m_fullscreenNotificationHandle.QueueNotification(itemData);
             EnableFullNotificationRoutine();
+
+            GameplaySystem.gamplayUIHandle.alertManager.inventoryAlerts.RecordNewNotification(itemData);
         }
 
         [Button("Quest Notification"), FoldoutGroup("Options"), HideInEditorMode]
@@ -78,6 +84,8 @@ namespace DChild.Gameplay.UI
         {
             m_promptNotificationHandle.QueueNotification(lootList);
             EnablePromptNotificationRoutine();
+
+           GameplaySystem.gamplayUIHandle.alertManager.inventoryAlerts.RecordNewNotification(lootList.GetAllItems());
         }
 
         [Button("Store Notification"), FoldoutGroup("Options"), HideInEditorMode]
@@ -92,6 +100,7 @@ namespace DChild.Gameplay.UI
                     GameplaySystem.gamplayUIHandle.alertManager.bestiaryAlerts.RecordNewNotification(ID);
                     break;
                 case StoreNotificationType.Character:
+                    GameplaySystem.gamplayUIHandle.alertManager.charactersAlerts.RecordNewNotification(ID);
                     break;
                 case StoreNotificationType.Location:
                     break;
