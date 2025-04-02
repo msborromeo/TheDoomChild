@@ -32196,7 +32196,7 @@ PrefabInstance:
     - target: {fileID: 6428857786858472560, guid: a4a7d1de99b515f46a68bca95aa00cd5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -105.3735
+      value: -102.1
       objectReference: {fileID: 0}
     - target: {fileID: 6428857786858472560, guid: a4a7d1de99b515f46a68bca95aa00cd5,
         type: 3}
@@ -32237,6 +32237,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7976717085807636339, guid: a4a7d1de99b515f46a68bca95aa00cd5,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 81
       objectReference: {fileID: 0}
     - target: {fileID: 8726800478189505806, guid: a4a7d1de99b515f46a68bca95aa00cd5,
         type: 3}
@@ -53304,6 +53309,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 1189910758}
     - {fileID: 1877889393}
     - {fileID: 11637099}
     - {fileID: 186886586}
@@ -53335,7 +53341,6 @@ MonoBehaviour:
     - {fileID: 1213720035}
     - {fileID: 20592786}
     - {fileID: 1390490661}
-    - {fileID: 1189910758}
     - {fileID: 657451930}
     - {fileID: 453813126}
     - {fileID: 1652142406}
@@ -53390,10 +53395,10 @@ MonoBehaviour:
       Data: 0
     - Name: m_saveData
       Entry: 7
-      Data: 6|DChild.Gameplay.Environment.CelestialMechanism+SaveData, Assembly-CSharp
-    - Name: m_numberOfActivatedSlots
-      Entry: 3
-      Data: 0
+      Data: 6|DChild.Gameplay.Environment.LootChest+SaveData, Assembly-CSharp
+    - Name: m_isLooted
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -53411,7 +53416,7 @@ MonoBehaviour:
       Data: 8|DChild.Gameplay.Environment.CelestialMechanism+SaveData, Assembly-CSharp
     - Name: m_numberOfActivatedSlots
       Entry: 3
-      Data: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -53426,10 +53431,10 @@ MonoBehaviour:
       Data: 2
     - Name: m_saveData
       Entry: 7
-      Data: 10|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
-    - Name: m_isDestroyed
-      Entry: 5
-      Data: false
+      Data: 10|DChild.Gameplay.Environment.CelestialMechanism+SaveData, Assembly-CSharp
+    - Name: m_numberOfActivatedSlots
+      Entry: 3
+      Data: 3
     - Name: 
       Entry: 8
       Data: 
@@ -53462,8 +53467,8 @@ MonoBehaviour:
       Data: 4
     - Name: m_saveData
       Entry: 7
-      Data: 14|DChild.Gameplay.Items.ItemPickup+SaveData, Assembly-CSharp
-    - Name: m_isPickedUp
+      Data: 14|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
+    - Name: m_isDestroyed
       Entry: 5
       Data: false
     - Name: 
@@ -53480,8 +53485,8 @@ MonoBehaviour:
       Data: 5
     - Name: m_saveData
       Entry: 7
-      Data: 16|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
-    - Name: m_isDestroyed
+      Data: 16|DChild.Gameplay.Items.ItemPickup+SaveData, Assembly-CSharp
+    - Name: m_isPickedUp
       Entry: 5
       Data: false
     - Name: 
@@ -53498,7 +53503,25 @@ MonoBehaviour:
       Data: 6
     - Name: m_saveData
       Entry: 7
-      Data: 18|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
+      Data: 18|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
+    - Name: m_isDestroyed
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 19|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
+    - Name: m_serializer
+      Entry: 10
+      Data: 7
+    - Name: m_saveData
+      Entry: 7
+      Data: 20|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
     - Name: m_position
       Entry: 7
       Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
@@ -53525,13 +53548,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 19|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
+      Data: 21|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
     - Name: m_serializer
       Entry: 10
-      Data: 7
+      Data: 8
     - Name: m_saveData
       Entry: 7
-      Data: 20|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
+      Data: 22|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
     - Name: m_isDestroyed
       Entry: 5
       Data: false
@@ -53543,13 +53566,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 21|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
+      Data: 23|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
     - Name: m_serializer
       Entry: 10
-      Data: 8
+      Data: 9
     - Name: m_saveData
       Entry: 7
-      Data: 22|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
+      Data: 24|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
     - Name: m_position
       Entry: 7
       Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
@@ -53568,24 +53591,6 @@ MonoBehaviour:
     - Name: m_canBeMoved
       Entry: 5
       Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 23|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
-    - Name: m_serializer
-      Entry: 10
-      Data: 9
-    - Name: m_saveData
-      Entry: 7
-      Data: 24|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
-    - Name: m_isDestroyed
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -53618,7 +53623,25 @@ MonoBehaviour:
       Data: 11
     - Name: m_saveData
       Entry: 7
-      Data: 28|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
+      Data: 28|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
+    - Name: m_isDestroyed
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 29|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
+    - Name: m_serializer
+      Entry: 10
+      Data: 12
+    - Name: m_saveData
+      Entry: 7
+      Data: 30|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
     - Name: m_position
       Entry: 7
       Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
@@ -53645,13 +53668,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 29|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
+      Data: 31|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
     - Name: m_serializer
       Entry: 10
-      Data: 12
+      Data: 13
     - Name: m_saveData
       Entry: 7
-      Data: 30|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
+      Data: 32|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
     - Name: m_isDestroyed
       Entry: 5
       Data: false
@@ -53663,13 +53686,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 31|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
+      Data: 33|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
     - Name: m_serializer
       Entry: 10
-      Data: 13
+      Data: 14
     - Name: m_saveData
       Entry: 7
-      Data: 32|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
+      Data: 34|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
     - Name: m_position
       Entry: 7
       Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
@@ -53696,49 +53719,16 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 33|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
-    - Name: m_serializer
-      Entry: 10
-      Data: 14
-    - Name: m_saveData
-      Entry: 7
-      Data: 34|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
-    - Name: m_isDestroyed
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
       Data: 35|DChild.Serialization.ZoneDataHandle+EditorData+ComponentData, Assembly-CSharp
     - Name: m_serializer
       Entry: 10
       Data: 15
     - Name: m_saveData
       Entry: 7
-      Data: 36|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
-    - Name: m_position
-      Entry: 7
-      Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
-    - Name: x
-      Entry: 4
-      Data: 172.4
-    - Name: y
-      Entry: 4
-      Data: 289.35
-    - Name: z
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: m_canBeMoved
+      Data: 36|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
+    - Name: m_isDestroyed
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -53759,10 +53749,10 @@ MonoBehaviour:
       Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
     - Name: x
       Entry: 4
-      Data: 440.9
+      Data: 172.4
     - Name: y
       Entry: 4
-      Data: 12.1
+      Data: 289.35
     - Name: z
       Entry: 4
       Data: 0
@@ -53792,10 +53782,10 @@ MonoBehaviour:
       Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
     - Name: x
       Entry: 4
-      Data: 206.8
+      Data: 440.9
     - Name: y
       Entry: 4
-      Data: 93.81
+      Data: 12.1
     - Name: z
       Entry: 4
       Data: 0
@@ -53819,10 +53809,25 @@ MonoBehaviour:
       Data: 18
     - Name: m_saveData
       Entry: 7
-      Data: 42|DChild.Gameplay.Environment.ItemRequiredUnlockable+SaveData, Assembly-CSharp
-    - Name: m_isUnlocked
+      Data: 42|DChild.Gameplay.Environment.MovableObject+SaveData, Assembly-CSharp
+    - Name: m_position
+      Entry: 7
+      Data: DChild.Serialization.SerializedVector3, Assembly-CSharp
+    - Name: x
+      Entry: 4
+      Data: 206.8
+    - Name: y
+      Entry: 4
+      Data: 93.81
+    - Name: z
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: m_canBeMoved
       Entry: 5
-      Data: false
+      Data: true
     - Name: 
       Entry: 8
       Data: 
@@ -53837,8 +53842,8 @@ MonoBehaviour:
       Data: 19
     - Name: m_saveData
       Entry: 7
-      Data: 44|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
-    - Name: m_isDestroyed
+      Data: 44|DChild.Gameplay.Environment.ItemRequiredUnlockable+SaveData, Assembly-CSharp
+    - Name: m_isUnlocked
       Entry: 5
       Data: false
     - Name: 
@@ -54017,8 +54022,8 @@ MonoBehaviour:
       Data: 29
     - Name: m_saveData
       Entry: 7
-      Data: 64|DChild.Gameplay.PlayerSkillUnlocker+SaveData, Assembly-CSharp
-    - Name: m_isUsed
+      Data: 64|DChild.Gameplay.Environment.BreakableObject+SaveData, Assembly-CSharp
+    - Name: m_isDestroyed
       Entry: 5
       Data: false
     - Name: 
@@ -54035,8 +54040,8 @@ MonoBehaviour:
       Data: 30
     - Name: m_saveData
       Entry: 7
-      Data: 66|DChild.Gameplay.Environment.LootChest+SaveData, Assembly-CSharp
-    - Name: m_isLooted
+      Data: 66|DChild.Gameplay.PlayerSkillUnlocker+SaveData, Assembly-CSharp
+    - Name: m_isUsed
       Entry: 5
       Data: false
     - Name: 
@@ -54186,6 +54191,7 @@ MonoBehaviour:
     m_ID: 193
     m_showHandle: 1
   m_componentSerializers:
+  - {fileID: 1189910758}
   - {fileID: 1877889393}
   - {fileID: 11637099}
   - {fileID: 186886586}
@@ -54217,7 +54223,6 @@ MonoBehaviour:
   - {fileID: 1213720035}
   - {fileID: 20592786}
   - {fileID: 1390490661}
-  - {fileID: 1189910758}
   - {fileID: 657451930}
   - {fileID: 453813126}
   - {fileID: 1652142406}
@@ -146685,6 +146690,8 @@ PrefabInstance:
     - {fileID: 6262021442502978908, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 2388083445558082003, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 1847602125087919022, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 8887423305702328254, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 862290075603976437, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
 --- !u!4 &294462388 stripped
 Transform:
@@ -239103,6 +239110,8 @@ PrefabInstance:
     - {fileID: 6262021442502978908, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 2388083445558082003, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 1847602125087919022, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 8887423305702328254, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 862290075603976437, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
 --- !u!4 &626026261 stripped
 Transform:
@@ -269335,6 +269344,8 @@ PrefabInstance:
     - {fileID: 6262021442502978908, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 2388083445558082003, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 1847602125087919022, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 8887423305702328254, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 862290075603976437, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
 --- !u!4 &752987878 stripped
 Transform:
@@ -472324,6 +472335,8 @@ PrefabInstance:
     - {fileID: 6262021442502978908, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 2388083445558082003, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 1847602125087919022, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 8887423305702328254, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 862290075603976437, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
 --- !u!4 &1570667299 stripped
 Transform:
@@ -560093,6 +560106,8 @@ PrefabInstance:
     - {fileID: 6262021442502978908, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 2388083445558082003, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
     - {fileID: 1847602125087919022, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 8887423305702328254, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
+    - {fileID: 862290075603976437, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cf0bb805746fcad4b85f3677bcc06d83, type: 3}
 --- !u!4 &1895862885 stripped
 Transform:

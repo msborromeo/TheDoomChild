@@ -138,6 +138,15 @@ public static class FillInTextWithButtonSprite
 
         buttonName = buttonName.Replace("<OneModifier>/", "Keyboard_");
 
+        buttonName = buttonName.Replace("<Mouse>/", "Keyboard_");
+
+        buttonName = buttonName.Replace("leftCtrl", "control");
+        buttonName = buttonName.Replace("rightCtrl", "control");
+
+        buttonName = buttonName.Replace("leftShift", "shift");
+        buttonName = buttonName.Replace("rightShift", "shift");
+
+
         return buttonName;
     }
 }
