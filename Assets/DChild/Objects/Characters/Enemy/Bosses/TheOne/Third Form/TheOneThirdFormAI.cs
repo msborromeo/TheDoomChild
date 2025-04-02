@@ -8,7 +8,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using UnityEditor.Timeline;
 using UnityEngine;
+using UnityEngine.Playables;
 using Random = UnityEngine.Random;
 
 namespace DChild.Gameplay.Characters.Enemies
@@ -417,6 +419,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private int m_hitCounter;
         [ReadOnly, SerializeField, TabGroup("Eye")]
         private float m_storeMaxDistance;
+        [SerializeField, TabGroup("Cinematics")]
+        private PlayableDirector m_inwardBlackHole;
+        [SerializeField, TabGroup("Cinematics")]
+        private PlayableDirector m_outwardBlackHole;
         [TabGroup("Sphere Bombs")]
         public List<Projectile> m_sphereBombList;
         [SerializeField]
@@ -1127,6 +1133,8 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         [SerializeField]
         private bool m_skipCinematics;
+        [SerializeField]
+        private Transform m_cinematicBHPosition;
         private IEnumerator ChangePhaseRoutine()
         {
             m_stateHandle.Wait(State.Attacking);
@@ -1137,7 +1145,7 @@ namespace DChild.Gameplay.Characters.Enemies
             if (m_phaseHandle.currentPhase == Phase.PhaseTwo)
             {
                 //cinematics;
-                //GameplaySystem.gamplayUIHandle.ToggleBossHealth(false);
+                GameplaySystem.gamplayUIHandle.ToggleBossHealth(false);
                 m_animation.SetAnimation(0, m_info.exhaustedAnimation, true);
                 if (m_skipCinematics)
                 {
@@ -1153,17 +1161,19 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 m_animation.SetAnimation(0, m_info.blackHoleMouth, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.blackHoleMouth);
-                m_theOneMiniBlackHoleVFX.Play();
-                yield return new WaitForSeconds(3f);
+                m_theOneMiniBlackHole.transform.position = m_cinematicBHPosition.transform.position;
                 m_theOneMiniBlackHole.SetActive(true);
                 while (m_isPlayerBackArena == false)
                 {
                     Debug.Log("player is not back to area");
                     yield return null;
                 }
+                m_outwardBlackHole.Play();
             }  
+           
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             yield return new WaitForSeconds(1f);
+            enabled = true;
             if (m_phaseHandle.currentPhase != Phase.PhaseTwo)
             {
                 yield return ExhaustedState();
@@ -1176,7 +1186,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 case Phase.PhaseTwo:
                     m_damageable.health.SetMaxValue(17000);
                     m_damageable.health.ResetValueToMax();
-                    //GameplaySystem.gamplayUIHandle.ToggleBossHealth(true);
+                    GameplaySystem.gamplayUIHandle.ToggleBossHealth(true);
                     m_hitCounterChangeable = m_hitCounterPhaseTwo;
                     var randomAttackPhaseTwo = RandomShit(1, 4);
                     if (randomAttackPhaseTwo == 1)
@@ -2671,6 +2681,7 @@ namespace DChild.Gameplay.Characters.Enemies
             }
         }
 
+     
         protected override void OnForbidFromAttackTarget()
         {
 
