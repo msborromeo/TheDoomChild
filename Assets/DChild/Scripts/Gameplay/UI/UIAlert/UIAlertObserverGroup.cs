@@ -32,7 +32,7 @@ namespace DChild.Gameplay.UI.Alerts
 
             Func<Transform, string> getPath = null;
             getPath = x => (x ? getPath(x.parent) + "/" + x.gameObject.name : "");
-            return rootParent.GetComponentsInChildren<UIAlertDataObserver>().Select(x => new ValueDropdownItem(getPath(x.transform), x));
+            return rootParent.GetComponentsInChildren<UIAlertDataObserver>(true).Select(x => new ValueDropdownItem(getPath(x.transform), x));
         }
 
         private IEnumerable GetAllIconObservables()
@@ -41,7 +41,7 @@ namespace DChild.Gameplay.UI.Alerts
 
             Func<Transform, string> getPath = null;
             getPath = x => (x ? getPath(x.parent) + "/" + x.gameObject.name : "");
-            return rootParent.GetComponentsInChildren<UIAlertIconObserver>().Select(x => new ValueDropdownItem(getPath(x.transform), x));
+            return rootParent.GetComponentsInChildren<UIAlertIconObserver>(true).Select(x => new ValueDropdownItem(getPath(x.transform), x));
         }
     }
 }
