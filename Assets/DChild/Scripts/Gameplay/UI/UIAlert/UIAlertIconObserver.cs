@@ -30,7 +30,7 @@ namespace DChild.Gameplay.UI.Alerts
 
             Func<Transform, string> getPath = null;
             getPath = x => (x ? getPath(x.parent) + "/" + x.gameObject.name : "");
-            return rootParent.GetComponentsInChildren<UIAlertElement>().Select(x => new ValueDropdownItem(getPath(x.transform), x));
+            return rootParent.GetComponentsInChildren<UIAlertElement>(true).Select(x => new ValueDropdownItem(getPath(x.transform), x));
         }
 
         private void OnStateChange(object sender, EventActionArgs eventArgs)
