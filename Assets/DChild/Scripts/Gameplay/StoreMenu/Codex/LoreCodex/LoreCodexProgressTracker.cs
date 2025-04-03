@@ -14,7 +14,7 @@ namespace DChild.Codex.Lore
         {
             if (HasInfoOf(ID) == false)
             {
-                GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(StoreNotificationType.Bestiary);
+                GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(StoreNotificationType.Lore,ID);
             }
             SetProgress(ID, true);
         }

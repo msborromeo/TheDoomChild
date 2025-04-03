@@ -4,6 +4,7 @@ using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Environment;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
+using DChild.Gameplay.UI.Alerts;
 using DChild.Menu.Trade;
 using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
 using System;
@@ -17,6 +18,7 @@ namespace DChild.Gameplay.Systems
     {
         public static GameplayUIHandle Instance { get; private set; }
 
+        public UIAlertManager alertManager => BaseGameplayUIHandle.Instance.uiAlertManager;
         public IUINotificationManager notificationManager => UnderworldGameplayUIHandle.Instance.notificationManager;
 
         public void ActivateHealthRegenEffect(PassiveRegeneration.Handle regenHandle)
@@ -201,7 +203,7 @@ namespace DChild.Gameplay.Systems
             }
         }
 
-        public UIHandlerExtraReference reference()
+        public UIHandlerExtraReference GetReference()
         {
             return UnderworldGameplayUIHandle.Instance.getReference();
         }
