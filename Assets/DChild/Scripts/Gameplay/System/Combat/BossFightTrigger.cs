@@ -146,17 +146,18 @@ namespace DChild.Gameplay.Combat
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (m_isTriggered == false)
+            if (m_isTriggered)
+                return;
+            if (collision.tag == "Sensor")
+                return;
+            if (collision.tag != "Hitbox")
+                return;
+
+            var target = collision.GetComponentInParent<ITarget>();
+            if (target.CompareTag(Character.objectTag))
             {
-                if (collision.tag != "Sensor")
-                {
-                    var target = collision.GetComponentInParent<ITarget>();
-                    if (target.CompareTag(Character.objectTag))
-                    {
-                        m_targetTuple = (collision.GetComponentInParent<Damageable>(), collision.GetComponentInParent<Character>());
-                        StartFight();
-                    }
-                }
+                m_targetTuple = (collision.GetComponentInParent<Damageable>(), collision.GetComponentInParent<Character>());
+                StartFight();
             }
         }
 
