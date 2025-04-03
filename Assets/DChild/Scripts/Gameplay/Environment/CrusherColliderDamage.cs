@@ -9,6 +9,19 @@ namespace DChild.Gameplay.Environment
 {
     public class CrusherColliderDamage : MonoBehaviour
     {
+        private enum CrusherPosition
+        {
+            Top, 
+            Bottom
+        }
+
+        [SerializeField]
+        private CrusherPosition m_crusherPosition;
+        [SerializeField]
+        private float m_rayOriginOffset;
+        [SerializeField]
+        private MovingPlatform m_movingPlatform;
+
         private Collider2D m_collider;
         private IDamageDealer m_damageDealer;
 
@@ -47,12 +60,20 @@ namespace DChild.Gameplay.Environment
                     if (m_damageable.Contains(damageable) == false)
                     {
                         Raycaster.SetLayerMask(DChildUtility.GetEnvironmentMask());
-                        var hits = Raycaster.Cast(collision.GetContact(0).point, -transform.up, character.height, true, out int hitCount);
-                        Debug.Log("Crusher Bottom Hitcount:" + hitCount);
+                        var collisionPoint = collision.GetContact(0).point;
+                        var hits = Raycaster.Cast(m_crusherPosition == CrusherPosition.Bottom ? new Vector2(collisionPoint.x, collisionPoint.y - m_rayOriginOffset) : new Vector2(collisionPoint.x, collisionPoint.y + m_rayOriginOffset), 
+                            m_crusherPosition == CrusherPosition.Bottom ? -transform.up : transform.up, 
+                            character.height, 
+                            true, 
+                            out int hitCount);
                         if (hitCount > 0)
                         {
-                            m_damageable.Add(damageable);
-                            Crush(damageable, collision.collider);
+                            if (m_movingPlatform.isStopped) //this check may cause problems with big enemies that would prevent the elevator from actually reaching the destination
+                            {
+                                m_damageable.Add(damageable);
+                                Crush(damageable, collision.collider);
+                            }
+                            
                         }
                     }
                 }
