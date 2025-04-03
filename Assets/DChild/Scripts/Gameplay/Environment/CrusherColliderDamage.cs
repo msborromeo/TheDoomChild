@@ -47,7 +47,7 @@ namespace DChild.Gameplay.Environment
                     if (m_damageable.Contains(damageable) == false)
                     {
                         Raycaster.SetLayerMask(DChildUtility.GetEnvironmentMask());
-                        var hits = Raycaster.Cast(collision.GetContact(0).point, -transform.up, 100, true, out int hitCount);
+                        var hits = Raycaster.Cast(collision.GetContact(0).point, -transform.up, character.height, true, out int hitCount);
                         Debug.Log("Crusher Bottom Hitcount:" + hitCount);
                         if (hitCount > 0)
                         {
