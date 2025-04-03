@@ -49,7 +49,7 @@ namespace DChild.Gameplay.Systems.Lore
 
         public void Interact(Character character)
         {
-            GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(UI.StoreNotificationType.Lore);
+            GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(UI.StoreNotificationType.Lore,m_data.GetInstanceID());
             gameObject.SetActive(false);
             m_isPickedUp = true;
         }
