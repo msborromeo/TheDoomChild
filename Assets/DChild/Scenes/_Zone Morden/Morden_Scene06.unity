@@ -49869,6 +49869,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alfred recruiter (Other's requirement sample)
       objectReference: {fileID: 0}
+    - target: {fileID: 5120151146956535739, guid: dc5399f39aaf605448148d9d82c4aa7f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5120151146956535742, guid: dc5399f39aaf605448148d9d82c4aa7f,
         type: 3}
       propertyPath: m_RootOrder
@@ -183246,6 +183251,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fisherman recruiter (free)
       objectReference: {fileID: 0}
+    - target: {fileID: 5120151146956535739, guid: 723a6ffccc9801e4ebec2b26d0ffd9db,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5120151146956535742, guid: 723a6ffccc9801e4ebec2b26d0ffd9db,
         type: 3}
       propertyPath: m_RootOrder
@@ -195340,7 +195350,7 @@ PrefabInstance:
     - target: {fileID: 3007834288492346115, guid: 7e9ace828767c6d4ab3ab03c8862f417,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.16752754
+      value: 0.16752782
       objectReference: {fileID: 0}
     - target: {fileID: 3058316103717285102, guid: 7e9ace828767c6d4ab3ab03c8862f417,
         type: 3}
@@ -227999,6 +228009,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Paladin_placeholder
+      objectReference: {fileID: 0}
+    - target: {fileID: 193162244315978919, guid: b07ba72fff75f734eb18bb3696b087ce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1332038507080034156, guid: b07ba72fff75f734eb18bb3696b087ce,
         type: 3}
@@ -284816,6 +284831,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6561694500920682093, guid: d6d894c84071ff648aee47f7ad60f3df,
     type: 3}
   m_PrefabInstance: {fileID: 1550749198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &960063695 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 961707908395610176, guid: 2e0683233819a84498e1f9f766ddea52,
+    type: 3}
+  m_PrefabInstance: {fileID: 961707908782086287}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &961845583
 GameObject:
@@ -380884,6 +380905,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1325172399}
+  - component: {fileID: 1325172400}
   m_Layer: 0
   m_Name: NarrativeEvents
   m_TagString: Untagged
@@ -380908,9 +380930,35 @@ Transform:
   - {fileID: 1147236521}
   - {fileID: 644709617}
   - {fileID: 1829964171}
+  - {fileID: 960063695}
   m_Father: {fileID: 58447361}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1325172400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325172398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6546d1f34e0077748a93d4c356aa9411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addTrigger: 16
+  removeTrigger: 1024
+  databases:
+  - {fileID: 11400000, guid: 3d5ddfe372769bc4d8141cdd5d9afb7a, type: 2}
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  once: 0
+  onePerFrame: 0
 --- !u!1 &1325173207
 GameObject:
   m_ObjectHideFlags: 0
@@ -611028,6 +611076,75 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2531325092451652831}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &961707908782086287
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1325172399}
+    m_Modifications:
+    - target: {fileID: 961707908395610176, guid: 2e0683233819a84498e1f9f766ddea52,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 961707908395610176, guid: 2e0683233819a84498e1f9f766ddea52,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 961707908395610176, guid: 2e0683233819a84498e1f9f766ddea52,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 961707908395610176, guid: 2e0683233819a84498e1f9f766ddea52,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 961707908395610176, guid: 2e0683233819a84498e1f9f766ddea52,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 961707908395610176, guid: 2e0683233819a84498e1f9f766ddea52,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 961707908395610176, guid: 2e0683233819a84498e1f9f766ddea52,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 961707908395610176, guid: 2e0683233819a84498e1f9f766ddea52,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 961707908395610176, guid: 2e0683233819a84498e1f9f766ddea52,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 961707908395610176, guid: 2e0683233819a84498e1f9f766ddea52,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 961707908395610176, guid: 2e0683233819a84498e1f9f766ddea52,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 961707908395610177, guid: 2e0683233819a84498e1f9f766ddea52,
+        type: 3}
+      propertyPath: m_Name
+      value: MordenScene06_DialogueConversations
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2e0683233819a84498e1f9f766ddea52, type: 3}
 --- !u!1001 &1087221244732641133
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -611039,6 +611156,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Goblin Cook Recruiter (Item)
+      objectReference: {fileID: 0}
+    - target: {fileID: 63259078546499329, guid: a3dee9b5c55355547abdca156f65cd15,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 63259078546499332, guid: a3dee9b5c55355547abdca156f65cd15,
         type: 3}
@@ -613710,6 +613832,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Baker Recruiter (Amount of NPC recruited)
       objectReference: {fileID: 0}
+    - target: {fileID: 257816077477609058, guid: 868d59ecee2c8194aa97ad53933fe685,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 257816077477609063, guid: 868d59ecee2c8194aa97ad53933fe685,
         type: 3}
       propertyPath: m_RootOrder
@@ -614401,6 +614528,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Goblin Waiter Recruiter (Primary Skill)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456281300340765244, guid: caf4cd5ed4dd8f943a70287825237fb9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: caf4cd5ed4dd8f943a70287825237fb9, type: 3}
@@ -615864,6 +615996,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Alchemist Recruiter (Soul essence)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220241155194933864, guid: c9a199d947e829544967947e9ae3763d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7220241155194933869, guid: c9a199d947e829544967947e9ae3763d,
         type: 3}
@@ -617539,6 +617676,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goblin Cleaner Recruiter (Combat Art)
       objectReference: {fileID: 0}
+    - target: {fileID: 3457883446754369941, guid: b51376eff568a854a8e084bb95292ae4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b51376eff568a854a8e084bb95292ae4, type: 3}
 --- !u!1001 &7034415712643535956
@@ -618075,6 +618217,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Teacher Recruiter (Specific NPC)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7047638409601215491, guid: 0e3573e808291cc4dad187737842db4d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7047638409601215494, guid: 0e3573e808291cc4dad187737842db4d,
         type: 3}
