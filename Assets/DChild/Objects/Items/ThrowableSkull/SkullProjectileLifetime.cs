@@ -1,7 +1,9 @@
 using DChild.Gameplay.Pooling;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DChild.Gameplay.Combat
 {
@@ -18,6 +20,22 @@ namespace DChild.Gameplay.Combat
         private void Awake()
         {
             m_lifeTimeCounter = m_lifeTime;
+            
+        }
+
+        private void OnEnable()
+        {
+            SceneManager.activeSceneChanged += OnSceneChange;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.activeSceneChanged -= OnSceneChange;
+        }
+
+        private void OnSceneChange(Scene arg0, Scene arg1)
+        {
+            this.DestroyInstance();
         }
 
         // Update is called once per frame
