@@ -4,6 +4,7 @@ using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Environment;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
+using DChild.Gameplay.UI.Alerts;
 using DChild.Menu.Trade;
 using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
 using System;
@@ -16,6 +17,7 @@ namespace DChild.Gameplay.Systems
 
     public interface IGameplayUIHandle
     {
+        UIAlertManager alertManager { get; }
         IUINotificationManager notificationManager { get; }
 
         void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null);
@@ -56,5 +58,7 @@ namespace DChild.Gameplay.Systems
         void DeactivateShadowRegenEffect();
 
         void ShowMordenElevatorUI(ElevatorLocation location, ElevatorLevelInfo[] labels, MovingPlatform elevator);
+
+        UIHandlerExtraReference GetReference();
     }
 }

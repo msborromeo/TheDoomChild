@@ -14,7 +14,7 @@ namespace DChild.Codex.LocationCodex
         {
             if (HasInfoOf(ID) == false)
             {
-                GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(StoreNotificationType.Bestiary);
+                GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(StoreNotificationType.Location,ID);
             }
             SetProgress(ID, true);
         }
