@@ -61,20 +61,28 @@ namespace DChild.Gameplay.Environment
                     {
                         Raycaster.SetLayerMask(DChildUtility.GetEnvironmentMask());
                         var collisionPoint = collision.GetContact(0).point;
-                        var hits = Raycaster.Cast(m_crusherPosition == CrusherPosition.Bottom ? new Vector2(collisionPoint.x, collisionPoint.y - m_rayOriginOffset) : new Vector2(collisionPoint.x, collisionPoint.y + m_rayOriginOffset), 
-                            m_crusherPosition == CrusherPosition.Bottom ? -transform.up : transform.up, 
-                            character.height, 
-                            true, 
-                            out int hitCount);
-                        if (hitCount > 0)
+                        var collisionNormal = collision.GetContact(0).normal.y;
+
+                        if(m_crusherPosition == CrusherPosition.Top && collisionNormal < 0)
                         {
-                            if (m_movingPlatform.isStopped) //this check may cause problems with big enemies that would prevent the elevator from actually reaching the destination
+                            var hits = Raycaster.Cast(new Vector2(collisionPoint.x, collisionPoint.y + m_rayOriginOffset), transform.up, character.height,true,out int hitCount);
+
+                            if (hitCount > 0)
                             {
                                 m_damageable.Add(damageable);
                                 Crush(damageable, collision.collider);
                             }
-                            
                         }
+                        else if(m_crusherPosition == CrusherPosition.Bottom && collisionNormal > 0)
+                        {
+                            var hits = Raycaster.Cast(new Vector2(collisionPoint.x, collisionPoint.y - m_rayOriginOffset), -transform.up,character.height,true,out int hitCount);
+
+                            if (hitCount > 0)
+                            {
+                                m_damageable.Add(damageable);
+                                Crush(damageable, collision.collider);
+                            }
+                        }       
                     }
                 }
             }
