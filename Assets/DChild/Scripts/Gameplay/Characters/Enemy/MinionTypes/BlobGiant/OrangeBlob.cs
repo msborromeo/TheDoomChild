@@ -17,6 +17,8 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField]
         private Hitbox m_hitbox;
         [SerializeField]
+        private DPSColliderDamage m_dPSCollider;
+        [SerializeField]
         private Collider2D m_hitboxCollider;
         [SerializeField]
         private Health m_health;
@@ -76,6 +78,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator ReviveBlobRoutine()
         {
+            m_dPSCollider.ForceClearAffectedColliders();
             m_hitbox.Disable();
             m_hitboxCollider.enabled = false;
             m_deathVFX.Play();
