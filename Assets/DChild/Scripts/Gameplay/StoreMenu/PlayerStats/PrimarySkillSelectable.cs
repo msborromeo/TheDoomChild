@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.Characters.Players;
 using Doozy.Runtime.UIManager.Components;
+using System;
 using UnityEngine;
 
 namespace DChild.Gameplay.UI.PrimarySkills
@@ -14,6 +15,8 @@ namespace DChild.Gameplay.UI.PrimarySkills
 
         public PrimarySkillData reference => m_reference;
 
+        public event Action<PrimarySkillData> OnPrimarySkillDataChanged;
+        
         public void SetAsUnlocked(bool isUnlocked)
         {
             m_toggle.interactable = isUnlocked;
@@ -23,6 +26,7 @@ namespace DChild.Gameplay.UI.PrimarySkills
         {
             m_icon.DisplayAs(data);
             m_reference = data;
+            OnPrimarySkillDataChanged?.Invoke(data);
         }
 
         private void Awake()
