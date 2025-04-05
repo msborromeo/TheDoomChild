@@ -13,8 +13,16 @@ namespace DChild.Gameplay.UI.Alerts
 
         public InventoryUIAlertRecorder(int[] recordedItems, int[] alerts)
         {
-            m_recordedItems = new List<int>(recordedItems);
-            m_alerts = new List<int>(alerts);
+            m_recordedItems = new List<int>();
+            if (recordedItems != null)
+            {
+                m_recordedItems.AddRange(recordedItems);
+            }
+            m_alerts = new List<int>();
+            if (alerts != null)
+            {
+                m_alerts.AddRange(alerts);
+            }
         }
 
         public int[] GetRecordedItems() => m_recordedItems.ToArray();
