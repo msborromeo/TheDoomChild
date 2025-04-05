@@ -17,22 +17,21 @@ namespace DChild.Gameplay.UI.PrimarySkills.Alerts
 
         protected override void ConnectToDataUI()
         {
-            m_reference.OnPrimarySkillDataChanged += OnDataChange;
-        }
-
-        private void OnDataChange(PrimarySkillData data)
-        {
             UpdateState();
         }
 
-        private void Awake()
-        {
-            m_reference.OnPrimarySkillDataChanged += OnDataChange;
-        }
+        //private void OnDataChange(PrimarySkillData data)
+        //{
+        //}
 
-        private void OnDisable()
-        {
-            m_reference.OnPrimarySkillDataChanged -= OnDataChange;
-        }
+        //private void Awake()
+        //{
+        //    m_reference.OnPrimarySkillDataChanged += OnDataChange;
+        //}
+
+        //private void OnDisable()
+        //{
+        //    m_reference.OnPrimarySkillDataChanged -= OnDataChange;
+        //}
     }
 }

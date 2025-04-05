@@ -80,8 +80,6 @@ namespace DChild.Gameplay.UI.Alerts
                 return;
 
             var saveData = GameplaySystem.campaignSerializer.slot.uiAlertSaveData;
-            if (saveData == null)
-                return;
 
             Load(saveData);
         }
