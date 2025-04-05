@@ -9,6 +9,19 @@ namespace DChild.Gameplay.Environment
 {
     public class CrusherColliderDamage : MonoBehaviour
     {
+        private enum CrusherPosition
+        {
+            Top, 
+            Bottom
+        }
+
+        [SerializeField]
+        private CrusherPosition m_crusherPosition;
+        [SerializeField]
+        private float m_rayOriginOffset;
+        [SerializeField]
+        private MovingPlatform m_movingPlatform;
+
         private Collider2D m_collider;
         private IDamageDealer m_damageDealer;
 
@@ -21,16 +34,16 @@ namespace DChild.Gameplay.Environment
             m_damageDealer = GetComponentInParent<IDamageDealer>();
         }
 
-        protected void InitializeTargetInfo(Cache<TargetInfo> cache, Damageable damageable)
+        protected void InitializeTargetInfo(Cache<TargetInfo> cache, Damageable damageable, Collider2D damageableHitCollider)
         {
             if (damageable.CompareTag(Character.objectTag))
             {
                 var character = damageable.GetComponent<Character>();
-                cache.Value.Initialize(damageable, false,new BodyDefense(), m_collider, character, character.GetComponentInChildren<IFlinch>());
+                cache.Value.Initialize(damageable, false,new BodyDefense(), damageableHitCollider, character, character.GetComponentInChildren<IFlinch>());
             }
             else
             {
-                cache.Value.Initialize(damageable, false, new BodyDefense(), m_collider, damageable.GetComponent<BreakableObject>());
+                cache.Value.Initialize(damageable, false, new BodyDefense(), damageableHitCollider, damageable.GetComponent<BreakableObject>());
             }
         }
 
@@ -47,27 +60,39 @@ namespace DChild.Gameplay.Environment
                     if (m_damageable.Contains(damageable) == false)
                     {
                         Raycaster.SetLayerMask(DChildUtility.GetEnvironmentMask());
-                        var hits = Raycaster.Cast(collision.GetContact(0).point, -transform.up, character.height, true, out int hitCount);
-                        if (hitCount > 0)
+                        var collisionPoint = collision.GetContact(0).point;
+                        var collisionNormal = collision.GetContact(0).normal.y;
+
+                        if(m_crusherPosition == CrusherPosition.Top && collisionNormal < 0)
                         {
-                            m_damageable.Add(damageable);
-                            Crush(damageable);
-                            bool alive = damageable.isAlive;
-                            if (alive==true)
+                            var hits = Raycaster.Cast(new Vector2(collisionPoint.x, collisionPoint.y + m_rayOriginOffset), transform.up, character.height,true,out int hitCount);
+
+                            if (hitCount > 0)
                             {
-                                Crush(damageable);
+                                m_damageable.Add(damageable);
+                                Crush(damageable, collision.collider);
                             }
                         }
+                        else if(m_crusherPosition == CrusherPosition.Bottom && collisionNormal > 0)
+                        {
+                            var hits = Raycaster.Cast(new Vector2(collisionPoint.x, collisionPoint.y - m_rayOriginOffset), -transform.up,character.height,true,out int hitCount);
+
+                            if (hitCount > 0)
+                            {
+                                m_damageable.Add(damageable);
+                                Crush(damageable, collision.collider);
+                            }
+                        }       
                     }
                 }
             }
         }
 
-        private void Crush(Damageable damageable)
+        private void Crush(Damageable damageable, Collider2D damageableHitCollider)
         {
             using (Cache<TargetInfo> cacheTargetInfo = Cache<TargetInfo>.Claim())
             {
-                InitializeTargetInfo(cacheTargetInfo, damageable);
+                InitializeTargetInfo(cacheTargetInfo, damageable, damageableHitCollider);
                 m_damageDealer?.Damage(cacheTargetInfo.Value, m_collider);
                 cacheTargetInfo?.Release();
             }

@@ -4,6 +4,7 @@ using DChild.Gameplay.Characters.Enemies;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class MiniLevelTeleport : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class MiniLevelTeleport : MonoBehaviour
     private List<Vector2> m_teleportPoints;
     [SerializeField]
     private TheOneThirdFormAI m_thirdForm;
+    [SerializeField]
+    private GameObject m_outWardCinematic;
     [SerializeField]
     private int teleportationsDone;
     private int teleportCount;
@@ -45,10 +48,12 @@ public class MiniLevelTeleport : MonoBehaviour
                 break;
             }
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);           
             if (phase == TheOneThirdFormAI.Phase.PhaseThree && teleportationsDone != 3)
             {
                 player.transform.position = m_teleportPoints[randomIndex];
+                m_outWardCinematic.transform.position = m_teleportPoints[randomIndex];
+                m_outWardCinematic.GetComponent<PlayableDirector>().Play();
                 m_teleportPoints.RemoveAt(randomIndex);
             }
             else if (phase == TheOneThirdFormAI.Phase.PhaseFour && teleportationsDone != 7)
@@ -56,11 +61,14 @@ public class MiniLevelTeleport : MonoBehaviour
                 if (m_teleportPoints.Count == 1)
                 {
                     player.transform.position = m_teleportPoints[0];
-
+                    m_outWardCinematic.transform.position = m_teleportPoints[randomIndex];
+                    m_outWardCinematic.GetComponent<PlayableDirector>().Play();
                 }
                 else
                 {
                     player.transform.position = m_teleportPoints[randomIndex];
+                    m_outWardCinematic.transform.position = m_teleportPoints[randomIndex];
+                    m_outWardCinematic.GetComponent<PlayableDirector>().Play();
                     m_teleportPoints.RemoveAt(randomIndex);
                 }
             }
@@ -73,6 +81,7 @@ public class MiniLevelTeleport : MonoBehaviour
                 m_thirdForm.m_isPlayerBackArena = true;
                 player.transform.position = m_thirdFormLocation;
             }
+            yield return new WaitForSeconds(3f);
             this.gameObject.SetActive(false);
             
         }
