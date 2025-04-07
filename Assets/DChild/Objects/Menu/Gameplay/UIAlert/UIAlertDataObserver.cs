@@ -12,6 +12,8 @@ namespace DChild.Gameplay.UI.Alerts
 {
     public abstract class UIAlertDataObserver : UIAlertElement
     {
+        [SerializeField] private bool m_willUpdateObservables;
+
         [SerializeField,ValueDropdown("GetAllObservables",IsUniqueList = true)]
         private UIAlertIconBase[] m_toObserve;
 
@@ -29,6 +31,13 @@ namespace DChild.Gameplay.UI.Alerts
         public void UpdateState()
         {
             hasAlert = HasAlert();
+            if(m_willUpdateObservables)
+            {
+                foreach (var alertIcon in m_toObserve)
+                {
+                    alertIcon.UpdateState();
+                }
+            }
         }
 
         private void OnAlertRenderedUseless(object sender, EventActionArgs eventArgs)
