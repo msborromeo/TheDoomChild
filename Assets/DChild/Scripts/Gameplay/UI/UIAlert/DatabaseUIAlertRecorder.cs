@@ -6,14 +6,18 @@ namespace DChild.Gameplay.UI.Alerts
 {
 
     [System.Serializable]
-    public class DatabaseUIAlertRecorder<T> : UIAlertRecorder<T>  where T : DatabaseAsset
+    public class DatabaseUIAlertRecorder<T> : UIAlertRecorder<T> where T : DatabaseAsset
     {
         [SerializeField]
         private List<int> m_alerts;
 
         public DatabaseUIAlertRecorder(int[] alerts)
         {
-            m_alerts = new List<int>(alerts);
+            m_alerts = new List<int>();
+            if (alerts != null)
+            {
+                m_alerts.AddRange(alerts);
+            }
         }
 
         public int[] GetAlertSaveData() => m_alerts.ToArray();
@@ -22,7 +26,7 @@ namespace DChild.Gameplay.UI.Alerts
             RecordNewNotification(m_alerts, data.id, hasNewInfo);
         }
 
-        public  void RecordNewNotification(int ID, bool hasNewInfo = true)
+        public void RecordNewNotification(int ID, bool hasNewInfo = true)
         {
             RecordNewNotification(m_alerts, ID, hasNewInfo);
         }
