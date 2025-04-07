@@ -7,17 +7,28 @@ using System;
 
 namespace DChild.Menu.Codex.Bestiary
 {
-    public class BestiaryCodexIndexButton : CodexIndexButton<BestiaryData, ICodexIndexInfo> , ICodexBestiaryLocalizer
+    public class BestiaryCodexIndexButton : CodexIndexButton<BestiaryData, ICodexIndexInfo>, ICodexBestiaryLocalizer
     {
-        public event Action<BestiaryData> localizeBestiaryData;
+        public event Action<BestiaryData> OnBestiaryDataChanged;
+
+        event Action<BestiaryData> ICodexBestiaryLocalizer.localizeBestiaryData
+        {
+            add
+            {
+                OnBestiaryDataChanged += value;
+            }
+            remove
+            {
+                OnBestiaryDataChanged -= value;
+            }
+
+        }
 
         public override void SetData(BestiaryData data)
         {
             base.SetData(data);
-            localizeBestiaryData?.Invoke(data);
+            OnBestiaryDataChanged?.Invoke(data);
 
         }
     }
-
-
 }

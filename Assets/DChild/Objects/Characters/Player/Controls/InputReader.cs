@@ -58,7 +58,8 @@ namespace DChild.Inputs
         public event Action LevitateCancelledEvent;
         public event Action InteractStartedEvent;
         public event Action ShadowMorphStartedEvent;
-        public event Action SlashPerformedEvent;
+        public event Action SlashTappedEvent;
+        public event Action SlashPressedEvent;
         public event Action SlashHeldEvent;
         public event Action SlashStartedEvent;
         public event Action SlashCancelledEvent;
@@ -295,7 +296,12 @@ namespace DChild.Inputs
                 
                 if(context.interaction is TapInteraction)
                 {
-                    SlashPerformedEvent?.Invoke();
+                    SlashTappedEvent?.Invoke();
+                }
+
+                if(context.interaction is PressInteraction)
+                {
+                    SlashPressedEvent?.Invoke();
                 }
             }
 
