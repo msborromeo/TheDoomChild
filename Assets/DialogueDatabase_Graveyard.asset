@@ -411,6 +411,62 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: 
+  - id: 217
+    fields:
+    - title: Name
+      value: crazyKnightDoubtful
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 1
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 218
+    fields:
+    - title: Name
+      value: crazyKnightGoofy
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 2
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 219
+    fields:
+    - title: Name
+      value: crazyKnightInLove
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 3
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 220
+    fields:
+    - title: Name
+      value: crazyKnightLaughing
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 4
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
   conversations:
   - id: 180
     fields:
@@ -540,8 +596,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: This place looks nasty, I think the wish to be reborn again is coming
-          pretty quick here!
+        value: '[pic=crazyKnightLaughing] This place looks nasty, I think the wish
+          to be reborn again is quickly getting tempting!'
         type: 0
         typeString: 
       - title: Sequence
@@ -596,8 +652,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroTalkingExpression] It''s not that easy! First of all, they
-          have to overcome their inner struggle! '
+        value: '[pic=necroTalkingExpression] It''s not that easy, they''ll have to
+          start off by overcoming their inner struggle.'
         type: 0
         typeString: 
       - title: Sequence
@@ -652,8 +708,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=playerFacingAwayExpression] We should be concentrating in finding
-          the boy!'
+        value: '[pic=playerFacingAwayExpression] Alright, I think we should be concentrating
+          on finding the boy!'
         type: 0
         typeString: 
       - title: Sequence
@@ -675,8 +731,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 28
-        y: 233
+        x: 30
+        y: 234
         width: 160
         height: 30
     - id: 4
@@ -702,9 +758,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=playerExcitedExpression] Look out! This location is part of
-          the underworld! Souls come here to rest to find their purpose to be reborn
-          again!'
+        value: '[pic=playerExcitedExpression] Look out!'
         type: 0
         typeString: 
       - title: Sequence
@@ -722,7 +776,7 @@ MonoBehaviour:
       - originConversationID: 180
         originDialogueID: 4
         destinationConversationID: 180
-        destinationDialogueID: 1
+        destinationDialogueID: 6
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -732,7 +786,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 253
+        x: 252
         y: 71
         width: 160
         height: 30
@@ -759,8 +813,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroIdleExpression] Some souls never find this salvation and
-          turn into aggressive haunted creatures!'
+        value: '[pic=necroIdleExpression] Because of that, some souls never find
+          salvation and turn into aggressive haunted creatures!'
         type: 0
         typeString: 
       - title: Sequence
@@ -790,6 +844,62 @@ MonoBehaviour:
         serializedVersion: 2
         x: 30
         y: 169
+        width: 160
+        height: 30
+    - id: 6
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: '[pic=playerThinkingExpression] This location is part of the underworld
+          where souls come here to rest to find their purpose and be reborn again!'
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 180
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 180
+        originDialogueID: 6
+        destinationConversationID: 180
+        destinationDialogueID: 1
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 252
+        y: 121
         width: 160
         height: 30
     entryGroups: []
@@ -923,15 +1033,125 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: '[pic=playerExcitedExpression] These are soul lanterns. If you fill
-          it with souls, it will give you access to closed areas! Open locked doors!
-          And, unravel secrets!'
+        value: '[pic=playerThinkingExpression] This over here, is a soul lantern.'
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
         value: 
         type: 0
         typeString: CustomFieldType_Text
+      conversationID: 181
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 181
+        originDialogueID: 1
+        destinationConversationID: 181
+        destinationDialogueID: 2
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 37
+        y: 74
+        width: 160
+        height: 30
+    - id: 2
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: '[pic=playerIdleExpression] If you fill it with souls, it''ll give
+          you access to closed off areas and open up locked doors.'
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 181
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 181
+        originDialogueID: 2
+        destinationConversationID: 181
+        destinationDialogueID: 3
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 37
+        y: 124
+        width: 160
+        height: 30
+    - id: 3
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: '[pic=playerFacingAwayExpression] ..It''s your key to unraveling secrets
+          around here.'
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
       conversationID: 181
       isRoot: 0
       isGroup: 0
@@ -947,8 +1167,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 35
-        y: 72
+        x: 37
+        y: 174
         width: 160
         height: 30
     entryGroups: []
@@ -2495,7 +2715,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 38.070705, y: 504.76886}
+    canvasScrollPosition: {x: 0, y: 0}
     canvasZoom: 0.94000024
   - id: 184
     fields:
@@ -4878,7 +5098,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 30
-        y: 128
+        y: 125
         width: 160
         height: 30
     entryGroups: []
