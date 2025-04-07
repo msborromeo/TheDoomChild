@@ -60,7 +60,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""9d4ab075-e02d-4431-b650-e1d29cbed247"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Tap(duration=0.1,pressPoint=0.1),Hold(duration=0.2)"",
+                    ""interactions"": ""Press,Tap(duration=0.1)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -259,6 +259,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwordThrust"",
+                    ""type"": ""Button"",
+                    ""id"": ""962ad15c-d90f-406f-90c2-409e43dd94f2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -1824,6 +1833,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""TeleportingSkull"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8210ff76-a154-4565-a8f6-e81085cf1717"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""SwordThrust"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d1767203-d36e-4eee-984c-977820920d2c"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SwordThrust"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -3044,6 +3075,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Underworld_ReaperHarvest = m_Underworld.FindAction("ReaperHarvest", throwIfNotFound: true);
         m_Underworld_IcarusWings = m_Underworld.FindAction("IcarusWings", throwIfNotFound: true);
         m_Underworld_TeleportingSkull = m_Underworld.FindAction("TeleportingSkull", throwIfNotFound: true);
+        m_Underworld_SwordThrust = m_Underworld.FindAction("SwordThrust", throwIfNotFound: true);
         // Overworld
         m_Overworld = asset.FindActionMap("Overworld", throwIfNotFound: true);
         m_Overworld_Move = m_Overworld.FindAction("Move", throwIfNotFound: true);
@@ -3154,6 +3186,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Underworld_ReaperHarvest;
     private readonly InputAction m_Underworld_IcarusWings;
     private readonly InputAction m_Underworld_TeleportingSkull;
+    private readonly InputAction m_Underworld_SwordThrust;
     public struct UnderworldActions
     {
         private @PlayerControls m_Wrapper;
@@ -3184,6 +3217,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @ReaperHarvest => m_Wrapper.m_Underworld_ReaperHarvest;
         public InputAction @IcarusWings => m_Wrapper.m_Underworld_IcarusWings;
         public InputAction @TeleportingSkull => m_Wrapper.m_Underworld_TeleportingSkull;
+        public InputAction @SwordThrust => m_Wrapper.m_Underworld_SwordThrust;
         public InputActionMap Get() { return m_Wrapper.m_Underworld; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -3271,6 +3305,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @TeleportingSkull.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnTeleportingSkull;
                 @TeleportingSkull.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnTeleportingSkull;
                 @TeleportingSkull.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnTeleportingSkull;
+                @SwordThrust.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnSwordThrust;
+                @SwordThrust.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnSwordThrust;
+                @SwordThrust.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnSwordThrust;
             }
             m_Wrapper.m_UnderworldActionsCallbackInterface = instance;
             if (instance != null)
@@ -3353,6 +3390,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @TeleportingSkull.started += instance.OnTeleportingSkull;
                 @TeleportingSkull.performed += instance.OnTeleportingSkull;
                 @TeleportingSkull.canceled += instance.OnTeleportingSkull;
+                @SwordThrust.started += instance.OnSwordThrust;
+                @SwordThrust.performed += instance.OnSwordThrust;
+                @SwordThrust.canceled += instance.OnSwordThrust;
             }
         }
     }
@@ -3648,6 +3688,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnReaperHarvest(InputAction.CallbackContext context);
         void OnIcarusWings(InputAction.CallbackContext context);
         void OnTeleportingSkull(InputAction.CallbackContext context);
+        void OnSwordThrust(InputAction.CallbackContext context);
     }
     public interface IOverworldActions
     {
