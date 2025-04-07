@@ -4,11 +4,13 @@ using DChild.Gameplay.UI.Alerts;
 using DChild.Menu;
 using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
+using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Video;
+using DLocation = DChild.Gameplay.Environment.Location;
 
 namespace DChild.Gameplay.Systems
 {
@@ -48,6 +50,10 @@ namespace DChild.Gameplay.Systems
 
         public void ToggleCinematicMode(bool on)
         {
+            if (on == true)
+            {
+                DialogueManager.StopAllConversations();
+            }
             m_cinemaSignal.Payload.booleanValue = on;
             m_cinemaSignal.SendSignal();
         }
@@ -103,7 +109,7 @@ namespace DChild.Gameplay.Systems
         {
             m_cinematicVideoHandle.ShowCinematicVideo(clip, behindTheSceneRoutine, OnVideoDone);
         }
-        public void OpenFastTravel(Location startingLocation)
+        public void OpenFastTravel(DLocation startingLocation)
         {
             m_fastTravelUI.ForceOpenPage(startingLocation);
             m_fastTravelSignal?.SendSignal();
