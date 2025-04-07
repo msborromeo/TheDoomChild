@@ -38,6 +38,10 @@ namespace DChild.Gameplay.UI.Alerts
         {
             return m_alerts.Contains(data.id);
         }
+        public override bool HasNewNotification(int id)
+        {
+            throw new System.NotImplementedException();
+        }
 
         public override void RecordNewNotification(ItemData data, bool hasNewInfo = true)
         {
@@ -63,5 +67,7 @@ namespace DChild.Gameplay.UI.Alerts
                 RecordNewNotification(datas[i], hasNewInfo);
             }
         }
+
+        
     }
 }
