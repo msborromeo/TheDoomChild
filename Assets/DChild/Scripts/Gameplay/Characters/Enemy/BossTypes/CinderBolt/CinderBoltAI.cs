@@ -656,13 +656,9 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public override void SetTarget(IDamageable damageable, Character m_target = null)
         {
-            if (damageable != null)
+            if (damageable != null && m_stateHandle.currentState == State.Intro)
             {
                 base.SetTarget(damageable, m_target);
-                if (!m_isDetecting)
-                {
-                    m_isDetecting = true;
-                }
                 m_stateHandle.OverrideState(State.Intro);
             }
         }
@@ -680,7 +676,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator IntroRoutine()
         {
             enabled = false;
-            m_stateHandle.Wait(State.Chasing);
+            m_stateHandle.Wait(State.ReevaluateSituation);
             m_movement.Stop();
             m_hitbox.SetInvulnerability(Invulnerability.None);
             m_stateHandle.ApplyQueuedState();
@@ -1104,17 +1100,18 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator PunchAttackRoutine()
         {
             enabled = false;
+            m_stateHandle.Wait(State.ReevaluateSituation);
             Vector2 targetPoint = m_targetInfo.position;
             var direction = (targetPoint - (Vector2)transform.position).normalized;
             while (Vector2.Distance(transform.position, targetPoint) > m_info.punchAttack.range)
             {
+                enabled = false;
                 m_animation.SetAnimation(0, m_info.move, true);
                 m_movement.MoveTowards(direction, m_info.move.speed);
                 yield return null;
             }
             m_steamThrustFX.SetActive(false);
             m_movement.Stop();
-            m_animation.EnableRootMotion(true, false);
             m_animation.SetAnimation(0, m_info.punchUppercut, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.punchUppercut);
             m_punchAttackCollider.enabled = false;
@@ -1124,6 +1121,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator Flamethrower1Routine()
         {
             enabled = false;
+            m_stateHandle.Wait(State.ReevaluateSituation);
             Vector2 targetPoint = m_targetInfo.position;
             var direction = (targetPoint - (Vector2)transform.position).normalized;
             while (Vector2.Distance(transform.position, targetPoint) > m_info.punchAttack.range)
@@ -1134,7 +1132,6 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             m_steamThrustFX.SetActive(false);
             m_movement.Stop();
-            m_animation.EnableRootMotion(true, false);
             m_animation.SetAnimation(0, m_info.flameThrowerAttack.animation, false);
             yield return new WaitForSeconds(0.4f);
             m_flamethrower1FX.Play();
@@ -1162,6 +1159,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator SpinAttackRoutine()
         {
             enabled = false;
+            m_stateHandle.Wait(State.ReevaluateSituation);
             m_steamThrustFX.SetActive(false);
             yield return new WaitForSeconds(0.5f);
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
@@ -1191,20 +1189,81 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             enabled = false;
             yield return new WaitForSeconds(.1f);
-            m_laserLookCoroutine = StartCoroutine(LaserLookRoutine());
-            m_aimOn = true;
-            m_laserBeamCoroutine = StartCoroutine(LaserBeamRoutine());
 
-            yield return new WaitForSeconds(1f);
-            m_aimOn = false;
-            m_beamOn = true;
-            yield return new WaitForSeconds(m_laserDuration);
-            m_beamOn = false;
-            yield return new WaitUntil(() => m_laserBeamCoroutine == null);
+            m_laserTargetPos = LookPosition(m_laserOrigin);
             yield return null;
+
+
+            m_telegraphLineRenderer.useWorldSpace = true;
+            var timerOffset = m_telegraphLineRenderer.startWidth;
+            m_telegraphLineRenderer.SetPosition(1, ShotPosition());
+            enabled = false;
+            //yield return m_aimRoutine;
+            Collider2D laserCollider = null;
+            EdgeCollider2D laserEdgeCollider = null;
+            /*yield return new WaitUntil(() => m_beamOn);*/
+            if (!m_isRaging)
+            {
+                laserCollider = m_firebeamCollider;
+                laserEdgeCollider = m_edgeCollider;
+            }
+            else
+            {
+                laserCollider = m_overchargedFirebeamCollider;
+                laserEdgeCollider = m_overchargeEdgeCollider;
+            }
+
+            laserCollider.enabled = true;
+            m_laserOriginMuzzleFX.Play();
+            m_muzzleLoopFX.Play();
+
+            m_lineRenderer.useWorldSpace = true;
+            m_lineRenderer.SetPosition(0, m_laserOrigin.position);
+            var edgeColliderPosition = laserEdgeCollider.transform.position;
+            var facing = (int)m_character.facing;
+            var timer = 0f;
+            do
+            {
+                var shotpos = ShotPosition();
+                m_muzzleLoopFX.transform.position = shotpos;
+                enabled = false;
+                m_lineRenderer.SetPosition(1, shotpos);
+                //enabled = false;
+                for (int i = 0; i < m_lineRenderer.positionCount; i++)
+                {
+                    var pos = Vector3.zero;
+                    pos = m_lineRenderer.GetPosition(i) - edgeColliderPosition;
+                    pos.x *= facing;
+                    pos = new Vector2(pos.x, pos.y);
+                    m_Points.Add(pos);
+                }
+
+                laserEdgeCollider.points = m_Points.ToArray();
+                m_Points.Clear();
+                yield return new WaitForSeconds(0.1f);
+                timer += GameplaySystem.time.deltaTime + 0.1f;
+            }
+            while (timer <= m_laserDuration);
+
+
+            laserCollider.enabled = false;
+
+            m_laserOriginMuzzleFX.Stop();
+            m_muzzleLoopFX.Stop();
+            ResetLaser();
+            //enabled = false;
+            //m_laserBeamCoroutine = null;
+            yield return null;
+
+            //yield return new WaitForSeconds(1f);
+            //m_aimOn = false;
+            //m_beamOn = true;
+            //yield return new WaitForSeconds(m_laserDuration);
+            //m_beamOn = false;
+            //yield return null;
             enabled = true;
         }
-        private IEnumerator LaserLookRoutine()
+        /*private IEnumerator LaserLookRoutine()
         {
             enabled = false;
             while (true)
@@ -1213,7 +1272,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return null;
                 enabled = true;
             }
-        }
+        }*/
         private IEnumerator AimRoutine()
         {
             enabled = false;
@@ -1228,6 +1287,7 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         private Vector2 ShotPosition()
         {
+            enabled = false;
             m_laserTargetPos = LookPosition(m_laserOrigin);
             Vector2 startPoint = m_laserOrigin.position;
             var direction = m_character.facing == HorizontalDirection.Right ? Vector2.right : Vector2.left;
@@ -1235,24 +1295,30 @@ namespace DChild.Gameplay.Characters.Enemies
             contactFilter.useTriggers = false;
             RaycastHit2D hit = Physics2D.Raycast(startPoint, direction, 1000, DChildUtility.GetEnvironmentMask());
             return hit.point;
+            enabled = true;
         }
-        private IEnumerator TelegraphLineRoutine()
+        /*private IEnumerator TelegraphLineRoutine() 
         {
+            enabled = false;
             m_telegraphLineRenderer.useWorldSpace = true;
             var timerOffset = m_telegraphLineRenderer.startWidth;
             m_telegraphLineRenderer.SetPosition(1, ShotPosition());
+            enabled = false;
             yield return null;
-        }
-        private IEnumerator LaserBeamRoutine()
+            enabled = true;
+        }*/
+        /*private IEnumerator LaserBeamRoutine()
         {
             enabled = false;
             if (m_aimOn)
             {
-                StartCoroutine(TelegraphLineRoutine());
+                yield return TelegraphLineRoutine();
+                enabled = false;
                 StartCoroutine(m_aimRoutine);
+                enabled = false;
             }
 
-            yield return new WaitUntil(() => m_beamOn);
+            *//*yield return new WaitUntil(() => m_beamOn);*//*
             if (!m_isRaging)
             {
                 m_firebeamCollider.enabled = true;
@@ -1269,9 +1335,10 @@ namespace DChild.Gameplay.Characters.Enemies
             while (m_beamOn)
             {
                 m_muzzleLoopFX.transform.position = ShotPosition();
-
+                enabled = false;
                 m_lineRenderer.SetPosition(0, m_laserOrigin.position);
                 m_lineRenderer.SetPosition(1, ShotPosition());
+                enabled = false;
                 for (int i = 0; i < m_lineRenderer.positionCount; i++)
                 {
                     var pos = Vector3.zero;
@@ -1310,12 +1377,14 @@ namespace DChild.Gameplay.Characters.Enemies
             m_laserOriginMuzzleFX.Stop();
             m_muzzleLoopFX.Stop();
             ResetLaser();
+            enabled = false;
             m_laserBeamCoroutine = null;
             yield return null;
             enabled = true;
-        }
+        }*/
         private void ResetLaser()
         {
+            enabled = false;
             m_telegraphLineRenderer.useWorldSpace = false;
             m_lineRenderer.useWorldSpace = false;
             m_lineRenderer.SetPosition(0, Vector3.zero);
@@ -1332,13 +1401,16 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 m_overchargeEdgeCollider.points = m_Points.ToArray();
             }
+            enabled = true;
         }
         protected new Vector2 LookPosition(Transform startPoint)
         {
+            enabled = false;
             int hitCount = 0;
             RaycastHit2D[] hit = Cast(startPoint.position, startPoint.right, 1000, true, out hitCount, true);
             Debug.DrawRay(startPoint.position, hit[0].point);
             return hit[0].point;
+            enabled = true;
         }
         #endregion
         private IEnumerator FirebeamRoutine()
@@ -1360,6 +1432,7 @@ namespace DChild.Gameplay.Characters.Enemies
             var direction = (targetPoint - (Vector2)transform.position).normalized;
             while (Vector2.Distance(transform.position, targetPoint) > 1f)
             {
+                enabled = false;
                 // Move towards the target point
                 m_animation.SetAnimation(0, m_info.move, true);
                 m_movement.MoveTowards(direction, m_info.move.speed);
@@ -1381,15 +1454,16 @@ namespace DChild.Gameplay.Characters.Enemies
                 }
             }
             m_animation.SetAnimation(0, m_info.firebeamAttack, false);
-            yield return new WaitForSeconds(0.25f);
-            StartCoroutine(FirebeamLaserRoutine());
+            yield return new WaitForSeconds(1.25f);
+            enabled = true;
+            yield return FirebeamLaserRoutine();
+            enabled = false;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.firebeamAttack);
             yield return null;
             enabled = true;
         }
         private IEnumerator ShortDashRoutine()
         {
-
             enabled = false;
             var targetPos = m_targetInfo.position.x;
             m_steamThrustFX.SetActive(false);
@@ -1409,8 +1483,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForSeconds(.5f);
             if (!IsFacingTarget())
             {
-                transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
-                m_character.SetFacing(transform.localScale.x == 1 ? HorizontalDirection.Right : HorizontalDirection.Left);
+                CustomTurn();
             }
             yield return null;
             enabled = true;
@@ -1436,26 +1509,6 @@ namespace DChild.Gameplay.Characters.Enemies
             m_longDashCollider.enabled = false;
             m_longDashFX.Stop();
             m_hitbox.SetInvulnerability(Invulnerability.None);
-            yield return new WaitForSeconds(.5f);
-            if (!IsFacingTarget())
-            {
-                transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
-                m_character.SetFacing(transform.localScale.x == 1 ? HorizontalDirection.Right : HorizontalDirection.Left);
-            }
-            Vector2 targetPoint = m_targetInfo.position;
-            var direction = (targetPoint - (Vector2)transform.position).normalized;
-            while (Vector2.Distance(transform.position, targetPoint) > m_info.punchAttack.range)
-            {
-                m_animation.SetAnimation(0, m_info.move, true);
-                m_movement.MoveTowards(direction, m_info.move.speed);
-                yield return null;
-            }
-            m_movement.Stop();
-            m_animation.EnableRootMotion(true, false);
-            m_animation.SetAnimation(0, m_info.punchUppercut, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.punchUppercut);
-            m_punchAttackCollider.enabled = false;
-            yield return null;
             enabled = true;
         }
         private IEnumerator ShotgunBlastRoutine()
@@ -1553,7 +1606,7 @@ namespace DChild.Gameplay.Characters.Enemies
             var m_followDuration = 10f;
             while (m_followElapsedTime < m_followDuration)
             {
-                m_movement.MoveTowards(new Vector2((m_targetInfo.position.x + (m_character.facing == HorizontalDirection.Left? 10f : -10f)) - transform.position.x, 0).normalized, m_info.move.speed);
+                m_movement.MoveTowards(new Vector2((m_targetInfo.position.x + (m_character.facing == HorizontalDirection.Left ? 10f : -10f)) - transform.position.x, 0).normalized, m_info.move.speed);
                 m_followElapsedTime += Time.deltaTime;
                 if (!IsFacingTarget())
                 {
@@ -1578,6 +1631,7 @@ namespace DChild.Gameplay.Characters.Enemies
             var m_followDuration = 10f;
             while (Vector2.Distance(transform.position, m_targetInfo.position) > 50f)
             {
+                enabled = false;
                 m_animation.SetAnimation(0, m_info.move, true);
                 m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, m_targetInfo.position.y - transform.position.y).normalized, m_info.move.speed);
                 if (!IsFacingTarget())
@@ -1590,10 +1644,10 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_followDuration += 10f;
                     m_overOfRangeCounter++;
                 }
-                if(Vector2.Distance(transform.position, m_targetInfo.position) <= m_info.punchAttack.range)
+                /*if(Vector2.Distance(transform.position, m_targetInfo.position) <= m_info.punchAttack.range)
                 {
                     yield return null;
-                }
+                }*/
                 yield return null;
             }
             if (!IsFacingTarget())
@@ -1614,11 +1668,17 @@ namespace DChild.Gameplay.Characters.Enemies
                 var random = UnityEngine.Random.RandomRange(0, 2);
                 if (random == 0)
                 {
+                    yield return new WaitForSeconds(.01f);
+                    enabled = true;
                     yield return PunchAttackRoutine();
+                    enabled = false;
                 }
                 else
                 {
+                    yield return new WaitForSeconds(.01f);
+                    enabled = true;
                     yield return Flamethrower1Routine();
+                    enabled = false;
                 }
                 m_animation.SetAnimation(0, m_info.idleAnimation, true);
                 DecidedOnAttack(false);
@@ -1633,24 +1693,66 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             enabled = false;
             m_stateHandle.Wait(State.ReevaluateSituation);
-            // check if player is within 8 ch
-
+            while (Vector2.Distance(transform.position, m_targetInfo.position) > 80f)
+            {
+                enabled = false;
+                m_animation.SetAnimation(0, m_info.move, true);
+                m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, m_targetInfo.position.y - transform.position.y).normalized, m_info.move.speed);
+                if (!IsFacingTarget())
+                {
+                    CustomTurn();
+                }
+                yield return null;
+            }
+            if (!IsFacingTarget())
+            {
+                CustomTurn();
+            }
+            m_movement.Stop();
             var random = UnityEngine.Random.RandomRange(0, 3);
             if (random == 0)
             {
+                yield return new WaitForSeconds(.01f);
+                enabled = true;
                 yield return SpinAttackRoutine();
+                enabled = false;
+                yield return new WaitForSeconds(.01f);
+                enabled = true;
                 yield return Pattern1Phase1Attack();
+                enabled = false;
             }
             else if (random == 1)
             {
+                yield return new WaitForSeconds(.01f);
+                enabled = true;
                 yield return FirebeamRoutine();
+                enabled = false;
             }
             else
             {
+                yield return new WaitForSeconds(.01f);
+                enabled = true;
                 yield return LongDashRoutine();
-                // if player is in 2ch distance
+                enabled = false;
+                while (Vector2.Distance(transform.position, m_targetInfo.position) > 20f)
+                {
+                    enabled = false;
+                    m_animation.SetAnimation(0, m_info.move, true);
+                    m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, m_targetInfo.position.y - transform.position.y).normalized, m_info.move.speed);
+                    if (!IsFacingTarget())
+                    {
+                        CustomTurn();
+                    }
+                    yield return null;
+                }
+                yield return new WaitForSeconds(.01f);
+                enabled = true;
                 yield return PunchAttackRoutine();
+                enabled = false;
+                yield return new WaitForSeconds(.01f);
+                enabled = true;
                 yield return Flamethrower1Routine();
+                enabled = false;
             }
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             DecidedOnAttack(false);
@@ -1665,40 +1767,56 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.ReevaluateSituation);
             //chase the player for 10 seconds
             // if player is within 5ch
+            enabled = true;
             yield return ShortDashRoutine();
+            enabled = false;
             var random = UnityEngine.Random.RandomRange(0, 3);
-            if(random == 0)
+            if (random == 0)
             {
+                enabled = true;
                 yield return ShotgunBlastRoutine();
+                enabled = false;
             }
-            else if(random == 1)
+            else if (random == 1)
             {
+                enabled = true;
                 yield return PunchAttackRoutine();
+                enabled = false;
                 var randomAttack = UnityEngine.Random.RandomRange(0, 2);
-                if(randomAttack == 0)
+                if (randomAttack == 0)
                 {
+                    enabled = true;
                     yield return ShotgunBlastRoutine();
+                    enabled = false;
                 }
                 else
                 {
+                    enabled = true;
                     yield return Flamethrower1Routine();
+                    enabled = false;
                 }
             }
             else
             {
+                enabled = true;
                 yield return Flamethrower1Routine();
+                enabled = false;
             }
             //else if wla sa range nga 5motherfucking ch
             // check range counter
             // if > 2
             var randomAgain = UnityEngine.Random.RandomRange(0, 2);
-            if(randomAgain == 0)
+            if (randomAgain == 0)
             {
+                enabled = true;
                 yield return SpinAttackRoutine();
+                enabled = false;
             }
             else
             {
+                enabled = true;
                 yield return Flamethrower2Routine();
+                enabled = false;
             }
             // select any pattern
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
@@ -1714,7 +1832,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.ReevaluateSituation);
             //if player is within 8ch
             var random = UnityEngine.Random.RandomRange(0, 2);
-            if(random == 0)
+            if (random == 0)
             {
                 yield return SpinAttackRoutine();
             }
@@ -1813,20 +1931,22 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         private void UpdateAttackDeciderList()
         {
+            enabled = false;
             switch (m_phaseHandle.currentPhase)
             {
                 case Phase.PhaseOne:
-                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Pattern1Phase1, m_info.phase1Pattern1Range)/*,
-                        new AttackInfo<Attack>(Attack.Pattern2Phase1, m_info.phase1Pattern1Range)*/);
+                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Pattern1Phase1, m_info.phase1Pattern1Range),
+                        new AttackInfo<Attack>(Attack.Pattern2Phase1, m_info.phase1Pattern1Range));
                     break;
-                /*case Phase.PhaseTwo:
-                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Pattern1Phase2, m_info.phase1Pattern1Range),
-                        new AttackInfo<Attack>(Attack.Pattern2Phase2, m_info.phase2Pattern1Range),
-                        new AttackInfo<Attack>(Attack.Pattern3Phase2, m_info.phase2Pattern1Range),
-                        new AttackInfo<Attack>(Attack.Pattern4Phase2, m_info.phase2Pattern1Range));
-                    break;*/
+                    /*case Phase.PhaseTwo:
+                        m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Pattern1Phase2, m_info.phase1Pattern1Range),
+                            new AttackInfo<Attack>(Attack.Pattern2Phase2, m_info.phase2Pattern1Range),
+                            new AttackInfo<Attack>(Attack.Pattern3Phase2, m_info.phase2Pattern1Range),
+                            new AttackInfo<Attack>(Attack.Pattern4Phase2, m_info.phase2Pattern1Range));
+                        break;*/
             }
             DecidedOnAttack(false);
+            enabled = true;
         }
 
         public override void ApplyData()
@@ -2109,7 +2229,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_projectileLauncher = new ProjectileLauncher(m_info.bulletProjectile.projectileInfo, m_projectilePoints);
             m_overchargeProjectileLauncher = new ProjectileLauncher(m_info.overchargedBulletProjectile.projectileInfo, m_projectilePoints);
             m_attackDecider = new RandomAttackDecider<Attack>();
-            m_stateHandle = new StateHandle<State>(State.Idle, State.WaitBehaviourEnd);
+            m_stateHandle = new StateHandle<State>(State.Intro, State.WaitBehaviourEnd);
             //m_attackCache = new List<Attack>();
             //m_attackRangeCache = new List<float>();
             //m_attackUsed = new bool[m_attackCache.Count];
@@ -2175,7 +2295,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     timeLeft = 0f;
                     checker = false;
                     secondChecker = true;
-                }  
+                }
                 yield return null;
             }
             yield return null;
@@ -2368,6 +2488,7 @@ namespace DChild.Gameplay.Characters.Enemies
             switch (m_stateHandle.currentState)
             {
                 case State.Idle:
+                    m_movement.Stop();
                     break;
                 case State.Intro:
                     StartCoroutine(IntroRoutine());
@@ -2398,27 +2519,27 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     /*if (IsFacingTarget())
                     {*/
-                        switch (m_attackDecider.chosenAttack.attack)
-                        {
-                            case Attack.Pattern1Phase1:
-                                StartCoroutine(Pattern1Phase1Attack());
-                                break;
-                            case Attack.Pattern2Phase1:
-                                StartCoroutine(Pattern2Phase1Attack());
-                                break;
-                            case Attack.Pattern1Phase2:
-                                StartCoroutine(Pattern1Phase2Attack());
-                                break;
-                            case Attack.Pattern2Phase2:
-                                StartCoroutine(Pattern2Phase2Attack());
-                                break;
-                            case Attack.Pattern3Phase2:
-                                StartCoroutine(Pattern3Phase2Attack());
-                                break;
-                            case Attack.Pattern4Phase2:
-                                StartCoroutine(Pattern4Phase2Attack());
-                                break;
-                        }
+                    switch (m_attackDecider.chosenAttack.attack)
+                    {
+                        case Attack.Pattern1Phase1:
+                            StartCoroutine(Pattern1Phase1Attack());
+                            break;
+                        case Attack.Pattern2Phase1:
+                            StartCoroutine(Pattern2Phase1Attack());
+                            break;
+                        case Attack.Pattern1Phase2:
+                            StartCoroutine(Pattern1Phase2Attack());
+                            break;
+                        case Attack.Pattern2Phase2:
+                            StartCoroutine(Pattern2Phase2Attack());
+                            break;
+                        case Attack.Pattern3Phase2:
+                            StartCoroutine(Pattern3Phase2Attack());
+                            break;
+                        case Attack.Pattern4Phase2:
+                            StartCoroutine(Pattern4Phase2Attack());
+                            break;
+                    }
                     /*}
                     else
                     {
