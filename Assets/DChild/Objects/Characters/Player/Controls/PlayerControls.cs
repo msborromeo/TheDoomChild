@@ -141,7 +141,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""962ad15c-d90f-406f-90c2-409e43dd94f2"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(pressPoint=0.3)"",
+                    ""interactions"": ""Hold(duration=0.2,pressPoint=0.3)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -1848,7 +1848,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d1767203-d36e-4eee-984c-977820920d2c"",
-                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
