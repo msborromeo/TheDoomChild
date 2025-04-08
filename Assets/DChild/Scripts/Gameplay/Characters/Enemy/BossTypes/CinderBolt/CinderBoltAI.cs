@@ -675,18 +675,16 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator IntroRoutine()
         {
-            enabled = false;
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_movement.Stop();
             m_hitbox.SetInvulnerability(Invulnerability.None);
             m_stateHandle.ApplyQueuedState();
             yield return null;
-            enabled = true;
         }
 
         private IEnumerator ChangePhaseRoutine()
         {
-            m_stateHandle.Wait(State.Chasing);
+            m_stateHandle.Wait(State.ReevaluateSituation);
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
             m_animation.SetAnimation(0, m_info.flinchAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.flinchAnimation);
@@ -794,7 +792,6 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator OverchargedPunchAttackRoutine()
         {
-            enabled = false;
             Vector2 targetPoint = m_targetInfo.position;
             var direction = (targetPoint - (Vector2)transform.position).normalized;
             while (Vector2.Distance(transform.position, targetPoint) > m_info.punchAttack.range)
@@ -812,11 +809,9 @@ namespace DChild.Gameplay.Characters.Enemies
             m_overchargedPunchAttackCollider.enabled = false;
             m_overchargedPunchAttackCollider.enabled = false;
             yield return null;
-            enabled = true;
         }
         private IEnumerator OverchargedFlamethrower1Routine()
         {
-            enabled = false;
             Vector2 targetPoint = m_targetInfo.position;
             var direction = (targetPoint - (Vector2)transform.position).normalized;
             while (Vector2.Distance(transform.position, targetPoint) > m_info.punchAttack.range)
@@ -834,12 +829,10 @@ namespace DChild.Gameplay.Characters.Enemies
             m_flamethrower1FX.Play();
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.overchargedFlamethrower1Attack.animation);
             m_flamethrower1FX.Stop();
-            enabled = true;
             yield return null;
         }
         private IEnumerator OverchargedSpinAttackRoutine()
         {
-            enabled = false;
             m_steamThrustFX.SetActive(false);
             yield return new WaitForSeconds(0.5f);
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
@@ -862,11 +855,9 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.overchargedSpinEndAnimation);
             m_hitbox.SetInvulnerability(Invulnerability.None);
             yield return null;
-            enabled = true;
         }
         private IEnumerator OverchargedFirebeamRoutine()
         {
-            enabled = false;
             yield return new WaitForSeconds(0.5f);
             int closestPointIndex = 0;
             float closestDistance = Vector2.Distance(m_firebeamTransformPoints[closestPointIndex].position, m_targetInfo.position);
@@ -908,11 +899,9 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.overchargedFirebeamAttack);
             yield return new WaitForSeconds(1f);
             yield return null;
-            enabled = true;
         }
         private IEnumerator OverchargedShortDash()
         {
-            enabled = false;
             var targetPos = m_targetInfo.position.x;
             m_steamThrustFX.SetActive(false);
             yield return new WaitForSeconds(0.5f);
@@ -936,11 +925,9 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_character.SetFacing(transform.localScale.x == 1 ? HorizontalDirection.Right : HorizontalDirection.Left);
             }
             yield return null;
-            enabled = true;
         }
         private IEnumerator OverchargedLongDash()
         {
-            enabled = false;
             var targetPos = m_targetInfo.position.x;
             m_steamThrustFX.SetActive(false);
             yield return new WaitForSeconds(0.5f);
@@ -982,11 +969,9 @@ namespace DChild.Gameplay.Characters.Enemies
             m_overchargedPunchAttackCollider.enabled = false;
             m_overchargedPunchAttackCollider.enabled = false;
             yield return null;
-            enabled = true;
         }
         private IEnumerator OverchargedShotgunBlastRoutine()
         {
-            enabled = false;
             m_steamThrustFX.SetActive(false);
             yield return new WaitForSeconds(0.5f);
             Vector2 targetPoint = m_targetInfo.position;
@@ -1014,11 +999,9 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.overchargedShotgunBlastBackToIdleAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.overchargedShotgunBlastBackToIdleAnimation);
             yield return null;
-            enabled = true;
         }
         private IEnumerator OverchargedFlamethrower2Routine()
         {
-            enabled = false;
             m_steamThrustFX.SetActive(false);
             yield return new WaitForSeconds(0.5f);
             m_movement.Stop();
@@ -1053,11 +1036,9 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.overchargedMove);
             m_flamethrower2FX.Stop();
             yield return null;
-            enabled = true;
         }
         private IEnumerator OverchargedMeteorSmashRoutine()
         {
-            enabled = false;
             m_steamThrustFX.SetActive(false);
             yield return new WaitForSeconds(0.5f);
             m_movement.Stop();
@@ -1093,19 +1074,15 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.overchargedSpinEndAnimation);
             m_overchargedMeteorSmashCollider.enabled = false;
             yield return null;
-            enabled = true;
         }
         #endregion
         #region Normal Attacks
         private IEnumerator PunchAttackRoutine()
         {
-            enabled = false;
-            m_stateHandle.Wait(State.ReevaluateSituation);
             Vector2 targetPoint = m_targetInfo.position;
             var direction = (targetPoint - (Vector2)transform.position).normalized;
             while (Vector2.Distance(transform.position, targetPoint) > m_info.punchAttack.range)
             {
-                enabled = false;
                 m_animation.SetAnimation(0, m_info.move, true);
                 m_movement.MoveTowards(direction, m_info.move.speed);
                 yield return null;
@@ -1116,12 +1093,9 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.punchUppercut);
             m_punchAttackCollider.enabled = false;
             yield return null;
-            enabled = true;
         }
         private IEnumerator Flamethrower1Routine()
         {
-            enabled = false;
-            m_stateHandle.Wait(State.ReevaluateSituation);
             Vector2 targetPoint = m_targetInfo.position;
             var direction = (targetPoint - (Vector2)transform.position).normalized;
             while (Vector2.Distance(transform.position, targetPoint) > m_info.punchAttack.range)
@@ -1138,7 +1112,6 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.flameThrowerAttack.animation);
             m_flamethrower1FX.Stop();
             yield return null;
-            enabled = true;
         }
         private bool SpinColliders(bool isDone)
         {
@@ -1158,8 +1131,6 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         private IEnumerator SpinAttackRoutine()
         {
-            enabled = false;
-            m_stateHandle.Wait(State.ReevaluateSituation);
             m_steamThrustFX.SetActive(false);
             yield return new WaitForSeconds(0.5f);
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
@@ -1182,12 +1153,10 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.spinEndAnimation);
             m_hitbox.SetInvulnerability(Invulnerability.None);
             yield return null;
-            enabled = true;
         }
         #region Laser Coroutine
         private IEnumerator FirebeamLaserRoutine()
         {
-            enabled = false;
             yield return new WaitForSeconds(.1f);
 
             m_laserTargetPos = LookPosition(m_laserOrigin);
@@ -1197,7 +1166,6 @@ namespace DChild.Gameplay.Characters.Enemies
             m_telegraphLineRenderer.useWorldSpace = true;
             var timerOffset = m_telegraphLineRenderer.startWidth;
             m_telegraphLineRenderer.SetPosition(1, ShotPosition());
-            enabled = false;
             //yield return m_aimRoutine;
             Collider2D laserCollider = null;
             EdgeCollider2D laserEdgeCollider = null;
@@ -1226,7 +1194,6 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 var shotpos = ShotPosition();
                 m_muzzleLoopFX.transform.position = shotpos;
-                enabled = false;
                 m_lineRenderer.SetPosition(1, shotpos);
                 //enabled = false;
                 for (int i = 0; i < m_lineRenderer.positionCount; i++)
@@ -1261,7 +1228,6 @@ namespace DChild.Gameplay.Characters.Enemies
             //yield return new WaitForSeconds(m_laserDuration);
             //m_beamOn = false;
             //yield return null;
-            enabled = true;
         }
         /*private IEnumerator LaserLookRoutine()
         {
@@ -1275,19 +1241,16 @@ namespace DChild.Gameplay.Characters.Enemies
         }*/
         private IEnumerator AimRoutine()
         {
-            enabled = false;
             while (true)
             {
                 m_telegraphLineRenderer.SetPosition(0, m_telegraphLineRenderer.transform.position);
                 m_lineRenderer.SetPosition(0, m_lineRenderer.transform.position);
                 m_lineRenderer.SetPosition(1, m_lineRenderer.transform.position);
                 yield return null;
-                enabled = true;
             }
         }
         private Vector2 ShotPosition()
         {
-            enabled = false;
             m_laserTargetPos = LookPosition(m_laserOrigin);
             Vector2 startPoint = m_laserOrigin.position;
             var direction = m_character.facing == HorizontalDirection.Right ? Vector2.right : Vector2.left;
@@ -1295,7 +1258,6 @@ namespace DChild.Gameplay.Characters.Enemies
             contactFilter.useTriggers = false;
             RaycastHit2D hit = Physics2D.Raycast(startPoint, direction, 1000, DChildUtility.GetEnvironmentMask());
             return hit.point;
-            enabled = true;
         }
         /*private IEnumerator TelegraphLineRoutine() 
         {
@@ -1384,7 +1346,6 @@ namespace DChild.Gameplay.Characters.Enemies
         }*/
         private void ResetLaser()
         {
-            enabled = false;
             m_telegraphLineRenderer.useWorldSpace = false;
             m_lineRenderer.useWorldSpace = false;
             m_lineRenderer.SetPosition(0, Vector3.zero);
@@ -1401,21 +1362,17 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 m_overchargeEdgeCollider.points = m_Points.ToArray();
             }
-            enabled = true;
         }
         protected new Vector2 LookPosition(Transform startPoint)
         {
-            enabled = false;
             int hitCount = 0;
             RaycastHit2D[] hit = Cast(startPoint.position, startPoint.right, 1000, true, out hitCount, true);
             Debug.DrawRay(startPoint.position, hit[0].point);
             return hit[0].point;
-            enabled = true;
         }
         #endregion
         private IEnumerator FirebeamRoutine()
         {
-            enabled = false;
             yield return new WaitForSeconds(0.5f);
             int closestPointIndex = 0;
             float closestDistance = Vector2.Distance(m_firebeamTransformPoints[closestPointIndex].position, m_targetInfo.position);
@@ -1432,7 +1389,6 @@ namespace DChild.Gameplay.Characters.Enemies
             var direction = (targetPoint - (Vector2)transform.position).normalized;
             while (Vector2.Distance(transform.position, targetPoint) > 1f)
             {
-                enabled = false;
                 // Move towards the target point
                 m_animation.SetAnimation(0, m_info.move, true);
                 m_movement.MoveTowards(direction, m_info.move.speed);
@@ -1455,16 +1411,12 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             m_animation.SetAnimation(0, m_info.firebeamAttack, false);
             yield return new WaitForSeconds(1.25f);
-            enabled = true;
             yield return FirebeamLaserRoutine();
-            enabled = false;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.firebeamAttack);
             yield return null;
-            enabled = true;
         }
         private IEnumerator ShortDashRoutine()
         {
-            enabled = false;
             var targetPos = m_targetInfo.position.x;
             m_steamThrustFX.SetActive(false);
             yield return new WaitForSeconds(0.5f);
@@ -1474,23 +1426,20 @@ namespace DChild.Gameplay.Characters.Enemies
             m_shortDashFX.Play();
             m_movement.MoveTowards(new Vector2(targetPos - transform.position.x, 0).normalized, m_info.shortDash.speed);
             m_longDashCollider.enabled = true;
-            yield return new WaitForSeconds(1f);
-            m_movement.Stop();
+            yield return new WaitForSeconds(.5f);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.shortDash);
+            m_movement.Stop();
             m_longDashCollider.enabled = false;
             m_shortDashFX.Stop();
             m_hitbox.SetInvulnerability(Invulnerability.None);
-            yield return new WaitForSeconds(.5f);
             if (!IsFacingTarget())
             {
                 CustomTurn();
             }
             yield return null;
-            enabled = true;
         }
         private IEnumerator LongDashRoutine()
         {
-            enabled = false;
             var targetPos = m_targetInfo.position.x;
             m_steamThrustFX.SetActive(false);
             yield return new WaitForSeconds(0.5f);
@@ -1509,11 +1458,9 @@ namespace DChild.Gameplay.Characters.Enemies
             m_longDashCollider.enabled = false;
             m_longDashFX.Stop();
             m_hitbox.SetInvulnerability(Invulnerability.None);
-            enabled = true;
         }
         private IEnumerator ShotgunBlastRoutine()
         {
-            enabled = false;
             yield return new WaitForSeconds(0.5f);
             Vector2 targetPosition = m_targetInfo.position;
             var direction = (targetPosition - (Vector2)transform.position).normalized;
@@ -1541,11 +1488,9 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.shotgunBlastBackToIdleAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.shotgunBlastBackToIdleAnimation);
             yield return null;
-            enabled = true;
         }
         private IEnumerator MeteorSmashRoutine()
         {
-            enabled = false;
             m_steamThrustFX.SetActive(false);
             yield return new WaitForSeconds(0.5f);
             m_movement.Stop();
@@ -1581,11 +1526,9 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.spinEndAnimation);
             m_meteorSmashCollider.enabled = false;
             yield return null;
-            enabled = true;
         }
         private IEnumerator Flamethrower2Routine()
         {
-            enabled = false;
             m_steamThrustFX.SetActive(false);
             yield return new WaitForSeconds(0.5f);
             m_movement.Stop();
@@ -1619,19 +1562,16 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.move);
             m_flamethrower2FX.Stop();
             yield return null;
-            enabled = true;
         }
         #endregion
         #region Attacks
-        private IEnumerator Pattern1Phase1Attack()
+        private IEnumerator Pattern1Phase1Attack(bool allowEndAttackBehavior = true)
         {
-            enabled = false;
             m_stateHandle.Wait(State.ReevaluateSituation);
             var m_followElapsedTime = 0f;
             var m_followDuration = 10f;
             while (Vector2.Distance(transform.position, m_targetInfo.position) > 50f)
             {
-                enabled = false;
                 m_animation.SetAnimation(0, m_info.move, true);
                 m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, m_targetInfo.position.y - transform.position.y).normalized, m_info.move.speed);
                 if (!IsFacingTarget())
@@ -1657,10 +1597,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_movement.Stop();
             if (m_overOfRangeCounter == 2)
             {
-                m_animation.SetAnimation(0, m_info.idleAnimation, true);
-                DecidedOnAttack(false);
-                m_animation.DisableRootMotion();
-                m_stateHandle.ApplyQueuedState();
+                Debug.Log("overOfRangePresent");
                 yield return null;
             }
             else
@@ -1668,34 +1605,28 @@ namespace DChild.Gameplay.Characters.Enemies
                 var random = UnityEngine.Random.RandomRange(0, 2);
                 if (random == 0)
                 {
-                    yield return new WaitForSeconds(.01f);
-                    enabled = true;
                     yield return PunchAttackRoutine();
-                    enabled = false;
                 }
                 else
                 {
-                    yield return new WaitForSeconds(.01f);
-                    enabled = true;
                     yield return Flamethrower1Routine();
-                    enabled = false;
                 }
-                m_animation.SetAnimation(0, m_info.idleAnimation, true);
-                DecidedOnAttack(false);
-                m_animation.DisableRootMotion();
-                m_stateHandle.ApplyQueuedState();
+
                 yield return null;
             }
+            if (allowEndAttackBehavior)
+            {
+                m_animation.SetAnimation(0, m_info.idleAnimation, true);
+                DecidedOnAttack(false);
+                m_stateHandle.ApplyQueuedState();
+            }
             yield return null;
-            enabled = true;
         }
         private IEnumerator Pattern2Phase1Attack()
         {
-            enabled = false;
             m_stateHandle.Wait(State.ReevaluateSituation);
             while (Vector2.Distance(transform.position, m_targetInfo.position) > 80f)
             {
-                enabled = false;
                 m_animation.SetAnimation(0, m_info.move, true);
                 m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, m_targetInfo.position.y - transform.position.y).normalized, m_info.move.speed);
                 if (!IsFacingTarget())
@@ -1712,31 +1643,18 @@ namespace DChild.Gameplay.Characters.Enemies
             var random = UnityEngine.Random.RandomRange(0, 3);
             if (random == 0)
             {
-                yield return new WaitForSeconds(.01f);
-                enabled = true;
                 yield return SpinAttackRoutine();
-                enabled = false;
-                yield return new WaitForSeconds(.01f);
-                enabled = true;
-                yield return Pattern1Phase1Attack();
-                enabled = false;
+                yield return Pattern1Phase1Attack(false);
             }
             else if (random == 1)
             {
-                yield return new WaitForSeconds(.01f);
-                enabled = true;
                 yield return FirebeamRoutine();
-                enabled = false;
             }
             else
             {
-                yield return new WaitForSeconds(.01f);
-                enabled = true;
                 yield return LongDashRoutine();
-                enabled = false;
                 while (Vector2.Distance(transform.position, m_targetInfo.position) > 20f)
                 {
-                    enabled = false;
                     m_animation.SetAnimation(0, m_info.move, true);
                     m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, m_targetInfo.position.y - transform.position.y).normalized, m_info.move.speed);
                     if (!IsFacingTarget())
@@ -1745,90 +1663,86 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     yield return null;
                 }
-                yield return new WaitForSeconds(.01f);
-                enabled = true;
                 yield return PunchAttackRoutine();
-                enabled = false;
-                yield return new WaitForSeconds(.01f);
-                enabled = true;
                 yield return Flamethrower1Routine();
-                enabled = false;
             }
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             DecidedOnAttack(false);
-            m_animation.DisableRootMotion();
             m_stateHandle.ApplyQueuedState();
             yield return null;
-            enabled = true;
         }
         private IEnumerator Pattern1Phase2Attack()
         {
-            enabled = false;
             m_stateHandle.Wait(State.ReevaluateSituation);
-            //chase the player for 10 seconds
-            // if player is within 5ch
-            enabled = true;
-            yield return ShortDashRoutine();
-            enabled = false;
-            var random = UnityEngine.Random.RandomRange(0, 3);
-            if (random == 0)
+            var m_followElapsedTime = 0f;
+            var m_followDuration = 10f;
+            while (Vector2.Distance(transform.position, m_targetInfo.position) > 50f)
             {
-                enabled = true;
-                yield return ShotgunBlastRoutine();
-                enabled = false;
-            }
-            else if (random == 1)
-            {
-                enabled = true;
-                yield return PunchAttackRoutine();
-                enabled = false;
-                var randomAttack = UnityEngine.Random.RandomRange(0, 2);
-                if (randomAttack == 0)
+                m_animation.SetAnimation(0, m_info.move, true);
+                m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, m_targetInfo.position.y - transform.position.y).normalized, m_info.move.speed);
+                if (!IsFacingTarget())
                 {
-                    enabled = true;
-                    yield return ShotgunBlastRoutine();
-                    enabled = false;
+                    CustomTurn();
+                }
+                m_followElapsedTime += Time.deltaTime;
+                if (m_followElapsedTime >= m_followDuration)
+                {
+                    m_followDuration += 10f;
+                    m_overOfRangeCounter++;
+                }
+                yield return null;
+            }
+            if (!IsFacingTarget())
+            {
+                CustomTurn();
+            }
+            if (m_overOfRangeCounter == 2)
+            {
+                Debug.Log("overOfRangePresent");
+                var randomAgain = UnityEngine.Random.RandomRange(0, 2);
+                if (randomAgain == 0)
+                {
+                    yield return SpinAttackRoutine();
                 }
                 else
                 {
-                    enabled = true;
+                    yield return Flamethrower2Routine();
+                }
+                yield return null;
+            }
+            else
+            {
+                yield return ShortDashRoutine();
+                var random = UnityEngine.Random.RandomRange(0, 3);
+                if (random == 0)
+                {
+                    yield return ShotgunBlastRoutine();
+                }
+                else if (random == 1)
+                {
+                    yield return PunchAttackRoutine();
+                    var randomAttack = UnityEngine.Random.RandomRange(0, 2);
+                    if (randomAttack == 0)
+                    {
+                        yield return ShotgunBlastRoutine();
+                    }
+                    else
+                    {
+                        yield return Flamethrower1Routine();
+                    }
+                }
+                else
+                {
                     yield return Flamethrower1Routine();
-                    enabled = false;
                 }
             }
-            else
-            {
-                enabled = true;
-                yield return Flamethrower1Routine();
-                enabled = false;
-            }
-            //else if wla sa range nga 5motherfucking ch
-            // check range counter
-            // if > 2
-            var randomAgain = UnityEngine.Random.RandomRange(0, 2);
-            if (randomAgain == 0)
-            {
-                enabled = true;
-                yield return SpinAttackRoutine();
-                enabled = false;
-            }
-            else
-            {
-                enabled = true;
-                yield return Flamethrower2Routine();
-                enabled = false;
-            }
-            // select any pattern
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             DecidedOnAttack(false);
-            m_animation.DisableRootMotion();
             m_stateHandle.ApplyQueuedState();
             yield return null;
-            enabled = true;
         }
         private IEnumerator Pattern2Phase2Attack()
         {
-            enabled = false;
             m_stateHandle.Wait(State.ReevaluateSituation);
             //if player is within 8ch
             var random = UnityEngine.Random.RandomRange(0, 2);
@@ -1846,14 +1760,11 @@ namespace DChild.Gameplay.Characters.Enemies
             //select any pattern
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             DecidedOnAttack(false);
-            m_animation.DisableRootMotion();
             m_stateHandle.ApplyQueuedState();
             yield return null;
-            enabled = true;
         }
         private IEnumerator Pattern3Phase2Attack()
         {
-            enabled = false;
             m_stateHandle.Wait(State.ReevaluateSituation);
             //if the player is grounded
             yield return MeteorSmashRoutine();
@@ -1871,11 +1782,9 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.DisableRootMotion();
             m_stateHandle.ApplyQueuedState();
             yield return null;
-            enabled = true;
         }
         private IEnumerator Pattern4Phase2Attack()
         {
-            enabled = false;
             m_stateHandle.Wait(State.ReevaluateSituation);
             yield return OnRuneShieldRoutine();
             //choose between
@@ -1888,13 +1797,11 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.DisableRootMotion();
             m_stateHandle.ApplyQueuedState();
             yield return null;
-            enabled = true;
         }
         #endregion
         #region Movement
         private void MoveToTarget(float targetRange)
         {
-            enabled = false;
             if (!IsTargetInRange(targetRange))
             {
                 m_animation.SetAnimation(0, m_info.move, true);
@@ -1920,7 +1827,6 @@ namespace DChild.Gameplay.Characters.Enemies
                 //m_movement.Stop();
                 m_animation.SetAnimation(0, m_info.idleAnimation, true);
             }
-            enabled = true;
         }
         #endregion
 
@@ -1931,22 +1837,20 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         private void UpdateAttackDeciderList()
         {
-            enabled = false;
             switch (m_phaseHandle.currentPhase)
             {
                 case Phase.PhaseOne:
-                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Pattern1Phase1, m_info.phase1Pattern1Range),
-                        new AttackInfo<Attack>(Attack.Pattern2Phase1, m_info.phase1Pattern1Range));
+                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Pattern1Phase2, m_info.phase2Pattern1Range)/*,
+                        new AttackInfo<Attack>(Attack.Pattern2Phase1, m_info.phase1Pattern1Range)*/);
                     break;
                     /*case Phase.PhaseTwo:
-                        m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Pattern1Phase2, m_info.phase1Pattern1Range),
+                        m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Pattern1Phase2, m_info.phase2Pattern1Range),
                             new AttackInfo<Attack>(Attack.Pattern2Phase2, m_info.phase2Pattern1Range),
                             new AttackInfo<Attack>(Attack.Pattern3Phase2, m_info.phase2Pattern1Range),
                             new AttackInfo<Attack>(Attack.Pattern4Phase2, m_info.phase2Pattern1Range));
                         break;*/
             }
             DecidedOnAttack(false);
-            enabled = true;
         }
 
         public override void ApplyData()
@@ -2302,7 +2206,6 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         private IEnumerator OnRageCounter()
         {
-            enabled = false;
             m_hitbox.SetInvulnerability(Invulnerability.None);
             var elapsedTime = 0f;
             var rageDuration = 10f;
@@ -2320,11 +2223,9 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return null;
             }
             yield return null;
-            enabled = true;
         }
         private IEnumerator OnMlfunctionedRoutine()
         {
-            enabled = false;
             m_stateHandle.Wait(State.Chasing);
             yield return new WaitForSeconds(0.5f);
             //m_firebeamFX.Stop();
@@ -2393,11 +2294,9 @@ namespace DChild.Gameplay.Characters.Enemies
             DecidedOnAttack(false);
             m_stateHandle.ApplyQueuedState();
             yield return null;
-            enabled = true;
         }
         private IEnumerator OnRuneShieldRoutine()
         {
-            enabled = false;
             if (m_hasRune && checker)
             {
                 secondChecker = false;
@@ -2412,7 +2311,6 @@ namespace DChild.Gameplay.Characters.Enemies
             StartCoroutine(CounterForRuneRoutine());
             m_hasRune = false;
             yield return null;
-            enabled = true;
         }
         public GameObject ligthVisuals;
         public bool checker = false;
@@ -2551,9 +2449,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
                 case State.Chasing:
-                    enabled = false;
                     m_stateHandle.SetState(State.Attacking);
-                    enabled = true;
                     break;
 
                 case State.ReevaluateSituation:
