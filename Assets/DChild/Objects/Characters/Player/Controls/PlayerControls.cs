@@ -136,6 +136,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""SwordThrust"",
+                    ""type"": ""Button"",
+                    ""id"": ""962ad15c-d90f-406f-90c2-409e43dd94f2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(pressPoint=0.3)"",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""f8c8d89d-c5c6-4e1a-8f9a-211db00633d5"",
@@ -259,15 +268,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SwordThrust"",
-                    ""type"": ""Button"",
-                    ""id"": ""962ad15c-d90f-406f-90c2-409e43dd94f2"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -792,7 +792,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier1"",
                     ""id"": ""3a9bae2c-a995-43d1-af0b-a2b1dc622366"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -814,7 +814,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""binding"",
                     ""id"": ""14699c9b-4986-4ab0-9b4a-0a386663301e"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -924,7 +924,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier1"",
                     ""id"": ""4d0b7295-6432-461c-9708-bde3a8ef8600"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -946,7 +946,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""binding"",
                     ""id"": ""080a6b97-34af-4f94-bd50-724eac545611"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -968,7 +968,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier1"",
                     ""id"": ""b7d83ed9-b902-47d2-ab73-ae78660739f0"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -990,7 +990,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""binding"",
                     ""id"": ""397677bc-4e43-4fad-81db-78d8bc397d68"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1067,7 +1067,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier"",
                     ""id"": ""a1b8c947-5d79-4511-adab-dcd6b04c5e30"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1078,7 +1078,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""binding"",
                     ""id"": ""45950ec3-1328-475a-a093-b270c2edbed4"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1144,7 +1144,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier1"",
                     ""id"": ""ffc18baf-3f44-4a9e-a257-5b4f28ddec76"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1166,7 +1166,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""binding"",
                     ""id"": ""17396cd3-54fe-42a9-89fc-e69cc9ad6312"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1243,7 +1243,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier1"",
                     ""id"": ""ff8ba388-bd0e-4129-a941-99100597bda8"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1265,7 +1265,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""binding"",
                     ""id"": ""44b30552-7aff-4d19-bffb-6e77ae33b202"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1342,7 +1342,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier1"",
                     ""id"": ""796a1c30-dc65-423b-a612-1a5871fbddcd"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1364,7 +1364,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""binding"",
                     ""id"": ""266873b8-3b3e-41a7-9ca8-21ed1ab948f1"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1441,7 +1441,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier"",
                     ""id"": ""c9116ec0-4701-4bba-aecd-02b14693fcf1"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1452,7 +1452,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""binding"",
                     ""id"": ""6d7a5820-7f9a-40fa-abc7-2db7debcfd25"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1518,7 +1518,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier1"",
                     ""id"": ""03e36b01-771e-4a5d-ab35-77dadffdeda4"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1540,7 +1540,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""binding"",
                     ""id"": ""ee05f23a-57d1-4a71-bf76-47dd308d954c"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1562,7 +1562,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier1"",
                     ""id"": ""f8a4df4e-e302-4253-b7d5-fdf7bd562caa"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1584,7 +1584,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""binding"",
                     ""id"": ""0b97771d-65df-41fd-a1d8-b51ec6bfdfdb"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1705,7 +1705,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier"",
                     ""id"": ""fd8bf369-59b1-4f15-91cb-9655b4fd5ab8"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1716,7 +1716,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""binding"",
                     ""id"": ""4e583a49-f01b-437d-8dc3-4d6a287f08c5"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1782,7 +1782,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier"",
                     ""id"": ""f34e787c-fe94-418c-a226-e170e1d1dd59"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -1793,7 +1793,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""binding"",
                     ""id"": ""00fa2ccc-2f55-4ede-9a22-aec62527bc14"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -3061,6 +3061,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Underworld_QuickItemUse = m_Underworld.FindAction("QuickItemUse", throwIfNotFound: true);
         m_Underworld_QuickItemCycle = m_Underworld.FindAction("QuickItemCycle", throwIfNotFound: true);
         m_Underworld_ShadowMorph = m_Underworld.FindAction("ShadowMorph", throwIfNotFound: true);
+        m_Underworld_SwordThrust = m_Underworld.FindAction("SwordThrust", throwIfNotFound: true);
         m_Underworld_Pause = m_Underworld.FindAction("Pause", throwIfNotFound: true);
         m_Underworld_Store = m_Underworld.FindAction("Store", throwIfNotFound: true);
         m_Underworld_MouseDelta = m_Underworld.FindAction("MouseDelta", throwIfNotFound: true);
@@ -3075,7 +3076,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Underworld_ReaperHarvest = m_Underworld.FindAction("ReaperHarvest", throwIfNotFound: true);
         m_Underworld_IcarusWings = m_Underworld.FindAction("IcarusWings", throwIfNotFound: true);
         m_Underworld_TeleportingSkull = m_Underworld.FindAction("TeleportingSkull", throwIfNotFound: true);
-        m_Underworld_SwordThrust = m_Underworld.FindAction("SwordThrust", throwIfNotFound: true);
         // Overworld
         m_Overworld = asset.FindActionMap("Overworld", throwIfNotFound: true);
         m_Overworld_Move = m_Overworld.FindAction("Move", throwIfNotFound: true);
@@ -3172,6 +3172,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Underworld_QuickItemUse;
     private readonly InputAction m_Underworld_QuickItemCycle;
     private readonly InputAction m_Underworld_ShadowMorph;
+    private readonly InputAction m_Underworld_SwordThrust;
     private readonly InputAction m_Underworld_Pause;
     private readonly InputAction m_Underworld_Store;
     private readonly InputAction m_Underworld_MouseDelta;
@@ -3186,7 +3187,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Underworld_ReaperHarvest;
     private readonly InputAction m_Underworld_IcarusWings;
     private readonly InputAction m_Underworld_TeleportingSkull;
-    private readonly InputAction m_Underworld_SwordThrust;
     public struct UnderworldActions
     {
         private @PlayerControls m_Wrapper;
@@ -3203,6 +3203,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @QuickItemUse => m_Wrapper.m_Underworld_QuickItemUse;
         public InputAction @QuickItemCycle => m_Wrapper.m_Underworld_QuickItemCycle;
         public InputAction @ShadowMorph => m_Wrapper.m_Underworld_ShadowMorph;
+        public InputAction @SwordThrust => m_Wrapper.m_Underworld_SwordThrust;
         public InputAction @Pause => m_Wrapper.m_Underworld_Pause;
         public InputAction @Store => m_Wrapper.m_Underworld_Store;
         public InputAction @MouseDelta => m_Wrapper.m_Underworld_MouseDelta;
@@ -3217,7 +3218,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @ReaperHarvest => m_Wrapper.m_Underworld_ReaperHarvest;
         public InputAction @IcarusWings => m_Wrapper.m_Underworld_IcarusWings;
         public InputAction @TeleportingSkull => m_Wrapper.m_Underworld_TeleportingSkull;
-        public InputAction @SwordThrust => m_Wrapper.m_Underworld_SwordThrust;
         public InputActionMap Get() { return m_Wrapper.m_Underworld; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -3263,6 +3263,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @ShadowMorph.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnShadowMorph;
                 @ShadowMorph.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnShadowMorph;
                 @ShadowMorph.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnShadowMorph;
+                @SwordThrust.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnSwordThrust;
+                @SwordThrust.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnSwordThrust;
+                @SwordThrust.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnSwordThrust;
                 @Pause.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnPause;
@@ -3305,9 +3308,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @TeleportingSkull.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnTeleportingSkull;
                 @TeleportingSkull.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnTeleportingSkull;
                 @TeleportingSkull.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnTeleportingSkull;
-                @SwordThrust.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnSwordThrust;
-                @SwordThrust.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnSwordThrust;
-                @SwordThrust.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnSwordThrust;
             }
             m_Wrapper.m_UnderworldActionsCallbackInterface = instance;
             if (instance != null)
@@ -3348,6 +3348,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @ShadowMorph.started += instance.OnShadowMorph;
                 @ShadowMorph.performed += instance.OnShadowMorph;
                 @ShadowMorph.canceled += instance.OnShadowMorph;
+                @SwordThrust.started += instance.OnSwordThrust;
+                @SwordThrust.performed += instance.OnSwordThrust;
+                @SwordThrust.canceled += instance.OnSwordThrust;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
@@ -3390,9 +3393,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @TeleportingSkull.started += instance.OnTeleportingSkull;
                 @TeleportingSkull.performed += instance.OnTeleportingSkull;
                 @TeleportingSkull.canceled += instance.OnTeleportingSkull;
-                @SwordThrust.started += instance.OnSwordThrust;
-                @SwordThrust.performed += instance.OnSwordThrust;
-                @SwordThrust.canceled += instance.OnSwordThrust;
             }
         }
     }
@@ -3674,6 +3674,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnQuickItemUse(InputAction.CallbackContext context);
         void OnQuickItemCycle(InputAction.CallbackContext context);
         void OnShadowMorph(InputAction.CallbackContext context);
+        void OnSwordThrust(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnStore(InputAction.CallbackContext context);
         void OnMouseDelta(InputAction.CallbackContext context);
@@ -3688,7 +3689,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnReaperHarvest(InputAction.CallbackContext context);
         void OnIcarusWings(InputAction.CallbackContext context);
         void OnTeleportingSkull(InputAction.CallbackContext context);
-        void OnSwordThrust(InputAction.CallbackContext context);
     }
     public interface IOverworldActions
     {
