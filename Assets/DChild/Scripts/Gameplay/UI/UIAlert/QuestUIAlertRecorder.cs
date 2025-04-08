@@ -39,7 +39,8 @@ namespace DChild.Gameplay.UI.Alerts
 
         public override bool HasNewNotification(Quest data)
         {
-            return m_alerts.Contains(data.name);
+            //return m_alerts.Contains(data.name);
+            return false;
         }
 
         public override void RecordNewNotification(Quest data, bool hasNewInfo = true)
