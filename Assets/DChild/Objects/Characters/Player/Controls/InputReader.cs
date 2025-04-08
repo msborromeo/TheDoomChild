@@ -73,6 +73,8 @@ namespace DChild.Inputs
         public event Action GrabStartedEvent;
         public event Action GrabCancelledEvent;
         public event Action<Vector2> MouseDeltaPerformedEvent;
+        public event Action SwordThrustPerformedEvent;
+        public event Action SwordThrustCancelledEvent;
         #endregion
         #region Combat Arts Input
         public event Action BarrierStartedEvent;
@@ -371,6 +373,19 @@ namespace DChild.Inputs
             if (context.phase == InputActionPhase.Canceled)
             {
                 LevitateCancelledEvent?.Invoke();
+            }
+        }
+
+        public void OnSwordThrust(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Performed)
+            {
+                SwordThrustPerformedEvent?.Invoke();
+            }
+
+            if(context.phase == InputActionPhase.Canceled)
+            {
+                SwordThrustCancelledEvent?.Invoke();
             }
         }
         #endregion
