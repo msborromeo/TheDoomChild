@@ -2346,6 +2346,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_skills.IsModuleActive(PrimarySkill.ShadowDash))
             {
+                if (m_skills.IsModuleActive(PrimarySkill.Dash) == false)
+                    return;
                 if (m_shadowDash?.HaveEnoughSourceForExecution() ?? false)
                 {
                     m_activeDash = m_shadowDash;
