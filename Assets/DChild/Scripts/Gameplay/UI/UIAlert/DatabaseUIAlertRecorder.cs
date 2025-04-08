@@ -35,7 +35,10 @@ namespace DChild.Gameplay.UI.Alerts
         {
             return m_alerts.Contains(data.id);
         }
-
+        public override bool HasNewNotification(int id)
+        {
+            return m_alerts.Contains(id);
+        }
         public override bool HasAnyNewNotification() => m_alerts.Count > 0;
 
         private void RecordNewNotification(List<int> record, int id, bool hasNewInfo = true)
@@ -51,5 +54,7 @@ namespace DChild.Gameplay.UI.Alerts
 
             record.Add(id);
         }
+
+
     }
 }

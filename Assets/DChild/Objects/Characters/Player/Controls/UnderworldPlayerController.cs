@@ -209,7 +209,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.InteractStartedEvent += OnInteractInput;
             m_inputReader.ShadowMorphStartedEvent += OnShadowMorphStartedInput;
             m_inputReader.SlashStartedEvent += OnSlashStartedInput;
-            m_inputReader.SlashPerformedEvent += OnSlashPerformedInput;
+            m_inputReader.SlashTappedEvent += OnSlashTappedInput;
+            m_inputReader.SlashPressedEvent += OnSlashPressedInput;
             m_inputReader.SlashCancelledEvent += OnSlashCancelledInput;
             m_inputReader.SlashHeldEvent += OnSlashHeldInput;
             m_inputReader.WhipPerformedEvent += OnWhipPerformedInput;
@@ -281,7 +282,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.InteractStartedEvent -= OnInteractInput;
             m_inputReader.ShadowMorphStartedEvent -= OnShadowMorphStartedInput;
             m_inputReader.SlashStartedEvent -= OnSlashStartedInput;
-            m_inputReader.SlashPerformedEvent -= OnSlashPerformedInput;
+            m_inputReader.SlashTappedEvent -= OnSlashTappedInput;
+            m_inputReader.SlashPressedEvent -= OnSlashPressedInput;
             m_inputReader.SlashCancelledEvent -= OnSlashCancelledInput;
             m_inputReader.SlashHeldEvent -= OnSlashHeldInput;
             m_inputReader.WhipPerformedEvent -= OnWhipPerformedInput;
@@ -955,26 +957,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
                 return;
 
-            if (m_state.isGrounded == false)
-            {
-                if (m_vector2Input.y < 0)
-                {
-                    if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
-                    {
-                        m_earthShaker.StartExecution(); //Moved Earthshaker logic here to started because design wants to do earthshaker as long as you click midair and down even if held input
-                        return;
-                    }
-                }
-            }
-        }
-
-        private void OnSlashPerformedInput()
-        {
-            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
-                m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
-                return;
-
-            m_idle?.Cancel();
 
             if (m_state.isGrounded)
             {
@@ -1002,12 +984,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     return;
                 }
 
-                if (m_vector2Input.y == 0)
-                {
-                    m_slashCombo.Execute();
-                    return;
-                }
-
                 if (m_state.isCrouched && m_vector2Input.y < 0)
                 {
                     m_basicSlashes.Execute(BasicSlashes.Type.Crouch);
@@ -1015,7 +991,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
 
             }
-            else
+
+            if (m_state.isGrounded == false)
             {
                 if (m_state.isDashing)
                 {
@@ -1038,7 +1015,40 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     {
                         m_basicSlashes.Execute(BasicSlashes.Type.MidAir_Forward);
                         return;
-                    }        
+                    }
+                }
+
+                if (m_vector2Input.y < 0)
+                {
+                    if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
+                    {
+                        m_earthShaker.StartExecution(); //Moved Earthshaker logic here to started because design wants to do earthshaker as long as you click midair and down even if held input
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void OnSlashPressedInput()
+        {
+
+        }
+
+        private void OnSlashTappedInput()
+        {
+            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
+                m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
+                return;
+
+            m_idle?.Cancel();
+
+            if (m_state.isGrounded)
+            {
+                if (m_vector2Input.y == 0)
+                {
+                    m_movement.Cancel();
+                    m_slashCombo.Execute();
+                    return;
                 }
             }
         }
@@ -2370,7 +2380,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     m_idle?.Cancel();
                 }
-                if (m_state.isGrounded)
+                if (m_state.isGrounded && m_state.isHighJumping == false)
                     m_movement?.GroundMove(horizontalInput, true);
                 else
                     m_movement?.AirMove(horizontalInput, true);
