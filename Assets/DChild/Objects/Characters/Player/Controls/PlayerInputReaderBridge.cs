@@ -89,6 +89,11 @@ namespace DChild.Inputs
         {
             m_reader.OnLevitate(context);
         }
+
+        public void OnSwordThrust(InputAction.CallbackContext context)
+        {
+            m_reader.OnSwordThrust(context);
+        }
         #endregion
 
         #region Combat Arts
