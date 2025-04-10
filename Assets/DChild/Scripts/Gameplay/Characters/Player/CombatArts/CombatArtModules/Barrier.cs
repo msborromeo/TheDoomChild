@@ -1,5 +1,6 @@
 using DChild.Gameplay.Characters.Players.Modules;
 using DChild.Gameplay.Combat;
+using Holysoft.Gameplay;
 using Sirenix.OdinInspector;
 using Spine.Unity;
 using Spine.Unity.Examples;
@@ -9,56 +10,63 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
+    [System.Serializable]
+    public struct BarrierStatsInfo
+    {
+        [SerializeField]
+        private float m_sourceRequiredAmount;
+        public float sourceRequiredAmount => m_sourceRequiredAmount;
+        [SerializeField]
+        private float m_sourceConsumptionRate;
+        public float sourceConsumptionRate => m_sourceConsumptionRate;
+
+        public void CopyInfo(BarrierStatsInfo reference)
+        {
+            m_sourceRequiredAmount = reference.sourceRequiredAmount;
+            m_sourceConsumptionRate = reference.sourceConsumptionRate;
+        }
+    }
+
     public class Barrier : AttackBehaviour, IInterruptableCombatArtModule
     {
         [SerializeField]
+        private BarrierStatsInfo m_configuration;
+
+        [SerializeField]
         private SkeletonAnimation m_attackFX;
 
-        //[SerializeField]
-        //private float m_barrierCooldown;
         [SerializeField]
         private float m_barrierMovementCooldown;
         [SerializeField]
         private Info m_barrierInfo;
-        //TEST
         [SerializeField, BoxGroup("Physics")]
         private Character m_character;
         [SerializeField, BoxGroup("Physics")]
         private Rigidbody2D m_physics;
         [SerializeField]
         private Hitbox m_hitbox;
-        //[SerializeField, BoxGroup("FX")]
-        //private ParticleSystem m_fx;
-        //[SerializeField, BoxGroup("FX")]
-        //private ParticleSystem m_endFx;
         [SerializeField, BoxGroup("FX")]
         private Animator m_barrierFX;
         [SerializeField, BoxGroup("FX")]
         private MaterialReplacementExample m_materialReplacement;
-        //[SerializeField, BoxGroup("Sensors")]
-        //private RaySensor m_enemySensor;
-        //[SerializeField, BoxGroup("Sensors")]
-        //private RaySensor m_wallSensor;
-        //[SerializeField, BoxGroup("Sensors")]
-        //private RaySensor m_edgeSensor;
 
         [SerializeField]
         private Vector2 m_pushForce;
 
-        //private bool m_canbarrier;
         private bool m_isDoingBarrier;
         private bool m_canMove;
         private IPlayerModifer m_modifier;
         private int m_barrierStateAnimationParameter;
-        //private float m_barrierCooldownTimer;
         private float m_barrierMovementCooldownTimer;
+        private ICappedStat m_source;
+        private float m_stackedConsumptionRate;
 
         private Animator m_fxAnimator;
         private SkeletonAnimation m_skeletonAnimation;
 
-        //public bool Canbarrier() => m_canbarrier;
         public bool CanMove() => m_canMove;
         public bool IsDoingBarrier() => m_isDoingBarrier;
+        public bool HaveEnoughSourceForExecution() => m_configuration.sourceRequiredAmount <= m_source.currentValue;
 
         private Coroutine m_barrierHoldRoutine;
 
@@ -66,6 +74,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         {
             base.Initialize(info);
 
+            m_source = info.magic;
             m_modifier = info.modifier;
             m_barrierStateAnimationParameter = info.animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.Barrier);
             //m_canbarrier = true;
@@ -74,6 +83,18 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 
             m_fxAnimator = m_attackFX.gameObject.GetComponentInChildren<Animator>();
             m_skeletonAnimation = m_attackFX.gameObject.GetComponent<SkeletonAnimation>();
+        }
+
+        public void ConsumeSource()
+        {
+            m_stackedConsumptionRate += (m_configuration.sourceConsumptionRate * GameplaySystem.time.deltaTime) * m_modifier.Get(PlayerModifier.ShadowMagic_Requirement);
+
+            if (m_stackedConsumptionRate >= 1)
+            {
+                var integer = Mathf.FloorToInt(m_stackedConsumptionRate);
+                m_stackedConsumptionRate -= integer;
+                m_source.ReduceCurrentValue(integer);
+            }
         }
 
         public override void Reset()
@@ -118,11 +139,11 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 
         public override void Cancel()
         {
-            if (m_barrierHoldRoutine != null)
-            {
-                StopCoroutine(m_barrierHoldRoutine);
-                m_barrierHoldRoutine = null;
-            }
+            //if (m_barrierHoldRoutine != null)
+            //{
+            //    StopCoroutine(m_barrierHoldRoutine);
+            //    m_barrierHoldRoutine = null;
+            //}
             m_physics.velocity = Vector2.zero;
             //m_barrierInfo.ShowCollider(false);
 
@@ -171,6 +192,10 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_barrierMovementCooldownTimer = m_barrierMovementCooldown;
                 m_canMove = true;
             }
+        }
+        public void SetConfiguration(BarrierStatsInfo info)
+        {
+            m_configuration.CopyInfo(info);
         }
 
         private IEnumerator BarrierHoldRoutine()
