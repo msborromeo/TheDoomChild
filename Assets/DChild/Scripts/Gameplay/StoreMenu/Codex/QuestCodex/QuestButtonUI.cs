@@ -18,6 +18,8 @@ namespace DChild.Codex.Quests.UI
         private Quest m_questData;
         private int m_selectionIndex;
 
+        public Quest questData => m_questData;
+
         public QuestTypeBackgroundUI background => m_background;
 
         public virtual int selectionIndex => m_selectionIndex;
