@@ -300,6 +300,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 210940540560734904}
+  - component: {fileID: 3545605371165710675}
   m_Layer: 13
   m_Name: Behaviours
   m_TagString: Untagged
@@ -324,6 +325,19 @@ Transform:
   m_Father: {fileID: 210940540927979971}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3545605371165710675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210940540560734919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b0d68cd77a89d45b04c6c47d586049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_source: {fileID: 210940540927979965}
 --- !u!1 &210940540639797220
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,6 +442,7 @@ Transform:
   - {fileID: 210940540283079665}
   - {fileID: 210940540560734904}
   - {fileID: 210940540639797221}
+  - {fileID: 1936149725313357633}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -580,6 +595,16 @@ MonoBehaviour:
   m_centerMass: {fileID: 210940539452363837}
   m_aggroBoundary: {fileID: 0}
   m_statsData: {fileID: 11400000, guid: c7c7129dc81152d4593154839a5421f7, type: 2}
+  m_groundSensor: {fileID: 0}
+  m_movement: {fileID: 0}
+  m_offSetAbovePlayer: 5
+  m_dropSpeed: 50
+  m_maxRollSpeed: 0
+  m_initialSpeed: 0
+  m_totalRollCount: 0
+  m_incrementSpeed: 0
+  m_limitPoints: []
+  m_startAtPointA: 0
   m_adranProjectiles:
   - {fileID: 2907897548827372027, guid: 0bf54cb294a95c749bea37eea867b261, type: 3}
   - {fileID: 2907897548827372027, guid: 0bf54cb294a95c749bea37eea867b261, type: 3}
@@ -614,3 +639,84 @@ MonoBehaviour:
   m_linearDrag:
     m_x: 0
     m_y: 0
+--- !u!1 &2247263971806306912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1936149725313357633}
+  m_Layer: 13
+  m_Name: Sensors
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1936149725313357633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2247263971806306912}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2916285870378618653}
+  m_Father: {fileID: 210940540927979971}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2422795098722338431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2916285870378618653}
+  - component: {fileID: 1087649272144756794}
+  m_Layer: 13
+  m_Name: GroundSensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2916285870378618653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2422795098722338431}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1936149725313357633}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1087649272144756794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2422795098722338431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11a5cea4c16e7c4478a55620f5e666e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_multiRaycast:
+    m_config: {fileID: 0}
+    m_rayColor: {r: 0, g: 1, b: 0, a: 1}
+  m_enable: 1
+  m_debugMode: 1
