@@ -76,11 +76,6 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_skeletonAnimation = m_attackFX.gameObject.GetComponent<SkeletonAnimation>();
         }
 
-        //public void SetConfiguration(SlashComboStatsInfo info)
-        //{
-        //    m_configuration.CopyInfo(info);
-        //}
-
         public override void Reset()
         {
             m_state.waitForBehaviour = false;
@@ -92,17 +87,12 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 
         public void Execute()
         {
-            m_barrierHoldRoutine = StartCoroutine(BarrierHoldRoutine());
             m_state.waitForBehaviour = false;
             m_state.isExecutingCombatArt = true;
             m_state.isAttacking = true;
             m_state.canAttack = false;
-            //m_physics.velocity = Vector2.zero;
-            //m_canbarrier = false;
-            m_canMove = false;
             m_animator.SetBool(m_animationParameter, true);
             m_animator.SetBool(m_barrierStateAnimationParameter, true);
-            //m_barrierCooldownTimer = m_barrierCooldown;
             m_barrierMovementCooldownTimer = m_barrierMovementCooldown;
             m_isDoingBarrier = true;
             //m_attacker.SetDamageModifier(m_slashComboInfo[m_currentSlashState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
@@ -110,21 +100,20 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 
         public void EndExecution()
         {
-            if (m_barrierHoldRoutine != null)
-            {
-                StopCoroutine(m_barrierHoldRoutine);
-                m_barrierHoldRoutine = null;
-            }
-            //Debug.Log("Barrier End");
-            //m_state.waitForBehaviour = false;
-            //m_barrierInfo.ShowCollider(false);
-
+            m_canMove = true;
+            m_state.waitForBehaviour = false;
+            m_state.isAttacking = false;
             m_barrierFX.SetBool("BarrierIsOn", false);
             m_materialReplacement.replacementEnabled = false;
             m_isDoingBarrier = false;
             m_animator.SetBool(m_barrierStateAnimationParameter, false);
             m_state.isExecutingCombatArt = false;
             base.AttackOver();
+        }
+
+        public void SetCanMove(bool canMove)
+        {
+            m_canMove = canMove;
         }
 
         public override void Cancel()
@@ -157,37 +146,17 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             {
                 m_barrierFX.SetBool("BarrierIsOn", true);
                 m_materialReplacement.replacementEnabled = true;
+                m_isDoingBarrier = true;
+            }
+            else
+            {
+                m_barrierFX.SetBool("BarrierIsOn", false);
+                m_materialReplacement.replacementEnabled = false;
+                m_isDoingBarrier = false;
             }
 
             m_physics.AddForce(new Vector2(m_character.facing == HorizontalDirection.Right ? m_pushForce.x : -m_pushForce.x, m_pushForce.y), ForceMode2D.Impulse);
-            //TEST
-            //m_enemySensor.Cast();
-            //m_wallSensor.Cast();
-            //m_edgeSensor.Cast();
-            //if (!m_enemySensor.isDetecting && !m_wallSensor.allRaysDetecting && m_edgeSensor.isDetecting && value)
-            //{
-            //    m_physics.AddForce(new Vector2(m_character.facing == HorizontalDirection.Right ? m_pushForce.x : -m_pushForce.x, m_pushForce.y), ForceMode2D.Impulse);
-            //}
-            //else if (!value)
-            //{
-            //    m_physics.velocity = new Vector2(0, m_physics.velocity.y);
-            //}
         }
-
-        //public void HandleAttackTimer()
-        //{
-        //    if (m_barrierCooldownTimer > 0)
-        //    {
-        //        m_barrierCooldownTimer -= GameplaySystem.time.deltaTime;
-        //        m_canbarrier = false;
-        //    }
-        //    else
-        //    {
-        //        m_barrierCooldownTimer = m_barrierCooldown;
-        //        m_state.isAttacking = false;
-        //        m_canbarrier = true;
-        //    }
-        //}
 
         public void HandleMovementTimer()
         {

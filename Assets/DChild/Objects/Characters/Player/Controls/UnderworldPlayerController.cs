@@ -505,10 +505,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_championsUprising.HandleAttackTimer();
             }
 
-            if (m_barrier.CanMove() == false)
-            {
-                m_barrier.HandleMovementTimer();
-            }
+            //if (m_barrier.CanMove() == false)
+            //{
+            //    m_barrier.HandleMovementTimer();
+            //}
 
             if (m_lightningSpear.CanReset() == true)
             {
@@ -1273,7 +1273,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #region Combat Arts Input
         private void OnBarrierStartedInput()
         {
-            //Handle Barrier 2 here
+
         }
 
         private void OnBarrierPerformedInput()
@@ -1287,7 +1287,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     PrepareForGroundAttack();
                     m_currentCombatArt = m_barrier;
-                    m_barrier?.Execute();
+                    if (m_abilities.GetAbilityLevel(CombatArt.Barrier) == 1)
+                    {
+                        m_barrier?.Execute();
+                        m_barrier?.SetCanMove(false);
+                    }
+                    else if (m_abilities.GetAbilityLevel(CombatArt.Barrier) == 2)
+                    {
+                        m_barrier?.EnableShield(true);
+                        m_barrier?.SetCanMove(true);
+                    }
                 }
             }
         }
@@ -1298,10 +1307,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 if (m_barrier.IsDoingBarrier())
                 {
-                    if (m_barrier.CanMove())
-                    {
-                        m_barrier?.EndExecution();
-                    }
+                    m_barrier?.EndExecution();
+                    m_barrier?.EnableShield(false);
                 }
             }
         }
@@ -2421,8 +2428,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     && m_sovereignImpale.CanMove()
                     && m_hellTrident.CanMove()
                     && m_foolsVerdict.CanMove()
-                    && m_barrier.CanMove()
-                    && m_barrier.IsDoingBarrier() == false;
+                    && m_barrier.CanMove();
 
             var isAllowedByDash = m_activeDash?.IsDashDurationOver() ?? true;
             var isAllowedBySlide = (m_activeSlide?.IsSlideDurationOver() ?? true) && (m_state.isSliding == false);
