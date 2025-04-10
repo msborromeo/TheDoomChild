@@ -3,6 +3,7 @@ using DChild.Gameplay.Characters.Players;
 using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.SoulSkills;
 using DChild.Menu.Bestiary;
+using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
@@ -23,6 +24,8 @@ namespace DChild.Gameplay.UI.Alerts
             public int[] soulSkillAlerts;
             public int[] bestiaryAlerts;
             public int[] charactersAlerts;
+            public string[] questsRecordedAlerts;
+            public string[] questsAlerts;
         }
 
         [SerializeField, TabGroup("General")]
@@ -31,10 +34,12 @@ namespace DChild.Gameplay.UI.Alerts
         private InventoryUIAlertRecorder m_inventoryAlerts;
         [SerializeField, TabGroup("General")]
         private DatabaseUIAlertRecorder<SoulSkill> m_soulSkillAlerts;
-        [SerializeField,TabGroup("Codex")]
+        [SerializeField, TabGroup("Codex")]
         private DatabaseUIAlertRecorder<BestiaryData> m_bestiaryAlerts;
         [SerializeField, TabGroup("Codex")]
         private DatabaseUIAlertRecorder<CharacterCodexData> m_charactersAlerts;
+        [SerializeField, TabGroup("Codex")]
+        private QuestUIAlertRecorder m_questAlerts;
 
 
         public PrimarySkillUIAlertRecorder primarySkillAlerts => m_primarySkillAlerts;
@@ -42,6 +47,8 @@ namespace DChild.Gameplay.UI.Alerts
         public DatabaseUIAlertRecorder<SoulSkill> soulSkillAlerts => m_soulSkillAlerts;
         public DatabaseUIAlertRecorder<BestiaryData> bestiaryAlerts => m_bestiaryAlerts;
         public DatabaseUIAlertRecorder<CharacterCodexData> charactersAlerts => m_charactersAlerts;
+        public QuestUIAlertRecorder questAlerts => m_questAlerts;
+
 
         public SaveData Save()
         {
@@ -52,19 +59,22 @@ namespace DChild.Gameplay.UI.Alerts
                 inventoryAlerts = m_inventoryAlerts.GetAlertSaveData(),
                 soulSkillAlerts = m_soulSkillAlerts.GetAlertSaveData(),
                 bestiaryAlerts = m_bestiaryAlerts.GetAlertSaveData(),
-                charactersAlerts = m_charactersAlerts.GetAlertSaveData()
+                charactersAlerts = m_charactersAlerts.GetAlertSaveData(),
+                questsRecordedAlerts = m_questAlerts.GetRecordedItems(),
+                questsAlerts = m_questAlerts.GetAlertSaveData()
             };
         }
 
         public void Load(SaveData data)
         {
-            if(data == null)
+            if (data == null)
             {
                 m_primarySkillAlerts = new PrimarySkillUIAlertRecorder(PrimarySkill.None);
                 m_inventoryAlerts = new InventoryUIAlertRecorder(null, null);
                 m_soulSkillAlerts = new DatabaseUIAlertRecorder<SoulSkill>(null);
                 m_bestiaryAlerts = new DatabaseUIAlertRecorder<BestiaryData>(null);
                 m_charactersAlerts = new DatabaseUIAlertRecorder<CharacterCodexData>(null);
+                m_questAlerts = new QuestUIAlertRecorder(null, null);
                 return;
             }
 
@@ -73,6 +83,7 @@ namespace DChild.Gameplay.UI.Alerts
             m_soulSkillAlerts = new DatabaseUIAlertRecorder<SoulSkill>(data.soulSkillAlerts);
             m_bestiaryAlerts = new DatabaseUIAlertRecorder<BestiaryData>(data.bestiaryAlerts);
             m_charactersAlerts = new DatabaseUIAlertRecorder<CharacterCodexData>(data.charactersAlerts);
+            m_questAlerts = new QuestUIAlertRecorder(data.questsRecordedAlerts, data.questsAlerts);
         }
         private void OnPostDeserialization(object sender, CampaignSlotUpdateEventArgs eventArgs)
         {
