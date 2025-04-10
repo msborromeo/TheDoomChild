@@ -143,6 +143,28 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private PhaseHandle<Phase, PhaseInfo> m_phaseHandle;
     [ShowInInspector]
     private RandomAttackDecider<Attack> m_attackDecider;
+    [SerializeField, TabGroup("Reference")]
+    private RaySensor m_groundSensor;
+    [SerializeField, TabGroup("Reference")]
+    private MovementHandle2D m_movement;
+    [SerializeField, TabGroup("Slam Roll Attack")]
+    private float m_offSetAbovePlayer;
+    [SerializeField, TabGroup("Slam Roll Attack")]
+    private float m_dropSpeed;
+    [SerializeField, TabGroup("Slam Roll Attack")]
+    private float m_maxRollSpeed;
+    [SerializeField, TabGroup("Slam Roll Attack")]
+    private float m_initialSpeed;
+    [SerializeField, TabGroup("Slam Roll Attack")]
+    private float m_totalRollCount;
+    [SerializeField, TabGroup("Slam Roll Attack")]
+    private float m_incrementSpeed;
+    [SerializeField, TabGroup("Slam Roll Attack")]
+    private Transform[] m_limitPoints;
+    [SerializeField, TabGroup("Slam Roll Attack")]
+    private bool m_startAtPointA;
+   
+    
     [SerializeField, TabGroup("Small Adran")]
     private GameObject[] m_adranProjectiles;
     [SerializeField, TabGroup("Small Adran")]
@@ -239,6 +261,79 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         StopAllCoroutines();
         StartCoroutine(HomingMissileAdranAttack());
     }
+    [Button]
+    public void TryRollAttack()
+    {
+        StartCoroutine(RollAttack());
+    }
+    private IEnumerator RollAttack()
+    {
+        int rollCount = 0;   
+        bool movingRight = m_startAtPointA; 
+        float rollSpeed = m_initialSpeed;
+        var rollInitializeAnim = m_startAtPointA ? m_info.slamRollLeft : m_info.slamRollRight;
+        var rollLoopAnim = m_startAtPointA ? m_info.slamRollLeftLoop : m_info.slamRollRightLoop;
+        m_animation.SetAnimation(0, rollInitializeAnim, false);
+        yield return new WaitForAnimationComplete(m_animation.animationState, rollInitializeAnim);
+        m_animation.SetAnimation(0, rollLoopAnim, true);
+
+        Vector2 targetStartPos = m_startAtPointA ? m_limitPoints[0].position : m_limitPoints[1].position;
+        float currentY = transform.position.y;
+
+        while (Mathf.Abs(transform.position.x - targetStartPos.x) > 0.1f)
+        {
+            float newX = Mathf.MoveTowards(transform.position.x, targetStartPos.x, m_initialSpeed * Time.deltaTime);
+            transform.position = new Vector3(newX, currentY, transform.position.z); 
+            yield return null;
+        }
+        Debug.Log("Reached the starting point, beginning the rolling attack!");
+
+        while (rollCount < m_totalRollCount)
+        {
+            var rollLoopAnim_2 = movingRight ? m_info.slamRollRightLoop : m_info.slamRollLeftLoop;
+            m_animation.SetAnimation(0, rollLoopAnim_2, true);
+            Vector2 targetPos = movingRight ? m_limitPoints[1].position : m_limitPoints[0].position;
+
+            
+            float newX = Mathf.MoveTowards(transform.position.x, targetPos.x, rollSpeed * Time.deltaTime);
+            transform.position = new Vector3(newX, currentY, transform.position.z);  // Keep the Y position constant
+
+            
+            if (Mathf.Abs(transform.position.x - targetPos.x) <= 0.1f)
+            {
+                movingRight = !movingRight;
+                Debug.Log("Switching direction!");
+                rollCount++; 
+                rollSpeed = Mathf.Min(rollSpeed + m_incrementSpeed, m_maxRollSpeed);
+                Debug.Log("Roll Count: " + rollCount + ", Roll Speed: " + rollSpeed);
+            }
+            yield return null; 
+        }
+        m_animation.SetAnimation(0, m_info.idle, true);
+        Debug.Log("Finished rolling after " + m_totalRollCount + " cycles.");
+    }
+    private IEnumerator SlamAttack()
+    {
+        //m_animation.SetAnimation(0, m_info.slamRollInitial, false);
+        //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.slamRollInitial);
+        while (!m_groundSensor.isDetecting)
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y - m_dropSpeed * Time.deltaTime);
+            yield return null;
+        }
+        m_movement.Stop();
+    }
+
+    private IEnumerator SlamRollAttack() 
+    {
+        m_stateHandle.Wait(State.ReevaluateSituation);
+        m_animation.AddAnimation(1,m_info.idleFive,true,0);
+        yield return SlamRollLocatePlayer();
+        yield return SlamAttack();
+        yield return RollAttack();
+        m_attackDecider.hasDecidedOnAttack = false;
+        m_stateHandle.ApplyQueuedState();
+    }
     private IEnumerator HomingMissileAdranAttack()
     {
         m_stateHandle.Wait(State.ReevaluateSituation);
@@ -247,6 +342,38 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         yield return HomingMissileReturnAnimation();
         m_attackDecider.hasDecidedOnAttack = false;
         m_stateHandle.ApplyQueuedState();
+    }
+    [Button]
+    public void TrySlamRollAttackRoutine()
+    {
+        StartCoroutine(SlamRollAttack());
+    }
+    [Button]
+    public void TrySlamRollAttack()
+    {
+        StartCoroutine(SlamRollLocatePlayer());
+    }
+    private IEnumerator SlamRollLocatePlayer()
+    {
+        float heightOffset = m_offSetAbovePlayer;
+
+        while (true)
+        {
+            Vector2 playerPos = GameplaySystem.playerManager.player.character.transform.position;
+            Vector2 targetPos = playerPos + Vector2.up * heightOffset;
+
+            // Move toward the target position (above the player)
+            transform.position = Vector2.MoveTowards(transform.position, targetPos, m_flightSpeed * Time.deltaTime);
+
+            // Check if the object is very close to the target position
+            if (Vector2.Distance(transform.position, targetPos) <= 0.05f)
+            {
+                Debug.Log("Now floating above player");
+                break;
+            }
+
+            yield return null;
+        }
     }
     private IEnumerator HomingMissileProjectile()
     {
@@ -358,11 +485,6 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         var sizeTransition = m_animation.SetAnimation(1, attackAnimation, false);
         m_animation.AddAnimation(1, idleAnimation, true, 0);
         yield return new WaitForSpineAnimationComplete(sizeTransition);
-    }
-
-    private IEnumerator SlamLeftOrRight() 
-    {  
-        yield return null; 
     }
     [Button]
     private void HealthTracker()
