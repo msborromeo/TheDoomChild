@@ -829,16 +829,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isSliding)
                 return;
-            if ((m_skills.IsModuleActive(PrimarySkill.Slide) == false || m_skills.IsModuleActive(PrimarySkill.ShadowSlide) == false
-                || (m_skills.IsModuleActive(PrimarySkill.Dash) == false || m_skills.IsModuleActive(PrimarySkill.ShadowDash) == false)))
-                return;
-
-            m_idle?.Cancel();
-            m_movement?.Cancel();
-            m_whipCombo?.Cancel();
-            m_whipCombo?.Reset();
-            m_earthShaker?.Cancel();
-            m_objectManipulation?.Cancel();
 
             if (m_state.isExecutingCombatArt)
             {
@@ -851,6 +841,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     if (m_vector2Input.y < 0 && m_state.canSlide)
                     {
+                        m_idle?.Cancel();
+                        m_movement?.Cancel();
+                        m_whipCombo?.Cancel();
+                        m_whipCombo?.Reset();
+                        m_earthShaker?.Cancel();
+                        m_objectManipulation?.Cancel();
+
                         ExecuteSlide();
                         return;
                     }
@@ -858,6 +855,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                 if ((m_skills.IsModuleActive(PrimarySkill.Dash) || m_skills.IsModuleActive(PrimarySkill.ShadowDash)) && m_state.canDash)
                 {
+                    m_idle?.Cancel();
+                    m_movement?.Cancel();
+                    m_whipCombo?.Cancel();
+                    m_whipCombo?.Reset();
+                    m_earthShaker?.Cancel();
+                    m_objectManipulation?.Cancel();
+
                     ExecuteDash();
                     return;
                 }
@@ -866,6 +870,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 if ((m_skills.IsModuleActive(PrimarySkill.Dash) || m_skills.IsModuleActive(PrimarySkill.ShadowDash)) && m_state.canDash)
                 {
+                    m_idle?.Cancel();
+                    m_movement?.Cancel();
+                    m_whipCombo?.Cancel();
+                    m_whipCombo?.Reset();
+                    m_earthShaker?.Cancel();
+                    m_objectManipulation?.Cancel();
+
                     if (m_state.isStickingToWall)
                     {
                         m_wallStick?.Cancel();
@@ -2335,6 +2346,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_skills.IsModuleActive(PrimarySkill.ShadowDash))
             {
+                if (m_skills.IsModuleActive(PrimarySkill.Dash) == false)
+                    return;
                 if (m_shadowDash?.HaveEnoughSourceForExecution() ?? false)
                 {
                     m_activeDash = m_shadowDash;
