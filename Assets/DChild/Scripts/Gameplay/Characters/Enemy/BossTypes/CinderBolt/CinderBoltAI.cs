@@ -1959,7 +1959,7 @@ namespace DChild.Gameplay.Characters.Enemies
             switch (m_phaseHandle.currentPhase)
             {
                 case Phase.PhaseOne:
-                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Pattern1Phase1, m_info.phase2Pattern1Range),
+                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Pattern1Phase1, m_info.phase1Pattern1Range),
                         new AttackInfo<Attack>(Attack.Pattern2Phase1, m_info.phase1Pattern1Range));
                     break;
                 case Phase.PhaseTwo:
