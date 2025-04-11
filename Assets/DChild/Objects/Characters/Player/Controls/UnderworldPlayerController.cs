@@ -505,11 +505,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_championsUprising.HandleAttackTimer();
             }
 
-            //if (m_barrier.CanMove() == false)
-            //{
-            //    m_barrier.HandleMovementTimer();
-            //}
-
             if (m_lightningSpear.CanReset() == true)
             {
                 m_lightningSpear.HandleResetTimer();
@@ -538,6 +533,19 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_airSlashRange.CanMove() == false)
             {
                 m_airSlashRange.HandleMovementTimer();
+            }
+
+            if (m_barrier.IsDoingBarrier())
+            {
+                if (m_barrier.HaveEnoughSourceForExecution())
+                {
+                    m_barrier?.ConsumeSource();
+                }
+                else
+                {
+                    m_barrier?.EndExecution();
+                    m_shadowGaugeRegen?.Enable(true);
+                }
             }
             #endregion
 
@@ -647,17 +655,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             LedgeGrabMovementAction();
             SwordThrustAction();
             HandleWallMovement();
-
-            if(m_barrier.IsDoingBarrier())
-            {
-                m_barrier?.ConsumeSource();
-
-                if(m_barrier.HaveEnoughSourceForExecution() == false)
-                {
-                    m_barrier?.EndExecution();
-                    m_shadowGaugeRegen?.Enable(true);
-                }
-            }
         }
         #endregion
 

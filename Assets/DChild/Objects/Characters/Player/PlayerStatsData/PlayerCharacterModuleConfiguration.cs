@@ -145,7 +145,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private IdleHandleStatsInfo m_idleHandleStatsInfo;
         public IdleHandleStatsInfo idleHandleInfo => m_idleHandleStatsInfo;
 
-        [Title("Combat Arts")]
+        [Header("Combat Arts")]
+        [Title("Barrier")]
         [SerializeField, HideLabel]
         private BarrierStatsInfo m_barrierStatsInfo;
         public BarrierStatsInfo barrierInfo => m_barrierStatsInfo;
