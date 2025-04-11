@@ -111,6 +111,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             m_comboResetDelayTimer = m_slashComboInfo[m_currentSlashState].nextAttackDelay;
             m_slashMovementCooldownTimer = /*m_slashMovementCooldown*/m_configuration.slashMovementCooldown;
+            //added this guard forcing state to 0 if at max state to prevent looking like first slash repeated
+            if (m_currentSlashState == m_configuration.slashStateAmount - 1)
+                m_currentSlashState = 0;
             OnSlash?.Invoke(this, EventActionArgs.Empty);
         }
 
