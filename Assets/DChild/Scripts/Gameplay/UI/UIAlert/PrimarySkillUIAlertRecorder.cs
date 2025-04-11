@@ -23,6 +23,10 @@ namespace DChild.Gameplay.UI.Alerts
 
         public override bool HasNewNotification(PrimarySkill data) => m_value.HasFlag(data);
 
+        public override bool HasNewNotification(int id)
+        {
+            throw new System.NotImplementedException();
+        }
 
         public override void RecordNewNotification(PrimarySkill data, bool hasNewInfo = true)
         {
