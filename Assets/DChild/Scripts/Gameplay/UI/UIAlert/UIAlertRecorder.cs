@@ -5,6 +5,7 @@
         public abstract void RecordNewNotification(T data, bool hasNewInfo = true);
 
         public abstract bool HasNewNotification(T data);
+        public abstract bool HasNewNotification(int id);
 
         public abstract bool HasAnyNewNotification();
     }
