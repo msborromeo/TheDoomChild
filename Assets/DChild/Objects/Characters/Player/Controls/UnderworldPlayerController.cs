@@ -1166,7 +1166,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 PrepareForGroundAttack();
 
-
                 if (m_vector2Input.y > 0)
                 {
                     m_whip.Execute(WhipAttack.Type.Ground_Overhead);
@@ -1890,7 +1889,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void MoveAction()
         {
-            if (m_state.isDashing || m_state.isAttacking || m_state.waitForBehaviour || m_state.isLedgeGrabbing)
+            if (m_state.isDashing || m_state.isAttacking || m_state.waitForBehaviour || m_state.isLedgeGrabbing || m_state.isDoingCombo)
                 return;
 
             if (m_vector2Input.x == 0)
@@ -2410,7 +2409,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_slashCombo.Cancel();
                 m_whip.Cancel();
                 m_whipCombo.Cancel();
-                //m_whipCombo.Reset();
+                m_whipCombo.Reset();
             }
 
             if (isGrabbing == false)
