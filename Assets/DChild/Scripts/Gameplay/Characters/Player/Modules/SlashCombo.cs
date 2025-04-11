@@ -101,6 +101,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.waitForBehaviour = true;
             m_state.isAttacking = true;
             m_state.canAttack = false;
+            m_state.isDoingCombo = true;
             m_canMove = false;
             m_animator.SetBool(m_animationParameter, true);
             m_currentSlashState += m_currentSlashState >= m_configuration.slashStateAmount - 1 ? 0 : 1;
@@ -197,6 +198,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 //Debug.Log("Attack Over");
                 //m_skeletonAnimation.state.SetEmptyAnimation(0, 0);
                 m_canSlashCombo = false;
+                m_state.isDoingCombo = false;
                 m_currentSlashState = -1;
                 m_currentVisualSlashState = 0;
                 m_animator.SetInteger(m_slashStateAnimationParameter, m_currentSlashState);
