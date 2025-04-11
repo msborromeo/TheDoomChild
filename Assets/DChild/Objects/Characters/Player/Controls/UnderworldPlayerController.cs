@@ -505,11 +505,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_championsUprising.HandleAttackTimer();
             }
 
-            if (m_barrier.CanMove() == false)
-            {
-                m_barrier.HandleMovementTimer();
-            }
-
             if (m_lightningSpear.CanReset() == true)
             {
                 m_lightningSpear.HandleResetTimer();
@@ -538,6 +533,19 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_airSlashRange.CanMove() == false)
             {
                 m_airSlashRange.HandleMovementTimer();
+            }
+
+            if (m_barrier.IsDoingBarrier())
+            {
+                if (m_barrier.HaveEnoughSourceForExecution())
+                {
+                    m_barrier?.ConsumeSource();
+                }
+                else
+                {
+                    m_barrier?.EndExecution();
+                    m_shadowGaugeRegen?.Enable(true);
+                }
             }
             #endregion
 
@@ -1273,37 +1281,48 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #region Combat Arts Input
         private void OnBarrierStartedInput()
         {
-            //Handle Barrier 2 here
+
         }
 
         private void OnBarrierPerformedInput()
         {
-            if (m_state.isExecutingCombatArt)
+            if(m_abilities.IsAbilityActivated(CombatArt.Barrier) == false)
                 return;
-            //Skip if Barrier 2 is unlocked
-            if (m_abilities.IsAbilityActivated(CombatArt.Barrier))
+            if (m_state.isInShadowMode)
+                return;
+
+            if (m_barrier.IsDoingBarrier())
             {
-                if (m_state.isInShadowMode == false)
+                m_barrier?.EndExecution();
+                m_barrier?.EnableShield(false);
+            }
+            else
+            {
+                if (m_barrier.HaveEnoughSourceForExecution() == false)
+                    return;
+                if (m_state.isExecutingCombatArt)
+                    return;
+
+                PrepareForGroundAttack();
+                m_currentCombatArt = m_barrier;
+                if (m_abilities.GetAbilityLevel(CombatArt.Barrier) == 1)
                 {
-                    PrepareForGroundAttack();
-                    m_currentCombatArt = m_barrier;
+                    if (m_state.isGrounded == false)
+                        return;
                     m_barrier?.Execute();
+                    m_barrier?.SetCanMove(false);
+                }
+                else if (m_abilities.GetAbilityLevel(CombatArt.Barrier) == 2)
+                {
+                    m_barrier?.EnableShield(true);
+                    m_barrier?.SetCanMove(true);
                 }
             }
         }
 
         private void OnBarrierCancelledInput()
         {
-            if (m_abilities.IsAbilityActivated(CombatArt.Barrier))
-            {
-                if (m_barrier.IsDoingBarrier())
-                {
-                    if (m_barrier.CanMove())
-                    {
-                        m_barrier?.EndExecution();
-                    }
-                }
-            }
+
         }
 
         private void OnAirSlashStartedInput()
@@ -2421,8 +2440,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     && m_sovereignImpale.CanMove()
                     && m_hellTrident.CanMove()
                     && m_foolsVerdict.CanMove()
-                    && m_barrier.CanMove()
-                    && m_barrier.IsDoingBarrier() == false;
+                    && m_barrier.CanMove();
 
             var isAllowedByDash = m_activeDash?.IsDashDurationOver() ?? true;
             var isAllowedBySlide = (m_activeSlide?.IsSlideDurationOver() ?? true) && (m_state.isSliding == false);
