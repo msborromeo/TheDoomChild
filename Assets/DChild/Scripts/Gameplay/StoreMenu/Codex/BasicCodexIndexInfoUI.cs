@@ -49,13 +49,10 @@ namespace DChild.Menu.Codex
             {
                 m_infoLabel.text = "Nothing";
                 m_infoImage.sprite = null;
+                return;
             }
-            else
-            {
-                m_infoLabel.text = data.indexName;
-                m_infoImage.sprite = data.indexImage;
-            }
-
+            m_infoLabel.text = data.indexName;
+            m_infoImage.sprite = data.indexImage;
             //localizeCharacterData?.Invoke(data);
         }
 

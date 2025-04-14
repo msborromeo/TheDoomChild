@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DChild.Gameplay.Characters.Players.Behaviour;
 using Sirenix.OdinInspector;
+using DChild.Gameplay.Characters.Players.BattleAbilityModule;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -79,6 +80,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
         [SerializeField]
         private CombatReadiness m_combatReadiness;
 
+        [Title("Combat Arts")]
+        [SerializeField]
+        private Barrier m_barrier;
+
         public void InitializeModuleConfigurations()
         {
             m_movement?.SetConfiguration(m_playerBasicBehaviourConfiguration.movementStatsInfo);
@@ -108,6 +113,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_block?.SetConfiguration(m_playerBasicBehaviourConfiguration.blockInfo);
             m_idleHandle?.SetConfiguration(playerBasicBehaviourConfiguration.idleHandleInfo);
             m_combatReadiness?.SetConfiguration(m_playerBasicBehaviourConfiguration.combatReadinessInfo);
+            m_barrier?.SetConfiguration(m_playerBasicBehaviourConfiguration.barrierInfo);
         }
     }
 }
