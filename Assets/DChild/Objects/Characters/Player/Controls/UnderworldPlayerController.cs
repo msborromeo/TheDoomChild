@@ -209,9 +209,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.InteractStartedEvent += OnInteractInput;
             m_inputReader.ShadowMorphStartedEvent += OnShadowMorphStartedInput;
             m_inputReader.SlashStartedEvent += OnSlashStartedInput;
-            m_inputReader.SlashPerformedEvent += OnSlashPerformedInput;
+            m_inputReader.SlashTappedEvent += OnSlashTappedInput;
+            m_inputReader.SlashPressedEvent += OnSlashPressedInput;
             m_inputReader.SlashCancelledEvent += OnSlashCancelledInput;
             m_inputReader.SlashHeldEvent += OnSlashHeldInput;
+            m_inputReader.SwordThrustPerformedEvent += OnSwordThrustPerformedInput;
+            m_inputReader.SwordThrustCancelledEvent += OnSwordThrustCancelledInput;
             m_inputReader.WhipPerformedEvent += OnWhipPerformedInput;
             m_inputReader.WhipCancelledEvent += OnWhipCancelledInput;
             m_inputReader.CycleQuickItemsStartedEvent += OnCycleQuickItemsStartedInput;
@@ -281,9 +284,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.InteractStartedEvent -= OnInteractInput;
             m_inputReader.ShadowMorphStartedEvent -= OnShadowMorphStartedInput;
             m_inputReader.SlashStartedEvent -= OnSlashStartedInput;
-            m_inputReader.SlashPerformedEvent -= OnSlashPerformedInput;
+            m_inputReader.SlashTappedEvent -= OnSlashTappedInput;
+            m_inputReader.SlashPressedEvent -= OnSlashPressedInput;
             m_inputReader.SlashCancelledEvent -= OnSlashCancelledInput;
             m_inputReader.SlashHeldEvent -= OnSlashHeldInput;
+            m_inputReader.SwordThrustPerformedEvent -= OnSwordThrustPerformedInput;
+            m_inputReader.SwordThrustCancelledEvent -= OnSwordThrustCancelledInput;
             m_inputReader.WhipPerformedEvent -= OnWhipPerformedInput;
             m_inputReader.WhipCancelledEvent -= OnWhipCancelledInput;
             m_inputReader.CycleQuickItemsStartedEvent -= OnCycleQuickItemsStartedInput;
@@ -499,11 +505,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_championsUprising.HandleAttackTimer();
             }
 
-            if (m_barrier.CanMove() == false)
-            {
-                m_barrier.HandleMovementTimer();
-            }
-
             if (m_lightningSpear.CanReset() == true)
             {
                 m_lightningSpear.HandleResetTimer();
@@ -532,6 +533,19 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_airSlashRange.CanMove() == false)
             {
                 m_airSlashRange.HandleMovementTimer();
+            }
+
+            if (m_barrier.IsDoingBarrier())
+            {
+                if (m_barrier.HaveEnoughSourceForExecution())
+                {
+                    m_barrier?.ConsumeSource();
+                }
+                else
+                {
+                    m_barrier?.EndExecution();
+                    m_shadowGaugeRegen?.Enable(true);
+                }
             }
             #endregion
 
@@ -823,16 +837,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isSliding)
                 return;
-            if ((m_skills.IsModuleActive(PrimarySkill.Slide) == false || m_skills.IsModuleActive(PrimarySkill.ShadowSlide) == false
-                || (m_skills.IsModuleActive(PrimarySkill.Dash) == false || m_skills.IsModuleActive(PrimarySkill.ShadowDash) == false)))
-                return;
-
-            m_idle?.Cancel();
-            m_movement?.Cancel();
-            m_whipCombo?.Cancel();
-            m_whipCombo?.Reset();
-            m_earthShaker?.Cancel();
-            m_objectManipulation?.Cancel();
 
             if (m_state.isExecutingCombatArt)
             {
@@ -845,6 +849,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     if (m_vector2Input.y < 0 && m_state.canSlide)
                     {
+                        m_idle?.Cancel();
+                        m_movement?.Cancel();
+                        m_whipCombo?.Cancel();
+                        m_whipCombo?.Reset();
+                        m_earthShaker?.Cancel();
+                        m_objectManipulation?.Cancel();
+
                         ExecuteSlide();
                         return;
                     }
@@ -852,6 +863,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                 if ((m_skills.IsModuleActive(PrimarySkill.Dash) || m_skills.IsModuleActive(PrimarySkill.ShadowDash)) && m_state.canDash)
                 {
+                    m_idle?.Cancel();
+                    m_movement?.Cancel();
+                    m_whipCombo?.Cancel();
+                    m_whipCombo?.Reset();
+                    m_earthShaker?.Cancel();
+                    m_objectManipulation?.Cancel();
+
                     ExecuteDash();
                     return;
                 }
@@ -860,6 +878,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 if ((m_skills.IsModuleActive(PrimarySkill.Dash) || m_skills.IsModuleActive(PrimarySkill.ShadowDash)) && m_state.canDash)
                 {
+                    m_idle?.Cancel();
+                    m_movement?.Cancel();
+                    m_whipCombo?.Cancel();
+                    m_whipCombo?.Reset();
+                    m_earthShaker?.Cancel();
+                    m_objectManipulation?.Cancel();
+
                     if (m_state.isStickingToWall)
                     {
                         m_wallStick?.Cancel();
@@ -951,24 +976,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashStartedInput()
         {
-            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
-                m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
-                return;
-
-            if (m_state.isGrounded == false)
-            {
-                if (m_vector2Input.y < 0)
-                {
-                    if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
-                    {
-                        m_earthShaker.StartExecution(); //Moved Earthshaker logic here to started because design wants to do earthshaker as long as you click midair and down even if held input
-                        return;
-                    }
-                }
-            }
+            
         }
 
-        private void OnSlashPerformedInput()
+        private void OnSlashPressedInput()
         {
             if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
                 m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
@@ -1002,18 +1013,18 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     return;
                 }
 
-                if (m_vector2Input.y == 0)
-                {
-                    m_slashCombo.Execute();
-                    return;
-                }
-
                 if (m_state.isCrouched && m_vector2Input.y < 0)
                 {
                     m_basicSlashes.Execute(BasicSlashes.Type.Crouch);
                     return;
                 }
 
+                if (m_vector2Input.y == 0)
+                {
+                    m_movement.Cancel();
+                    m_slashCombo.Execute();
+                    return;
+                }
             }
             else
             {
@@ -1038,34 +1049,61 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     {
                         m_basicSlashes.Execute(BasicSlashes.Type.MidAir_Forward);
                         return;
-                    }        
+                    }
+                }
+
+                if (m_vector2Input.y < 0)
+                {
+                    if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
+                    {
+                        m_earthShaker.StartExecution();
+                        return;
+                    }
                 }
             }
+        }
+
+        private void OnSlashTappedInput()
+        {
+            
         }
 
         private void OnSlashHeldInput()
         {
+            
+        }
+
+        private void OnSlashCancelledInput()
+        {
+            
+        }
+
+        private void OnSwordThrustPerformedInput()
+        {
             if (m_state.isSliding || m_state.isCrouched || m_state.isAttacking || m_state.isGrounded == false)
                 return;
 
-            if (m_skills.IsModuleActive(PrimarySkill.SwordThrust))
+            if (m_state.isGrounded)
             {
-                if (m_state.isGrounded && m_state.isInShadowMode == false)
+                if (m_skills.IsModuleActive(PrimarySkill.SwordThrust))
                 {
-                    PrepareForGroundAttack();
-                    m_swordThrust.Reset();
-                    m_groundJump?.Cancel();
-                    m_extraJump?.Cancel();
-                    m_devilWings?.Cancel();
-                    m_whip?.Cancel();
-                    m_whipCombo?.Cancel();
-                    m_chargeAttackHandle.Set(m_swordThrust, () => true);
-                    m_swordThrust?.StartCharge();
+                    if (m_state.isGrounded && m_state.isInShadowMode == false)
+                    {
+                        PrepareForGroundAttack();
+                        m_swordThrust.Reset();
+                        m_groundJump?.Cancel();
+                        m_extraJump?.Cancel();
+                        m_devilWings?.Cancel();
+                        m_whip?.Cancel();
+                        m_whipCombo?.Cancel();
+                        m_chargeAttackHandle.Set(m_swordThrust, () => true);
+                        m_swordThrust?.StartCharge();
+                    }
                 }
             }
         }
 
-        private void OnSlashCancelledInput()
+        private void OnSwordThrustCancelledInput()
         {
             if (m_skills.IsModuleActive(PrimarySkill.SwordThrust) == false)
                 return;
@@ -1243,37 +1281,48 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #region Combat Arts Input
         private void OnBarrierStartedInput()
         {
-            //Handle Barrier 2 here
+
         }
 
         private void OnBarrierPerformedInput()
         {
-            if (m_state.isExecutingCombatArt)
+            if(m_abilities.IsAbilityActivated(CombatArt.Barrier) == false)
                 return;
-            //Skip if Barrier 2 is unlocked
-            if (m_abilities.IsAbilityActivated(CombatArt.Barrier))
+            if (m_state.isInShadowMode)
+                return;
+
+            if (m_barrier.IsDoingBarrier())
             {
-                if (m_state.isInShadowMode == false)
+                m_barrier?.EndExecution();
+                m_barrier?.EnableShield(false);
+            }
+            else
+            {
+                if (m_barrier.HaveEnoughSourceForExecution() == false)
+                    return;
+                if (m_state.isExecutingCombatArt)
+                    return;
+
+                PrepareForGroundAttack();
+                m_currentCombatArt = m_barrier;
+                if (m_abilities.GetAbilityLevel(CombatArt.Barrier) == 1)
                 {
-                    PrepareForGroundAttack();
-                    m_currentCombatArt = m_barrier;
+                    if (m_state.isGrounded == false)
+                        return;
                     m_barrier?.Execute();
+                    m_barrier?.SetCanMove(false);
+                }
+                else if (m_abilities.GetAbilityLevel(CombatArt.Barrier) == 2)
+                {
+                    m_barrier?.EnableShield(true);
+                    m_barrier?.SetCanMove(true);
                 }
             }
         }
 
         private void OnBarrierCancelledInput()
         {
-            if (m_abilities.IsAbilityActivated(CombatArt.Barrier))
-            {
-                if (m_barrier.IsDoingBarrier())
-                {
-                    if (m_barrier.CanMove())
-                    {
-                        m_barrier?.EndExecution();
-                    }
-                }
-            }
+
         }
 
         private void OnAirSlashStartedInput()
@@ -2316,6 +2365,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_skills.IsModuleActive(PrimarySkill.ShadowDash))
             {
+                if (m_skills.IsModuleActive(PrimarySkill.Dash) == false)
+                    return;
                 if (m_shadowDash?.HaveEnoughSourceForExecution() ?? false)
                 {
                     m_activeDash = m_shadowDash;
@@ -2370,7 +2421,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     m_idle?.Cancel();
                 }
-                if (m_state.isGrounded)
+                if (m_state.isGrounded && m_state.isHighJumping == false)
                     m_movement?.GroundMove(horizontalInput, true);
                 else
                     m_movement?.AirMove(horizontalInput, true);
@@ -2389,8 +2440,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     && m_sovereignImpale.CanMove()
                     && m_hellTrident.CanMove()
                     && m_foolsVerdict.CanMove()
-                    && m_barrier.CanMove()
-                    && m_barrier.IsDoingBarrier() == false;
+                    && m_barrier.CanMove();
 
             var isAllowedByDash = m_activeDash?.IsDashDurationOver() ?? true;
             var isAllowedBySlide = (m_activeSlide?.IsSlideDurationOver() ?? true) && (m_state.isSliding == false);
