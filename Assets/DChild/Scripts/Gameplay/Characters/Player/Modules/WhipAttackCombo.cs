@@ -139,7 +139,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
 
             if (m_state.isAttacking)
-                //m_animator.SetBool(m_whipAttackAnimationParameter, false);
+            {
+                m_comboResetDelayTimer = m_whipComboInfo[m_currentWhipState].nextAttackDelay;
+                m_whipMovementCooldownTimer = /*m_whipMovementCooldown*/m_configuration.whipMovementCooldown;
+            }
+               
+            //m_animator.SetBool(m_whipAttackAnimationParameter, false);
 
             m_state.isDoingCombo = false;
             m_fxAnimator.Play("Buffer");
