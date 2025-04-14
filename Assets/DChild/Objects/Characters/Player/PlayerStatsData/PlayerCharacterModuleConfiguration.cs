@@ -1,3 +1,4 @@
+using DChild.Gameplay.Characters.Players.BattleAbilityModule;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -143,5 +144,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
         [SerializeField, HideLabel]
         private IdleHandleStatsInfo m_idleHandleStatsInfo;
         public IdleHandleStatsInfo idleHandleInfo => m_idleHandleStatsInfo;
+
+        [Header("Combat Arts")]
+        [Title("Barrier")]
+        [SerializeField, HideLabel]
+        private BarrierStatsInfo m_barrierStatsInfo;
+        public BarrierStatsInfo barrierInfo => m_barrierStatsInfo;
     }
 }
