@@ -72,7 +72,7 @@ namespace DChild.Gameplay.ArmyBattle
         public static ArmyBattleTurnHandle.TurnConfiguration turnConfiguration { get => Instance.turnHandle.configuration; set => Instance.turnHandle.configuration = value; }
         public static ArmyController GetPlayer() => Instance.player;
         public static ArmyController GetEnemy() => Instance.enemy;
-      
+
         public static void SetCurrentTurn(int turnNumber)
         {
             Instance.turnHandle.ForceSetTurnNumber(turnNumber);
@@ -109,6 +109,8 @@ namespace DChild.Gameplay.ArmyBattle
 
         public static void StartBattleGameplay() => Instance.StartBattle();
         public static void StartNewTurn() => Instance.StartTurn();
+
+        public static void ForceEndBattle() => Instance.EndBattle();
 
         [Button, ShowIf("@canBattleBeStarted == true")]
         public void StartBattle()
@@ -150,7 +152,7 @@ namespace DChild.Gameplay.ArmyBattle
             }
         }
 
-        private void EndBattle()
+        public void EndBattle()
         {
             m_battleEndSignal.Payload.booleanValue = m_enemy.controlledArmy.troopCount <= 0;
             m_battleEndSignal.SendSignal();
