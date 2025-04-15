@@ -726,6 +726,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     return;
                 }
 
+                m_projectileThrow?.Cancel();
+
                 if (m_skills.IsModuleActive(PlayerBehaviour.Jump))
                 {
                     if (m_state.isHighJumping == false)
@@ -1112,6 +1114,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         m_devilWings?.Cancel();
                         m_whip?.Cancel();
                         m_whipCombo?.Cancel();
+                        m_activeDash?.Cancel();
+                        m_activeSlide?.Cancel();
                         m_chargeAttackHandle.Set(m_swordThrust, () => true);
                         m_swordThrust?.StartCharge();
                     }
@@ -1672,20 +1676,19 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isExecutingCombatArt)
                 return;
+            if (m_abilities.IsAbilityActivated(CombatArt.TeleportingSkull) == false)
+                return;
 
-            if (m_abilities.IsAbilityActivated(CombatArt.TeleportingSkull))
+            if (m_teleportingSkull.canTeleport)
             {
-                if (m_teleportingSkull.canTeleport)
-                {
-                    m_teleportingSkull.TeleportToProjectile();
-                    return;
-                }
-
-                m_projectileThrow.SetProjectileInfo(m_teleportingSkull.projectile);
-                m_projectileThrow.WillResetProjectile();
-                m_teleportingSkull.Execute();
+                m_teleportingSkull.TeleportToProjectile();
                 return;
             }
+
+            m_projectileThrow.SetProjectileInfo(m_teleportingSkull.projectile);
+            m_projectileThrow.WillResetProjectile();
+            m_teleportingSkull.Execute();
+            return;
         }
 
         private void OnTeleportingSkullCancelledInput()
