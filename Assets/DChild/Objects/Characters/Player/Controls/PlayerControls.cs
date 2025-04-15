@@ -105,8 +105,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""45bdfdf7-5e75-4839-be13-6dc77f575e8d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""QuickItemUse"",
@@ -463,7 +463,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""6e430af7-8e71-47b8-a47f-6efe9cb0376a"",
                     ""path"": ""<Keyboard>/f"",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""ProjectileThrow"",
@@ -474,7 +474,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""af6e8ded-2fbd-4ee4-82c8-8ff0a6d94c93"",
                     ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""ProjectileThrow"",
