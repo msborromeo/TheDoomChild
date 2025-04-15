@@ -17,6 +17,8 @@ namespace DChild.Gameplay.FastTravel
         private FastTravelOptionButton m_overworldTownGateButtons;
         [SerializeField]
         private Image m_locationBackground;
+        [SerializeField]
+        private Image m_showcaseImage;
 
         public void ShowPage(FastTravelPageData locationList)
         {
@@ -38,6 +40,15 @@ namespace DChild.Gameplay.FastTravel
             m_overworldTownGateButtons.SetData(locationList.overworldTravelData);
             m_overworldTownGateButtons.SetInteractability(isOverworldActivated);
         }
+
+        public void ShowCase(FastTravelOptionButton button)
+        {
+            if (button == null)
+                return;
+
+            m_showcaseImage.sprite = button.data.image;
+        }
+
         private void ResetButtons(FastTravelPageData locationList)
         {
             for (int i = locationList.count; i < m_townGateButtons.Length; i++)
