@@ -715,6 +715,23 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_crouch.IsThereNoCeiling() == false)
                 return;
 
+            //moved wall jump out of groundedness check to prevent triggering extra jump so you can jump then double jump 
+            if (m_state.isStickingToWall)
+            {
+                if (m_skills.IsModuleActive(PrimarySkill.WallMovement))
+                {
+                    if (m_state.canWallCrawl)
+                    {
+                        m_wallMovement?.Cancel();
+                    }
+                    m_wallStick?.Cancel();
+                    m_wallMovement?.Cancel();
+                    FlipCharacter();
+                    m_wallJump?.JumpAway();
+                    return;
+                }
+            }
+
             if (m_state.isGrounded)
             {
                 if (m_platformDrop?.IsThereADroppablePlatform() == true && m_vector2Input.y < 0)
@@ -751,25 +768,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             m_devilWings?.Cancel();
                         }
 
-                        m_extraJump?.Execute();
+                       m_extraJump?.Execute();
                     }
-                }
-
-                //wallJumpAway
-                if (m_state.isStickingToWall)
-                {
-                    if (m_skills.IsModuleActive(PrimarySkill.WallMovement))
-                    {
-                        if (m_state.canWallCrawl)
-                        {
-                            m_wallMovement?.Cancel();
-                        }
-                        m_wallStick?.Cancel();
-                        m_wallMovement?.Cancel();
-                        FlipCharacter();
-                        m_wallJump?.JumpAway();
-                    }
-                }
+                }       
             }
         }
 
@@ -1164,7 +1165,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isGrounded)
             {
                 PrepareForGroundAttack();
-
 
                 if (m_vector2Input.y > 0)
                 {
@@ -1697,9 +1697,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
                                 }
 
                                 m_basicSlashes.ResetAirAttacks();
+                                m_wallStick.Execute();
                                 m_dash?.Reset();
                                 m_extraJump?.Reset();
-                                m_wallStick.Execute();
                                 return;
                             }
                         }
@@ -1755,6 +1755,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 m_wallStick?.Cancel();
                 m_wallMovement?.Cancel();
+                m_extraJump?.Reset();
                 FlipCharacter();
                 //m_wallJump?.JumpAway();
                 return;
@@ -1900,6 +1901,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             }
 
+            if (m_state.isDoingCombo)
+                return;
             MoveCharacter(m_state.isGrabbing, m_vector2Input.x);
         }
         #endregion
