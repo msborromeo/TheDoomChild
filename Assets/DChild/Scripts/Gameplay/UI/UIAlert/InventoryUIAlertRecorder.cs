@@ -13,8 +13,16 @@ namespace DChild.Gameplay.UI.Alerts
 
         public InventoryUIAlertRecorder(int[] recordedItems, int[] alerts)
         {
-            m_recordedItems = new List<int>(recordedItems);
-            m_alerts = new List<int>(alerts);
+            m_recordedItems = new List<int>();
+            if (recordedItems != null)
+            {
+                m_recordedItems.AddRange(recordedItems);
+            }
+            m_alerts = new List<int>();
+            if (alerts != null)
+            {
+                m_alerts.AddRange(alerts);
+            }
         }
 
         public int[] GetRecordedItems() => m_recordedItems.ToArray();
@@ -29,6 +37,10 @@ namespace DChild.Gameplay.UI.Alerts
         public override bool HasNewNotification(ItemData data)
         {
             return m_alerts.Contains(data.id);
+        }
+        public override bool HasNewNotification(int id)
+        {
+            throw new System.NotImplementedException();
         }
 
         public override void RecordNewNotification(ItemData data, bool hasNewInfo = true)
@@ -55,5 +67,7 @@ namespace DChild.Gameplay.UI.Alerts
                 RecordNewNotification(datas[i], hasNewInfo);
             }
         }
+
+        
     }
 }
