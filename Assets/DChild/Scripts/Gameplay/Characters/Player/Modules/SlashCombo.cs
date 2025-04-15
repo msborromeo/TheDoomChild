@@ -105,6 +105,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_canMove = false;
             m_animator.SetBool(m_animationParameter, true);
             m_currentSlashState += m_currentSlashState >= m_configuration.slashStateAmount - 1 ? 0 : 1;
+            Debug.Log("Slash State: " +  m_currentSlashState);
             m_animator.SetInteger(m_slashStateAnimationParameter, m_currentSlashState);
             m_attacker.SetDamageModifier(m_slashComboInfo[m_currentSlashState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
             m_currentVisualSlashState = m_currentSlashState;
@@ -113,7 +114,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_slashMovementCooldownTimer = /*m_slashMovementCooldown*/m_configuration.slashMovementCooldown;
             //added this guard forcing state to 0 if at max state to prevent looking like first slash repeated
             if (m_currentSlashState == m_configuration.slashStateAmount - 1)
-                m_currentSlashState = 0;
+                m_currentSlashState = -1;
             OnSlash?.Invoke(this, EventActionArgs.Empty);
         }
 
