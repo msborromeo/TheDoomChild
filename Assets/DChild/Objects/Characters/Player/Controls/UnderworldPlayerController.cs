@@ -827,6 +827,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isAttacking || m_state.isLedgeGrabbing)
                 return;
+            if (m_state.isChargingAttack)
+                return;
             if (m_state.isInShadowMode)
                 return;
             if(m_state.isDoingSwordThrust)
@@ -917,6 +919,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isGrounded == false)
                 return;
+            if (m_state.isChargingAttack)
+                return;
             if (m_state.isDashing || m_state.isSliding || m_state.isAttacking || m_state.isLedgeGrabbing || m_state.isExecutingCombatArt)
                 return;
 
@@ -983,6 +987,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
                 m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
+                return;
+            if (m_state.isChargingAttack)
                 return;
 
             m_idle?.Cancel();
@@ -1231,6 +1237,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isDashing || m_state.isStickingToWall || m_state.isAttacking || m_state.isLedgeGrabbing || 
                 m_state.isCrouched)
+                return;
+            if (m_state.isChargingAttack)
                 return;
 
             PrepareForGroundAttack();
