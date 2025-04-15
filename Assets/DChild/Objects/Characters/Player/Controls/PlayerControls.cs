@@ -164,7 +164,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""MouseDelta"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""604b8edc-904e-40a3-842e-19972de2258b"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
