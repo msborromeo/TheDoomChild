@@ -35,6 +35,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.35393903, y: 0.35393903, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -70,6 +71,7 @@ MonoBehaviour:
     setSubtitleColor: 0
     applyColorToPrependedName: 0
     prependActorNameSeparator: ': '
+    prependActorNameFormat: '{0}{1}'
     subtitleColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!33 &5317720780919947706
 MeshFilter:
@@ -90,14 +92,16 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1e9d9f3a3efc5074ba7d2e2da65e370f, type: 2}
+  - {fileID: 2100000, guid: b02673285012a1c4d8819bdb1d4ce7ca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,6 +122,7 @@ MeshRenderer:
   m_SortingLayerID: -1150295711
   m_SortingLayer: -1
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &2243716286825608668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: eb353c633cbe24e4db0d401059317a5e, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: a4da9d621a6bef44e845cd5408078a54, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -151,7 +156,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: 
+  _animationName: Idle
   loop: 0
   timeScale: 1
   m_alwaysUpdateMesh: 0
@@ -181,6 +186,9 @@ MonoBehaviour:
   setQuestEntryState: 0
   questEntryNumber: 1
   questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
   luaCode: 
   sequence: 
   sequenceSpeaker: {fileID: 0}
@@ -205,7 +213,9 @@ MonoBehaviour:
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
   exclusive: 0
+  replace: 0
   skipIfNoValidEntries: 1
+  preventRestartOnSameFrameEnded: 0
   stopConversationOnTriggerExit: 0
   stopConversationIfTooFar: 0
   maxConversationDistance: 5
