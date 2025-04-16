@@ -395,6 +395,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe117b19b23eac43a8d86b5abee8634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_configuration:
+    m_sourceRequiredAmount: 0
+    m_sourceConsumptionRate: 0
   m_attackFX: {fileID: 4713603853206080501}
   m_barrierMovementCooldown: 0.2
   m_barrierInfo:
@@ -11804,7 +11807,7 @@ MonoBehaviour:
     m_fxPosition: {fileID: 1336383252301022607}
     m_collider: {fileID: 3875357739631990031}
     m_damageModifier: 1.4
-    m_nextAttackDelay: 0.75
+    m_nextAttackDelay: 0.5
   m_character: {fileID: 4294471023827248791}
   m_physics: {fileID: 4294471023827248786}
   m_enemySensor: {fileID: 597543835302893038}
@@ -20329,7 +20332,7 @@ MonoBehaviour:
     m_fxPosition: {fileID: 2338270435568791861}
     m_collider: {fileID: 2227083936576001418}
     m_damageModifier: 1.4
-    m_nextAttackDelay: 0.75
+    m_nextAttackDelay: 0.5
   m_character: {fileID: 4294471023827248791}
 --- !u!114 &5879366116103865532
 MonoBehaviour:
@@ -21580,6 +21583,9 @@ MonoBehaviour:
     - {fileID: 2862242451063211309}
     - {fileID: 2862242450858620240}
     - {fileID: 2862242451037743480}
+    - {fileID: 1756100010836697479}
+    - {fileID: 1756100009971405294}
+    - {fileID: 1756100010048502828}
     - {fileID: 58799102077630931}
     - {fileID: 2727346565609567321}
     - {fileID: 3864715391232728716}
@@ -22123,6 +22129,9 @@ MonoBehaviour:
     - 1
     - 1
     - 1
+    - 1.3
+    - 1
+    - 1
     - 1
     - 2.5
     - 1
@@ -22467,6 +22476,7 @@ MonoBehaviour:
   m_block: {fileID: 5613561246130837252}
   m_idleHandle: {fileID: 1530496967141879117}
   m_combatReadiness: {fileID: 7993666839686586755}
+  m_barrier: {fileID: 0}
 --- !u!1 &4389213437896825953
 GameObject:
   m_ObjectHideFlags: 0
@@ -83484,42 +83494,42 @@ PrefabInstance:
     - target: {fileID: 4735658264234937800, guid: f12efcbc77240e7449cca360a383e925,
         type: 3}
       propertyPath: startColor.m_ColorMin.a
-      value: 2e-44
+      value: 5.9e-44
       objectReference: {fileID: 0}
     - target: {fileID: 4735658264234937800, guid: f12efcbc77240e7449cca360a383e925,
         type: 3}
       propertyPath: startColor.m_ColorMin.b
-      value: -3.832715e+15
+      value: -7302468
       objectReference: {fileID: 0}
     - target: {fileID: 4735658264234937800, guid: f12efcbc77240e7449cca360a383e925,
         type: 3}
       propertyPath: startColor.m_ColorMin.g
-      value: 2e-44
+      value: 5.9e-44
       objectReference: {fileID: 0}
     - target: {fileID: 4735658264234937800, guid: f12efcbc77240e7449cca360a383e925,
         type: 3}
       propertyPath: startColor.m_ColorMin.r
-      value: -3.832773e+15
+      value: -7302576
       objectReference: {fileID: 0}
     - target: {fileID: 4735658264548417968, guid: f12efcbc77240e7449cca360a383e925,
         type: 3}
       propertyPath: startColor.m_ColorMin.a
-      value: 2e-44
+      value: 5.9e-44
       objectReference: {fileID: 0}
     - target: {fileID: 4735658264548417968, guid: f12efcbc77240e7449cca360a383e925,
         type: 3}
       propertyPath: startColor.m_ColorMin.b
-      value: -3.832715e+15
+      value: -7302468
       objectReference: {fileID: 0}
     - target: {fileID: 4735658264548417968, guid: f12efcbc77240e7449cca360a383e925,
         type: 3}
       propertyPath: startColor.m_ColorMin.g
-      value: 2e-44
+      value: 5.9e-44
       objectReference: {fileID: 0}
     - target: {fileID: 4735658264548417968, guid: f12efcbc77240e7449cca360a383e925,
         type: 3}
       propertyPath: startColor.m_ColorMin.r
-      value: -3.832773e+15
+      value: -7302576
       objectReference: {fileID: 0}
     - target: {fileID: 4821958528705934292, guid: f12efcbc77240e7449cca360a383e925,
         type: 3}
@@ -85784,6 +85794,24 @@ ParticleSystem:
 --- !u!198 &1739771568048613628 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5300565711826377423, guid: f12efcbc77240e7449cca360a383e925,
+    type: 3}
+  m_PrefabInstance: {fileID: 5884952831304823347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1756100009971405294 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5329278761256723421, guid: f12efcbc77240e7449cca360a383e925,
+    type: 3}
+  m_PrefabInstance: {fileID: 5884952831304823347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1756100010048502828 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5329278761443151391, guid: f12efcbc77240e7449cca360a383e925,
+    type: 3}
+  m_PrefabInstance: {fileID: 5884952831304823347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1756100010836697479 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5329278761531691956, guid: f12efcbc77240e7449cca360a383e925,
     type: 3}
   m_PrefabInstance: {fileID: 5884952831304823347}
   m_PrefabAsset: {fileID: 0}
