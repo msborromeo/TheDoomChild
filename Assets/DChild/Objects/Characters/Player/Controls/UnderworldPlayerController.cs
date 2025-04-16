@@ -1624,9 +1624,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnIcarusWingsStartedInput()
         {
-            if (m_state.isExecutingCombatArt)
-                return;
-
             //is grounded guard is not viable because jump input is being called before this function is called which automatically makes you ungrounded
             //if (m_state.isGrounded == false)
             //    return;
@@ -1651,8 +1648,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnIcarusWingsPerformedInput()
         {
-            if (m_state.isExecutingCombatArt)
-                return;
             if (m_state.isGrounded == false)
                 return;
 
