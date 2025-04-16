@@ -58,7 +58,7 @@ namespace DChild.Gameplay.Inventories.UI
                     m_quantityLimit.text = data.quantityLimit.ToString();
                 }
             }
-            LocalizeItemView?.Invoke(reference.data);
+            LocalizeItemView?.Invoke(data);
         }
 
         private void Awake()
