@@ -104,6 +104,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.waitForBehaviour = true;
             m_state.isAttacking = true;
             m_state.canAttack = false;
+            m_state.isDoingCombo = true;
             m_animator.SetBool(m_animationParameter, true);
             m_animator.SetBool(m_whipAttackAnimationParameter, true);
             m_animator.SetInteger(m_whipStateAnimationParameter, m_currentWhipState);
@@ -138,7 +139,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
 
             if (m_state.isAttacking)
-                //m_animator.SetBool(m_whipAttackAnimationParameter, false);
+            {
+                m_comboResetDelayTimer = m_whipComboInfo[m_currentWhipState].nextAttackDelay;
+                m_whipMovementCooldownTimer = /*m_whipMovementCooldown*/m_configuration.whipMovementCooldown;
+            }
+               
+            //m_animator.SetBool(m_whipAttackAnimationParameter, false);
 
             m_state.isDoingCombo = false;
             m_fxAnimator.Play("Buffer");
@@ -182,6 +188,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             base.AttackOver();
             m_state.canAttack = true;
+            m_state.isDoingCombo = false;
             m_canWhipCombo = false;
             m_canMove = false;
             m_animator.SetBool(m_whipAttackAnimationParameter, false);
