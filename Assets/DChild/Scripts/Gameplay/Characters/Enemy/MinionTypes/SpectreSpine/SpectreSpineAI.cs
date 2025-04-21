@@ -259,10 +259,10 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator FlinchRoutine()
         {
-            m_hitbox.gameObject.SetActive(false);
+            //m_hitbox.gameObject.SetActive(false);
             m_animation.SetAnimation(0, m_info.flinchAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.flinchAnimation);
-            m_hitbox.gameObject.SetActive(true);
+            //m_hitbox.gameObject.SetActive(true);
             m_stabAttackBB.enabled = false;
             m_chargedAttackBB.enabled = false;
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
@@ -526,9 +526,11 @@ namespace DChild.Gameplay.Characters.Enemies
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             
             float distanceToGround = 0f;
+            m_hitbox.gameObject.SetActive(false);
             m_animation.SetAnimation(0, m_info.fadeOutAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.fadeOutAnimation);
             transform.position = new Vector2(m_targetInfo.position.x + 10, m_targetInfo.position.y + 30);
+            m_hitbox.gameObject.SetActive(true);
             m_animation.SetAnimation(0, m_info.fadeInAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.fadeInAnimation);
 
