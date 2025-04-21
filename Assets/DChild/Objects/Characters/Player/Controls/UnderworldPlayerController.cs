@@ -1366,6 +1366,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isExecutingCombatArt)
                 return;
+            if (m_state.isAttacking)
+                return;
             if (m_abilities.IsAbilityActivated(CombatArt.LightningSpear))
             {
                 if (m_state.isGrounded == false && m_lightningSpear.CanLightningSpear())
