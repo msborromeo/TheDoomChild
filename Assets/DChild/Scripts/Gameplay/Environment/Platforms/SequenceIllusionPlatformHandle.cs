@@ -90,6 +90,8 @@ namespace DChild.Gameplay.Environment
         private void Awake()
         {
             m_sequence[0].GetComponentInChildren<PlayerCollisionSensor>().CollisionDetected += BeginGauntlet;
+            m_sequence[0].GetComponentInChildren<PlayerTriggerSensor>().CollisionDetected += BeginGauntlet;
+            m_sequence[0].GetComponentInChildren<PlayerTriggerSensor>().EnableTriggerSensor();
             Reset();
         }
 
