@@ -37,11 +37,18 @@ namespace DChild.Gameplay
         private UnityEvent m_enterEvents;
         [SerializeField, HideIf("m_oneTimeOnly"), TabGroup("Exit")]
         private UnityEvent m_exitEvents;
+        [SerializeField, TabGroup("Delayed Exit")]
+        private UnityEvent m_DelayedExit;
+        [SerializeField, TabGroup("Delayed Exit")]
+        private float m_DelaySeconds = 1;
 
+        [SerializeField]
+        private Collider2D m_collider;
         private bool m_wasTriggered;
         private IGroundednessState m_playerGroundedness;
         private Coroutine m_enterEventRoutine;
         private Coroutine m_exitEventRoutine;
+        private Coroutine m_DelayedExitRoutine;
 
         public ISaveData Save()
         {
@@ -59,6 +66,7 @@ namespace DChild.Gameplay
             {
                 m_playerGroundedness = GameplaySystem.playerManager.player.character.GetComponentInChildren<IGroundednessState>();
             }
+            TryGetComponent(out m_collider);
         }
 
         private IEnumerator ExecuteEnterWhenPlayerIsGrounded()
@@ -90,11 +98,27 @@ namespace DChild.Gameplay
             {
                 m_wasTriggered = true;
             }
+            if (m_DelayedExitRoutine != null)
+            {
+                StopCoroutine(m_DelayedExitRoutine);
+                m_DelayedExitRoutine = null;
+            }
         }
 
         private void TriggerExitEvent()
         {
             m_exitEvents?.Invoke();
+            if(m_DelayedExitRoutine!=null)
+            {
+                return;
+            }
+            m_DelayedExitRoutine = StartCoroutine(DelayedExit());
+        }
+
+        private IEnumerator DelayedExit()
+        {
+            yield return new WaitForSeconds(m_DelaySeconds);
+            m_DelayedExit?.Invoke();
         }
 
         private void Start()
@@ -139,6 +163,13 @@ namespace DChild.Gameplay
             if (m_playerHitboxOnly && collision.tag != "Hitbox")
                 return;
 
+            if(m_collider!=null)
+            {
+                if(m_collider.bounds.Contains(collision.transform.position))
+                {
+                    return;
+                }
+            }
             if (!transform.GetComponentInParent<HiddenAreaCover>())
             {
                 if (!m_oneTimeOnly)

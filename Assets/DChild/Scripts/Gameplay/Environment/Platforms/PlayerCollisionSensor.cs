@@ -28,13 +28,15 @@ namespace DChild.Gameplay.Environment
         }
 
         
-        private void OnCollisionStay2D(Collision2D collision)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
             if (GameplaySystem.playerManager.IsPartOfPlayer(collision.gameObject))
             {
                 CollisionDetected?.Invoke(this, EventActionArgs.Empty);
             }
         }
+
+        
         
         /*
         private void OnCollisionEnter2D(Collision2D collision)
