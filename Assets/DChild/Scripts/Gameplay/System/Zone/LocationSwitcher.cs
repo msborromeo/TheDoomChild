@@ -63,7 +63,6 @@ namespace DChild.Gameplay.Systems
         private IEnumerator DoTransition(Character character, TransitionType type)
         {
             m_handle.DoSceneTransition(character, type);
-
             if (type == TransitionType.Enter)
             {
                 GameplaySystem.playerManager.ReturnPlayerToOrginalScene();
@@ -111,7 +110,6 @@ namespace DChild.Gameplay.Systems
                 yield return new WaitForSeconds(m_handle.transitionDelay);
 
                 m_handle.DoSceneTransition(character, TransitionType.PostExit);
-
                 var damageable = character.GetComponent<IDamageable>();
                 damageable.SetHitboxActive(true);
                 character.GetComponent<Rigidbody2D>().WakeUp();
