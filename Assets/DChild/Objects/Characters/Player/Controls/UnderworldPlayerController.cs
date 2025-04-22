@@ -1366,6 +1366,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isExecutingCombatArt)
                 return;
+            if (m_state.isAttacking)
+                return;
             if (m_abilities.IsAbilityActivated(CombatArt.LightningSpear))
             {
                 if (m_state.isGrounded == false && m_lightningSpear.CanLightningSpear())
@@ -1929,7 +1931,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #endregion
 
         #region Utility
-        private void HandleGroundBehaviour()
+        private void   HandleGroundBehaviour()
         {
             if (m_state.isDashing == false && m_state.canDash == false)
             {
@@ -2056,6 +2058,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                     m_idle?.Cancel();
                     m_movement?.SwitchConfigTo(Movement.Type.MidAir);
+                }
+
+                if(m_currentCombatArt != null)
+                {
+                    m_lightningSpear?.Cancel();
+
+                    m_currentCombatArt = null;
                 }
                 #endregion
             }
