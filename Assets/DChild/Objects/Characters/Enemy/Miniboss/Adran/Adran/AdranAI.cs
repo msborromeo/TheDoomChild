@@ -18,7 +18,6 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 using static AdranAI;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class AdranAI : CombatAIBrain<AdranAI.Info>
 {
