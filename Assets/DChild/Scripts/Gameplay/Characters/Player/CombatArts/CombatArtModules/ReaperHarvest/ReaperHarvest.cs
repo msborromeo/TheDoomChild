@@ -148,6 +148,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             }
             m_animator.SetBool(m_reaperHarvestStateAnimationParameter, false);
             m_state.isExecutingCombatArt = false;
+            m_state.isDoingCombo = false; //set here because slash combo causes is doing combo to be true but combat art execution causes slash not to finish
             base.AttackOver();
         }
 
@@ -167,6 +168,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_animator.SetBool(m_reaperHarvestStateAnimationParameter, false);
             m_reaperHarvestAfterImageFX.Stop();
             m_state.isExecutingCombatArt = false;
+            m_state.isDoingCombo = false; //set here because slash combo causes is doing combo to be true but combat art execution causes slash not to finish
             base.Cancel();
         }
 
