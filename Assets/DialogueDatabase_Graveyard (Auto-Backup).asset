@@ -2085,7 +2085,13 @@ MonoBehaviour:
       - originConversationID: 183
         originDialogueID: 0
         destinationConversationID: 183
-        destinationDialogueID: 2
+        destinationDialogueID: 1
+        isConnector: 0
+        priority: 2
+      - originConversationID: 183
+        originDialogueID: 0
+        destinationConversationID: 183
+        destinationDialogueID: 7
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -2095,11 +2101,11 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 29
-        y: 20
+        x: 27.901093
+        y: 17.8022
         width: 160
         height: 30
-    - id: 2
+    - id: 1
       fields:
       - title: Title
         value: 
@@ -2114,7 +2120,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 1
+        value: -1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -2122,7 +2128,62 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroTalkingExpression] Great! You found a lost soul!'
+        value: Great! You found a lost soul!
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 183
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 183
+        originDialogueID: 1
+        destinationConversationID: 183
+        destinationDialogueID: 2
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 27.901093
+        y: 67.8022
+        width: 160
+        height: 30
+    - id: 2
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: Are you talking about us!? Because I really do feel lost in this labyrinth!
         type: 0
         typeString: 
       - title: Sequence
@@ -2150,8 +2211,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 119
+        x: 27.901093
+        y: 117.8022
         width: 160
         height: 30
     - id: 3
@@ -2165,11 +2226,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 55
+        value: 41
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 41
+        value: 55
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -2177,7 +2238,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Are you talking about us? I feel really lost in this labyrinth!
+        value: "[pic=necroFrustratedExpression] No, no. I'm talking about this literal
+          lost soul over here\u2014 one of many."
         type: 0
         typeString: 
       - title: Sequence
@@ -2205,8 +2267,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 169
+        x: 27.901093
+        y: 167.8022
         width: 160
         height: 30
     - id: 4
@@ -2232,8 +2294,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroFrustratedExpression] No. Lost souls need to find their
-          purpose or enlightenment to materialize!'
+        value: '[pic=necroTalkingExpression] These lost souls need to find their
+          purpose or enlightenment to be able to materialize.'
         type: 0
         typeString: 
       - title: Sequence
@@ -2261,8 +2323,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 219
+        x: 26.802185
+        y: 217.8022
         width: 160
         height: 30
     - id: 5
@@ -2288,7 +2350,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Aha... And how do we do that?
+        value: I see... and how can we help them do that..?
         type: 0
         typeString: 
       - title: Sequence
@@ -2316,8 +2378,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 269
+        x: 27.901093
+        y: 266.7033
         width: 160
         height: 30
     - id: 6
@@ -2343,9 +2405,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroSmirkingExpression] There are different ways to trigger
-          these lost souls! The soul itself will give signs if it is close to its
-          destiny! '
+        value: '[pic=necroSmirkingExpression] Well, there are different ways to be
+          able to trigger these lost souls!'
         type: 0
         typeString: 
       - title: Sequence
@@ -2363,7 +2424,7 @@ MonoBehaviour:
       - originConversationID: 183
         originDialogueID: 6
         destinationConversationID: 183
-        destinationDialogueID: 17
+        destinationDialogueID: 8
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -2373,8 +2434,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 32.631577
-        y: 317.68423
+        x: 27.901093
+        y: 316.7033
         width: 160
         height: 30
     - id: 7
@@ -2388,11 +2449,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 55
+        value: 41
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 41
+        value: 55
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -2400,7 +2461,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: And what kind of soul could be hidden in this?
+        value: '[pic=necroTalkingExpression] Great! You found a lost soul!'
         type: 0
         typeString: 
       - title: Sequence
@@ -2414,13 +2475,7 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 183
-        originDialogueID: 7
-        destinationConversationID: 183
-        destinationDialogueID: 8
-        isConnector: 0
-        priority: 2
+      outgoingLinks: []
       conditionsString: 
       userScript: 
       onExecute:
@@ -2428,8 +2483,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 370.2195
+        x: 27.901093
+        y: 67.8022
         width: 160
         height: 30
     - id: 8
@@ -2455,7 +2510,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroTalkingExpression] We won''t know until we free them!'
+        value: '[pic=necroTalkingExpression] The soul itself will be giving signs
+          if it is close to its own destiny!'
         type: 0
         typeString: 
       - title: Sequence
@@ -2483,8 +2539,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 419
+        x: 27.901093
+        y: 366.7033
         width: 160
         height: 30
     - id: 9
@@ -2498,11 +2554,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 55
+        value: 41
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 41
+        value: 55
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -2510,8 +2566,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Oh! A surprise! Can't wait! I love surprises! Hmmm... Oh... wait...
-          Are these souls always good?
+        value: '[pic=necroIdleExpression] Whether an item, a location, or even another
+          soul that we collected with a connection.'
         type: 0
         typeString: 
       - title: Sequence
@@ -2539,8 +2595,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 469
+        x: 27.901093
+        y: 416.7033
         width: 160
         height: 30
     - id: 10
@@ -2554,11 +2610,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 41
+        value: 55
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 55
+        value: 41
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -2566,8 +2622,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroFrustratedExpression] No. It might happen that we unleash
-          a terrible soul! A soul that will try to devour us!'
+        value: And what kind of soul could be hidden within this?
         type: 0
         typeString: 
       - title: Sequence
@@ -2595,8 +2650,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 519
+        x: 25.548157
+        y: 466.7033
         width: 160
         height: 30
     - id: 11
@@ -2610,11 +2665,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 55
+        value: 41
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 41
+        value: 55
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -2622,7 +2677,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: In that case, I waive this kind of surprise! It's surely a trap!
+        value: '[pic=necroSmirkingExpression] Well, we won''t know until we free
+          them!'
         type: 0
         typeString: 
       - title: Sequence
@@ -2650,8 +2706,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 28.780502
-        y: 567.7805
+        x: 25.548157
+        y: 516.7033
         width: 160
         height: 30
     - id: 12
@@ -2665,11 +2721,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 41
+        value: 55
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 55
+        value: 41
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -2677,8 +2733,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroSmirkingExpression] Not a bad thought! Normally there should
-          be much more souls in here!'
+        value: Ooooh! A surprise! I love surprises!
         type: 0
         typeString: 
       - title: Sequence
@@ -2706,8 +2761,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 620.06384
+        x: 25.548157
+        y: 566.7033
         width: 160
         height: 30
     - id: 13
@@ -2733,7 +2788,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: The boy took them to feed his little rebellion!
+        value: Hmmm... wait... are these the good kind of souls..?
         type: 0
         typeString: 
       - title: Sequence
@@ -2761,8 +2816,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 669
+        x: 25.548157
+        y: 616.7033
         width: 160
         height: 30
     - id: 14
@@ -2788,7 +2843,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroIdleExpression] Probably!'
+        value: "[pic=necroFrustratedExpression] Not guaranteed. It might so happen
+          that we unleash a terrible soul\u2014 so terrible it tries to devour us!"
         type: 0
         typeString: 
       - title: Sequence
@@ -2816,8 +2872,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 719
+        x: 25.548157
+        y: 664.3504
         width: 160
         height: 30
     - id: 15
@@ -2843,7 +2899,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: He is a boy! Why not slap him properly and tell him to stop!
+        value: In that case I waive this kind of surprise! This is surely a trap!
         type: 0
         typeString: 
       - title: Sequence
@@ -2871,8 +2927,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 769
+        x: 24.371674
+        y: 716.7033
         width: 160
         height: 30
     - id: 16
@@ -2898,8 +2954,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroFrustratedExpression] It''s kind of late to raise a child
-          like this! And, I am pretty sure it''s definitely NOT a normal child anyways!'
+        value: '[pic=necroSmirkingExpression] Wise choice! Normally however, there
+          should be much more souls in here.'
         type: 0
         typeString: 
       - title: Sequence
@@ -2913,7 +2969,13 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 183
+        originDialogueID: 16
+        destinationConversationID: 183
+        destinationDialogueID: 17
+        isConnector: 0
+        priority: 2
       conditionsString: 
       userScript: 
       onExecute:
@@ -2921,11 +2983,66 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 819
+        x: 25.548157
+        y: 766.7033
         width: 160
         height: 30
     - id: 17
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: That boy took them to feed to his little rebellion!
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 183
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 183
+        originDialogueID: 17
+        destinationConversationID: 183
+        destinationDialogueID: 18
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 25.548157
+        y: 816.7033
+        width: 160
+        height: 30
+    - id: 18
       fields:
       - title: Title
         value: 
@@ -2948,8 +3065,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroTalkingExpression] It could be a certain item, a certain
-          location, or a soul we collected that is connected to it.'
+        value: '[pic=necroTalkingExpression] That would be likely.'
         type: 0
         typeString: 
       - title: Sequence
@@ -2965,9 +3081,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 183
-        originDialogueID: 17
+        originDialogueID: 18
         destinationConversationID: 183
-        destinationDialogueID: 7
+        destinationDialogueID: 19
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -2977,13 +3093,175 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 240.52625
-        y: 344
+        x: 25.548157
+        y: 866.7033
+        width: 160
+        height: 30
+    - id: 19
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: I mean, he's just a boy!? Why not give him a good ol' slap and tell
+          him to stop?
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 183
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 183
+        originDialogueID: 19
+        destinationConversationID: 183
+        destinationDialogueID: 20
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 25.548157
+        y: 916.7033
+        width: 160
+        height: 30
+    - id: 20
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: '[pic=necroFrustratedExpression] It''s kind of late to be treating
+          somebody here with that kind of discipline!'
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 183
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 183
+        originDialogueID: 20
+        destinationConversationID: 183
+        destinationDialogueID: 21
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 25.548157
+        y: 966.7033
+        width: 160
+        height: 30
+    - id: 21
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: '[pic=necroTalkingExpression] To add to that, I''m pretty sure it''s
+          no ordinary child!'
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 183
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 25.548157
+        y: 1016.7033
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 617.0731}
-    canvasZoom: 0.8200003
+    canvasScrollPosition: {x: 0, y: 20}
+    canvasZoom: 0.85000026
   - id: 184
     fields:
     - title: Title
@@ -3112,8 +3390,62 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: First, I thought this was a cruel place! But see! They're having fun
-          too! They are playing hangman! How nice!
+        value: At first I thought this was a cruel place, but would you look at that!
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 184
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 184
+        originDialogueID: 1
+        destinationConversationID: 184
+        destinationDialogueID: 2
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 69
+        width: 160
+        height: 30
+    - id: 2
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "They're having fun in their own way\u2014 by playing Hangman."
         type: 0
         typeString: 
       - title: Sequence
@@ -3135,8 +3467,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 32
-        y: 67
+        x: 30
+        y: 119
         width: 160
         height: 30
     entryGroups: []
@@ -3270,8 +3602,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroIdleExpression]Do you see this eye? It''s a monster! If
-          you go under the rock, it''ll let it crush you!'
+        value: '[pic=necroTalkingExpression] You see this eye? It''s not anything
+          normal.'
         type: 0
         typeString: 
       - title: Sequence
@@ -3299,8 +3631,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 29
-        y: 69
+        x: 30
+        y: 70
         width: 160
         height: 30
     - id: 2
@@ -3314,11 +3646,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 55
+        value: 41
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 41
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -3326,7 +3658,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: I really like mashed potatoes, but not when I am one of the ingredients!
+        value: '[pic=necroSmirkingExpression] Go under the rock and it''ll crush
+          you with no hesitation.'
         type: 0
         typeString: 
       - title: Sequence
@@ -3354,11 +3687,67 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 29
+        x: 30
         y: 120
         width: 160
         height: 30
     - id: 3
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: '[pic=crazyKnightLaughing] I''m a fan of mashed potatoes but not when
+          I''m one of the ingredients!'
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 185
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 185
+        originDialogueID: 3
+        destinationConversationID: 185
+        destinationDialogueID: 4
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 170
+        width: 160
+        height: 30
+    - id: 4
       fields:
       - title: Title
         value: 
@@ -3381,8 +3770,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroTalkingExpression]Destroy the eye! The rock will then drop
-          and crush the ground below it so we can proceed!'
+        value: '[pic=necroFrustratedExpression] Destroy the eye and the connected
+          rock will drop and crush the ground below it, we need to move.'
         type: 0
         typeString: 
       - title: Sequence
@@ -3404,8 +3793,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 29
-        y: 170
+        x: 30
+        y: 220
         width: 160
         height: 30
     entryGroups: []
@@ -3539,9 +3928,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Can't we solve this peacefully!? Maybe by drinking some wine and telling
-          some good jokes and stories!? I don't have wine here, but I can tell a
-          joke! You might like that! It has something to do with your home!
+        value: Can't we just solve this peacefully!?
         type: 0
         typeString: 
       - title: Sequence
@@ -3596,14 +3983,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '"Doctor, Doctor, is this a rare disease I have?"
-
-          "No,
-          the graveyards are full of them!"
-
-          No reaction! Let me try again!
-
-'
+        value: "Let's talk it out with wine and some good jokes and stories!\u2014
+          I mean, I don't have wine right now, but I can tell a joke or two!"
         type: 0
         typeString: 
       - title: Sequence
@@ -3658,10 +4039,340 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: 'Old Mum to the cemetery caretaker; "Where is row 12, grave no.7?"
-
-          He:
-          "So secretly clamber out of the grave and then can''t find your home!"'
+        value: Give me a chance and hear it out, it's got something to do with your
+          home!
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 186
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 186
+        originDialogueID: 3
+        destinationConversationID: 186
+        destinationDialogueID: 4
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 170
+        width: 160
+        height: 30
+    - id: 4
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: -1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: '"Doc! Is this a rare disease that I have?"'
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 186
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 186
+        originDialogueID: 4
+        destinationConversationID: 186
+        destinationDialogueID: 5
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 220
+        width: 160
+        height: 30
+    - id: 5
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: -1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: '"Well, it isn''t rare if the whole graveyard has it!"'
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 186
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 186
+        originDialogueID: 5
+        destinationConversationID: 186
+        destinationDialogueID: 6
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 270
+        width: 160
+        height: 30
+    - id: 6
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: -1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: No reaction!? How about this one!
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 186
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 186
+        originDialogueID: 6
+        destinationConversationID: 186
+        destinationDialogueID: 7
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 320
+        width: 160
+        height: 30
+    - id: 7
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: -1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: An old mum was talking to the cemetery caretaker, she asked her "Where
+          can I find row 12, grave no.7?"
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 186
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 186
+        originDialogueID: 7
+        destinationConversationID: 186
+        destinationDialogueID: 8
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 370
+        width: 160
+        height: 30
+    - id: 8
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: -1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: The cemetery caretaker replied with "So you've secretly gone out of
+          your grave and can't seem to find your way back?"
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 186
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 186
+        originDialogueID: 8
+        destinationConversationID: 186
+        destinationDialogueID: 9
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 420
+        width: 160
+        height: 30
+    - id: 9
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: -1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "I've got more jokes in stock!\u2014 give us a chance!"
         type: 0
         typeString: 
       - title: Sequence
@@ -3683,13 +4394,13 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 32
-        y: 169
+        x: 30
+        y: 470
         width: 160
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasZoom: 0.85000014
   - id: 189
     fields:
     - title: Title
@@ -3810,7 +4521,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: -1
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -3818,7 +4529,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroFrustratedExpression]The boy vanished.'
+        value: The boy vanished.
         type: 0
         typeString: 
       - title: Sequence
@@ -3873,7 +4584,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=playerThinkingExpression]The mage did teleport them.'
+        value: Looks like the mage teleported them.
         type: 0
         typeString: 
       - title: Sequence
@@ -3928,8 +4639,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroSmirkingExpression]Their trap led us directly to something
-          very desirable!'
+        value: Well, at least their trap led us to something desirable.
         type: 0
         typeString: 
       - title: Sequence
@@ -3972,7 +4682,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 55
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -3984,8 +4694,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: I don't find this so desirable! With this he is throwing skulls! I
-          am offended!
+        value: "Ha! I personally don't find this desirable\u2014"
         type: 0
         typeString: 
       - title: Sequence
@@ -4013,8 +4722,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 31
-        y: 219
+        x: 30
+        y: 220
         width: 160
         height: 30
     - id: 5
@@ -4032,7 +4741,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 55
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -4040,9 +4749,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroFrustratedExpression] Maybe if you hit the wall just enough
-          you might get the needed reset! But more importantly, a new path will be
-          unlocked to us! '
+        value: Your statements' as if you're throwing skulls at me, I'm offended!
         type: 0
         typeString: 
       - title: Sequence
@@ -4070,11 +4777,66 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 31
-        y: 269
+        x: 30
+        y: 270
         width: 160
         height: 30
     - id: 6
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: Well maybe if you hit the wall just enough you'd get the needed reset!
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 189
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 189
+        originDialogueID: 6
+        destinationConversationID: 189
+        destinationDialogueID: 7
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 320
+        width: 160
+        height: 30
+    - id: 7
       fields:
       - title: Title
         value: 
@@ -4089,7 +4851,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 55
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -4097,8 +4859,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[pic=necroSmirkingExpression]With this, we will surely gain access
-          to new areas here!'
+        value: 
         type: 0
         typeString: 
       - title: Sequence
@@ -4120,13 +4881,13 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 31
-        y: 319
+        x: 30
+        y: 370
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasScrollPosition: {x: 16.494843, y: 104.12372}
+    canvasZoom: 0.96999997
   - id: 190
     fields:
     - title: Title

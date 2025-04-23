@@ -103,6 +103,7 @@ namespace DChild.Gameplay.Environment
                     if (m_originalParentPair.ContainsKey(collision.collider) == false)
                     {
                         var movableObject = collision.rigidbody.GetComponent<MovableObject>();
+                        var celestialCube = collision.rigidbody.GetComponent<CelestialCube>();
                         if (movableObject == null)
                         {
                             AttackRigidbodyToSelf(collision.rigidbody, collision.collider);
@@ -115,10 +116,12 @@ namespace DChild.Gameplay.Environment
                                 {
                                     StopCoroutine(m_checkMovableObjectRoutine);
                                 }
+                                celestialCube.parentPlatform = gameObject.transform;
                                 m_checkMovableObjectRoutine = StartCoroutine(AttackRigidbodyToSelfRoutine(movableObject, collision.rigidbody, collision.collider));
                             }
                             else
                             {
+                                celestialCube.parentPlatform = gameObject.transform;
                                 AttackRigidbodyToSelf(collision.rigidbody, collision.collider);
                             }
 
@@ -126,6 +129,7 @@ namespace DChild.Gameplay.Environment
                             {
                                 m_movableObjectsToMonitor.Add(movableObject);
                                 m_movableObjectToColliderPair.Add(movableObject, collision.collider);
+                                celestialCube.parentPlatform = gameObject.transform;
                                 if (m_monitorMovableObjectsRoutine == null)
                                 {
                                     m_monitorMovableObjectsRoutine = StartCoroutine(MonitorMovableObjects());
@@ -139,6 +143,7 @@ namespace DChild.Gameplay.Environment
 
         private void OnCollisionExit2D(Collision2D collision)
         {
+            var celestialCube = collision.rigidbody.GetComponent<CelestialCube>();
             if (m_originalParentPair.ContainsKey(collision.collider))
             {
                 if (collision.rigidbody != null)
@@ -153,6 +158,7 @@ namespace DChild.Gameplay.Environment
                             var movableObject = m_checkedMovableObject.GetComponent<MovableObject>();
                             m_movableObjectsToMonitor.Remove(movableObject);
                             m_movableObjectToColliderPair.Remove(movableObject);
+                            celestialCube.parentPlatform = null;
 
                             m_checkedMovableObject = null;
                         }

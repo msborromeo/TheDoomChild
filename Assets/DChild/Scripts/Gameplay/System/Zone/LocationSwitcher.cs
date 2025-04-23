@@ -5,6 +5,7 @@ using DChild.Gameplay.Environment.Interractables;
 using DChild.Gameplay.Systems.Serialization;
 using DChild.Menu;
 using Holysoft.Event;
+using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using System;
@@ -63,7 +64,6 @@ namespace DChild.Gameplay.Systems
         private IEnumerator DoTransition(Character character, TransitionType type)
         {
             m_handle.DoSceneTransition(character, type);
-
             if (type == TransitionType.Enter)
             {
                 GameplaySystem.playerManager.ReturnPlayerToOrginalScene();
@@ -101,6 +101,7 @@ namespace DChild.Gameplay.Systems
                         break;
                 }
                 GameplaySystem.ClearCaches();
+                DialogueManager.SetDialogueSystemInput(false);
 
             }
             else if (type == TransitionType.Exit)
@@ -111,10 +112,10 @@ namespace DChild.Gameplay.Systems
                 yield return new WaitForSeconds(m_handle.transitionDelay);
 
                 m_handle.DoSceneTransition(character, TransitionType.PostExit);
-
                 var damageable = character.GetComponent<IDamageable>();
                 damageable.SetHitboxActive(true);
                 character.GetComponent<Rigidbody2D>().WakeUp();
+                DialogueManager.SetDialogueSystemInput(true);
             }
         }
 
