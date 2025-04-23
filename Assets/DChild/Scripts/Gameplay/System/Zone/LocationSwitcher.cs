@@ -5,6 +5,7 @@ using DChild.Gameplay.Environment.Interractables;
 using DChild.Gameplay.Systems.Serialization;
 using DChild.Menu;
 using Holysoft.Event;
+using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using System;
@@ -100,6 +101,7 @@ namespace DChild.Gameplay.Systems
                         break;
                 }
                 GameplaySystem.ClearCaches();
+                DialogueManager.SetDialogueSystemInput(false);
 
             }
             else if (type == TransitionType.Exit)
@@ -113,6 +115,7 @@ namespace DChild.Gameplay.Systems
                 var damageable = character.GetComponent<IDamageable>();
                 damageable.SetHitboxActive(true);
                 character.GetComponent<Rigidbody2D>().WakeUp();
+                DialogueManager.SetDialogueSystemInput(true);
             }
         }
 
