@@ -8,6 +8,7 @@ namespace DChild.Gameplay.Environment
     public class ElevatorCubeSensor : MonoBehaviour
     {
         public RaySensor m_sensor;
+        [SerializeField]
         private bool m_cubefound = false;
         private bool m_isdetecting = false;
         [SerializeField]
