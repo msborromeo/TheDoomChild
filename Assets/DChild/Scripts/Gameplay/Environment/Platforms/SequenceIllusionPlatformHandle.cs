@@ -6,14 +6,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using DChild.Gameplay.Characters.Players.Modules;
 
 namespace DChild.Gameplay.Environment
 {
     public class SequenceIllusionPlatformHandle : MonoBehaviour
     {
+
         [SerializeField]
         private IllusionPlatform[] m_sequence;
-        
+
+        private bool m_GauntletInProcess;
+        /*
         private PlayerCollisionSensor[] m_collisionSensorList;
         private PlayerCollisionSensor m_subscribeCollisionSensor;
         [SerializeField]
@@ -78,6 +82,66 @@ namespace DChild.Gameplay.Environment
                 m_collisionSensorList[i] = m_sequence[i]?.GetComponentInChildren<PlayerCollisionSensor>() ?? null;
             }
             Reset();
+        }
+        */
+
+        private int m_currentSequenceIndex;
+
+        private void Awake()
+        {
+            m_sequence[0].GetComponentInChildren<PlayerCollisionSensor>().CollisionDetected += BeginGauntlet;
+            m_sequence[0].GetComponentInChildren<PlayerTriggerSensor>().CollisionDetected += BeginGauntlet;
+            m_sequence[0].GetComponentInChildren<PlayerTriggerSensor>().EnableTriggerSensor();
+            Reset();
+        }
+
+        private void OnPlayerJumpExecution(object sender, EventActionArgs eventArgs)
+        {
+            var newIndex = (int)Mathf.Repeat(m_currentSequenceIndex + 1, m_sequence.Length);
+            RevealPlatformsAtConfiguration(newIndex);
+            m_currentSequenceIndex = newIndex;
+        }
+
+        private void RevealPlatformsAtConfiguration(int index)
+        {
+            m_sequence[m_currentSequenceIndex]?.Disappear(false);
+            m_sequence[index]?.Appear(false);
+        }
+
+        private void Reset()
+        {
+            m_currentSequenceIndex = 0;
+            m_sequence[0].Appear(true);
+            for (int i = 1; i < m_sequence.Length; i++)
+            {
+                m_sequence[i]?.Disappear(true);
+            }
+            EndGauntlet();
+        }
+
+        public void BeginGauntlet(object sender, EventActionArgs eventArgs)
+        {
+            if(m_GauntletInProcess)
+            {
+                return;
+            }
+            var character = GameplaySystem.playerManager.player.character;
+            character.GetComponentInChildren<WallJump>().ExecuteModule += OnPlayerJumpExecution;
+            character.GetComponentInChildren<GroundJump>().ExecuteModule += OnPlayerJumpExecution;
+            m_GauntletInProcess = true;
+        }
+
+        private void OnDestroy()
+        {
+            EndGauntlet();
+        }
+
+        private void EndGauntlet()
+        {
+            var character = GameplaySystem.playerManager.player.character;
+            character.GetComponentInChildren<WallJump>().ExecuteModule -= OnPlayerJumpExecution;
+            character.GetComponentInChildren<GroundJump>().ExecuteModule -= OnPlayerJumpExecution;
+            m_GauntletInProcess = false;
         }
     }
 }
