@@ -108,7 +108,7 @@ namespace DChild.Gameplay.Environment
             m_sequence[index]?.Appear(false);
         }
 
-        private void Reset()
+        public void Reset()
         {
             m_currentSequenceIndex = 0;
             m_sequence[0].Appear(true);
