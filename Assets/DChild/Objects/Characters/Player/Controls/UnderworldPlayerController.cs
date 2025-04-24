@@ -11,6 +11,7 @@ using DChild.Gameplay.Systems;
 using DChild.Menu;
 using DChild.Gameplay.Characters.Players.State;
 using System.Runtime.Remoting.Messaging;
+using UnityEngine.SceneManagement;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -193,6 +194,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_projectileThrow.ExecutionRequested += OnProjectileThrowRequest;
             m_projectileThrow.ProjectileThrown += ResetProjectile;
             m_teleportingSkull.Teleported += HasTeleported;
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent += OnVector2PerformedInput;
@@ -268,6 +270,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_projectileThrow.ExecutionRequested -= OnProjectileThrowRequest;
             m_projectileThrow.ProjectileThrown -= ResetProjectile;
             m_teleportingSkull.Teleported -= HasTeleported;
+            SceneManager.activeSceneChanged -= OnActiveSceneChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent -= OnVector2PerformedInput;
@@ -2300,6 +2303,46 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
             m_inputReader.SetInputModeToUI();
             ControllerDisabled?.Invoke(this, EventActionArgs.Empty);
+        }
+
+
+        private void OnActiveSceneChanged(Scene arg0, Scene arg1)
+        {
+            m_movement?.Cancel();
+            m_crouch?.Cancel();
+            m_dash?.Cancel();
+            m_slide?.Cancel();
+            m_activeDash?.Cancel();
+            m_activeSlide?.Cancel();
+            m_wallStick?.Cancel();
+            m_devilWings?.Cancel();
+            m_shadowDash?.Cancel();
+            m_basicSlashes?.Cancel();
+            m_slashCombo?.Cancel();
+            m_swordThrust?.Cancel();
+            m_earthShaker?.Cancel();
+            m_whip?.Cancel();
+            m_whipCombo?.Cancel();
+            m_projectileThrow?.Cancel();
+            m_shadowMorph.Cancel();
+            m_block?.Cancel();
+            m_shadowGaugeRegen.Enable(true);
+            m_reaperHarvest?.Cancel();
+            m_krakenRage?.Cancel();
+            m_sovereignImpale?.Cancel();
+            m_hellTrident?.Cancel();
+            m_foolsVerdict?.Cancel();
+            m_soulFireBlast?.Cancel();
+            m_edgedFury?.Cancel();
+            m_backDiver?.Cancel();
+            m_barrier?.Cancel();
+            m_diagonalSwordDash?.Cancel();
+            m_championsUprising?.Cancel();
+            m_lightningSpear?.Cancel();
+            m_icarusWings?.Cancel();
+            m_airSlashRange?.Cancel();
+            m_teleportingSkull?.Cancel();
+
         }
         #endregion
 
