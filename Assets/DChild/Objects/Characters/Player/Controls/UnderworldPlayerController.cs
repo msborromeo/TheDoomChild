@@ -1636,20 +1636,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //    return;
 
             if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
-            {
-                return;
-            }
-
-            if(m_vector2Input.x != 0)
-                return;
-            if(m_state.isChargingAttack)
                 return;
 
-            m_basicSlashes.Cancel();
             if (m_state.isHighJumping)
-            {
                 m_groundJump.Cancel();
-            }
+
             m_state.isExecutingCombatArt = true;
             //m_extraJump.Cancel();
         }
@@ -1665,12 +1656,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isChargingAttack)
                 return;
-            if (m_vector2Input.x != 0)
+              if (m_vector2Input.x != 0)
                 return;
             if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
-            {
                 return;
-            }
+
+            m_basicSlashes.Cancel();
 
             PrepareForGroundAttack();
             m_currentCombatArt = m_icarusWings;
