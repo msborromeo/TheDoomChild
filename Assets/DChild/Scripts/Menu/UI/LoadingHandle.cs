@@ -284,7 +284,7 @@ namespace DChild.Menu
             }
 
             bool allScenesDoneLoading = false;
-            while (allScenesDoneLoading)
+            while (allScenesDoneLoading == false)
             {
                 allScenesDoneLoading = true;
                 for (int i = 0; i < m_loadOperations.Count; i++)
@@ -369,6 +369,7 @@ namespace DChild.Menu
             {
                 GameSystem.sceneManager.UnloadSceneAsync(m_loadingScene.sceneName);
                 m_unloadThis = false;
+                enabled = false;
             }
             GameplaySystem.SetInputActive(false);
         }
