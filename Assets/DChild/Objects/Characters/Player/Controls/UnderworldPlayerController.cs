@@ -849,6 +849,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isAimingProjectile)
                 return;
+            if (m_state.isDashing)
+                return;
 
             if (m_state.isExecutingCombatArt)
             {
