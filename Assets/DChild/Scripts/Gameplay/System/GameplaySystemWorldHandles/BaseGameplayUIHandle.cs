@@ -28,6 +28,10 @@ namespace DChild.Gameplay.Systems
         private SignalSender m_confirmationWindowSignal;
         [SerializeField, FoldoutGroup("Signals")]
         private SignalSender m_cinematicBarsSignal;
+        [SerializeField, FoldoutGroup("Signals/Game Pause")]
+        private SignalSender m_gamePauseSignal;
+        [SerializeField, FoldoutGroup("Signals/Game Pause")]
+        private GameObject m_gamePause;
 
 
         [SerializeField]
@@ -47,7 +51,7 @@ namespace DChild.Gameplay.Systems
         private CinematicVideoHandle m_cinematicVideoHandle;
         [SerializeField]
         private UIView m_cinematicBars;
-        
+
 
         public UIAlertManager uiAlertManager => m_uiAlertManager;
 
@@ -91,6 +95,15 @@ namespace DChild.Gameplay.Systems
         public void ShowGameOverScreen()
         {
             m_gameOverSignal.SendSignal();
+        }
+
+        public void TogglePause(bool toggle)
+        {
+            m_gamePause.SetActive(toggle);
+            if (toggle)
+            {
+                m_gamePauseSignal.SendSignal();
+            }
         }
 
 
