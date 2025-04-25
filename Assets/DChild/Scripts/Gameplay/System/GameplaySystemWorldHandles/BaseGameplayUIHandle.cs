@@ -26,7 +26,10 @@ namespace DChild.Gameplay.Systems
         private SignalSender m_gameOverSignal;
         [SerializeField, FoldoutGroup("Signals")]
         private SignalSender m_confirmationWindowSignal;
-
+        [SerializeField, FoldoutGroup("Signals/Game Pause")]
+        private SignalSender m_togglePauseSignal;
+        [SerializeField, FoldoutGroup("Signals/Game Pause")]
+        private GameObject m_gamePause;
 
         [SerializeField]
         private ConfirmationHandler m_confirmationWindow;
@@ -87,6 +90,14 @@ namespace DChild.Gameplay.Systems
             m_gameOverSignal.SendSignal();
         }
 
+        public void TogglePause(bool toggle)
+        {
+            m_gamePause.SetActive(toggle);
+            if (toggle)
+            {
+                m_togglePauseSignal.SendSignal();
+            }
+        }
 
         public void ShowSequenceSkip(bool willShow)
         {

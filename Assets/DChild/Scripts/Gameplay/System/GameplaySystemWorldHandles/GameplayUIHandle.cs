@@ -63,11 +63,11 @@ namespace DChild.Gameplay.Systems
 
         public void OpenStore()
         {
-            if(GameSystem.CurrentGameMode == GameMode.Underworld)
+            if (GameSystem.CurrentGameMode == GameMode.Underworld)
             {
                 UnderworldGameplayUIHandle.Instance.OpenStore();
             }
-            else if(GameSystem.CurrentGameMode == GameMode.Overworld)
+            else if (GameSystem.CurrentGameMode == GameMode.Overworld)
             {
                 OverworldGameplayUIHandle.Instance.OpenStore();
             }
@@ -83,7 +83,7 @@ namespace DChild.Gameplay.Systems
             {
                 OverworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage);
             }
-            
+
         }
 
         public void OpenTradeWindow(NPCProfile merchantData, ITradeInventory merchantInventory, TradeAskingPrice merchantBuyingPriceRate, CurrencyType type)
@@ -191,9 +191,14 @@ namespace DChild.Gameplay.Systems
             BaseGameplayUIHandle.Instance.ToggleFadeUI(willshow);
         }
 
+        public void TogglePause(bool toggle)
+        {
+            BaseGameplayUIHandle.Instance.TogglePause(toggle);
+        }
+
         public void UpdateNavMapConfiguration(Location location, int sceneIndex, Transform inGameReference, Vector2 mapReferencePoint, Vector2 calculationOffset)
         {
-            if(location == Location.Overworld)
+            if (location == Location.Overworld)
             {
                 OverworldGameplayUIHandle.Instance.UpdateNavMapConfiguration(location, sceneIndex, inGameReference, mapReferencePoint, calculationOffset);
             }
@@ -207,5 +212,6 @@ namespace DChild.Gameplay.Systems
         {
             return UnderworldGameplayUIHandle.Instance.getReference();
         }
+
     }
 }
