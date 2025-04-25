@@ -2130,11 +2130,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                     else if (m_state.isDashing)
                     {
-                        m_dash.Cancel();
+                        m_activeDash?.Cancel();
                     }
                     else if (m_state.isSliding)
                     {
-                        m_slide.Cancel();
+                        m_activeSlide?.Cancel();
                     }
                     else if (m_state.isGrabbing)
                     {
