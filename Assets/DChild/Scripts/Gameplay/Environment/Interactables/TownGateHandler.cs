@@ -50,7 +50,14 @@ namespace DChild.Gameplay.Environment.Interractables
 
         private void Start()
         {
-            IdlePortal();
+            if (IsCurrentActiveState())
+            {
+                NearPortal();
+            }
+            else
+            {
+                IdlePortal();
+            }
         }
 
         private bool IsCurrentActiveState() => DialogueLua.GetVariable(m_serializationReference).asBool;
@@ -87,6 +94,7 @@ namespace DChild.Gameplay.Environment.Interractables
                 InteractionOptionChange?.Invoke(this, EventActionArgs.Empty);
             }
             GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location);
+            NearPortal();
 
         }
 
@@ -96,7 +104,7 @@ namespace DChild.Gameplay.Environment.Interractables
             Gizmos.DrawSphere(promptPosition, 1f);
         }
 
-        
+
     }
 
 }

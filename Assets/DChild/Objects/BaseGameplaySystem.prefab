@@ -800,7 +800,6 @@ Transform:
   - {fileID: 1906314717}
   - {fileID: 1131147809}
   - {fileID: 31342839375653837}
-  - {fileID: 8335578175985326773}
   m_Father: {fileID: 6478014794679475506}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -820,8 +819,7 @@ MonoBehaviour:
   m_fastTravelSignal: {fileID: 7316053785741085971}
   m_gameOverSignal: {fileID: 1131147808}
   m_confirmationWindowSignal: {fileID: 1906314718}
-  m_togglePauseSignal: {fileID: 1057369871038951446}
-  m_gamePause: {fileID: 1906412781797905480}
+  m_cinematicBarsSignal: {fileID: 3245858311185027369}
   m_confirmationWindow: {fileID: 0}
   m_uiAlertManager: {fileID: 6828250404446119209}
   m_skippableUI: {fileID: 0}
@@ -1043,19 +1041,7 @@ MonoBehaviour:
       Entry: 5
       Data: true
     - Name: m_sceneToLoad
-      Entry: 7
-      Data: 1|Holysoft.Collections.SceneInfo, HolysoftEditor
-    - Name: m_sceneName
       Entry: 6
-      Data: 
-    - Name: m_scenePath
-      Entry: 6
-      Data: 
-    - Name: m_isAddressables
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
       Data: 
     - Name: m_location
       Entry: 3
@@ -1080,16 +1066,16 @@ MonoBehaviour:
       Data: 0
     - Name: m_characterData
       Entry: 7
-      Data: 2|DChild.Serialization.PlayerCharacterData, Assembly-CSharp
+      Data: 1|DChild.Serialization.PlayerCharacterData, Assembly-CSharp
     - Name: m_inventoryData
       Entry: 7
-      Data: 3|DChild.Gameplay.Inventories.TradableInventorySerialization, Assembly-CSharp
+      Data: 2|DChild.Gameplay.Inventories.TradableInventorySerialization, Assembly-CSharp
     - Name: m_soulEssence
       Entry: 3
       Data: 0
     - Name: m_serializedItems
       Entry: 7
-      Data: 4|DChild.Gameplay.Inventories.TradableInventorySerialization+ItemSerialization[],
+      Data: 3|DChild.Gameplay.Inventories.TradableInventorySerialization+ItemSerialization[],
         Assembly-CSharp
     - Name: 
       Entry: 12
@@ -1105,10 +1091,10 @@ MonoBehaviour:
       Data: 
     - Name: m_codexData
       Entry: 7
-      Data: 5|DChild.Menu.Codex.CodexSaveData, Assembly-CSharp
+      Data: 4|DChild.Menu.Codex.CodexSaveData, Assembly-CSharp
     - Name: m_codexDatas
       Entry: 7
-      Data: 6|DChild.Serialization.AcquisitionData[], Assembly-CSharp
+      Data: 5|DChild.Serialization.AcquisitionData[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 6
@@ -1153,13 +1139,13 @@ MonoBehaviour:
       Data: 
     - Name: m_soulSkillData
       Entry: 7
-      Data: 7|DChild.Gameplay.SoulSkills.PlayerSoulSkillData, Assembly-CSharp
+      Data: 6|DChild.Gameplay.SoulSkills.PlayerSoulSkillData, Assembly-CSharp
     - Name: m_currentSoulCapacity
       Entry: 3
       Data: 1
     - Name: m_acquiredSoulSkills
       Entry: 7
-      Data: 8|System.Int32[], mscorlib
+      Data: 7|System.Int32[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -1171,7 +1157,7 @@ MonoBehaviour:
       Data: 
     - Name: m_activatedSoulSkills
       Entry: 7
-      Data: 9|System.Int32[], mscorlib
+      Data: 8|System.Int32[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -1186,7 +1172,7 @@ MonoBehaviour:
       Data: 
     - Name: m_combatArtsData
       Entry: 7
-      Data: 10|DChild.Gameplay.Characters.Players.CombatArtsSaveData, Assembly-CSharp
+      Data: 9|DChild.Gameplay.Characters.Players.CombatArtsSaveData, Assembly-CSharp
     - Name: m_level
       Entry: 7
       Data: DChild.Gameplay.Characters.Player.CombatArt.Leveling.CombatArtLevel+SaveData,
@@ -1199,7 +1185,7 @@ MonoBehaviour:
       Data: 0
     - Name: m_artLevels
       Entry: 7
-      Data: 11|System.Int32[], mscorlib
+      Data: 10|System.Int32[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -1226,14 +1212,14 @@ MonoBehaviour:
       Data: 
     - Name: m_campaignProgress
       Entry: 7
-      Data: 12|DChild.Serialization.SerializeDataList, Assembly-CSharp
+      Data: 11|DChild.Serialization.SerializeDataList, Assembly-CSharp
     - Name: m_saveDatas
       Entry: 7
-      Data: 13|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
+      Data: 12|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
         Assembly-CSharp],[DChild.Serialization.ISaveData, Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 14|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
+      Data: 13|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -1250,33 +1236,18 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: m_armyCharacterSaveData
-      Entry: 7
-      Data: 15|DChild.Gameplay.ArmyBattle.ArmyCharactersSaveData, Assembly-CSharp
-    - Name: m_recruitedCharacterIds
-      Entry: 7
-      Data: 16|System.Int32[], mscorlib
-    - Name: 
-      Entry: 14
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
     - Name: m_zoneDatas
       Entry: 7
-      Data: 17|DChild.Serialization.SerializeDataList, Assembly-CSharp
+      Data: 14|DChild.Serialization.SerializeDataList, Assembly-CSharp
     - Name: m_saveDatas
       Entry: 7
-      Data: 18|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
+      Data: 15|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
         Assembly-CSharp],[DChild.Serialization.ISaveData, Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 19|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
+      Data: 16|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -1293,48 +1264,21 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: m_uiAlertSaveData
-      Entry: 7
-      Data: 20|DChild.Gameplay.UI.Alerts.UIAlertManager+SaveData, Assembly-CSharp
-    - Name: primarySkillAlerts
-      Entry: 3
-      Data: 0
-    - Name: inventoryRecordedItems
       Entry: 6
-      Data: 
-    - Name: inventoryAlerts
-      Entry: 6
-      Data: 
-    - Name: soulSkillAlerts
-      Entry: 6
-      Data: 
-    - Name: bestiaryAlerts
-      Entry: 6
-      Data: 
-    - Name: charactersAlerts
-      Entry: 6
-      Data: 
-    - Name: questsRecordedAlerts
-      Entry: 6
-      Data: 
-    - Name: questsAlerts
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
       Data: 
     - Name: m_importable
       Entry: 6
       Data: 
     - Name: m_miscDatas
       Entry: 7
-      Data: 21|DChild.Serialization.SerializeDataList, Assembly-CSharp
+      Data: 17|DChild.Serialization.SerializeDataList, Assembly-CSharp
     - Name: m_saveDatas
       Entry: 7
-      Data: 22|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
+      Data: 18|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
         Assembly-CSharp],[DChild.Serialization.ISaveData, Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 23|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
+      Data: 19|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -1392,6 +1336,7 @@ Transform:
   - {fileID: 200565599125277529}
   - {fileID: 1604965127886781910}
   - {fileID: 2820612938750950463}
+  - {fileID: 7873775956793223379}
   m_Father: {fileID: 6478014794679475506}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1478,7 +1423,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &8638191162601613022
+--- !u!1 &8555509944426212268
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1486,37 +1431,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8335578175985326773}
-  - component: {fileID: 1057369871038951446}
+  - component: {fileID: 7873775956793223379}
+  - component: {fileID: 3245858311185027369}
   m_Layer: 0
-  m_Name: TogglePauseSignal
+  m_Name: CinematicBarsSignal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8335578175985326773
+--- !u!4 &7873775956793223379
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8638191162601613022}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 8555509944426212268}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7169248552564290885}
-  m_RootOrder: 4
+  m_Father: {fileID: 8700814139049096025}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1057369871038951446
+--- !u!114 &3245858311185027369
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8638191162601613022}
+  m_GameObject: {fileID: 8555509944426212268}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78f003aa0ad0a4c469338c205df004d3, type: 3}
@@ -1524,10 +1469,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Payload:
     StreamId:
-      Category: Gameplay
-      Name: TogglePause
+      Category: Cinematic
+      Name: Bars
       Custom: 0
-    SignalValueType: 0
+    SignalValueType: 2
     IntegerValue: 0
     BooleanValue: 0
     FloatValue: 0
