@@ -458,6 +458,20 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: CustomFieldType_Text
+  - id: 252
+    fields:
+    - title: Name
+      value: PlayerTalkedtoUndeadGeneral
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
   conversations:
   - id: 176
     fields:
@@ -4300,7 +4314,7 @@ MonoBehaviour:
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1.0000001
+    canvasZoom: 0.9400002
   - id: 204
     fields:
     - title: Title
@@ -6766,7 +6780,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: Variable["PlayerTalkedtoUndeadGeneral"] = true;
       onExecute:
         m_PersistentCalls:
           m_Calls: []
