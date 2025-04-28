@@ -849,6 +849,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isAimingProjectile)
                 return;
+            if (m_state.isDashing)
+                return;
 
             if (m_state.isExecutingCombatArt)
             {
@@ -1610,6 +1612,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isExecutingCombatArt)
                 return;
+            if (m_state.isHighJumping) //sometimes you're still grounded while jumping [fast fingers]
+                return;
             if (m_abilities.IsAbilityActivated(CombatArt.ReaperHarvest))
             {
                 m_state.waitForBehaviour = true;
@@ -1634,32 +1638,32 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //    return;
 
             if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
-            {
                 return;
-            }
 
-            m_basicSlashes.Cancel();
             if (m_state.isHighJumping)
-            {
                 m_groundJump.Cancel();
-            }
+
+            m_state.isExecutingCombatArt = true;
             //m_extraJump.Cancel();
         }
 
         private void OnIcarusWingsCancelledInput()
         {
-           
+            m_state.isExecutingCombatArt = false;
         }
 
         private void OnIcarusWingsPerformedInput()
         {
             if (m_state.isGrounded == false)
                 return;
-
-            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
-            {
+            if (m_state.isChargingAttack)
                 return;
-            }
+              if (m_vector2Input.x != 0)
+                return;
+            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
+                return;
+
+            m_basicSlashes.Cancel();
 
             PrepareForGroundAttack();
             m_currentCombatArt = m_icarusWings;
