@@ -107,5 +107,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_groundSensor.Cast();
             return m_groundSensor.allRaysDetecting;
         }
+
+        public void Clear()
+        {
+            Cancel();
+        }
     }
 }
