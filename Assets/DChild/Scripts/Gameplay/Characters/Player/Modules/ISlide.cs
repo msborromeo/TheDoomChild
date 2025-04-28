@@ -13,5 +13,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         void Execute();
         void ContinueSlide();
+        void Clear();
     }
 }
