@@ -39,6 +39,8 @@ namespace DChild.Gameplay.Systems
         public void Interact(Character character)
         {
             GameplaySystem.gamplayUIHandle.TogglePause(false);
+            if (GameSystem.gamePaused == true)
+                return;
 
             if (m_handle.isDebugSwitchHandle)
             {
@@ -110,6 +112,7 @@ namespace DChild.Gameplay.Systems
             {
                 //character.transform.position = m_poster.data.position;
                 GameplaySystem.gamplayUIHandle.TogglePause(true);
+                GameSystem.SetGamePause(false);
                 LoadingHandle.LoadingDone += OnLoadingDone;
 
                 yield return new WaitForSeconds(m_handle.transitionDelay);
@@ -154,6 +157,9 @@ namespace DChild.Gameplay.Systems
         {
             if (m_handle.needsButtonInteraction == false)
             {
+                if (GameSystem.gamePaused != true)
+                    return;
+
                 if (collision.TryGetComponent(out Hitbox hitbox))
                 {
                     GameplaySystem.gamplayUIHandle.TogglePause(false);

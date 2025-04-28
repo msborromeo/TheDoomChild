@@ -11,11 +11,13 @@ namespace DChild.Menu
 
         public void PauseGame()
         {
+            GameSystem.SetGamePause(true);
             GameplaySystem.PauseGame();
         }
 
         public void ResumeGame()
         {
+            GameSystem.SetGamePause(false);
             GameplaySystem.ResumeGame();
         }
 
