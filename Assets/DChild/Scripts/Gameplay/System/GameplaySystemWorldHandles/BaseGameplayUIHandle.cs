@@ -26,6 +26,8 @@ namespace DChild.Gameplay.Systems
         private SignalSender m_gameOverSignal;
         [SerializeField, FoldoutGroup("Signals")]
         private SignalSender m_confirmationWindowSignal;
+        [SerializeField, FoldoutGroup("Signals")]
+        private SignalSender m_cinematicBarsSignal;
 
 
         [SerializeField]
@@ -45,6 +47,7 @@ namespace DChild.Gameplay.Systems
         private CinematicVideoHandle m_cinematicVideoHandle;
         [SerializeField]
         private UIView m_cinematicBars;
+        
 
         public UIAlertManager uiAlertManager => m_uiAlertManager;
 
@@ -60,9 +63,12 @@ namespace DChild.Gameplay.Systems
 
         public void ToggleCinematicBars(bool value)
         {
+            m_cinematicBarsSignal.Payload.booleanValue = value;
+            m_cinematicBarsSignal.SendSignal();
             if (value)
             {
                 m_cinematicBars.Show();
+
             }
             else
             {
