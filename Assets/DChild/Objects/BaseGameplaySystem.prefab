@@ -819,6 +819,7 @@ MonoBehaviour:
   m_fastTravelSignal: {fileID: 7316053785741085971}
   m_gameOverSignal: {fileID: 1131147808}
   m_confirmationWindowSignal: {fileID: 1906314718}
+  m_cinematicBarsSignal: {fileID: 3245858311185027369}
   m_confirmationWindow: {fileID: 0}
   m_uiAlertManager: {fileID: 6828250404446119209}
   m_skippableUI: {fileID: 0}
@@ -838,6 +839,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356899ebe2933f740b98bcbcaa66e863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_primarySkillAlerts:
+    m_value: 0
+  m_soulSkillAlerts:
+    m_alerts: 
   m_bestiaryAlerts:
     m_alerts: 
   m_charactersAlerts:
@@ -1331,6 +1336,7 @@ Transform:
   - {fileID: 200565599125277529}
   - {fileID: 1604965127886781910}
   - {fileID: 2820612938750950463}
+  - {fileID: 7873775956793223379}
   m_Father: {fileID: 6478014794679475506}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1417,6 +1423,68 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &8555509944426212268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7873775956793223379}
+  - component: {fileID: 3245858311185027369}
+  m_Layer: 0
+  m_Name: CinematicBarsSignal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7873775956793223379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8555509944426212268}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8700814139049096025}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3245858311185027369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8555509944426212268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f003aa0ad0a4c469338c205df004d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Payload:
+    StreamId:
+      Category: Cinematic
+      Name: Bars
+      Custom: 0
+    SignalValueType: 2
+    IntegerValue: 0
+    BooleanValue: 0
+    FloatValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  SendOnStart: 0
+  SendOnEnable: 0
+  SendOnDisable: 0
+  SendOnDestroy: 0
 --- !u!1 &8668686674052265008
 GameObject:
   m_ObjectHideFlags: 0
