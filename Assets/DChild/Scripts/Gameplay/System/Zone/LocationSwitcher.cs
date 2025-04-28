@@ -39,8 +39,8 @@ namespace DChild.Gameplay.Systems
         public void Interact(Character character)
         {
             GameplaySystem.gamplayUIHandle.TogglePause(false);
-            if (GameSystem.gamePaused == true)
-                return;
+            //if (GameSystem.gamePaused == true)
+            //    return;
 
             if (m_handle.isDebugSwitchHandle)
             {
