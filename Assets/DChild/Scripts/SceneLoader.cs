@@ -81,6 +81,7 @@ namespace DChild
 
         public void LoadMainMenu()
         {
+            GameSystem.SetGamePause(true);
             if (m_activeZone != null)
             {
                 LoadingHandle.UnloadScenes(m_activeZone);
