@@ -91,7 +91,11 @@ namespace DChild.Gameplay.Environment
         {
             m_sequence[0].GetComponentInChildren<PlayerCollisionSensor>().CollisionDetected += BeginGauntlet;
             m_sequence[0].GetComponentInChildren<PlayerTriggerSensor>().CollisionDetected += BeginGauntlet;
-            m_sequence[0].GetComponentInChildren<PlayerTriggerSensor>().EnableTriggerSensor();
+            for(int i = 0; i < m_sequence.Length; i++)
+            {
+                m_sequence[i].GetComponentInChildren<PlayerTriggerSensor>().EnableTriggerSensor();
+                m_sequence[i].GetComponentInChildren<PlayerTriggerSensor>().CollisionDetected +=RevealNextPlatform;
+            }
             Reset();
         }
 
@@ -105,7 +109,19 @@ namespace DChild.Gameplay.Environment
         private void RevealPlatformsAtConfiguration(int index)
         {
             m_sequence[m_currentSequenceIndex]?.Disappear(false);
-            m_sequence[index]?.Appear(false);
+            //m_sequence[index]?.Appear(false);
+        }
+
+        private void RevealNextPlatform(object sender, EventActionArgs eventArgs)
+        {
+            if(!m_GauntletInProcess)
+            {
+                return;
+            }
+            if (m_sequence.Length > (m_currentSequenceIndex + 1))
+            {
+                m_sequence[m_currentSequenceIndex + 1]?.Appear(false);
+            }
         }
 
         public void Reset()
@@ -114,6 +130,7 @@ namespace DChild.Gameplay.Environment
             m_sequence[0].Appear(true);
             for (int i = 1; i < m_sequence.Length; i++)
             {
+                //m_sequence[i]?.Appear(true);
                 m_sequence[i]?.Disappear(true);
             }
             EndGauntlet();
@@ -129,6 +146,7 @@ namespace DChild.Gameplay.Environment
             character.GetComponentInChildren<WallJump>().ExecuteModule += OnPlayerJumpExecution;
             character.GetComponentInChildren<GroundJump>().ExecuteModule += OnPlayerJumpExecution;
             m_GauntletInProcess = true;
+            m_sequence[1]?.Appear(false);
         }
 
         private void OnDestroy()
