@@ -1,3 +1,4 @@
+using DChild.Gameplay;
 using DChild.Gameplay.Characters.Enemies;
 using DChild.Gameplay.Inventories.QuickItem;
 using Doozy.Runtime.UIManager.Containers;
@@ -6,10 +7,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing.Text;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 public class TheOneThirdFormQuickItemLockdown : MonoBehaviour
-{
+{ 
     [SerializeField]
     private TheOneThirdFormAI m_reference;
     [SerializeField]
@@ -26,7 +28,9 @@ public class TheOneThirdFormQuickItemLockdown : MonoBehaviour
 
     private void MoveIndicatorToUnderworldUI()
     {
-
+        GameplaySystem.playerManager.player.GetComponentInChildren<PlayerInput>();
+        m_quickItemController = FindObjectOfType<QuickItemController>();
+        m_indicator.transform.parent = GameplaySystem.gamplayUIHandle.GetReference().m_QuickItems;
     }
 
     private void OnLockdownTriggered(object sender, EventActionArgs args)
@@ -61,7 +65,7 @@ public class TheOneThirdFormQuickItemLockdown : MonoBehaviour
     private void Start()
     {
         MoveIndicatorToUnderworldUI();
-        m_quickItemController = FindObjectOfType<QuickItemController>();
+       
         m_reference.LockPlayerQuickItem += OnLockdownTriggered;
     }
 
