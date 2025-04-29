@@ -38,6 +38,10 @@ namespace DChild.Gameplay.Systems
 
         public void Interact(Character character)
         {
+            if (GameSystem.gamePaused == true)
+                return;
+            GameplaySystem.gamplayUIHandle.TogglePause(false);
+
             if (m_handle.isDebugSwitchHandle)
             {
                 m_handle.DoSceneTransition(character, TransitionType.Enter);
@@ -51,6 +55,7 @@ namespace DChild.Gameplay.Systems
         [Button]
         public void ForceActivation()
         {
+
             if (m_handle.needsButtonInteraction)
             {
                 Interact(GameplaySystem.playerManager.player.character);
@@ -69,7 +74,6 @@ namespace DChild.Gameplay.Systems
                 GameplaySystem.playerManager.ReturnPlayerToOrginalScene();
                 GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Zone);
 
-
                 yield return new WaitForSeconds(m_handle.transitionDelay);
 
                 m_handle.DoSceneTransition(character, TransitionType.PostEnter);
@@ -84,7 +88,7 @@ namespace DChild.Gameplay.Systems
                     GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Player);
                 }
                 WorldTypeVar.SetCurrentWorldType(m_destination.location);
-                
+
                 switch (WorldTypeVar.CurrentWorldType)
                 {
                     case WorldType.Underworld:
@@ -107,6 +111,8 @@ namespace DChild.Gameplay.Systems
             else if (type == TransitionType.Exit)
             {
                 //character.transform.position = m_poster.data.position;
+                GameplaySystem.gamplayUIHandle.TogglePause(true);
+
                 LoadingHandle.LoadingDone += OnLoadingDone;
 
                 yield return new WaitForSeconds(m_handle.transitionDelay);
@@ -131,7 +137,6 @@ namespace DChild.Gameplay.Systems
             damageable?.SetHitboxActive(false);
 
             var controller = GameplaySystem.playerManager.OverrideCharacterControls();
-
             StartCoroutine(DoTransition(character, TransitionType.Enter));
         }
 
@@ -150,17 +155,22 @@ namespace DChild.Gameplay.Systems
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (m_handle.needsButtonInteraction == false)
-            {
-                if (collision.TryGetComponent(out Hitbox hitbox))
-                {
-                    Character character = collision.GetComponentInParent<Character>();
+            if (m_handle.needsButtonInteraction)
+                return;
+            
+            if (GameSystem.gamePaused == true)
+                return;
 
-                    if (character != null)
-                    {
-                        GoToDestination(character);
-                    }
-                }
+            if (!collision.TryGetComponent(out Hitbox hitbox))
+                return;
+
+
+            GameplaySystem.gamplayUIHandle.TogglePause(false);
+            Character character = collision.GetComponentInParent<Character>();
+
+            if (character != null)
+            {
+                GoToDestination(character);
             }
         }
 

@@ -140,7 +140,7 @@ MonoBehaviour:
   FlowGraphId: cc4022c0-bbcf-4ff3-b644-de466cf85d32
   NodeId: dc0e26cd-ac7c-4963-a844-6ab51f59a508
   NodeType: 0
-  NodeName: '[Underworld] MordenElevator'
+  NodeName: '[Underworld] Morden Elevator'
   NodeDescription: 
   InputPorts:
   - NodeId: dc0e26cd-ac7c-4963-a844-6ab51f59a508
@@ -1056,7 +1056,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 1
   ClearGraphHistory: 0
-  Position: {x: 265, y: 1110}
+  Position: {x: 301.81754, y: 1189}
   PivotOrientation: 3
 --- !u!114 &-3861125342470969384
 MonoBehaviour:
@@ -1233,6 +1233,17 @@ MonoBehaviour:
     Connections:
     - 858938f6-27db-49e0-a3b2-537bbc958129
     Value: '{"Trigger":1,"TimeDelay":3.0,"SignalPayload":{"StreamId":{"Category":"Gameplay","Name":"CallElevator","Custom":false},"SignalValueType":0,"IntegerValue":0,"BooleanValue":false,"FloatValue":0.0,"StringValue":"","ColorValue":{"r":0.0,"g":0.0,"b":0.0,"a":0.0},"Vector2Value":{"x":0.0,"y":0.0},"Vector3Value":{"x":0.0,"y":0.0,"z":0.0},"Vector4Value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}},"ButtonId":{"Category":"None","Name":"None","Custom":false},"ToggleId":{"Category":"None","Name":"None","Custom":false},"CommandToggle":2,"ViewId":{"Category":"None","Name":"None","Custom":false},"CommandShowHide":0}'
+    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.UIOutputPortData,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    CanBeDeleted: 1
+    CanBeReordered: 1
+  - NodeId: 86772b50-9887-4f43-8ac6-abba1ec63b20
+    PortId: 3adb4494-48c3-49a3-a63d-a46ab144c931
+    Direction: 1
+    Capacity: 0
+    Connections:
+    - d6924a9b-3133-4eca-bb1e-d54b6229cc23
+    Value: '{"Trigger":1,"TimeDelay":3.0,"SignalPayload":{"StreamId":{"Category":"Gameplay","Name":"FullScreenNotif","Custom":false},"SignalValueType":0,"IntegerValue":0,"BooleanValue":false,"FloatValue":0.0,"StringValue":"","ColorValue":{"r":0.0,"g":0.0,"b":0.0,"a":0.0},"Vector2Value":{"x":0.0,"y":0.0},"Vector3Value":{"x":0.0,"y":0.0,"z":0.0},"Vector4Value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}},"ButtonId":{"Category":"None","Name":"None","Custom":false},"ToggleId":{"Category":"None","Name":"None","Custom":false},"CommandToggle":2,"ViewId":{"Category":"None","Name":"None","Custom":false},"CommandShowHide":0}'
     ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.UIOutputPortData,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     CanBeDeleted: 1
@@ -1426,6 +1437,7 @@ MonoBehaviour:
     - fc852d09-2659-4869-b54b-73b6901d39e8
     - ecb40ec1-4c16-49e0-bf7b-eb0a9d237aea
     - edab5f21-b5b2-4ce3-9bef-bad878a9e85a
+    - 0c03ebd5-027e-4e8e-9a9d-88af0f037ca4
     Value: 
     ValueTypeQualifiedName: 
     CanBeDeleted: 0
@@ -1448,7 +1460,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 1
   ClearGraphHistory: 0
-  Position: {x: 1473.9999, y: 1110}
+  Position: {x: 1534.0945, y: 1188.7681}
   PivotOrientation: 2
 --- !u!114 &-1108128849002585700
 MonoBehaviour:
@@ -1618,8 +1630,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02761efe598a45c98fa1baf4d446c6a7, type: 3}
   m_Name: BaseGameplayMenuFlow
   m_EditorClassIdentifier: 
-  EditorPosition: {x: -433, y: -363, z: 0}
-  EditorScale: {x: 0.7561437, y: 0.7561437, z: 1}
+  EditorPosition: {x: -605, y: -73, z: 0}
+  EditorScale: {x: 1, y: 1, z: 1}
   Id: cc4022c0-bbcf-4ff3-b644-de466cf85d32
   GraphName: Flow Graph
   GraphDescription: 
@@ -1674,6 +1686,7 @@ MonoBehaviour:
   - {fileID: -6680085341799257887}
   - {fileID: 3524554652378943686}
   - {fileID: 2945977332153260279}
+  - {fileID: 975626321781455584}
   RootNode: {fileID: 6426440333755477475}
   ActiveNode: {fileID: -3186844690176980444}
 --- !u!114 &368476018593977977
@@ -1730,6 +1743,61 @@ MonoBehaviour:
       Name: Pause
       Custom: 0
     Mode: 0
+  OnEnterHideViews: []
+  OnExitShowViews: []
+  OnExitHideViews: []
+  OnEnterHideAllViews: 0
+  OnExitHideAllViews: 0
+--- !u!114 &975626321781455584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c01f9a7d07f5c04a9f277379e94a10b, type: 3}
+  m_Name: UI
+  m_EditorClassIdentifier: 
+  FlowGraphId: cc4022c0-bbcf-4ff3-b644-de466cf85d32
+  NodeId: f09e856a-5d27-48cc-965a-2d75fd0de39f
+  NodeType: 0
+  NodeName: '[Underworld] Full Screen Notification'
+  NodeDescription: 
+  InputPorts:
+  - NodeId: f09e856a-5d27-48cc-965a-2d75fd0de39f
+    PortId: d6924a9b-3133-4eca-bb1e-d54b6229cc23
+    Direction: 0
+    Capacity: 1
+    Connections:
+    - 3adb4494-48c3-49a3-a63d-a46ab144c931
+    Value: '{"CanGoBack":false}'
+    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.GoBackInputPortData,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    CanBeDeleted: 0
+    CanBeReordered: 0
+  OutputPorts:
+  - NodeId: f09e856a-5d27-48cc-965a-2d75fd0de39f
+    PortId: 0c03ebd5-027e-4e8e-9a9d-88af0f037ca4
+    Direction: 1
+    Capacity: 0
+    Connections:
+    - b2032811-2eb9-4553-8452-11e2f820b90f
+    Value: '{"Trigger":2,"TimeDelay":3.0,"SignalPayload":{"StreamId":{"Category":"None","Name":"None","Custom":false},"SignalValueType":0,"IntegerValue":0,"BooleanValue":false,"FloatValue":0.0,"StringValue":"","ColorValue":{"r":0.0,"g":0.0,"b":0.0,"a":0.0},"Vector2Value":{"x":0.0,"y":0.0},"Vector3Value":{"x":0.0,"y":0.0,"z":0.0},"Vector4Value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}},"ButtonId":{"Category":"General","Name":"Back","Custom":false},"ToggleId":{"Category":"None","Name":"None","Custom":false},"CommandToggle":2,"ViewId":{"Category":"None","Name":"None","Custom":false},"CommandShowHide":0}'
+    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.UIOutputPortData,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    CanBeDeleted: 0
+    CanBeReordered: 0
+  RunUpdate: 0
+  RunFixedUpdate: 0
+  RunLateUpdate: 0
+  NodeState: 0
+  CanBeDeleted: 1
+  Passthrough: 0
+  ClearGraphHistory: 0
+  Position: {x: 1011, y: 1123.225}
+  OnEnterShowViews: []
   OnEnterHideViews: []
   OnExitShowViews: []
   OnExitHideViews: []
