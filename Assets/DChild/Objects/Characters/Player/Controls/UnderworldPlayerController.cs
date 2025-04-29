@@ -849,6 +849,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isAimingProjectile)
                 return;
+            if (m_state.isDashing)
+                return;
 
             if (m_state.isExecutingCombatArt)
             {
@@ -1610,6 +1612,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isExecutingCombatArt)
                 return;
+            if (m_state.isHighJumping) //sometimes you're still grounded while jumping [fast fingers]
+                return;
             if (m_abilities.IsAbilityActivated(CombatArt.ReaperHarvest))
             {
                 m_state.waitForBehaviour = true;
@@ -1634,32 +1638,32 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //    return;
 
             if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
-            {
                 return;
-            }
 
-            m_basicSlashes.Cancel();
             if (m_state.isHighJumping)
-            {
                 m_groundJump.Cancel();
-            }
+
+            m_state.isExecutingCombatArt = true;
             //m_extraJump.Cancel();
         }
 
         private void OnIcarusWingsCancelledInput()
         {
-           
+            m_state.isExecutingCombatArt = false;
         }
 
         private void OnIcarusWingsPerformedInput()
         {
             if (m_state.isGrounded == false)
                 return;
-
-            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
-            {
+            if (m_state.isChargingAttack)
                 return;
-            }
+              if (m_vector2Input.x != 0)
+                return;
+            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
+                return;
+
+            m_basicSlashes.Cancel();
 
             PrepareForGroundAttack();
             m_currentCombatArt = m_icarusWings;
@@ -2093,6 +2097,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_combatReadiness?.Execution();
                 if (m_state.isGrounded)
                 {
+                    m_activeSlide?.Cancel();
+                    m_activeDash?.Cancel(); //Cancelling here because repeated flinch sometimes cause vfx to stay stuck because it doesn't go into dash/slide state
                     if (m_state.isAttacking)
                     {
                         if (m_state.isChargingAttack)
@@ -2126,11 +2132,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                     else if (m_state.isDashing)
                     {
-                        m_dash.Cancel();
+                        m_activeDash?.Cancel();
                     }
                     else if (m_state.isSliding)
                     {
-                        m_slide.Cancel();
+                        m_activeSlide?.Cancel();
                     }
                     else if (m_state.isGrabbing)
                     {
@@ -2326,7 +2332,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_projectileThrow?.Cancel();
             m_shadowMorph.Cancel();
             m_block?.Cancel();
-            m_shadowGaugeRegen.Enable(true);
             m_reaperHarvest?.Cancel();
             m_krakenRage?.Cancel();
             m_sovereignImpale?.Cancel();
@@ -2343,6 +2348,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_airSlashRange?.Cancel();
             m_teleportingSkull?.Cancel();
 
+            m_activeSlide?.Clear(); //clear slide vfx because it is still visible in some scene changes
+            m_shadowGaugeRegen.Enable(true);
         }
         #endregion
 
