@@ -32,6 +32,10 @@ namespace DChild.Gameplay.Environment
                 gameObject.SetActive(false);
                 return;
             }
+            if(!collision.gameObject.CompareTag("Hitbox"))
+            {
+                return;
+            }
             Debug.LogError("HIT SOMETHING");
             if (GameplaySystem.playerManager.IsPartOfPlayer(collision.gameObject))
             {
