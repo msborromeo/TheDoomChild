@@ -9,15 +9,36 @@ namespace DChild.Gameplay.UI
 {
     public class SetTextToTextBox : MonoBehaviour
     {
+        private enum InputActionType
+        {
+            NoneComposite,
+            Directional,
+            Cycle,
+            Modifier,
+            _Count
+        }
 
         [TextArea(2, 5)]
         [SerializeField]
         private string m_message;
 
         [SerializeField]
+        private InputActionType m_actionType;
+
+        [SerializeField]
         private SpriteButtonIconListObject m_spriteButtonList;
         [SerializeField]
         private CurrentDeviceType m_deviceType;
+
+        //Directional
+        [SerializeField, ShowIf("@m_deviceType == CurrentDeviceType.Directional")]
+        private bool m_up;
+        [SerializeField, ShowIf("@m_deviceType == CurrentDeviceType.Directional")]
+        private bool m_down;
+        [SerializeField, ShowIf("@m_deviceType == CurrentDeviceType.Directional")]
+        private bool m_left;
+        [SerializeField, ShowIf("@m_deviceType == CurrentDeviceType.Directional")]
+        private bool m_right;
 
         [SerializeField]
         private InputManager m_inputManager;
@@ -72,7 +93,36 @@ namespace DChild.Gameplay.UI
                     }
 
                 }
+
+                switch (m_actionType)
+                {
+                    case InputActionType.Cycle:
+                        SetTextToCyclePrompts();
+                        break;
+                    case InputActionType.Modifier:
+                        SetTextToModifierPrompts();
+                        break;
+                    case InputActionType.Directional:
+                        SetTextToDirectionalPrompts();
+                        break;
+                    case InputActionType.NoneComposite:
+                        m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                        break;
+                }
             }
+            else
+            {
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+            }
+
+
+
+            //m_textbox.text = FillInTextWithButtonSprite.ReplaceBindings(m_message, m_deviceType,m_inputManager, m_spriteButtonList);
+        }
+
+        //Sets text to Inputs that require Modifiers
+        private void SetTextToModifierPrompts()
+        {
             if (currentBinding.Count > 0)
             {
                 var keyBoardList = new List<InputBinding>();
@@ -120,10 +170,8 @@ namespace DChild.Gameplay.UI
                     }
 
                 }
-                //var startIndex = ((int)m_deviceType * currentBinding.Count) + (int)m_deviceType;
-                //var buttonIndex = startIndex + 1;
-                //Debug.Log("Modifier "+currentBinding[startIndex]);
-                //Debug.Log("Button "+currentBinding[buttonIndex]);
+
+                //Keyboard list is used as a condition in the if statement because keyboard is the default control devicetype
                 if (keyBoardList.Count > 2)
                 {
                     if (m_deviceType == CurrentDeviceType.Keyboard)
@@ -162,32 +210,33 @@ namespace DChild.Gameplay.UI
                 //m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceCompositeBinding(m_message, currentBinding[startIndex], currentBinding[startIndex + 1], currentBinding[startIndex + 2], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
 
             }
-            else
-            {
-                if (m_inputaction.action.name.Contains("Down"))
-                {
-                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
-                }
-                if (m_inputaction.action.name.Contains("Up"))
-                {
-                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
-                }
-                if (m_inputaction.action.name.Contains("Left"))
-                {
-                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
-                }
-                if (m_inputaction.action.name.Contains("Right"))
-                {
-                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
-                }
-                else
-                {
-                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
-                }
+        }
 
+        private void SetTextToDirectionalPrompts()
+        {
+
+            if (m_inputaction.action.name.Contains("Down"))
+            {
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+            }
+            if (m_inputaction.action.name.Contains("Up"))
+            {
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+            }
+            if (m_inputaction.action.name.Contains("Left"))
+            {
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+            }
+            if (m_inputaction.action.name.Contains("Right"))
+            {
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
             }
 
-            //m_textbox.text = FillInTextWithButtonSprite.ReplaceBindings(m_message, m_deviceType,m_inputManager, m_spriteButtonList);
+        }
+
+        private void SetTextToCyclePrompts()
+        {
+
         }
 
         private void OnDestroy()
