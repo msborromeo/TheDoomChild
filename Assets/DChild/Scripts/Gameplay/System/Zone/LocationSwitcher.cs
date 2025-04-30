@@ -5,6 +5,7 @@ using DChild.Gameplay.Environment.Interractables;
 using DChild.Gameplay.Systems.Serialization;
 using DChild.Menu;
 using Holysoft.Event;
+using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using System;
@@ -37,6 +38,10 @@ namespace DChild.Gameplay.Systems
 
         public void Interact(Character character)
         {
+            if (GameSystem.gamePaused == true)
+                return;
+            GameplaySystem.gamplayUIHandle.TogglePause(false);
+
             if (m_handle.isDebugSwitchHandle)
             {
                 m_handle.DoSceneTransition(character, TransitionType.Enter);
@@ -50,6 +55,7 @@ namespace DChild.Gameplay.Systems
         [Button]
         public void ForceActivation()
         {
+
             if (m_handle.needsButtonInteraction)
             {
                 Interact(GameplaySystem.playerManager.player.character);
@@ -63,12 +69,10 @@ namespace DChild.Gameplay.Systems
         private IEnumerator DoTransition(Character character, TransitionType type)
         {
             m_handle.DoSceneTransition(character, type);
-
             if (type == TransitionType.Enter)
             {
                 GameplaySystem.playerManager.ReturnPlayerToOrginalScene();
                 GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Zone);
-
 
                 yield return new WaitForSeconds(m_handle.transitionDelay);
 
@@ -84,7 +88,7 @@ namespace DChild.Gameplay.Systems
                     GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Player);
                 }
                 WorldTypeVar.SetCurrentWorldType(m_destination.location);
-                
+
                 switch (WorldTypeVar.CurrentWorldType)
                 {
                     case WorldType.Underworld:
@@ -101,20 +105,23 @@ namespace DChild.Gameplay.Systems
                         break;
                 }
                 GameplaySystem.ClearCaches();
+                DialogueManager.SetDialogueSystemInput(false);
 
             }
             else if (type == TransitionType.Exit)
             {
                 //character.transform.position = m_poster.data.position;
+                GameplaySystem.gamplayUIHandle.TogglePause(true);
+
                 LoadingHandle.LoadingDone += OnLoadingDone;
 
                 yield return new WaitForSeconds(m_handle.transitionDelay);
 
                 m_handle.DoSceneTransition(character, TransitionType.PostExit);
-
                 var damageable = character.GetComponent<IDamageable>();
                 damageable.SetHitboxActive(true);
                 character.GetComponent<Rigidbody2D>().WakeUp();
+                DialogueManager.SetDialogueSystemInput(true);
             }
         }
 
@@ -130,7 +137,6 @@ namespace DChild.Gameplay.Systems
             damageable?.SetHitboxActive(false);
 
             var controller = GameplaySystem.playerManager.OverrideCharacterControls();
-
             StartCoroutine(DoTransition(character, TransitionType.Enter));
         }
 
@@ -149,17 +155,22 @@ namespace DChild.Gameplay.Systems
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (m_handle.needsButtonInteraction == false)
-            {
-                if (collision.TryGetComponent(out Hitbox hitbox))
-                {
-                    Character character = collision.GetComponentInParent<Character>();
+            if (m_handle.needsButtonInteraction)
+                return;
+            
+            if (GameSystem.gamePaused == true)
+                return;
 
-                    if (character != null)
-                    {
-                        GoToDestination(character);
-                    }
-                }
+            if (!collision.TryGetComponent(out Hitbox hitbox))
+                return;
+
+
+            GameplaySystem.gamplayUIHandle.TogglePause(false);
+            Character character = collision.GetComponentInParent<Character>();
+
+            if (character != null)
+            {
+                GoToDestination(character);
             }
         }
 
