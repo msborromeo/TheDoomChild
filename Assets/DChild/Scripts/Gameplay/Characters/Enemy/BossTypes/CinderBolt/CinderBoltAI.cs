@@ -2013,7 +2013,6 @@ namespace DChild.Gameplay.Characters.Enemies
                     elapsedTime = 0f;
                     m_isRaging = false;
                     m_hasMalfactioned = true;
-                    m_steamMalfAndOver.Stop();
                     m_heatHandler.ResetHeat();
                 }
                 yield return null;
@@ -2039,6 +2038,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_gravity = GetComponent<IsolatedObjectPhysics2D>();
             //m_firebeamFX.Stop();
             ResetLaser();
+            m_steamMalfAndOver.Stop();
             m_punchAttacker.SetActive(true);
             m_punchAttacker2.SetActive(true);
             m_overchargedPunchAttacker.SetActive(false);
@@ -2058,7 +2058,6 @@ namespace DChild.Gameplay.Characters.Enemies
             m_flamethrower2.SetActive(true);
             m_overchargedFlamethrower2.SetActive(false);
             m_hasMalfactioned = false;
-            m_steamMalfAndOver.Play();
             m_movement.Stop();
             m_flamethrower2Colliders.enabled = false;
             m_flamethrower2GroundMarksFX.SetActive(false);
