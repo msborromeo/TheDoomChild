@@ -43,6 +43,9 @@ namespace DChild
         private static GameSystem m_instance;
 
 
+        public static bool gamePaused { get; private set; }
+
+
         [SerializeField]
         private Cursor m_instanceCursor;
         [SerializeField]
@@ -114,6 +117,11 @@ namespace DChild
             m_zoneLoader.LoadMainMenu();
         }
 
+        public static void SetGamePause(bool value)
+        {
+            gamePaused = value;
+        }
+
         private void Awake()
         {
             if (m_instance)
@@ -139,6 +147,7 @@ namespace DChild
                 m_poolManager = GetComponentInChildren<PoolManager>();
                 m_poolManager.Initialize();
                 m_cursor = m_instanceCursor;
+                gamePaused = false;
 
                 sceneManager = new AddressableSceneManager();
             }
@@ -159,6 +168,7 @@ namespace DChild
                 m_zoneLoader = null;
                 dataManager = null;
                 m_poolManager = null;
+                gamePaused = false;
             }
         }
     }

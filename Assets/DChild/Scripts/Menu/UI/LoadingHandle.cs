@@ -357,6 +357,7 @@ namespace DChild.Menu
 
         private IEnumerator Start()
         {
+
             while (m_flow.initialized == false)
                 yield return null;
 
@@ -376,6 +377,7 @@ namespace DChild.Menu
 
         private void OnDestroy()
         {
+            GameSystem.SetGamePause(false);
             m_animation.AnimationEnd -= OnAnimationEnd;
             LoadingDone?.Invoke(this, EventActionArgs.Empty);
             GameplaySystem.SetInputActive(true);
