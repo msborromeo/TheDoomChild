@@ -41,6 +41,22 @@ public static class FillInTextWithButtonSprite
         return textToDisplay;
     }
 
+    public static string ReadAndReplaceBinding(string textToDisplay, InputBinding actionNeeded, int compositeChildIndex,
+           TMP_SpriteAsset spriteAsset)
+    {
+        //Different from christina's in that we are going to use the effective path
+        // ToString previously would just be "Keyboard/f" yet
+        // newer versions of input system have it "Keyboard/f[Keyboard]"
+
+        string stringButtonName = actionNeeded.effectivePath;
+
+        stringButtonName = RenameInput(stringButtonName, actionNeeded.action);
+
+        textToDisplay = textToDisplay.Replace("BUTTONPROMPT", $"<sprite=\"{spriteAsset.name}\" name=\"{stringButtonName}\">");
+
+        return textToDisplay;
+    }
+
     public static string ReadAndReplaceCompositeBinding(string textToDisplay, InputBinding actionNeededModifier, InputBinding actionNeeded,
            TMP_SpriteAsset spriteAsset)
     {
