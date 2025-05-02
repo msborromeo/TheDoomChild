@@ -1,3 +1,4 @@
+using DChild.Gameplay.Characters.Players.Modules;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,22 @@ namespace DChild.Gameplay.UI
         private List<InputBinding> keyBoardList = new List<InputBinding>();
         private List<InputBinding> gamepadList = new List<InputBinding>();
         private List<InputBinding> psList = new List<InputBinding>();
+
+        public void OnActiveControllerChanged(string controlScheme)
+        {
+            CurrentDeviceType deviceType = CurrentDeviceType.Keyboard;
+            if (controlScheme.Contains("Keyboard"))
+            {
+                deviceType = CurrentDeviceType.Keyboard;
+            }
+
+            if (controlScheme.Contains("Gamepad"))
+            {
+                deviceType = CurrentDeviceType.Gamepad;
+            }
+
+            OnDeviceTypeChanged(deviceType);
+        }
 
         public static void ChangeDeviceType(CurrentDeviceType deviceType)
         {
@@ -314,8 +331,9 @@ namespace DChild.Gameplay.UI
             m_textbox = GetComponent<TMP_Text>();
 
             m_inputManager.GetCurrentDevice();
-            m_inputManager.OnActiveDeviceChange += SetText;
+            //m_inputManager.OnActiveDeviceChange += SetText;
             m_inputManager.BindingsChangedEvent += SetText;
+            UnderworldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
         }
         // Start is called before the first frame update
         void Start()
