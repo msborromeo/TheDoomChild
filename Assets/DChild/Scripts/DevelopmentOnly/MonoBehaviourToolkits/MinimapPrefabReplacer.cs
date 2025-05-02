@@ -31,10 +31,10 @@ public class MinimapPrefabReplacer : MonoBehaviour
             instance.transform.position = item.transform.position;
 
             var posterData = item.GetComponentInChildren<LocationPoster>().data;
-            instance.GetComponentInChildren<LocationPoster>().SetData(posterData);
+            //instance.GetComponentInChildren<LocationPoster>().SetData(posterData);
 
             var destinationData = item.GetComponentInChildren<LocationSwitcher>().locationData;
-            instance.GetComponentInChildren<LocationSwitcher>().SetData(destinationData);
+            //instance.GetComponentInChildren<LocationSwitcher>().SetData(destinationData);
 
             if (m_copyPlaceholder)
             {
