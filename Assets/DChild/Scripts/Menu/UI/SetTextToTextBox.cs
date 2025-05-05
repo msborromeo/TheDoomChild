@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Video;
 
 namespace DChild.Gameplay.UI
 {
@@ -75,6 +76,11 @@ namespace DChild.Gameplay.UI
         private List<InputBinding> gamepadList = new List<InputBinding>();
         private List<InputBinding> psList = new List<InputBinding>();
 
+        public void SetInputAction(InputActionReference reference)
+        {
+            m_inputaction = reference;
+        }
+
         public void OnActiveControllerChanged(string controlScheme)
         {
             CurrentDeviceType deviceType = CurrentDeviceType.Keyboard;
@@ -110,6 +116,8 @@ namespace DChild.Gameplay.UI
                 return;
             }
 
+
+            
 
             if (m_inputaction.action.bindings.Count > (int)CurrentDeviceType._COUNT)
             {

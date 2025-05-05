@@ -22,6 +22,9 @@ namespace DChild.Gameplay.UI.CombatArts
         [SerializeField]
         private CombatArtUnlockHandle m_unlockArtHandler;
 
+        [SerializeField]
+        private CombatArtSelectButton m_firstSelected;
+
         private Dictionary<CombatArt, CombatArtSelectButton[]> m_abilityButtonPair;
         private CombatArtSelectRequirements[] m_artRequirements;
 
@@ -105,7 +108,7 @@ namespace DChild.Gameplay.UI.CombatArts
                         array[button.unlockLevel - 1] = button;
                         m_abilityButtonPair.Add(button.skillUnlock, array);
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Debug.LogError($"Combat Arts Reference File Doesn't Have {button.skillUnlock}");
                     }
@@ -185,6 +188,8 @@ namespace DChild.Gameplay.UI.CombatArts
         private void Start()
         {
             Initialize();
+            var combatArtData = m_referenceList.GetCombatArtData(m_firstSelected.skillUnlock);
+            m_uiDetail.Display(combatArtData, m_firstSelected.unlockLevel);
         }
     }
 
