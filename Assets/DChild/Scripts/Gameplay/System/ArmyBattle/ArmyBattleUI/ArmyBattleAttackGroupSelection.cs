@@ -45,7 +45,14 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         public void SetSelection(int index) => selectionIndex = index;
 
-        public void SetSelectionIcon(DamageType type) => m_damageTypeIcon.SetType(type);
+        public void SetSelectionIcon(DamageType type)
+        {
+            //hotfix for build; non-existent in prod
+            if (m_damageTypeIcon == null)
+                return;
+
+            m_damageTypeIcon.SetType(type);
+        }
 
         public void SetPanelLabel(DamageType type) => m_frontLabel.SetPanelLabel(type);
 
