@@ -32,8 +32,8 @@ public class TheOneThirdFormQuickItemLockdown : MonoBehaviour
 
     public void MoveToGameplayCanvas()
     {
-        transform.parent = GameplaySystem.gamplayUIHandle.GetReference().m_QuickItems;
-        transform.localPosition = Vector3.zero;
+        m_indicator.transform.parent = GameplaySystem.gamplayUIHandle.GetReference().m_QuickItems;
+        m_indicator.transform.localPosition = Vector3.zero;
     }
 
     public void RemoveFromGameplayCanvas()
