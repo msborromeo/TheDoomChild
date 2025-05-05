@@ -1,3 +1,4 @@
+using DChild.Gameplay.Characters.Players.Modules;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
@@ -9,15 +10,50 @@ namespace DChild.Gameplay.UI
 {
     public class SetTextToTextBox : MonoBehaviour
     {
+        private enum InputActionType
+        {
+            NoneComposite,
+            Directional,
+            Cycle,
+            Modifier,
+            _Count
+        }
+
+        private enum DirectionActionPart
+        {
+            Up,
+            Down,
+            Left,
+            Right,
+            _Count
+        }
+
+        private enum CycleActionPart
+        {
+            Negative,
+            Positive,
+            _Count
+        }
 
         [TextArea(2, 5)]
         [SerializeField]
         private string m_message;
 
         [SerializeField]
+        private InputActionType m_actionType;
+
+        [SerializeField]
         private SpriteButtonIconListObject m_spriteButtonList;
         [SerializeField]
         private CurrentDeviceType m_deviceType;
+
+        //Directional
+        [SerializeField, ShowIf("@m_actionType == InputActionType.Directional")]
+        private DirectionActionPart m_directionPart;
+
+        //Cycle
+        [SerializeField, ShowIf("@m_actionType == InputActionType.Cycle")]
+        private CycleActionPart m_cycleActionPart;
 
         [SerializeField]
         private InputManager m_inputManager;
@@ -29,10 +65,31 @@ namespace DChild.Gameplay.UI
         InputAction m_action;
 
         private List<InputBinding> currentBinding = new List<InputBinding>();
+        private List<InputBinding> m_activeDeviceBinding = new List<InputBinding>();
 
         private TMP_Text m_textbox;
 
         public static event Action<CurrentDeviceType> DeviceTypeChanged;
+
+        private List<InputBinding> keyBoardList = new List<InputBinding>();
+        private List<InputBinding> gamepadList = new List<InputBinding>();
+        private List<InputBinding> psList = new List<InputBinding>();
+
+        public void OnActiveControllerChanged(string controlScheme)
+        {
+            CurrentDeviceType deviceType = CurrentDeviceType.Keyboard;
+            if (controlScheme.Contains("Keyboard"))
+            {
+                deviceType = CurrentDeviceType.Keyboard;
+            }
+
+            if (controlScheme.Contains("Gamepad"))
+            {
+                deviceType = CurrentDeviceType.Gamepad;
+            }
+
+            OnDeviceTypeChanged(deviceType);
+        }
 
         public static void ChangeDeviceType(CurrentDeviceType deviceType)
         {
@@ -56,74 +113,137 @@ namespace DChild.Gameplay.UI
 
             if (m_inputaction.action.bindings.Count > (int)CurrentDeviceType._COUNT)
             {
-                var inputBinding = m_inputaction.action.bindings;
 
-                // Optimize this later
-                for (int x = 0; x < inputBinding.Count; x++)
+                switch (m_actionType)
                 {
-                    if (inputBinding[x].isComposite)
-                    {
-                        // filter out the composite to get modifier and binding key
-                    }
-                    if (inputBinding[x].isPartOfComposite)
-                    {
-
-                        currentBinding.Add(inputBinding[x]);
-                    }
-
+                    case InputActionType.Cycle:
+                        SetTextToCyclePrompts();
+                        break;
+                    case InputActionType.Modifier:
+                        SetTextToModifierPrompts();
+                        break;
+                    case InputActionType.Directional:
+                        SetTextToDirectionalPrompts();
+                        break;
+                    case InputActionType.NoneComposite:
+                        m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                        break;
                 }
             }
-            if (currentBinding.Count > 0)
+            else
             {
-                var keyBoardList = new List<InputBinding>();
-                var gamepadList = new List<InputBinding>();
-                var psList = new List<InputBinding>();
-                for (int x = 0; x < currentBinding.Count; x++)
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+            }
+
+
+
+            //m_textbox.text = FillInTextWithButtonSprite.ReplaceBindings(m_message, m_deviceType,m_inputManager, m_spriteButtonList);
+        }
+
+        private void PopulateCurrentBinding()
+        {
+            var inputBinding = m_inputaction.action.bindings;
+
+            // Optimize this later
+            //puts ALL bindings in one list called currendBinding
+            for (int x = 0; x < inputBinding.Count; x++)
+            {
+                if (inputBinding[x].isComposite)
                 {
-                    var curBind = currentBinding[x];
-                    if (curBind.effectivePath.Contains("Keyboard"))
-                    {
-                        // check if already in list
-                        if (keyBoardList.Contains(curBind))
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            keyBoardList.Add(curBind);
-                        }
+                    // filter out the composite to get modifier and binding key
+                }
+                if (inputBinding[x].isPartOfComposite)
+                {
 
+                    currentBinding.Add(inputBinding[x]);
+                }
+            }
 
-                    }
-                    if (curBind.effectivePath.Contains("Gamepad"))
+            AddCurrentBindings();
+        }
+
+        private void AddCurrentBindings()
+        {
+            for (int x = 0; x < currentBinding.Count; x++)
+            {
+                var curBind = currentBinding[x];
+                Debug.Log("Current Binding Effective Path: " + curBind.effectivePath);
+                if (curBind.effectivePath.Contains("Keyboard"))
+                {
+                    // check if already in list
+                    //if(curBind != null)
+                    //{
+                    //    if (keyBoardList[x] == curBind)
+                    //    {
+                    //        continue;
+                    //    }
+                    //    else
+                    //    {
+                    //        keyBoardList.Add(curBind);
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    keyBoardList.Add(curBind);
+                    //}
+
+                    keyBoardList.Add(curBind);
+                }
+                if (curBind.effectivePath.Contains("Gamepad"))
+                {
+                    //if (gamepadList.Contains(curBind))
+                    //{
+                    //    continue;
+                    //}
+                    //else
+                    //{
+                    //}
+                        gamepadList.Add(curBind);
+                }
+                if (curBind.effectivePath.Contains("PS4"))
+                {
+                    if (psList.Contains(curBind))
                     {
-                        if (gamepadList.Contains(curBind))
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            gamepadList.Add(curBind);
-                        }
+                        continue;
                     }
-                    if (curBind.effectivePath.Contains("PS4"))
+                    else
                     {
-                        if (psList.Contains(curBind))
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            psList.Add(curBind);
-                        }
                         psList.Add(curBind);
                     }
-
+                    psList.Add(curBind);
                 }
-                //var startIndex = ((int)m_deviceType * currentBinding.Count) + (int)m_deviceType;
-                //var buttonIndex = startIndex + 1;
-                //Debug.Log("Modifier "+currentBinding[startIndex]);
-                //Debug.Log("Button "+currentBinding[buttonIndex]);
+            }
+
+            if (m_activeDeviceBinding != null)
+            {
+                m_activeDeviceBinding.Clear();
+            }
+
+            if(m_deviceType == CurrentDeviceType.Keyboard)
+            {
+                for (int x = 0; x < keyBoardList.Count; x++)
+                {
+                    m_activeDeviceBinding.Add(keyBoardList[x]);
+                }
+
+            }
+            else if(m_deviceType == CurrentDeviceType.Gamepad)
+            {
+                for (int x = 0; x < gamepadList.Count; x++)
+                {
+                    m_activeDeviceBinding.Add(gamepadList[x]);
+                }
+            }
+        }
+
+        //Sets text to Inputs that require Modifiers
+        private void SetTextToModifierPrompts()
+        {
+            if (currentBinding.Count > 0)
+            {
+                //Where SetCurrentBinding went before
+                //AddCurrentBindings();
+                //Keyboard list is used as a condition in the if statement because keyboard is the default control devicetype
                 if (keyBoardList.Count > 2)
                 {
                     if (m_deviceType == CurrentDeviceType.Keyboard)
@@ -162,32 +282,40 @@ namespace DChild.Gameplay.UI
                 //m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceCompositeBinding(m_message, currentBinding[startIndex], currentBinding[startIndex + 1], currentBinding[startIndex + 2], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
 
             }
-            else
-            {
-                if (m_inputaction.action.name.Contains("Down"))
-                {
-                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
-                }
-                if (m_inputaction.action.name.Contains("Up"))
-                {
-                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
-                }
-                if (m_inputaction.action.name.Contains("Left"))
-                {
-                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
-                }
-                if (m_inputaction.action.name.Contains("Right"))
-                {
-                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
-                }
-                else
-                {
-                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
-                }
+        }
 
+        private void SetTextToDirectionalPrompts()
+        {
+            if (m_directionPart == DirectionActionPart.Up)
+            {
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[0], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+            }
+            if (m_directionPart == DirectionActionPart.Down)
+            {
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[1], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
             }
 
-            //m_textbox.text = FillInTextWithButtonSprite.ReplaceBindings(m_message, m_deviceType,m_inputManager, m_spriteButtonList);
+            if (m_directionPart == DirectionActionPart.Left)
+            {
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[2], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+            }
+            if (m_directionPart == DirectionActionPart.Right)
+            {
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[3], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+            }
+
+        }
+
+        private void SetTextToCyclePrompts()
+        {
+            if (m_cycleActionPart == CycleActionPart.Negative)
+            {
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[0], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+            }
+            if (m_cycleActionPart == CycleActionPart.Positive)
+            {
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[1], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+            }
         }
 
         private void OnDestroy()
@@ -203,12 +331,14 @@ namespace DChild.Gameplay.UI
             m_textbox = GetComponent<TMP_Text>();
 
             m_inputManager.GetCurrentDevice();
-            m_inputManager.OnActiveDeviceChange += SetText;
+            //m_inputManager.OnActiveDeviceChange += SetText;
             m_inputManager.BindingsChangedEvent += SetText;
+            UnderworldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
         }
         // Start is called before the first frame update
         void Start()
         {
+            PopulateCurrentBinding();
             SetText();
 
         }
@@ -229,6 +359,22 @@ namespace DChild.Gameplay.UI
                 return;
 
             deviceType = type;
+            m_activeDeviceBinding.Clear();
+            if (m_deviceType == CurrentDeviceType.Keyboard)
+            {
+                for (int x = 0; x < keyBoardList.Count; x++)
+                {
+                    m_activeDeviceBinding.Add(keyBoardList[x]);
+                }
+
+            }
+            else if (m_deviceType == CurrentDeviceType.Gamepad)
+            {
+                for (int x = 0; x < gamepadList.Count; x++)
+                {
+                    m_activeDeviceBinding.Add(gamepadList[x]);
+                }
+            }
             SetText();
         }
     }
