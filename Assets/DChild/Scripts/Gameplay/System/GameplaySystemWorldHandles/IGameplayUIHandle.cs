@@ -59,6 +59,8 @@ namespace DChild.Gameplay.Systems
 
         void ShowMordenElevatorUI(ElevatorLocation location, ElevatorLevelInfo[] labels, MovingPlatform elevator);
 
+        void TogglePause(bool toggle);
+
         UIHandlerExtraReference GetReference();
     }
 }

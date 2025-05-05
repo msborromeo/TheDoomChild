@@ -12,6 +12,7 @@ using DChild.Menu;
 using DChild.Gameplay.Characters.Players.State;
 using System.Runtime.Remoting.Messaging;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -34,6 +35,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private IDash m_activeDash;
         private ISlide m_activeSlide;
 
+        [SerializeField]
+        private PlayerInput m_playerInput;
         #region Modules
         private PlayerStatisticTracker m_tracker;
         private GroundednessHandle m_groundedness;
@@ -111,6 +114,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public event EventAction<EventActionArgs> ControllerDisabled;
         public event EventAction<EventActionArgs> ControllerEnabled;
+        public static event Action<string> ActiveControllerChanged; 
 
         #region Usual Unity Stuff
         private void Awake()
@@ -2097,6 +2101,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_combatReadiness?.Execution();
                 if (m_state.isGrounded)
                 {
+                    m_activeSlide?.Cancel();
+                    m_activeDash?.Cancel(); //Cancelling here because repeated flinch sometimes cause vfx to stay stuck because it doesn't go into dash/slide state
                     if (m_state.isAttacking)
                     {
                         if (m_state.isChargingAttack)
@@ -2130,11 +2136,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                     else if (m_state.isDashing)
                     {
-                        m_dash.Cancel();
+                        m_activeDash?.Cancel();
                     }
                     else if (m_state.isSliding)
                     {
-                        m_slide.Cancel();
+                        m_activeSlide?.Cancel();
                     }
                     else if (m_state.isGrabbing)
                     {
@@ -2330,7 +2336,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_projectileThrow?.Cancel();
             m_shadowMorph.Cancel();
             m_block?.Cancel();
-            m_shadowGaugeRegen.Enable(true);
             m_reaperHarvest?.Cancel();
             m_krakenRage?.Cancel();
             m_sovereignImpale?.Cancel();
@@ -2347,6 +2352,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_airSlashRange?.Cancel();
             m_teleportingSkull?.Cancel();
 
+            m_activeSlide?.Clear(); //clear slide vfx because it is still visible in some scene changes
+            m_shadowGaugeRegen.Enable(true);
         }
         #endregion
 
@@ -2573,5 +2580,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_attackRegistrator?.ResetHitCache();
         }
         #endregion
+
+        public void OnDeviceTypeChanged()
+        {
+            ActiveControllerChanged?.Invoke(m_playerInput.currentControlScheme);
+        }
     }
 }
