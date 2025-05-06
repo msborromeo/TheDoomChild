@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Sirenix.Serialization;
+using UnityEngine.InputSystem;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -18,18 +20,26 @@ namespace DChild.Gameplay.Characters.Players
         private CombatArt m_ability;
         [SerializeField]
         private string m_name;
+
+
 #if UNITY_EDITOR
         [SerializeField, ValueDropdown("GetCombatArtConfigrationClasses"), OnValueChanged("OverrideConfigurations")]
         private string m_configurationType;
 #endif
         [SerializeField]
+        private InputActionReference m_actionReference;
+
+        [SerializeField]
         private string m_controls;
+
+
         [OdinSerialize, TableList(ShowIndexLabels = true), ListDrawerSettings(ShowIndexLabels = true)]
         private CombatArtLevelData[] m_levelDatas = new CombatArtLevelData[1];
 
         public CombatArt connectedCombatArt => m_ability;
         public string combatArtName => m_name;
         public string controls => m_controls;
+        public InputActionReference actionReference => m_actionReference;
         public int maxLevel => m_levelDatas.Length;
 
         public CombatArtLevelData GetCombatArtLevelData(int index) => m_levelDatas[index - 1];
