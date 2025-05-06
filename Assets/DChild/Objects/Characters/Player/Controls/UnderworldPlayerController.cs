@@ -1935,8 +1935,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             }
 
-            if (m_state.isDoingCombo)
-                return;
             MoveCharacter(m_state.isGrabbing, m_vector2Input.x);
         }
         #endregion
