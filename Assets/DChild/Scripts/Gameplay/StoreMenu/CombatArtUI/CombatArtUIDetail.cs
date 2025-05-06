@@ -20,6 +20,8 @@ namespace DChild.Gameplay.UI.CombatArts
         private TextMeshProUGUI m_costLabel;
         [SerializeField]
         private TextMeshProUGUI m_controlsLabel;
+        [SerializeField]
+        private SetTextToTextBox m_controlsPromptSetter;
 
         public event Action<CombatArtData,int> localizeCombatArt;
 
@@ -33,6 +35,8 @@ namespace DChild.Gameplay.UI.CombatArts
                 {
                     m_artNameLabel.text += $" {level}";
                 }
+                m_controlsPromptSetter.SetInputAction(data.actionReference);
+
                 Display(data.GetCombatArtLevelData(level));
                 localizeCombatArt?.Invoke(data,level);
             }
