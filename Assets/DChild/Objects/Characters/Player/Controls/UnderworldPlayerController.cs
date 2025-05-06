@@ -12,6 +12,7 @@ using DChild.Menu;
 using DChild.Gameplay.Characters.Players.State;
 using System.Runtime.Remoting.Messaging;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -34,6 +35,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private IDash m_activeDash;
         private ISlide m_activeSlide;
 
+        [SerializeField]
+        private PlayerInput m_playerInput;
         #region Modules
         private PlayerStatisticTracker m_tracker;
         private GroundednessHandle m_groundedness;
@@ -111,6 +114,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public event EventAction<EventActionArgs> ControllerDisabled;
         public event EventAction<EventActionArgs> ControllerEnabled;
+        public static event Action<string> ActiveControllerChanged; 
 
         #region Usual Unity Stuff
         private void Awake()
@@ -1931,8 +1935,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             }
 
-            if (m_state.isDoingCombo)
-                return;
             MoveCharacter(m_state.isGrabbing, m_vector2Input.x);
         }
         #endregion
@@ -2576,5 +2578,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_attackRegistrator?.ResetHitCache();
         }
         #endregion
+
+        public void OnDeviceTypeChanged()
+        {
+            ActiveControllerChanged?.Invoke(m_playerInput.currentControlScheme);
+        }
     }
 }
