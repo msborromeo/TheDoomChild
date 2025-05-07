@@ -4,6 +4,8 @@ using DChild.Gameplay.Characters.AI;
 using DChild.Gameplay.Characters.Enemies;
 using DChild.Gameplay.Combat;
 using Holysoft.Event;
+using Sirenix.OdinInspector;
+using Spine.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +25,8 @@ public class SmallAdran : MonoBehaviour
     private Character m_character;
     [SerializeField]
     private Collider2D[] m_collider;
+    [SerializeField]
+    private ParticleSystem m_deathVfx;
     public Vector2 startingPosition;
     [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
     private string m_turnAnimation;
@@ -31,6 +35,7 @@ public class SmallAdran : MonoBehaviour
     public event EventAction<EventActionArgs> GotDamagedByPlayer;
     public event EventAction<EventActionArgs> SmallAdranGotDestroyed;
     public bool isReturningToSummonSpot;
+
     
     private void Start()
     {
@@ -38,6 +43,14 @@ public class SmallAdran : MonoBehaviour
         m_Damageable.Destroyed += ObjectOnDestroyed;
     }
 
+    public void PlayDeathVfx()
+    {
+        if (m_deathVfx.isPlaying)
+        {
+            m_deathVfx.Stop();
+        }
+        m_deathVfx.Play();
+    }
     public void InitializeField(SpineRootAnimation spineRoot)
     {
         m_spine = spineRoot;
@@ -45,7 +58,10 @@ public class SmallAdran : MonoBehaviour
     private void ObjectOnDestroyed(object sender, EventActionArgs eventArgs)
     {
         Debug.Log("Adran is Destroyed");
+        gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+        //m_deathVfx.Play();
         SmallAdranGotDestroyed?.Invoke(this, EventActionArgs.Empty);
+        
     }
 
     private void Damageable_DamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
