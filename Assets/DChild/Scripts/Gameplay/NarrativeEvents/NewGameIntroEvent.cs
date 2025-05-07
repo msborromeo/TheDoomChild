@@ -64,6 +64,10 @@ namespace DChild.Gameplay.Narrative
         private bool m_isDone;
         bool hasPressedPrompt = false;
 
+        public static event Action NewGameIntroStarted;
+        public static event Action NewGamePlayerWokeUp;
+        public static event Action NewGameIntroPromptPressed;
+
         private void OnInputPerformed(InputAction.CallbackContext context)
         {
             hasPressedPrompt = true;
@@ -99,7 +103,7 @@ namespace DChild.Gameplay.Narrative
             player.transform.position = m_playerStartPosition.position;
 
             var skeleton = GameplaySystem.playerManager.player.character.GetComponentInChildren<SkeletonAnimation>();
-            var lyingDownAnimation = skeleton.state.SetAnimation(0, m_playerLyingDownAnimation, false);
+            var lyingDownAnimation = skeleton.state.SetAnimation(0, m_playerLyingDownAnimation, true);
         }
 
         public void PromptPlayerToStand()
@@ -159,6 +163,11 @@ namespace DChild.Gameplay.Narrative
             var action = playerInput.actions.FindAction(m_wakeUpInput.action.name);
             action.Enable();
             action.performed += OnInputPerformed;
+        }
+
+        private void Start()
+        {
+            NewGameIntroStarted?.Invoke();
         }
     }
 
