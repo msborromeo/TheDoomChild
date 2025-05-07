@@ -21,15 +21,13 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public void MoveToGameplayCanvas()
         {
-            var rect = GetComponent<RectTransform>();
-            rect.SetParent(GameplaySystem.gamplayUIHandle.GetReference().m_BossHealth);
-            rect.localPosition= Vector3.zero;
-            GetComponent<UIContainer>().Show();
+            transform.parent = GameplaySystem.gamplayUIHandle.GetReference().m_BossHealth;
+            transform.localPosition = Vector3.zero;
         }
 
         public void RemoveFromGameplayCanvas()
         {
-            GetComponent<RectTransform>().SetParent(m_originalParent);
+            transform.SetParent(m_originalParent);
         }
 
         private void OnHeatFull(object sender, EventActionArgs eventArgs)
@@ -78,6 +76,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_refrence.HeatFull += OnHeatFull;
             m_originalParent = transform.parent;
         }
+
     }
 
 

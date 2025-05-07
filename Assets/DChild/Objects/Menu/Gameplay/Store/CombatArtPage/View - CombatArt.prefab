@@ -705,8 +705,8 @@ MonoBehaviour:
   DisableGraphicRaycasterWhenHidden: 1
   ClearSelectedOnShow: 0
   ClearSelectedOnHide: 0
-  AutoSelectAfterShow: 0
-  AutoSelectTarget: {fileID: 0}
+  AutoSelectAfterShow: 1
+  AutoSelectTarget: {fileID: 8238193443116143297}
   Id:
     Category: Store
     Name: CombatArt
@@ -1290,6 +1290,7 @@ MonoBehaviour:
   m_uiDetail: {fileID: 8234161668462448364}
   m_selectorHighlight: {fileID: 1638991132081893514}
   m_unlockArtHandler: {fileID: 5235415163399926875}
+  m_firstSelected: {fileID: 4736291925231535842}
 --- !u!114 &5235415163399926875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4550,6 +4551,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5c9b195b900e1447b31ccca13751443, type: 3}
+--- !u!114 &4736291925231535842 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6016428573623995688, guid: b5c9b195b900e1447b31ccca13751443,
+    type: 3}
+  m_PrefabInstance: {fileID: 1352229428434062282}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8238193443116143297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372883ec1eb4bd8489fb2d8e698ca581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8238193443116143297 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6960283304675744011, guid: b5c9b195b900e1447b31ccca13751443,
+    type: 3}
+  m_PrefabInstance: {fileID: 1352229428434062282}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1433696624146810976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6901,6 +6920,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698319277505617516, guid: 2ca539a3458c72a449b2b1c3c35a9783,
+        type: 3}
       propertyPath: mSource.mTerms.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -7104,6 +7128,11 @@ PrefabInstance:
       propertyPath: m_margin.w
       value: -72.00848
       objectReference: {fileID: 0}
+    - target: {fileID: 1052742788808953637, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: m_text
+      value: Desctiption
+      objectReference: {fileID: 0}
     - target: {fileID: 1711499881921555272, guid: 96a8d100b09800e4cb7123c24487abb6,
         type: 3}
       propertyPath: mTermSecondary
@@ -7114,6 +7143,16 @@ PrefabInstance:
       propertyPath: mLocalizeTarget
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2376372932853165937, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: m_text
+      value: Unlock
+      objectReference: {fileID: 0}
+    - target: {fileID: 2476171892201858852, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: mTerm
+      value: CombatArtDetails/DescriptionHeader
+      objectReference: {fileID: 0}
     - target: {fileID: 2476171892201858852, guid: 96a8d100b09800e4cb7123c24487abb6,
         type: 3}
       propertyPath: mTermSecondary
@@ -7123,6 +7162,21 @@ PrefabInstance:
         type: 3}
       propertyPath: mLocalizeTarget
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4191023823124956639, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: m_controlsPromptSetter
+      value: 
+      objectReference: {fileID: 2969529334520490240}
+    - target: {fileID: 4427300614359788527, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4427300614359788527, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[0].Languages.Array.data[0]
+      value: Description
       objectReference: {fileID: 0}
     - target: {fileID: 4545571626550446496, guid: 96a8d100b09800e4cb7123c24487abb6,
         type: 3}
@@ -7254,6 +7308,41 @@ PrefabInstance:
       propertyPath: mLocalizeTarget
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6652932598344196711, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: LocalizeEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652932598344196711, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: LocalizeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652932598344196711, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: LocalizeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2969529334520490240}
+    - target: {fileID: 6652932598344196711, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: LocalizeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652932598344196711, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: LocalizeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetText
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652932598344196711, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: LocalizeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DChild.Gameplay.UI.SetTextToTextBox, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652932598344196711, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: LocalizeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6754697081035178684, guid: 96a8d100b09800e4cb7123c24487abb6,
         type: 3}
       propertyPath: mTermSecondary
@@ -7263,6 +7352,11 @@ PrefabInstance:
         type: 3}
       propertyPath: mLocalizeTarget
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7255395889271778854, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: mTerm
+      value: CombatArtDetails/UnlockLabel
       objectReference: {fileID: 0}
     - target: {fileID: 7255395889271778854, guid: 96a8d100b09800e4cb7123c24487abb6,
         type: 3}
@@ -7343,6 +7437,32 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5218580838010555187}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &9161841985354066204 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3983848532188488239, guid: 96a8d100b09800e4cb7123c24487abb6,
+    type: 3}
+  m_PrefabInstance: {fileID: 5218580838010555187}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2969529334520490240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9161841985354066204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81413ba0e41c54249bc0996e528f687a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_message: 
+  m_actionType: 0
+  m_spriteButtonList: {fileID: 11400000, guid: c3c0ad3f40972da4c81d32b5f158ae38, type: 2}
+  m_deviceType: 0
+  m_directionPart: 0
+  m_cycleActionPart: 0
+  m_inputManager: {fileID: 11400000, guid: 27c922adea859804db50b57a9104dd2c, type: 2}
+  m_inputaction: {fileID: 0}
 --- !u!1001 &5953274199595360029
 PrefabInstance:
   m_ObjectHideFlags: 0
