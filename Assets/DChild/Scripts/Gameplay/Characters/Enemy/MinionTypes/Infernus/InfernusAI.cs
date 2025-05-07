@@ -14,6 +14,7 @@ using DChild;
 using DChild.Gameplay.Characters.Enemies;
 using DChild.Gameplay.Pooling;
 using DChild.Gameplay.Projectiles;
+using DChild.Gameplay.Pooling;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
@@ -70,6 +71,9 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, ValueDropdown("GetAnimations")]
             private string m_deathAnimation;
             public string deathAnimation => m_deathAnimation;
+            [SerializeField, ValueDropdown("GetAnimations")]
+            private string m_attackAnticipation;
+            public string attackAnticipation => m_attackAnticipation;
 
             [SerializeField]
             private SimpleProjectileAttackInfo m_projectile;
@@ -177,7 +181,14 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField]
         private Transform m_projectileStart;
 
+        [SerializeField]
+        private Transform m_HandPosition1, m_HandPosition2;
+
         private State m_turnState;
+
+        private Coroutine m_firehandRoutine;
+
+        private List<GameObject> firehands = new List<GameObject>();
 
 
         //[SerializeField]
@@ -345,7 +356,15 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForSeconds(0.8f);
             m_projectileLauncher.AimAt(projectilePos);
             m_projectileLauncher.LaunchProjectile();*/
+            RemoveFirehand();
             yield return null;
+        }
+
+        private void RemoveFirehand()
+        {
+            var x = firehands[0];
+            firehands.RemoveAt(0);
+            Destroy(x);
         }
 
         private IEnumerator MobileAttackRoutine()
@@ -480,7 +499,10 @@ namespace DChild.Gameplay.Characters.Enemies
                             {
                                 m_lastTargetPos = m_targetInfo.position;
                             }
-                            m_attackHandle.ExecuteAttack(m_info.projectile.animation, m_info.idleAnimation);
+                            if (m_firehandRoutine==null)
+                            {
+                                m_firehandRoutine = StartCoroutine(AttackAnticipation());
+                            }
                             break;
                     }
                     m_attackDecider.hasDecidedOnAttack = false;
@@ -652,6 +674,24 @@ namespace DChild.Gameplay.Characters.Enemies
             m_enablePatience = false;
             m_stateHandle.OverrideState(State.ReevaluateSituation);
             enabled = true;
+        }
+
+        private IEnumerator AttackAnticipation()
+        {
+            m_animation.SetAnimation(0, m_info.attackAnticipation, false);
+            yield return new WaitForSeconds(0.5f);
+            var instance1 = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(m_info.projectile.projectileInfo.projectile);
+            instance1.transform.position = m_HandPosition1.position;
+            instance1.transform.SetParent(m_HandPosition1);
+            firehands.Add(instance1.gameObject);
+            var instance2 = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(m_info.projectile.projectileInfo.projectile);
+            instance2.transform.position = m_HandPosition2.position;
+            instance2.transform.SetParent(m_HandPosition2);
+            firehands.Add(instance2.gameObject);
+            yield return new WaitForAnimationComplete(m_animation.animationState,m_info.attackAnticipation);
+            m_attackHandle.ExecuteAttack(m_info.projectile.animation, m_info.idleAnimation);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.projectile.animation);
+            m_firehandRoutine = null;
         }
 
         public override void ReturnToSpawnPoint()
