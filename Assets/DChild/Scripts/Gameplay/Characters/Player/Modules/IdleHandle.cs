@@ -16,7 +16,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private int m_currentIdleIndex;
         private float m_timer;
         private bool m_isInIdle;
-        private bool m_isLyingDown;
+        private bool m_isLyingDown = false;
 
         public void Initialize(ComplexCharacterInfo info)
         {
