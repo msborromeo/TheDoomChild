@@ -22,6 +22,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private PlayerInput m_playerinput;
         [SerializeField]
         private OverworldObjectInteraction m_objectInteraction;
+        [SerializeField]
+        private PlayerInput m_playerInput;
 
         private float m_currentSpeed;
         public float horizontalInput;
@@ -32,6 +34,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public event EventAction<EventActionArgs> ControllerDisabled;
         public event EventAction<EventActionArgs> ControllerEnabled;
+        public static event Action<string> ActiveControllerChanged;
 
         public void Disable()
         {
@@ -102,6 +105,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
         void Update()
         {
             Move(horizontalInput, verticalInput);
+        }
+
+        public void OnDeviceTypeChanged()
+        {
+            ActiveControllerChanged?.Invoke(m_playerInput.currentControlScheme);
         }
     }
 }

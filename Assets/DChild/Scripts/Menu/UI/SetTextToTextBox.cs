@@ -330,6 +330,8 @@ namespace DChild.Gameplay.UI
         {
             m_inputManager.OnActiveDeviceChange -= SetText;
             m_inputManager.BindingsChangedEvent -= SetText;
+            UnderworldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
+            OverWorldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
         }
 
         private void Awake()
@@ -342,6 +344,7 @@ namespace DChild.Gameplay.UI
             //m_inputManager.OnActiveDeviceChange += SetText;
             m_inputManager.BindingsChangedEvent += SetText;
             UnderworldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
+            OverWorldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
         }
         // Start is called before the first frame update
         void Start()

@@ -1,7 +1,10 @@
 ﻿using DChild.Gameplay.ArmyBattle.SpecialSkills;
+using DChild.UI;
 using Doozy.Runtime.UIManager.Components;
 using Holysoft.Collections;
 using Holysoft.Event;
+using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +14,16 @@ namespace DChild.Gameplay.ArmyBattle.UI
     {
         [SerializeField]
         private ArmyBattleSpecialSkillSelection m_specialSkillSelection;
+        [SerializeField]
+        private UIButton m_previousButton;
+        [SerializeField]
+        private UIButton m_nextButton;
+        [SerializeField]
+        private UIButton m_firstSelectionOnPrevious;
+        [SerializeField]
+        private UIButton m_firstSelectionOnNext;
+        [SerializeField, ChildGameObjectsOnly]
+        private SmartSelectableNavigation[] m_selectableNavigations;
         [SerializeField]
         private List<SpecialSkillGroupOptionUI> m_selectableGroups;
 
@@ -28,6 +41,10 @@ namespace DChild.Gameplay.ArmyBattle.UI
         private int m_startingIndex = 0;
         private int m_page;
         private const int m_maxRows = 4;
+
+        private int m_totalPages;
+        private float m_scrollBarIncrements;
+        private bool m_cyclePageGuard;
 
         public int currentPage => throw new System.NotImplementedException();
 
@@ -54,22 +71,51 @@ namespace DChild.Gameplay.ArmyBattle.UI
             }
         }
 
-        void IPageHandle.NextPage()
+        public void NextPage()
         {
-            throw new System.NotImplementedException();
+            m_cyclePageGuard = true;
+
+            m_page++;
+            SetPage(m_page);
+
+            if (m_page != GetTotalPages() - 1)
+            {
+                m_scrollBar.value = m_scrollBarIncrements * m_page;
+
+            }
+            else
+            {
+                m_scrollBar.value = 1;
+            }
+            m_cyclePageGuard = false;
+
+            StartCoroutine(ForceSelectFirstSelectionRoutine(m_firstSelectionOnNext));
         }
 
-        void IPageHandle.PreviousPage()
+        public void PreviousPage()
         {
-            throw new System.NotImplementedException();
+            m_cyclePageGuard = true;
+
+            m_page--;
+            SetPage(m_page);
+
+            m_scrollBar.value = m_scrollBarIncrements * m_page;
+
+            m_cyclePageGuard = false;
+
+            StartCoroutine(ForceSelectFirstSelectionRoutine(m_firstSelectionOnPrevious));
         }
 
         public void Initialize()
         {
             Debug.Log($"total special groups: ${m_groups.Count}");
-            m_scrollBar.numberOfSteps = GetTotalPages();
-            m_scrollBar.size = 1f / GetTotalPages();
+            m_totalPages = GetTotalPages();
+            m_scrollBar.numberOfSteps = m_totalPages;
+            m_scrollBarIncrements = 1f / m_totalPages;
+            m_scrollBar.size = m_scrollBarIncrements;
             m_scrollBar.value = 0;
+
+            SetPage(0);
 
             SetPage(0);
         }
@@ -78,16 +124,23 @@ namespace DChild.Gameplay.ArmyBattle.UI
         public void SetAvailableSpecialGroups(List<ISpecialSkillGroup> groups)
         {
             this.m_groups = groups;
+            Initialize();
         }
 
         public int GetTotalPages()
         {
             return Mathf.CeilToInt(m_groups.Count / (float)m_maxRows);
 
-        }        
+        }
 
         public void SetPage(int pageIndex)
         {
+            if (pageIndex < 0 || pageIndex > m_totalPages)
+                return;
+
+            m_previousButton.interactable = pageIndex > 0;
+            m_nextButton.interactable = pageIndex < (m_totalPages - 1);
+
             m_page = pageIndex;
             m_startingIndex = m_page * m_maxRows;
 
@@ -96,22 +149,34 @@ namespace DChild.Gameplay.ArmyBattle.UI
             m_filteredGroups = m_groups.GetRange(m_startingIndex, rangeCount);
 
             Display(m_filteredGroups);
+
+            for (int i = 0; i < m_selectableNavigations.Length; i++)
+            {
+                m_selectableNavigations[i].UpdateSelectionAvailability();
+            }
+
+
+        }
+
+        private IEnumerator ForceSelectFirstSelectionRoutine(UIButton firstSelection)
+        {
+            yield return null;
+            firstSelection.Select();
         }
 
 
         public void HandleScroll()
         {
-            int totalPages = GetTotalPages();
-            int updatedPage = Mathf.FloorToInt(m_scrollBar.value / (1f / totalPages));
-            updatedPage = Mathf.Clamp(updatedPage, 0, totalPages - 1);
+            if (m_cyclePageGuard)
+                return;
+
+            int updatedPage = Mathf.FloorToInt(m_scrollBar.value / m_scrollBarIncrements);
+            updatedPage = Mathf.Clamp(updatedPage, 0, m_totalPages - 1);
 
             if (m_page != updatedPage)
             {
                 SetPage(updatedPage);
             }
         }
-
-        
     }
-
 }

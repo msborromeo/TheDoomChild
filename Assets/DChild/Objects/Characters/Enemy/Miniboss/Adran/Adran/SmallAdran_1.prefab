@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d65502d98619e438c6388e3da86e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 1
+  m_maxHealth: 150
 --- !u!1 &2907897547607461434
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,6 +204,9 @@ GameObject:
   - component: {fileID: 4154817324366667582}
   - component: {fileID: 3462238756404815179}
   - component: {fileID: 8475194129736089810}
+  - component: {fileID: 2759721004292814878}
+  - component: {fileID: 5716406076769672292}
+  - component: {fileID: 8400376954208006298}
   m_Layer: 13
   m_Name: SmallAdran_1
   m_TagString: Character
@@ -228,6 +231,7 @@ Transform:
   - {fileID: 7341493143901986980}
   - {fileID: 5543625246269206816}
   - {fileID: 160093195024794999}
+  - {fileID: 4262741085933052612}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -57.802}
@@ -271,8 +275,8 @@ MonoBehaviour:
   m_character: {fileID: 3036939116371861433}
   m_collider:
   - {fileID: 2765693638064396860}
-  - {fileID: 7375075772361748553}
   - {fileID: 5911989639316019902}
+  m_deathVfx: {fileID: 2812204590108405262}
   startingPosition: {x: 0, y: 0}
   m_turnAnimation: Turn
   m_idle: Walk_Stationary
@@ -337,8 +341,26 @@ MonoBehaviour:
   m_slowFactor: 0
   m_fastFactor: 0
   m_fXObjects:
-    m_particleSystems: []
-    m_originalSimulationSpeed: []
+    m_particleSystems:
+    - {fileID: 2812204590108405262}
+    - {fileID: 5199825362519449062}
+    - {fileID: 5199825363588118572}
+    - {fileID: 5199825364278147367}
+    - {fileID: 5199825363282384923}
+    - {fileID: 5199825362816381626}
+    - {fileID: 5199825362548185829}
+    - {fileID: 5199825363409395317}
+    - {fileID: 5199825363511442555}
+    m_originalSimulationSpeed:
+    - 1
+    - 1
+    - 1
+    - 1.5
+    - 1
+    - 1.5
+    - 1
+    - 1
+    - 1
   m_spineObjects:
     m_skeletonAnimations:
     - {fileID: 2907897547607461432}
@@ -367,7 +389,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 4}
+  m_Offset: {x: -0.78, y: 5.06}
   serializedVersion: 2
   m_Radius: 6
 --- !u!114 &8642646317534990658
@@ -451,6 +473,78 @@ MonoBehaviour:
   m_damageUniqueHitboxesOnly: 0
   m_collisionRegistrator: {fileID: 0}
   m_ignoreColliderList: []
+--- !u!114 &2759721004292814878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2907897548827372027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd8599297ea1c84ba2f23b8f6c74e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 2907897547607461432}
+--- !u!114 &5716406076769672292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2907897548827372027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90293750f472d3340b452cec6fea2606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events:
+  - spineEvent: Explode_FX
+    unityHandler:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3485264261631674575}
+          m_TargetAssemblyTypeName: SmallAdran, Assembly-CSharp
+          m_MethodName: PlayDeathVfx
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &8400376954208006298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2907897548827372027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42be6986c6a2a414fa5ceddb0018fe09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_skeletonAnimation: {fileID: 2907897547607461432}
+  m_eventInfo:
+  - m_eventName: Explode_FX
+    m_onEventCalled:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3485264261631674575}
+          m_TargetAssemblyTypeName: SmallAdran, Assembly-CSharp
+          m_MethodName: PlayDeathVfx
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &3061680259310596501
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,7 +714,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.31, y: 4.8}
+  m_Offset: {x: -1.24, y: 5.41}
   serializedVersion: 2
   m_Radius: 4.70076
 --- !u!1 &7960102126547355648
@@ -672,8 +766,9 @@ MonoBehaviour:
   m_animator: {fileID: 3462238756404815179}
   m_animation: Death
   m_bodyDuration:
-    m_startTime: 0.1
-  m_fx: []
+    m_startTime: 0.5
+  m_fx:
+  - {fileID: 2812204590108405262}
   m_destroySource: 1
 --- !u!114 &1279118693300295645
 MonoBehaviour:
@@ -701,7 +796,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3349457238760106539}
-  - component: {fileID: 7375075772361748553}
   m_Layer: 13
   m_Name: BodyCollider
   m_TagString: Untagged
@@ -724,19 +818,133 @@ Transform:
   m_Father: {fileID: 6196365676483998750}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &7375075772361748553
-CircleCollider2D:
+--- !u!1001 &4272331377378763451
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8118757366212163195}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.31
+  m_Modification:
+    m_TransformParent: {fileID: 2907897548827372025}
+    m_Modifications:
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240223784966852875, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_Name
+      value: Adran_BodyPart_NiggaExplosion_FX
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3348760969940551716, guid: 3e67eed0030dbba4881df8f99433c442, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 3e67eed0030dbba4881df8f99433c442, type: 3}
+--- !u!198 &2812204590108405262 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2039193764383739061, guid: 3e67eed0030dbba4881df8f99433c442,
+    type: 3}
+  m_PrefabInstance: {fileID: 4272331377378763451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4262741085933052612 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+    type: 3}
+  m_PrefabInstance: {fileID: 4272331377378763451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5199825362519449062 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8314528225642643293, guid: 3e67eed0030dbba4881df8f99433c442,
+    type: 3}
+  m_PrefabInstance: {fileID: 4272331377378763451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5199825362548185829 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8314528225630550110, guid: 3e67eed0030dbba4881df8f99433c442,
+    type: 3}
+  m_PrefabInstance: {fileID: 4272331377378763451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5199825362816381626 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8314528225364938753, guid: 3e67eed0030dbba4881df8f99433c442,
+    type: 3}
+  m_PrefabInstance: {fileID: 4272331377378763451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5199825363282384923 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8314528224896481952, guid: 3e67eed0030dbba4881df8f99433c442,
+    type: 3}
+  m_PrefabInstance: {fileID: 4272331377378763451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5199825363409395317 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8314528224755317966, guid: 3e67eed0030dbba4881df8f99433c442,
+    type: 3}
+  m_PrefabInstance: {fileID: 4272331377378763451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5199825363511442555 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8314528224650518208, guid: 3e67eed0030dbba4881df8f99433c442,
+    type: 3}
+  m_PrefabInstance: {fileID: 4272331377378763451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5199825363588118572 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8314528224593238679, guid: 3e67eed0030dbba4881df8f99433c442,
+    type: 3}
+  m_PrefabInstance: {fileID: 4272331377378763451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5199825364278147367 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8314528223903341468, guid: 3e67eed0030dbba4881df8f99433c442,
+    type: 3}
+  m_PrefabInstance: {fileID: 4272331377378763451}
+  m_PrefabAsset: {fileID: 0}
