@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.Characters.Players.Behaviour;
+using DChild.Gameplay.Narrative;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private int m_currentIdleIndex;
         private float m_timer;
         private bool m_isInIdle;
-
+        private bool m_isLyingDown;
 
         public void Initialize(ComplexCharacterInfo info)
         {
@@ -56,7 +57,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         m_timer -= GameplaySystem.time.deltaTime;
                         if (m_timer <= 0)
                         {
-                            GenerateRandomState();
+                            if(m_isLyingDown == false)
+                            {
+                                GenerateRandomState();
+                            }
                         }
                     }
                 }
@@ -82,6 +86,29 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_currentIdleIndex = 0;
             m_animator.SetInteger(m_idleStateAnimationParameter, m_currentIdleIndex);
+        }
+
+        private void Start()
+        {
+            NewGameIntroEvent.NewGameIntroStarted += OnNewGameIntroStarted;
+            NewGameIntroEvent.NewGameIntroPromptPressed += OnWakeUpPressed;
+        }
+
+        private void OnDestroy()
+        {
+            NewGameIntroEvent.NewGameIntroStarted += OnNewGameIntroStarted;
+            NewGameIntroEvent.NewGameIntroPromptPressed += OnWakeUpPressed;
+        }
+
+        private void OnWakeUpPressed()
+        {
+            m_isLyingDown = false;
+            m_timer = m_configuration.playExtendedIdleAnimAfter;
+        }
+
+        private void OnNewGameIntroStarted()
+        {
+            m_isLyingDown = true;
         }
     }
 }
