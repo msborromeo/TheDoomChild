@@ -112,7 +112,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills
 
         private int m_skillActivatedCount;
 
-        public bool CanPlayerActivateMoreSkills() => m_skillActivatedCount < m_maxPlayerActiveSkills;
+        public bool CanPlayerActivateMoreSkills() => m_skillActivatedCount < m_maxPlayerActiveSkills && m_skillActivatedCount > 0;
 
         public void Activate(SpecialSkill specialSkill, ArmyController owner)
         {
