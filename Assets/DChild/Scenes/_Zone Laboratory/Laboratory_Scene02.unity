@@ -206982,8 +206982,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dfef2b1e493bbf40b26a1eb01258c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speedPic: {fileID: 773485012}
+  m_sectionArea: {fileID: 0}
+  m_hideTommi: []
   m_toEnter: 1
+  m_heltisaTommi: 0
 --- !u!61 &929005348
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -435868,6 +435870,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1870372978 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3271086122766226083, guid: a75dda02f27f618488f717ea663a9b1c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1924131179}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654966533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5c74458f864974dbe651e07bb47a8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1871651585
 GameObject:
   m_ObjectHideFlags: 0
@@ -451058,6 +451072,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: DChild.Gameplay.Environment.Interractables.Door,
           Assembly-CSharp
         m_MethodName: Open
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1870372978}
+        m_TargetAssemblyTypeName: DChild.Gameplay.Systems.LootDropper, Assembly-CSharp
+        m_MethodName: DropLoot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
