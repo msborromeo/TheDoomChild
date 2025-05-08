@@ -3,6 +3,7 @@ using DChild.Gameplay.Combat;
 using DChild.Gameplay.Pathfinding;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -170,7 +171,6 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
         {
             StopAllCoroutines();
-            base.OnDestroyed(sender, eventArgs);
             if (m_executeMoveCoroutine != null)
             {
                 StopCoroutine(m_executeMoveCoroutine);
@@ -190,6 +190,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_hitbox.Disable();
             m_animation.SetEmptyAnimation(0, 0);
             StartCoroutine(DeathRoutine());
+            base.OnDestroyed(sender, eventArgs);
         }
 
         private IEnumerator DeathRoutine()
@@ -200,6 +201,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_deathVFX.Play();
             m_animation.SetAnimation(0, m_info.deathAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathAnimation);
+            yield return new WaitForSeconds(1f); //added wait for seconds here because death animation is too fast to notice death
             enabled = false;
             m_bodyCollider.enabled = false;
             m_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -446,7 +448,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private Vector2 SetRetreatPosition()
         {
-            int chosenIndex = Random.Range(0, m_panicPoints.Count);
+            int chosenIndex = UnityEngine.Random.Range(0, m_panicPoints.Count);
 
             m_currentRetreatPoint = m_panicPoints[chosenIndex];
 
