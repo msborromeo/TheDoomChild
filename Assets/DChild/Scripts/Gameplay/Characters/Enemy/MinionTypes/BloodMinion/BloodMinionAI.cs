@@ -144,6 +144,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private float m_currentRunAttackDuration;
         private bool m_enablePatience;
         private bool m_isDetecting;
+        [SerializeField]
         private bool m_isSubmerged;
         private Vector2 m_startPoint;
 
@@ -325,16 +326,16 @@ namespace DChild.Gameplay.Characters.Enemies
             m_flinchHandle.enabled = true;
             m_attackBB.SetActive(true);
             m_selfCollider.SetActive(false);
-            m_isSubmerged = false;
             m_hitbox.Enable();
-            m_animation.SetAnimation(0, m_info.imerseAnimation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.imerseAnimation);
+            m_isSubmerged = false;
+            m_animation.SetAnimation(0, m_info.idleAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleAnimation);
             m_hitbox.Disable();
             m_animation.SetAnimation(0, m_info.attack1, false);
             yield return new WaitForSeconds(m_info.attackHitboxDelay);
             m_slashFX.GetComponent<ParticleSystemRenderer>().flip = m_character.facing == HorizontalDirection.Right ? Vector3.zero : Vector3.right;
             m_hitbox.Enable();
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(.9f);
             m_slashFX.Play();
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack1.animation);
             m_attackBB.SetActive(false);
@@ -363,8 +364,12 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_hitbox.Enable();
             m_flinchHandle.enabled = true;
-            AIBrainUtility.SetAnimation(m_animation, 0, m_info.imerseAnimation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.imerseAnimation);
+            //if (m_isSubmerged == true)
+            //{
+            //    AIBrainUtility.SetAnimation(m_animation, 0, m_info.imerseAnimation, false);
+            //    yield return new WaitForAnimationComplete(m_animation.animationState, m_info.imerseAnimation);
+            //    m_isSubmerged = false;
+            //}      
             AIBrainUtility.SetAnimation(m_animation, 0, m_info.idleAnimation, true);
             m_stateHandle.OverrideState(State.ReevaluateSituation);
             yield return null;
@@ -372,8 +377,13 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator SubmerseRoutine()
         {
-            AIBrainUtility.SetAnimation(m_animation, 0, m_info.submergAnimation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.submergAnimation);
+            if(m_isSubmerged == false)
+            {
+                m_isSubmerged = true;
+                AIBrainUtility.SetAnimation(m_animation, 0, m_info.submergAnimation, false);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.submergAnimation);
+            }
+           
             AIBrainUtility.SetAnimation(m_animation, 0, m_info.submergIdleAnimation, true);
             m_stateHandle.ApplyQueuedState();
             yield return null;
@@ -452,6 +462,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     else
                     {
+                        m_isSubmerged = true;
                         m_movement.Stop();
                         m_animation.SetAnimation(0, m_info.submergIdleAnimation, true);
                     }
@@ -493,7 +504,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     else
                     {
-                        if (!m_isSubmerged)
+                        if (m_isSubmerged == false)
                         {
                             m_stateHandle.Wait(State.Cooldown);
                             StartCoroutine(RetreatRoutine());
@@ -520,7 +531,7 @@ namespace DChild.Gameplay.Characters.Enemies
                             if (m_attackDecider.hasDecidedOnAttack && IsTargetInRange(m_attackDecider.chosenAttack.range))
                             {
                                 m_movement.Stop();
-                                m_animation.SetAnimation(0, m_info.idleAnimation, true);
+                                //m_animation.SetAnimation(0, m_info.idleAnimation, true);
                                 m_stateHandle.SetState(State.Attacking);
                             }
                             else
@@ -534,6 +545,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                     m_animation.EnableRootMotion(true, false);
                                     m_selfCollider.SetActive(false);
                                     m_animation.SetAnimation(0, m_info.submergeMove.animation, true).TimeScale = m_currentTimeScale;
+                                    m_isSubmerged = true;
                                     //m_movement.MoveTowards(Vector2.one * transform.localScale.x, distance >= m_info.targetDistanceTolerance ? m_info.move.speed : m_info.patrol.speed);
                                 }
                                 else
@@ -544,7 +556,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                     {
                                         m_isSubmerged = false;
                                         m_hitbox.Enable();
-                                        m_animation.SetAnimation(0, m_info.imerseAnimation, false);
+                                        m_animation.SetAnimation(0, m_info.idleAnimation, false);
                                     }
                                     else
                                     {
@@ -557,7 +569,7 @@ namespace DChild.Gameplay.Characters.Enemies
                         else
                         {
                             m_turnState = State.ReevaluateSituation;
-                            m_isSubmerged = m_animation.animationState.GetCurrent(0).Animation.ToString() == m_info.idleAnimation.animation ? false : true;
+                           // m_isSubmerged = m_animation.animationState.GetCurrent(0).Animation.ToString() == m_info.idleAnimation.animation ? false : true;
                             if (m_animation.GetCurrentAnimation(0).ToString() != m_info.turnAnimation.animation)
                                 m_stateHandle.SetState(State.Turning);
                         }
@@ -568,7 +580,15 @@ namespace DChild.Gameplay.Characters.Enemies
                     //How far is target, is it worth it to chase or go back to patrol
                     if (m_targetInfo.isValid)
                     {
-                        m_stateHandle.SetState(State.Chasing);
+                        if (IsTargetInRange(m_attackDecider.chosenAttack.range))
+                        {
+                            m_stateHandle.SetState(State.Attacking);
+                        }
+                        else
+                        {
+                            m_stateHandle.SetState(State.Chasing);
+                        }
+                        
                     }
                     else
                     {
