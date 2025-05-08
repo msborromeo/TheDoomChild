@@ -37,6 +37,12 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField]
             private BasicAnimationInfo m_panicAnimation;
             public BasicAnimationInfo panicAnimation => m_panicAnimation;
+            [SerializeField]
+            private BasicAnimationInfo m_flinchAnimation;
+            public BasicAnimationInfo flinchAnimation => m_flinchAnimation;
+            [SerializeField]
+            private BasicAnimationInfo m_deathAnimation;
+            public BasicAnimationInfo deathAnimation => m_deathAnimation;
 
 
             public override void Initialize()
@@ -49,6 +55,8 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_idleAnimation.SetData(m_skeletonDataAsset);
                 m_movingAnimation.SetData(m_skeletonDataAsset);
                 m_panicAnimation.SetData(m_skeletonDataAsset);
+                m_deathAnimation.SetData(m_skeletonDataAsset);
+                m_flinchAnimation.SetData(m_skeletonDataAsset);
 #endif
 
             }
@@ -76,6 +84,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private GameObject m_selfCollider;
         [SerializeField, TabGroup("Reference")]
         private Collider2D m_bodyCollider;
+        [SerializeField, TabGroup("Reference")]
+        private ParticleFX m_deathVFX;
         [SerializeField, TabGroup("Modules")]
         private TransformTurnHandle m_turnHandle;
         [SerializeField, TabGroup("Modules")]
@@ -186,15 +196,14 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_agent.Stop();
             Debug.Log("DIE HERE");
-            //m_animation.SetAnimation(0, m_info.deathStartAnimation, false);
-            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathStartAnimation);
-            //m_animation.SetAnimation(0, m_info.deathLoopAnimation, true);
-            //m_animation.SetAnimation(0, m_info.deathEndAnimation, false);
-            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathEndAnimation);
+
+            m_deathVFX.Play();
+            m_animation.SetAnimation(0, m_info.deathAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathAnimation);
             enabled = false;
             m_bodyCollider.enabled = false;
-            this.gameObject.SetActive(false);
             m_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+            this.gameObject.SetActive(false);
             yield return null;
         }
 
@@ -333,6 +342,11 @@ namespace DChild.Gameplay.Characters.Enemies
             while(m_isRetreating)
             {
                 m_agent.Move(m_info.panic.speed);
+
+                if (IsFacingTarget())
+                {
+                    m_stateHandle.SetState(State.Turning);
+                }
 
                 yield return null;
             }
