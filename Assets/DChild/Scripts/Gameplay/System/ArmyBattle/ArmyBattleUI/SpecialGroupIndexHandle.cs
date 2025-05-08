@@ -19,9 +19,9 @@ namespace DChild.Gameplay.ArmyBattle.UI
         [SerializeField]
         private UIButton m_nextButton;
         [SerializeField]
-        private UIButton m_firstSelectionOnPrevious;
-        [SerializeField]
         private UIButton m_firstSelectionOnNext;
+        [SerializeField]
+        private UIButton m_firstSelectionOnPrevious;
         [SerializeField, ChildGameObjectsOnly]
         private SmartSelectableNavigation[] m_selectableNavigations;
         [SerializeField]
