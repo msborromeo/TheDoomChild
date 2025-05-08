@@ -912,6 +912,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
                 //m_SummonVfxSize.transform.localScale = new Vector3(0.5f, 0.5f, m_SummonVfxSize.localScale.z);
                 break;
             case Phase.PhaseFive:
+                Pause();
                 m_colliderSizeAdjustment.radius = 6.5f;
                 var sizeTransition = m_animation.SetAnimation(1, m_info.rageQuake, false);
                 m_animation.AddAnimation(1, m_info.idleFive, true, 0);
