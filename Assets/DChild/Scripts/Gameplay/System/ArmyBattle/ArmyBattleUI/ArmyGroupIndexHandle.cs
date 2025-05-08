@@ -64,8 +64,8 @@ namespace DChild.Gameplay.ArmyBattle.UI
         {
             m_totalPages = GetTotalPages();
             m_scrollBar.numberOfSteps = m_totalPages;
-            m_scrollBarIncrements = 1f / m_totalPages;
-            m_scrollBar.size = m_scrollBarIncrements;
+            m_scrollBarIncrements = 1f / (m_totalPages - 1);
+            m_scrollBar.size = 1f / (m_totalPages);
             m_scrollBar.value = 0;
 
             SetPage(0);
