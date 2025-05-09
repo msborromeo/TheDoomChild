@@ -79,7 +79,7 @@ namespace DChild.Gameplay.Environment
 
                             if (hitCount > 0)
                             {
-                                m_damageable.Add(damageable);
+                                 m_damageable.Add(damageable);
                                 Crush(damageable, collision.collider);
                             }
                         }       
@@ -98,7 +98,7 @@ namespace DChild.Gameplay.Environment
             }
         }
 
-        private void Reset()
+        public void Reset()
         {
             m_damageable.Clear();
         }
