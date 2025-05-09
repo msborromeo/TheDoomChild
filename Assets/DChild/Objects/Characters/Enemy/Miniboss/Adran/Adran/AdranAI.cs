@@ -8,6 +8,9 @@ using DChild.Gameplay.Characters.Players;
 using DChild.Gameplay.Combat;
 using DChild.Gameplay.Pooling;
 using DChild.Gameplay.Projectiles;
+using DG.Tweening;
+using Holysoft.Event;
+using Language.Lua;
 using Pathfinding.Util;
 using Sirenix.OdinInspector;
 using Spine.Unity;
@@ -18,6 +21,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 using static AdranAI;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class AdranAI : CombatAIBrain<AdranAI.Info>
 {
@@ -158,13 +162,34 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     [ShowInInspector]
     private RandomAttackDecider<Attack> m_attackDecider;
     [SerializeField, TabGroup("Reference")]
+    public Transform leftLimit;
+    [SerializeField, TabGroup("Reference")]
+    public Transform rightLimit;
+    [SerializeField, TabGroup("Reference")]
+    public float moveSpeed;
+    [SerializeField, TabGroup("Reference")]
+    public bool startMovingRight;
+
+    private Vector3 targetPosition;
+    private float fixedY;
+    private float fixedZ;
+    private bool isPaused = false;
+    [SerializeField, TabGroup("Reference")]
+    private GameObject m_deathFX; 
+    [SerializeField, TabGroup("Reference")]
     private RaySensor m_groundSensor;
+    [SerializeField, TabGroup("Reference")]
+    private SpineEventListener m_spineListner;
     [SerializeField, TabGroup("Reference")]
     private MovementHandle2D m_movement;
     [SerializeField, TabGroup("Reference")]
     private FlinchHandler m_flinchHandler;
     [SerializeField, TabGroup("Reference")]
+    private FlinchHandler m_flinchHandler_2;
+    [SerializeField, TabGroup("Reference")]
     private Hitbox m_hitbox;
+    [SerializeField, TabGroup("Reference")]
+    private DeathHandle m_deathHandle;
     [SerializeField, TabGroup("Reference")]
     private CircleCollider2D m_hitboxCollider;
     [SerializeField, TabGroup("Slam Roll Attack")]
@@ -185,20 +210,31 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private Transform[] m_limitPoints;
     [SerializeField, TabGroup("Slam Roll Attack")]
     private bool m_startAtPointA;
-    [SerializeField, TabGroup("Slam Roll Attack")] 
+    [SerializeField, TabGroup("Slam Roll Attack")]
     private BoxCollider2D m_movementArea;
-    [SerializeField, TabGroup("Slam Roll Attack")] 
+    [SerializeField, TabGroup("Slam Roll Attack")]
     private float m_delayBeforeToRandomArea;
     [SerializeField, TabGroup("Slam Roll Attack")]
     private float m_moveSpeedToRandomArea;
+    [SerializeField, TabGroup("Slam Roll Attack")]
+    private ParticleSystem m_slamVFX;
+    [SerializeField, TabGroup("Slam Roll Attack")]
+    private ParticleSystem m_rollVFXRight;
+    [SerializeField, TabGroup("Slam Roll Attack")]
+    private ParticleSystem m_rollVFXLeft;
 
-
+    [SerializeField, TabGroup("Small Adran")]
+    private Transform m_SummonVfxSize;
+    [SerializeField, TabGroup("Small Adran")]
+    private Transform m_soulOrbSize;
+    [SerializeField, TabGroup("Small Adran")]
+    private ParticleSystem[] m_summonFX;
     [SerializeField, TabGroup("Small Adran")]
     private CircleCollider2D m_colliderSizeAdjustment;
     [SerializeField, TabGroup("Small Adran")]
     private GameObject[] m_adranProjectiles;
     [SerializeField, TabGroup("Small Adran")]
-    private Transform m_summonSpot;
+    private Transform[] m_summonSpot;
     [SerializeField, TabGroup("Small Adran")]
     private float m_flightSpeed;
     [SerializeField, TabGroup("Small Adran")]
@@ -219,28 +255,56 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private Damage m_damageOnDeath;
     [SerializeField, TabGroup("Small Adran")]
     private float m_returnTimeOfAdran;
-    [ShowInInspector, ReadOnly,TabGroup("Small Adran")]
+    [ShowInInspector, ReadOnly, TabGroup("Small Adran")]
     private float m_timer;
     private bool m_isReturning;
     protected override void Start()
     {
-
+   
         m_phaseHandle = new PhaseHandle<Phase, PhaseInfo>();
         m_phaseHandle.Initialize(Phase.PhaseOne, m_info.phaseInfo, m_character, ChangeState, ApplyPhaseData);
         m_phaseHandle.ApplyChange();
         m_healthLevel = HealthLevel.LevelOne;
-        enabled = true;
+        fixedY = transform.position.y;
+        fixedZ = transform.position.z;
+        targetPosition = GetTargetPosition(startMovingRight);
         base.Start();
     }
     protected override void Awake()
     {
         base.Awake();
+        m_damageable.health.Death += Health_Death;
         m_attackDecider = new RandomAttackDecider<Attack>();
         m_stateHandle = new StateHandle<State>(State.Intro, State.WaitBehaviourEnd);
         m_smallAdrans = new List<Projectile>();
         UpdateAttackDeciderList();
 
     }
+    protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
+    {
+        base.OnDestroyed(sender, eventArgs);
+        Debug.Log("Death?");     
+        StopAllCoroutines();
+        m_movement.Stop();
+        m_animation.DisableRootMotion();
+
+    }
+    public void DeathEvent()
+    {
+        var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_deathFX, gameObject.scene);
+        instance.SpawnAt(new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+    }
+    private void Health_Death(object sender, Holysoft.Event.EventActionArgs eventArgs)
+    {
+        if (m_phaseHandle.currentPhase == Phase.PhaseFour)
+        {
+            m_phaseHandle.MonitorPhase();
+            Debug.Log("health 0");
+            m_damageable.health.SetHealthPercentage(0.03f);
+            m_damageable.health.Death -= Health_Death;
+        }
+    }
+
     public override void SetTarget(IDamageable damageable, Character m_target = null)
     {
         if (damageable != null)
@@ -255,7 +319,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         m_stateHandle.OverrideState(State.Attacking);
         yield return null;
     }
-    
+
     private void ChangeState()
     {
         m_stateHandle.SetState(State.Phasing);
@@ -315,46 +379,54 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     }
     private IEnumerator RollAttack()
     {
-        int rollCount = 0;   
-        bool movingRight = m_startAtPointA; 
+        int rollCount = 0;
+        bool movingRight = m_startAtPointA;
         float rollSpeed = m_initialSpeed;
         var rollInitializeAnim = m_startAtPointA ? m_info.slamRollLeft : m_info.slamRollRight;
         var rollLoopAnim = m_startAtPointA ? m_info.slamRollLeftLoop : m_info.slamRollRightLoop;
-        var rollIntitialSpineAnim= m_animation.SetAnimation(1, rollInitializeAnim, false);
+        var rollIntitialSpineAnim = m_animation.SetAnimation(1, rollInitializeAnim, false);
         yield return new WaitForSpineAnimationComplete(rollIntitialSpineAnim);
         m_animation.SetAnimation(1, rollLoopAnim, true);
-
+        var vfxRoll_1 = movingRight ? m_rollVFXRight : m_rollVFXLeft;
+        vfxRoll_1.Play();
         Vector2 targetStartPos = m_startAtPointA ? m_limitPoints[0].position : m_limitPoints[1].position;
         float currentY = transform.position.y;
 
         while (Mathf.Abs(transform.position.x - targetStartPos.x) > 0.1f)
         {
             float newX = Mathf.MoveTowards(transform.position.x, targetStartPos.x, m_initialSpeed * Time.deltaTime);
-            transform.position = new Vector3(newX, currentY, transform.position.z); 
-            yield return null;
+            transform.position = new Vector3(newX, currentY, transform.position.z);
+            yield return null;       
         }
+        vfxRoll_1.Stop();
         Debug.Log("Reached the starting point, beginning the rolling attack!");
-
+     
         while (rollCount < m_totalRollCount)
         {
+            
             var rollLoopAnim_2 = movingRight ? m_info.slamRollRightLoop : m_info.slamRollLeftLoop;
             m_animation.SetAnimation(1, rollLoopAnim_2, true);
             Vector2 targetPos = movingRight ? m_limitPoints[1].position : m_limitPoints[0].position;
-
+            var vfxRoll = movingRight ? m_rollVFXLeft : m_rollVFXRight;
+            if (!vfxRoll.isPlaying) 
+            {
+                vfxRoll.Play();
+            }
             
             float newX = Mathf.MoveTowards(transform.position.x, targetPos.x, rollSpeed * Time.deltaTime);
             transform.position = new Vector3(newX, currentY, transform.position.z);  // Keep the Y position constant
 
-            
+
             if (Mathf.Abs(transform.position.x - targetPos.x) <= 0.1f)
-            {
+            { 
                 movingRight = !movingRight;
                 Debug.Log("Switching direction!");
-                rollCount++; 
+                vfxRoll.Stop();
+                rollCount++;
                 rollSpeed = Mathf.Min(rollSpeed + m_incrementSpeed, m_maxRollSpeed);
                 Debug.Log("Roll Count: " + rollCount + ", Roll Speed: " + rollSpeed);
             }
-            yield return null; 
+            yield return null;
         }
         m_animation.SetAnimation(0, m_info.idle, true);
         m_animation.AddAnimation(1, m_info.idleFive, true, 0);
@@ -364,7 +436,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     {
         // Wait for delay before moving
         yield return new WaitForSeconds(m_delayBeforeToRandomArea);
-     
+
         Vector2 target = GetRandomPositionWithinArea();
 
         while (Vector2.Distance(transform.position, target) > 0.1f)
@@ -398,14 +470,16 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
             transform.position = new Vector2(transform.position.x, transform.position.y - m_dropSpeed * Time.deltaTime);
             yield return null;
         }
+        m_slamVFX.Play();
         var SlamAnimation = m_animation.SetAnimation(1, m_info.slamLand, false);
         m_animation.AddAnimation(1, m_info.idleFive, true, 0);
         yield return new WaitForSpineAnimationComplete(SlamAnimation);
         m_movement.Stop();
     }
 
-    private IEnumerator SlamRollAttack() 
+    private IEnumerator SlamRollAttack()
     {
+        Pause();
         m_stateHandle.Wait(State.ReevaluateSituation);
         yield return SlamRollLocatePlayer();
         yield return SlamAttack();
@@ -417,8 +491,13 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private IEnumerator HomingMissileAdranAttack()
     {
         m_stateHandle.Wait(State.ReevaluateSituation);
+        // StopAllCoroutines();
+        Pause();
         yield return HomingMissilleAnimation();
+        //Resume();
         yield return HomingMissileProjectile();
+        //yield return HomingMissilleAnimation();
+       
         m_attackDecider.hasDecidedOnAttack = false;
         m_stateHandle.ApplyQueuedState();
     }
@@ -435,13 +514,11 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private IEnumerator SlamRollLocatePlayer()
     {
         float heightOffset = m_offSetAbovePlayer;
-       
+
         while (true)
         {
             Vector2 playerPos = GameplaySystem.playerManager.player.character.transform.position;
             Vector2 targetPos = playerPos + Vector2.up * heightOffset;
-
-            // Move toward the target position (above the player)
             transform.position = Vector2.MoveTowards(transform.position, targetPos, m_flightSpeedSlamRoll * Time.deltaTime);
 
             // Check if the object is very close to the target position
@@ -453,29 +530,41 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
 
             yield return null;
         }
-        
+
     }
     private IEnumerator HomingMissileProjectile()
     {
         HealthTracker();
         if (m_healthLevel == HealthLevel.LevelTwo)
         {
-            var random = UnityEngine.Random.Range(0, 2);
-            if(random == 1)
-            {
-                var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[0], gameObject.scene);
+                var randomInstance = UnityEngine.Random.Range(0, 4);
+                int randomInstance_2;
+                do
+                {
+                    randomInstance_2 = UnityEngine.Random.Range(0, 4);
+                } while (randomInstance_2 == randomInstance);
+                var randomProjectiles = UnityEngine.Random.Range(0, 4);
+                m_summonFX[randomInstance].Play();
+                yield return new WaitForSeconds(1f);
+                var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectiles], gameObject.scene);
                 instance1.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
                 instance1.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
-                instance1.SpawnAt(new Vector2(m_summonSpot.position.x, m_summonSpot.position.y), Quaternion.identity);
-                
-                var instance2 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[1], gameObject.scene);
+                instance1.SpawnAt(new Vector2(m_summonSpot[randomInstance].position.x, m_summonSpot[randomInstance].position.y), Quaternion.identity);
+                yield return new WaitForSeconds(.3f);
+                instance1.transform.rotation = Quaternion.identity;
+                m_summonFX[randomInstance_2].Play();
+                yield return new WaitForSeconds(1f);
+                var instance2 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectiles], gameObject.scene);               
                 instance2.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
                 instance2.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
-                instance2.SpawnAt(new Vector2(m_summonSpot.position.x + 5f  , m_summonSpot.position.y + 5f), Quaternion.identity);
+                instance2.SpawnAt(new Vector2(m_summonSpot[randomInstance_2].position.x, m_summonSpot[randomInstance_2].position.y), Quaternion.identity);
+                yield return new WaitForSeconds(.3f);
+                instance2.transform.rotation = Quaternion.identity;
+
                 StartCoroutine(SpawningOfHomingMissiles(instance1));
                 yield return SpawningOfHomingMissiles(instance2);
-
-                if(instance1 != null)
+                
+                if (instance1 != null)
                 {
                     instance1.GetComponent<SmallAdran>().GotDamagedByPlayer -= AdranAI_GotDamagedByPlayer;
                     instance1.GetComponent<SmallAdran>().SmallAdranGotDestroyed -= AdranAI_GotDamagedByPlayer;
@@ -487,33 +576,21 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
                     instance2.GetComponent<SmallAdran>().SmallAdranGotDestroyed -= AdranAI_GotDamagedByPlayer;
                     yield return HomingMissileReturnAnimation();
                 }
-
-
-
-            }
-            else
-            {
-                var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[0], gameObject.scene);
-                instance.SpawnAt(new Vector2(m_summonSpot.position.x, m_summonSpot.position.y), Quaternion.identity);
-                instance.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
-                instance.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
-                yield return SpawningOfHomingMissiles(instance);
-                if(instance != null)
-                {
-                    instance.GetComponent<SmallAdran>().GotDamagedByPlayer -= AdranAI_GotDamagedByPlayer;
-                    instance.GetComponent<SmallAdran>().SmallAdranGotDestroyed -= AdranAI_GotDamagedByPlayer;
-                    yield return HomingMissileReturnAnimation();
-                }
-                
-            }
         }
         else
         {
-            var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[0], gameObject.scene);
+            var randomProjectiles = UnityEngine.Random.Range(0, 4);
+            var randomSummonSpot = UnityEngine.Random.Range(0, 4);
+            m_summonFX[randomSummonSpot].Play();
+            yield return new WaitForSeconds(1);
+            var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectiles], gameObject.scene);
             instance.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
             instance.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
-            instance.SpawnAt(new Vector2(m_summonSpot.position.x, m_summonSpot.position.y), Quaternion.identity);
+            instance.SpawnAt(new Vector2(m_summonSpot[randomSummonSpot].position.x, m_summonSpot[randomSummonSpot].position.y), Quaternion.identity);
+            yield return new WaitForSeconds(.3f);
+            instance.transform.rotation = Quaternion.identity;
             yield return SpawningOfHomingMissiles(instance);
+            
             if (instance != null)
             {
                 instance.GetComponent<SmallAdran>().GotDamagedByPlayer -= AdranAI_GotDamagedByPlayer;
@@ -521,90 +598,143 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
                 yield return HomingMissileReturnAnimation();
             }
         }
-        
+
     }
 
     private void SmallAdranGotDestroyed(object sender, Holysoft.Event.EventActionArgs eventArgs)
     {
         Debug.Log("Damage adran");
         GameplaySystem.combatManager.Damage(m_damageable, m_damageOnDeath);
+       // m_flinchHandler_2.Flinch();
+        stopHomingMissile = true;
     }
 
+    private IEnumerator FlinchStrongAnimationRoutine()
+    {
+        m_hitbox.Disable();
+        m_flinchHandler.SetAnimation(m_info.flinch_2);
+        m_flinchHandler.Flinch();
+        yield return new WaitForSeconds(0.5f);
+        m_flinchHandler.SetAnimation(m_info.flinch_1);
+        m_hitbox.Enable();
+    }
     private void AdranAI_GotDamagedByPlayer(object sender, Holysoft.Event.EventActionArgs eventArgs)
     {
+
         Debug.Log("small adran got hit by player king ina mo ka");
-        if (m_healthLevel == HealthLevel.LevelTwo)
-        {
-            m_flinchHandler.SetIdleAnimation(m_info.idleTwo);
-        } else if (m_healthLevel == HealthLevel.LevelThree)
-        {
-            m_flinchHandler.SetIdleAnimation(m_info.idleThree);
-        }
-        else if (m_healthLevel == HealthLevel.LevelFour)
-        {
-            m_flinchHandler.SetIdleAnimation(m_info.idleThree);
-        }
-        else
-        {
-            m_flinchHandler.SetIdleAnimation(m_info.idleFive);
-        }
+        #region FlincnIdleSetter?
+        //if (m_healthLevel == HealthLevel.LevelTwo)
+        //{
+        //    m_flinchHandler.SetIdleAnimation(m_info.idleTwo);
+        //} else if (m_healthLevel == HealthLevel.LevelThree)
+        //{
+        //    m_flinchHandler.SetIdleAnimation(m_info.idleThree);
+        //}
+        //else if (m_healthLevel == HealthLevel.LevelFour)
+        //{
+        //    m_flinchHandler.SetIdleAnimation(m_info.idleThree);
+        //}
+        //else
+        //{
+        //    m_flinchHandler.SetIdleAnimation(m_info.idleFive);
+        //} 
+        #endregion
         m_flinchHandler.Flinch();
-        
+
 
     }
-   
+
+    private bool stopHomingMissile = false;
     private IEnumerator SpawningOfHomingMissiles(PoolableObject instance)
     {
         // m_isReturning = false;
+        m_hitbox.Enable();
         float timer = 0f;
         bool returning = false;
-
+        bool reIterate = true;
+        stopHomingMissile = false;
+        Resume();
         while (true)
         {
-            // Check if instance is destroyed before doing anything
-            if (instance == null || instance.gameObject == null)
-            {
-                yield break; // Stop this routine and safely exit
-            }
 
+            if (stopHomingMissile || instance == null || instance.gameObject == null)
+            {
+                returning = true;
+                yield break;
+            }
             if (!returning)
             {
+                instance.GetComponent<SmallAdran>().ColliderController(true);
+                instance.GetComponent<SmallAdran>().isReturningToSummonSpot = false;
                 Vector2 playerPos = GameplaySystem.playerManager.player.character.transform.position;
+                Vector2 direction = playerPos - (Vector2)instance.transform.position;
+                #region FlippingBurgers
+                //   var toPlayerDotProduct = Vector2.Dot(Vector2.right, direction.normalized);
+                //   var toPlayerDotSign = Mathf.Sign(toPlayerDotProduct);
+                //// instance.GetComponent<SmallAdran>().TurnAnimationSetter();
+                //   instance.transform.localScale = new Vector3(toPlayerDotSign, instance.transform.localScale.y, instance.transform.localScale.z); 
+                #endregion
 
-                // Always double-check before accessing transform
-                if (instance == null) yield break;
-
-                instance.transform.position = Vector2.MoveTowards(instance.transform.position,
-                    playerPos,
-                    m_flightSpeed * Time.deltaTime
-                );
+                instance.transform.position = Vector2.MoveTowards(instance.transform.position, m_targetInfo.position, m_flightSpeed * Time.deltaTime);
+                var instancePlayerDistance = Vector2.Distance(instance.transform.position, m_targetInfo.position);
 
                 timer += Time.deltaTime;
-                if (timer >= m_returnTimeOfAdran)
+                if (timer >= m_returnTimeOfAdran || instancePlayerDistance <= 1f)
                 {
+
                     returning = true;
                     timer = 0f;
                 }
             }
             else
             {
-                // Again, check before using
-                if (instance == null) yield break;
 
-                instance.transform.position = Vector2.MoveTowards(
-                    instance.transform.position,
-                    m_summonSpot.position,
-                    m_flightSpeedReturn * Time.deltaTime
-                );
 
-                if (Vector2.Distance(instance.transform.position, m_summonSpot.position) <= 1f)
+                if (instance == null || instance.GetComponent<Damageable>().health.currentValue <= 0)
                 {
-                   
-                    Destroy(instance.gameObject);
-                    yield break; // Stop and let next routine start
+                    Debug.Log("inside the instance == null || instance.GetComponent<Damageable>().health.currentValue <= 0 ");
+                    returning = true;
+                    m_movement.Stop();
+                    yield break;
+                }
+                else
+                {
+                    var summonSpotSmallAdran = instance.GetComponent<SmallAdran>();
+                    summonSpotSmallAdran.startingPosition = m_summonSpot[4].position;
+                    Vector2 direction = m_summonSpot[4].position - instance.transform.position;
+                    instance.GetComponent<SmallAdran>().isReturningToSummonSpot = true;                   
+                    #region FlippinBurgers
+                    //var toSpotDotProduct = Vector2.Dot(Vector2.right, direction.normalized);
+                    //var toSpotDotSign = Mathf.Sign(toSpotDotProduct);
+                    //instance.transform.localScale = new Vector3(toSpotDotSign, instance.transform.localScale.y, instance.transform.localScale.z); 
+                    #endregion
+                    Debug.Log("else");
+                    instance.transform.position = Vector2.MoveTowards(instance.transform.position,m_summonSpot[4].position,m_flightSpeedReturn * Time.deltaTime);
+                }
+
+
+
+                var randomShit = UnityEngine.Random.Range(0, 2);
+                
+                if (Vector2.Distance(instance.transform.position, m_summonSpot[4].position) <= 10f)
+                {
+                    if (randomShit == 1 && reIterate == true)
+                    {
+                        Debug.Log("Hello im ander the water");
+                        returning = false;
+                        reIterate = false;
+                        stopHomingMissile = false;
+                        instance.GetComponent<SmallAdran>().isReturningToSummonSpot = false;
+                    }
+                    else
+                    {
+                        instance.GetComponent<SmallAdran>().isReturningToSummonSpot = true;
+                        Destroy(instance.gameObject);
+                        yield break; 
+                    }
+
                 }
             }
-
             yield return null;
         }
     }
@@ -617,6 +747,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
             yield return AnimationSetterHomingMissile(m_info.TransitionSizeTwoOne, m_info.idle);
             m_colliderSizeAdjustment.radius = 16f;
             m_hitboxCollider.radius = 15f;
+            m_soulOrbSize.localScale = new Vector2(1f,1f);
         }
         else if (m_healthLevel == HealthLevel.LevelTwo)
         {
@@ -624,18 +755,21 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
 
             m_colliderSizeAdjustment.radius = 13f;
             m_hitboxCollider.radius = 12f;
+            m_soulOrbSize.localScale = new Vector2(.9f, .9f);
         }
         else if (m_healthLevel == HealthLevel.LevelThree)
         {
             yield return AnimationSetterHomingMissile(m_info.TransitionSizeFourThree, m_info.idleThree);
             m_colliderSizeAdjustment.radius = 9.5f;
             m_hitboxCollider.radius = 8.5f;
+            m_soulOrbSize.localScale = new Vector2(0.75f, 0.75f);
         }
-        else if(m_healthLevel == HealthLevel.LevelFour)
+        else if (m_healthLevel == HealthLevel.LevelFour)
         {
             yield return AnimationSetterHomingMissile(m_info.TransitionSizeFiveFour, m_info.idleFour);
             m_colliderSizeAdjustment.radius = 7.85f;
             m_hitboxCollider.radius = 6.85f;
+            m_soulOrbSize.localScale = new Vector2(0.65f,0.65f);
         }
     }//end of HomingMissileReturnAnimation()
     private IEnumerator HomingMissilleAnimation()
@@ -644,27 +778,37 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         m_animation.SetAnimation(0, m_info.idle, true);
         if (m_healthLevel == HealthLevel.LevelOne)
         {
-            yield return  AnimationSetterHomingMissile(m_info.TransitionSizeOneTwo, m_info.idleTwo);
+            yield return AnimationSetterHomingMissile(m_info.TransitionSizeOneTwo, m_info.idleTwo);
             m_colliderSizeAdjustment.radius = 13f;
             m_hitboxCollider.radius = 12f;
+            m_SummonVfxSize.transform.localScale = new Vector3(0.8f, 0.8f, m_SummonVfxSize.localScale.z);
+            m_soulOrbSize.localScale = new Vector2(0.9f, 0.9f);
         }
-        else if(m_healthLevel == HealthLevel.LevelTwo)
+        else if (m_healthLevel == HealthLevel.LevelTwo)
         {
             yield return AnimationSetterHomingMissile(m_info.TransitionSizeTwoThree, m_info.idleThree);
             m_colliderSizeAdjustment.radius = 9.5f;
             m_hitboxCollider.radius = 8.5f;
+            m_SummonVfxSize.transform.localScale = new Vector3(0.6f, 0.6f, m_SummonVfxSize.localScale.z);
+            m_soulOrbSize.localScale = new Vector2(0.75f, 0.75f);
         }
         else if (m_healthLevel == HealthLevel.LevelThree)
         {
             yield return AnimationSetterHomingMissile(m_info.TransitionSizeThreeFour, m_info.idleFour);
             m_colliderSizeAdjustment.radius = 7.85f;
             m_hitboxCollider.radius = 6.85f;
+            m_SummonVfxSize.transform.localScale = new Vector3(0.5f, 0.5f, m_SummonVfxSize.localScale.z);
+            m_soulOrbSize.localScale = new Vector2(0.65f, 0.65f);
         }
         else if (m_healthLevel == HealthLevel.LevelFour)
         {
             yield return AnimationSetterHomingMissile(m_info.TransitionSizeFourFive, m_info.idleFive);
             m_colliderSizeAdjustment.radius = 6.5f;
             m_hitboxCollider.radius = 6f;
+            m_SummonVfxSize.localPosition = new Vector2(m_SummonVfxSize.localPosition.x, m_SummonVfxSize.localPosition.x - .6f);
+            m_SummonVfxSize.transform.localScale = new Vector3(0.5f, 0.5f, m_SummonVfxSize.localScale.z);
+            m_soulOrbSize.localScale = new Vector2(0.45f, 0.45f);
+            //  m_SummonVfxSize.transform.localScale = new Vector3(0.4f, 0.4f, m_SummonVfxSize.localScale.z);
         }
     }//end of HomingMissilleAnimation()
 
@@ -672,7 +816,8 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     {
         var sizeTransition = m_animation.SetAnimation(1, transitionIdleAnimation, false);
         m_animation.AddAnimation(1, idleAnimation, true, 0);
-        yield return new WaitForSpineAnimationComplete(sizeTransition);
+        yield return null;
+       // yield return new WaitForSpineAnimationComplete(sizeTransition);
     }
     private IEnumerator AnimationSetterForIdle(string transitionIdleAnimation, string idleAnimation)
     {
@@ -697,31 +842,92 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
 
         Debug.Log("Current Health Level: " + m_healthLevel);
     }
-  
+    
+    private void HorizontalMovement()
+    {
+        if (isPaused) return;
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        if (Mathf.Abs(transform.position.x - targetPosition.x) < 0.01f)
+        {
+            bool goingRight = targetPosition.x == rightLimit.position.x;
+            targetPosition = GetTargetPosition(!goingRight);
+        }
+    }
+    public void Pause()
+    {
+        isPaused = true;
+    }
+
+    public void Resume()
+    {
+        isPaused = false;
+    }
+    private Vector3 GetTargetPosition(bool toRight)
+    {
+        float targetX = toRight ? rightLimit.position.x : leftLimit.position.x;
+        return new Vector3(targetX, fixedY, fixedZ);
+    }
+    private IEnumerator HorizontalMovementRoutine()
+    {
+        bool movingRight = m_startAtPointA;
+        float rollSpeed = m_initialSpeed;
+        Vector2 targetStartPos = m_startAtPointA ? m_limitPoints[0].position : m_limitPoints[1].position;
+        float currentY = transform.position.y;
+
+        while (Mathf.Abs(transform.position.x - targetStartPos.x) > 0.1f)
+        {
+            float newX_1 = Mathf.MoveTowards(transform.position.x, targetStartPos.x, m_initialSpeed * Time.deltaTime);
+            transform.position = new Vector3(newX_1, currentY, transform.position.z);
+            yield return null;
+        }
+        Debug.Log("Reached the starting point, beginning the rolling attack!");
+            Vector2 targetPos = movingRight ? m_limitPoints[1].position : m_limitPoints[0].position;
+
+            float newX = Mathf.MoveTowards(transform.position.x, targetPos.x, rollSpeed * Time.deltaTime);
+            transform.position = new Vector3(newX, currentY, transform.position.z);  // Keep the Y position constant
+            if (Mathf.Abs(transform.position.x - targetPos.x) <= 0.1f)
+            {
+                movingRight = !movingRight;
+                Debug.Log("Switching direction!");
+                rollSpeed = Mathf.Min(rollSpeed + m_incrementSpeed, m_maxRollSpeed);
+            }
+            yield return null;
+        
+        m_animation.SetAnimation(0, m_info.idle, true);
+        m_animation.AddAnimation(1, m_info.idleFive, true, 0);
+        Debug.Log("Finished rolling after " + m_totalRollCount + " cycles.");
+    }
     private IEnumerator ChangePhaseRoutine()
     {
         m_stateHandle.Wait(State.Attacking);
+        m_hitbox.Disable();
         switch (m_phaseHandle.currentPhase)
         {
             case Phase.PhaseTwo:
                 m_colliderSizeAdjustment.radius = 13f;
                 yield return AnimationSetterForIdle(m_info.TransitionSizeOneTwo, m_info.idleTwo);
+               // m_SummonVfxSize.transform.localScale = new Vector3(0.8f, 0.8f, m_SummonVfxSize.localScale.z);
                 break;
             case Phase.PhaseThree:
                 m_colliderSizeAdjustment.radius = 9.5f;
                 yield return AnimationSetterForIdle(m_info.TransitionSizeTwoThree, m_info.idleThree);
+               // m_SummonVfxSize.transform.localScale = new Vector3(0.6f, 0.6f, m_SummonVfxSize.localScale.z);
                 break;
             case Phase.PhaseFour:
                 m_colliderSizeAdjustment.radius = 7.85f;
                 yield return AnimationSetterForIdle(m_info.TransitionSizeThreeFour, m_info.idleFour);
+                //m_SummonVfxSize.transform.localScale = new Vector3(0.5f, 0.5f, m_SummonVfxSize.localScale.z);
                 break;
             case Phase.PhaseFive:
+                Pause();
                 m_colliderSizeAdjustment.radius = 6.5f;
+                yield return new WaitForSeconds(0.5f);
                 var sizeTransition = m_animation.SetAnimation(1, m_info.rageQuake, false);
                 m_animation.AddAnimation(1, m_info.idleFive, true, 0);
-                yield return new WaitForSpineAnimationComplete(sizeTransition);   
+                yield return new WaitForSpineAnimationComplete(sizeTransition);
                 break;
         }
+        m_hitbox.Enable();
         m_phaseHandle.ApplyChange();
         m_attackDecider.hasDecidedOnAttack = false;
         m_stateHandle.ApplyQueuedState();
@@ -731,11 +937,13 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     {
         HealthTracker();
         m_phaseHandle.MonitorPhase();
+        HorizontalMovement();
         m_animation.SetAnimation(0, m_info.idle, true);
         switch (m_stateHandle.currentState)
         {
             case State.Phasing:
                 Debug.Log("State Changing Phase");
+                Pause();
                 StartCoroutine(ChangePhaseRoutine());
                 break;
             case State.Intro:
@@ -768,11 +976,11 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     }
     public override void ReturnToSpawnPoint()
     {
-        
+
     }
 
     protected override void OnTargetDisappeared()
     {
-        
+
     }
 }
