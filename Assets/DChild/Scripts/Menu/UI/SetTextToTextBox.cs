@@ -66,7 +66,7 @@ namespace DChild.Gameplay.UI
         InputAction m_action;
 
         [SerializeField]
-        private float m_promptFontSize = 22;
+        private float m_promptFontSize = 7;
 
         private List<InputBinding> currentBinding = new List<InputBinding>();
         private List<InputBinding> m_activeDeviceBinding = new List<InputBinding>();
@@ -106,6 +106,13 @@ namespace DChild.Gameplay.UI
         }
 
         public CurrentDeviceType deviceType { get { return m_deviceType; } set { m_deviceType = value; } }
+
+        //call this after text is translated by localizer. Works for brute force fix adding BUTTONPROMPT before action prompt in localize text list
+        public void SetMessageToLocalizedText()
+        {
+            m_message = m_textbox.text;
+            Invoke("SetText", 1); //works for brute force method, may not be suitable long term
+        }
 
         [Button]
         public void SetText()
