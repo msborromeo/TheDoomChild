@@ -285,6 +285,8 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         base.OnDestroyed(sender, eventArgs);
         Debug.Log("Death?");     
         StopAllCoroutines();
+        DeathEvent();
+        m_deathHandle.enabled = true;   
         m_movement.Stop();
         m_animation.DisableRootMotion();
 
