@@ -2,6 +2,8 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Holysoft.Event;
+using DChild.Menu;
 
 public class OverworldvCamInitializer : MonoBehaviour
 {
@@ -10,10 +12,15 @@ public class OverworldvCamInitializer : MonoBehaviour
 
     private void Awake()
     {
-        m_vCam.enabled=true;
+        LoadingHandle.LoadingDone += OnLoadingDone;
     }
 
-    private void Start()
+    private void OnDestroy()
+    {
+        LoadingHandle.LoadingDone -= OnLoadingDone;
+    }
+
+    private void OnLoadingDone(object sender, EventActionArgs eventArgs)
     {
         m_vCam.enabled = true;
     }
