@@ -11,21 +11,8 @@ public static class FillInTextWithButtonSprite
     private static string ACTION_PATTERN = @"\{(.*?:)\}";
     private static Regex REGEX = new Regex(ACTION_PATTERN, RegexOptions.IgnoreCase);
 
-    //public static string ReadAndReplaceBinding(string textToDisplay, InputBinding actionSelected, TMP_SpriteAsset spriteAsset)
-    //{
-    //    string buttonName = actionSelected.effectivePath;
-    //    Debug.Log("Action: " + actionSelected.action);
-    //    buttonName = RenameInput(buttonName, actionSelected.action);
-    //    Debug.Log("Button" + buttonName);
-    //    textToDisplay = textToDisplay.Replace("BUTTONPROMPT", $"<sprite=\"{spriteAsset.name}\" name=\"{buttonName}\">");
-    //    //textToDisplay = textToDisplay.Replace("tab", $"<sprite=\"spritesheet\"name=\"Keyboard_Tab\">");
-
-    //    return textToDisplay;
-
-    //}
-
     public static string ReadAndReplaceBinding(string textToDisplay, InputBinding actionNeeded,
-           TMP_SpriteAsset spriteAsset)
+           TMP_SpriteAsset spriteAsset, float promptFontSize)
     {
         //Different from christina's in that we are going to use the effective path
         // ToString previously would just be "Keyboard/f" yet
@@ -36,7 +23,7 @@ public static class FillInTextWithButtonSprite
 
 
 
-        textToDisplay = textToDisplay.Replace("BUTTONPROMPT", $"<sprite=\"{spriteAsset.name}\" name=\"{stringButtonName}\">");
+        textToDisplay = textToDisplay.Replace("BUTTONPROMPT", $"<size={promptFontSize}><sprite=\"{spriteAsset.name}\" name=\"{stringButtonName}\"></size>");
 
         return textToDisplay;
     }
