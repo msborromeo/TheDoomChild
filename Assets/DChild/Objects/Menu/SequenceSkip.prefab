@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3002645521953233230}
   - component: {fileID: 9139139487279575528}
   - component: {fileID: 102544075941497521}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SkipIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 7040221051910057900}
   - component: {fileID: 2181503529509456803}
   - component: {fileID: 8080205530759934532}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SkipMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,10 +185,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.1
-  m_fontSizeBase: 36
+  m_fontSize: 34
+  m_fontSizeBase: 34
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -238,7 +238,8 @@ GameObject:
   - component: {fileID: 5870289121043369183}
   - component: {fileID: 2428297824739789361}
   - component: {fileID: 584743122070092624}
-  m_Layer: 0
+  - component: {fileID: 320334135524692112}
+  m_Layer: 5
   m_Name: SkipInstructions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,8 +263,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -68.075424, y: 3.3}
-  m_SizeDelta: {x: 54.2592, y: 19.17}
+  m_AnchoredPosition: {x: -116.8, y: 1.6}
+  m_SizeDelta: {x: 403.143, y: 28.395}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2428297824739789361
 CanvasRenderer:
@@ -293,7 +294,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HOLD
+  m_text: HOLD BUTTONPROMPT TO
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a576fbe1b6faba498194776bfd96bc4, type: 2}
   m_sharedMaterial: {fileID: 21892830720195836, guid: 6a576fbe1b6faba498194776bfd96bc4,
@@ -321,14 +322,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19
-  m_fontSizeBase: 19
+  m_fontSize: 34
+  m_fontSizeBase: 34
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: -7.7
@@ -363,6 +364,28 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &320334135524692112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6894056055650539468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81413ba0e41c54249bc0996e528f687a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_message: HOLD BUTTONPROMPT TO
+  m_actionType: 0
+  m_spriteButtonList: {fileID: 11400000, guid: c3c0ad3f40972da4c81d32b5f158ae38, type: 2}
+  m_deviceType: 0
+  m_directionPart: 0
+  m_cycleActionPart: 0
+  m_inputManager: {fileID: 11400000, guid: 27c922adea859804db50b57a9104dd2c, type: 2}
+  m_inputaction: {fileID: 6881132204623752687, guid: 2e0d81e8951c3384cba5207fae67c9a4,
+    type: 3}
+  m_promptFontSize: 10
 --- !u!1 &7094650993787070912
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5199261964716987096
 RectTransform:
   m_ObjectHideFlags: 0
@@ -521,6 +544,7 @@ MonoBehaviour:
   m_inputManager: {fileID: 11400000, guid: 27c922adea859804db50b57a9104dd2c, type: 2}
   m_inputaction: {fileID: 6881132204623752687, guid: 2e0d81e8951c3384cba5207fae67c9a4,
     type: 3}
+  m_promptFontSize: 22
 --- !u!1 &7331758031864527254
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,7 +562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4510297464000343933
 RectTransform:
   m_ObjectHideFlags: 0
@@ -672,7 +696,7 @@ GameObject:
   - component: {fileID: 2280080627888185777}
   - component: {fileID: 2255211509386015389}
   - component: {fileID: 6088580774059750150}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SequenceSkip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
