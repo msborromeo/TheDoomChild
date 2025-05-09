@@ -157,6 +157,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private RaySensor m_groundSensor;
         [SerializeField, TabGroup("Sensors")]
         private RaySensor m_edgeSensor;
+        [SerializeField, TabGroup("Sensors")]
+        private RaySensor m_ceilingSensor;
+        [SerializeField]
+        private Collider2D m_bodyCollider;
 
         [ShowInInspector]
         private StateHandle<State> m_stateHandle;
@@ -190,7 +194,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 //    && m_stateHandle.currentState != State.WaitBehaviourEnd)
                 //{
                 //}
-                m_selfCollider.enabled = false;
+                //m_selfCollider.enabled = false;
 
                 if (!m_isDetecting)
                 {
@@ -283,7 +287,7 @@ namespace DChild.Gameplay.Characters.Enemies
             //    }
             //}
             yield return new WaitForSeconds(m_info.patience);
-            m_selfCollider.enabled = false;
+            //m_selfCollider.enabled = false;
             m_enablePatience = false;
             m_targetInfo.Set(null, null);
             m_isDetecting = false;
@@ -300,9 +304,11 @@ namespace DChild.Gameplay.Characters.Enemies
             //m_Audiosource.clip = m_DeadClip;
             //m_Audiosource.Play();
             StopAllCoroutines();
+            m_bodyCollider.enabled = false;
+            //m_selfCollider.enabled = false;
             base.OnDestroyed(sender, eventArgs);
-            
             m_stateHandle.OverrideState(State.WaitBehaviourEnd);
+
             if (m_attackRoutine != null)
             {
                 StopCoroutine(m_attackRoutine);
@@ -325,13 +331,22 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator ResurrectRoutine()
         {
             m_hitbox.Disable();
-            m_selfCollider.enabled = false;
+            //m_selfCollider.enabled = false;
             m_animation.SetAnimation(0, m_info.dismantleAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.dismantleAnimation);
             m_animation.SetAnimation(0, m_info.disassembledIdleAnimation, true);
             yield return new WaitForSeconds(m_info.dismantledDuration);
+            do
+            {
+                yield return new WaitForSeconds(.5f);
+                m_ceilingSensor.Cast();
+            }
+            while (m_ceilingSensor.isDetecting);
             m_flinchHandle.gameObject.SetActive(true);
             m_health.SetHealthPercentage(1f);
+            m_hitbox.Enable();
+            m_bodyCollider.enabled = true;
+            //m_selfCollider.enabled = true;
             enabled = true;
             //m_animation.SetAnimation(0, m_info.idleAnimation, true);
  
@@ -344,7 +359,7 @@ namespace DChild.Gameplay.Characters.Enemies
             if (m_animation.GetCurrentAnimation(0).ToString() == m_info.idleAnimation.animation)
             {
                 StopAllCoroutines();
-                m_selfCollider.enabled = false;
+                //m_selfCollider.enabled = false;
                 //m_animation.SetAnimation(0, m_info.flinchAnimation, false);
                 m_stateHandle.Wait(State.ReevaluateSituation);
                 StartCoroutine(FlinchRoutine());
@@ -382,7 +397,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.resurrectAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.resurrectAnimation);
             m_hitbox.Enable();
-            m_selfCollider.enabled = true;
+            //m_selfCollider.enabled = true;
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             m_stateHandle.ApplyQueuedState();
             yield return null;
@@ -541,7 +556,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
                 case State.Attacking:
                     m_stateHandle.Wait(State.Cooldown);
-                    m_selfCollider.enabled = false;
+                    //m_selfCollider.enabled = false;
 
 
                     m_animation.EnableRootMotion(true, false);
@@ -599,7 +614,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                 if (m_animation.GetCurrentAnimation(0).ToString() != m_info.idleAnimation.animation)
                                     m_movement.Stop();
 
-                                m_selfCollider.enabled = true;
+                                //m_selfCollider.enabled = true;
                                 m_animation.SetAnimation(0, m_info.idleAnimation, true);
                                 m_stateHandle.SetState(State.Attacking);
                             }
@@ -608,7 +623,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                 m_animation.EnableRootMotion(true, false);
                                 if (!m_wallSensor.isDetecting && m_groundSensor.isDetecting && m_edgeSensor.isDetecting)
                                 {
-                                    m_selfCollider.enabled = false;
+                                    //m_selfCollider.enabled = false;
                                     m_animation.SetAnimation(0, m_info.run.animation, true).TimeScale = m_currentTimeScale;
                                     //m_movement.MoveTowards(Vector2.one * transform.localScale.x, m_info.move.speed);
                                 }
@@ -617,7 +632,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                     if (m_animation.GetCurrentAnimation(0).ToString() != m_info.idleAnimation.animation)
                                         m_movement.Stop();
 
-                                    m_selfCollider.enabled = true;
+                                    //m_selfCollider.enabled = true;
                                     m_animation.SetAnimation(0, m_info.idleAnimation, true);
                                 }
                             }
@@ -679,7 +694,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_currentPatience = 0;
             m_enablePatience = false;
             m_isDetecting = false;
-            m_selfCollider.enabled = false;
+            //m_selfCollider.enabled = false;
         }
 
         public void ResetAI()
