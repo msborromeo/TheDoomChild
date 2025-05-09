@@ -499,10 +499,11 @@ namespace DChild.Gameplay.Characters.Enemies
                             {
                                 m_lastTargetPos = m_targetInfo.position;
                             }
-                            if (m_firehandRoutine==null)
-                            {
-                                m_firehandRoutine = StartCoroutine(AttackAnticipation());
-                            }
+                            //if (m_firehandRoutine==null)
+                            //{
+                            //    m_firehandRoutine = StartCoroutine(AttackAnticipation());
+                            //}
+                            StartCoroutine(AttackAnticipation());
                             break;
                     }
                     m_attackDecider.hasDecidedOnAttack = false;
@@ -533,6 +534,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     else
                     {
+                        Debug.Log("AAAA");
                         m_currentCD = 0;
                         m_stateHandle.OverrideState(State.ReevaluateSituation);
                     }
@@ -689,9 +691,15 @@ namespace DChild.Gameplay.Characters.Enemies
             instance2.transform.SetParent(m_HandPosition2);
             firehands.Add(instance2.gameObject);
             yield return new WaitForAnimationComplete(m_animation.animationState,m_info.attackAnticipation);
+            if(!IsFacingTarget())
+            {
+                m_turnState = State.ReevaluateSituation;
+                if (m_animation.GetCurrentAnimation(0).ToString() != m_info.turnAnimation)
+                    m_stateHandle.SetState(State.Turning);
+            }
             m_attackHandle.ExecuteAttack(m_info.projectile.animation, m_info.idleAnimation);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.projectile.animation);
-            m_firehandRoutine = null;
+            //m_firehandRoutine = null;
         }
 
         public override void ReturnToSpawnPoint()
