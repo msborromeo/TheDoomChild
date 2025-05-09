@@ -98,17 +98,6 @@ MonoBehaviour:
     CanBeDeleted: 1
     CanBeReordered: 1
   - NodeId: bea78cc2-09fa-4a77-9995-2766b76fbf64
-    PortId: c218e4fa-bc67-4b6a-b807-1e66b4d3267f
-    Direction: 1
-    Capacity: 0
-    Connections:
-    - a226268a-0e38-42f7-9dc5-02529a6f4352
-    Value: '{"Trigger":3,"TimeDelay":3.0,"SignalPayload":{"StreamId":{"Category":"Store","Name":"Close","Custom":false},"SignalValueType":0,"IntegerValue":0,"BooleanValue":false,"FloatValue":0.0,"StringValue":"","ColorValue":{"r":0.0,"g":0.0,"b":0.0,"a":0.0},"Vector2Value":{"x":0.0,"y":0.0},"Vector3Value":{"x":0.0,"y":0.0,"z":0.0},"Vector4Value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}},"ButtonId":{"Category":"None","Name":"None","Custom":false},"ToggleId":{"Category":"Store","Name":"Codex","Custom":false},"CommandToggle":1,"ViewId":{"Category":"None","Name":"None","Custom":false},"CommandShowHide":0}'
-    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.UIOutputPortData,
-      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    CanBeDeleted: 1
-    CanBeReordered: 1
-  - NodeId: bea78cc2-09fa-4a77-9995-2766b76fbf64
     PortId: 7b0aa872-3c46-4182-b695-8007b1b1729c
     Direction: 1
     Capacity: 0
@@ -489,7 +478,6 @@ MonoBehaviour:
     Direction: 0
     Capacity: 1
     Connections:
-    - c218e4fa-bc67-4b6a-b807-1e66b4d3267f
     - 7b0aa872-3c46-4182-b695-8007b1b1729c
     Value: 
     ValueTypeQualifiedName: 
@@ -515,6 +503,72 @@ MonoBehaviour:
   ClearGraphHistory: 0
   Position: {x: 768.645, y: 312.00003}
   PivotOrientation: 2
+--- !u!114 &-535516864027001193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b2479a69f56cf54c96de81c44e8ad1a, type: 3}
+  m_Name: Portal
+  m_EditorClassIdentifier: 
+  FlowGraphId: dbb42a62-56d6-4f7a-9f7f-3f1bbe8fef5e
+  NodeId: 2ae583dd-da14-4458-a97c-56568d1db2d7
+  NodeType: 1
+  NodeName: Codex Exit
+  NodeDescription: 
+  InputPorts: []
+  OutputPorts:
+  - NodeId: 2ae583dd-da14-4458-a97c-56568d1db2d7
+    PortId: 7bdefa87-b02b-4c3d-8894-57af267c36ef
+    Direction: 1
+    Capacity: 0
+    Connections:
+    - a5b3ffc1-2072-4ec6-8001-6f8c54697309
+    Value: 
+    ValueTypeQualifiedName: 
+    CanBeDeleted: 0
+    CanBeReordered: 0
+  RunUpdate: 0
+  RunFixedUpdate: 0
+  RunLateUpdate: 0
+  NodeState: 0
+  CanBeDeleted: 1
+  Passthrough: 1
+  ClearGraphHistory: 0
+  Position: {x: 0.000008583069, y: -195.52087}
+  Trigger: 2
+  SignalPayload:
+    StreamId:
+      Category: None
+      Name: None
+      Custom: 0
+    SignalValueType: 0
+    IntegerValue: 0
+    BooleanValue: 0
+    FloatValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  ButtonId:
+    Category: None
+    Name: None
+    Custom: 0
+  ToggleId:
+    Category: Store
+    Name: Codex
+    Custom: 0
+  CommandToggle: 1
+  ViewId:
+    Category: None
+    Name: None
+    Custom: 0
+  CommandShowHide: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,8 +581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02761efe598a45c98fa1baf4d446c6a7, type: 3}
   m_Name: CodexFlow
   m_EditorClassIdentifier: 
-  EditorPosition: {x: -346, y: 100, z: 0}
-  EditorScale: {x: 0.57175326, y: 0.57175326, z: 1}
+  EditorPosition: {x: 171, y: 219, z: 0}
+  EditorScale: {x: 0.7561437, y: 0.7561437, z: 1}
   Id: dbb42a62-56d6-4f7a-9f7f-3f1bbe8fef5e
   GraphName: Flow Graph
   GraphDescription: 
@@ -553,6 +607,7 @@ MonoBehaviour:
   - {fileID: -7741873067459282488}
   - {fileID: 6265544217338138064}
   - {fileID: -2167250918440012910}
+  - {fileID: -535516864027001193}
   RootNode: {fileID: -6562869688034385603}
   ActiveNode: {fileID: 0}
 --- !u!114 &1909065196053012098
@@ -580,6 +635,7 @@ MonoBehaviour:
     Connections:
     - cfbb9bce-730e-4046-a2ce-8b93b34b6a46
     - 60603541-6960-482f-b448-1ef6f953ecb5
+    - 7bdefa87-b02b-4c3d-8894-57af267c36ef
     Value: '{"CanGoBack":false}'
     ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.GoBackInputPortData,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -608,8 +664,48 @@ MonoBehaviour:
   OnEnterShowViews: []
   OnEnterHideViews:
   - Id:
-      Category: Store
-      Name: Codex
+      Category: Codex
+      Name: ArmyGroups
+      Custom: 0
+    Mode: 0
+  - Id:
+      Category: Codex
+      Name: Bestiary
+      Custom: 0
+    Mode: 0
+  - Id:
+      Category: Codex
+      Name: Characters
+      Custom: 0
+    Mode: 0
+  - Id:
+      Category: Codex
+      Name: Location
+      Custom: 0
+    Mode: 0
+  - Id:
+      Category: Codex
+      Name: Lore
+      Custom: 0
+    Mode: 0
+  - Id:
+      Category: Codex
+      Name: MainCodex
+      Custom: 0
+    Mode: 0
+  - Id:
+      Category: Codex
+      Name: NPCs
+      Custom: 0
+    Mode: 0
+  - Id:
+      Category: Codex
+      Name: Quest
+      Custom: 0
+    Mode: 0
+  - Id:
+      Category: Codex
+      Name: Tutorial
       Custom: 0
     Mode: 0
   OnExitShowViews: []
