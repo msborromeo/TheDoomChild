@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d65502d98619e438c6388e3da86e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 150
+  m_maxHealth: 75
 --- !u!1 &2907897547607461434
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +164,7 @@ MonoBehaviour:
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
   _animationName: Walk_Stationary
-  loop: 1
+  loop: 0
   timeScale: 1
   m_alwaysUpdateMesh: 1
 --- !u!114 &782547405619976251
@@ -206,7 +206,6 @@ GameObject:
   - component: {fileID: 8475194129736089810}
   - component: {fileID: 7581745860828664265}
   - component: {fileID: 8438782173677977046}
-  - component: {fileID: 7425217203156161031}
   m_Layer: 13
   m_Name: SmallAdran_2
   m_TagString: Character
@@ -231,7 +230,7 @@ Transform:
   - {fileID: 7341493143901986980}
   - {fileID: 5543625246269206816}
   - {fileID: 160093195024794999}
-  - {fileID: 2197626054400334549}
+  - {fileID: 2622510800303856815}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -57.802}
@@ -276,10 +275,12 @@ MonoBehaviour:
   m_collider:
   - {fileID: 2765693638064396860}
   - {fileID: 5911989639316019902}
-  m_deathVfx: {fileID: 166967449693853215}
+  m_deathVfx: {fileID: 6222904708025683419}
   startingPosition: {x: 0, y: 0}
   m_turnAnimation: Turn
   m_idle: Walk_Stationary
+  m_spineListener: {fileID: 7581745860828664265}
+  m_deathFX: spawn death fx
   isReturningToSummonSpot: 0
 --- !u!114 &3036939116371861433
 MonoBehaviour:
@@ -341,26 +342,8 @@ MonoBehaviour:
   m_slowFactor: 0
   m_fastFactor: 0
   m_fXObjects:
-    m_particleSystems:
-    - {fileID: 166967449693853215}
-    - {fileID: 7889946663490790903}
-    - {fileID: 7889946664588279869}
-    - {fileID: 7889946665248948534}
-    - {fileID: 7889946664288329738}
-    - {fileID: 7889946663682362027}
-    - {fileID: 7889946663419912948}
-    - {fileID: 7889946664414815844}
-    - {fileID: 7889946664377910378}
-    m_originalSimulationSpeed:
-    - 1
-    - 1
-    - 1
-    - 1.5
-    - 1
-    - 1.5
-    - 1
-    - 1
-    - 1
+    m_particleSystems: []
+    m_originalSimulationSpeed: []
   m_spineObjects:
     m_skeletonAnimations:
     - {fileID: 2907897547607461432}
@@ -505,37 +488,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3485264261631674575}
           m_TargetAssemblyTypeName: SmallAdran, Assembly-CSharp
-          m_MethodName: PlayDeathVfx
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &7425217203156161031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2907897548827372027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42be6986c6a2a414fa5ceddb0018fe09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_skeletonAnimation: {fileID: 2907897547607461432}
-  m_eventInfo:
-  - m_eventName: spawn death fx
-    m_onEventCalled:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3485264261631674575}
-          m_TargetAssemblyTypeName: SmallAdran, Assembly-CSharp
-          m_MethodName: PlayDeathVfx
+          m_MethodName: DeathVFX
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -714,9 +667,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -3.21, y: 5.95}
+  m_Offset: {x: -2.84, y: 5.02}
   serializedVersion: 2
-  m_Radius: 4.70076
+  m_Radius: 5.67
 --- !u!1 &7960102126547355648
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,9 +719,9 @@ MonoBehaviour:
   m_animator: {fileID: 3462238756404815179}
   m_animation: Death
   m_bodyDuration:
-    m_startTime: 0.3
+    m_startTime: 0.5
   m_fx:
-  - {fileID: 2039193764383739061, guid: 3e67eed0030dbba4881df8f99433c442, type: 3}
+  - {fileID: 4056545825602293861}
   m_destroySource: 1
 --- !u!114 &1279118693300295645
 MonoBehaviour:
@@ -818,7 +771,7 @@ Transform:
   m_Father: {fileID: 6196365676483998750}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2170062044018432682
+--- !u!1001 &2596066813441121488
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -833,12 +786,12 @@ PrefabInstance:
     - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.5
+      value: -2.76
       objectReference: {fileID: 0}
     - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.3
+      value: 5.85
       objectReference: {fileID: 0}
     - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
         type: 3}
@@ -885,65 +838,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: Adran_BodyPart_NiggaExplosion_FX
       objectReference: {fileID: 0}
+    - target: {fileID: 8240223784966852875, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e67eed0030dbba4881df8f99433c442, type: 3}
---- !u!198 &166967449693853215 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2039193764383739061, guid: 3e67eed0030dbba4881df8f99433c442,
-    type: 3}
-  m_PrefabInstance: {fileID: 2170062044018432682}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2197626054400334549 stripped
+--- !u!4 &2622510800303856815 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
     type: 3}
-  m_PrefabInstance: {fileID: 2170062044018432682}
+  m_PrefabInstance: {fileID: 2596066813441121488}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &7889946663419912948 stripped
+--- !u!198 &4056545825602293861 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8314528225630550110, guid: 3e67eed0030dbba4881df8f99433c442,
+  m_CorrespondingSourceObject: {fileID: 2039193764383739061, guid: 3e67eed0030dbba4881df8f99433c442,
     type: 3}
-  m_PrefabInstance: {fileID: 2170062044018432682}
+  m_PrefabInstance: {fileID: 2596066813441121488}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &7889946663490790903 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8314528225642643293, guid: 3e67eed0030dbba4881df8f99433c442,
+--- !u!1 &6222904708025683419 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8240223784966852875, guid: 3e67eed0030dbba4881df8f99433c442,
     type: 3}
-  m_PrefabInstance: {fileID: 2170062044018432682}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &7889946663682362027 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8314528225364938753, guid: 3e67eed0030dbba4881df8f99433c442,
-    type: 3}
-  m_PrefabInstance: {fileID: 2170062044018432682}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &7889946664288329738 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8314528224896481952, guid: 3e67eed0030dbba4881df8f99433c442,
-    type: 3}
-  m_PrefabInstance: {fileID: 2170062044018432682}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &7889946664377910378 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8314528224650518208, guid: 3e67eed0030dbba4881df8f99433c442,
-    type: 3}
-  m_PrefabInstance: {fileID: 2170062044018432682}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &7889946664414815844 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8314528224755317966, guid: 3e67eed0030dbba4881df8f99433c442,
-    type: 3}
-  m_PrefabInstance: {fileID: 2170062044018432682}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &7889946664588279869 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8314528224593238679, guid: 3e67eed0030dbba4881df8f99433c442,
-    type: 3}
-  m_PrefabInstance: {fileID: 2170062044018432682}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &7889946665248948534 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8314528223903341468, guid: 3e67eed0030dbba4881df8f99433c442,
-    type: 3}
-  m_PrefabInstance: {fileID: 2170062044018432682}
+  m_PrefabInstance: {fileID: 2596066813441121488}
   m_PrefabAsset: {fileID: 0}
