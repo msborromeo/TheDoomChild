@@ -33,8 +33,9 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         public void UpdateOptions()
         {
+            var specialGroupCount = m_player.controlledArmy.GetAvailableSkills().Count;
             m_damageSelection.UpdateSelectionAvailability();
-            m_specialSkillButton.interactable = ArmyBattleSystem.CanPlayerActivateSpecialSkill();
+            m_specialSkillButton.interactable = ArmyBattleSystem.CanPlayerActivateSpecialSkill() && specialGroupCount > 0;
         }
 
         public void SetAttackGroupSelection(ArmyDamageTypeOptionUI option)
