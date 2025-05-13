@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Video;
 
 namespace DChild.Gameplay.UI
 {
@@ -64,6 +65,9 @@ namespace DChild.Gameplay.UI
         private InputActionReference m_inputaction;
         InputAction m_action;
 
+        [SerializeField]
+        private float m_promptFontSize = 7;
+
         private List<InputBinding> currentBinding = new List<InputBinding>();
         private List<InputBinding> m_activeDeviceBinding = new List<InputBinding>();
 
@@ -74,6 +78,11 @@ namespace DChild.Gameplay.UI
         private List<InputBinding> keyBoardList = new List<InputBinding>();
         private List<InputBinding> gamepadList = new List<InputBinding>();
         private List<InputBinding> psList = new List<InputBinding>();
+
+        public void SetInputAction(InputActionReference reference)
+        {
+            m_inputaction = reference;
+        }
 
         public void OnActiveControllerChanged(string controlScheme)
         {
@@ -98,6 +107,13 @@ namespace DChild.Gameplay.UI
 
         public CurrentDeviceType deviceType { get { return m_deviceType; } set { m_deviceType = value; } }
 
+        //call this after text is translated by localizer. Works for brute force fix adding BUTTONPROMPT before action prompt in localize text list
+        public void SetMessageToLocalizedText()
+        {
+            m_message = m_textbox.text;
+            Invoke("SetText", 1); //works for brute force method, may not be suitable long term
+        }
+
         [Button]
         public void SetText()
         {
@@ -110,6 +126,8 @@ namespace DChild.Gameplay.UI
                 return;
             }
 
+
+            
 
             if (m_inputaction.action.bindings.Count > (int)CurrentDeviceType._COUNT)
             {
@@ -126,13 +144,13 @@ namespace DChild.Gameplay.UI
                         SetTextToDirectionalPrompts();
                         break;
                     case InputActionType.NoneComposite:
-                        m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                        m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
                         break;
                 }
             }
             else
             {
-                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
 
 
@@ -288,20 +306,20 @@ namespace DChild.Gameplay.UI
         {
             if (m_directionPart == DirectionActionPart.Up)
             {
-                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[0], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[0], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
             if (m_directionPart == DirectionActionPart.Down)
             {
-                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[1], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[1], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
 
             if (m_directionPart == DirectionActionPart.Left)
             {
-                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[2], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[2], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
             if (m_directionPart == DirectionActionPart.Right)
             {
-                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[3], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[3], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
 
         }
@@ -310,11 +328,11 @@ namespace DChild.Gameplay.UI
         {
             if (m_cycleActionPart == CycleActionPart.Negative)
             {
-                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[0], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[0], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
             if (m_cycleActionPart == CycleActionPart.Positive)
             {
-                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[1], m_spriteButtonList.tmpSpriteList[(int)m_deviceType]);
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[1], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
         }
 
@@ -322,6 +340,8 @@ namespace DChild.Gameplay.UI
         {
             m_inputManager.OnActiveDeviceChange -= SetText;
             m_inputManager.BindingsChangedEvent -= SetText;
+            UnderworldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
+            OverWorldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
         }
 
         private void Awake()
@@ -334,6 +354,7 @@ namespace DChild.Gameplay.UI
             //m_inputManager.OnActiveDeviceChange += SetText;
             m_inputManager.BindingsChangedEvent += SetText;
             UnderworldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
+            OverWorldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
         }
         // Start is called before the first frame update
         void Start()

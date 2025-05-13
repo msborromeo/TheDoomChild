@@ -193,6 +193,112 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_skeletonAnimation: {fileID: 2667488044770201487}
   m_data: {fileID: 11400000, guid: 384b82b5b66815c428dbd169239fde11, type: 2}
+--- !u!1 &1317300636153451929
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2508780355660163127}
+  - component: {fileID: 5989781398158132181}
+  m_Layer: 13
+  m_Name: Hand1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2508780355660163127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317300636153451929}
+  m_LocalRotation: {x: 0, y: 0, z: -0.009274647, w: 0.999957}
+  m_LocalPosition: {x: 1.1346728, y: 6.1530414, z: 0}
+  m_LocalScale: {x: 1, y: -1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2667488044770201486}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5989781398158132181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317300636153451929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd8daaed7b64148a34acb96ba14ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonRenderer: {fileID: 2667488044770201487}
+  boneName: bone37
+  followXYPosition: 1
+  followZPosition: 1
+  followBoneRotation: 1
+  followSkeletonFlip: 1
+  followLocalScale: 0
+  initializeOnAwake: 1
+  m_updateOnFixedUpdate: 0
+--- !u!1 &7121090625279583692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7045840316821227126}
+  - component: {fileID: 8608841199123938643}
+  m_Layer: 13
+  m_Name: Hand2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7045840316821227126
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7121090625279583692}
+  m_LocalRotation: {x: 0, y: 0, z: -0.3122621, w: 0.949996}
+  m_LocalPosition: {x: -7.4069266, y: 6.134725, z: 0}
+  m_LocalScale: {x: 1, y: -1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2667488044770201486}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8608841199123938643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7121090625279583692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd8daaed7b64148a34acb96ba14ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonRenderer: {fileID: 2667488044770201487}
+  boneName: bone61
+  followXYPosition: 1
+  followZPosition: 1
+  followBoneRotation: 1
+  followSkeletonFlip: 1
+  followLocalScale: 0
+  initializeOnAwake: 1
+  m_updateOnFixedUpdate: 0
 --- !u!1001 &751682171485691947
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -565,6 +671,8 @@ MonoBehaviour:
   m_muzzleFX: {fileID: 7710011688069803309}
   m_willPatrol: 1
   m_projectileStart: {fileID: 3332877543164255245}
+  m_HandPosition1: {fileID: 7045840316821227126}
+  m_HandPosition2: {fileID: 2508780355660163127}
 --- !u!114 &6627929476367258484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -936,6 +1044,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b97b91669afc14aa205ed93d651be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &2667488044770201486 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6873380494355147075, guid: 70bf8f435d688f048bd0e162ab42fa52,
+    type: 3}
+  m_PrefabInstance: {fileID: 8820287891323365069}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2667488044770201487 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6873380494355147074, guid: 70bf8f435d688f048bd0e162ab42fa52,

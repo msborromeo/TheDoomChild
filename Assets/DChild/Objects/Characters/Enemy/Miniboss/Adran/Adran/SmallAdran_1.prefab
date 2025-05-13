@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d65502d98619e438c6388e3da86e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 1
+  m_maxHealth: 75
 --- !u!1 &2907897547607461434
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +164,7 @@ MonoBehaviour:
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
   _animationName: Walk_Stationary
-  loop: 1
+  loop: 0
   timeScale: 1
   m_alwaysUpdateMesh: 1
 --- !u!114 &782547405619976251
@@ -204,6 +204,8 @@ GameObject:
   - component: {fileID: 4154817324366667582}
   - component: {fileID: 3462238756404815179}
   - component: {fileID: 8475194129736089810}
+  - component: {fileID: 2759721004292814878}
+  - component: {fileID: 5716406076769672292}
   m_Layer: 13
   m_Name: SmallAdran_1
   m_TagString: Character
@@ -228,6 +230,7 @@ Transform:
   - {fileID: 7341493143901986980}
   - {fileID: 5543625246269206816}
   - {fileID: 160093195024794999}
+  - {fileID: 3863245762192477503}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -57.802}
@@ -271,11 +274,13 @@ MonoBehaviour:
   m_character: {fileID: 3036939116371861433}
   m_collider:
   - {fileID: 2765693638064396860}
-  - {fileID: 7375075772361748553}
   - {fileID: 5911989639316019902}
+  m_deathVfx: {fileID: 5162309331567418443}
   startingPosition: {x: 0, y: 0}
   m_turnAnimation: Turn
   m_idle: Walk_Stationary
+  m_spineListener: {fileID: 2759721004292814878}
+  m_deathFX: Explode_FX
   isReturningToSummonSpot: 0
 --- !u!114 &3036939116371861433
 MonoBehaviour:
@@ -367,7 +372,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 4}
+  m_Offset: {x: -0.78, y: 5.06}
   serializedVersion: 2
   m_Radius: 6
 --- !u!114 &8642646317534990658
@@ -451,6 +456,48 @@ MonoBehaviour:
   m_damageUniqueHitboxesOnly: 0
   m_collisionRegistrator: {fileID: 0}
   m_ignoreColliderList: []
+--- !u!114 &2759721004292814878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2907897548827372027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd8599297ea1c84ba2f23b8f6c74e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 2907897547607461432}
+--- !u!114 &5716406076769672292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2907897548827372027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90293750f472d3340b452cec6fea2606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events:
+  - spineEvent: Explode_FX
+    unityHandler:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3485264261631674575}
+          m_TargetAssemblyTypeName: SmallAdran, Assembly-CSharp
+          m_MethodName: DeathVFX
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &3061680259310596501
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,9 +667,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.31, y: 4.8}
+  m_Offset: {x: -0.75, y: 5.05}
   serializedVersion: 2
-  m_Radius: 4.70076
+  m_Radius: 5.55
 --- !u!1 &7960102126547355648
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,8 +719,9 @@ MonoBehaviour:
   m_animator: {fileID: 3462238756404815179}
   m_animation: Death
   m_bodyDuration:
-    m_startTime: 0.1
-  m_fx: []
+    m_startTime: 0.5
+  m_fx:
+  - {fileID: 3004948577432027637}
   m_destroySource: 1
 --- !u!114 &1279118693300295645
 MonoBehaviour:
@@ -701,7 +749,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3349457238760106539}
-  - component: {fileID: 7375075772361748553}
   m_Layer: 13
   m_Name: BodyCollider
   m_TagString: Untagged
@@ -724,19 +771,95 @@ Transform:
   m_Father: {fileID: 6196365676483998750}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &7375075772361748553
-CircleCollider2D:
+--- !u!1001 &3890849647814380864
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8118757366212163195}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.31
+  m_Modification:
+    m_TransformParent: {fileID: 2907897548827372025}
+    m_Modifications:
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240223784966852875, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_Name
+      value: Adran_BodyPart_NiggaExplosion_FX
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240223784966852875, guid: 3e67eed0030dbba4881df8f99433c442,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3e67eed0030dbba4881df8f99433c442, type: 3}
+--- !u!198 &3004948577432027637 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2039193764383739061, guid: 3e67eed0030dbba4881df8f99433c442,
+    type: 3}
+  m_PrefabInstance: {fileID: 3890849647814380864}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3863245762192477503 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 27605089403928703, guid: 3e67eed0030dbba4881df8f99433c442,
+    type: 3}
+  m_PrefabInstance: {fileID: 3890849647814380864}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5162309331567418443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8240223784966852875, guid: 3e67eed0030dbba4881df8f99433c442,
+    type: 3}
+  m_PrefabInstance: {fileID: 3890849647814380864}
+  m_PrefabAsset: {fileID: 0}

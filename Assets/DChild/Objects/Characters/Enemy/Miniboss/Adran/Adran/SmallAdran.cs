@@ -1,9 +1,14 @@
+using DChild;
 using DChild.Gameplay;
 using DChild.Gameplay.Characters;
 using DChild.Gameplay.Characters.AI;
 using DChild.Gameplay.Characters.Enemies;
 using DChild.Gameplay.Combat;
+using DChild.Gameplay.Pooling;
 using Holysoft.Event;
+using Sirenix.OdinInspector;
+using Spine;
+using Spine.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,21 +28,37 @@ public class SmallAdran : MonoBehaviour
     private Character m_character;
     [SerializeField]
     private Collider2D[] m_collider;
+    [SerializeField]
+    private GameObject m_deathVfx;
     public Vector2 startingPosition;
     [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
     private string m_turnAnimation;
     [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
     private string m_idle;
+    [SerializeField]
+    private SpineEventListener m_spineListener;
+    [SerializeField, TabGroup("GetEvents"),SpineEvent(dataField = "m_skeletonAnimation")]
+    private string m_deathFX;
     public event EventAction<EventActionArgs> GotDamagedByPlayer;
     public event EventAction<EventActionArgs> SmallAdranGotDestroyed;
     public bool isReturningToSummonSpot;
+
     
     private void Start()
     {
+        m_spineListener.Subscribe(m_deathFX, DeathVFX);
         m_Damageable.DamageTaken += Damageable_DamageTaken;
         m_Damageable.Destroyed += ObjectOnDestroyed;
+        m_deathVfx.SetActive(false);
     }
 
+    
+    public void DeathVFX()
+    {
+        Debug.Log("ASD");
+        m_deathVfx.SetActive(true);
+    }
+    
     public void InitializeField(SpineRootAnimation spineRoot)
     {
         m_spine = spineRoot;
@@ -45,7 +66,11 @@ public class SmallAdran : MonoBehaviour
     private void ObjectOnDestroyed(object sender, EventActionArgs eventArgs)
     {
         Debug.Log("Adran is Destroyed");
+        gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+        //m_deathVfx.Play();
+
         SmallAdranGotDestroyed?.Invoke(this, EventActionArgs.Empty);
+        
     }
 
     private void Damageable_DamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
