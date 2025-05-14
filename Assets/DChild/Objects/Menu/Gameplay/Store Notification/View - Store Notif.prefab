@@ -44,7 +44,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.82, y: 0.06421297}
   m_AnchorMax: {x: 0.9997917, y: 0.29263893}
-  m_AnchoredPosition: {x: 369.99988, y: 0}
+  m_AnchoredPosition: {x: 369.99994, y: 0}
   m_SizeDelta: {x: 0, y: -0.000030517578}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8644313125919117562
@@ -191,7 +191,19 @@ MonoBehaviour:
   ShowAnimation:
     OnPlayCallback:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 8118170545672086310}
+          m_TargetAssemblyTypeName: DChild.Gameplay.UI.SetTextToTextBox, Assembly-CSharp
+          m_MethodName: SetMessageToLocalizedText
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     OnStopCallback:
       m_PersistentCalls:
         m_Calls: []
@@ -825,6 +837,7 @@ GameObject:
   - component: {fileID: 8644313127136562356}
   - component: {fileID: 8644313127136562357}
   - component: {fileID: 8644313127136562359}
+  - component: {fileID: 8118170545672086310}
   m_Layer: 5
   m_Name: Instructions
   m_TagString: Untagged
@@ -880,7 +893,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press tab to open necromicon
+  m_text: Press BUTTONPROMPT to open necromicon
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a576fbe1b6faba498194776bfd96bc4, type: 2}
   m_sharedMaterial: {fileID: 21892830720195836, guid: 6a576fbe1b6faba498194776bfd96bc4,
@@ -908,7 +921,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.3
+  m_fontSize: 18.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -957,7 +970,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8644313127136562355}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 961ff9bd12fa1e9489d9864810139504, type: 3}
   m_Name: 
@@ -966,6 +979,28 @@ MonoBehaviour:
   m_text: Press $#0 to open necromicon
   m_addressesLists:
   - {fileID: 11400000, guid: 5a14538570d2d624f8f96c0fadd0f0cc, type: 2}
+--- !u!114 &8118170545672086310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8644313127136562355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81413ba0e41c54249bc0996e528f687a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_message: Press BUTTONPROMPT to open necromicon
+  m_actionType: 0
+  m_spriteButtonList: {fileID: 11400000, guid: c3c0ad3f40972da4c81d32b5f158ae38, type: 2}
+  m_deviceType: 0
+  m_directionPart: 0
+  m_cycleActionPart: 0
+  m_inputManager: {fileID: 11400000, guid: 27c922adea859804db50b57a9104dd2c, type: 2}
+  m_inputaction: {fileID: 5916718078611979554, guid: 2e0d81e8951c3384cba5207fae67c9a4,
+    type: 3}
+  m_promptFontSize: 10
 --- !u!1 &8644313127343368053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,7 +1068,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lore-Update
+  m_text: Lore Update
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 21213444537982326, guid: 03de9f858562ece4c9ac9d91b56d9ad5,
