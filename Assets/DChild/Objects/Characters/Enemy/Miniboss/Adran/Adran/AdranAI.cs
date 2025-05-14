@@ -175,13 +175,17 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private float fixedZ;
     private bool isPaused = false;
     [SerializeField, TabGroup("Reference")]
-    private GameObject m_deathFX;
+    private GameObject m_deathFX; 
     [SerializeField, TabGroup("Reference")]
     private RaySensor m_groundSensor;
+    [SerializeField, TabGroup("Reference")]
+    private SpineEventListener m_spineListner;
     [SerializeField, TabGroup("Reference")]
     private MovementHandle2D m_movement;
     [SerializeField, TabGroup("Reference")]
     private FlinchHandler m_flinchHandler;
+    [SerializeField, TabGroup("Reference")]
+    private FlinchHandler m_flinchHandler_2;
     [SerializeField, TabGroup("Reference")]
     private Hitbox m_hitbox;
     [SerializeField, TabGroup("Reference")]
@@ -256,7 +260,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private bool m_isReturning;
     protected override void Start()
     {
-
+   
         m_phaseHandle = new PhaseHandle<Phase, PhaseInfo>();
         m_phaseHandle.Initialize(Phase.PhaseOne, m_info.phaseInfo, m_character, ChangeState, ApplyPhaseData);
         m_phaseHandle.ApplyChange();
@@ -281,6 +285,8 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         base.OnDestroyed(sender, eventArgs);
         Debug.Log("Death?");     
         StopAllCoroutines();
+        DeathEvent();
+        m_deathHandle.enabled = true;   
         m_movement.Stop();
         m_animation.DisableRootMotion();
 
@@ -475,6 +481,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
 
     private IEnumerator SlamRollAttack()
     {
+        Pause();
         m_stateHandle.Wait(State.ReevaluateSituation);
         yield return SlamRollLocatePlayer();
         yield return SlamAttack();
@@ -600,7 +607,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     {
         Debug.Log("Damage adran");
         GameplaySystem.combatManager.Damage(m_damageable, m_damageOnDeath);
-        StartCoroutine(FlinchStrongAnimationRoutine());
+       // m_flinchHandler_2.Flinch();
         stopHomingMissile = true;
     }
 
@@ -610,6 +617,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         m_flinchHandler.SetAnimation(m_info.flinch_2);
         m_flinchHandler.Flinch();
         yield return new WaitForSeconds(0.5f);
+        m_flinchHandler.SetAnimation(m_info.flinch_1);
         m_hitbox.Enable();
     }
     private void AdranAI_GotDamagedByPlayer(object sender, Holysoft.Event.EventActionArgs eventArgs)
@@ -717,6 +725,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
                         Debug.Log("Hello im ander the water");
                         returning = false;
                         reIterate = false;
+                        stopHomingMissile = false;
                         instance.GetComponent<SmallAdran>().isReturningToSummonSpot = false;
                     }
                     else
@@ -912,7 +921,9 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
                 //m_SummonVfxSize.transform.localScale = new Vector3(0.5f, 0.5f, m_SummonVfxSize.localScale.z);
                 break;
             case Phase.PhaseFive:
+                Pause();
                 m_colliderSizeAdjustment.radius = 6.5f;
+                yield return new WaitForSeconds(0.5f);
                 var sizeTransition = m_animation.SetAnimation(1, m_info.rageQuake, false);
                 m_animation.AddAnimation(1, m_info.idleFive, true, 0);
                 yield return new WaitForSpineAnimationComplete(sizeTransition);
@@ -934,6 +945,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         {
             case State.Phasing:
                 Debug.Log("State Changing Phase");
+                Pause();
                 StartCoroutine(ChangePhaseRoutine());
                 break;
             case State.Intro:
