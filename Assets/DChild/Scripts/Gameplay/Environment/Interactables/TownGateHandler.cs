@@ -52,7 +52,7 @@ namespace DChild.Gameplay.Environment.Interractables
         {
             if (IsCurrentActiveState())
             {
-                NearPortal();
+                m_animation.SetAnimation(0, m_openIdle, true);
             }
             else
             {
@@ -72,13 +72,11 @@ namespace DChild.Gameplay.Environment.Interractables
 
             m_animation.SetAnimation(0, m_openTransition, false);
             m_animation.AddAnimation(0, m_openIdle, true, 0);
-            Debug.Log("Test, On a Portal");
         }
         [Button, HideInEditorMode]
         public void IdlePortal()
         {
             m_animation.SetAnimation(0, m_closeIdle, false);
-            Debug.Log("Test, leaving a portal");
         }
 
         [Button, HideInEditorMode]
@@ -103,8 +101,6 @@ namespace DChild.Gameplay.Environment.Interractables
             Gizmos.color = Color.cyan;
             Gizmos.DrawSphere(promptPosition, 1f);
         }
-
-
     }
 
 }
