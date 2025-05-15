@@ -235,33 +235,6 @@ MonoBehaviour:
   OnExitHideViews: []
   OnEnterHideAllViews: 0
   OnExitHideAllViews: 0
---- !u!114 &-7301108375804824536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 181d4738046d4b98b267cac159652e21, type: 3}
-  m_Name: Sticky Note
-  m_EditorClassIdentifier: 
-  FlowGraphId: cc4022c0-bbcf-4ff3-b644-de466cf85d32
-  NodeId: 89ea982f-2d17-4549-ab28-4bbcecdbf8f1
-  NodeType: 0
-  NodeName: Pause Wait
-  NodeDescription: had to add these nodes because of pause UI spamming issues
-  InputPorts: []
-  OutputPorts: []
-  RunUpdate: 0
-  RunFixedUpdate: 0
-  RunLateUpdate: 0
-  NodeState: 0
-  CanBeDeleted: 1
-  Passthrough: 1
-  ClearGraphHistory: 0
-  Position: {x: 639.5, y: -483.99994}
 --- !u!114 &-7236306993950508336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,7 +290,12 @@ MonoBehaviour:
       Name: FastTravel
       Custom: 0
     Mode: 0
-  OnEnterHideViews: []
+  OnEnterHideViews:
+  - Id:
+      Category: Gameplay
+      Name: HUD
+      Custom: 0
+    Mode: 1
   OnExitShowViews: []
   OnExitHideViews:
   - Id:
@@ -520,7 +498,7 @@ MonoBehaviour:
   FlowGraphId: cc4022c0-bbcf-4ff3-b644-de466cf85d32
   NodeId: 1cc5c31e-e129-4feb-93c0-9b08e1daf8b2
   NodeType: 0
-  NodeName: Pause Window
+  NodeName: Pause Menu
   NodeDescription: 
   InputPorts:
   - NodeId: 1cc5c31e-e129-4feb-93c0-9b08e1daf8b2
@@ -597,7 +575,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 1030.9772, y: -545.9999}
+  Position: {x: 1025, y: -546}
   OnEnterShowViews:
   - Id:
       Category: Gameplay
@@ -1058,7 +1036,7 @@ MonoBehaviour:
     Connections:
     - 12244531-584c-4642-9f9d-3b120152c1b2
     - 0cba9368-073e-4f70-a160-a1d4aa6d4f7b
-    - eb023514-01d4-4ef0-924c-8521444ae417
+    - 39f92e04-0a3b-4b31-9444-89e18acbc081
     Value: '{"CanGoBack":false}'
     ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.GoBackInputPortData,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -1173,12 +1151,7 @@ MonoBehaviour:
   ClearGraphHistory: 1
   Position: {x: 619.00006, y: -138.00006}
   OnEnterShowViews: []
-  OnEnterHideViews:
-  - Id:
-      Category: Gameplay
-      Name: Pause
-      Custom: 0
-    Mode: 0
+  OnEnterHideViews: []
   OnExitShowViews: []
   OnExitHideViews: []
   OnEnterHideAllViews: 0
@@ -1379,67 +1352,6 @@ MonoBehaviour:
   ClearGraphHistory: 0
   Position: {x: 1534.0945, y: 1188.7681}
   PivotOrientation: 2
---- !u!114 &-1210373285849903802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87c43f2597bc48340b6a8f2909b66d09, type: 3}
-  m_Name: Signal
-  m_EditorClassIdentifier: 
-  FlowGraphId: cc4022c0-bbcf-4ff3-b644-de466cf85d32
-  NodeId: 285ceed3-9638-4ae4-a335-f621016f5bdf
-  NodeType: 0
-  NodeName: Signal
-  NodeDescription: 
-  InputPorts:
-  - NodeId: 285ceed3-9638-4ae4-a335-f621016f5bdf
-    PortId: 268f34b2-1c47-4868-9f05-ae3ada0e20b4
-    Direction: 0
-    Capacity: 1
-    Connections:
-    - f0540609-cb45-4739-844e-443dad157e41
-    Value: 
-    ValueTypeQualifiedName: 
-    CanBeDeleted: 0
-    CanBeReordered: 0
-  OutputPorts:
-  - NodeId: 285ceed3-9638-4ae4-a335-f621016f5bdf
-    PortId: eb023514-01d4-4ef0-924c-8521444ae417
-    Direction: 1
-    Capacity: 0
-    Connections:
-    - 3840fd4f-c6b4-414f-90e6-c187e2b48584
-    Value: 
-    ValueTypeQualifiedName: 
-    CanBeDeleted: 0
-    CanBeReordered: 0
-  RunUpdate: 0
-  RunFixedUpdate: 0
-  RunLateUpdate: 0
-  NodeState: 0
-  CanBeDeleted: 1
-  Passthrough: 1
-  ClearGraphHistory: 0
-  Position: {x: 363.43738, y: -334.50006}
-  Payload:
-    StreamId:
-      Category: Gameplay
-      Name: ResumeGame
-      Custom: 0
-    SignalValueType: 0
-    IntegerValue: 0
-    BooleanValue: 0
-    FloatValue: 0
-    StringValue: 
-    ColorValue: {r: 0, g: 0, b: 0, a: 0}
-    Vector2Value: {x: 0, y: 0}
-    Vector3Value: {x: 0, y: 0, z: 0}
-    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &-1108128849002585700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1609,8 +1521,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02761efe598a45c98fa1baf4d446c6a7, type: 3}
   m_Name: BaseGameplayMenuFlow
   m_EditorClassIdentifier: 
-  EditorPosition: {x: -612, y: -666, z: 0}
-  EditorScale: {x: 0.8695652, y: 0.8695652, z: 1}
+  EditorPosition: {x: -77, y: 195, z: 0}
+  EditorScale: {x: 0.375937, y: 0.375937, z: 1}
   Id: cc4022c0-bbcf-4ff3-b644-de466cf85d32
   GraphName: Flow Graph
   GraphDescription: 
@@ -1641,8 +1553,6 @@ MonoBehaviour:
   - {fileID: 4183418755310516274}
   - {fileID: 5042098673244526374}
   - {fileID: -5701956226677991348}
-  - {fileID: 368476018593977977}
-  - {fileID: -7301108375804824536}
   - {fileID: -7007334615029991435}
   - {fileID: -6964230844268779755}
   - {fileID: -3076186963558032247}
@@ -1662,67 +1572,9 @@ MonoBehaviour:
   - {fileID: 3524554652378943686}
   - {fileID: 2945977332153260279}
   - {fileID: 975626321781455584}
-  - {fileID: -1210373285849903802}
+  - {fileID: 6084329412930752968}
   RootNode: {fileID: 6426440333755477475}
   ActiveNode: {fileID: 0}
---- !u!114 &368476018593977977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c01f9a7d07f5c04a9f277379e94a10b, type: 3}
-  m_Name: UI
-  m_EditorClassIdentifier: 
-  FlowGraphId: cc4022c0-bbcf-4ff3-b644-de466cf85d32
-  NodeId: cf718b71-0313-40b7-a6ff-6dcbd064de53
-  NodeType: 0
-  NodeName: Pre-Pause Wait
-  NodeDescription: 
-  InputPorts:
-  - NodeId: cf718b71-0313-40b7-a6ff-6dcbd064de53
-    PortId: d282b5f8-890d-45a9-ae1a-06ea6f60b546
-    Direction: 0
-    Capacity: 1
-    Connections: []
-    Value: '{"CanGoBack":false}'
-    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.GoBackInputPortData,
-      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    CanBeDeleted: 0
-    CanBeReordered: 0
-  OutputPorts:
-  - NodeId: cf718b71-0313-40b7-a6ff-6dcbd064de53
-    PortId: aa63f06b-33b2-45fe-94ff-e0bcdad5e876
-    Direction: 1
-    Capacity: 0
-    Connections: []
-    Value: '{"Trigger":0,"TimeDelay":0.375,"SignalPayload":{"StreamId":{"Category":"None","Name":"None","Custom":false},"SignalValueType":0,"IntegerValue":0,"BooleanValue":false,"FloatValue":0.0,"StringValue":"","ColorValue":{"r":0.0,"g":0.0,"b":0.0,"a":0.0},"Vector2Value":{"x":0.0,"y":0.0},"Vector3Value":{"x":0.0,"y":0.0,"z":0.0},"Vector4Value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}},"ButtonId":{"Category":"None","Name":"None","Custom":false},"ToggleId":{"Category":"None","Name":"None","Custom":false},"CommandToggle":2,"ViewId":{"Category":"None","Name":"None","Custom":false},"CommandShowHide":0}'
-    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.UIOutputPortData,
-      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    CanBeDeleted: 0
-    CanBeReordered: 0
-  RunUpdate: 0
-  RunFixedUpdate: 0
-  RunLateUpdate: 0
-  NodeState: 0
-  CanBeDeleted: 1
-  Passthrough: 0
-  ClearGraphHistory: 0
-  Position: {x: 766.2432, y: -398.49997}
-  OnEnterShowViews:
-  - Id:
-      Category: Gameplay
-      Name: Pause
-      Custom: 0
-    Mode: 0
-  OnEnterHideViews: []
-  OnExitShowViews: []
-  OnExitHideViews: []
-  OnEnterHideAllViews: 0
-  OnExitHideAllViews: 0
 --- !u!114 &975626321781455584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2003,7 +1855,7 @@ MonoBehaviour:
     Direction: 1
     Capacity: 0
     Connections:
-    - 268f34b2-1c47-4868-9f05-ae3ada0e20b4
+    - 49eee153-685f-4adc-a2b6-fc0ec6cebcb1
     Value: 
     ValueTypeQualifiedName: 
     CanBeDeleted: 0
@@ -2481,6 +2333,66 @@ MonoBehaviour:
   ClearGraphHistory: 0
   Position: {x: 2265, y: -663.0001}
   PivotOrientation: 3
+--- !u!114 &6084329412930752968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c01f9a7d07f5c04a9f277379e94a10b, type: 3}
+  m_Name: UI
+  m_EditorClassIdentifier: 
+  FlowGraphId: cc4022c0-bbcf-4ff3-b644-de466cf85d32
+  NodeId: 322bf836-076d-458e-8b2b-f5677c819093
+  NodeType: 0
+  NodeName: Hide Pause Menu
+  NodeDescription: Resumes gameplay after hiding
+  InputPorts:
+  - NodeId: 322bf836-076d-458e-8b2b-f5677c819093
+    PortId: 49eee153-685f-4adc-a2b6-fc0ec6cebcb1
+    Direction: 0
+    Capacity: 1
+    Connections:
+    - f0540609-cb45-4739-844e-443dad157e41
+    Value: '{"CanGoBack":false}'
+    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.GoBackInputPortData,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    CanBeDeleted: 0
+    CanBeReordered: 0
+  OutputPorts:
+  - NodeId: 322bf836-076d-458e-8b2b-f5677c819093
+    PortId: 39f92e04-0a3b-4b31-9444-89e18acbc081
+    Direction: 1
+    Capacity: 0
+    Connections:
+    - 3840fd4f-c6b4-414f-90e6-c187e2b48584
+    Value: '{"Trigger":1,"TimeDelay":3.0,"SignalPayload":{"StreamId":{"Category":"Gameplay","Name":"ResumeGame","Custom":false},"SignalValueType":0,"IntegerValue":0,"BooleanValue":false,"FloatValue":0.0,"StringValue":"","ColorValue":{"r":0.0,"g":0.0,"b":0.0,"a":0.0},"Vector2Value":{"x":0.0,"y":0.0},"Vector3Value":{"x":0.0,"y":0.0,"z":0.0},"Vector4Value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}},"ButtonId":{"Category":"None","Name":"None","Custom":false},"ToggleId":{"Category":"None","Name":"None","Custom":false},"CommandToggle":2,"ViewId":{"Category":"Gameplay","Name":"Pause","Custom":false},"CommandShowHide":1}'
+    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.UIOutputPortData,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    CanBeDeleted: 0
+    CanBeReordered: 0
+  RunUpdate: 0
+  RunFixedUpdate: 0
+  RunLateUpdate: 0
+  NodeState: 0
+  CanBeDeleted: 1
+  Passthrough: 0
+  ClearGraphHistory: 0
+  Position: {x: 337.90002, y: -383.0001}
+  OnEnterShowViews: []
+  OnEnterHideViews:
+  - Id:
+      Category: Gameplay
+      Name: Pause
+      Custom: 0
+    Mode: 0
+  OnExitShowViews: []
+  OnExitHideViews: []
+  OnEnterHideAllViews: 0
+  OnExitHideAllViews: 0
 --- !u!114 &6426440333755477475
 MonoBehaviour:
   m_ObjectHideFlags: 0
