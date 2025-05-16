@@ -1,6 +1,7 @@
 ﻿using DChild.Gameplay.Systems;
 using Holysoft.Event;
 using System;
+using UnityEngine;
 
 namespace DChild.Gameplay.Combat.StatusAilment
 {
