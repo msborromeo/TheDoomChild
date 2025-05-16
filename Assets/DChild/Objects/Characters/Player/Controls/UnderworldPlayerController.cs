@@ -182,7 +182,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_teleportingSkull = m_character.GetComponentInChildren<TeleportingSkull>();
             m_airSlashRange = m_character.GetComponentInChildren<AirSlashRange>();
 
-
             //Intro Controller
             m_introController = GetComponent<PlayerIntroControlsController>();
 
@@ -346,13 +345,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isDead)
             {
-                Disable();
-              
+                Disable();              
             }
-            else
-            {
-                Enable();
-            }
+
 
             if (m_introController.IsUsingIntroControls())
             {
@@ -2265,7 +2260,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void Enable()
         {
-            m_inputReader.SetInputModeToUnderworldGameplay();
+            //m_inputReader.Enable();
+            m_playerInput.ActivateInput();
             ControllerEnabled?.Invoke(this, EventActionArgs.Empty);
         }
 
@@ -2309,7 +2305,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 m_movement?.SwitchConfigTo(Movement.Type.Jog);
             }
-            m_inputReader.SetInputModeToUI();
+            //m_inputReader.Disable();
+            m_playerInput.DeactivateInput();
             ControllerDisabled?.Invoke(this, EventActionArgs.Empty);
         }
 
@@ -2513,6 +2510,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
             else
             {
+                if (m_stepClimb.CheckForStepClimbableSurface())
+                {
+                    m_stepClimb.ClimbSurface();
+                }
+
                 if (m_state.isGrounded)
                     m_movement?.GroundMove(horizontalInput, false);
                 else
