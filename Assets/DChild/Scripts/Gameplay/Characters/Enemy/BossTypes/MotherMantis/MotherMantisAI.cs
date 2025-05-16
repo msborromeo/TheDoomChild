@@ -989,8 +989,10 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.landingAnimation, false);
             yield return new WaitForSeconds(0.6f);
             m_landFX.Play();
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landingAnimation.animation);
             OnMantisLand?.Invoke(this, EventActionArgs.Empty);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landingAnimation.animation);
+            if (!IsFacingTarget())
+                CustomTurn();
             m_animation.SetAnimation(0, m_info.idlephase3Animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idlephase3Animation.animation);
             yield return null;
@@ -1028,9 +1030,11 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.landingAnimation, false);
             yield return new WaitForSeconds(0.6f);
             m_landFX.Play();
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landingAnimation.animation);
             OnMantisLand?.Invoke(this, EventActionArgs.Empty);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landingAnimation.animation);
             m_targetInfo.GetTargetDamagable().DamageTaken += PlayerHit;
+            if (!IsFacingTarget())
+                CustomTurn();
             m_animation.SetAnimation(0, m_info.idlephase3Animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idlephase3Animation.animation);
             //StartCoroutine(PetalLaunchRoutine());
@@ -1288,14 +1292,14 @@ namespace DChild.Gameplay.Characters.Enemies
             switch (m_phaseHandle.currentPhase)
             {
                 case Phase.PhaseOne:
-                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase1Pattern1, m_info.phase1Pattern1Range));
+                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase3Pattern1, m_info.phase1Pattern1Range));
                     break;
-                case Phase.PhaseTwo:
+                /*case Phase.PhaseTwo:
                     m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase2Pattern1, m_info.phase2Pattern1Range));
                     break;
                 case Phase.PhaseThree:
                     m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase3Pattern1, m_info.phase3Pattern1Range));
-                    break;
+                    break;*/
             }
             DecidedOnAttack(false);
         }
