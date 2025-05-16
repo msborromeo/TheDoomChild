@@ -37,7 +37,7 @@ public class LichLordSarcophagus : MonoBehaviour
     [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
     private string m_explodeAnimation;
     [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
-    private string m_coffinShakeAnimtaion;
+    private string m_coffinShake;
 
     // Start is called before the first frame update
     private void Start()
@@ -51,7 +51,6 @@ public class LichLordSarcophagus : MonoBehaviour
         StartCoroutine(ExplosionRoutine());
     }
 
-    [Button]
     public void ExplosionPrep()
     {
         StartCoroutine(PreExplodeRoutine());
@@ -78,8 +77,7 @@ public class LichLordSarcophagus : MonoBehaviour
 
     private IEnumerator PreExplodeRoutine()
     {
-        //did this so that the animation doesn't flicker
-        m_spine.SetAnimation(0, m_coffinShakeAnimtaion, false);
+        m_spine.SetAnimation(0, m_coffinShake, true);
         yield return new WaitForSeconds(2f);
         m_spine.SetAnimation(0, m_explodeAnimation, false);
         yield return null;
