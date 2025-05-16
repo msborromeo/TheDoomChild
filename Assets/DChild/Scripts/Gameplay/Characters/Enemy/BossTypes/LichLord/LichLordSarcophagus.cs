@@ -51,6 +51,7 @@ public class LichLordSarcophagus : MonoBehaviour
         StartCoroutine(ExplosionRoutine());
     }
 
+    [Button]
     public void ExplosionPrep()
     {
         StartCoroutine(PreExplodeRoutine());
