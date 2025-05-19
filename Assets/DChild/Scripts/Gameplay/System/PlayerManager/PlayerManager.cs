@@ -76,6 +76,8 @@ namespace DChild.Gameplay.Systems
 
         public ArmyBattleCharacterRecruiter armyBattleCharacterRecruiter => m_armyBattleCharacterRecruiter;
 
+        public static event Action<bool> PlayerControlsEnabled;
+
         public void SyncVisualsWith(SpineSyncer spineSyncer)
         {
             player.character.GetComponent<PlayerSpineSyncer>().SyncWith(spineSyncer);
@@ -141,6 +143,7 @@ namespace DChild.Gameplay.Systems
             m_player.controller.Disable();
             m_playerInput?.DeactivateInput();
             m_player.state.allowExtendedIdle = false;
+            PlayerControlsEnabled?.Invoke(false);
         }
 
         [Button]
@@ -150,8 +153,8 @@ namespace DChild.Gameplay.Systems
             m_characterInput?.Enable();
             m_player.controller.Enable();
             m_playerInput?.ActivateInput();
-
             m_player.state.allowExtendedIdle = true;
+            PlayerControlsEnabled?.Invoke(true);
         }
 
         public void EnableIntroControls()
