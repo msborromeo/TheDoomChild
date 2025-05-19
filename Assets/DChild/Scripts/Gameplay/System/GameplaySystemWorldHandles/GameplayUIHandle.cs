@@ -79,9 +79,6 @@ namespace DChild.Gameplay.Systems
 
         public void OpenStoreAtPage(StorePage storePage)
         {
-            if (GameplaySystem.isGamePaused)
-                return;
-
             if (GameSystem.CurrentGameMode == GameMode.Underworld)
             {
                 UnderworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage); 

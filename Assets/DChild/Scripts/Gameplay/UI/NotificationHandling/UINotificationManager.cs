@@ -202,10 +202,9 @@ namespace DChild.Gameplay.UI
                 while (GameplaySystem.isGamePaused)
                     yield return endOfFrame;
 
-                
 
-                yield return endOfFrame;
                 HandleNextFullNotification();
+                //yield return endOfFrame;
                 do
                 {
                     yield return endOfFrame;
