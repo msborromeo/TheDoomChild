@@ -13,6 +13,7 @@ using DChild.Gameplay.Characters.Players.State;
 using System.Runtime.Remoting.Messaging;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using DChild.Gameplay.Narrative;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -112,6 +113,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private bool m_isGrabbing;
         #endregion
 
+        private bool m_storeHasBeenPickedUp = true;
+
         public event EventAction<EventActionArgs> ControllerDisabled;
         public event EventAction<EventActionArgs> ControllerEnabled;
         public static event Action<string> ActiveControllerChanged; 
@@ -198,6 +201,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_projectileThrow.ProjectileThrown += ResetProjectile;
             m_teleportingSkull.Teleported += HasTeleported;
             SceneManager.activeSceneChanged += OnActiveSceneChanged;
+            NewGameIntroEvent.PickedUpBook += OnPickedUpBook;
+            NewGameIntroEvent.NewGameIntroStarted += OnNewGameIntroStarted;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent += OnVector2PerformedInput;
@@ -274,6 +279,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_projectileThrow.ProjectileThrown -= ResetProjectile;
             m_teleportingSkull.Teleported -= HasTeleported;
             SceneManager.activeSceneChanged -= OnActiveSceneChanged;
+            NewGameIntroEvent.PickedUpBook -= OnPickedUpBook;
+            NewGameIntroEvent.NewGameIntroStarted -= OnNewGameIntroStarted;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent -= OnVector2PerformedInput;
@@ -983,6 +990,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnStoreInput()
         {
+            if (m_storeHasBeenPickedUp == false)
+                return;
             GameplaySystem.gamplayUIHandle.OpenStoreAtPage(StorePage.Map);
         }
 
@@ -1935,7 +1944,19 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #endregion
 
         #region Utility
-        private void   HandleGroundBehaviour()
+        private void OnNewGameIntroStarted()
+        {
+            m_storeHasBeenPickedUp = false;
+            NewGameIntroEvent.NewGameIntroStarted -= OnNewGameIntroStarted;
+        }
+
+        private void OnPickedUpBook()
+        {
+            m_storeHasBeenPickedUp = true;
+            NewGameIntroEvent.PickedUpBook -= OnPickedUpBook;
+        }
+
+        private void HandleGroundBehaviour()
         {
             if (m_state.isDashing == false && m_state.canDash == false)
             {
