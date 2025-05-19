@@ -57,6 +57,9 @@ namespace DChild.Gameplay
 
         public static void ResumeGame()
         {
+            if (!isGamePaused)
+                return;
+
             isGamePaused = false;
             BaseGameplaySystem.ResumeGame();
             if (GetCurrentWorldType() == WorldType.Underworld)
@@ -71,6 +74,9 @@ namespace DChild.Gameplay
 
         public static void PauseGame()
         {
+            if (isGamePaused)
+                return;
+
             isGamePaused = true;
             BaseGameplaySystem.PauseGame();
             if (GetCurrentWorldType() == WorldType.Underworld)
