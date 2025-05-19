@@ -9,6 +9,7 @@ using Spine.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -67,6 +68,7 @@ namespace DChild.Gameplay.Narrative
         public static event Action NewGameIntroStarted;
         public static event Action NewGamePlayerWokeUp;
         public static event Action NewGameIntroPromptPressed;
+        public static event Action PickedUpBook;
 
         private void OnInputPerformed(InputAction.CallbackContext context)
         {
@@ -95,6 +97,7 @@ namespace DChild.Gameplay.Narrative
             WorldTypeThigy.SetCurrentWorldType(Environment.Location.City_Of_The_Dead);
            // GameplaySystem.playerManager.player.GetComponentInChildren<PlayerInput>().actions.FindActionMap("Gameplay").Disable();
             m_introStartEvent?.Invoke();
+            NewGameIntroStarted?.Invoke();
         }
 
         public void TransferPlayerToStartPosition()
@@ -115,6 +118,11 @@ namespace DChild.Gameplay.Narrative
         public void SetStorePickupSequence(bool startSequence)
         {
             m_storePickupSequence.SetActive(startSequence);
+        }
+
+        public void InvokeBookPickedUp()
+        {
+            PickedUpBook?.Invoke();
         }
 
         public void EndEvent()
@@ -167,7 +175,7 @@ namespace DChild.Gameplay.Narrative
 
         private void Start()
         {
-            NewGameIntroStarted?.Invoke();
+            
         }
     }
 
