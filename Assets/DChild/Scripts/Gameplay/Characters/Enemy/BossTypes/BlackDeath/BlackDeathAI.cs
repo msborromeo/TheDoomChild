@@ -1935,19 +1935,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private void UpdateAttackDeciderList()
         {
             //testing
-            //m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TeleportSingleBloodLightning, m_info.targetDistanceTolerance));
-            /*m_patternDecider.SetList(new AttackInfo<Pattern>(Pattern.AttackPattern1, m_info.targetDistanceTolerance),
-                                     new AttackInfo<Pattern>(Pattern.AttackPattern2, m_info.targetDistanceTolerance),
-                                     new AttackInfo<Pattern>(Pattern.AttackPattern3, m_info.targetDistanceTolerance),
-                                     new AttackInfo<Pattern>(Pattern.AttackPattern4, m_info.targetDistanceTolerance),
-                                     new AttackInfo<Pattern>(Pattern.AttackPattern5, m_info.targetDistanceTolerance),
-                                     new AttackInfo<Pattern>(Pattern.AttackPattern6, m_info.targetDistanceTolerance),
-                                     new AttackInfo<Pattern>(Pattern.AttackPattern7, m_info.targetDistanceTolerance));
-            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.BladeThrow, m_info.attackDaggers.range)
-                                  , new AttackInfo<Attack>(Attack.GiantBlades, m_info.attack7.range)
-                                  , new AttackInfo<Attack>(Attack.ScytheSlash, m_info.attack1.range)
-                                  , new AttackInfo<Attack>(Attack.ShadowClone, m_info.summonCloneAttack.range)
-            //                      , new AttackInfo<Attack>(Attack.TentacleBlades, m_info.attack6A.range));*/
+            //m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TeleportSingleBloodLightning, m_info.targetDistanceTolerance));   
             switch (m_phaseHandle.currentPhase)
             {
                 case Phase.PhaseOne:
@@ -1982,8 +1970,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     new AttackInfo<Attack>(Attack.TeleportShadowBladeThrowWithRotations, m_info.targetDistanceTolerance));
                     break;
 
-            }
-
+            }   
             DecidedOnAttack(false);
         }
 
@@ -2081,6 +2068,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_spineListener.Subscribe(m_info.blackDeathSlash1Off, BlackDeathSlash1ColliderFXOff);
             //Slash2
             m_spineListener.Subscribe(m_info.blackDeathSlash2On, BlackDeathSlash2ColliderFXOn);
+            m_spineListener.Subscribe(m_info.blackDeathSlash2Off, BlackDeathSlash1ColliderFXOff);
             m_spineListener.Subscribe(m_info.blackDeathSlash2Off, BlackDeathSlash2ColliderFXOff);
             //Slash3
             m_spineListener.Subscribe(m_info.blackDeathSlash3On, BlackDeathSlash3ColliderFXOn);
