@@ -512,13 +512,10 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void ChangeState()
         {
-            if (m_hasPhaseChanged)
-            {
-                m_stateHandle.OverrideState(State.Phasing);
-                m_hasPhaseChanged = true;
-                m_animation.SetEmptyAnimation(0, 0);
-                m_phaseHandle.ApplyChange();
-            }
+            m_stateHandle.OverrideState(State.Phasing);
+            m_hasPhaseChanged = false;
+            m_animation.SetEmptyAnimation(0, 0);
+            m_phaseHandle.ApplyChange();
             //StartCoroutine(SmartChangePhaseRoutine());
         }
 
@@ -657,6 +654,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_shoulderBashBB.enabled = false;
             m_animation.SetAnimation(0, m_info.idleAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleAnimation);
+            m_animation.EnableRootMotion(false, false);
             m_animation.DisableRootMotion();
             m_attackCounter++;
             yield return null;
@@ -689,7 +687,8 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             while(Vector2.Distance(transform.position, m_CenterOfTheArena.position) > 2f)
             {
-                Debug.Log(Vector2.Distance(transform.position, m_CenterOfTheArena.position));
+                //Debug.Log(Vector2.Distance(transform.position, m_CenterOfTheArena.position));
+                if (!IsFacing(m_CenterOfTheArena.position)) { CustomTurn(); }
                 m_animation.SetAnimation(0, m_info.move.animation, true);
                 m_movement.MoveTowards(new Vector2(m_CenterOfTheArena.position.x - transform.position.x, 0f).normalized, m_info.move.speed);
                 yield return null;
@@ -730,7 +729,8 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             while(Vector2.Distance(transform.position, m_CenterOfTheArena.position) > 2f)
             {
-                Debug.Log(Vector2.Distance(transform.position, m_CenterOfTheArena.position));
+                if (!IsFacing(m_CenterOfTheArena.position)) { CustomTurn(); }
+                //Debug.Log(Vector2.Distance(transform.position, m_CenterOfTheArena.position));
                 m_animation.SetAnimation(0, m_info.move.animation, true);
                 m_movement.MoveTowards(new Vector2(m_CenterOfTheArena.position.x - transform.position.x, 0f).normalized, m_info.move.speed);
                 yield return null;
