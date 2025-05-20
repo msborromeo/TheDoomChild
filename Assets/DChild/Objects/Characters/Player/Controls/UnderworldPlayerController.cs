@@ -961,16 +961,23 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
         }
 
-
         private void OnUseQuickItemsStartedInput()
         {
             m_allowQuickItemCycle = false;
             m_handle.UseCurrentItem();
+            if (m_handle.IsCurrentItemThrowable())
+            {
+                ProjectileThrowStart();//need to prevent this if current item is not a throwable
+            }
         }
 
         private void OnUseQuickItemsCancelledInput()
         {
             m_allowQuickItemCycle = true;
+            if (m_handle.IsCurrentItemThrowable())
+            {
+                ProjectileThrowCancel();
+            }
         }
 
         private void OnCycleQuickItemsStartedInput(float obj)
@@ -1271,6 +1278,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isChargingAttack)
                 return;
 
+            ProjectileThrowStart();
+        }
+
+        private void ProjectileThrowStart()
+        {
             PrepareForGroundAttack();
 
             if (m_vector2Input.x != 0)
@@ -1283,6 +1295,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.isAimingProjectile = true;
         }
 
+        private void ProjectileThrowCancel()
+        {
+            m_projectileThrow.EndAim();
+            m_projectileThrow.StartThrow();
+            m_state.isAimingProjectile = false;
+            GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.None);
+        }
+
         private void OnProjectileThrowCancelledInput()
         {
             if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
@@ -1291,10 +1311,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isAimingProjectile == false)
                 return;
                 
-            m_projectileThrow.EndAim();
-            m_projectileThrow.StartThrow();
-            m_state.isAimingProjectile = false;
-            GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.None);
+            ProjectileThrowCancel();
         }
 
 
