@@ -65,6 +65,10 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField]
             private float m_chargeLoops;
             public float chargeLoops => m_chargeLoops;
+
+            [SerializeField]
+            private SimpleAttackInfo m_stingerCharge = new SimpleAttackInfo();
+            public SimpleAttackInfo stingerCharge => m_stingerCharge;
             //
 
             //Animations
@@ -142,6 +146,17 @@ namespace DChild.Gameplay.Characters.Enemies
             public BasicAnimationInfo turnAnimation => m_turnAnimation;
 
             [SerializeField]
+            private BasicAnimationInfo m_phase4AtkStingerChargeAnimation;
+            public BasicAnimationInfo phase4AtkStingerChargeAnimation => m_phase4AtkStingerChargeAnimation;
+            [SerializeField]
+            private BasicAnimationInfo m_phase4AtkStingerChargeAnticipationAnimation;
+            public BasicAnimationInfo phase4AtkStingerChargeAnticipationAnimation => m_phase4AtkStingerChargeAnticipationAnimation;
+            [SerializeField]
+            private BasicAnimationInfo m_phase4AtkStingerChargeMoveUpAnimation;
+            public BasicAnimationInfo phase4AtkStingerChargeMoveUpAnimation => m_phase4AtkStingerChargeMoveUpAnimation;
+
+
+            [SerializeField]
             private SimpleProjectileAttackInfo m_spearProjectile;
             public SimpleProjectileAttackInfo spearProjectile => m_spearProjectile;
             [SerializeField]
@@ -172,6 +187,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_spearChargeAttack.SetData(m_skeletonDataAsset);
                 m_spearMeleeAttack.SetData(m_skeletonDataAsset);
                 m_spearThrowAttack.SetData(m_skeletonDataAsset);
+                m_stingerCharge.SetData(m_skeletonDataAsset);
 
                 m_afterMoveForwardAnimation.SetData(m_skeletonDataAsset);
                 m_deathAnimation.SetData(m_skeletonDataAsset);
@@ -197,6 +213,10 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_stuckStateFlinchForwardAnimation.SetData(m_skeletonDataAsset);
                 m_summonDroneAnimation.SetData(m_skeletonDataAsset);
                 m_turnAnimation.SetData(m_skeletonDataAsset);
+                m_phase4AtkStingerChargeAnimation.SetData(m_skeletonDataAsset);
+                m_phase4AtkStingerChargeAnticipationAnimation.SetData(m_skeletonDataAsset);
+                m_phase4AtkStingerChargeMoveUpAnimation.SetData(m_skeletonDataAsset);
+
 #endif
             }
         }
@@ -265,6 +285,7 @@ namespace DChild.Gameplay.Characters.Enemies
             SpearMelee,
             SpearThrow,
             GroundStingerAttack,
+            StingerCharge,
             WaitAttackEnd,
         }
 
@@ -503,9 +524,15 @@ namespace DChild.Gameplay.Characters.Enemies
                     else
                         m_stateHandle.ApplyQueuedState();
                     break;
-                case Attack.GroundStingerAttack:
+                //case Attack.GroundStingerAttack:
+                //    if (m_currentPhaseIndex >= 3)
+                //        StartCoroutine(GroundStingerRoutine());
+                //    else
+                //        m_stateHandle.ApplyQueuedState();
+                //    break;
+                    case Attack.StingerCharge:
                     if (m_currentPhaseIndex >= 3)
-                        StartCoroutine(GroundStingerRoutine());
+                        StartCoroutine(StingerChargeRoutine());
                     else
                         m_stateHandle.ApplyQueuedState();
                     break;
@@ -842,7 +869,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
             m_animation.SetAnimation(0, m_info.stuckRecoverAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.stuckRecoverAnimation);
-            StartCoroutine(GroundStingerRoutine());
+            //StartCoroutine(GroundStingerRoutine());
             yield return null;
         }
 
@@ -886,6 +913,70 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.stuckStateAnimation, true);
             m_attackDecider.hasDecidedOnAttack = false;
             //m_flinchHandle.m_autoFlinch= true;
+            m_stateHandle.ApplyQueuedState();
+            yield return null;
+        }
+
+        private IEnumerator StingerChargeRoutine()
+        {
+            m_agent.Stop();
+            //CustomTurn();
+            while (Vector2.Distance(transform.position, m_tripleDronePoint.position) > 1.5)
+            {
+                DynamicMovement(m_tripleDronePoint.position);
+                yield return null;
+            }
+            CustomTurn();
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            m_agent.Stop();
+            m_animation.EnableRootMotion(true, false);
+            m_animation.SetAnimation(0, m_info.phase4AtkStingerChargeAnticipationAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.phase2AtkChargeStartAnimation);
+            m_animation.DisableRootMotion();
+            m_hitbox.SetInvulnerability(Invulnerability.MAX);
+            m_bodyCollider.SetActive(false);
+            m_QBStingerChargeFX.gameObject.SetActive(true);
+            m_QBStingerChargeFX.Play();
+            //int i;
+            //var i = 0;
+            //while (m_info.chargeLoops > i)
+            //{
+            //    m_animation.SetAnimation(0, m_info.phase2AtkChargeLoopAnimation, false);
+            //    //var chargeFXScale = m_QBStingerChargeFX.GetComponentInParent<Transform>();
+            //    var mainFX = m_QBStingerChargeFX.main;
+            //    mainFX.startRotation = transform.localScale.x > 0 ? /*180 * Mathf.Deg2Rad*/ (float)Mathf.PI/*nis*/: 0;
+            //    //chargeFXScale.localScale = new Vector3(transform.localScale.x > 0 ? -chargeFXScale.localScale.x : chargeFXScale.localScale.x, chargeFXScale.localScale.y, chargeFXScale.localScale.z);
+            //    GetComponent<IsolatedPhysics2D>().SetVelocity(100 * transform.localScale.x, 0);
+            //    yield return new WaitForSeconds(i == 0 ? 1.25f : 2f);
+            //    CustomTurn();
+            //    m_agent.Stop();
+            //    yield return new WaitForSeconds(.25f);
+            //    transform.position = new Vector2(transform.position.x, m_targetInfo.position.y);
+            //    i++;
+            //    yield return null;
+            //}
+
+            for (int i = 0; i < /*UnityEngine.Random.Range(1,3)*/ 3; i++)
+            {
+                m_animation.SetAnimation(0, m_info.phase4AtkStingerChargeAnimation, true);
+                //var chargeFXScale = m_QBStingerChargeFX.GetComponentInParent<Transform>();
+                var mainFX = m_QBStingerChargeFX.main;
+                mainFX.startRotation = transform.localScale.x > 0 ? /*180 * Mathf.Deg2Rad*/ (float)Mathf.PI/*nis*/: 0;
+                //chargeFXScale.localScale = new Vector3(transform.localScale.x > 0 ? -chargeFXScale.localScale.x : chargeFXScale.localScale.x, chargeFXScale.localScale.y, chargeFXScale.localScale.z);
+                GetComponent<IsolatedPhysics2D>().SetVelocity(250 * transform.localScale.x, 0);
+                yield return new WaitForSeconds(i == 0 ? 1.25f : 2f);
+                m_animation.SetEmptyAnimation(0, 0);
+                CustomTurn();
+                m_agent.Stop();
+                yield return new WaitForSeconds(.25f);
+                transform.position = new Vector2(transform.position.x, m_targetInfo.position.y);
+            }
+            m_hitbox.SetInvulnerability(Invulnerability.None);
+
+            transform.position = m_returnPoint.position;
+            m_QBStingerChargeFX.gameObject.SetActive(false);
+            m_QBStingerChargeFX.Stop();
+            m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
             yield return null;
         }
@@ -977,7 +1068,9 @@ namespace DChild.Gameplay.Characters.Enemies
             m_attackDecider.SetList(new AttackInfo<Attack>(Attack.DroneAttack, m_info.horizontalDroneAttack.range),
                                     new AttackInfo<Attack>(Attack.SpearCharge, m_info.spearChargeAttack.range),
                                     new AttackInfo<Attack>(Attack.SpearMelee, m_info.spearMeleeAttack.range),
-                                    new AttackInfo<Attack>(Attack.SpearThrow, m_info.spearThrowAttack.range)/**/);
+                                    new AttackInfo<Attack>(Attack.SpearThrow, m_info.spearThrowAttack.range),
+                                    new AttackInfo<Attack>(Attack.SpearThrow, m_info.stingerCharge.range)
+                                    /**/);
             m_attackDecider.hasDecidedOnAttack = false;
         }
 
