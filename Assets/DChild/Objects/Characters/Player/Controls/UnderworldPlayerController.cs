@@ -377,6 +377,20 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Ground);
                 }
+
+                HandleCrouchMovement();
+
+                if (CanMove())
+                {
+                    if (m_state.isGrabbing)
+                    {
+                        GrabMoveAction();
+                    }
+                    else
+                    {
+                        MoveAction();
+                    }
+                }
             }
             else
             {
@@ -401,6 +415,17 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                     m_extraJump?.EndExecution();
                 }
+
+
+                if (CanMove())
+                {
+                    if (m_state.isGrabbing == false)
+                    {
+                        MoveAction();
+                    }
+                }
+
+                LevitateAction();
             }
         }
 
@@ -647,20 +672,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 ProjectileThrowAiming();
             }
             
-            HandleCrouchMovement();
-
-            if (CanMove())
-            {
-                if (m_state.isGrabbing)
-                {
-                    GrabMoveAction();
-                }
-                else
-                {
-                    MoveAction();
-                }
-            }
-            LevitateAction();
             LedgeGrabMovementAction();
             SwordThrustAction();
             HandleWallMovement();
@@ -2520,6 +2531,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
             }
         }
+
         private void MoveCharacter(bool isGrabbing, float horizontalInput)
         {
             if (!IsFacingInput(horizontalInput))
@@ -2548,15 +2560,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
             else
             {
-                if (m_stepClimb.CheckForStepClimbableSurface())
-                {
-                    m_stepClimb.ClimbSurface();
-                }
-
                 if (m_state.isGrounded)
                     m_movement?.GroundMove(horizontalInput, false);
                 else
                     m_movement?.AirMove(horizontalInput, false);
+            }
+
+            if (m_stepClimb.CheckForStepClimbableSurface())
+            {
+                m_stepClimb.ClimbSurface();
             }
         }
         private bool CanMove()
