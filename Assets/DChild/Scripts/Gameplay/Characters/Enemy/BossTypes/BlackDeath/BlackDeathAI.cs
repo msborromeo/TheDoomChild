@@ -91,6 +91,9 @@ namespace DChild.Gameplay.Characters.Enemies
 
             [Title("Animations")]
             [SerializeField]
+            private BasicAnimationInfo m_murmursMark;
+            public BasicAnimationInfo murmursMark => m_murmursMark;
+            [SerializeField]
             private BasicAnimationInfo m_absorption;
             public BasicAnimationInfo absorption => m_absorption;
             [SerializeField]
@@ -184,6 +187,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_attack3.SetData(m_skeletonDataAsset);
                 m_attack7.SetData(m_skeletonDataAsset);
                 m_scytheThrow.SetData(m_skeletonDataAsset);
+                murmursMark.SetData(m_skeletonDataAsset);
                 m_absorption.SetData(m_skeletonDataAsset);
                 m_summonCloneAttack.SetData(m_skeletonDataAsset);
                 m_bloodLightningAttack.SetData(m_skeletonDataAsset);
@@ -501,7 +505,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
                 case Phase.PhaseThree:
                     m_animation.SetAnimation(0, m_info.attackDaggersIdle, true);
-                    yield return PhaseChangeAttackRoutine(3);
+                    yield return PhaseChangeAttackRoutine(1);
                     yield return PhaseChangeFloorBreakRoutine();
                     break;
                 case Phase.PhaseFour:
@@ -530,7 +534,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_phaseChangeAttackTimeline.stopped += OnPhaseChangeAttackStopped;
 
             bool isTimelineDone = false;
-            for (int i = 0; i <= loopCount; i++)
+            for (int i = 0; i < loopCount; i++)
             {
                 isTimelineDone = false;
                 m_phaseChangeAttackTimeline.Play();
@@ -589,9 +593,9 @@ namespace DChild.Gameplay.Characters.Enemies
             /*m_soundMarkAnticipation.transform.position = m_targetInfo.position;
             m_soundMarkAnticipation.Play();*/
 
-            m_animation.SetAnimation(0, m_info.bloodLightningAttack, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.bloodLightningAttack);
-            m_animation.SetAnimation(0, m_info.bloodLightningIdleAnimation, true);
+            //m_animation.SetAnimation(0, m_info.murmursMark, false);
+            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.bloodLightningAttack);
+            m_animation.SetAnimation(0, m_info.murmursMark, true);
             
             float spawnDuration = 5f;
             float elapsedTime = 0f;
@@ -607,8 +611,8 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return new WaitForSeconds(spawnInterval);
                 elapsedTime += spawnInterval;
             }
-            m_animation.SetAnimation(0, m_info.bloodLightningEndAnimation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.bloodLightningEndAnimation);
+            m_animation.SetAnimation(0, m_info.idleAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleAnimation);
             //m_animation.SetAnimation(0, m_info.absorption, false);
             //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.absorption);
             //m_animation.SetAnimation(0, m_info.idleAnimation, true);
@@ -826,7 +830,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.bloodLightningAttack);
                 m_BlackDeathBloodLightingBehaviourHandle[random].Execute();
                 m_animation.SetAnimation(0, m_info.bloodLightningIdleAnimation, true);
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(3f);
             }
             m_animation.SetAnimation(0, m_info.bloodLightningEndAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.bloodLightningEndAnimation);
@@ -980,6 +984,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
             var random = UnityEngine.Random.Range(0, 2);
+            yield return TeleportToTargetRoutine(RandomTeleportPoint(), new Vector2(0f, 0f));
             switch (random)
             {
                 case 0:
@@ -990,7 +995,7 @@ namespace DChild.Gameplay.Characters.Enemies
                         m_animation.SetAnimation(0, m_info.absorption, true);
                         m_BlackDeathBloodLightingBehaviourHandle[randomForLightning].Execute();
                         Debug.Log("zxczxc");
-                        yield return new WaitForSeconds(5f);
+                        yield return new WaitForSeconds(3f);
                     }
                     break;
                 case 1:
@@ -1012,7 +1017,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator RandomTripleBloodLightningAttackForPhase3()
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
-            //randomizeblood lighting
+            yield return TeleportToTargetRoutine(RandomTeleportPoint(), new Vector2(0f, 0f));
             m_animation.SetAnimation(0, m_info.attackDaggersIdle, true);
             for (int i = 0; i < 3; i++)
             {
@@ -1037,7 +1042,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 var randomForLightning = UnityEngine.Random.Range(0, 6);
                 m_animation.SetAnimation(0, m_info.absorption, true);
                 m_BlackDeathBloodLightingBehaviourHandle[randomForLightning].Execute();
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(3f);
             }
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             DecidedOnAttack(false);
@@ -1288,9 +1293,10 @@ namespace DChild.Gameplay.Characters.Enemies
             m_isDoneLighting = false; 
             m_stateHandle.Wait(State.ReevaluateSituation);
             var randomForLightning = UnityEngine.Random.Range(0, 4);
+            yield return TeleportToTargetRoutine(RandomTeleportPoint(), new Vector2(0f, 0f));
             m_animation.SetAnimation(0, m_info.absorption, true);
             m_BlackDeathBloodLightingBehaviourHandle2[randomForLightning].Execute();
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3f);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             Debug.Log("DonePattern4");
             DecidedOnAttack(false);
@@ -1427,7 +1433,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 var random = UnityEngine.Random.Range(0, 4);
                 m_animation.SetAnimation(0, m_info.absorption, true);
                 m_BlackDeathBloodLightingBehaviourHandle2[random].Execute();
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(3f);
             }
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             yield return new WaitForSeconds(1f);
@@ -1461,7 +1467,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 var random = UnityEngine.Random.Range(0, 4);
                 m_animation.SetAnimation(0, m_info.absorption, true);
                 m_BlackDeathBloodLightingBehaviourHandle2[random].Execute();
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(3f);
             }
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             yield return new WaitForSeconds(1f);
@@ -1515,7 +1521,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return TeleportToTargetRoutine(RandomTeleportPoint(), new Vector2(0f, 0f));
             m_animation.SetAnimation(0, m_info.absorption, true);
             m_BlackDeathBloodLightingBehaviourHandle2[3].Execute();
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3f);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             yield return new WaitForSeconds(1f);
             yield return TeleportToTargetRoutine(RandomTeleportPoint(), new Vector2(0f, 0f));
