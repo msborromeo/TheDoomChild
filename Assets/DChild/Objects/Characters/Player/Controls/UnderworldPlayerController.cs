@@ -377,6 +377,20 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Ground);
                 }
+
+                HandleCrouchMovement();
+
+                if (CanMove())
+                {
+                    if (m_state.isGrabbing)
+                    {
+                        GrabMoveAction();
+                    }
+                    else
+                    {
+                        MoveAction();
+                    }
+                }
             }
             else
             {
@@ -401,6 +415,17 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                     m_extraJump?.EndExecution();
                 }
+
+
+                if (CanMove())
+                {
+                    if (m_state.isGrabbing == false)
+                    {
+                        MoveAction();
+                    }
+                }
+
+                LevitateAction();
             }
         }
 
@@ -647,20 +672,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 ProjectileThrowAiming();
             }
             
-            HandleCrouchMovement();
-
-            if (CanMove())
-            {
-                if (m_state.isGrabbing)
-                {
-                    GrabMoveAction();
-                }
-                else
-                {
-                    MoveAction();
-                }
-            }
-            LevitateAction();
             LedgeGrabMovementAction();
             SwordThrustAction();
             HandleWallMovement();
@@ -961,16 +972,23 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
         }
 
-
         private void OnUseQuickItemsStartedInput()
         {
             m_allowQuickItemCycle = false;
             m_handle.UseCurrentItem();
+            if (m_handle.IsCurrentItemThrowable())
+            {
+                ProjectileThrowStart();//need to prevent this if current item is not a throwable
+            }
         }
 
         private void OnUseQuickItemsCancelledInput()
         {
             m_allowQuickItemCycle = true;
+            if (m_handle.IsCurrentItemThrowable())
+            {
+                ProjectileThrowCancel();
+            }
         }
 
         private void OnCycleQuickItemsStartedInput(float obj)
@@ -1271,6 +1289,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isChargingAttack)
                 return;
 
+            ProjectileThrowStart();
+        }
+
+        private void ProjectileThrowStart()
+        {
             PrepareForGroundAttack();
 
             if (m_vector2Input.x != 0)
@@ -1283,6 +1306,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.isAimingProjectile = true;
         }
 
+        private void ProjectileThrowCancel()
+        {
+            m_projectileThrow.EndAim();
+            m_projectileThrow.StartThrow();
+            m_state.isAimingProjectile = false;
+            GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.None);
+        }
+
         private void OnProjectileThrowCancelledInput()
         {
             if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
@@ -1291,10 +1322,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isAimingProjectile == false)
                 return;
                 
-            m_projectileThrow.EndAim();
-            m_projectileThrow.StartThrow();
-            m_state.isAimingProjectile = false;
-            GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.None);
+            ProjectileThrowCancel();
         }
 
 
@@ -2503,6 +2531,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
             }
         }
+
         private void MoveCharacter(bool isGrabbing, float horizontalInput)
         {
             if (!IsFacingInput(horizontalInput))
@@ -2531,15 +2560,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
             else
             {
-                if (m_stepClimb.CheckForStepClimbableSurface())
-                {
-                    m_stepClimb.ClimbSurface();
-                }
-
                 if (m_state.isGrounded)
                     m_movement?.GroundMove(horizontalInput, false);
                 else
                     m_movement?.AirMove(horizontalInput, false);
+            }
+
+            if (m_stepClimb.CheckForStepClimbableSurface())
+            {
+                m_stepClimb.ClimbSurface();
             }
         }
         private bool CanMove()
