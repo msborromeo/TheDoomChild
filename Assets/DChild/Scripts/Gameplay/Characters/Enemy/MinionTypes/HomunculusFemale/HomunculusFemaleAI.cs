@@ -496,6 +496,7 @@ namespace DChild.Gameplay.Characters.Enemies
         public void LaunchAmbush(Vector2 position)
         {
             enabled = true;
+            m_animation.EnableRootMotion(true, false);
             m_aggroCollider.enabled = true;
             m_stateHandle.OverrideState(State.Detect);
         }
@@ -503,7 +504,9 @@ namespace DChild.Gameplay.Characters.Enemies
         public void PrepareAmbush(Vector2 position)
         {
             StopAllCoroutines();
-
+            m_animation.EnableRootMotion(false, false);
+            m_animation.DisableRootMotion();
+            m_character.transform.position = m_startPoint;
             m_character.physics.simulateGravity = false;
             m_character.physics.SetVelocity(Vector2.zero);
             m_hitbox.Disable();
