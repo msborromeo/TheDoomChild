@@ -63,9 +63,13 @@ namespace DChild.Gameplay.Systems
 
         public void OpenStore()
         {
+            if (GameplaySystem.isGamePaused)
+                return;
+
             if (GameSystem.CurrentGameMode == GameMode.Underworld)
             {
                 UnderworldGameplayUIHandle.Instance.OpenStore();
+ 
             }
             else if (GameSystem.CurrentGameMode == GameMode.Overworld)
             {
@@ -77,7 +81,8 @@ namespace DChild.Gameplay.Systems
         {
             if (GameSystem.CurrentGameMode == GameMode.Underworld)
             {
-                UnderworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage);
+                UnderworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage); 
+
             }
             else if (GameSystem.CurrentGameMode == GameMode.Overworld)
             {
