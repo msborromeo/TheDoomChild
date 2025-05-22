@@ -94,6 +94,9 @@ namespace DChild.Gameplay.Characters.Enemies
             private BasicAnimationInfo m_murmursMark;
             public BasicAnimationInfo murmursMark => m_murmursMark;
             [SerializeField]
+            private BasicAnimationInfo m_murmursMarksEnd;
+            public BasicAnimationInfo murmurMarksEnd => m_murmursMarksEnd;
+            [SerializeField]
             private BasicAnimationInfo m_absorption;
             public BasicAnimationInfo absorption => m_absorption;
             [SerializeField]
@@ -188,7 +191,8 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_attack7.SetData(m_skeletonDataAsset);
                 m_scytheThrow.SetData(m_skeletonDataAsset);
                 murmursMark.SetData(m_skeletonDataAsset);
-                m_absorption.SetData(m_skeletonDataAsset);
+                murmurMarksEnd.SetData(m_skeletonDataAsset);
+               m_absorption.SetData(m_skeletonDataAsset);
                 m_summonCloneAttack.SetData(m_skeletonDataAsset);
                 m_bloodLightningAttack.SetData(m_skeletonDataAsset);
                 m_projectile.SetData(m_skeletonDataAsset);
@@ -611,8 +615,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return new WaitForSeconds(spawnInterval);
                 elapsedTime += spawnInterval;
             }
-            m_animation.SetAnimation(0, m_info.idleAnimation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleAnimation);
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
             //m_animation.SetAnimation(0, m_info.absorption, false);
             //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.absorption);
             //m_animation.SetAnimation(0, m_info.idleAnimation, true);
@@ -1222,7 +1225,6 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.attack7, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack7);
             yield return MurmursMarkRoutine();          
-            m_animation.SetAnimation(0, m_info.idleAnimation, true);
             DecidedOnAttack(false);
             m_animation.DisableRootMotion();
             m_stateHandle.ApplyQueuedState();
@@ -1941,7 +1943,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private void UpdateAttackDeciderList()
         {
             //testing
-            //m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TeleportSingleBloodLightning, m_info.targetDistanceTolerance));   
+            // m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TeleportGuardsEdgeMurmursMark, m_info.targetDistanceTolerance));   
             switch (m_phaseHandle.currentPhase)
             {
                 case Phase.PhaseOne:
@@ -1976,7 +1978,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     new AttackInfo<Attack>(Attack.TeleportShadowBladeThrowWithRotations, m_info.targetDistanceTolerance));
                     break;
 
-            }   
+            }
             DecidedOnAttack(false);
         }
 
