@@ -557,14 +557,14 @@ namespace DChild.Gameplay.Characters.Enemies
             Wait,
         }
 
-        private bool[] m_attackUsed;
-        private List<Attack> m_currentAttackCache;
-        private List<Attack> m_shortRangedAttackCache;
-        private List<Attack> m_longRangedAttackCache;
+        //private bool[] m_attackUsed;
+        //private List<Attack> m_currentAttackCache;
+        //private List<Attack> m_shortRangedAttackCache;
+        //private List<Attack> m_longRangedAttackCache;
 
-        private List<float> m_currentAttackRangeCache;
-        private List<float> m_shortRangedAttackRangeCache;
-        private List<float> m_longRangedAttackRangeCache;
+        //private List<float> m_currentAttackRangeCache;
+        //private List<float> m_shortRangedAttackRangeCache;
+        //private List<float> m_longRangedAttackRangeCache;
 
         [SerializeField, TabGroup("Reference")]
         private Boss m_boss;
@@ -669,10 +669,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private StateHandle<State> m_stateHandle;
         [ShowInInspector]
         private PhaseHandle<Phase, PhaseInfo> m_phaseHandle;
-        private bool m_phase1Done;
-        private bool m_phase2Done;
-        private bool m_phase3Done;
-        private bool m_phase4Done;
+        //private bool m_phase1Done;
+        //private bool m_phase2Done;
+        //private bool m_phase3Done;
+        //private bool m_phase4Done;
         private bool m_canUpdateStats;
         private PhaseInfo m_currentPhase;
         [ShowInInspector]
@@ -759,185 +759,191 @@ namespace DChild.Gameplay.Characters.Enemies
         #region Phasing
         private void ApplyPhaseData(PhaseInfo obj)
         {
-            m_currentPhase = obj;
-            switch (m_phaseHandle.currentPhase)
-            {
-                case Phase.PhaseOne:
-                    if (!m_phase1Done && !m_phase2Done && !m_phase3Done && !m_phase4Done)
-                    {
-                        ClearAllAttackCaches();
-                        ClearAllRangeCaches();
+            #region old apply data to delete
+            //m_currentPhase = obj;
+            //switch (m_phaseHandle.currentPhase)
+            //{
+            //    case Phase.PhaseOne:
+            //        if (!m_phase1Done && !m_phase2Done && !m_phase3Done && !m_phase4Done)
+            //        {
+            //            ClearAllAttackCaches();
+            //            ClearAllRangeCaches();
 
-                        if (m_patternCooldown.Count != 0)
-                            m_patternCooldown.Clear();
-        
-                        m_phase1Done = true;
-                        m_canUpdateStats = true;
-                        m_bodyCollider.size = new Vector2(40, 15);
-                        m_hitbox.transform.localScale = new Vector3(0.75f, 0.75f, 1);
-                        m_sensorResizer.localScale = new Vector3(0.75f, 0.75f, 1);
-                        m_currentGroundStabRange = m_info.heavyGroundStabRightAttack.range;
-                        m_animation.SetAnimation(10, m_info.phase1MixAnimation, false);
-                        //AddToAttackCache(Attack.TentaspearCrawl, Attack.SpikeShower1, Attack.SpikeSpit1, Attack.SpikeSpit2);
-                        AddToAttackCache(m_shortRangedAttackCache, Attack.HeavySpearStab, Attack.TentaspearCrawl);
-                        AddToAttackCache(m_longRangedAttackCache, Attack.SpikeSpit1, Attack.SpikeShower1, Attack.TentaspearCrawl);
-                        AddToRangeCache(m_shortRangedAttackRangeCache, obj.heavySpearStabRange, obj.tentaspearCrawlRange);
-                        AddToRangeCache(m_longRangedAttackRangeCache, obj.spikeSpit1Range, obj.heavySpearStabRange, obj.tentaspearCrawlRange);
-                        for (int i = 0; i < m_info.phase1PatternCooldown.Count; i++)
-                            m_patternCooldown.Add(m_info.phase1PatternCooldown[i]);
-                        m_airProjectileInfo = m_info.airProjectile.projectileInfo;
-                        m_ballisticProjectileInfo = m_info.ballisticProjectile.projectileInfo;
-                    }
-                    break;
-                case Phase.PhaseTwo:
-                    if (m_phase1Done && !m_phase2Done && !m_phase3Done && !m_phase4Done)
-                    {
-                        ClearAllAttackCaches();
-                        ClearAllRangeCaches();
-                        if (m_patternCooldown.Count != 0)
-                            m_patternCooldown.Clear();
+            //            if (m_patternCooldown.Count != 0)
+            //                m_patternCooldown.Clear();
 
-                        m_phase2Done = true;
-                        m_canUpdateStats = true;
-                        m_bodyCollider.size = new Vector2(50, 18);
-                        m_hitbox.transform.localScale = new Vector3(1, 1, 1);
-                        m_sensorResizer.localScale = new Vector3(1, 1, 1);
-                        m_currentGroundStabRange = m_info.heavyGroundStabRightAttack.range + 10;
-                        //m_animation.SetAnimation(10, m_info.phase2MixAnimation, false);
-                        //AddToAttackCache(Attack.TentaspearCrawl, Attack.SpikeShower1, Attack.SpikeSpit1ToSpikeSpit2, Attack.SpikeSpit2, Attack.HeavyGroundStab, Attack.HeavySpearStab);
-                        AddToAttackCache(m_shortRangedAttackCache, Attack.HeavySpearStab, Attack.TentaspearCrawl, Attack.HeavyGroundStab);
-                        AddToAttackCache(m_longRangedAttackCache, Attack.SpikeSpit2, Attack.SpikeShower1, Attack.TentaspearCrawl, Attack.BodySlam);
-                        //AddToRangeCache(m_info.phase2Pattern1Range, m_info.phase2Pattern2Range, m_info.phase2Pattern3Range, m_info.phase2Pattern4Range, m_info.phase2Pattern5Range, m_info.phase2Pattern6Range);
-                        AddToRangeCache(m_shortRangedAttackRangeCache, obj.heavySpearStabRange, obj.tentaspearCrawlRange, obj.heavyGroundStabRange);
-                        AddToRangeCache(m_longRangedAttackRangeCache, obj.spikeSpit2Range, obj.spikeShower1Range, obj.tentaspearCrawlRange, obj.shortRangeAttackDistance);
-                        for (int i = 0; i < m_info.phase2PatternCooldown.Count; i++)
-                            m_patternCooldown.Add(m_info.phase2PatternCooldown[i]);
-                        m_airProjectileInfo = m_info.airPhase2Projectile.projectileInfo;
-                        m_ballisticProjectileInfo = m_info.ballisticPhase2Projectile.projectileInfo;
-                        PhaseChangeDone?.Invoke(this, new EventActionArgs());
-                    }
-                    break;
-                case Phase.PhaseThree:
-                    if (m_phase1Done && m_phase2Done && !m_phase3Done && !m_phase4Done)
-                    {
-                        ClearAllAttackCaches();
-                        ClearAllRangeCaches();
-                        if (m_patternCooldown.Count != 0)
-                            m_patternCooldown.Clear();
+            //            m_phase1Done = true;
+            //            m_canUpdateStats = true;
+            //            m_bodyCollider.size = new Vector2(40, 15);
+            //            m_hitbox.transform.localScale = new Vector3(0.75f, 0.75f, 1);
+            //            m_sensorResizer.localScale = new Vector3(0.75f, 0.75f, 1);
+            //            m_currentGroundStabRange = m_info.heavyGroundStabRightAttack.range;
+            //            m_animation.SetAnimation(10, m_info.phase1MixAnimation, false);
+            //            AddToAttackCache(Attack.TentaspearCrawl, Attack.SpikeShower1, Attack.SpikeSpit1, Attack.SpikeSpit2);
+            //            AddToAttackCache(m_shortRangedAttackCache, Attack.HeavySpearStab, Attack.TentaspearCrawl);
+            //            AddToAttackCache(m_longRangedAttackCache, Attack.SpikeSpit1, Attack.SpikeShower1, Attack.TentaspearCrawl);
+            //            AddToRangeCache(m_shortRangedAttackRangeCache, obj.heavySpearStabRange, obj.tentaspearCrawlRange);
+            //            AddToRangeCache(m_longRangedAttackRangeCache, obj.spikeSpit1Range, obj.heavySpearStabRange, obj.tentaspearCrawlRange);
+            //            for (int i = 0; i < m_info.phase1PatternCooldown.Count; i++)
+            //                m_patternCooldown.Add(m_info.phase1PatternCooldown[i]);
+            //            m_airProjectileInfo = m_info.airProjectile.projectileInfo;
+            //            m_ballisticProjectileInfo = m_info.ballisticProjectile.projectileInfo;
+            //        }
+            //        break;
+            //    case Phase.PhaseTwo:
+            //        if (m_phase1Done && !m_phase2Done && !m_phase3Done && !m_phase4Done)
+            //        {
+            //            ClearAllAttackCaches();
+            //            ClearAllRangeCaches();
+            //            if (m_patternCooldown.Count != 0)
+            //                m_patternCooldown.Clear();
 
-                        m_phase3Done = true;
-                        m_canUpdateStats = true;
-                        m_bodyCollider.size = new Vector2(60, 20);
-                        m_hitbox.transform.localScale = new Vector3(1.25f, 1.25f, 1);
-                        m_sensorResizer.localScale = new Vector3(1.3f, 1.25f, 1);
-                        m_currentGroundStabRange = m_info.heavyGroundStabRightAttack.range + 20;
-                        //m_animation.SetAnimation(10, m_info.phase3MixAnimation, false);
-                        //AddToAttackCache(Attack.TentaspearCrawl, Attack.SpikeShower1toSpikeShower2, Attack.SpikeSpit1ToSpikeSpit2, Attack.SpikeSpit2, Attack.HeavyGroundStab, Attack.HeavySpearStab, Attack.KrakenRage);
-                        AddToAttackCache(m_shortRangedAttackCache, Attack.HeavySpearStab, Attack.TentaspearCrawl);
-                        AddToAttackCache(m_longRangedAttackCache, Attack.SpikeSpit1ToSpikeSpit2, Attack.BodySlam, Attack.TentaspearCrawl, Attack.HeavyGroundStab);
-                        //AddToRangeCache(m_info.phase3Pattern1Range, m_info.phase3Pattern2Range, m_info.phase3Pattern3Range, m_info.phase3Pattern4Range, m_info.phase3Pattern5Range, m_info.phase3Pattern6Range, m_info.phase3Pattern7Range);
-                        AddToRangeCache(m_shortRangedAttackRangeCache, obj.heavySpearStabRange, obj.tentaspearCrawlRange);
-                        AddToRangeCache(m_longRangedAttackRangeCache, obj.spikeSpit1Range, obj.shortRangeAttackDistance, obj.tentaspearCrawlRange, obj.heavyGroundStabRange);
-                        for (int i = 0; i < m_info.phase3PatternCooldown.Count; i++)
-                            m_patternCooldown.Add(m_info.phase3PatternCooldown[i]);
-                        m_airProjectileInfo = m_info.airPhase3Projectile.projectileInfo;
-                        m_ballisticProjectileInfo = m_info.ballisticPhase3Projectile.projectileInfo;
-                        PhaseChangeDone?.Invoke(this, new EventActionArgs());
-                    }
-                    break;
-                case Phase.PhaseFour:
-                    if (m_phase1Done && m_phase2Done && m_phase3Done && !m_phase4Done)
-                    {
-                        Debug.Log("Phase Four Stats Applied");
-                        ClearAllAttackCaches();
-                        ClearAllRangeCaches();
-                        if (m_patternCooldown.Count != 0)
-                            m_patternCooldown.Clear();
+            //            m_phase2Done = true;
+            //            m_canUpdateStats = true;
+            //            m_bodyCollider.size = new Vector2(50, 18);
+            //            m_hitbox.transform.localScale = new Vector3(1, 1, 1);
+            //            m_sensorResizer.localScale = new Vector3(1, 1, 1);
+            //            m_currentGroundStabRange = m_info.heavyGroundStabRightAttack.range + 10;
+            //            m_animation.SetAnimation(10, m_info.phase2MixAnimation, false);
+            //            AddToAttackCache(Attack.TentaspearCrawl, Attack.SpikeShower1, Attack.SpikeSpit1ToSpikeSpit2, Attack.SpikeSpit2, Attack.HeavyGroundStab, Attack.HeavySpearStab);
+            //            AddToAttackCache(m_shortRangedAttackCache, Attack.HeavySpearStab, Attack.TentaspearCrawl, Attack.HeavyGroundStab);
+            //            AddToAttackCache(m_longRangedAttackCache, Attack.SpikeSpit2, Attack.SpikeShower1, Attack.TentaspearCrawl, Attack.BodySlam);
+            //            AddToRangeCache(m_info.phase2Pattern1Range, m_info.phase2Pattern2Range, m_info.phase2Pattern3Range, m_info.phase2Pattern4Range, m_info.phase2Pattern5Range, m_info.phase2Pattern6Range);
+            //            AddToRangeCache(m_shortRangedAttackRangeCache, obj.heavySpearStabRange, obj.tentaspearCrawlRange, obj.heavyGroundStabRange);
+            //            AddToRangeCache(m_longRangedAttackRangeCache, obj.spikeSpit2Range, obj.spikeShower1Range, obj.tentaspearCrawlRange, obj.shortRangeAttackDistance);
+            //            for (int i = 0; i < m_info.phase2PatternCooldown.Count; i++)
+            //                m_patternCooldown.Add(m_info.phase2PatternCooldown[i]);
+            //            m_airProjectileInfo = m_info.airPhase2Projectile.projectileInfo;
+            //            m_ballisticProjectileInfo = m_info.ballisticPhase2Projectile.projectileInfo;
+            //            PhaseChangeDone?.Invoke(this, new EventActionArgs());
+            //        }
+            //        break;
+            //    case Phase.PhaseThree:
+            //        if (m_phase1Done && m_phase2Done && !m_phase3Done && !m_phase4Done)
+            //        {
+            //            ClearAllAttackCaches();
+            //            ClearAllRangeCaches();
+            //            if (m_patternCooldown.Count != 0)
+            //                m_patternCooldown.Clear();
 
-                        m_phase4Done = true;
-                    }
-                    break;
-            }
-            if (m_canUpdateStats)
-            {
-                m_maxHitCount = obj.hitCount;
-                m_slamCount = obj.slamCount;
-                m_shortRangeAttackDistance = obj.shortRangeAttackDistance;
+            //            m_phase3Done = true;
+            //            m_canUpdateStats = true;
+            //            m_bodyCollider.size = new Vector2(60, 20);
+            //            m_hitbox.transform.localScale = new Vector3(1.25f, 1.25f, 1);
+            //            m_sensorResizer.localScale = new Vector3(1.3f, 1.25f, 1);
+            //            m_currentGroundStabRange = m_info.heavyGroundStabRightAttack.range + 20;
+            //            m_animation.SetAnimation(10, m_info.phase3MixAnimation, false);
+            //            AddToAttackCache(Attack.TentaspearCrawl, Attack.SpikeShower1toSpikeShower2, Attack.SpikeSpit1ToSpikeSpit2, Attack.SpikeSpit2, Attack.HeavyGroundStab, Attack.HeavySpearStab, Attack.KrakenRage);
+            //            AddToAttackCache(m_shortRangedAttackCache, Attack.HeavySpearStab, Attack.TentaspearCrawl);
+            //            AddToAttackCache(m_longRangedAttackCache, Attack.SpikeSpit1ToSpikeSpit2, Attack.BodySlam, Attack.TentaspearCrawl, Attack.HeavyGroundStab);
+            //            AddToRangeCache(m_info.phase3Pattern1Range, m_info.phase3Pattern2Range, m_info.phase3Pattern3Range, m_info.phase3Pattern4Range, m_info.phase3Pattern5Range, m_info.phase3Pattern6Range, m_info.phase3Pattern7Range);
+            //            AddToRangeCache(m_shortRangedAttackRangeCache, obj.heavySpearStabRange, obj.tentaspearCrawlRange);
+            //            AddToRangeCache(m_longRangedAttackRangeCache, obj.spikeSpit1Range, obj.shortRangeAttackDistance, obj.tentaspearCrawlRange, obj.heavyGroundStabRange);
+            //            for (int i = 0; i < m_info.phase3PatternCooldown.Count; i++)
+            //                m_patternCooldown.Add(m_info.phase3PatternCooldown[i]);
+            //            m_airProjectileInfo = m_info.airPhase3Projectile.projectileInfo;
+            //            m_ballisticProjectileInfo = m_info.ballisticPhase3Projectile.projectileInfo;
+            //            PhaseChangeDone?.Invoke(this, new EventActionArgs());
+            //        }
+            //        break;
+            //    case Phase.PhaseFour:
+            //        if (m_phase1Done && m_phase2Done && m_phase3Done && !m_phase4Done)
+            //        {
+            //            Debug.Log("Phase Four Stats Applied");
+            //            ClearAllAttackCaches();
+            //            ClearAllRangeCaches();
+            //            if (m_patternCooldown.Count != 0)
+            //                m_patternCooldown.Clear();
 
-                m_bodyColliderCacheSize = m_bodyCollider.size;
-                m_attackUsed = new bool[m_currentAttackCache.Count];
-                if (m_currentFullCooldown.Count != 0)
-                {
-                    m_currentFullCooldown.Clear();
-                }
-                for (int i = 0; i < obj.fullCooldown.Count; i++)
-                {
-                    m_currentFullCooldown.Add(obj.fullCooldown[i]);
-                }
-                var crawlFXMain = m_crawlFX.GetComponent<ParticleSystem>().main;
-                crawlFXMain.startSize = obj.crawlFXSize;
-                //var tentaSpearCrawlFXMain = m_tentaSpearCrawlFX.GetComponent<ParticleSystem>().main;
-                //tentaSpearCrawlFXMain.startSize = obj.tentaSpearCrawlFXSize;
-                var heavyGroundStabFXMain = m_heavyGroundStabFX.GetComponent<ParticleSystem>().main;
-                heavyGroundStabFXMain.startSize = obj.heavyGroundStabFXSize;
-                ParticleSystem[] stabSlashFX = m_stabSlashFX.GetComponentsInChildren<ParticleSystem>();
-                for (int i = 0; i < stabSlashFX.Length; i++)
-                {
-                    var stabSlashFXMain = stabSlashFX[i].main;
-                    stabSlashFXMain.startSize = stabSlashFXMain.startSize.constant * obj.stabSlashFXSize.constant;
-                }
-                ParticleSystem[] krakenFX = m_krakenFX.GetComponentsInChildren<ParticleSystem>();
-                for (int i = 0; i < krakenFX.Length; i++)
-                {
-                    var krakenFXMain = krakenFX[i].main;
-                    krakenFXMain.startSize = krakenFXMain.startSize.constant * obj.krakenFXSize.constant;
-                }
-                ParticleSystem[] bodySlamFX = m_bodySlamFX.GetComponentsInChildren<ParticleSystem>();
-                for (int i = 0; i < bodySlamFX.Length; i++)
-                {
-                    var bodySlamFXMain = bodySlamFX[i].main;
-                    bodySlamFXMain.startSize = bodySlamFXMain.startSize.constant * obj.bodySlamFXSize.constant;
-                }
-                ParticleSystem[] healFX = m_healFX.GetComponentsInChildren<ParticleSystem>();
-                for (int i = 0; i < healFX.Length; i++)
-                {
-                    var healFXMain = healFX[i].main;
-                    healFXMain.startSize = healFXMain.startSize.constant * obj.healFXSize.constant;
-                }
-                ParticleSystem[] deathFX = m_deathFX.GetComponentsInChildren<ParticleSystem>();
-                for (int i = 0; i < deathFX.Length; i++)
-                {
-                    var deathFXMain = deathFX[i].main;
-                    deathFXMain.startSize = deathFXMain.startSize.constant * obj.deathFXSize.constant;
-                }
-                m_canUpdateStats = false;
-            }
+            //            m_phase4Done = true;
+            //        }
+            //        break;
+            //}
+            //if (m_canUpdateStats)
+            //{
+            //    m_maxHitCount = obj.hitCount;
+            //    m_slamCount = obj.slamCount;
+            //    m_shortRangeAttackDistance = obj.shortRangeAttackDistance;
+
+            //    m_bodyColliderCacheSize = m_bodyCollider.size;
+            //    m_attackUsed = new bool[m_currentAttackCache.Count];
+            //    if (m_currentFullCooldown.Count != 0)
+            //    {
+            //        m_currentFullCooldown.Clear();
+            //    }
+            //    for (int i = 0; i < obj.fullCooldown.Count; i++)
+            //    {
+            //        m_currentFullCooldown.Add(obj.fullCooldown[i]);
+            //    }
+            //    var crawlFXMain = m_crawlFX.GetComponent<ParticleSystem>().main;
+            //    crawlFXMain.startSize = obj.crawlFXSize;
+            //    //var tentaSpearCrawlFXMain = m_tentaSpearCrawlFX.GetComponent<ParticleSystem>().main;
+            //    //tentaSpearCrawlFXMain.startSize = obj.tentaSpearCrawlFXSize;
+            //    var heavyGroundStabFXMain = m_heavyGroundStabFX.GetComponent<ParticleSystem>().main;
+            //    heavyGroundStabFXMain.startSize = obj.heavyGroundStabFXSize;
+            //    ParticleSystem[] stabSlashFX = m_stabSlashFX.GetComponentsInChildren<ParticleSystem>();
+            //    for (int i = 0; i < stabSlashFX.Length; i++)
+            //    {
+            //        var stabSlashFXMain = stabSlashFX[i].main;
+            //        stabSlashFXMain.startSize = stabSlashFXMain.startSize.constant * obj.stabSlashFXSize.constant;
+            //    }
+            //    ParticleSystem[] krakenFX = m_krakenFX.GetComponentsInChildren<ParticleSystem>();
+            //    for (int i = 0; i < krakenFX.Length; i++)
+            //    {
+            //        var krakenFXMain = krakenFX[i].main;
+            //        krakenFXMain.startSize = krakenFXMain.startSize.constant * obj.krakenFXSize.constant;
+            //    }
+            //    ParticleSystem[] bodySlamFX = m_bodySlamFX.GetComponentsInChildren<ParticleSystem>();
+            //    for (int i = 0; i < bodySlamFX.Length; i++)
+            //    {
+            //        var bodySlamFXMain = bodySlamFX[i].main;
+            //        bodySlamFXMain.startSize = bodySlamFXMain.startSize.constant * obj.bodySlamFXSize.constant;
+            //    }
+            //    ParticleSystem[] healFX = m_healFX.GetComponentsInChildren<ParticleSystem>();
+            //    for (int i = 0; i < healFX.Length; i++)
+            //    {
+            //        var healFXMain = healFX[i].main;
+            //        healFXMain.startSize = healFXMain.startSize.constant * obj.healFXSize.constant;
+            //    }
+            //    ParticleSystem[] deathFX = m_deathFX.GetComponentsInChildren<ParticleSystem>();
+            //    for (int i = 0; i < deathFX.Length; i++)
+            //    {
+            //        var deathFXMain = deathFX[i].main;
+            //        deathFXMain.startSize = deathFXMain.startSize.constant * obj.deathFXSize.constant;
+            //    }
+            //    m_canUpdateStats = false;
+            //}
+            #endregion
+
         }
 
-        private void ClearAllAttackCaches()
-        {
-            m_currentAttackCache.Clear();
-            m_longRangedAttackCache.Clear();
-            m_shortRangedAttackCache.Clear();
-        }
+        #region Caches
+        //private void ClearAllAttackCaches()
+        //{
+        //    m_currentAttackCache.Clear();
+        //    m_longRangedAttackCache.Clear();
+        //    m_shortRangedAttackCache.Clear();
+        //}
 
-        private void ClearAllRangeCaches()
-        {
-            m_currentAttackRangeCache.Clear();
-            m_longRangedAttackCache.Clear();
-            m_shortRangedAttackRangeCache.Clear();
-        }
+        //private void ClearAllRangeCaches()
+        //{
+        //    m_currentAttackRangeCache.Clear();
+        //    m_longRangedAttackCache.Clear();
+        //    m_shortRangedAttackRangeCache.Clear();
+        //}
 
-        private void SetCurrentAttackCache(List<Attack> attackCacheToUse)
-        {
-            m_currentAttackCache = attackCacheToUse;
-            m_attackUsed = new bool[m_currentAttackCache.Count];
-        }
+        //private void SetCurrentAttackCache(List<Attack> attackCacheToUse)
+        //{
+        //    m_currentAttackCache = attackCacheToUse;
+        //    m_attackUsed = new bool[m_currentAttackCache.Count];
+        //}
 
-        private void SetCurrentAttackRangeCache(List<float> attackRangeCacheToUse)
-        {
-            m_currentAttackRangeCache = attackRangeCacheToUse;
-        }
+        //private void SetCurrentAttackRangeCache(List<float> attackRangeCacheToUse)
+        //{
+        //    m_currentAttackRangeCache = attackRangeCacheToUse;
+        //}
+        #endregion
+
 
         private void ChangeState()
         {
@@ -2454,6 +2460,18 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void UpdateAttackDeciderList()
         {
+
+            switch (m_phaseHandle.currentPhase)
+            {
+                case Phase.PhaseOne:
+                    break;
+                case Phase.PhaseTwo:
+                    break;
+                case Phase.PhaseThree:
+                    break;
+                case Phase.PhaseFour:
+                    break;
+            }
             m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentaspearCrawl, m_currentPhase.tentaspearCrawlRange)
                                     , new AttackInfo<Attack>(Attack.SpikeShower1, m_currentPhase.spikeShower1Range)
                                     , new AttackInfo<Attack>(Attack.SpikeSpit1, m_currentPhase.spikeSpit1Range)
@@ -2466,40 +2484,40 @@ namespace DChild.Gameplay.Characters.Enemies
             m_attackDecider.hasDecidedOnAttack = false;
         }
 
-        private void ChooseAttack()
-        {
-            if (!m_attackDecider.hasDecidedOnAttack)
-            {
-                IsAllAttackComplete();
-                for (int i = 0; i < m_currentAttackCache.Count; i++)
-                {
-                    m_attackDecider.DecideOnAttack();
-                    if (m_currentAttackCache[i] != m_currentAttack && !m_attackUsed[i])
-                    {
-                        m_attackUsed[i] = true;
-                        m_currentAttack = m_currentAttackCache[i];
-                        m_currentAttackRange = m_currentAttackRangeCache[i];
-                        return;
-                    }
-                }
+        //private void ChooseAttack()
+        //{
+        //    if (!m_attackDecider.hasDecidedOnAttack)
+        //    {
+        //        IsAllAttackComplete();
+        //        for (int i = 0; i < m_currentAttackCache.Count; i++)
+        //        {
+        //            m_attackDecider.DecideOnAttack();
+        //            if (m_currentAttackCache[i] != m_currentAttack && !m_attackUsed[i])
+        //            {
+        //                m_attackUsed[i] = true;
+        //                m_currentAttack = m_currentAttackCache[i];
+        //                m_currentAttackRange = m_currentAttackRangeCache[i];
+        //                return;
+        //            }
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
-        private void IsAllAttackComplete()
-        {
-            for (int i = 0; i < m_attackUsed.Length; ++i)
-            {
-                if (!m_attackUsed[i])
-                {
-                    return;
-                }
-            }
-            for (int i = 0; i < m_attackUsed.Length; ++i)
-            {
-                m_attackUsed[i] = false;
-            }
-        }
+        //private void IsAllAttackComplete()
+        //{
+        //    for (int i = 0; i < m_attackUsed.Length; ++i)
+        //    {
+        //        if (!m_attackUsed[i])
+        //        {
+        //            return;
+        //        }
+        //    }
+        //    for (int i = 0; i < m_attackUsed.Length; ++i)
+        //    {
+        //        m_attackUsed[i] = false;
+        //    }
+        //}
 
         void AddToAttackCache(List<Attack> cache, params Attack[] list)
         {
@@ -2897,51 +2915,61 @@ namespace DChild.Gameplay.Characters.Enemies
                     switch (m_currentAttack)
                     {
                         case Attack.TentaspearCrawl:
-                            m_currentAttackCoroutine = StartCoroutine(TentaspearCrawlAttackFullRoutine(m_lastTargetPos));
-                            m_pickedCooldown = m_currentFullCooldown[0];
+                            //m_currentAttackCoroutine = StartCoroutine(TentaspearCrawlAttackFullRoutine(m_lastTargetPos));
+                            //m_pickedCooldown = m_currentFullCooldown[0];
+                            StartCoroutine(TentaspearCrawlAttackFullRoutine(m_lastTargetPos));
                             break;
                         case Attack.SpikeShower1:
-                            m_currentAttackCoroutine = StartCoroutine(SpikeShowerOneFullAttackRoutine());
-                            m_pickedCooldown = m_currentFullCooldown[0];
+                            //m_currentAttackCoroutine = StartCoroutine(SpikeShowerOneFullAttackRoutine());
+                            //m_pickedCooldown = m_currentFullCooldown[0];
+                            StartCoroutine(SpikeShowerOneFullAttackRoutine());
                             break;
                         case Attack.SpikeSpit1:
-                            m_currentAttackCoroutine = StartCoroutine(SpikeSpitAttackFullRoutine(false));
-                            m_pickedCooldown = m_currentFullCooldown[0];
+                            //m_currentAttackCoroutine = StartCoroutine(SpikeSpitAttackFullRoutine(false));
+                            //m_pickedCooldown = m_currentFullCooldown[0];
+                            StartCoroutine(SpikeSpitAttackFullRoutine(false));
                             break;
                         case Attack.SpikeSpit2:
-                            m_currentAttackCoroutine = StartCoroutine(SpikeSpitAttackFullRoutine(true));
-                            m_pickedCooldown = m_currentFullCooldown[0];
+                            //m_currentAttackCoroutine = StartCoroutine(SpikeSpitAttackFullRoutine(true));
+                            //m_pickedCooldown = m_currentFullCooldown[0];
+                            StartCoroutine(SpikeSpitAttackFullRoutine(true));
                             break;
                         case Attack.SpikeSpit1ToSpikeSpit2:
-                            m_currentAttackCoroutine = StartCoroutine(SpikeSpitOneToSpikeSpitTwoFullAttackRoutine());
-                            m_pickedCooldown = m_currentFullCooldown[0];
+                            //m_currentAttackCoroutine = StartCoroutine(SpikeSpitOneToSpikeSpitTwoFullAttackRoutine());
+                            //m_pickedCooldown = m_currentFullCooldown[0];
+                            StartCoroutine(SpikeSpitOneToSpikeSpitTwoFullAttackRoutine());
                             break;
                         case Attack.HeavyGroundStab:
-                            m_currentAttackCoroutine = StartCoroutine(HeavyGroundStabAttackRoutine());
-                            m_pickedCooldown = m_currentFullCooldown[0];
+                            //m_currentAttackCoroutine = StartCoroutine(HeavyGroundStabAttackRoutine());
+                            //m_pickedCooldown = m_currentFullCooldown[0];
+                            StartCoroutine(HeavyGroundStabAttackRoutine());
                             break;
                         case Attack.HeavySpearStab:
-                            m_currentAttackCoroutine = StartCoroutine(HeavySpearStabAttackRoutine());
-                            m_pickedCooldown = m_currentFullCooldown[0];
+                            //m_currentAttackCoroutine = StartCoroutine(HeavySpearStabAttackRoutine());
+                            //m_pickedCooldown = m_currentFullCooldown[0];
+                            StartCoroutine(HeavySpearStabAttackRoutine());
                             break;
                         case Attack.SpikeShower1toSpikeShower2:
-                            m_currentAttackCoroutine = StartCoroutine(SpikeShowerOneToSpikeShowerTwoFullAttackRoutine());
-                            m_pickedCooldown = m_currentFullCooldown[0];
+                            //m_currentAttackCoroutine = StartCoroutine(SpikeShowerOneToSpikeShowerTwoFullAttackRoutine());
+                            //m_pickedCooldown = m_currentFullCooldown[0];
+                            StartCoroutine(SpikeShowerOneToSpikeShowerTwoFullAttackRoutine());
                             break;
                         case Attack.KrakenRage:
-                            m_currentAttackCoroutine = StartCoroutine(KrakenRageFullAttackRoutine(false));
-                            m_pickedCooldown = m_currentFullCooldown[0];
+                            //m_currentAttackCoroutine = StartCoroutine(KrakenRageFullAttackRoutine(false));
+                            //m_pickedCooldown = m_currentFullCooldown[0];
+                            StartCoroutine(KrakenRageFullAttackRoutine(false));
                             break;
                         case Attack.BodySlam:
-                            m_currentAttackCoroutine = StartCoroutine(BodySlamFullAttackRoutine(false));
-                            m_pickedCooldown = m_currentFullCooldown[0];
+                            //m_currentAttackCoroutine = StartCoroutine(BodySlamFullAttackRoutine(false));
+                            //m_pickedCooldown = m_currentFullCooldown[0];
+                            StartCoroutine(BodySlamFullAttackRoutine(false));
                             break;
                         case Attack.WreckingBall:
-                            m_currentAttackCoroutine = StartCoroutine(WreckingBallRoutine(m_slamCount));
-                            m_pickedCooldown = m_currentFullCooldown[0];
-                            break;
-                        case Attack.WaitAttackEnd:
-                            break;
+                            //m_currentAttackCoroutine = StartCoroutine(WreckingBallRoutine(m_slamCount));
+                            //m_pickedCooldown = m_currentFullCooldown[0];
+                            StartCoroutine(WreckingBallRoutine(m_slamCount));
+                            //m_pickedCooldown = m_currentFullCooldown[0];
+                            break;                     
                             //default: //for testing
                             //    m_currentAttackCoroutine = null;
                             //    m_pickedCooldown = m_currentFullCooldown[0];
@@ -2950,57 +2978,57 @@ namespace DChild.Gameplay.Characters.Enemies
 
                     break;
 
-                case State.Cooldown:
-                    m_animation.SetAnimation(0, m_info.idleAnimation, true);
+                //case State.Cooldown:
+                //    m_animation.SetAnimation(0, m_info.idleAnimation, true);
 
-                    if (m_currentCooldown <= m_pickedCooldown)
-                    {
-                        m_currentCooldown += Time.deltaTime;
-                    }
-                    else
-                    {
-                        m_currentCooldown = 0;
-                        m_animation.DisableRootMotion();
-                        m_crawlFX.Play();
-                        m_stateHandle.OverrideState(State.ReevaluateSituation);
-                    }
+                //    if (m_currentCooldown <= m_pickedCooldown)
+                //    {
+                //        m_currentCooldown += Time.deltaTime;
+                //    }
+                //    else
+                //    {
+                //        m_currentCooldown = 0;
+                //        m_animation.DisableRootMotion();
+                //        m_crawlFX.Play();
+                //        m_stateHandle.OverrideState(State.ReevaluateSituation);
+                //    }
 
-                    break;
+                //    break;
 
                 case State.Chasing:
-                    if (!m_hitbox.canBlockDamage)
-                    {
-                        if (m_character.facing != HorizontalDirection.Right)
-                            CustomTurn();
-                        if (IsTargetInRange(m_shortRangeAttackDistance))
-                        {
-                            SetCurrentAttackCache(m_shortRangedAttackCache);
-                            SetCurrentAttackRangeCache(m_shortRangedAttackRangeCache);
-                        }
-                        else
-                        {
-                            if (IsTargetInRange(m_shortRangeAttackDistance))
-                            {
-                                SetCurrentAttackCache(m_shortRangedAttackCache);
-                                SetCurrentAttackRangeCache(m_shortRangedAttackRangeCache);
-                            }
-                            else
-                            {
-                                SetCurrentAttackCache(m_longRangedAttackCache);
-                                SetCurrentAttackRangeCache(m_longRangedAttackRangeCache);
-                            }
-                        }
+                    //if (!m_hitbox.canBlockDamage)
+                    //{
+                    //    if (m_character.facing != HorizontalDirection.Right)
+                    //        CustomTurn();
+                    //    if (IsTargetInRange(m_shortRangeAttackDistance))
+                    //    {
+                    //        SetCurrentAttackCache(m_shortRangedAttackCache);
+                    //        SetCurrentAttackRangeCache(m_shortRangedAttackRangeCache);
+                    //    }
+                    //    else
+                    //    {
+                    //        if (IsTargetInRange(m_shortRangeAttackDistance))
+                    //        {
+                    //            SetCurrentAttackCache(m_shortRangedAttackCache);
+                    //            SetCurrentAttackRangeCache(m_shortRangedAttackRangeCache);
+                    //        }
+                    //        else
+                    //        {
+                    //            SetCurrentAttackCache(m_longRangedAttackCache);
+                    //            SetCurrentAttackRangeCache(m_longRangedAttackRangeCache);
+                    //        }
+                    //    }
 
-                        ChooseAttack();
-                        m_animation.SetEmptyAnimation(0, 0);
-                        m_stateHandle.SetState(State.Attacking);
-                    }
+                    //    ChooseAttack();
+                    //    m_animation.SetEmptyAnimation(0, 0);
+                    //    m_stateHandle.SetState(State.Attacking);
+                    //}
                     break;
 
                 case State.ReevaluateSituation:
                     if (m_targetInfo.isValid)
                     {
-                        m_stateHandle.SetState(State.Chasing);
+                        m_stateHandle.SetState(State.Attacking);
                     }
                     else
                     {
@@ -3030,20 +3058,20 @@ namespace DChild.Gameplay.Characters.Enemies
             //m_currentAttackRangeCache = new List<float>();
             m_currentFullCooldown = new List<float>();
             m_patternCooldown = new List<float>();
-            m_currentAttackCache = new List<Attack>();
-            m_shortRangedAttackCache = new List<Attack>();
-            m_longRangedAttackCache = new List<Attack>();
-            m_shortRangedAttackRangeCache = new List<float>();
-            m_longRangedAttackRangeCache = new List<float>();
+            //m_currentAttackCache = new List<Attack>();
+            //m_shortRangedAttackCache = new List<Attack>();
+            //m_longRangedAttackCache = new List<Attack>();
+            //m_shortRangedAttackRangeCache = new List<float>();
+            //m_longRangedAttackRangeCache = new List<float>();
 
-            AddToAttackCache(m_shortRangedAttackCache, Attack.HeavySpearStab, Attack.TentaspearCrawl);
-            AddToAttackCache(m_longRangedAttackCache, Attack.SpikeSpit1, Attack.SpikeShower1, Attack.TentaspearCrawl);
-            AddToRangeCache(m_shortRangedAttackRangeCache, 100, 50);
-            AddToRangeCache(m_longRangedAttackRangeCache, 100, 100, 100);
+            //AddToAttackCache(m_shortRangedAttackCache, Attack.HeavySpearStab, Attack.TentaspearCrawl);
+            //AddToAttackCache(m_longRangedAttackCache, Attack.SpikeSpit1, Attack.SpikeShower1, Attack.TentaspearCrawl);
+            //AddToRangeCache(m_shortRangedAttackRangeCache, 100, 50);
+            //AddToRangeCache(m_longRangedAttackRangeCache, 100, 100, 100);
 
-            SetCurrentAttackCache(m_shortRangedAttackCache);
-            SetCurrentAttackRangeCache(m_shortRangedAttackRangeCache);
-            m_attackUsed = new bool[m_currentAttackCache.Count];
+            //SetCurrentAttackCache(m_shortRangedAttackCache);
+            //SetCurrentAttackRangeCache(m_shortRangedAttackRangeCache);
+            //m_attackUsed = new bool[m_currentAttackCache.Count];
         }
 
         private void OnStatusEnd(object sender, StatusEffectRecieverEventArgs eventArgs)
