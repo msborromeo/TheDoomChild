@@ -123,6 +123,9 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField]
             private ProjectileInfo m_crimsonProjectile;
             public ProjectileInfo crimsonProjectile => m_crimsonProjectile;
+            [SerializeField]
+            private BasicAnimationInfo m_rageQuakeAnimation;
+            public BasicAnimationInfo rageQuakeAnimation => m_rageQuakeAnimation;
 
 
 
@@ -161,6 +164,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
                 m_fleshBombAttackAnimation.SetData(m_skeletonDataAsset);
                 m_multipleSpikeSummonAnticipation.SetData(m_skeletonDataAsset);
+                m_rageQuakeAnimation.SetData(m_skeletonDataAsset);
 #endif
             }
         }
@@ -336,11 +340,18 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator ChangePhaseRoutine()
         {
-            //Has No Special Behaviour for Phasing
+            StartCoroutine(ResolveBehaviorInterruptions());
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            m_hitbox.SetInvulnerability(Invulnerability.MAX);
+            m_animation.SetAnimation(0, m_info.rageQuakeAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.rageQuakeAnimation);
+            m_hitbox.SetInvulnerability(Invulnerability.None);
             if (m_wasWaitingDuringPhaseChange)
             {
                 m_stateHandle.OverrideState(State.WaitBehaviourEnd);
             }
+            m_attackDecider.hasDecidedOnAttack = false;
+            m_stateHandle.ApplyQueuedState();
             yield return null;
         }
 
@@ -353,28 +364,43 @@ namespace DChild.Gameplay.Characters.Enemies
         {
 
         }
-
-        protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
+        private IEnumerator ResolveBehaviorInterruptions()
         {
-            StopAllCoroutines();
             m_encircledProjectileHandle.ScatterProjectiles(m_info.crimsonProjectile.speed);
             for (int i = 0; i < m_massiveSpikePattern.Length; i++)
             {
-                m_massiveSpikePattern[i].Disappear();
+                if (m_massiveSpikePattern[i].m_isGrowing)
+                {
+                    m_massiveSpikePattern[i].Disappear();
+                }
             }
             for (int i = 0; i < m_multipleSpikes.Length; i++)
             {
-                m_multipleSpikes[i].Disappear();
+                if (m_multipleSpikes[i].m_isGrowing)
+                {
+                    m_multipleSpikes[i].Disappear();
+                }
             }
             for (int i = 0; i < m_illusionPlatforms.Length; i++)
             {
-                m_illusionPlatforms[i].Hide();
+                if (m_illusionPlatforms[i].m_isGrowing)
+                {
+                    m_illusionPlatforms[i].Hide();
+                }
             }
-            m_bottomMultipleSpike.Disappear();
-
+            if (m_bottomMultipleSpike.m_isGrowing)
+            {
+                m_bottomMultipleSpike.Disappear();
+            }
             m_fleshBomb.gameObject.SetActive(false);
             m_rainProjectileHandle.DropSpawnedProjectiles(m_info.crimsonProjectile.speed);
             m_movement.Stop();
+            yield return null;
+        }
+        protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
+        {
+            StopAllCoroutines();
+            StartCoroutine(ResolveBehaviorInterruptions());
             m_stateHandle.Wait(State.WaitBehaviourEnd);
             base.OnDestroyed(sender, eventArgs);
         }
@@ -838,7 +864,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
                 case State.Phasing:
-                    //StopAllCoroutines();
+                    StopAllCoroutines();
                     StartCoroutine(ChangePhaseRoutine());
                     break;
                 case State.Turning:
