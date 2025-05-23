@@ -96,11 +96,17 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, BoxGroup("Massive Spike")]
             private BasicAnimationInfo m_massiveSpikeAttackAnimation;
             public BasicAnimationInfo massiveSpikeAttackAnimation => m_massiveSpikeAttackAnimation;
+            [SerializeField, BoxGroup("Massive Spike")]
+            private BasicAnimationInfo m_massiveSpikeAttackAnimation2;
+            public BasicAnimationInfo massiveSpikeAttackAnimation2 => m_massiveSpikeAttackAnimation2;
             [SerializeField, MinValue(0), BoxGroup("Massive Spike")]
             private float m_massiveSpikeStayDuration;
             public float massiveSpikeStayDuration => m_massiveSpikeStayDuration;
             #endregion
 
+            [SerializeField, BoxGroup("Multiple Spike")]
+            private BasicAnimationInfo m_multipleSpikeSummonAnticipation;
+            public BasicAnimationInfo multipleSpikeSummonAnticipation => m_multipleSpikeSummonAnticipation;
             [SerializeField, BoxGroup("Multiple Spike")]
             private BasicAnimationInfo m_multipleSpikeSummonAnimation;
             public BasicAnimationInfo multipleSpikeSummonAnimation => m_multipleSpikeSummonAnimation;
@@ -149,10 +155,12 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_encircledProjectileScatterAnimation.SetData(m_skeletonDataAsset);
 
                 m_massiveSpikeAttackAnimation.SetData(m_skeletonDataAsset);
+                m_massiveSpikeAttackAnimation2.SetData(m_skeletonDataAsset);
 
                 m_multipleSpikeSummonAnimation.SetData(m_skeletonDataAsset);
 
                 m_fleshBombAttackAnimation.SetData(m_skeletonDataAsset);
+                m_multipleSpikeSummonAnticipation.SetData(m_skeletonDataAsset);
 #endif
             }
         }
@@ -378,10 +386,41 @@ namespace DChild.Gameplay.Characters.Enemies
             var yPosition = UnityEngine.Random.Range(-extents.y, extents.y);
             return bounds.center + new Vector3(xPosition, yPosition, 0);
         }
+        private Vector3 GetFarthestMajorFlightArea()
+        {
+            if (m_flightAreas == null || m_flightAreas.Length == 0)
+                return transform.position; // fallback if no flight areas
+
+            Vector3 bossPosition = transform.position;
+            float maxDistance = float.MinValue;
+            BoxCollider2D farthestArea = null;
+
+            foreach (var area in m_flightAreas)
+            {
+                if (area == null) continue;
+
+                float distance = Vector3.Distance(bossPosition, area.bounds.center);
+                if (distance > maxDistance)
+                {
+                    maxDistance = distance;
+                    farthestArea = area;
+                }
+            }
+
+            return farthestArea != null ? GetRandomPointInBounds(farthestArea.bounds) : bossPosition;
+        }
 
         private Vector3 GetRandomMajorFlightArea()
         {
-            var randomIndex = UnityEngine.Random.Range(0, m_flightAreas.Length);
+            var randomIndex = 0;
+            var previousPatterm = 0;
+            previousPatterm = randomIndex;
+            randomIndex = UnityEngine.Random.Range(0, m_flightAreas.Length);
+            while (randomIndex == previousPatterm)
+            {
+                randomIndex = UnityEngine.Random.Range(0, m_flightAreas.Length);
+                break;
+            }
             return GetRandomPointInBounds(m_flightAreas[randomIndex].bounds);
         }
 
@@ -515,8 +554,10 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator SummonMultipleFleshSpikesRoutine(PuedisYnnusMultipleSpikeHandle spikeHandle)
         {
-            var summonAnimation = m_animation.SetAnimation(0, m_info.multipleSpikeSummonAnimation, false);
-            yield return new WaitForSpineAnimationComplete(summonAnimation, true);
+            var anticipation = m_animation.SetAnimation(0, m_info.multipleSpikeSummonAnticipation, false);
+            yield return new WaitForSpineAnimationComplete(anticipation);
+            var summonAnimation = m_animation.SetAnimation(0, m_info.multipleSpikeSummonAnimation, true);
+            //yield return new WaitForSpineAnimationComplete(summonAnimation, true);
             spikeHandle.Grow();
             yield return IdleFloatRoutine(0.1f);
         }
@@ -544,7 +585,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_fleshBomb.transform.parent = m_fleshBombSummonParent;
             m_fleshBomb.transform.localPosition = Vector3.zero;
             yield return m_fleshBomb.BeSummoned();
-
+            m_animation.SetAnimation(0, m_info.idleAnimations[2], true);
             m_fleshBomb.transform.parent = null;
             yield return m_fleshBomb.FloatTo(m_fleshBombExplosionDestination.position);
 
@@ -632,9 +673,9 @@ namespace DChild.Gameplay.Characters.Enemies
 
             var patternIndex = UnityEngine.Random.Range(0, m_massiveSpikePattern.Length);
             var chosenPattern = m_massiveSpikePattern[patternIndex];
-
-            m_animation.SetAnimation(0, m_info.massiveSpikeAttackAnimation.animation, false, 0);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.massiveSpikeAttackAnimation);
+            var random = UnityEngine.Random.RandomRange(0, 2);
+            var randAnim = m_animation.SetAnimation(0, random == 0? m_info.massiveSpikeAttackAnimation.animation : m_info.massiveSpikeAttackAnimation2.animation, false, 0);
+            yield return new WaitForSpineAnimationComplete(randAnim);
             yield return IdleFloatRoutine(0.1f);
             chosenPattern.Grow();
             yield return new WaitForSeconds(m_info.massiveSpikeStayDuration);
@@ -840,7 +881,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     if (m_teleportCounter >= m_currentPhaseInfo.teleportCountThreshold)
                     {
                         m_teleportCounter = 0;
-                        StartCoroutine(TeleportToDestination(GetRandomMajorFlightArea()));
+                        StartCoroutine(TeleportToDestination(GetFarthestMajorFlightArea()));
                     }
                     else if (m_phaseHandle.currentPhase != Phase.PhaseOne && m_attackCounter > m_currentPhaseInfo.atttackCountThreshold)
                     {
