@@ -18,6 +18,8 @@ namespace DChild.Gameplay.Systems
     {
         public static GameplayUIHandle Instance { get; private set; }
 
+        public bool isInCutsceneMode { get; private set; }
+
         public UIAlertManager alertManager => BaseGameplayUIHandle.Instance.uiAlertManager;
         public IUINotificationManager notificationManager => UnderworldGameplayUIHandle.Instance.notificationManager;
 
@@ -63,9 +65,13 @@ namespace DChild.Gameplay.Systems
 
         public void OpenStore()
         {
+            if (GameplaySystem.isGamePaused)
+                return;
+
             if (GameSystem.CurrentGameMode == GameMode.Underworld)
             {
                 UnderworldGameplayUIHandle.Instance.OpenStore();
+ 
             }
             else if (GameSystem.CurrentGameMode == GameMode.Overworld)
             {
@@ -77,7 +83,8 @@ namespace DChild.Gameplay.Systems
         {
             if (GameSystem.CurrentGameMode == GameMode.Underworld)
             {
-                UnderworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage);
+                UnderworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage); 
+
             }
             else if (GameSystem.CurrentGameMode == GameMode.Overworld)
             {
@@ -183,6 +190,7 @@ namespace DChild.Gameplay.Systems
 
         public void ToggleCinematicMode(bool on, bool instant = false)
         {
+            isInCutsceneMode = on;
             BaseGameplayUIHandle.Instance.ToggleCinematicMode(on);
         }
 
