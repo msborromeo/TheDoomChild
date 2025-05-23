@@ -27,7 +27,11 @@ namespace DChild.Menu
 
         private void OnAffirm(object sender, EventActionArgs eventArgs)
         {
+            if (m_listener == null)
+                return;
+
             m_listener?.Invoke(this, EventActionArgs.Empty);
+            UnsubcribeListener();
         }
 
         public void UnsubcribeListener()
