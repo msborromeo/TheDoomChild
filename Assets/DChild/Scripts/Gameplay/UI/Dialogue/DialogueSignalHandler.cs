@@ -2,6 +2,7 @@
 using DChild.Gameplay;
 using Doozy.Runtime.Signals;
 using PixelCrushers.DialogueSystem;
+using System.Collections;
 using UnityEngine;
 
 namespace DChild.UI
@@ -13,14 +14,26 @@ namespace DChild.UI
         [SerializeField]
         private SignalSender m_dialogueEndSignal;
 
-        public void CheckSignal()
+        private IEnumerator BufferSend()
         {
+            yield return new WaitForEndOfFrame();
+
             if (GameplaySystem.gamplayUIHandle.isInCutsceneMode)
             {
                 m_dialogueIntervalSignal.SendSignal();
-                return;
+                yield return null;
             }
             m_dialogueEndSignal.SendSignal();
+        }
+        public void CheckSignal()
+        {
+            StartCoroutine(BufferSend());
+            //if (GameplaySystem.gamplayUIHandle.isInCutsceneMode)
+            //{
+            //    m_dialogueIntervalSignal.SendSignal();
+            //    return;
+            //}
+            //m_dialogueEndSignal.SendSignal();
         }
     }
 }
