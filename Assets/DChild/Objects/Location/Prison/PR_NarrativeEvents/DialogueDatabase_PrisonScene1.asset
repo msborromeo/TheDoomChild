@@ -241,11 +241,109 @@ MonoBehaviour:
   - id: 363
     fields:
     - title: Name
-      value: necroThinkingExpression
+      value: necroTalkingExpression
       type: 0
       typeString: CustomFieldType_Text
     - title: Initial Value
       value: 5
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+  - id: 364
+    fields:
+    - title: Name
+      value: playerThinkingExpression
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: 2
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+  - id: 365
+    fields:
+    - title: Name
+      value: playerFacingAwayExpression
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: 3
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+  - id: 366
+    fields:
+    - title: Name
+      value: playerExcitedExpression
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: 4
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+  - id: 367
+    fields:
+    - title: Name
+      value: crazyKnightDoubtful
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: 1
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+  - id: 368
+    fields:
+    - title: Name
+      value: crazyKnightGoofy
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: 2
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+  - id: 369
+    fields:
+    - title: Name
+      value: crazyKnightInLove
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: 3
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+  - id: 370
+    fields:
+    - title: Name
+      value: crazyKnightLaughing
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: 4
       type: 1
       typeString: CustomFieldType_Number
     - title: Description
@@ -381,7 +479,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: "It\u2019s really sinister and dark in here!\r"
+        value: "[pic=crazyKnightDoubtful] It\u2019s really sinister and dark in here!\r"
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
@@ -410,7 +508,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 217
-        y: 66
+        y: 65.10715
         width: 160
         height: 30
     - id: 2
@@ -440,8 +538,8 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: '[pic=necroThinkingExpression]You should hit that machine to open
-          the door!'
+        value: '[pic=necroTalkingExpression] I think you''d need to hit the machine
+          over there to open the door...'
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -512,8 +610,8 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: "[pic=playerIdleExpression]Wahhh! An eye! And it\u2019s staring at
-          me! AM I REALLY THAT BEAUTIFUL!? I\u2019m flattered!"
+        value: "[pic=crazyKnightInLove] Wahhh! Look over there\u2014 an eye that's
+          staring at me!"
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -543,7 +641,7 @@ MonoBehaviour:
       - originConversationID: 216
         originDialogueID: 3
         destinationConversationID: 216
-        destinationDialogueID: 4
+        destinationDialogueID: 8
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -584,7 +682,8 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: "[pic=necroIdleExpression]Not a good sign, maybe we\u2019ve been noticed!"
+        value: '[pic=necroFrustratedExpression] I don''t think that''s a good sign,
+          we''ve probably been noticed!'
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -655,8 +754,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "That\u2019s good! If they are coming, tell them to bring lights and
-          some fun!"
+        value: "[pic=crazyKnightLaughing] HAHA! That\u2019s good! If they are coming,
+          tell them to bring lights and some fun!"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -727,7 +826,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "After all, it doesn\u2019t look very comfy here!"
+        value: "[pic=crazyKnightGoofy] After all, it doesn\u2019t look very welcoming
+          in here!"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -798,8 +898,8 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: "[pic=necroFrustratedExpression]It\u2019s a prison, it\u2019s meant
-          to not be comfy!"
+        value: '[pic=necroFrustratedExpression] We''re in a prison, it''s not meant
+          to be welcoming!'
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -837,8 +937,79 @@ MonoBehaviour:
         y: 366
         width: 160
         height: 30
+    - id: 8
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: '[pic=crazyKnightInLove] Am I REAAALLLLYYYY that flattering!?'
+        type: 0
+        typeString: 
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: 
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 216
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 216
+        originDialogueID: 8
+        destinationConversationID: 216
+        destinationDialogueID: 4
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 433.96436
+        y: 164.21426
+        width: 160
+        height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 35.208847, y: 0}
+    canvasScrollPosition: {x: 0.8928528, y: 41.964264}
     canvasZoom: 1.12
   - id: 213
     fields:
@@ -992,7 +1163,8 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: "I\u2019ve never imagined this place to be so big!"
+        value: "[pic=crazyKnightGoofy] I\u2019ve never imagined this place to be
+          so big!"
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -1033,7 +1205,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 30
-        y: 70
+        y: 73.63638
         width: 160
         height: 30
     - id: 2
@@ -1063,7 +1235,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "Never forget the rules of the underworld and the realm of death.\r"
+        value: "[pic=necroTalkingExpression] Never forget the rules of the underworld
+          and the realm of death.\r"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1134,8 +1307,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Souls create space, the more souls you have at a location the bigger
-          it gets.
+        value: '[pic=necroTalkingExpression] Souls create space, the more souls you
+          have at a location the bigger it gets.'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1206,7 +1379,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: The souls themselves influence the location
+        value: '[pic=necroSmirkingExpression] The souls themselves influence the
+          location.'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1277,8 +1451,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "If that\u2019s so, why is it emanating this desperate and pitiful
-          atmosphere?"
+        value: "[pic=crazyKnightDoubtful] If that\u2019s so, why is it emanating
+          this desperate and pitiful atmosphere?"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1319,7 +1493,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 30
-        y: 270
+        y: 271.92307
         width: 160
         height: 30
     - id: 6
@@ -1349,7 +1523,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: It is how the souls are feeling.
+        value: '[pic=necroFrustratedExpression] It is how the souls are feeling.'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1420,7 +1594,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Then we should make them feel better.
+        value: '[pic=crazyKnightGoofy] Then we should make them feel better.'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1491,8 +1665,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "That\u2019s kind of a nice thing to say, maybe you aren\u2019t as
-          twisted as I thought!\r"
+        value: "[pic=necroSmirkingExpression] That\u2019s kind of a nice thing to
+          say, maybe you aren\u2019t as twisted as I thought!\r"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1563,7 +1737,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "How do you\u2026 No\u2026 No\u2026 No\u2026"
+        value: "[pic=necroFrustratedExpression] How do you\u2026 No\u2026 No\u2026
+          No\u2026"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1634,7 +1809,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "Yes\u2026 yes\u2026 Yes\u2026 Yes\u2026\r"
+        value: '[pic=crazyKnightGoofy] (For each of Necro''s "no" comes Crazy Knight''s
+          "yes") Yes... yes... yes... yes....'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1705,8 +1881,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: I am gonna tell some jokes! I think that should help liven up the
-          mood!
+        value: '[pic=crazyKnightLaughing] I am gonna tell some jokes! I think that
+          should help liven up the mood!'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1777,7 +1953,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: At least let them be good then!
+        value: '[pic=necroFrustratedExpression] At least let them be good then!'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1848,8 +2024,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: My jokes have always been good, and this place needs a whole lot of
-          them!
+        value: '[pic=crazyKnightGoofy] My jokes have always been good, and this place
+          needs a whole lot of them!'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1920,7 +2096,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: What is a Vulcano doing in the prison? Breaking out!
+        value: "[pic=crazyKnightLaughing] What's a Vulcano doing in the Prison?\u2014
+          Breaking out!"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1960,7 +2137,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
+        x: 28.07692
         y: 720
         width: 160
         height: 30
@@ -1991,7 +2168,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: What is a horse in the prison? A ZEBRA! Hahahahaha!
+        value: "[pic=crazyKnightLaughing] What do you call a horse in Prison?\u2014
+          A Zebra! HAHAHA!"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -2031,8 +2209,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 768.93616
+        x: 31.92308
+        y: 767.0132
         width: 160
         height: 30
     - id: 16
@@ -2062,8 +2240,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "\u201CDad, I was imprisoned for attempted murder!\u201D \nFather:
-          \u201CCan\u2019t you do anything, right?\u201D"
+        value: '[pic=crazyKnightLaughing] "Dad, I was imprisoned for attempted murder!",
+          the Father replied "Son, can''t you do anything right?"'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -2134,8 +2312,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "In school, the teacher asks: \u201CWhat is the future form of I steal\u201D
-          Thereupon David: I go to prison!"
+        value: '[pic=crazyKnightLaughing] In school, a teacher asks "What is the
+          future form of "I steal", David replies, "Me going to jail!"'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -2206,7 +2384,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: What does a biologist do in prison? He counts cells!
+        value: "[pic=crazyKnightLaughing] What does a Biologist do in prison?\u2014
+          He counts cells!"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -2247,7 +2426,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 30
-        y: 918.93616
+        y: 917.01306
         width: 160
         height: 30
     - id: 19
@@ -2277,8 +2456,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: I asked the clairvoyant if I would go to prison one day, she replies
-          with a no and then I robbed her
+        value: '[pic=crazyKnightLaughing] I asked a clairvoyant if I would go to
+          Prison one day, she said no so I decided to rob her!'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -2318,8 +2497,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 968.93616
+        x: 31.639343
+        y: 965.65735
         width: 160
         height: 30
     - id: 20
@@ -2349,10 +2528,9 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: "One prison inmate asks the other: \u201CHow did you end up here?\u201D
-          \u201CWell,\u201D says the other, \u201Ceverything went well for years
-          until the day my son had to write an essay at school about his father\u2019s
-          job\u2026\u201D"
+        value: '[pic=crazyKnightLaughing] One Prison inmate asks the other "How''d
+          you end up here?" He replies, "Well, everything went well for years until
+          the day my son had to write an essay about my job..."'
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -2391,8 +2569,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 555.1373}
-    canvasZoom: 0.5500002
+    canvasScrollPosition: {x: 0, y: 660.17084}
+    canvasZoom: 0.61000013
   - id: 214
     fields:
     - title: Title
