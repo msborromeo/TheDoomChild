@@ -129,6 +129,8 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.ApplyQueuedState();
             yield return null;
         }
+        [SerializeField]
+        private float delayBeforeWilt;
         private IEnumerator GrowthRoutine()
         {
             m_stateHandle.Wait(State.Idle);
@@ -159,6 +161,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator DeathFxRoutine()
         {
             m_animation.SetAnimation(0, m_info.deathAnimation, false);
+            m_collider.enabled = false;
+            m_hitbox.enabled = false;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathAnimation);
             //m_isPetalRain = true;
             //yield return new WaitForSeconds(1f);
@@ -169,6 +173,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator WiltFxRoutine()
         {
+            yield return new WaitForSeconds(delayBeforeWilt);
             m_animation.SetAnimation(0, m_info.wiltAnimation, false);
             m_collider.enabled = false;
             m_hitbox.enabled = false;

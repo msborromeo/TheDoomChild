@@ -357,7 +357,7 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField, TabGroup("Spawn Points")]
         private List<Transform> m_stalagmiteSpawnPoint1;
         [SerializeField, TabGroup("Spawn Points")]
-        private Transform m_stalagmiteSpawnPoint2;
+        private Transform[] m_stalagmiteSpawnPoint2;
         [SerializeField, TabGroup("Spawn Points")]
         private Transform m_petalProjectileSpawnPoint;
         [SerializeField, TabGroup("Spawn Points")]
@@ -938,7 +938,7 @@ namespace DChild.Gameplay.Characters.Enemies
             spawnPointsSelected = Mathf.Min(spawnPointsSelected, m_stalagmiteSpawnPoint1.Count);
             List<Transform> selectedSpawnPoints = m_stalagmiteSpawnPoint1.GetRange(0, spawnPointsSelected);
 
-            yield return new WaitForSeconds(3.5f);
+            //yield return new WaitForSeconds(3.5f);
             for (int i = 0; i < selectedSpawnPoints.Count; i++)
             {
                 var distanceLeft = Vector3.Distance(m_targetPos, m_leftBounds.transform.position);
@@ -971,9 +971,10 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.jump.animation, false);
             yield return new WaitForSeconds(2f);
             if (!IsFacingTarget()) { CustomTurn(); }
-            StartCoroutine(StalagmiteSeedLaunchRoutine1());
-            yield return new WaitForSeconds(6f);
-            var distanceLeft = Vector3.Distance(m_targetPos, m_leftBounds.transform.position);
+            yield return StalagmiteSeedLaunchRoutine1();
+           // yield return new WaitForSeconds(6f);
+            transform.position = new Vector2(m_stalagmiteSpawnPointMain.position.x + 4f, m_stalagmiteSpawnPointMain.position.y);
+            /*var distanceLeft = Vector3.Distance(m_targetPos, m_leftBounds.transform.position);
             var distanceRight = Vector3.Distance(m_targetPos, m_rightBounds.transform.position);
             if (distanceLeft < distanceRight)
             {
@@ -982,8 +983,8 @@ namespace DChild.Gameplay.Characters.Enemies
             else
             {
                 transform.position = new Vector2(m_leftBounds.transform.position.x + m_distance, transform.position.y);
-            }
-            yield return new WaitForSeconds(4.5f);
+            }*/
+            //yield return new WaitForSeconds(4.5f);
             m_landingCueFX.Play();
             yield return new WaitForSeconds(1f);
             m_animation.SetAnimation(0, m_info.landingAnimation, false);
@@ -997,11 +998,26 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idlephase3Animation.animation);
             yield return null;
         }
+        [SerializeField]
+        private float[] sizeChange;
         private IEnumerator StalagmiteSeedLaunchRoutine2()
         {
             m_petalStalagmite.GetComponent<PetalStalagtite>().m_motherMantisAI = this.gameObject;
             m_seedSpawning = true;
-            for (int i = 0; i < m_info.seedAmount; i++)
+            //var x = 0;
+            foreach(var stalag2spawn in m_stalagmiteSpawnPoint2)
+            {
+                var spawnPoint = stalag2spawn.position;
+                GameObject projectile = m_info.seedProjectile;
+                var instance = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(projectile);
+                //instance.transform.localScale = new Vector2(projectile.transform.localScale.x, projectile.transform.localScale.y - sizeChange[x]);
+                instance.transform.position = spawnPoint;
+                var component = instance.GetComponent<Projectile>();
+                component.ResetState();
+                //x++;
+                yield return new WaitForSeconds(.5f);
+            }
+            /*for (int i = 0; i < m_info.seedAmount; i++)
             {
                 var spawnPoint = new Vector2(m_stalagmiteSpawnPoint2.position.x + (UnityEngine.Random.Range(-40f, 40f)), m_stalagmiteSpawnPoint2.position.y);
                 GameObject projectile = m_info.seedProjectile;
@@ -1010,7 +1026,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 var component = instance.GetComponent<Projectile>();
                 component.ResetState();
                 yield return new WaitForSeconds(.5f);
-            }
+            }*/
             m_seedSpawning = false;
             yield return null;
         }
@@ -1023,8 +1039,8 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForSeconds(2f);
             transform.position = new Vector3(centerPoint.x, transform.position.y, 0);
             if (!IsFacingTarget()) { CustomTurn(); }
-            StartCoroutine(StalagmiteSeedLaunchRoutine2());
-            yield return new WaitForSeconds(4.5f);
+            yield return StalagmiteSeedLaunchRoutine2();
+            //yield return new WaitForSeconds(4.5f);
             m_landingCueFX.Play();
             yield return new WaitForSeconds(1f);
             m_animation.SetAnimation(0, m_info.landingAnimation, false);
@@ -1197,6 +1213,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return JumpAttack2Routine();
             }
             m_animation.SetAnimation(0, m_info.idlephase2Animation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idlephase2Animation);
             DecidedOnAttack(false);
             m_stateHandle.ApplyQueuedState();
             yield return null;
@@ -1219,7 +1236,7 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             var m_followElapsedTime = 0f;
             var m_followDuration = 1.5f;
-            while (Vector2.Distance(transform.position, m_targetInfo.position) > 20f || m_followElapsedTime < m_followDuration)
+            while (Vector2.Distance(transform.position, m_targetInfo.position) > 30f || m_followElapsedTime < m_followDuration)
             {
                 m_animation.SetAnimation(0, m_info.move, true);
                 m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0f).normalized, m_info.move.speed);
@@ -1242,11 +1259,15 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 yield return FlowerSpore1Routine();
                 yield return JumpAttack2Routine();
+                m_animation.SetAnimation(0, m_info.idlephase2Animation, false);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idlephase2Animation);
             }
             else if(random == 2)
             {
                 yield return FlowerSpore2Routine();
                 yield return JumpAttack2Routine(1, m_spore2SafeSpot);
+                m_animation.SetAnimation(0, m_info.idlephase2Animation, false);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idlephase2Animation);
             }
             else if (random == 3)
             {
