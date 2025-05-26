@@ -775,7 +775,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         }
 
                         m_activeSlide?.Cancel();
-                        //m_groundedness?.ChangeValue(false);
                         m_groundJump?.Execute();
                         m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Midair);
                         m_movement?.SwitchConfigTo(Movement.Type.MidAir);
@@ -793,7 +792,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             m_devilWings?.Cancel();
                         }
 
-                       m_extraJump?.Execute();
+                        m_whip?.Cancel();
+                        m_extraJump?.Execute();
                     }
                 }       
             }
