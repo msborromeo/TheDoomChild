@@ -792,6 +792,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             m_devilWings?.Cancel();
                         }
 
+                        m_basicSlashes?.Cancel();
                         m_whip?.Cancel();
                         m_extraJump?.Execute();
                     }
@@ -2527,10 +2528,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_activeSlide = m_shadowSlide;
                     m_shadowSlide.ConsumeSource();
 
-                    m_activeSlide?.ResetDurationTimer();
-                    m_activeSlide?.Execute();
                 }
             }
+            m_activeSlide?.ResetDurationTimer();
+            m_activeSlide?.Execute();
         }
 
         private void MoveCharacter(bool isGrabbing, float horizontalInput)
