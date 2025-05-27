@@ -86,7 +86,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public override void Cancel()
         {
-            m_rigidbody.gravityScale = m_cacheGravity;
+            m_rigidbody.gravityScale = m_configuration.defaultGravity;
             m_adjustGravity = true;
             m_state.waitForBehaviour = false;
 
@@ -163,7 +163,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                     if (m_adjustGravity == true)
                     {
-                        m_cacheGravity = m_rigidbody.gravityScale;
                         m_rigidbody.gravityScale = m_aerialGravity;
                         //m_rigidbody.velocity = new Vector2(m_rigidBody.velocity.x, 0);
                         m_rigidbody.velocity = /*Vector2.zero*/new Vector2(m_rigidbody.velocity.x * m_configuration.momentumVelocity.x, m_rigidbody.velocity.y * m_configuration.momentumVelocity.y);
@@ -177,7 +176,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                     if (m_adjustGravity == true)
                     {
-                        m_cacheGravity = m_rigidbody.gravityScale;
                         m_rigidbody.gravityScale = m_aerialGravity;
                         //m_rigidbody.velocity = new Vector2(m_rigidBody.velocity.x, 0);
                         m_rigidbody.velocity = /*Vector2.zero*/new Vector2(m_rigidbody.velocity.x * m_configuration.momentumVelocity.x, m_rigidbody.velocity.y * m_configuration.momentumVelocity.y);
@@ -231,7 +229,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             m_animator.SetBool(m_animationParameter, false); 
             m_animator.SetFloat(m_yInputParameter, 0);
-            m_rigidbody.gravityScale = m_cacheGravity;
+            m_rigidbody.gravityScale = m_configuration.defaultGravity;
             m_adjustGravity = false;
             //m_fxAnimator.Play("Buffer");
             //test.state.AddEmptyAnimation(0, 0, 0);
