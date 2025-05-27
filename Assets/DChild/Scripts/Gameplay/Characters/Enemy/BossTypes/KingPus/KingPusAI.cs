@@ -593,6 +593,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private FlinchHandler m_flinchLeftHandle;
         [SerializeField, TabGroup("Modules")]
         private MovementHandle2D m_movement;
+        [SerializeField, TabGroup("Modules")]
+        private KingPusGrapplerHandle m_graplerHandle;
         [SerializeField, TabGroup("Sensors")]
         private RaySensor m_groundSensor;
         
@@ -1440,47 +1442,79 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_animation.EnableRootMotion(true, false);
             m_animation.SetAnimation(30, m_info.idleAnimation.animation, true, 0);
-            for (int i = 0; i < m_spitterBone.Count; i++)
-            {
-                m_spitterBone[i].mode = SkeletonUtilityBone.Mode.Override;
-            }
-            if (IsTargetInRange(m_info.spikeSpitterAttacks[0].range))
-            {
-                for (int i = 0; i < m_info.spikeSpitterAttacks.Count; i++)
-                {
-                    m_projectilePositionCheckerCoroutine = StartCoroutine(ProjectilePositionCheckerRoutine());
 
-                    m_lastTargetPos = m_targetInfo.position;
-                    m_animation.SetAnimation(0, m_info.spikeSpitterExtendAnimations[i], false);
-                    yield return new WaitForAnimationComplete(m_animation.animationState, m_info.spikeSpitterExtendAnimations[i]);
-                    m_animation.SetAnimation(0, m_info.spikeSpitterAttacks[i].animation, false);
-                    yield return new WaitForAnimationComplete(m_animation.animationState, m_info.spikeSpitterAttacks[i].animation);
-                    m_animation.SetAnimation(0, m_info.spikeSpitterRetractAnimations[i], false);
-                    yield return new WaitForAnimationComplete(m_animation.animationState, m_info.spikeSpitterRetractAnimations[i]);
-                }
-                for (int i = 0; i < m_spitterBone.Count; i++)
-                {
-                    m_spitterBone[i].mode = SkeletonUtilityBone.Mode.Follow;
-                }
-                m_animation.SetEmptyAnimation(30, 0);
-                m_animation.DisableRootMotion();
-                m_attackDecider.hasDecidedOnAttack = false;
-                m_stateHandle.ApplyQueuedState();
-            }
-            else
-            {
-                if (m_grappleCoroutine != null)
-                {
-                    StopCoroutine(m_grappleCoroutine);
-                }
-                // Problematic behavior is the grapple 
-                yield return GrappleRoutine(false, true, m_info.bodySlamCount/*, true*/);
-            }
+            //for (int i = 0; i < m_spitterBone.Count; i++)
+            //{
+            //    m_spitterBone[i].mode = SkeletonUtilityBone.Mode.Override;
+            //}
+            //if (IsTargetInRange(m_info.spikeSpitterAttacks[0].range))
+            //{
+            //    for (int i = 0; i < m_info.spikeSpitterAttacks.Count; i++)
+            //    {
+            //        m_projectilePositionCheckerCoroutine = StartCoroutine(ProjectilePositionCheckerRoutine());
 
+            //        m_lastTargetPos = m_targetInfo.position;
+            //        m_animation.SetAnimation(0, m_info.spikeSpitterExtendAnimations[i], false);
+            //        yield return new WaitForAnimationComplete(m_animation.animationState, m_info.spikeSpitterExtendAnimations[i]);
+            //        m_animation.SetAnimation(0, m_info.spikeSpitterAttacks[i].animation, false);
+            //        yield return new WaitForAnimationComplete(m_animation.animationState, m_info.spikeSpitterAttacks[i].animation);
+            //        m_animation.SetAnimation(0, m_info.spikeSpitterRetractAnimations[i], false);
+            //        yield return new WaitForAnimationComplete(m_animation.animationState, m_info.spikeSpitterRetractAnimations[i]);
+            //    }
+            //    for (int i = 0; i < m_spitterBone.Count; i++)
+            //    {
+            //        m_spitterBone[i].mode = SkeletonUtilityBone.Mode.Follow;
+            //    }
+            //    m_animation.SetEmptyAnimation(30, 0);
+            //    m_animation.DisableRootMotion();
+            //    m_attackDecider.hasDecidedOnAttack = false;
+            //    m_stateHandle.ApplyQueuedState();
+            //}
+            //else
+            //{
+            //    if (m_grappleCoroutine != null)
+            //    {
+            //        StopCoroutine(m_grappleCoroutine);
+            //    }
+            //    // Problematic behavior is the grapple 
+            //    yield return GrappleRoutine(false, true, m_info.bodySlamCount/*, true*/);
+            //}
+
+            yield return ExtendGrappleRoutine(3f);
+            yield return RetractGrappleRoutine();
+            m_character.physics.simulateGravity = true;
+            m_animation.SetAnimation(0, m_info.bodySlamStart, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.bodySlamStart);
+            while (!m_groundSensor.isDetecting)
+            {
+                m_animation.SetAnimation(0, m_info.bodySlamLoop, true);
+                yield return null;
+            }
+            m_bodySlamFX.Play();
+            m_animation.SetAnimation(0, m_info.bodySlamEnd, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.bodySlamEnd);
+            m_movement.Stop();
+            m_animation.SetEmptyAnimation(27, 0);
             m_animation.SetEmptyAnimation(30, 0);
             m_animation.DisableRootMotion();
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
+        }
+
+        private IEnumerator RetractGrappleRoutine()
+        {
+            yield return m_graplerHandle.RetractRoutine(5f);
+            m_graplerHandle.SetPhysicsActive(false);
+        }
+
+        private IEnumerator ExtendGrappleRoutine(float retractTime)
+        {
+            m_animation.DisableRootMotion();
+            CalculateWallGrapple(true);
+            m_character.physics.simulateGravity = false;
+            m_movement.Stop();
+            yield return m_graplerHandle.ExtendRoutine(5f, 4, true);
+            yield return new WaitForSeconds(retractTime);
         }
 
         private IEnumerator SpikeSpitAttackFullRoutine(bool spreadShot)
@@ -2213,14 +2247,25 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void RandomizeTentaclePosition()
         {
+            //for (int i = 0; i < m_tentacleOverridePoints.Count; i++)
+            //{
+            //    for (int x = 0; x < m_tentacleOverridePoints.Count; x++)
+            //    {
+            //        m_tentacleOverridePoints[i].position = RandomTentaclePointPosition(/*m_tentacleOverridePoints[i]*/);
+            //        m_tentacleOverridePoints[i].position = new Vector2(m_tentacleOverridePoints[i].position.x + (UnityEngine.Random.Range(0, 2) == 1 ? 25 : -25), m_tentacleOverridePoints[i].position.y);
+            //    }
+            //}
+
+            Vector2[] newPoints = new Vector2[m_graplerHandle.GetGrapplers().Length];
             for (int i = 0; i < m_tentacleOverridePoints.Count; i++)
             {
                 for (int x = 0; x < m_tentacleOverridePoints.Count; x++)
                 {
-                    m_tentacleOverridePoints[i].position = RandomTentaclePointPosition(/*m_tentacleOverridePoints[i]*/);
-                    m_tentacleOverridePoints[i].position = new Vector2(m_tentacleOverridePoints[i].position.x + (UnityEngine.Random.Range(0, 2) == 1 ? 25 : -25), m_tentacleOverridePoints[i].position.y);
+                    newPoints[i] = RandomTentaclePointPosition(/*m_tentacleOverridePoints[i]*/);
+                    newPoints[i] = new Vector2(newPoints[i].x + (UnityEngine.Random.Range(0, 2) == 1 ? 25 : -25), newPoints[i].y);
                 }
             }
+            m_graplerHandle.OverrideIKs(newPoints);
         }
 
         private void ResetTentaclePosition()
@@ -2887,7 +2932,9 @@ namespace DChild.Gameplay.Characters.Enemies
             float atan2 = Mathf.Atan2(v_diff.y, v_diff.x);
             m_targetLooker.rotation = Quaternion.Euler(0f, 0f, atan2 * Mathf.Rad2Deg);
         }
+        #region NewOrganizefunctionalitits
 
+        #endregion
         private void FixedUpdate()
         {
             if (m_willGripWall)
@@ -2943,7 +2990,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     break;
                 case State.Attacking:
-                    m_stateHandle.Wait(State.Cooldown);
+                    m_stateHandle.Wait(State.ReevaluateSituation);
                     m_lastTargetPos = m_targetInfo.position;
                     if (m_attackDecider.hasDecidedOnAttack == false)
                     {

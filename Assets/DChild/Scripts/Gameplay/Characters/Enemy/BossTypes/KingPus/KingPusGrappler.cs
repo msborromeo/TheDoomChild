@@ -66,7 +66,7 @@ namespace DChild.Gameplay.Characters.Enemies
             OverrideIK(target.position);
         }
 
-        public void OverrideIK(Vector3 position)
+        public void OverrideIK(Vector2 position)
         {
             m_boneIK.mode = SkeletonUtilityBone.Mode.Override;
             m_boneIK.transform.position = position;

@@ -64,7 +64,7 @@ namespace DChild.Gameplay.Characters.Enemies
             } while (hasExtendedGrappler);
         }
 
-        public void OverrideIKs(Vector3[] positions)
+        public void OverrideIKs(Vector2[] positions)
         {
             for (int i = 0; i < positions.Length; i++)
             {
