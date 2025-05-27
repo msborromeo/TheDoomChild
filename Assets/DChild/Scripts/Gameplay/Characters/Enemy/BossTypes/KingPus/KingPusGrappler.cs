@@ -116,6 +116,24 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             m_isExtended = true;
         }
+
+        public void OnDrawGizmosSelected()
+        {
+            if (m_isExtended == false)
+                return;
+
+
+            if (m_animation != null && m_overridePoint != null)
+            {
+                Gizmos.color = Color.white;
+                Gizmos.DrawLine(m_animation.transform.position, m_overridePoint.position);
+            }
+            if (m_overridePoint != null && m_chain != null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(m_overridePoint.position, m_chain.transform.position);
+            }
+        }
     }
 }
 
