@@ -38,7 +38,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public IEnumerator ExtendRoutine(float speed, int tentacleCount, bool activatePhysicsAtEnd = false)
         {
-            if (tentacleCount < 0 || tentacleCount >= m_grapplers.Length)
+            if (tentacleCount < 0 || tentacleCount > m_grapplers.Length)
                 yield break;
 
             for (int i = 0; i < tentacleCount; i++)
