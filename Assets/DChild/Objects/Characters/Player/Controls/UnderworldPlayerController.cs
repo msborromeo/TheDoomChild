@@ -775,7 +775,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         }
 
                         m_activeSlide?.Cancel();
-                        //m_groundedness?.ChangeValue(false);
                         m_groundJump?.Execute();
                         m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Midair);
                         m_movement?.SwitchConfigTo(Movement.Type.MidAir);
@@ -793,7 +792,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             m_devilWings?.Cancel();
                         }
 
-                       m_extraJump?.Execute();
+                        m_basicSlashes?.Cancel();
+                        m_whip?.Cancel();
+                        m_extraJump?.Execute();
                     }
                 }       
             }
@@ -2527,10 +2528,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_activeSlide = m_shadowSlide;
                     m_shadowSlide.ConsumeSource();
 
-                    m_activeSlide?.ResetDurationTimer();
-                    m_activeSlide?.Execute();
                 }
             }
+            m_activeSlide?.ResetDurationTimer();
+            m_activeSlide?.Execute();
         }
 
         private void MoveCharacter(bool isGrabbing, float horizontalInput)
