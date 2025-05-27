@@ -1,5 +1,7 @@
-﻿using Holysoft.Event;
+﻿using DChild.Gameplay.Systems;
+using Holysoft.Event;
 using System;
+using UnityEngine;
 
 namespace DChild.Gameplay.Combat.StatusAilment
 {
@@ -7,22 +9,26 @@ namespace DChild.Gameplay.Combat.StatusAilment
     {
         public IStatusEffectModule GetInstance() => this;
 
+        private IController controller;
+
         public void Start(Character character)
         {
-             var controller = character.GetComponent<IController>();
+             controller = character.GetComponent<IController>();
             if (controller != null)
             {
                 controller.Disable();
                 controller.ControllerStateChange += OnControllerStateChange;
+                PlayerManager.PlayerControlsEnabled += OnPlayerControlsEnabled;
             }
         }
 
         public void Stop(Character character)
         {
-            var controller = character.GetComponent<IController>();
+            controller = character.GetComponent<IController>();
             if (controller != null)
             {
                 controller.ControllerStateChange -= OnControllerStateChange;
+                PlayerManager.PlayerControlsEnabled -= OnPlayerControlsEnabled;
                 controller.Enable();
             }
         }
@@ -32,7 +38,14 @@ namespace DChild.Gameplay.Combat.StatusAilment
             if (eventArgs.info == true)
             {
                 //Force Disable Controller if something else enables this
-                var controller = (IController)sender;
+                controller = (IController)sender;
+                controller.Disable();
+            }
+        }
+        private void OnPlayerControlsEnabled(bool obj)
+        {
+            if (obj)
+            {
                 controller.Disable();
             }
         }

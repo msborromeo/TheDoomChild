@@ -57,9 +57,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_animator.SetBool(m_animationParameter, false);
             m_animator.SetBool(m_doubleJumpAnimationParameter, false);
 
-            m_frontWallStickSensor.Cast();
-            m_backtWallStickSensor.Cast();
-            m_animator.SetBool(m_jumpAnimationParameter, m_frontWallStickSensor.isDetecting || m_backtWallStickSensor.isDetecting ? true : false);
+            //commented out the part below to prevent animation of wall stick when dropping on opposite direction
+            //m_frontWallStickSensor.Cast();
+            //m_backtWallStickSensor.Cast();
+            //m_animator.SetBool(m_jumpAnimationParameter, m_frontWallStickSensor.isDetecting || m_backtWallStickSensor.isDetecting ? true : false);
+            
 
             if (m_attachedPlatform != null)
             {
