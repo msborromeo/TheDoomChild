@@ -369,14 +369,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_groundedness?.Evaluate();
                 }
 
-                if (m_groundedness?.isUsingCoyote ?? false)
-                {
-                    m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Midair);
-                }
-                else
-                {
-                    m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Ground);
-                }
+                //if (m_groundedness?.isUsingCoyote ?? false)
+                //{
+                //    m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Midair);
+                //}
+                //else
+                //{
+                //    m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Ground);
+                //}
 
                 HandleCrouchMovement();
 
@@ -433,12 +433,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isDead)
             {
-                m_groundedness.Evaluate();
+                //m_groundedness.Evaluate();
                 return;
             }
             else
             {
-                m_groundedness.Evaluate();
+                //m_groundedness.Evaluate();
             }
 
             if (m_introController.IsUsingIntroControls())
@@ -775,8 +775,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         }
 
                         m_activeSlide?.Cancel();
-                        m_groundedness?.ChangeValue(false);
                         m_groundJump?.Execute();
+                        m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Midair);
                         m_movement?.SwitchConfigTo(Movement.Type.MidAir);
                     }
                 }
@@ -792,7 +792,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             m_devilWings?.Cancel();
                         }
 
-                       m_extraJump?.Execute();
+                        m_basicSlashes?.Cancel();
+                        m_whip?.Cancel();
+                        m_extraJump?.Execute();
                     }
                 }       
             }
@@ -2098,7 +2100,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
                 else
                 {
-                    m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Midair);
+                    //m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Midair);
                     m_rigidbody.velocity = new Vector2(m_rigidbody.velocity.x, m_rigidbody.velocity.y);
                     if (m_state.isCrouched)
                     {
@@ -2526,10 +2528,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_activeSlide = m_shadowSlide;
                     m_shadowSlide.ConsumeSource();
 
-                    m_activeSlide?.ResetDurationTimer();
-                    m_activeSlide?.Execute();
                 }
             }
+            m_activeSlide?.ResetDurationTimer();
+            m_activeSlide?.Execute();
         }
 
         private void MoveCharacter(bool isGrabbing, float horizontalInput)
@@ -2554,22 +2556,36 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_idle?.Cancel();
                 }
                 if (m_state.isGrounded && m_state.isHighJumping == false)
+                {
                     m_movement?.GroundMove(horizontalInput, true);
+                    if (m_stepClimb.CheckForStepClimbableSurface())
+                    {
+                        m_stepClimb.ClimbSurface();
+                    }
+                }
                 else
+                {
                     m_movement?.AirMove(horizontalInput, true);
+                }
             }
             else
             {
                 if (m_state.isGrounded)
+                {
                     m_movement?.GroundMove(horizontalInput, false);
+
+                    if (m_stepClimb.CheckForStepClimbableSurface())
+                    {
+                        m_stepClimb.ClimbSurface();
+                    }
+                }
                 else
+                {
                     m_movement?.AirMove(horizontalInput, false);
+                }
             }
 
-            if (m_stepClimb.CheckForStepClimbableSurface())
-            {
-                m_stepClimb.ClimbSurface();
-            }
+            
         }
         private bool CanMove()
         {
