@@ -484,10 +484,11 @@ namespace DChild.Gameplay.Characters.Enemies
             m_hitbox.SetInvulnerability(Invulnerability.MAX); //wasTrue
             m_currentCD = 0;
             m_bodyCollider.SetActive(false);
-            m_animation.EnableRootMotion(true, false);
+            //m_animation.EnableRootMotion(true, false);
             m_animation.SetAnimation(0, m_info.rageAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.rageAnimation.animation);
             m_hitbox.SetInvulnerability(Invulnerability.None);
+            m_hasPhaseChanged = false;
             DecidedOnAttack(false);
             m_stateHandle.ApplyQueuedState();
             yield return null;
@@ -1139,24 +1140,28 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator Phase1Pattern1Routine()
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
-            var m_followElapsedTime = 0f;
-            var m_followDuration = 2f;
-            while (Vector2.Distance(transform.position, m_targetInfo.position) > 50f || m_followElapsedTime < m_followDuration)
+
+            float m_followElapsedTime = 0f;
+            float m_followDuration = 2f;
+            while (Vector2.Distance(transform.position, m_targetInfo.position) > 50f && m_followElapsedTime < m_followDuration)
             {
                 m_animation.SetAnimation(0, m_info.move, true);
-                m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0f).normalized, m_info.move.speed);
-                if (!IsFacingTarget()){CustomTurn();}
+                Vector2 direction = new Vector2(m_targetInfo.position.x - transform.position.x, 0f).normalized;
+                m_movement.MoveTowards(direction, m_info.move.speed);
+                if (!IsFacingTarget())
+                {
+                    CustomTurn();
+                }
                 m_followElapsedTime += Time.deltaTime;
                 yield return null;
             }
-            if(Vector2.Distance(transform.position, m_targetInfo.position) < 20f)
+            if (Vector2.Distance(transform.position, m_targetInfo.position) < 20f)
             {
-                m_movement.Stop();
                 yield return ClawRoutine();
             }
             else
             {
-                var random = UnityEngine.Random.RandomRange(0, 2);
+                int random = UnityEngine.Random.Range(0, 2);
                 if (random == 0)
                 {
                     yield return JumpAttack1Routine();
@@ -1168,6 +1173,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 else
                 {
                     Vector2 targetPoint = m_targetInfo.position;
+
                     if (!IsFacingTarget())
                         CustomTurn();
                     for (int i = 0; i < m_currentPetalAmount; i++)
@@ -1182,16 +1188,21 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.ApplyQueuedState();
             yield return null;
         }
+
         private IEnumerator Phase2Pattern1Routine()
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
             var m_followElapsedTime = 0f;
             var m_followDuration = 1.5f;
-            while (Vector2.Distance(transform.position, m_targetInfo.position) > 20f || m_followElapsedTime < m_followDuration)
+            while (Vector2.Distance(transform.position, m_targetInfo.position) > 50f && m_followElapsedTime < m_followDuration)
             {
                 m_animation.SetAnimation(0, m_info.move, true);
-                m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0f).normalized, m_info.move.speed);
-                if (!IsFacingTarget()) { CustomTurn(); }
+                Vector2 direction = new Vector2(m_targetInfo.position.x - transform.position.x, 0f).normalized;
+                m_movement.MoveTowards(direction, m_info.move.speed);
+                if (!IsFacingTarget())
+                {
+                    CustomTurn();
+                }
                 m_followElapsedTime += Time.deltaTime;
                 yield return null;
             }
@@ -1222,7 +1233,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
             var health = GetComponentInChildren<BasicHealth>();
-            if(health.currentValue <= 150 && !m_seedSpawning && !m_playerHitByStalagmite2)
+            if (health.currentValue <= 150 && !m_seedSpawning && !m_playerHitByStalagmite2)
             {
                 yield return SeedLaunchRoutine2();
                 Vector2 targetPoint = m_targetInfo.position;
@@ -1236,16 +1247,20 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             var m_followElapsedTime = 0f;
             var m_followDuration = 1.5f;
-            while (Vector2.Distance(transform.position, m_targetInfo.position) > 30f || m_followElapsedTime < m_followDuration)
+            while (Vector2.Distance(transform.position, m_targetInfo.position) > 50f && m_followElapsedTime < m_followDuration)
             {
-                m_animation.SetAnimation(0, m_info.move, true);
-                m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0f).normalized, m_info.move.speed);
-                if (!IsFacingTarget()) { CustomTurn(); }
+                m_animation.SetAnimation(0, m_info.moveLowHP, true);
+                Vector2 direction = new Vector2(m_targetInfo.position.x - transform.position.x, 0f).normalized;
+                m_movement.MoveTowards(direction, m_info.moveLowHP.speed);
+                if (!IsFacingTarget())
+                {
+                    CustomTurn();
+                }
                 m_followElapsedTime += Time.deltaTime;
                 yield return null;
             }
             var random = UnityEngine.Random.RandomRange(0, 5);
-            if(random == 0)
+            if (random == 0)
             {
                 Vector2 targetPoint = m_targetInfo.position;
                 if (!IsFacingTarget())
@@ -1255,14 +1270,15 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_targetPositions.Add(CalculatePositions());
                 }
                 yield return PetalFXRoutine(targetPoint);
-            }else if(random == 1)
+            }
+            else if (random == 1)
             {
                 yield return FlowerSpore1Routine();
                 yield return JumpAttack2Routine();
                 m_animation.SetAnimation(0, m_info.idlephase2Animation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idlephase2Animation);
             }
-            else if(random == 2)
+            else if (random == 2)
             {
                 yield return FlowerSpore2Routine();
                 yield return JumpAttack2Routine(1, m_spore2SafeSpot);
