@@ -117,6 +117,14 @@ namespace DChild.Gameplay.Characters.Enemies
             m_isExtended = true;
         }
 
+        private void Update()
+        {
+            if (m_isExtended)
+            {
+                m_boneIK.transform.position = m_overridePoint.position;
+            }
+        }
+
         public void OnDrawGizmosSelected()
         {
             if (m_isExtended == false)
