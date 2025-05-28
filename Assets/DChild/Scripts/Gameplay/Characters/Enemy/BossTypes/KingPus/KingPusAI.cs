@@ -595,6 +595,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private MovementHandle2D m_movement;
         [SerializeField, TabGroup("Modules")]
         private KingPusGrapplerHandle m_graplerHandle;
+        [SerializeField, TabGroup("Modules")]
+        private KingPusGrapplerHandle m_wreckingBallGraplerHandle;
+        [SerializeField, TabGroup("Modules")]
+        private KingPusGrappler m_targetedGrappler;
         [SerializeField, TabGroup("Sensors")]
         private RaySensor m_groundSensor;
 
@@ -1453,6 +1457,7 @@ namespace DChild.Gameplay.Characters.Enemies
             //    {
             //        m_projectilePositionCheckerCoroutine = StartCoroutine(ProjectilePositionCheckerRoutine());
 
+            //        yield return ProjectilePositionCheckerRoutine();
             //        m_lastTargetPos = m_targetInfo.position;
             //        m_animation.SetAnimation(0, m_info.spikeSpitterExtendAnimations[i], false);
             //        yield return new WaitForAnimationComplete(m_animation.animationState, m_info.spikeSpitterExtendAnimations[i]);
@@ -1471,32 +1476,26 @@ namespace DChild.Gameplay.Characters.Enemies
             //    m_stateHandle.ApplyQueuedState();
             //}
             //else
-            //{
-            //    if (m_grappleCoroutine != null)
-            //    {
-            //        StopCoroutine(m_grappleCoroutine);
-            //    }
-            //    // Problematic behavior is the grapple 
-            //    yield return GrappleRoutine(false, true, m_info.bodySlamCount/*, true*/);
-            //}
-
+            //{            
             yield return ExtendGrappleRoutine(3f);
-            yield return RetractGrappleRoutine();
-            m_character.physics.simulateGravity = true;
-            m_animation.SetAnimation(0, m_info.bodySlamStart, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.bodySlamStart);
-            while (!m_groundSensor.isDetecting)
-            {
-                m_animation.SetAnimation(0, m_info.bodySlamLoop, true);
-                yield return null;
-            }
-            m_bodySlamFX.Play();
-            m_animation.SetAnimation(0, m_info.bodySlamEnd, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.bodySlamEnd);
-            m_movement.Stop();
-            m_animation.SetEmptyAnimation(27, 0);
-            m_animation.SetEmptyAnimation(30, 0);
-            m_animation.DisableRootMotion();
+            yield return SlamToPlayerFromMidairRoutine();
+            //}          
+            //yield return RetractGrappleRoutine();
+            //m_character.physics.simulateGravity = true;
+            //m_animation.SetAnimation(0, m_info.bodySlamStart, false);
+            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.bodySlamStart);
+            //while (!m_groundSensor.isDetecting)
+            //{
+            //    m_animation.SetAnimation(0, m_info.bodySlamLoop, true);
+            //    yield return null;
+            //}
+            //m_bodySlamFX.Play();
+            //m_animation.SetAnimation(0, m_info.bodySlamEnd, false);
+            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.bodySlamEnd);
+            //m_movement.Stop();
+            //m_animation.SetEmptyAnimation(27, 0);
+            //m_animation.SetEmptyAnimation(30, 0);
+            //m_animation.DisableRootMotion();
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
         }
@@ -1514,6 +1513,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_character.physics.simulateGravity = false;
             m_movement.Stop();
             yield return m_graplerHandle.ExtendRoutine(5f, 4, true);
+            m_animation.SetAnimation(0, m_info.idleMidAirAnimation, true);
             yield return new WaitForSeconds(retractTime);
         }
 
@@ -2933,8 +2933,7 @@ namespace DChild.Gameplay.Characters.Enemies
         }
 
         #region NewOrganizefunctionalitits
-        [SerializeField]
-        private KingPusGrappler m_targetedGrappler;
+       
 
 
         /// <summary>
@@ -2974,21 +2973,29 @@ namespace DChild.Gameplay.Characters.Enemies
             Func<bool> SlamNoEnvironmentCheck = () =>
                 !m_groundSensor.isDetecting ;
 
+            m_legCollider.enabled = true;
             yield return SlamToTargetRoutine(target, SlamNoEnvironmentCheck);
 
             m_bodyCollider.size = m_bodyColliderCacheSize;
-            m_legCollider.enabled = true;
         }
 
         private IEnumerator SlamToTargetRoutine(Vector3 target, Func<bool> SlamNoEnvironmentCheck)
         {
             AimAt(target);
+            var toTarget = m_targetInfo.position - (Vector2)m_character.centerMass.position;
+            var hitbuffer = Cast(m_character.centerMass.position, toTarget.normalized, 100, true, out int hitcount,true);
+            if(hitcount == 0)
+            {
+                Debug.LogError("Cast For Slam To Target Cannot Find Environment");
+                yield break;
+            }
+
+            m_targetedGrappler.OverrideIK(hitbuffer[0].point);
             m_targetedGrappler.Extend(m_info.tentacleSpeed);
+            yield return m_graplerHandle.RetractRoutine(m_info.tentacleSpeed);
 
             while (m_targetedGrappler.isExtended == false)
                 yield return null;
-
-            yield return m_graplerHandle.RetractRoutine(m_info.tentacleSpeed);
 
             while (SlamNoEnvironmentCheck())
             {
@@ -3007,6 +3014,7 @@ namespace DChild.Gameplay.Characters.Enemies
             var track = m_animation.SetAnimation(0, m_info.bodySlamEnd, false);
 
             yield return new WaitForSpineAnimationComplete(track);
+            Debug.Log("Ended Slam To Target");
         }
 
         private void LetGoFromWall()
@@ -3019,21 +3027,21 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void FixedUpdate()
         {
-            if (m_willGripWall)
-            {
-                for (int i = 0; i < m_tentacleOverrideBones.Count; i++)
-                {
-                    if (m_tentacleOverrideBones[i].transform.position != m_tentacleOverridePoints[i].position)
-                    {
-                        m_tentacleOverrideBones[i].transform.position = m_tentacleOverridePoints[i].position;
-                    }
-                }
-            }
-            if (m_willGripTarget)
-            {
-                m_tentacleOverrideBones[m_tentacleOverrideBones.Count - 1].transform.position = m_targetPosition.position;
-                //m_animation.SetAnimation(0, DynamicIdleAnimation(), true);
-            }
+            //if (m_willGripWall)
+            //{
+            //    for (int i = 0; i < m_tentacleOverrideBones.Count; i++)
+            //    {
+            //        if (m_tentacleOverrideBones[i].transform.position != m_tentacleOverridePoints[i].position)
+            //        {
+            //            m_tentacleOverrideBones[i].transform.position = m_tentacleOverridePoints[i].position;
+            //        }
+            //    }
+            //}
+            //if (m_willGripTarget)
+            //{
+            //    m_tentacleOverrideBones[m_tentacleOverrideBones.Count - 1].transform.position = m_targetPosition.position;
+            //    m_animation.SetAnimation(0, DynamicIdleAnimation(), true);
+            //}
             if (m_willGripWall || m_willGripTarget)
             {
                 if (!m_groundSensor.isDetecting)

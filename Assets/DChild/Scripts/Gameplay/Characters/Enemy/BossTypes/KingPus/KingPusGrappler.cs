@@ -97,9 +97,9 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             var track = m_animation.SetAnimation(m_animationLayerIndex, m_retractAnimation, false);
             track.TimeScale = speed;
-            m_animation.AddEmptyAnimation(0, 0, 0);
             SetPhysicsActive(false);
             yield return new WaitForSpineAnimationComplete(track);
+            m_animation.SetEmptyAnimation(m_animationLayerIndex, 0);
             m_isExtended = false;
         }
 
