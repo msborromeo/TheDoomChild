@@ -84,7 +84,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public override void Cancel()
         {
-            m_rigidbody.gravityScale = m_cacheGravity;
+            m_rigidbody.gravityScale = m_configuration.defaultGravity;
             m_state.waitForBehaviour = false;
             m_adjustGravity = true;
 
@@ -168,7 +168,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                     if (m_adjustGravity == true)
                     {
-                        m_cacheGravity = m_rigidbody.gravityScale;
+                        //m_cacheGravity = m_rigidbody.gravityScale;
                         m_rigidbody.gravityScale = /*m_aerialGravity*/m_configuration.aerialGravity;
                         m_rigidbody.velocity = /*Vector2.zero*/new Vector2(m_rigidbody.velocity.x * m_configuration.momentumVelocity.x, m_rigidbody.velocity.y * m_configuration.momentumVelocity.y);
                     }
@@ -182,7 +182,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                     if (m_adjustGravity == true)
                     {
-                        m_cacheGravity = m_rigidbody.gravityScale;
+                        //m_cacheGravity = m_rigidbody.gravityScale;
                         m_rigidbody.gravityScale = /*m_aerialGravity*/m_configuration.aerialGravity;
                         m_rigidbody.velocity = /*Vector2.zero*/new Vector2(m_rigidbody.velocity.x * m_configuration.momentumVelocity.x, m_rigidbody.velocity.y * m_configuration.momentumVelocity.y);
                     }
@@ -264,7 +264,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
 
             m_animator.SetBool(m_whipAttackAnimationParameter, false);
-            m_rigidbody.gravityScale = m_cacheGravity;
+            m_rigidbody.gravityScale = m_configuration.defaultGravity;
             m_adjustGravity = false;
         }
 
