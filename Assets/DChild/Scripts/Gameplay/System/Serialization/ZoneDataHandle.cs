@@ -153,7 +153,14 @@ namespace DChild.Serialization
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError($"Serialization Error: {m_cacheComponentSerializer.gameObject.name} \n {e.Message}", m_cacheComponentSerializer);
+                    if(m_cacheComponentSerializer == null)
+                    {
+                        Debug.LogError($"Serialization Error: There is a NULL serializer in Zone Data Handle Component Serializer List");
+                    }
+                    else
+                    {
+                        Debug.LogError($"Serialization Error: {m_cacheComponentSerializer.gameObject.name} \n {e.Message}", m_cacheComponentSerializer);
+                    }
                 }
             }
 
