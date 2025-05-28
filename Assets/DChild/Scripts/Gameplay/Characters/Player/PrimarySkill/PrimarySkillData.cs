@@ -1,6 +1,10 @@
 ﻿using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using DChild.Gameplay.UI;
+
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -22,6 +26,10 @@ namespace DChild.Gameplay.Characters.Players
         private Sprite m_border;
         [SerializeField, PreviewField]
         private Sprite m_icon;
+        [SerializeField]
+        private InputActionReference m_actionReference;
+        [SerializeField]
+        private SetTextToTextBox.InputActionType m_actionType;
 
         public string skillName => m_name;
         public string description => m_description;
@@ -29,6 +37,8 @@ namespace DChild.Gameplay.Characters.Players
         public PrimarySkill skill => m_skill;
         public Sprite border => m_border;
         public Sprite icon => m_icon;
+        public InputActionReference action => m_actionReference;
+        public SetTextToTextBox.InputActionType actionType => m_actionType;
 
 #if UNITY_EDITOR
         private void SkillChanged()
