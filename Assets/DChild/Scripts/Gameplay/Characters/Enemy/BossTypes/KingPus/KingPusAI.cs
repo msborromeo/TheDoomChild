@@ -597,7 +597,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private KingPusGrapplerHandle m_graplerHandle;
         [SerializeField, TabGroup("Sensors")]
         private RaySensor m_groundSensor;
-        
+
         [SerializeField, TabGroup("Sensors")]
         private RaySensor m_leftWallSensor;
         [SerializeField, TabGroup("Sensors")]
@@ -1081,7 +1081,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, rageAnim);
             m_animation.DisableRootMotion();
 
-            
+
             switch (m_phaseHandle.currentPhase)
             {
                 case Phase.PhaseOne:
@@ -1103,7 +1103,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_leftWallSensor.multiRaycast.SetData(m_info.RaySensorsForPhaseTwo);
                     m_rightWallSensor.multiRaycast.SetData(m_info.RaySensorsForPhaseTwo);
                     m_cielingSensor.multiRaycast.SetData(m_info.RaySensorsForPhaseTwo);
-        
+
                     //m_leftWallSensor.multiRaycast.Set(2, 1f, 7);
                     //m_rightWallSensor.multiRaycast.Set(2, 1f, 7);
                     //m_cielingSensor.multiRaycast.Set(2, 1f, 7);
@@ -1791,7 +1791,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_character.physics.simulateGravity = true;
 
             m_grappleRetractCoroutine = StartCoroutine(GrappleRetractRoutine(4));
-            m_character.physics.SetVelocity(0,0);
+            m_character.physics.SetVelocity(0, 0);
             enabled = false;
 
             m_animation.SetAnimation(0, m_info.bodySlamStart, false);
@@ -1992,7 +1992,6 @@ namespace DChild.Gameplay.Characters.Enemies
                     case true:
                         yield return new WaitUntil(() => !m_willStickToWall);
                         m_bodyCollider.size = m_bodyColliderCacheSize;
-                        
                         m_legCollider.enabled = true;
                         break;
                     case false:
@@ -2202,7 +2201,7 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 m_animation.SetAnimation(i + 20, m_info.wallGrappleExtendAnimations[i], false).TimeScale = m_info.tentacleSpeed;
             }
-            
+
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.wallGrappleExtendAnimations[0]);
             for (int i = 0; i < tentaclesCount; i++)
             {
@@ -2718,7 +2717,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                 }
                             }
                         }
-                        
+
                         break;
                     case Phase.PhaseThree:
                         {
@@ -2759,7 +2758,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                     }
                                 }
                             }
-                            
+
 
                             if (m_hitbox.canBlockDamage)
                             {
@@ -2932,9 +2931,92 @@ namespace DChild.Gameplay.Characters.Enemies
             float atan2 = Mathf.Atan2(v_diff.y, v_diff.x);
             m_targetLooker.rotation = Quaternion.Euler(0f, 0f, atan2 * Mathf.Rad2Deg);
         }
-        #region NewOrganizefunctionalitits
 
+        #region NewOrganizefunctionalitits
+        [SerializeField]
+        private KingPusGrappler m_targetedGrappler;
+
+
+        /// <summary>
+        /// Grappler IK Should be Overridden Already Before This is Called; And Is Grappling Midair
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator SlamToWallFromMidAirRoutine()
+        {
+            m_rb2d.isKinematic = true;
+            m_rb2d.useFullKinematicContacts = true;
+            m_legCollider.enabled = false;
+
+            var grapplers = m_graplerHandle.GetGrapplers();
+            var target = grapplers[UnityEngine.Random.Range(0, grapplers.Length)].transform.position;
+            //Might Cause Overheads
+            Func<bool> SlamNoEnvironmentCheck = () =>
+                 !m_groundSensor.isDetecting && !m_cielingSensor.isDetecting && !m_rightWallSensor.isDetecting && !m_leftWallSensor.isDetecting;
+
+            yield return SlamToTargetRoutine(target, SlamNoEnvironmentCheck);
+
+            m_rb2d.isKinematic = false;
+            m_rb2d.useFullKinematicContacts = false;
+
+            m_character.physics.simulateGravity = true;
+        }
+
+        /// <summary>
+        /// Grappler IK Should be Overridden Already Before This is Called; And Is Grappling Midair
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator SlamToPlayerFromMidairRoutine()
+        {
+            m_legCollider.enabled = false;
+
+            var target = new Vector3(m_targetInfo.position.x, GroundPosition(m_targetInfo.position).y);
+            //Might Cause Overheads
+            Func<bool> SlamNoEnvironmentCheck = () =>
+                !m_groundSensor.isDetecting ;
+
+            yield return SlamToTargetRoutine(target, SlamNoEnvironmentCheck);
+
+            m_bodyCollider.size = m_bodyColliderCacheSize;
+            m_legCollider.enabled = true;
+        }
+
+        private IEnumerator SlamToTargetRoutine(Vector3 target, Func<bool> SlamNoEnvironmentCheck)
+        {
+            AimAt(target);
+            m_targetedGrappler.Extend(m_info.tentacleSpeed);
+
+            while (m_targetedGrappler.isExtended == false)
+                yield return null;
+
+            yield return m_graplerHandle.RetractRoutine(m_info.tentacleSpeed);
+
+            while (SlamNoEnvironmentCheck())
+            {
+                m_character.physics.SetVelocity(m_targetLooker.right * m_info.toTargetRetractSpeed);
+                yield return null;
+            }
+
+            m_targetPosition.position = Vector2.zero;
+            m_targetedGrappler.Retract(m_info.tentacleSpeed);
+
+            //LetGoFromWall();
+
+            m_character.physics.SetVelocity(0, 0);
+            m_bodySlamFX.Play();
+            m_movement.Stop();
+            var track = m_animation.SetAnimation(0, m_info.bodySlamEnd, false);
+
+            yield return new WaitForSpineAnimationComplete(track);
+        }
+
+        private void LetGoFromWall()
+        {
+            //Wait Until stickToWall Is False
+            m_bodyCollider.size = m_bodyColliderCacheSize;
+            m_legCollider.enabled = true;
+        }
         #endregion
+
         private void FixedUpdate()
         {
             if (m_willGripWall)
@@ -3055,7 +3137,7 @@ namespace DChild.Gameplay.Characters.Enemies
                             //m_pickedCooldown = m_currentFullCooldown[0];
                             StartCoroutine(WreckingBallRoutine(m_slamCount));
                             //m_pickedCooldown = m_currentFullCooldown[0];
-                            break;                     
+                            break;
                             //default: //for testing
                             //    m_currentAttackCoroutine = null;
                             //    m_pickedCooldown = m_currentFullCooldown[0];
@@ -3082,34 +3164,34 @@ namespace DChild.Gameplay.Characters.Enemies
                 //    break;
 
                 //case State.Chasing:
-                    //if (!m_hitbox.canBlockDamage)
-                    //{
-                    //    if (m_character.facing != HorizontalDirection.Right)
-                    //        CustomTurn();
-                    //    if (IsTargetInRange(m_shortRangeAttackDistance))
-                    //    {
-                    //        SetCurrentAttackCache(m_shortRangedAttackCache);
-                    //        SetCurrentAttackRangeCache(m_shortRangedAttackRangeCache);
-                    //    }
-                    //    else
-                    //    {
-                    //        if (IsTargetInRange(m_shortRangeAttackDistance))
-                    //        {
-                    //            SetCurrentAttackCache(m_shortRangedAttackCache);
-                    //            SetCurrentAttackRangeCache(m_shortRangedAttackRangeCache);
-                    //        }
-                    //        else
-                    //        {
-                    //            SetCurrentAttackCache(m_longRangedAttackCache);
-                    //            SetCurrentAttackRangeCache(m_longRangedAttackRangeCache);
-                    //        }
-                    //    }
+                //if (!m_hitbox.canBlockDamage)
+                //{
+                //    if (m_character.facing != HorizontalDirection.Right)
+                //        CustomTurn();
+                //    if (IsTargetInRange(m_shortRangeAttackDistance))
+                //    {
+                //        SetCurrentAttackCache(m_shortRangedAttackCache);
+                //        SetCurrentAttackRangeCache(m_shortRangedAttackRangeCache);
+                //    }
+                //    else
+                //    {
+                //        if (IsTargetInRange(m_shortRangeAttackDistance))
+                //        {
+                //            SetCurrentAttackCache(m_shortRangedAttackCache);
+                //            SetCurrentAttackRangeCache(m_shortRangedAttackRangeCache);
+                //        }
+                //        else
+                //        {
+                //            SetCurrentAttackCache(m_longRangedAttackCache);
+                //            SetCurrentAttackRangeCache(m_longRangedAttackRangeCache);
+                //        }
+                //    }
 
-                    //    ChooseAttack();
-                    //    m_animation.SetEmptyAnimation(0, 0);
-                    //    m_stateHandle.SetState(State.Attacking);
-                    //}
-                    //break;
+                //    ChooseAttack();
+                //    m_animation.SetEmptyAnimation(0, 0);
+                //    m_stateHandle.SetState(State.Attacking);
+                //}
+                //break;
 
                 case State.ReevaluateSituation:
                     if (m_targetInfo.isValid)
