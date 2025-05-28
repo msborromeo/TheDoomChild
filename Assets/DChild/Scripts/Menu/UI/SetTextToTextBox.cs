@@ -11,7 +11,7 @@ namespace DChild.Gameplay.UI
 {
     public class SetTextToTextBox : MonoBehaviour
     {
-        private enum InputActionType
+        public enum InputActionType
         {
             NoneComposite,
             Directional,
@@ -62,7 +62,7 @@ namespace DChild.Gameplay.UI
         [SerializeField]
         private PlayerControls m_playerControls;
         [SerializeField]
-        private InputActionReference m_inputaction;
+        private InputActionReference m_inputAction;
         InputAction m_action;
 
         [SerializeField]
@@ -81,7 +81,7 @@ namespace DChild.Gameplay.UI
 
         public void SetInputAction(InputActionReference reference)
         {
-            m_inputaction = reference;
+            m_inputAction = reference;
         }
 
         public void OnActiveControllerChanged(string controlScheme)
@@ -124,12 +124,9 @@ namespace DChild.Gameplay.UI
             if ((int)m_deviceType > m_spriteButtonList.tmpSpriteList.Count - 1)
             {
                 return;
-            }
+            }      
 
-
-            
-
-            if (m_inputaction.action.bindings.Count > (int)CurrentDeviceType._COUNT)
+            if (m_inputAction.action.bindings.Count > (int)CurrentDeviceType._COUNT)
             {
 
                 switch (m_actionType)
@@ -144,23 +141,35 @@ namespace DChild.Gameplay.UI
                         SetTextToDirectionalPrompts();
                         break;
                     case InputActionType.NoneComposite:
-                        m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
+                        m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputAction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
                         break;
                 }
             }
             else
             {
-                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputaction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
+                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputAction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
+        }
 
+        //intended to be used in UI Managers that have dynamic text through data like Primary Skills
+        public void SetText(string text, InputActionReference action, InputActionType actionType)
+        {
+            m_message = text;
+            m_inputAction = action;
+            m_actionType = actionType;
+            SetText();
+        }
 
-
-            //m_textbox.text = FillInTextWithButtonSprite.ReplaceBindings(m_message, m_deviceType,m_inputManager, m_spriteButtonList);
+        //intended to be used on text localized
+        public void SetText(string localizedText)
+        {
+            m_message = localizedText;
+            SetText();
         }
 
         private void PopulateCurrentBinding()
         {
-            var inputBinding = m_inputaction.action.bindings;
+            var inputBinding = m_inputAction.action.bindings;
 
             // Optimize this later
             //puts ALL bindings in one list called currendBinding

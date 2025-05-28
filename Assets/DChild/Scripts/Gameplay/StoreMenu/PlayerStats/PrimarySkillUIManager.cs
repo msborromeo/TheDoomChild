@@ -16,6 +16,10 @@ namespace DChild.Gameplay.UI.PrimarySkills
         private TextMeshProUGUI m_controlsLabel;
         [SerializeField]
         private TextMeshProUGUI m_skillNameLabel;
+        [SerializeField]
+        private SetTextToTextBox m_skillDescriptionSetTextToTextBox;
+        [SerializeField]
+        private PrimarySkillUILocalizer m_primarySkillUILocalizer;
 
         public event Action<PrimarySkillData> localizePrimarySkill;
 
@@ -26,7 +30,7 @@ namespace DChild.Gameplay.UI.PrimarySkills
 
         public void Select(PrimarySkillSelectable selectable)
         {
-            if(localizePrimarySkill != null)
+            if (localizePrimarySkill != null)
             {
                 localizePrimarySkill?.Invoke(selectable.reference);
                 return;
@@ -34,12 +38,23 @@ namespace DChild.Gameplay.UI.PrimarySkills
             m_descriptionLabel.text = selectable.reference.description;
             m_controlsLabel.text = selectable.reference.instruction;
             m_skillNameLabel.text = selectable.reference.skillName;
+            m_skillDescriptionSetTextToTextBox.SetText(selectable.reference.instruction, selectable.reference.action, selectable.reference.actionType);
+        }
+
+        private void OnPrimarySkillInstructionsLocalized()
+        {
+            m_skillDescriptionSetTextToTextBox?.SetText(m_controlsLabel.text);
         }
 
         private void Start()
         {
             m_skillList.InitializeList();
+            m_primarySkillUILocalizer.PrimarySkillInstructionsLocalized += OnPrimarySkillInstructionsLocalized;
         }
 
+        private void OnDestroy()
+        {
+            m_primarySkillUILocalizer.PrimarySkillInstructionsLocalized -= OnPrimarySkillInstructionsLocalized;
+        }
     }
 }
