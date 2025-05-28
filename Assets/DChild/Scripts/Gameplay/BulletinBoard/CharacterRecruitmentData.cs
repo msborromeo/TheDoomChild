@@ -10,12 +10,13 @@ namespace DChild.Gameplay.ArmyBattle.UI.BulletinBoard
     {
         [SerializeField] private ArmyCharacterData m_characterData;
         public ArmyCharacterData characterData => m_characterData;
+               
+        [SerializeField, TabGroup("Main", "Requirements")]
+        private int m_recruitmentCost;
+        public int recruitmentCost => m_recruitmentCost;
+
 
         [SerializeField, TabGroup("Main", "Requirements")]
-        private bool m_isFree;
-        public bool isFree => m_isFree;
-
-        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
         private bool m_requiresSoulEssence;
         public bool requiresSoulEssence => m_requiresSoulEssence;
 
@@ -25,7 +26,7 @@ namespace DChild.Gameplay.ArmyBattle.UI.BulletinBoard
         public int requiredSoulEssence => m_requiredSoulEssence;
 
 
-        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
+        [SerializeField, TabGroup("Main", "Requirements")]
         private bool m_requiresItem;
         public bool requiresItem => m_requiresItem;
 
@@ -38,7 +39,7 @@ namespace DChild.Gameplay.ArmyBattle.UI.BulletinBoard
         private int m_ItemAmount;
         public int itemAmount => m_ItemAmount;
 
-        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
+        [SerializeField, TabGroup("Main", "Requirements")]
         private bool m_requiresCombatArt;
         public bool requiresCombatArt => m_requiresCombatArt;
 
@@ -48,7 +49,7 @@ namespace DChild.Gameplay.ArmyBattle.UI.BulletinBoard
         public CombatArt combatArt => m_CombatArt;
 
 
-        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
+        [SerializeField, TabGroup("Main", "Requirements")]
         private bool m_requiresPrimarySkill;
         public bool requiresPrimarySkill => m_requiresPrimarySkill;
 
@@ -57,7 +58,7 @@ namespace DChild.Gameplay.ArmyBattle.UI.BulletinBoard
         private PrimarySkill m_PrimarySkill;
         public PrimarySkill primarySkill => m_PrimarySkill;
 
-        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
+        [SerializeField, TabGroup("Main", "Requirements")]
         private bool m_requiresCharacter;
         public bool requiresCharacter => m_requiresCharacter;
 
@@ -66,7 +67,7 @@ namespace DChild.Gameplay.ArmyBattle.UI.BulletinBoard
         private ArmyCharacterData m_requiredCharacter;
         public ArmyCharacterData requiredCharacter => m_requiredCharacter;
 
-        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
+        [SerializeField, TabGroup("Main", "Requirements")]
         private bool m_requiresNPCCount;
         public bool requiresNPCCount => m_requiresNPCCount;
 
