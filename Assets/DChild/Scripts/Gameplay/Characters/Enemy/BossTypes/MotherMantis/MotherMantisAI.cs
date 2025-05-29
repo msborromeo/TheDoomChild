@@ -1143,7 +1143,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
             float m_followElapsedTime = 0f;
             float m_followDuration = 2f;
-            while (Vector2.Distance(transform.position, m_targetInfo.position) > 50f && m_followElapsedTime < m_followDuration)
+            while (Vector2.Distance(transform.position, m_targetInfo.position) > 30f && m_followElapsedTime < m_followDuration)
             {
                 m_animation.SetAnimation(0, m_info.move, true);
                 Vector2 direction = new Vector2(m_targetInfo.position.x - transform.position.x, 0f).normalized;
@@ -1194,7 +1194,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.ReevaluateSituation);
             var m_followElapsedTime = 0f;
             var m_followDuration = 1.5f;
-            while (Vector2.Distance(transform.position, m_targetInfo.position) > 50f && m_followElapsedTime < m_followDuration)
+            while (Vector2.Distance(transform.position, m_targetInfo.position) > 30f && m_followElapsedTime < m_followDuration)
             {
                 m_animation.SetAnimation(0, m_info.move, true);
                 Vector2 direction = new Vector2(m_targetInfo.position.x - transform.position.x, 0f).normalized;
@@ -1247,7 +1247,7 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             var m_followElapsedTime = 0f;
             var m_followDuration = 1.5f;
-            while (Vector2.Distance(transform.position, m_targetInfo.position) > 50f && m_followElapsedTime < m_followDuration)
+            while (Vector2.Distance(transform.position, m_targetInfo.position) > 30f && m_followElapsedTime < m_followDuration)
             {
                 m_animation.SetAnimation(0, m_info.moveLowHP, true);
                 Vector2 direction = new Vector2(m_targetInfo.position.x - transform.position.x, 0f).normalized;
@@ -1329,14 +1329,14 @@ namespace DChild.Gameplay.Characters.Enemies
             switch (m_phaseHandle.currentPhase)
             {
                 case Phase.PhaseOne:
-                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase1Pattern1, m_info.phase1Pattern1Range));
+                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase3Pattern1, m_info.phase1Pattern1Range));
                     break;
-                case Phase.PhaseTwo:
+                /*case Phase.PhaseTwo:
                     m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase2Pattern1, m_info.phase2Pattern1Range));
                     break;
                 case Phase.PhaseThree:
                     m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase3Pattern1, m_info.phase3Pattern1Range));
-                    break;
+                    break;*/
             }
             DecidedOnAttack(false);
         }
