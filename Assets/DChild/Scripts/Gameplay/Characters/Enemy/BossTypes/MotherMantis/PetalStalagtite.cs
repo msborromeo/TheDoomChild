@@ -109,7 +109,7 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField, TabGroup("Reference")]
         private Hitbox m_hitbox;
         [SerializeField, TabGroup("Reference")]
-        private Collider2D m_collider;
+        private Collider2D[] m_collider;
         [SerializeField, TabGroup("Reference")]
         private Damageable m_damageable;
         public GameObject m_motherMantisAI;
@@ -126,18 +126,17 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_targetInfo = target;
         }
-        private void OnDestroy()
+        protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
         {
             StopAllCoroutines();
             //m_motherMantisAI.OnPetalRain -= OnPetalRain;
+            m_checker = true;
             StartCoroutine(DeathFxRoutine());
         }
         private IEnumerator SproutRoutine()
         {
             m_checker = false;
             m_stateHandle.Wait(State.Idle);
-            m_hitbox.SetInvulnerability(Invulnerability.MAX);
-            m_collider.enabled = false;
             m_disturbedGrass.Play();
             Growing?.Invoke(this, EventActionArgs.Empty);
             m_animation.SetAnimation(0, m_info.sproutAnimation, false);
@@ -152,19 +151,23 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.Idle);
             var growAnim = m_animation.SetEmptyAnimation(0, 0);
             var random = UnityEngine.Random.RandomRange(0, 3);
+            var collider = m_collider[0];
             switch (random)
             {
                 case 0:
                     growAnim = m_animation.SetAnimation(0, m_info.growAnimation0, false);
                     idleAnim = m_info.idleAnimation0;
+                    collider = m_collider[0];
                     break;
                 case 1:
                     growAnim = m_animation.SetAnimation(0, m_info.growAnimation2, false);
                     idleAnim = m_info.idleAnimation2;
+                    collider = m_collider[1];
                     break;
                 case 2:
                     growAnim = m_animation.SetAnimation(0, m_info.growAnimation3, false);
                     idleAnim = m_info.idleAnimation3;
+                    collider = m_collider[2];
                     break;/*
                 case 3:
                     growAnim = m_animation.SetAnimation(0, m_info.growAnimation3, false);
@@ -172,7 +175,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;*/
             }
             yield return new WaitForSeconds(1f);
-            m_collider.enabled = true;
+            collider.enabled = true;
             yield return new WaitForSeconds(1f);
             //m_animation.SetAnimation(1, idleAnim, true);
             m_hitbox.SetInvulnerability(Invulnerability.None);
@@ -194,7 +197,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator DeathFxRoutine()
         {
             m_animation.SetAnimation(0, m_info.deathAnimation, false);
-            m_collider.enabled = false;
+            foreach (var collider in m_collider)
+                collider.enabled = false;
             m_hitbox.enabled = false;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathAnimation);
             //m_isPetalRain = true;
@@ -208,7 +212,8 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             yield return new WaitForSeconds(delayBeforeWilt);
             var wilt = m_animation.SetAnimation(1, m_info.wiltAnimation, false);
-            m_collider.enabled = false;
+            foreach (var collider in m_collider)
+                collider.enabled = false;
             m_hitbox.enabled = false;
             m_animation.AddAnimation(1, idleAnim, true, 0);
             yield return new WaitForSeconds(0.3f);
@@ -223,7 +228,11 @@ namespace DChild.Gameplay.Characters.Enemies
             //m_motherMantisAI = GameObject.Find("MotherMantis");
             m_motherMantisAI.GetComponent<MotherMantisAI>().OnMantisLand += OnMantisLand;
             m_motherMantisAI.GetComponent<MotherMantisAI>().OnPetalRain += OnPetalRain;
+            m_damageable.health.AddCurrentValue(m_damageable.health.maxValue);
             var sizeMult = UnityEngine.Random.Range(119, 120) * .01f;
+            m_hitbox.SetInvulnerability(Invulnerability.MAX);
+            foreach (var collider in m_collider)
+                collider.enabled = false;
             transform.localScale = new Vector2(transform.localScale.x * sizeMult, transform.localScale.y * sizeMult);
             m_stateHandle = new StateHandle<State>(State.Sprout, State.WaitBehaviourEnd);
 
@@ -238,10 +247,6 @@ namespace DChild.Gameplay.Characters.Enemies
         private void OnPetalRain(object sender, EventActionArgs eventActionArgs )
         {
             m_isPetalRain = false;
-        }
-        private void OnDestroyed(object sender, EventActionArgs eventActionArgs )
-        {
-            m_checker = true;
         }
         /*public void CallGrowthRoutine()
         {
