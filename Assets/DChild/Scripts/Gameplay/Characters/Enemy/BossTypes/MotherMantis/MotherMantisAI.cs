@@ -992,6 +992,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForSeconds(0.6f);
             m_landFX.Play();
             OnMantisLand?.Invoke(this, EventActionArgs.Empty);
+            m_hitbox.SetInvulnerability(Invulnerability.None);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landingAnimation.animation);
             if (!IsFacingTarget())
                 CustomTurn();
@@ -1048,6 +1049,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForSeconds(0.6f);
             m_landFX.Play();
             OnMantisLand?.Invoke(this, EventActionArgs.Empty);
+            m_hitbox.SetInvulnerability(Invulnerability.None);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landingAnimation.animation);
             m_targetInfo.GetTargetDamagable().DamageTaken += PlayerHit;
             if (!IsFacingTarget())
@@ -1157,6 +1159,7 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             if (Vector2.Distance(transform.position, m_targetInfo.position) < 20f)
             {
+                if (!IsFacingTarget()) { CustomTurn(); }
                 yield return ClawRoutine();
             }
             else
@@ -1167,6 +1170,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     yield return JumpAttack1Routine();
                     if (m_isPlayerDamaged)
                     {
+                        if (!IsFacingTarget()) { CustomTurn(); }
                         yield return ClawRoutine();
                     }
                 }
