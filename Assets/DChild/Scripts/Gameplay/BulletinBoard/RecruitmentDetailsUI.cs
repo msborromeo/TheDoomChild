@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using DChild.Gameplay.Characters.Players;
+using System.Linq;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 
@@ -24,17 +26,17 @@ namespace DChild.Gameplay.ArmyBattle.UI.BulletinBoard
                 (_, true, _, _, _, _, _,_) => character.requiredItems.Any(item => item.itemName.Contains("heal"))
                     ? "Healing Potions" 
                     : character.requiredItems[0].itemName,
-                (_, _, true, _, _, _, _,_) => character.combatArt.ToString(),
-                (_, _, _, true, _, _, _, _) => character.primarySkill.ToString(),
-                (_, _, _, _, true, _, _, _) => $"{character.requiredNPCCount} characters",
-                (_, _, _, _, _, true, _, _) => $"{character.requiredSoulEssence} soul essence",
-                (_, _, _, _, _, _, true, _) => $"{character.defeatedBoss} soul essence",
-                (_, _, _, _, _, _, _, true) => $"{character.battlesWon} army battles",
+                (_, _, true, _, _, _, _,_) => character.combatArt.connectedCombatArt != CombatArt.Barrier ? $"{character.combatArt.combatArtName}" : "Barrier II",
+                (_, _, _, true, _, _, _, _) => Regex.Replace($"{character.primarySkill}", "([A-Z])([a-z]*)", " $1$2"),
+                (_, _, _, _, true, _, _, _) => $"Recruited {character.requiredNPCCount} characters.",
+                (_, _, _, _, _, true, _, _) => $"{character.requiredSoulEssence} Soul Essence",
+                (_, _, _, _, _, _, true, _) => $"Defeated Boss: {character.defeatedBoss.creatureName}",
+                (_, _, _, _, _, _, _, true) => $"Win {character.battlesWon} army battles.",
                 _ => "N/A"
             };
 
             m_conditions.text = requirement;
-            m_recruitmentFee.text = $"{character.requiredSoulEssence}";
+            m_recruitmentFee.text = $"{character.recruitmentCost}";
         }
 
     }
