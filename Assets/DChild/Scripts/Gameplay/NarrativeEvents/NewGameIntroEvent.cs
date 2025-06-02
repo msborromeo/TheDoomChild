@@ -1,20 +1,14 @@
 ﻿using Cinemachine;
-using DChild.Gameplay.Cinematics;
 using DChild.Gameplay.Systems;
 using DChild.Serialization;
-using DChild.Temp;
 using Doozy.Runtime.UIManager.Containers;
 using PixelCrushers.DialogueSystem;
 using Spine.Unity;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.Playables;
-using UnityEngine.Video;
 
 namespace DChild.Gameplay.Narrative
 {
