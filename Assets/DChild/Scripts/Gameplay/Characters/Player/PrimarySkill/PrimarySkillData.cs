@@ -26,10 +26,17 @@ namespace DChild.Gameplay.Characters.Players
         private Sprite m_border;
         [SerializeField, PreviewField]
         private Sprite m_icon;
+        [SerializeField, MinValue(1), MaxValue(4)]
+        private int m_numberOfActions = 1;
+
         [SerializeField]
-        private InputActionReference m_actionReference;
-        [SerializeField]
-        private SetTextToTextBox.InputActionType m_actionType;
+        private InputActionConfiguration m_actionConfiguration1;
+        [SerializeField, ShowIf("@m_numberOfActions > 1")]
+        private InputActionConfiguration m_actionConfiguration2;
+        [SerializeField, ShowIf("@m_numberOfActions > 2")]
+        private InputActionConfiguration m_actionConfiguration3;
+        [SerializeField, ShowIf("@m_numberOfActions > 3")]
+        private InputActionConfiguration m_actionConfiguration4;
 
         public string skillName => m_name;
         public string description => m_description;
@@ -37,9 +44,11 @@ namespace DChild.Gameplay.Characters.Players
         public PrimarySkill skill => m_skill;
         public Sprite border => m_border;
         public Sprite icon => m_icon;
-        public InputActionReference action => m_actionReference;
-        public SetTextToTextBox.InputActionType actionType => m_actionType;
-
+        public int numberOfActions => m_numberOfActions;
+        public InputActionConfiguration action => m_actionConfiguration1;
+        public InputActionConfiguration action2 => m_actionConfiguration2;
+        public InputActionConfiguration action3 => m_actionConfiguration3;
+        public InputActionConfiguration action4 => m_actionConfiguration4;
 #if UNITY_EDITOR
         private void SkillChanged()
         {
