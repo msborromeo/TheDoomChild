@@ -11,6 +11,8 @@ namespace DChild.Gameplay.ArmyBattle.UI.BulletinBoard
 
         [SerializeField] private CharacterDetailsUI m_characterUI;
         [SerializeField] private RecruitmentDetailsUI m_recruitmentUI;
+        [SerializeField] private CharacterGiver m_systemRecruiter;
+
 
         private CharacterRecruitmentData m_character;
         public CharacterRecruitmentData character => m_character;
@@ -23,14 +25,22 @@ namespace DChild.Gameplay.ArmyBattle.UI.BulletinBoard
         [Button]
         public void Display(CharacterRecruitmentData value)
         {
+            if (value == null)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
             m_character = value;
             m_characterUI.Display(m_character);
             m_recruitmentUI.Display(m_character);
+            gameObject.SetActive(true);
+
         }
 
-        public void RecruitUnit()
+        public void RecruitCharacter()
         {
-            //m_characterReward..RecruitCharacter(m_character);
+            m_systemRecruiter.RecruitCharacter(m_character.characterData);
         }
 
         private void Awake()
