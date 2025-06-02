@@ -11,65 +11,31 @@ namespace DChild.Gameplay.UI
 {
     public class SetTextToTextBox : MonoBehaviour
     {
-        public enum InputActionType
-        {
-            NoneComposite,
-            Directional,
-            Cycle,
-            Modifier,
-            _Count
-        }
-
-        private enum DirectionActionPart
-        {
-            Up,
-            Down,
-            Left,
-            Right,
-            _Count
-        }
-
-        private enum CycleActionPart
-        {
-            Negative,
-            Positive,
-            _Count
-        }
-
         [TextArea(2, 5)]
         [SerializeField]
         private string m_message;
-
-        [SerializeField]
-        private InputActionType m_actionType;
 
         [SerializeField]
         private SpriteButtonIconListObject m_spriteButtonList;
         [SerializeField]
         private CurrentDeviceType m_deviceType;
 
-        //Directional
-        [SerializeField, ShowIf("@m_actionType == InputActionType.Directional")]
-        private DirectionActionPart m_directionPart;
-
-        //Cycle
-        [SerializeField, ShowIf("@m_actionType == InputActionType.Cycle")]
-        private CycleActionPart m_cycleActionPart;
-
         [SerializeField]
         private InputManager m_inputManager;
 
         [SerializeField]
         private PlayerControls m_playerControls;
-        [SerializeField]
-        private InputActionReference m_inputAction;
         InputAction m_action;
 
         [SerializeField]
         private float m_promptFontSize = 7;
 
         private List<InputBinding> currentBinding = new List<InputBinding>();
+        private List<InputBinding> currentBinding2 = new List<InputBinding>();
+        private List<InputBinding> currentBinding3 = new List<InputBinding>();
         private List<InputBinding> m_activeDeviceBinding = new List<InputBinding>();
+        private List<InputBinding> m_activeDeviceBinding2 = new List<InputBinding>();
+        private List<InputBinding> m_activeDeviceBinding3 = new List<InputBinding>();
 
         private TMP_Text m_textbox;
 
@@ -79,10 +45,17 @@ namespace DChild.Gameplay.UI
         private List<InputBinding> gamepadList = new List<InputBinding>();
         private List<InputBinding> psList = new List<InputBinding>();
 
-        public void SetInputAction(InputActionReference reference)
-        {
-            m_inputAction = reference;
-        }
+        [SerializeField, MinValue(1), MaxValue(4)]
+        private int m_numberOfActions = 1;
+
+        [SerializeField]
+        private InputActionConfiguration m_actionConfiguration1;
+        [SerializeField, ShowIf("@m_numberOfActions > 1")]
+        private InputActionConfiguration m_actionConfiguration2;
+        [SerializeField, ShowIf("@m_numberOfActions > 2")]
+        private InputActionConfiguration m_actionConfiguration3;
+        [SerializeField, ShowIf("@m_numberOfActions > 3")]
+        private InputActionConfiguration m_actionConfiguration4;
 
         public void OnActiveControllerChanged(string controlScheme)
         {
@@ -117,48 +90,98 @@ namespace DChild.Gameplay.UI
         [Button]
         public void SetText()
         {
-            //if((int)m_deviceType > m_spriteButtonList.tmpSpriteList.Count - 1)
-            //{
-            //    return;
-            //}
             if ((int)m_deviceType > m_spriteButtonList.tmpSpriteList.Count - 1)
             {
                 return;
-            }      
-
-            if (m_inputAction.action.bindings.Count > (int)CurrentDeviceType._COUNT)
-            {
-
-                switch (m_actionType)
-                {
-                    case InputActionType.Cycle:
-                        SetTextToCyclePrompts();
-                        break;
-                    case InputActionType.Modifier:
-                        SetTextToModifierPrompts();
-                        break;
-                    case InputActionType.Directional:
-                        SetTextToDirectionalPrompts();
-                        break;
-                    case InputActionType.NoneComposite:
-                        m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputAction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
-                        break;
-                }
             }
-            else
+
+            switch (m_numberOfActions)
             {
-                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_inputAction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
+                case 1:
+                    {
+                        var case1Action = GetInputBinding(m_actionConfiguration1);
+                        m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message,
+                            case1Action, 
+                            m_spriteButtonList.tmpSpriteList[(int)m_deviceType], 
+                            m_promptFontSize);
+                    }
+                    break;
+                case 2:
+                    var case2Action1 = GetInputBinding(m_actionConfiguration1);
+                    var case2Action2 = GetInputBinding(m_actionConfiguration2);
+                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message,
+                        case2Action1,
+                        case2Action2,
+                        m_spriteButtonList.tmpSpriteList[(int)m_deviceType],
+                        m_promptFontSize);
+                    break;
+                case 3:
+                    var case3Action1 = GetInputBinding(m_actionConfiguration1);
+                    var case3Action2 = GetInputBinding(m_actionConfiguration2);
+                    var case3Action3 = GetInputBinding(m_actionConfiguration3);
+                    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message,
+                        case3Action1,
+                        case3Action2,
+                        case3Action3,
+                        m_spriteButtonList.tmpSpriteList[(int)m_deviceType],
+                        m_promptFontSize);
+                    break;
+                case 4:
+                    break;
             }
+
+            //if(m_numberOfActions > 1)
+            //{
+
+            //}
+            //else
+            //{
+            //    if(m_actionConfiguration1.inputAction.action.bindings.Count > (int)CurrentDeviceType._COUNT)
+            //    {
+            //        switch (m_actionConfiguration1.actionType)
+            //        {
+            //            case InputActionConfiguration.InputActionType.Cycle:
+            //                SetTextToCyclePrompts();
+            //                break;
+            //            case InputActionConfiguration.InputActionType.Modifier:
+            //                SetTextToModifierPrompts();
+            //                break;
+            //            case InputActionConfiguration.InputActionType.Directional:
+            //                SetTextToDirectionalPrompts();
+            //                break;
+            //            case InputActionConfiguration.InputActionType.NoneComposite:
+            //                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_actionConfiguration1.inputAction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
+            //                break;
+            //        }
+            //    }
+            //}
+
+            //if (m_actionConfiguration1.inputAction.action.bindings.Count > (int)CurrentDeviceType._COUNT)
+            //{
+
+            //    switch (m_actionConfiguration1.actionType)
+            //    {
+            //        case InputActionConfiguration.InputActionType.Cycle:
+            //            SetTextToCyclePrompts();
+            //            break;
+            //        case InputActionConfiguration.InputActionType.Modifier:
+            //            SetTextToModifierPrompts();
+            //            break;
+            //        case InputActionConfiguration.InputActionType.Directional:
+            //            SetTextToDirectionalPrompts();
+            //            break;
+            //        case InputActionConfiguration.InputActionType.NoneComposite:
+            //           m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_actionConfiguration1.inputAction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
+            //            break;
+            //    }
+            //}
+            //else
+            //{
+            //    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_actionConfiguration1.inputAction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
+            //}
         }
 
         //intended to be used in UI Managers that have dynamic text through data like Primary Skills
-        public void SetText(string text, InputActionReference action, InputActionType actionType)
-        {
-            m_message = text;
-            m_inputAction = action;
-            m_actionType = actionType;
-            SetText();
-        }
 
         //intended to be used on text localized
         public void SetText(string localizedText)
@@ -166,10 +189,96 @@ namespace DChild.Gameplay.UI
             m_message = localizedText;
             SetText();
         }
+        public void SetText(string text, InputActionConfiguration configuration1)
+        {
+            m_message = text;
+            m_actionConfiguration1 = configuration1;
+            SetText();
+        }
+
+        public void SetText(string text, InputActionConfiguration configuration1,  InputActionConfiguration configuration2)
+        {
+            m_message = text;
+            m_numberOfActions = 2;
+            m_actionConfiguration1 = configuration1;
+            m_actionConfiguration2 = configuration2;
+            SetText();
+        }
+
+        public void SetText(string text, InputActionConfiguration configuration1, InputActionConfiguration configuration2, InputActionConfiguration configuration3)
+        {
+            m_message = text;
+            m_numberOfActions = 3;
+            m_actionConfiguration1 = configuration1;
+            m_actionConfiguration2 = configuration2;
+            m_actionConfiguration3 = configuration3;
+            SetText();
+        }
+
+        private InputBinding GetInputBinding(InputActionConfiguration configuration)
+        {
+            InputBinding inputBinding = configuration.inputAction.action.bindings[0]; //default
+            switch(configuration.actionType)
+            {
+                case InputActionConfiguration.InputActionType.Directional:
+                    {
+                        switch(configuration.directionPart)
+                        {
+                            case InputActionConfiguration.DirectionActionPart.Up:
+                                {
+                                    inputBinding = configuration.inputAction.action.bindings[0];
+                                }
+                                break;
+                            case InputActionConfiguration.DirectionActionPart.Down:
+                                {
+                                    inputBinding = configuration.inputAction.action.bindings[1];
+                                }
+                                break;
+                            case InputActionConfiguration.DirectionActionPart.Left:
+                                {
+                                    inputBinding = configuration.inputAction.action.bindings[2];
+                                }
+                                break;
+                            case InputActionConfiguration.DirectionActionPart.Right:
+                                {
+                                    inputBinding = configuration.inputAction.action.bindings[3];
+                                }
+                                break;
+                        }
+                    }
+                    break;
+                case InputActionConfiguration.InputActionType.Cycle:
+                    switch (configuration.cycleActionPart)
+                    {
+                        case InputActionConfiguration.CycleActionPart.Negative:
+                            {
+                                inputBinding = configuration.inputAction.action.bindings[0];
+                            }
+                            break;
+                        case InputActionConfiguration.CycleActionPart.Positive:
+                            {
+                                inputBinding = configuration.inputAction.action.bindings[1];
+                            }
+                            break;
+                    }
+                    break;
+                case InputActionConfiguration.InputActionType.Modifier:
+                    {
+                        inputBinding = m_actionConfiguration1.inputAction.action.bindings[0];
+                    }
+                    break;
+                case InputActionConfiguration.InputActionType.NoneComposite:
+                    inputBinding = m_actionConfiguration1.inputAction.action.bindings[0]; 
+                    break;
+            }
+            return inputBinding;
+        }
 
         private void PopulateCurrentBinding()
         {
-            var inputBinding = m_inputAction.action.bindings;
+            var inputBinding = m_actionConfiguration1.inputAction.action.bindings;
+            var inputBinding2 = m_actionConfiguration2.inputAction.action.bindings;
+            var inputBinding3 = m_actionConfiguration3.inputAction.action.bindings;
 
             // Optimize this later
             //puts ALL bindings in one list called currendBinding
@@ -186,7 +295,31 @@ namespace DChild.Gameplay.UI
                 }
             }
 
-            AddCurrentBindings();
+            for (int x = 0; x < inputBinding2.Count; x++)
+            {
+                if (inputBinding2[x].isComposite)
+                {
+                    // filter out the composite to get modifier and binding key
+                }
+                if (inputBinding[x].isPartOfComposite)
+                {
+
+                    currentBinding2.Add(inputBinding2[x]);
+                }
+            }
+
+            for (int x = 0; x < inputBinding3.Count; x++)
+            {
+                if (inputBinding3[x].isComposite)
+                {
+                    // filter out the composite to get modifier and binding key
+                }
+                if (inputBinding3[x].isPartOfComposite)
+                {
+
+                    currentBinding.Add(inputBinding3[x]);
+                }
+            }
         }
 
         private void AddCurrentBindings()
@@ -197,34 +330,10 @@ namespace DChild.Gameplay.UI
                 Debug.Log("Current Binding Effective Path: " + curBind.effectivePath);
                 if (curBind.effectivePath.Contains("Keyboard"))
                 {
-                    // check if already in list
-                    //if(curBind != null)
-                    //{
-                    //    if (keyBoardList[x] == curBind)
-                    //    {
-                    //        continue;
-                    //    }
-                    //    else
-                    //    {
-                    //        keyBoardList.Add(curBind);
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    keyBoardList.Add(curBind);
-                    //}
-
                     keyBoardList.Add(curBind);
                 }
                 if (curBind.effectivePath.Contains("Gamepad"))
                 {
-                    //if (gamepadList.Contains(curBind))
-                    //{
-                    //    continue;
-                    //}
-                    //else
-                    //{
-                    //}
                         gamepadList.Add(curBind);
                 }
                 if (curBind.effectivePath.Contains("PS4"))
@@ -313,20 +422,20 @@ namespace DChild.Gameplay.UI
 
         private void SetTextToDirectionalPrompts()
         {
-            if (m_directionPart == DirectionActionPart.Up)
+            if (m_actionConfiguration1.directionPart == InputActionConfiguration.DirectionActionPart.Up)
             {
                 m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[0], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
-            if (m_directionPart == DirectionActionPart.Down)
+            if (m_actionConfiguration1.directionPart == InputActionConfiguration.DirectionActionPart.Down)
             {
                 m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[1], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
 
-            if (m_directionPart == DirectionActionPart.Left)
+            if (m_actionConfiguration1.directionPart == InputActionConfiguration.DirectionActionPart.Left)
             {
                 m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[2], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
-            if (m_directionPart == DirectionActionPart.Right)
+            if (m_actionConfiguration1.directionPart == InputActionConfiguration.DirectionActionPart.Right)
             {
                 m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[3], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
@@ -335,11 +444,11 @@ namespace DChild.Gameplay.UI
 
         private void SetTextToCyclePrompts()
         {
-            if (m_cycleActionPart == CycleActionPart.Negative)
+            if (m_actionConfiguration1.cycleActionPart == InputActionConfiguration.CycleActionPart.Negative)
             {
                 m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[0], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
-            if (m_cycleActionPart == CycleActionPart.Positive)
+            if (m_actionConfiguration1.cycleActionPart == InputActionConfiguration.CycleActionPart.Positive)
             {
                 m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[1], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
@@ -369,8 +478,8 @@ namespace DChild.Gameplay.UI
         void Start()
         {
             PopulateCurrentBinding();
+            AddCurrentBindings();
             SetText();
-
         }
 
         private void OnEnable()

@@ -35,7 +35,7 @@ namespace DChild.Gameplay.UI.CombatArts
                 {
                     m_artNameLabel.text += $" {level}";
                 }
-                m_controlsPromptSetter.SetInputAction(data.actionReference);
+                
 
                 Display(data.GetCombatArtLevelData(level));
                 localizeCombatArt?.Invoke(data,level);

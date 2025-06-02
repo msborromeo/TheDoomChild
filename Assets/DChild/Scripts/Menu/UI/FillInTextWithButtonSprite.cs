@@ -28,6 +28,41 @@ public static class FillInTextWithButtonSprite
         return textToDisplay;
     }
 
+    public static string ReadAndReplaceBinding(string textToDisplay, InputBinding actionNeeded1, InputBinding actionNeeded2,
+           TMP_SpriteAsset spriteAsset, float promptFontSize)
+    {
+        string stringButtonName1 = actionNeeded1.effectivePath;
+        string stringButtonName2 = actionNeeded2.effectivePath;
+
+
+        stringButtonName1 = RenameInput(stringButtonName1, actionNeeded1.action);
+        stringButtonName2 = RenameInput(stringButtonName2, actionNeeded2.action);
+
+        textToDisplay = textToDisplay.Replace("BUTTONPROMPT", $"<size={promptFontSize}><sprite=\"{spriteAsset.name}\" name=\"{stringButtonName1}\"></size>");
+        textToDisplay = textToDisplay.Replace("BUTTONPROMPT2", $"<size={promptFontSize}><sprite=\"{spriteAsset.name}\" name=\"{stringButtonName2}\"></size>");
+
+        return textToDisplay;
+    }
+
+    public static string ReadAndReplaceBinding(string textToDisplay, InputBinding actionNeeded1, InputBinding actionNeeded2, InputBinding actionNeeded3,
+           TMP_SpriteAsset spriteAsset, float promptFontSize)
+    {
+        string stringButtonName1 = actionNeeded1.effectivePath;
+        string stringButtonName2 = actionNeeded2.effectivePath;
+        string stringButtonName3 = actionNeeded3.effectivePath;
+
+
+        stringButtonName1 = RenameInput(stringButtonName1, actionNeeded1.action);
+        stringButtonName2 = RenameInput(stringButtonName2, actionNeeded2.action);
+        stringButtonName3 = RenameInput(stringButtonName3, actionNeeded3.action);
+
+        textToDisplay = textToDisplay.Replace("BUTTONPROMPT", $"<size={promptFontSize}><sprite=\"{spriteAsset.name}\" name=\"{stringButtonName1}\"></size>");
+        textToDisplay = textToDisplay.Replace("BUTTONPROMPT2", $"<size={promptFontSize}><sprite=\"{spriteAsset.name}\" name=\"{stringButtonName2}\"></size>");
+        textToDisplay = textToDisplay.Replace("BUTTONPROMPT3", $"<size={promptFontSize}><sprite=\"{spriteAsset.name}\" name=\"{stringButtonName3}\"></size>");
+
+        return textToDisplay;
+    }
+
     public static string ReadAndReplaceBinding(string textToDisplay, InputBinding actionNeeded, int compositeChildIndex,
            TMP_SpriteAsset spriteAsset)
     {

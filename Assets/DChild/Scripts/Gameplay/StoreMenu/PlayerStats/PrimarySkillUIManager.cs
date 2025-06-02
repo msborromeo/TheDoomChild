@@ -30,6 +30,24 @@ namespace DChild.Gameplay.UI.PrimarySkills
 
         public void Select(PrimarySkillSelectable selectable)
         {
+            switch (selectable.reference.numberOfActions)
+            {
+                case 1:
+                    m_skillDescriptionSetTextToTextBox.SetText(selectable.reference.instruction, selectable.reference.action);
+                    break;
+                case 2:
+                    m_skillDescriptionSetTextToTextBox.SetText(selectable.reference.instruction, selectable.reference.action, selectable.reference.action2);
+                    break;
+                case 3:
+                    m_skillDescriptionSetTextToTextBox.SetText(selectable.reference.instruction, selectable.reference.action, selectable.reference.action2, selectable.reference.action3);
+                    break;
+                case 4:
+                    break;
+                default:
+                    m_skillDescriptionSetTextToTextBox.SetText(selectable.reference.instruction, selectable.reference.action);
+                    break;
+            }
+
             if (localizePrimarySkill != null)
             {
                 localizePrimarySkill?.Invoke(selectable.reference);
@@ -37,8 +55,7 @@ namespace DChild.Gameplay.UI.PrimarySkills
             }
             m_descriptionLabel.text = selectable.reference.description;
             m_controlsLabel.text = selectable.reference.instruction;
-            m_skillNameLabel.text = selectable.reference.skillName;
-            m_skillDescriptionSetTextToTextBox.SetText(selectable.reference.instruction, selectable.reference.action, selectable.reference.actionType);
+            m_skillNameLabel.text = selectable.reference.skillName;       
         }
 
         private void OnPrimarySkillInstructionsLocalized()
