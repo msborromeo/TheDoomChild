@@ -97,7 +97,7 @@ namespace DChild.Gameplay
             int hitCount = 0;
             var toRayTarget = target - origin;
             Raycaster.SetLayerMask(layerMask);
-            hitbuffers = Raycaster.Cast(origin, toRayTarget.normalized, toRayTarget.magnitude, true, out hitCount);
+            hitbuffers = Raycaster.Cast(origin, toRayTarget.normalized, toRayTarget.magnitude, true, out hitCount,true);
             var isInterrupted = IsInterrupted();
             if (isInterrupted)
             {
