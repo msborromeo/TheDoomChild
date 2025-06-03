@@ -45,6 +45,14 @@ namespace DChild.Gameplay.UI
         private List<InputBinding> gamepadList = new List<InputBinding>();
         private List<InputBinding> psList = new List<InputBinding>();
 
+        private List<InputBinding> keyBoardList2 = new List<InputBinding>();
+        private List<InputBinding> gamepadList2 = new List<InputBinding>();
+        private List<InputBinding> psList2 = new List<InputBinding>();
+
+        private List<InputBinding> keyBoardList3 = new List<InputBinding>();
+        private List<InputBinding> gamepadList3 = new List<InputBinding>();
+        private List<InputBinding> psList3 = new List<InputBinding>();
+
         [SerializeField, MinValue(1), MaxValue(4)]
         private int m_numberOfActions = 1;
 
@@ -79,13 +87,6 @@ namespace DChild.Gameplay.UI
         }
 
         public CurrentDeviceType deviceType { get { return m_deviceType; } set { m_deviceType = value; } }
-
-        //call this after text is translated by localizer. Works for brute force fix adding BUTTONPROMPT before action prompt in localize text list
-        public void SetMessageToLocalizedText()
-        {
-            m_message = m_textbox.text;
-            Invoke("SetText", 1); //works for brute force method, may not be suitable long term
-        }
 
         [Button]
         public void SetText()
