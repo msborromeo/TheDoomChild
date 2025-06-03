@@ -804,10 +804,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isHighJumping)
             {
-                if (m_groundJump?.CanCutoffJump() ?? true)
-                {
-                    m_groundJump?.CutOffJump();
-                }
+                m_groundJump?.CutOffJump();
             }
         }
 
@@ -976,6 +973,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnUseQuickItemsStartedInput()
         {
+            if(m_handle.IsCoolDownOver() == false)
+                return;
+
             m_allowQuickItemCycle = false;
             m_handle.UseCurrentItem();
             if (m_handle.IsCurrentItemThrowable())
@@ -2075,6 +2075,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 if (m_state.isGrounded)
                 {
                     m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Ground);
+
+                    m_state.isHighJumping = false;
 
                     if (m_state.isStickingToWall)
                     {
