@@ -192,7 +192,10 @@ namespace DChild.Gameplay.UI
         public void SetText(string text, InputActionConfiguration configuration1)
         {
             m_message = text;
+            m_numberOfActions = 1;
             m_actionConfiguration1 = configuration1;
+            PopulateCurrentBinding(m_actionConfiguration1, currentBinding);
+            AddCurrentBindings(currentBinding);
             SetText();
         }
 
@@ -201,7 +204,11 @@ namespace DChild.Gameplay.UI
             m_message = text;
             m_numberOfActions = 2;
             m_actionConfiguration1 = configuration1;
+            PopulateCurrentBinding(m_actionConfiguration1, currentBinding);
+            AddCurrentBindings(currentBinding);
             m_actionConfiguration2 = configuration2;
+            PopulateCurrentBinding(m_actionConfiguration2, currentBinding2);
+            AddCurrentBindings(currentBinding2);
             SetText();
         }
 
@@ -274,11 +281,14 @@ namespace DChild.Gameplay.UI
             return inputBinding;
         }
 
-        private void PopulateCurrentBinding()
+        private void PopulateCurrentBinding(InputActionConfiguration configuration, List<InputBinding> bindingList)
         {
-            var inputBinding = m_actionConfiguration1.inputAction.action.bindings;
-            var inputBinding2 = m_actionConfiguration2.inputAction.action.bindings;
-            var inputBinding3 = m_actionConfiguration3.inputAction.action.bindings;
+            var inputBinding = configuration.inputAction.action.bindings;
+
+            if(bindingList != null)
+            {
+                bindingList.Clear();
+            }
 
             // Optimize this later
             //puts ALL bindings in one list called currendBinding
@@ -291,42 +301,16 @@ namespace DChild.Gameplay.UI
                 if (inputBinding[x].isPartOfComposite)
                 {
 
-                    currentBinding.Add(inputBinding[x]);
-                }
-            }
-
-            for (int x = 0; x < inputBinding2.Count; x++)
-            {
-                if (inputBinding2[x].isComposite)
-                {
-                    // filter out the composite to get modifier and binding key
-                }
-                if (inputBinding[x].isPartOfComposite)
-                {
-
-                    currentBinding2.Add(inputBinding2[x]);
-                }
-            }
-
-            for (int x = 0; x < inputBinding3.Count; x++)
-            {
-                if (inputBinding3[x].isComposite)
-                {
-                    // filter out the composite to get modifier and binding key
-                }
-                if (inputBinding3[x].isPartOfComposite)
-                {
-
-                    currentBinding.Add(inputBinding3[x]);
+                    bindingList.Add(inputBinding[x]);
                 }
             }
         }
 
-        private void AddCurrentBindings()
+        private void AddCurrentBindings(List<InputBinding> bindingList)
         {
-            for (int x = 0; x < currentBinding.Count; x++)
+            for (int x = 0; x < bindingList.Count; x++)
             {
-                var curBind = currentBinding[x];
+                var curBind = bindingList[x];
                 Debug.Log("Current Binding Effective Path: " + curBind.effectivePath);
                 if (curBind.effectivePath.Contains("Keyboard"))
                 {
@@ -477,8 +461,8 @@ namespace DChild.Gameplay.UI
         // Start is called before the first frame update
         void Start()
         {
-            PopulateCurrentBinding();
-            AddCurrentBindings();
+            PopulateCurrentBinding(m_actionConfiguration1, currentBinding);
+            AddCurrentBindings(currentBinding);
             SetText();
         }
 
