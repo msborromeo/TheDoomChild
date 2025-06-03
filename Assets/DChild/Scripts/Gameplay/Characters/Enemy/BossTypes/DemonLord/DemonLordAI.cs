@@ -1395,7 +1395,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_fireController.m_isFireRoutineDone = false;
             m_fireController.gameObject.SetActive(true);
            // m_fireController.SetActiveDragonTrail(true);
-            while (Vector3.Distance(transform.position, positionForDragonsBreath.position) > 1f)
+            while (Vector3.Distance(transform.position, positionForDragonsBreath.position) > 2f)
             {
                 var distanceCalcuOfTwoPosition = (positionForDragonsBreath.position - transform.position).normalized;
                 transform.position += m_info.move.speed * Time.deltaTime * distanceCalcuOfTwoPosition;
@@ -1579,13 +1579,15 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             else
             {
-                IceShardSpell(m_centerMass.position,30, 120);
+                IceShardSpell(m_centerMass.position,45, 120);
                 m_IceShardPattern1Done = false;
             }
 
         }
         private void IceShardSpell(Vector3 position, float rotation, float speed)
         {
+            //Demon Lord Scale Should be (1,1,1) or (-1,1,1) because Calculations of ShardSpell Assumes its always facing Vector3.Right as 0 zRot
+            m_demonLordIceShardSpell.transform.localScale = transform.localScale; 
             m_demonLordIceShardSpell.LaunchIceShards(position, rotation, speed);
         }
 
@@ -1777,6 +1779,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator TeleportToReevaluateState()
         {
             yield return TeleportRoutine();
+            yield return IceShardRoutine();
             m_stateHandle.OverrideState(State.ReevaluateSituation);
         }
         private IEnumerator RandomizeAttacksForTeleport()
@@ -1784,7 +1787,7 @@ namespace DChild.Gameplay.Characters.Enemies
             var rng = UnityEngine.Random.Range(1, 3);
             if (rng == 1)
             {
-                yield return RayOfFrostRoutine();
+                yield return IceShardRoutine();
             }
             else
             {
