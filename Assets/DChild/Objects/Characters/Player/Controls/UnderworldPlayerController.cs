@@ -973,6 +973,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnUseQuickItemsStartedInput()
         {
+            if(m_handle.IsCoolDownOver() == false)
+                return;
+
             m_allowQuickItemCycle = false;
             m_handle.UseCurrentItem();
             if (m_handle.IsCurrentItemThrowable())
