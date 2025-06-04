@@ -33,7 +33,6 @@ namespace DChild.Gameplay.UI
         private List<InputBinding> currentBinding = new List<InputBinding>();
         private List<InputBinding> m_activeDeviceBinding = new List<InputBinding>();
 
-
         private TMP_Text m_textbox;
 
         public static event Action<CurrentDeviceType> DeviceTypeChanged;
@@ -41,14 +40,6 @@ namespace DChild.Gameplay.UI
         private List<InputBinding> keyBoardList = new List<InputBinding>();
         private List<InputBinding> gamepadList = new List<InputBinding>();
         private List<InputBinding> psList = new List<InputBinding>();
-
-        private List<InputBinding> keyBoardList2 = new List<InputBinding>();
-        private List<InputBinding> gamepadList2 = new List<InputBinding>();
-        private List<InputBinding> psList2 = new List<InputBinding>();
-
-        private List<InputBinding> keyBoardList3 = new List<InputBinding>();
-        private List<InputBinding> gamepadList3 = new List<InputBinding>();
-        private List<InputBinding> psList3 = new List<InputBinding>();
 
         [SerializeField, MinValue(1), MaxValue(4)]
         private int m_numberOfActions = 1;
@@ -458,7 +449,6 @@ namespace DChild.Gameplay.UI
                 {
                     m_activeDeviceBinding.Add(keyBoardList[x]);
                 }
-
             }
             else if (m_deviceType == CurrentDeviceType.Gamepad)
             {

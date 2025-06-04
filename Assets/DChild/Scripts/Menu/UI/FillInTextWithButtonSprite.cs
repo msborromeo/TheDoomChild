@@ -32,6 +32,9 @@ public static class FillInTextWithButtonSprite
         string stringButtonName1 = actionNeeded1.effectivePath;
         string stringButtonName2 = actionNeeded2.effectivePath;
 
+        Debug.Log("string button name1 : " + stringButtonName1);
+        Debug.Log("sprite button name: " + spriteAsset.name);
+        Debug.Log("string button name2 : " + stringButtonName2 );
 
         stringButtonName1 = RenameInput(stringButtonName1, actionNeeded1.action);
         stringButtonName2 = RenameInput(stringButtonName2, actionNeeded2.action);
