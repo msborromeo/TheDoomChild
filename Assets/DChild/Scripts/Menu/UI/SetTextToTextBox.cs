@@ -31,11 +31,8 @@ namespace DChild.Gameplay.UI
         private float m_promptFontSize = 7;
 
         private List<InputBinding> currentBinding = new List<InputBinding>();
-        private List<InputBinding> currentBinding2 = new List<InputBinding>();
-        private List<InputBinding> currentBinding3 = new List<InputBinding>();
         private List<InputBinding> m_activeDeviceBinding = new List<InputBinding>();
-        private List<InputBinding> m_activeDeviceBinding2 = new List<InputBinding>();
-        private List<InputBinding> m_activeDeviceBinding3 = new List<InputBinding>();
+
 
         private TMP_Text m_textbox;
 
@@ -131,32 +128,6 @@ namespace DChild.Gameplay.UI
                     break;
             }
 
-            //if(m_numberOfActions > 1)
-            //{
-
-            //}
-            //else
-            //{
-            //    if(m_actionConfiguration1.inputAction.action.bindings.Count > (int)CurrentDeviceType._COUNT)
-            //    {
-            //        switch (m_actionConfiguration1.actionType)
-            //        {
-            //            case InputActionConfiguration.InputActionType.Cycle:
-            //                SetTextToCyclePrompts();
-            //                break;
-            //            case InputActionConfiguration.InputActionType.Modifier:
-            //                SetTextToModifierPrompts();
-            //                break;
-            //            case InputActionConfiguration.InputActionType.Directional:
-            //                SetTextToDirectionalPrompts();
-            //                break;
-            //            case InputActionConfiguration.InputActionType.NoneComposite:
-            //                m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_actionConfiguration1.inputAction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
-            //                break;
-            //        }
-            //    }
-            //}
-
             //if (m_actionConfiguration1.inputAction.action.bindings.Count > (int)CurrentDeviceType._COUNT)
             //{
 
@@ -195,8 +166,8 @@ namespace DChild.Gameplay.UI
             m_message = text;
             m_numberOfActions = 1;
             m_actionConfiguration1 = configuration1;
-            PopulateCurrentBinding(m_actionConfiguration1, currentBinding);
-            AddCurrentBindings(currentBinding);
+            PopulateCurrentBinding(m_actionConfiguration1);
+            AddCurrentBindings();
             SetText();
         }
 
@@ -205,11 +176,13 @@ namespace DChild.Gameplay.UI
             m_message = text;
             m_numberOfActions = 2;
             m_actionConfiguration1 = configuration1;
-            PopulateCurrentBinding(m_actionConfiguration1, currentBinding);
-            AddCurrentBindings(currentBinding);
+            PopulateCurrentBinding(m_actionConfiguration1);
+
             m_actionConfiguration2 = configuration2;
-            PopulateCurrentBinding(m_actionConfiguration2, currentBinding2);
-            AddCurrentBindings(currentBinding2);
+            PopulateCurrentBinding(m_actionConfiguration2);
+
+            AddCurrentBindings();
+
             SetText();
         }
 
@@ -225,7 +198,7 @@ namespace DChild.Gameplay.UI
 
         private InputBinding GetInputBinding(InputActionConfiguration configuration)
         {
-            InputBinding inputBinding = configuration.inputAction.action.bindings[0]; //default
+            InputBinding inputBinding = new InputBinding(); //default
             switch(configuration.actionType)
             {
                 case InputActionConfiguration.InputActionType.Directional:
@@ -234,22 +207,22 @@ namespace DChild.Gameplay.UI
                         {
                             case InputActionConfiguration.DirectionActionPart.Up:
                                 {
-                                    inputBinding = configuration.inputAction.action.bindings[0];
+                                    inputBinding = configuration.inputAction.action.bindings[1];
                                 }
                                 break;
                             case InputActionConfiguration.DirectionActionPart.Down:
                                 {
-                                    inputBinding = configuration.inputAction.action.bindings[1];
+                                    inputBinding = configuration.inputAction.action.bindings[2];
                                 }
                                 break;
                             case InputActionConfiguration.DirectionActionPart.Left:
                                 {
-                                    inputBinding = configuration.inputAction.action.bindings[2];
+                                    inputBinding = configuration.inputAction.action.bindings[3];
                                 }
                                 break;
                             case InputActionConfiguration.DirectionActionPart.Right:
                                 {
-                                    inputBinding = configuration.inputAction.action.bindings[3];
+                                    inputBinding = configuration.inputAction.action.bindings[4];
                                 }
                                 break;
                         }
@@ -260,36 +233,31 @@ namespace DChild.Gameplay.UI
                     {
                         case InputActionConfiguration.CycleActionPart.Negative:
                             {
-                                inputBinding = configuration.inputAction.action.bindings[0];
+                                inputBinding = configuration.inputAction.action.bindings[1];
                             }
                             break;
                         case InputActionConfiguration.CycleActionPart.Positive:
                             {
-                                inputBinding = configuration.inputAction.action.bindings[1];
+                                inputBinding = configuration.inputAction.action.bindings[2];
                             }
                             break;
                     }
                     break;
                 case InputActionConfiguration.InputActionType.Modifier:
                     {
-                        inputBinding = m_actionConfiguration1.inputAction.action.bindings[0];
+                        inputBinding = m_actionConfiguration1.inputAction.action.bindings[1];
                     }
                     break;
                 case InputActionConfiguration.InputActionType.NoneComposite:
-                    inputBinding = m_actionConfiguration1.inputAction.action.bindings[0]; 
+                    inputBinding = m_actionConfiguration1.inputAction.action.bindings[(int)m_deviceType];
                     break;
             }
             return inputBinding;
         }
 
-        private void PopulateCurrentBinding(InputActionConfiguration configuration, List<InputBinding> bindingList)
+        private void PopulateCurrentBinding(InputActionConfiguration configuration)
         {
             var inputBinding = configuration.inputAction.action.bindings;
-
-            if(bindingList != null)
-            {
-                bindingList.Clear();
-            }
 
             // Optimize this later
             //puts ALL bindings in one list called currendBinding
@@ -302,16 +270,16 @@ namespace DChild.Gameplay.UI
                 if (inputBinding[x].isPartOfComposite)
                 {
 
-                    bindingList.Add(inputBinding[x]);
+                    currentBinding.Add(inputBinding[x]);
                 }
             }
         }
 
-        private void AddCurrentBindings(List<InputBinding> bindingList)
+        private void AddCurrentBindings()
         {
-            for (int x = 0; x < bindingList.Count; x++)
+            for (int x = 0; x < currentBinding.Count; x++)
             {
-                var curBind = bindingList[x];
+                var curBind = currentBinding[x];
                 Debug.Log("Current Binding Effective Path: " + curBind.effectivePath);
                 if (curBind.effectivePath.Contains("Keyboard"))
                 {
@@ -462,8 +430,8 @@ namespace DChild.Gameplay.UI
         // Start is called before the first frame update
         void Start()
         {
-            PopulateCurrentBinding(m_actionConfiguration1, currentBinding);
-            AddCurrentBindings(currentBinding);
+            PopulateCurrentBinding(m_actionConfiguration1);
+            AddCurrentBindings();
             SetText();
         }
 
