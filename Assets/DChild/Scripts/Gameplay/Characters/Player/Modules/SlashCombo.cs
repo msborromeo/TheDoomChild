@@ -105,7 +105,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_canMove = false;
             m_animator.SetBool(m_animationParameter, true);
             m_currentSlashState += m_currentSlashState >= m_configuration.slashStateAmount - 1 ? 0 : 1;
-            Debug.Log("Slash State: " +  m_currentSlashState);
             m_animator.SetInteger(m_slashStateAnimationParameter, m_currentSlashState);
             m_attacker.SetDamageModifier(m_slashComboInfo[m_currentSlashState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
             m_currentVisualSlashState = m_currentSlashState;

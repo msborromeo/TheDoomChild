@@ -312,7 +312,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
                 case State.Burrowed:
                     m_animation.EnableRootMotion(false, false);
-                    m_spriteMask.SetActive(true);
+                    //m_spriteMask.SetActive(true);
                     m_shadow.SetActive(false);
                     m_animation.SetAnimation(0, m_info.burrowedAnimation.animation, true);
                     //m_animation.SetEmptyAnimation(0, 0);

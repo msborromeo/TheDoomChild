@@ -85,11 +85,11 @@ namespace DChild.Gameplay.UI
             m_promptNotificationHandle.QueueNotification(lootList);
             EnablePromptNotificationRoutine();
 
-           GameplaySystem.gamplayUIHandle.alertManager.inventoryAlerts.RecordNewNotification(lootList.GetAllItems());
+            GameplaySystem.gamplayUIHandle.alertManager.inventoryAlerts.RecordNewNotification(lootList.GetAllItems());
         }
 
         [Button("Store Notification"), FoldoutGroup("Options"), HideInEditorMode]
-        public void QueueNotification(StoreNotificationType notificationType,int ID)
+        public void QueueNotification(StoreNotificationType notificationType, int ID)
         {
             m_promptNotificationHandle.QueueNotification(notificationType);
             EnablePromptNotificationRoutine();
@@ -199,8 +199,12 @@ namespace DChild.Gameplay.UI
                 while (DialogueManager.isConversationActive && !DChildStandardDialogueUI.currentConverstionIsABanter)
                     yield return endOfFrame;
 
-                yield return endOfFrame;
+                while (GameplaySystem.isGamePaused)
+                    yield return endOfFrame;
+
+
                 HandleNextFullNotification();
+                //yield return endOfFrame;
                 do
                 {
                     yield return endOfFrame;
