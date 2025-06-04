@@ -337,6 +337,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Transform m_modelTransform;
         [SerializeField, TabGroup("Reference")]
         private GameObject m_colliderDamageGO;
+        [SerializeField, TabGroup("Reference")]
+        private Collider2D m_stingerChargeCollider;
         [SerializeField, TabGroup("Modules")]
         private AnimatedTurnHandle m_turnHandle;
         [SerializeField, TabGroup("Modules")]
@@ -782,6 +784,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.EnableRootMotion(true, false);
             m_animation.SetAnimation(0, m_info.phase2AtkChargeStartAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.phase2AtkChargeStartAnimation);
+            m_stingerChargeCollider.enabled = true;
             m_animation.DisableRootMotion();
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
             m_bodyCollider.SetActive(false);
@@ -823,6 +826,7 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             m_hitbox.SetInvulnerability(Invulnerability.None);
 
+            m_stingerChargeCollider.enabled = false;
             transform.position = m_returnPoint.position;
             m_QBStingerChargeFX.gameObject.SetActive(false);
             m_QBStingerChargeFX.Stop();
@@ -1285,6 +1289,8 @@ namespace DChild.Gameplay.Characters.Enemies
             m_ListOfPatterns.Add("WavePatterns1", m_wavePattern1);
             m_ListOfPatterns.Add("WavePatterns2", m_wavePattern2);
             m_ListOfPatterns.Add("WavePatterns3", m_wavePattern3);
+
+            m_stingerChargeCollider.enabled = false;
         }
 
         private void Update()
