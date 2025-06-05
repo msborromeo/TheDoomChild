@@ -789,24 +789,6 @@ namespace DChild.Gameplay.Characters.Enemies
             m_bodyCollider.SetActive(false);
             m_QBStingerChargeFX.gameObject.SetActive(true);
             m_QBStingerChargeFX.Play();
-            //int i;
-            //var i = 0;
-            //while (m_info.chargeLoops > i)
-            //{
-            //    m_animation.SetAnimation(0, m_info.phase2AtkChargeLoopAnimation, false);
-            //    //var chargeFXScale = m_QBStingerChargeFX.GetComponentInParent<Transform>();
-            //    var mainFX = m_QBStingerChargeFX.main;
-            //    mainFX.startRotation = transform.localScale.x > 0 ? /*180 * Mathf.Deg2Rad*/ (float)Mathf.PI/*nis*/: 0;
-            //    //chargeFXScale.localScale = new Vector3(transform.localScale.x > 0 ? -chargeFXScale.localScale.x : chargeFXScale.localScale.x, chargeFXScale.localScale.y, chargeFXScale.localScale.z);
-            //    GetComponent<IsolatedPhysics2D>().SetVelocity(100 * transform.localScale.x, 0);
-            //    yield return new WaitForSeconds(i == 0 ? 1.25f : 2f);
-            //    CustomTurn();
-            //    m_agent.Stop();
-            //    yield return new WaitForSeconds(.25f);
-            //    transform.position = new Vector2(transform.position.x, m_targetInfo.position.y);
-            //    i++;
-            //    yield return null;
-            //}
 
             for (int i = 0; i < /*UnityEngine.Random.Range(1,3)*/ 3; i++)
             {
@@ -825,7 +807,6 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             m_hitbox.SetInvulnerability(Invulnerability.None);
 
-            m_stingerChargeCollider.enabled = false;
             transform.position = m_returnPoint.position;
             m_QBStingerChargeFX.gameObject.SetActive(false);
             m_QBStingerChargeFX.Stop();
@@ -990,14 +971,16 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator StingerChargeRoutine()
         {
-            var returnPointCharge = transform.position;
+            //var returnPointCharge = transform.position;
             m_agent.Stop();
             //CustomTurn();
-            while (Vector2.Distance(transform.position, m_stingerChargePoint.position) > 1.5)
-            {
-                DynamicMovement(m_stingerChargePoint.position);
-                yield return null;
-            }
+            m_bodyCollider.SetActive(false);
+            //while (Vector2.Distance(transform.position, m_stingerChargePoint.position) > 1.5)
+            //{
+            //    DynamicMovement(m_stingerChargePoint.position);
+            //    yield return null;
+            //}
+            transform.position = m_stingerChargePoint.position;
             CustomTurn();
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_agent.Stop();
@@ -1007,27 +990,8 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stingerChargeCollider.enabled = true;
             m_animation.DisableRootMotion();
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
-            m_bodyCollider.SetActive(false);
             m_QBStingerChargeFX.gameObject.SetActive(true);
             m_QBStingerChargeFX.Play();
-            //int i;
-            //var i = 0;
-            //while (m_info.chargeLoops > i)
-            //{
-            //    m_animation.SetAnimation(0, m_info.phase2AtkChargeLoopAnimation, false);
-            //    //var chargeFXScale = m_QBStingerChargeFX.GetComponentInParent<Transform>();
-            //    var mainFX = m_QBStingerChargeFX.main;
-            //    mainFX.startRotation = transform.localScale.x > 0 ? /*180 * Mathf.Deg2Rad*/ (float)Mathf.PI/*nis*/: 0;
-            //    //chargeFXScale.localScale = new Vector3(transform.localScale.x > 0 ? -chargeFXScale.localScale.x : chargeFXScale.localScale.x, chargeFXScale.localScale.y, chargeFXScale.localScale.z);
-            //    GetComponent<IsolatedPhysics2D>().SetVelocity(100 * transform.localScale.x, 0);
-            //    yield return new WaitForSeconds(i == 0 ? 1.25f : 2f);
-            //    CustomTurn();
-            //    m_agent.Stop();
-            //    yield return new WaitForSeconds(.25f);
-            //    transform.position = new Vector2(transform.position.x, m_targetInfo.position.y);
-            //    i++;
-            //    yield return null;
-            //}
 
             for (int i = 0; i < /*UnityEngine.Random.Range(1,3)*/ 3; i++)
             {
@@ -1043,9 +1007,11 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_agent.Stop();
                 yield return new WaitForSeconds(.25f);
                 transform.position = new Vector2(transform.position.x, m_targetInfo.position.y - 5f);
-                returnPointCharge = transform.position;
+                //returnPointCharge = transform.position;
             }
-            transform.position = returnPointCharge;
+
+            m_stingerChargeCollider.enabled = false;
+            //transform.position = returnPointCharge;
             m_hitbox.SetInvulnerability(Invulnerability.None);
             m_bodyCollider.SetActive(false);
             m_QBStingerChargeFX.gameObject.SetActive(false);
