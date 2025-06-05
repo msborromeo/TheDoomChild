@@ -17,6 +17,8 @@ namespace DChild.Gameplay.Systems
 
     public interface IGameplayUIHandle
     {
+        bool isInCutsceneMode { get; }
+
         UIAlertManager alertManager { get; }
         IUINotificationManager notificationManager { get; }
 

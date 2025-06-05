@@ -9,6 +9,9 @@ public struct WhipAttackStatsInfo
     private float m_aerialGravity;
     public float aerialGravity => m_aerialGravity;
     [SerializeField]
+    private float m_defaultGravity;
+    public float defaultGravity => m_defaultGravity;
+    [SerializeField]
     private float m_whipMovementCooldown;
     public float whipMovementCooldown => m_whipMovementCooldown;
     [SerializeField]
@@ -18,6 +21,7 @@ public struct WhipAttackStatsInfo
     public void CopyInfo(WhipAttackStatsInfo reference)
     {
         m_aerialGravity = reference.aerialGravity;
+        m_defaultGravity = reference.defaultGravity;
         m_whipMovementCooldown = reference.whipMovementCooldown;
         m_momentumVelocity = reference.momentumVelocity;
     }
