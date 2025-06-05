@@ -73,6 +73,20 @@ namespace DChild.Gameplay.Inventories
 
         public bool CanUseCurrentItem() => m_currentItemData.CanBeUse(m_player);
 
+        public bool IsCoolDownOver() => m_cooldown.isOver;
+
+        public bool IsCurrentItemThrowable()
+        {
+            bool result = false;
+
+            if(m_currentItemData.category == ItemCategory.Throwable)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
         public void UseCurrentItem()
         {
             if (m_cooldown.isOver && CanUseCurrentItem())

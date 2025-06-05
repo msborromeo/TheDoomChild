@@ -3,6 +3,7 @@ using DChild.Gameplay.Characters.AI;
 using DChildDebug.Cutscene;
 using PixelCrushers;
 using PixelCrushers.DialogueSystem;
+using PixelCrushers.DialogueSystem.ChatMapper;
 using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
@@ -40,6 +41,7 @@ namespace DChild.UI
         public override void Open()
         {
             var conversation = DialogueManager.MasterDatabase.GetConversation(DialogueManager.lastConversationStarted);
+
             if (conversation != null)
             {
                 if (conversation.LookupBool("IsBanter"))
@@ -65,12 +67,15 @@ namespace DChild.UI
             }
 
             base.Open();
-
-
         }
 
         private void HandleOpenDialogue()
         {
+            //var currentDialogue = DialogueManager.currentConversationState.subtitle.dialogueEntry;
+
+            //Debug.Log($"current dialogue actor: {currentDialogue.ActorID}");
+            //Debug.Log($"current dialogue conversant: {currentDialogue.ConversantID}");
+
             if (m_currentDialogueType != DialogueType.Dialogue)
             {
                 DialogueManager.displaySettings.subtitleSettings.continueButton = DisplaySettings.SubtitleSettings.ContinueButtonMode.Always;
