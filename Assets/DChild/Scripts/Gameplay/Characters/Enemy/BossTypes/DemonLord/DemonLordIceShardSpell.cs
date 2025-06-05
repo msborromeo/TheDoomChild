@@ -3,6 +3,7 @@ using System.Collections;
 using DChild.Gameplay.Pooling;
 using DChild.Gameplay.Projectiles;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
@@ -15,6 +16,7 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField]
         private float m_shardDelayedLaunch;
 
+        [Button]
         public void LaunchIceShards(Vector3 position, float rotation, float speed)
         {
             StartCoroutine(LaunchIceShardsRoutine(position, rotation, speed));
@@ -24,6 +26,8 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             transform.position = position;
             transform.rotation = Quaternion.Euler(0, 0, rotation);
+
+
             yield return null;
             List<Projectile> projectiles = new List<Projectile>();
             yield return SpawnProjectilesInFormationRoutine(projectiles);
@@ -37,10 +41,10 @@ namespace DChild.Gameplay.Characters.Enemies
             var castDimensionExtent = m_castDimension / 2;
             var centerPosition = transform.position;
 
-            projectiles.Add(SpawnProjectile((transform.right * castDimensionExtent.x), 0));
-            projectiles.Add(SpawnProjectile((transform.up * castDimensionExtent.y), 90));
-            projectiles.Add(SpawnProjectile((-transform.right * castDimensionExtent.x), 180));
-            projectiles.Add(SpawnProjectile((-transform.up * castDimensionExtent.y), 270));
+            projectiles.Add(SpawnProjectile((Vector3.right * castDimensionExtent.x), 0));
+            projectiles.Add(SpawnProjectile((Vector3.up * castDimensionExtent.y), 90));
+            projectiles.Add(SpawnProjectile((-Vector3.right * castDimensionExtent.x), 180));
+            projectiles.Add(SpawnProjectile((-Vector3.up * castDimensionExtent.y), 270));
 
             yield return null;
         }
