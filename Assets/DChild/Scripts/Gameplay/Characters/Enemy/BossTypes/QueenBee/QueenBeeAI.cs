@@ -784,7 +784,6 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.EnableRootMotion(true, false);
             m_animation.SetAnimation(0, m_info.phase2AtkChargeStartAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.phase2AtkChargeStartAnimation);
-            m_stingerChargeCollider.enabled = true;
             m_animation.DisableRootMotion();
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
             m_bodyCollider.SetActive(false);
@@ -1005,6 +1004,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.EnableRootMotion(true, false);
             m_animation.SetAnimation(0, m_info.phase4AtkStingerChargeAnticipationAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.phase4AtkStingerChargeAnticipationAnimation);
+            m_stingerChargeCollider.enabled = true;
             m_animation.DisableRootMotion();
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
             m_bodyCollider.SetActive(false);
