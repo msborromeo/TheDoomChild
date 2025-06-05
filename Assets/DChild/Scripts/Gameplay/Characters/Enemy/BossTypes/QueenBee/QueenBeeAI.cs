@@ -531,7 +531,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     //StartCoroutine(SpearThrowRoutine());
                     break;
                 case Attack.SpearCharge:
-                    if(m_currentPhaseIndex == 1)
+                    if(m_currentPhaseIndex == 1 || m_currentPhaseIndex == 2)
                         StartCoroutine(SpearChargeRoutine());
                     else
                         m_stateHandle.ApplyQueuedState();
