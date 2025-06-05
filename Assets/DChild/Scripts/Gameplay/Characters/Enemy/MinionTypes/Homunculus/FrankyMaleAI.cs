@@ -180,6 +180,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private float m_currentRunAttackDuration;
         private bool m_enablePatience;
         private bool m_isDetecting;
+        private Vector2 m_startPoint;
 
         [SerializeField, TabGroup("Sensors")]
         private RaySensor m_wallSensor;
@@ -530,13 +531,16 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             enabled = true;
             m_aggroCollider.enabled = true;
+            m_animation.EnableRootMotion(true, false);
             m_stateHandle.OverrideState(State.Detect);
         }
 
         public void PrepareAmbush(Vector2 position)
         {
             StopAllCoroutines();
-
+            m_animation.EnableRootMotion(false, false);
+            m_animation.DisableRootMotion();
+            m_character.transform.position = m_startPoint;
             m_character.physics.simulateGravity = false;
             m_character.physics.SetVelocity(Vector2.zero);
             m_hitbox.Disable();
@@ -556,7 +560,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_spineEventListener.Subscribe(m_info.attack1Event, LaunchProjectile);
             m_spineEventListener.Subscribe(m_info.attack2Event, LaunchProjectile);
             m_spineEventListener.Subscribe(m_info.teleportEvent, m_teleportFX.Play);
-
+            m_startPoint = transform.position;
             m_initialPos = new Vector2(transform.position.x, GroundPosition().y);
         }
 

@@ -55,6 +55,7 @@ namespace DChild.Gameplay.Systems
 
         public UIAlertManager uiAlertManager => m_uiAlertManager;
 
+
         public void ToggleCinematicMode(bool on)
         {
             if (on == true)
@@ -72,7 +73,6 @@ namespace DChild.Gameplay.Systems
             if (value)
             {
                 m_cinematicBars.Show();
-
             }
             else
             {

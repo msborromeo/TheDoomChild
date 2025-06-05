@@ -30,6 +30,10 @@ namespace DChild.Inputs
 
         public void Disable()
         {
+            //var input = GameObject.FindObjectOfType<PlayerInput>();
+
+            //input?.DeactivateInput();
+
             m_playerControls.Underworld.Disable();
             m_playerControls.Overworld.Disable();
             m_playerControls.UI.Enable();
@@ -37,6 +41,10 @@ namespace DChild.Inputs
 
         public void Enable()
         {
+            //var input = GameObject.FindObjectOfType<PlayerInput>();
+
+            //input?.ActivateInput();
+
             m_playerControls.Underworld.Enable();
             m_playerControls.Overworld.Enable();
             m_playerControls.UI.Disable();
@@ -148,6 +156,10 @@ namespace DChild.Inputs
 
         public void SetInputModeToUnderworldGameplay()
         {
+            //var input = GameObject.FindObjectOfType<PlayerInput>();
+
+            //input?.ActivateInput();
+
             m_playerControls.Underworld.Enable();
             m_playerControls.Overworld.Disable();
             m_playerControls.UI.Disable();
@@ -161,9 +173,13 @@ namespace DChild.Inputs
             m_playerControls.UI.Disable();
             m_playerControls.ArmyBattle.Disable();
         }
-
+         
         public void SetInputModeToUI()
         {
+            //var input = GameObject.FindObjectOfType<PlayerInput>();
+
+            //input?.DeactivateInput();
+
             m_playerControls.UI.Enable();
             m_playerControls.Underworld.Disable();
             m_playerControls.Overworld.Disable();
@@ -276,7 +292,7 @@ namespace DChild.Inputs
                 UseQuickItemStartedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Canceled)
+            if (context.phase == InputActionPhase.Canceled)
             {
                 UseQuickItemCancelledEvent?.Invoke();
             }
@@ -295,13 +311,13 @@ namespace DChild.Inputs
                 {
                     SlashHeldEvent?.Invoke();
                 }
-                
-                if(context.interaction is TapInteraction)
+
+                if (context.interaction is TapInteraction)
                 {
                     SlashTappedEvent?.Invoke();
                 }
 
-                if(context.interaction is PressInteraction)
+                if (context.interaction is PressInteraction)
                 {
                     SlashPressedEvent?.Invoke();
                 }
@@ -383,7 +399,7 @@ namespace DChild.Inputs
                 SwordThrustPerformedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Canceled)
+            if (context.phase == InputActionPhase.Canceled)
             {
                 SwordThrustCancelledEvent?.Invoke();
             }
@@ -394,17 +410,17 @@ namespace DChild.Inputs
         //Combat Arts
         public void OnAirSlashCombo(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 AirSlashStartedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Performed)
+            if (context.phase == InputActionPhase.Performed)
             {
                 AirSlashPerformedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Canceled)
+            if (context.phase == InputActionPhase.Canceled)
             {
                 AirSlashCancelledEvent?.Invoke();
             }
@@ -430,17 +446,17 @@ namespace DChild.Inputs
 
         public void OnBarrier(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Started)
             {
                 BarrierStartedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Performed)
+            if (context.phase == InputActionPhase.Performed)
             {
                 BarrierPerformedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Canceled)
+            if (context.phase == InputActionPhase.Canceled)
             {
                 BarrierCancelledEvent?.Invoke();
             }

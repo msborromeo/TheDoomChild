@@ -15,6 +15,7 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField]
         private float m_spawnInterval;
 
+        public EventAction<EventActionArgs> IsDone;
         private int m_poolIndex;
 
         private bool m_isExecutinSequence;
@@ -39,8 +40,8 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_isExecutinSequence = true;
 
-            bool areLightningDoneExecuting = false;
 
+            bool areLightningDoneExecuting = false;
             for (int i = 0; i < m_spawnCount; i++)
             {
                 SpawnLighting(m_poolIndex);
@@ -67,7 +68,9 @@ namespace DChild.Gameplay.Characters.Enemies
             void OnLightingDone(object sender, EventActionArgs eventArgs)
             {
                 areLightningDoneExecuting = true;
+                
             }
+            IsDone?.Invoke(this, EventActionArgs.Empty);
         }
 
         private void SpawnLighting(int poolIndex)
