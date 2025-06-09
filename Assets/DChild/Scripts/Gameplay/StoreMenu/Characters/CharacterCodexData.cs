@@ -24,7 +24,7 @@ namespace DChild.Codex.Characters
 
         protected override IEnumerable GetIDs()
         {
-            var connection = DChildDatabase.GetCharactersConnection();
+            var connection = DChildDatabase.GetBestiaryConnection();
             connection.Initialize();
             var infoList = connection.GetAllInfo();
             connection.Close();
