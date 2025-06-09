@@ -18,10 +18,11 @@ namespace DChild.Gameplay.Characters.Enemies
         private float m_disappearTransistionDuration;
         [SerializeField]
         private ParticleSystem m_dustFX;
-
+        public bool m_isGrowing;
         [Button]
         public void Grow()
         {
+            m_isGrowing = true;
             StopAllCoroutines();
             StartCoroutine(TransistionRoutine(m_spikesDisappearPosition, m_spikesGrowPosition, m_growTransistionDuration));
         }
@@ -29,6 +30,7 @@ namespace DChild.Gameplay.Characters.Enemies
         [Button]
         public void Disappear()
         {
+            m_isGrowing = false;
             StopAllCoroutines();
             StartCoroutine(DisappearRoutine());
         }

@@ -96,11 +96,17 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, BoxGroup("Massive Spike")]
             private BasicAnimationInfo m_massiveSpikeAttackAnimation;
             public BasicAnimationInfo massiveSpikeAttackAnimation => m_massiveSpikeAttackAnimation;
+            [SerializeField, BoxGroup("Massive Spike")]
+            private BasicAnimationInfo m_massiveSpikeAttackAnimation2;
+            public BasicAnimationInfo massiveSpikeAttackAnimation2 => m_massiveSpikeAttackAnimation2;
             [SerializeField, MinValue(0), BoxGroup("Massive Spike")]
             private float m_massiveSpikeStayDuration;
             public float massiveSpikeStayDuration => m_massiveSpikeStayDuration;
             #endregion
 
+            [SerializeField, BoxGroup("Multiple Spike")]
+            private BasicAnimationInfo m_multipleSpikeSummonAnticipation;
+            public BasicAnimationInfo multipleSpikeSummonAnticipation => m_multipleSpikeSummonAnticipation;
             [SerializeField, BoxGroup("Multiple Spike")]
             private BasicAnimationInfo m_multipleSpikeSummonAnimation;
             public BasicAnimationInfo multipleSpikeSummonAnimation => m_multipleSpikeSummonAnimation;
@@ -117,6 +123,9 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField]
             private ProjectileInfo m_crimsonProjectile;
             public ProjectileInfo crimsonProjectile => m_crimsonProjectile;
+            [SerializeField]
+            private BasicAnimationInfo m_rageQuakeAnimation;
+            public BasicAnimationInfo rageQuakeAnimation => m_rageQuakeAnimation;
 
 
 
@@ -149,10 +158,13 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_encircledProjectileScatterAnimation.SetData(m_skeletonDataAsset);
 
                 m_massiveSpikeAttackAnimation.SetData(m_skeletonDataAsset);
+                m_massiveSpikeAttackAnimation2.SetData(m_skeletonDataAsset);
 
                 m_multipleSpikeSummonAnimation.SetData(m_skeletonDataAsset);
 
                 m_fleshBombAttackAnimation.SetData(m_skeletonDataAsset);
+                m_multipleSpikeSummonAnticipation.SetData(m_skeletonDataAsset);
+                m_rageQuakeAnimation.SetData(m_skeletonDataAsset);
 #endif
             }
         }
@@ -328,11 +340,18 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator ChangePhaseRoutine()
         {
-            //Has No Special Behaviour for Phasing
+            StartCoroutine(ResolveBehaviorInterruptions());
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            m_hitbox.SetInvulnerability(Invulnerability.MAX);
+            m_animation.SetAnimation(0, m_info.rageQuakeAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.rageQuakeAnimation);
+            m_hitbox.SetInvulnerability(Invulnerability.None);
             if (m_wasWaitingDuringPhaseChange)
             {
                 m_stateHandle.OverrideState(State.WaitBehaviourEnd);
             }
+            m_attackDecider.hasDecidedOnAttack = false;
+            m_stateHandle.ApplyQueuedState();
             yield return null;
         }
 
@@ -345,28 +364,43 @@ namespace DChild.Gameplay.Characters.Enemies
         {
 
         }
-
-        protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
+        private IEnumerator ResolveBehaviorInterruptions()
         {
-            StopAllCoroutines();
             m_encircledProjectileHandle.ScatterProjectiles(m_info.crimsonProjectile.speed);
             for (int i = 0; i < m_massiveSpikePattern.Length; i++)
             {
-                m_massiveSpikePattern[i].Disappear();
+                if (m_massiveSpikePattern[i].m_isGrowing)
+                {
+                    m_massiveSpikePattern[i].Disappear();
+                }
             }
             for (int i = 0; i < m_multipleSpikes.Length; i++)
             {
-                m_multipleSpikes[i].Disappear();
+                if (m_multipleSpikes[i].m_isGrowing)
+                {
+                    m_multipleSpikes[i].Disappear();
+                }
             }
             for (int i = 0; i < m_illusionPlatforms.Length; i++)
             {
-                m_illusionPlatforms[i].Hide();
+                if (m_illusionPlatforms[i].m_isGrowing)
+                {
+                    m_illusionPlatforms[i].Hide();
+                }
             }
-            m_bottomMultipleSpike.Disappear();
-
+            if (m_bottomMultipleSpike.m_isGrowing)
+            {
+                m_bottomMultipleSpike.Disappear();
+            }
             m_fleshBomb.gameObject.SetActive(false);
             m_rainProjectileHandle.DropSpawnedProjectiles(m_info.crimsonProjectile.speed);
             m_movement.Stop();
+            yield return null;
+        }
+        protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
+        {
+            StopAllCoroutines();
+            StartCoroutine(ResolveBehaviorInterruptions());
             m_stateHandle.Wait(State.WaitBehaviourEnd);
             base.OnDestroyed(sender, eventArgs);
         }
@@ -378,10 +412,41 @@ namespace DChild.Gameplay.Characters.Enemies
             var yPosition = UnityEngine.Random.Range(-extents.y, extents.y);
             return bounds.center + new Vector3(xPosition, yPosition, 0);
         }
+        private Vector3 GetFarthestMajorFlightArea()
+        {
+            if (m_flightAreas == null || m_flightAreas.Length == 0)
+                return transform.position; // fallback if no flight areas
+
+            Vector3 bossPosition = transform.position;
+            float maxDistance = float.MinValue;
+            BoxCollider2D farthestArea = null;
+
+            foreach (var area in m_flightAreas)
+            {
+                if (area == null) continue;
+
+                float distance = Vector3.Distance(bossPosition, area.bounds.center);
+                if (distance > maxDistance)
+                {
+                    maxDistance = distance;
+                    farthestArea = area;
+                }
+            }
+
+            return farthestArea != null ? GetRandomPointInBounds(farthestArea.bounds) : bossPosition;
+        }
 
         private Vector3 GetRandomMajorFlightArea()
         {
-            var randomIndex = UnityEngine.Random.Range(0, m_flightAreas.Length);
+            var randomIndex = 0;
+            var previousPatterm = 0;
+            previousPatterm = randomIndex;
+            randomIndex = UnityEngine.Random.Range(0, m_flightAreas.Length);
+            while (randomIndex == previousPatterm)
+            {
+                randomIndex = UnityEngine.Random.Range(0, m_flightAreas.Length);
+                break;
+            }
             return GetRandomPointInBounds(m_flightAreas[randomIndex].bounds);
         }
 
@@ -515,8 +580,10 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator SummonMultipleFleshSpikesRoutine(PuedisYnnusMultipleSpikeHandle spikeHandle)
         {
-            var summonAnimation = m_animation.SetAnimation(0, m_info.multipleSpikeSummonAnimation, false);
-            yield return new WaitForSpineAnimationComplete(summonAnimation, true);
+            var anticipation = m_animation.SetAnimation(0, m_info.multipleSpikeSummonAnticipation, false);
+            yield return new WaitForSpineAnimationComplete(anticipation);
+            var summonAnimation = m_animation.SetAnimation(0, m_info.multipleSpikeSummonAnimation, true);
+            //yield return new WaitForSpineAnimationComplete(summonAnimation, true);
             spikeHandle.Grow();
             yield return IdleFloatRoutine(0.1f);
         }
@@ -544,7 +611,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_fleshBomb.transform.parent = m_fleshBombSummonParent;
             m_fleshBomb.transform.localPosition = Vector3.zero;
             yield return m_fleshBomb.BeSummoned();
-
+            m_animation.SetAnimation(0, m_info.idleAnimations[2], true);
             m_fleshBomb.transform.parent = null;
             yield return m_fleshBomb.FloatTo(m_fleshBombExplosionDestination.position);
 
@@ -632,9 +699,9 @@ namespace DChild.Gameplay.Characters.Enemies
 
             var patternIndex = UnityEngine.Random.Range(0, m_massiveSpikePattern.Length);
             var chosenPattern = m_massiveSpikePattern[patternIndex];
-
-            m_animation.SetAnimation(0, m_info.massiveSpikeAttackAnimation.animation, false, 0);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.massiveSpikeAttackAnimation);
+            var random = UnityEngine.Random.RandomRange(0, 2);
+            var randAnim = m_animation.SetAnimation(0, random == 0? m_info.massiveSpikeAttackAnimation.animation : m_info.massiveSpikeAttackAnimation2.animation, false, 0);
+            yield return new WaitForSpineAnimationComplete(randAnim);
             yield return IdleFloatRoutine(0.1f);
             chosenPattern.Grow();
             yield return new WaitForSeconds(m_info.massiveSpikeStayDuration);
@@ -797,7 +864,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
                 case State.Phasing:
-                    //StopAllCoroutines();
+                    StopAllCoroutines();
                     StartCoroutine(ChangePhaseRoutine());
                     break;
                 case State.Turning:
@@ -840,7 +907,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     if (m_teleportCounter >= m_currentPhaseInfo.teleportCountThreshold)
                     {
                         m_teleportCounter = 0;
-                        StartCoroutine(TeleportToDestination(GetRandomMajorFlightArea()));
+                        StartCoroutine(TeleportToDestination(GetFarthestMajorFlightArea()));
                     }
                     else if (m_phaseHandle.currentPhase != Phase.PhaseOne && m_attackCounter > m_currentPhaseInfo.atttackCountThreshold)
                     {
