@@ -1,4 +1,5 @@
 using DChild;
+using DChild.Gameplay.ArmyBattle;
 using DChild.Gameplay.Environment;
 using DChild.Menu.Codex;
 using DChildEditor;
@@ -9,7 +10,7 @@ using UnityEditor;
 using UnityEngine;
 
 
- namespace DChild.Codex.Characters
+namespace DChild.Codex.Characters
 {
     [CreateAssetMenu(fileName = "CharacterCodexData", menuName = "DChild/Database/Character Codex Data")]
     public class CharacterCodexData : DatabaseAsset, ICodexIndexInfo, ICodexInfo
@@ -17,13 +18,13 @@ using UnityEngine;
 
         #region EditorOnly
 #if UNITY_EDITOR
-        [SerializeField]
-        private bool m_enableEdit;
+        //[SerializeField]
+        //private bool m_enableEdit;
 
 
         protected override IEnumerable GetIDs()
         {
-            var connection = DChildDatabase.GetBestiaryConnection();
+            var connection = DChildDatabase.GetCharactersConnection();
             connection.Initialize();
             var infoList = connection.GetAllInfo();
             connection.Close();
@@ -67,10 +68,11 @@ using UnityEngine;
         {
             m_customName = name;
         }
-        public void UseDisplayName(bool useName)
-        {
-            m_useCustomName = useName;
-        }
+        //public void UseDisplayName(bool useName)
+        //{
+        //    m_useCustomName = useName;
+        //}
+
         public void SetTitle(string title)
         {
             m_title = title;
@@ -79,10 +81,6 @@ using UnityEngine;
         {
             m_description = desciption;
         }
-        public void SetStoreNotes(string storeNotes)
-        {
-            m_storeNotes = storeNotes;
-        }
         public void SetInfoImage(Sprite infoImage)
         {
             m_infoImage = infoImage;
@@ -90,38 +88,33 @@ using UnityEngine;
 
 #endif
         #endregion
-        [SerializeField]
-        private bool m_useCustomName;
-        [SerializeField]
-        private string m_customName;
+
+
+        [SerializeField, Tooltip("used to refer character instead of 'm_name'")]
+        private string m_displayName;
         [SerializeField]
         private string m_title;
         [SerializeField]
         private Sprite m_indexImage;
         [SerializeField]
         private Sprite m_infoImage;
-        [SerializeField]
-        private Sprite m_sketchImage;
         [SerializeField, TextArea]
         private string m_description;
-        [SerializeField, TextArea]
-        private string m_storeNotes;
+
+        [SerializeField]
+        private CharacterType m_characterType;
+        [SerializeField, ShowIf("@m_characterType == CharacterType.Army")]
+        private ArmyCharacterData m_armyData;
 
 
         public int id { get => m_ID; }
-        public string creatureName { get => m_useCustomName ? m_customName : m_name; }
+        public string characterName => m_displayName;
         public string title => m_title;
         public Sprite indexImage { get => m_indexImage; }
         public Sprite infoImage { get => m_infoImage; }
-        public Sprite sketchImage { get => m_sketchImage; }
         public string description { get => m_description; }
-        public string storeNotes { get => m_storeNotes; }
-        public Location[] locatedIn { get => m_locatedIn; }
-
 
         //[SerializeField, ValueDropdown("GetLocations", IsUniqueList = true), ToggleGroup("m_enableEdit")]
-        [SerializeField, DrawWithUnity]
-        private Location[] m_locatedIn;
 
         [SerializeField, FoldoutGroup("File Utility")]
         private string m_projectName;
@@ -136,11 +129,13 @@ using UnityEngine;
         {
             UpdateSpriteName(m_indexImage, " Index");
             UpdateSpriteName(m_infoImage, " Image");
-            UpdateSpriteName(m_sketchImage, " Sketch");
 
             string assetPath = AssetDatabase.GetAssetPath(GetInstanceID());
             var fileName = m_projectName.Replace(" ", string.Empty);
             fileName += "_CCD";
+
+
+
             FileUtility.RenameAsset(this, assetPath, fileName, false);
 
             void UpdateSpriteName(Sprite sprite, string extention)
@@ -151,6 +146,16 @@ using UnityEngine;
                     FileUtility.RenameAsset<Sprite>(sprite, indexSpriteFilePath, m_projectName + extention, false);
                 }
             }
+        }
+
+        /// <summary>
+        /// should only be used in toolkits
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetName(string value)
+        {
+            m_customName = value;
+            m_displayName = value;
         }
 #endif
     }
