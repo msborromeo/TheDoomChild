@@ -566,6 +566,10 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_animation.SetAnimation(0, m_info.patrol.animation, true);
                     var characterInfo = new PatrolHandle.CharacterInfo(m_character.centerMass.position, m_character.facing);
                     m_patrolHandle.Patrol(m_agent, m_info.patrol.speed, characterInfo);
+                    if (m_isDetecting)
+                    {
+                        m_stateHandle.SetState(State.ReevaluateSituation);
+                    }
                     break;
 
                 case State.Idle:
