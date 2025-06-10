@@ -19,9 +19,11 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private bool m_isInSpikeForm;
 
+        public bool m_isGrowing;
         [Button]
         public void Show()
         {
+            m_isGrowing = true;
             m_normalPlatform.gameObject.SetActive(true);
             m_spikedPlatform.gameObject.SetActive(true);
 
@@ -33,6 +35,7 @@ namespace DChild.Gameplay.Characters.Enemies
         [Button]
         public void Hide()
         {
+            m_isGrowing = false;
             StopAllCoroutines();
             m_normalPlatform.Disappear(true);
             m_spikedPlatform.Disappear(true);
