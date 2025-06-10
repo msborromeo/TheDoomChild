@@ -157,6 +157,7 @@ namespace DChild.Gameplay.UI
             m_message = text;
             m_numberOfActions = 1;
             m_actionConfiguration1 = configuration1;
+            currentBinding.Clear();
             PopulateCurrentBinding(m_actionConfiguration1);
             AddCurrentBindings();
             SetText();
@@ -167,6 +168,7 @@ namespace DChild.Gameplay.UI
             m_message = text;
             m_numberOfActions = 2;
             m_actionConfiguration1 = configuration1;
+            currentBinding.Clear();
             PopulateCurrentBinding(m_actionConfiguration1);
 
             m_actionConfiguration2 = configuration2;
