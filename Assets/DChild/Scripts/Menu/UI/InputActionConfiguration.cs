@@ -39,6 +39,7 @@ namespace DChild.Gameplay.UI
             ModifierOne,
             ModifierTwo,
             Binding,
+            Modifier,
             _Count
         }
 

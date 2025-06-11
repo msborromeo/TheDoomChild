@@ -260,10 +260,40 @@ namespace DChild.Gameplay.UI
                         switch(configuration.modifierPart)
                         {
                             case InputActionConfiguration.ModifierPart.ModifierOne:
+                                for (int i = 0; i < m_activeDeviceBinding.Count; i++)
+                                {
+                                    if (m_activeDeviceBinding[i].name == "modifier1")
+                                    {
+                                        inputBinding = m_activeDeviceBinding[i];
+                                    }
+                                }
                                 break;
                             case InputActionConfiguration.ModifierPart.ModifierTwo:
+                                for (int i = 0; i < m_activeDeviceBinding.Count; i++)
+                                {
+                                    if (m_activeDeviceBinding[i].name == "modifier2")
+                                    {
+                                        inputBinding = m_activeDeviceBinding[i];
+                                    }
+                                }
                                 break;
                             case InputActionConfiguration.ModifierPart.Binding:
+                                for (int i = 0; i < m_activeDeviceBinding.Count; i++)
+                                {
+                                    if (m_activeDeviceBinding[i].name == "binding")
+                                    {
+                                        inputBinding = m_activeDeviceBinding[i];
+                                    }
+                                }
+                                break;
+                            case InputActionConfiguration.ModifierPart.Modifier:
+                                for (int i = 0; i < m_activeDeviceBinding.Count; i++)
+                                {
+                                    if (m_activeDeviceBinding[i].name == "modifier")
+                                    {
+                                        inputBinding = m_activeDeviceBinding[i];
+                                    }
+                                }
                                 break;
                         }
                     }
