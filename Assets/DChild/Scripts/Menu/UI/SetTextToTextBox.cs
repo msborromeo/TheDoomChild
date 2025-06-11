@@ -144,22 +144,22 @@ namespace DChild.Gameplay.UI
             //}
         }
 
-        //intended to be used in UI Managers that have dynamic text through data like Primary Skills
-
         //intended to be used on text localized
         public void SetText(string localizedText)
         {
             m_message = localizedText;
             SetText();
         }
+
+        //intended to be used in UI Managers that have dynamic text through data like Primary Skills
         public void SetText(string text, InputActionConfiguration configuration1)
         {
             m_message = text;
             m_numberOfActions = 1;
-            m_actionConfiguration1 = configuration1;
             currentBinding.Clear();
+            m_actionConfiguration1 = configuration1;
             PopulateCurrentBinding(m_actionConfiguration1);
-            AddCurrentBindings();
+            AddDeviceBindings();
             SetText();
         }
 
@@ -167,14 +167,14 @@ namespace DChild.Gameplay.UI
         {
             m_message = text;
             m_numberOfActions = 2;
-            m_actionConfiguration1 = configuration1;
             currentBinding.Clear();
+            m_actionConfiguration1 = configuration1;
             PopulateCurrentBinding(m_actionConfiguration1);
 
             m_actionConfiguration2 = configuration2;
             PopulateCurrentBinding(m_actionConfiguration2);
 
-            AddCurrentBindings();
+            AddDeviceBindings();
 
             SetText();
         }
@@ -183,9 +183,16 @@ namespace DChild.Gameplay.UI
         {
             m_message = text;
             m_numberOfActions = 3;
+            currentBinding.Clear();
             m_actionConfiguration1 = configuration1;
+            PopulateCurrentBinding(m_actionConfiguration1);
             m_actionConfiguration2 = configuration2;
+            PopulateCurrentBinding(m_actionConfiguration2);
             m_actionConfiguration3 = configuration3;
+            PopulateCurrentBinding(m_actionConfiguration3);
+
+            AddDeviceBindings();
+
             SetText();
         }
 
@@ -200,22 +207,48 @@ namespace DChild.Gameplay.UI
                         {
                             case InputActionConfiguration.DirectionActionPart.Up:
                                 {
-                                    inputBinding = configuration.inputAction.action.bindings[1];
+                                    //inputBinding = configuration.inputAction.action.bindings[1];
+                                    for (int i = 0; i < m_activeDeviceBinding.Count; i++)
+                                    {
+                                        if (m_activeDeviceBinding[i].name == "up")
+                                        {
+                                            inputBinding = m_activeDeviceBinding[i];
+                                        }
+                                    }
                                 }
                                 break;
                             case InputActionConfiguration.DirectionActionPart.Down:
                                 {
-                                    inputBinding = configuration.inputAction.action.bindings[2];
+                                    //inputBinding = configuration.inputAction.action.bindings[2];
+                                    for(int i = 0; i < m_activeDeviceBinding.Count; i++)
+                                    {
+                                        if (m_activeDeviceBinding[i].name == "down")
+                                        {
+                                            inputBinding = m_activeDeviceBinding[i];
+                                        }
+                                    }
                                 }
                                 break;
                             case InputActionConfiguration.DirectionActionPart.Left:
                                 {
-                                    inputBinding = configuration.inputAction.action.bindings[3];
+                                    for (int i = 0; i < m_activeDeviceBinding.Count; i++)
+                                    {
+                                        if (m_activeDeviceBinding[i].name == "left")
+                                        {
+                                            inputBinding = m_activeDeviceBinding[i];
+                                        }
+                                    }
                                 }
                                 break;
                             case InputActionConfiguration.DirectionActionPart.Right:
                                 {
-                                    inputBinding = configuration.inputAction.action.bindings[4];
+                                    for (int i = 0; i < m_activeDeviceBinding.Count; i++)
+                                    {
+                                        if (m_activeDeviceBinding[i].name == "right")
+                                        {
+                                            inputBinding = m_activeDeviceBinding[i];
+                                        }
+                                    }
                                 }
                                 break;
                         }
@@ -226,23 +259,50 @@ namespace DChild.Gameplay.UI
                     {
                         case InputActionConfiguration.CycleActionPart.Negative:
                             {
-                                inputBinding = configuration.inputAction.action.bindings[1];
+                                for (int i = 0; i < m_activeDeviceBinding.Count; i++)
+                                {
+                                    if (m_activeDeviceBinding[i].name == "negative")
+                                    {
+                                        inputBinding = m_activeDeviceBinding[i];
+                                    }
+                                }
                             }
                             break;
                         case InputActionConfiguration.CycleActionPart.Positive:
                             {
-                                inputBinding = configuration.inputAction.action.bindings[2];
+                                for (int i = 0; i < m_activeDeviceBinding.Count; i++)
+                                {
+                                    if (m_activeDeviceBinding[i].name == "positive")
+                                    {
+                                        inputBinding = m_activeDeviceBinding[i];
+                                    }
+                                }
                             }
                             break;
                     }
                     break;
                 case InputActionConfiguration.InputActionType.Modifier:
                     {
-                        inputBinding = m_actionConfiguration1.inputAction.action.bindings[1];
+                        switch(configuration.modifierPart)
+                        {
+                            case InputActionConfiguration.ModifierPart.ModifierOne:
+                                break;
+                            case InputActionConfiguration.ModifierPart.ModifierTwo:
+                                break;
+                            case InputActionConfiguration.ModifierPart.Binding:
+                                break;
+                        }
                     }
                     break;
                 case InputActionConfiguration.InputActionType.NoneComposite:
-                    inputBinding = m_actionConfiguration1.inputAction.action.bindings[(int)m_deviceType];
+                    //inputBinding = m_actionConfiguration1.inputAction.action.bindings[(int)m_deviceType];
+                    for (int i = 0; i < m_activeDeviceBinding.Count; i++)
+                    {
+                        if (m_activeDeviceBinding[i].effectivePath == configuration.inputAction.action.bindings[(int)m_deviceType].effectivePath)
+                        {
+                            inputBinding = m_activeDeviceBinding[i];
+                        }
+                    }
                     break;
             }
             return inputBinding;
@@ -256,64 +316,49 @@ namespace DChild.Gameplay.UI
             //puts ALL bindings in one list called currendBinding
             for (int x = 0; x < inputBinding.Count; x++)
             {
-                if (inputBinding[x].isComposite)
+                if (inputBinding[x].effectivePath != "PC" ||
+                    inputBinding[x].effectivePath != "Gamepad" ||
+                    inputBinding[x].effectivePath != "1D Axis" ||
+                    inputBinding[x].effectivePath != "2DVector")
                 {
-                    // filter out the composite to get modifier and binding key
-                }
-                if (inputBinding[x].isPartOfComposite)
-                {
-
                     currentBinding.Add(inputBinding[x]);
                 }
+
+                //if (inputBinding[x].isComposite)
+                //{
+                //    // filter out the composite to get modifier and binding key
+                //}
+                //if (inputBinding[x].isPartOfComposite)
+                //{
+                //    currentBinding.Add(inputBinding[x]);
+                //}
             }
         }
 
-        private void AddCurrentBindings()
+        private void AddDeviceBindings()
         {
+            if(keyBoardList != null)
+                keyBoardList.Clear();
+            if(gamepadList != null) 
+                gamepadList.Clear();
+            if(psList != null) 
+                psList.Clear();
+
             for (int x = 0; x < currentBinding.Count; x++)
             {
                 var curBind = currentBinding[x];
                 Debug.Log("Current Binding Effective Path: " + curBind.effectivePath);
-                if (curBind.effectivePath.Contains("Keyboard"))
+                if (curBind.effectivePath.Contains("Keyboard") || curBind.effectivePath.Contains("Mouse"))
                 {
                     keyBoardList.Add(curBind);
                 }
                 if (curBind.effectivePath.Contains("Gamepad"))
                 {
-                        gamepadList.Add(curBind);
+                    gamepadList.Add(curBind);
                 }
                 if (curBind.effectivePath.Contains("PS4"))
                 {
-                    if (psList.Contains(curBind))
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        psList.Add(curBind);
-                    }
                     psList.Add(curBind);
-                }
-            }
-
-            if (m_activeDeviceBinding != null)
-            {
-                m_activeDeviceBinding.Clear();
-            }
-
-            if(m_deviceType == CurrentDeviceType.Keyboard)
-            {
-                for (int x = 0; x < keyBoardList.Count; x++)
-                {
-                    m_activeDeviceBinding.Add(keyBoardList[x]);
-                }
-
-            }
-            else if(m_deviceType == CurrentDeviceType.Gamepad)
-            {
-                for (int x = 0; x < gamepadList.Count; x++)
-                {
-                    m_activeDeviceBinding.Add(gamepadList[x]);
                 }
             }
         }
@@ -424,18 +469,9 @@ namespace DChild.Gameplay.UI
         void Start()
         {
             PopulateCurrentBinding(m_actionConfiguration1);
-            AddCurrentBindings();
+            AddDeviceBindings();
+            m_activeDeviceBinding = keyBoardList; //default active device
             SetText();
-        }
-
-        private void OnEnable()
-        {
-            DeviceTypeChanged += OnDeviceTypeChanged;
-        }
-
-        private void OnDisable()
-        {
-            DeviceTypeChanged -= OnDeviceTypeChanged;
         }
 
         private void OnDeviceTypeChanged(CurrentDeviceType type)
@@ -444,19 +480,19 @@ namespace DChild.Gameplay.UI
                 return;
 
             deviceType = type;
-            m_activeDeviceBinding.Clear();
+
             if (m_deviceType == CurrentDeviceType.Keyboard)
             {
                 for (int x = 0; x < keyBoardList.Count; x++)
                 {
-                    m_activeDeviceBinding.Add(keyBoardList[x]);
+                    m_activeDeviceBinding = keyBoardList;
                 }
             }
             else if (m_deviceType == CurrentDeviceType.Gamepad)
             {
                 for (int x = 0; x < gamepadList.Count; x++)
                 {
-                    m_activeDeviceBinding.Add(gamepadList[x]);
+                    m_activeDeviceBinding = gamepadList;
                 }
             }
             SetText();

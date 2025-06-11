@@ -34,6 +34,14 @@ namespace DChild.Gameplay.UI
             _Count
         }
 
+        public enum ModifierPart
+        {
+            ModifierOne,
+            ModifierTwo,
+            Binding,
+            _Count
+        }
+
         [SerializeField]
         private InputActionType m_actionType;
         public InputActionType actionType => m_actionType;
@@ -47,6 +55,11 @@ namespace DChild.Gameplay.UI
         [SerializeField, ShowIf("@m_actionType == InputActionType.Cycle")]
         private CycleActionPart m_cycleActionPart;
         public CycleActionPart cycleActionPart => m_cycleActionPart;
+
+        //Modifier
+        [SerializeField, ShowIf("@m_actionType == InputActionType.Modifier")]
+        private ModifierPart m_modifierPart;
+        public ModifierPart modifierPart => m_modifierPart;
 
         [SerializeField]
         private InputActionReference m_inputAction;
