@@ -17,8 +17,8 @@ namespace DChild.Menu.Codex.Bestiary
         private TextMeshProUGUI m_baybayinName;
         [SerializeField]
         private Image m_creatureImage;
-        [SerializeField]
-        private Image m_sketchImage;
+        //[SerializeField]
+        //private Image m_sketchImage;
         [SerializeField]
         private TextMeshProUGUI m_location;
         [SerializeField]
@@ -46,7 +46,7 @@ namespace DChild.Menu.Codex.Bestiary
             {
                 creatureNameText = "";
                 SetImage(m_creatureImage, null);
-                SetImage(m_sketchImage, null);
+                //SetImage(m_sketchImage, null);
                 m_location.text = "";
                 m_description.text = "";
                 m_storeNotes.text = "";
@@ -56,7 +56,7 @@ namespace DChild.Menu.Codex.Bestiary
             {
                 creatureNameText = m_showDataOf.creatureName;
                 SetImage(m_creatureImage, m_showDataOf.infoImage);
-                SetImage(m_sketchImage, m_showDataOf.sketchImage);
+                //SetImage(m_sketchImage, m_showDataOf.sketchImage);
                 UpdateLocation(m_showDataOf.locatedIn);
                 m_description.text = m_showDataOf.description;
                 m_storeNotes.text = m_showDataOf.storeNotes;
