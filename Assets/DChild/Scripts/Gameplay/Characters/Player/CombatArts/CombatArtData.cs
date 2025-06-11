@@ -31,7 +31,7 @@ namespace DChild.Gameplay.Characters.Players
         [SerializeField]
         private InputActionReference m_actionReference;
 
-        [SerializeField]
+        [SerializeField, TextArea]
         private string m_controls;
 
 
