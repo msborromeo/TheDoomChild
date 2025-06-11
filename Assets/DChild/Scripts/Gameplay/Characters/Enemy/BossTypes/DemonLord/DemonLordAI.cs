@@ -762,13 +762,14 @@ namespace DChild.Gameplay.Characters.Enemies
 
         protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
         {
-            base.OnDestroyed(sender, eventArgs);
+            
+            Debug.Log("Dead?");
             EndAttacks();
             m_book.Death(false);
             StopAllCoroutines();
             m_agent.Stop();
             m_isDetecting = false;
-
+            base.OnDestroyed(sender, eventArgs);
 
         }
 
@@ -967,7 +968,7 @@ namespace DChild.Gameplay.Characters.Enemies
             Debug.Log(chosenPointForRayOfFrost.name.ToString());
             m_chosenPointNameForRayFrost = chosenPointForRayOfFrost.name.ToString();
 
-            while (Vector3.Distance(transform.position, chosenPointForRayOfFrost.position) > 0.3f)
+            while (Vector3.Distance(transform.position, chosenPointForRayOfFrost.position) > 5f)
             {
                 var distanceCalculationDLordAndFrost = (chosenPointForRayOfFrost.position - transform.position).normalized;
                 transform.position += m_info.move.speed * Time.deltaTime * distanceCalculationDLordAndFrost;
@@ -1394,7 +1395,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_fireController.m_isFireRoutineDone = false;
             m_fireController.gameObject.SetActive(true);
            // m_fireController.SetActiveDragonTrail(true);
-            while (Vector3.Distance(transform.position, positionForDragonsBreath.position) > 0.5f)
+            while (Vector3.Distance(transform.position, positionForDragonsBreath.position) > 2f)
             {
                 var distanceCalcuOfTwoPosition = (positionForDragonsBreath.position - transform.position).normalized;
                 transform.position += m_info.move.speed * Time.deltaTime * distanceCalcuOfTwoPosition;
@@ -1446,7 +1447,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_demonLordSummonDragon.SpellEnd += SpellEndEventSummonDragon;
             var positionForSummonDragon = m_dragonsBreathPoint;
-            while (Vector3.Distance(transform.position, positionForSummonDragon.position) > 0.5f)
+            while (Vector3.Distance(transform.position, positionForSummonDragon.position) > 5f)
             {
                 var CalculatedDistanceOfPositions = (positionForSummonDragon.position - transform.position).normalized;
                 transform.position += m_info.move.speed * Time.deltaTime * CalculatedDistanceOfPositions;
@@ -1491,7 +1492,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForSeconds(0.5f);
             m_fireController.gameObject.SetActive(true);
             m_fireController.SetActiveDragonTrail(true);
-            while (Vector3.Distance(transform.position, positionForDragonsBreath.position) > 0.5f)
+            while (Vector3.Distance(transform.position, positionForDragonsBreath.position) > 5f)
             {
                 var distanceCalcuOfTwoPosition = (positionForDragonsBreath.position - transform.position).normalized;
                 transform.position += m_info.move.speed * Time.deltaTime * distanceCalcuOfTwoPosition;
@@ -1578,13 +1579,15 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             else
             {
-                IceShardSpell(m_centerMass.position,30, 120);
+                IceShardSpell(m_centerMass.position,45, 120);
                 m_IceShardPattern1Done = false;
             }
 
         }
         private void IceShardSpell(Vector3 position, float rotation, float speed)
         {
+            //Demon Lord Scale Should be (1,1,1) or (-1,1,1) because Calculations of ShardSpell Assumes its always facing Vector3.Right as 0 zRot
+            m_demonLordIceShardSpell.transform.localScale = transform.localScale; 
             m_demonLordIceShardSpell.LaunchIceShards(position, rotation, speed);
         }
 
@@ -1776,6 +1779,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator TeleportToReevaluateState()
         {
             yield return TeleportRoutine();
+            yield return IceShardRoutine();
             m_stateHandle.OverrideState(State.ReevaluateSituation);
         }
         private IEnumerator RandomizeAttacksForTeleport()
@@ -1783,7 +1787,7 @@ namespace DChild.Gameplay.Characters.Enemies
             var rng = UnityEngine.Random.Range(1, 3);
             if (rng == 1)
             {
-                yield return RayOfFrostRoutine();
+                yield return IceShardRoutine();
             }
             else
             {
@@ -1835,7 +1839,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
                 case Phase.PhaseTwo:
 
-                    dragonsBreath = new AttackInfo<Attack>(Attack.Phase1Pattern1, m_info.phase1Pattern1Range);
+                    //dragonsBreath = new AttackInfo<Attack>(Attack.Phase1Pattern1, m_info.phase1Pattern1Range);
                     iceShard = new AttackInfo<Attack>(Attack.Phase1Pattern2, m_info.phase1Pattern2Range);
                     lightningStrike = new AttackInfo<Attack>(Attack.Phase1Pattern3, m_info.phase1Pattern3Range);
                     var summonDragonWithDragonsBreath = new AttackInfo<Attack>(Attack.Phase2Pattern1, m_info.phase2Pattern2Range);
@@ -1844,7 +1848,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     var LightningOrb = new AttackInfo<Attack>(Attack.Phase2Pattern4, m_info.phase2Pattern4Range);
                     var IceShards = new AttackInfo<Attack>(Attack.Phase2Pattern5, m_info.phase2Pattern5Range);
 
-                    m_attackDecider.SetList(dragonsBreath, iceShard, lightningStrike, summonDragonWithDragonsBreath, summonDragon, rayOfFrost, LightningOrb, IceShards);
+                    m_attackDecider.SetList(/*dragonsBreath,*/ iceShard, lightningStrike, summonDragonWithDragonsBreath, summonDragon, rayOfFrost, LightningOrb, IceShards);
                     break;
             }
             //m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase1Pattern1, m_info.phase1Pattern1Range),
@@ -1901,7 +1905,7 @@ namespace DChild.Gameplay.Characters.Enemies
             // m_patternAttackCount = new int[2];
             //m_patternDecider = new RandomAttackDecider<Pattern>();
             base.Awake();
-
+            m_damageable.health.Death += Health_Death;
             m_attackDecider = new RandomAttackDecider<Attack>();
             m_attackDecider.SetMaxRepeatAttack(1);
             //m_Points = new List<Vector2>();
@@ -1916,10 +1920,19 @@ namespace DChild.Gameplay.Characters.Enemies
 
         }
 
+        private void Health_Death(object sender, EventActionArgs eventArgs)
+        {
+            EndAttacks();
+            StopAllCoroutines();
+            m_book.Death(false);
+            m_animation.SetAnimation(0,m_info.deathAnimation,false);
+            m_deathHandle.enabled = true;
+        }
+
         protected override void Start()
         {
             base.Start();
-
+            
             ////m_spineListener.Subscribe(m_info.OrbSummonRainProjectile.launchOnEvent, m_deathFX.Play);
             m_spineListener.Subscribe(m_info.iceShardCardinalProjectiles, IceShardSpawn);
             m_spineListener.Subscribe(m_info.iceShardDiagonalProjectiles, IceShardSpawn);
