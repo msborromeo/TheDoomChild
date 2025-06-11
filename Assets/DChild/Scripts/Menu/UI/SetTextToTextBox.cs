@@ -20,8 +20,8 @@ namespace DChild.Gameplay.UI
         [SerializeField]
         private CurrentDeviceType m_deviceType;
 
-        [SerializeField]
-        private InputManager m_inputManager;
+        //[SerializeField]
+       // private InputManager m_inputManager;
 
         [SerializeField]
         private PlayerControls m_playerControls;
@@ -55,7 +55,7 @@ namespace DChild.Gameplay.UI
 
         public void OnActiveControllerChanged(string controlScheme)
         {
-            CurrentDeviceType deviceType = CurrentDeviceType.Keyboard;
+            CurrentDeviceType deviceType = new CurrentDeviceType();
             if (controlScheme.Contains("Keyboard"))
             {
                 deviceType = CurrentDeviceType.Keyboard;
@@ -66,12 +66,7 @@ namespace DChild.Gameplay.UI
                 deviceType = CurrentDeviceType.Gamepad;
             }
 
-            OnDeviceTypeChanged(deviceType);
-        }
-
-        public static void ChangeDeviceType(CurrentDeviceType deviceType)
-        {
-            DeviceTypeChanged?.Invoke(deviceType);
+            ChangeDeviceType(deviceType);
         }
 
         public CurrentDeviceType deviceType { get { return m_deviceType; } set { m_deviceType = value; } }
@@ -118,30 +113,6 @@ namespace DChild.Gameplay.UI
                 case 4:
                     break;
             }
-
-            //if (m_actionConfiguration1.inputAction.action.bindings.Count > (int)CurrentDeviceType._COUNT)
-            //{
-
-            //    switch (m_actionConfiguration1.actionType)
-            //    {
-            //        case InputActionConfiguration.InputActionType.Cycle:
-            //            SetTextToCyclePrompts();
-            //            break;
-            //        case InputActionConfiguration.InputActionType.Modifier:
-            //            SetTextToModifierPrompts();
-            //            break;
-            //        case InputActionConfiguration.InputActionType.Directional:
-            //            SetTextToDirectionalPrompts();
-            //            break;
-            //        case InputActionConfiguration.InputActionType.NoneComposite:
-            //           m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_actionConfiguration1.inputAction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
-            //            break;
-            //    }
-            //}
-            //else
-            //{
-            //    m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_actionConfiguration1.inputAction.action.bindings[(int)m_deviceType], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
-            //}
         }
 
         //intended to be used on text localized
@@ -326,15 +297,6 @@ namespace DChild.Gameplay.UI
                 {
                     currentBinding.Add(inputBinding[x]);
                 }
-
-                //if (inputBinding[x].isComposite)
-                //{
-                //    // filter out the composite to get modifier and binding key
-                //}
-                //if (inputBinding[x].isPartOfComposite)
-                //{
-                //    currentBinding.Add(inputBinding[x]);
-                //}
             }
         }
 
@@ -450,10 +412,9 @@ namespace DChild.Gameplay.UI
 
         private void OnDestroy()
         {
-            m_inputManager.OnActiveDeviceChange -= SetText;
-            m_inputManager.BindingsChangedEvent -= SetText;
-            UnderworldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
-            OverWorldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
+
+            //UnderworldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
+            //OverWorldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
         }
 
         private void Awake()
@@ -462,11 +423,9 @@ namespace DChild.Gameplay.UI
             m_action = new InputAction();
             m_textbox = GetComponent<TMP_Text>();
 
-            m_inputManager.GetCurrentDevice();
-            //m_inputManager.OnActiveDeviceChange += SetText;
-            m_inputManager.BindingsChangedEvent += SetText;
-            UnderworldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
-            OverWorldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
+
+            //UnderworldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
+            //OverWorldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
         }
         // Start is called before the first frame update
         void Start()
@@ -477,7 +436,35 @@ namespace DChild.Gameplay.UI
             SetText();
         }
 
-        private void OnDeviceTypeChanged(CurrentDeviceType type)
+        private void OnEnable()
+        {
+            //m_inputManager.GetCurrentDevice();
+            //m_inputManager.OnActiveDeviceChange += ChangeDeviceType;
+            //m_inputManager.BindingsChangedEvent += ChangeDeviceType;
+            InputSystem.onDeviceChange += OnControllerChanged;
+        }
+
+        private void OnDisable()
+        {
+            //m_inputManager.OnActiveDeviceChange -= ChangeDeviceType;
+            //m_inputManager.BindingsChangedEvent -= ChangeDeviceType;
+            InputSystem.onDeviceChange -= OnControllerChanged;
+        }
+
+
+        private void OnControllerChanged(InputDevice device, InputDeviceChange change)
+        {
+            if(Gamepad.current?.device != null)
+            {
+                ChangeDeviceType(CurrentDeviceType.Gamepad);
+            }
+            else
+            {
+                ChangeDeviceType(CurrentDeviceType.Keyboard);
+            }
+        }
+
+        private void ChangeDeviceType(CurrentDeviceType type)
         {
             if (deviceType == type)
                 return;
