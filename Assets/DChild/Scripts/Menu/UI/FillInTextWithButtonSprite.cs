@@ -54,8 +54,8 @@ public static class FillInTextWithButtonSprite
         stringButtonName3 = RenameInput(stringButtonName3, actionNeeded3.action);
 
         textToDisplay = textToDisplay.Replace("BUTTONPROMPT", $"<size={promptFontSize}><sprite=\"{spriteAsset.name}\" name=\"{stringButtonName1}\"></size>");
-        textToDisplay = textToDisplay.Replace("BUTTONPROMPT2", $"<size={promptFontSize}><sprite=\"{spriteAsset.name}\" name=\"{stringButtonName2}\"></size>");
-        textToDisplay = textToDisplay.Replace("BUTTONPROMPT3", $"<size={promptFontSize}><sprite=\"{spriteAsset.name}\" name=\"{stringButtonName3}\"></size>");
+        textToDisplay = textToDisplay.Replace("SECONDPROMPT", $"<size={promptFontSize}><sprite=\"{spriteAsset.name}\" name=\"{stringButtonName2}\"></size>");
+        textToDisplay = textToDisplay.Replace("THIRDPROMPT", $"<size={promptFontSize}><sprite=\"{spriteAsset.name}\" name=\"{stringButtonName3}\"></size>");
 
         return textToDisplay;
     }

@@ -156,10 +156,13 @@ namespace DChild.Gameplay.UI
         {
             m_message = text;
             m_numberOfActions = 1;
-            currentBinding.Clear();
-            m_actionConfiguration1 = configuration1;
-            PopulateCurrentBinding(m_actionConfiguration1);
-            AddDeviceBindings();
+            if(configuration1.inputAction != null)
+            {
+                currentBinding.Clear();
+                m_actionConfiguration1 = configuration1;
+                PopulateCurrentBinding(m_actionConfiguration1);
+                AddDeviceBindings();
+            }
             SetText();
         }
 
