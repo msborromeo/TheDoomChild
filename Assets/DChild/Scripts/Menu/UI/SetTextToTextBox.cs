@@ -170,6 +170,12 @@ namespace DChild.Gameplay.UI
             SetText();
         }
 
+        public void SetTextOnLocalizeCall()
+        {
+            m_message = m_textbox.text;
+            SetText();
+        }
+
         private InputBinding GetInputBinding(InputActionConfiguration configuration)
         {
             InputBinding inputBinding = new InputBinding(); //default
