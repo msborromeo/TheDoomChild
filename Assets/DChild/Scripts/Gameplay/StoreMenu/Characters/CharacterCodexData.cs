@@ -114,6 +114,9 @@ namespace DChild.Codex.Characters
         public Sprite infoImage { get => m_infoImage; }
         public string description { get => m_description; }
 
+        public CharacterType characterType => m_characterType;
+        public ArmyCharacterData armyData => m_armyData;
+
         //[SerializeField, ValueDropdown("GetLocations", IsUniqueList = true), ToggleGroup("m_enableEdit")]
 
         [SerializeField, FoldoutGroup("File Utility")]
