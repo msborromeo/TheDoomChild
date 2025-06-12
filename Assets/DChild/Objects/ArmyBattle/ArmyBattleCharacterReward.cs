@@ -11,7 +11,7 @@ using DChild.Gameplay.Characters.Players;
 
 namespace DChild.Gameplay.ArmyBattle
 {
-    public class ArmyBattleCharacterReward : MonoBehaviour ,IButtonToInteract
+    public class ArmyBattleCharacterReward : MonoBehaviour
     {
 
         [TabGroup("Main","Reference")]
@@ -70,9 +70,6 @@ namespace DChild.Gameplay.ArmyBattle
             [SerializeField, BoxGroup("Main/Requirements/NPCsAmountToggle/NPCsAmount")]
             private int neededNPCsRecruited;
 
-
-
-        //[SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
         private bool m_OtherConditions;
 
         private bool m_RequirementAchieved;
@@ -80,17 +77,10 @@ namespace DChild.Gameplay.ArmyBattle
 
         public event EventAction<EventActionArgs> InteractionOptionChange;
 
-        public bool showPrompt => true;
-
-        public string promptMessage => "Army Battle Character Dispenser";
-
-        public Vector3 promptPosition => transform.position + m_promptOffset;
-
         [Button]
         public void GiveReward()
         {
             m_CharacterGiver?.RecruitCharacter(m_CharacterReward);
-            Debug.LogError("AHHHHHHHHHHHHHH pain");
         }
 
         public void RequirementMet(bool isAchieved)
@@ -103,7 +93,7 @@ namespace DChild.Gameplay.ArmyBattle
             m_OtherConditions = x;
         }
 
-        public void Interact(Character character)
+        public void AttemptGiveReward()
         {
             if(!m_isFree)
             {

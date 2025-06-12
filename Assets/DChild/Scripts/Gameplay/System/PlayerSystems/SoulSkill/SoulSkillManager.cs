@@ -35,6 +35,7 @@ namespace DChild.Gameplay.SoulSkills
         private bool m_forceSoulSkillActivation;
 
         private bool m_canActivateSoulSkill;
+        private bool m_hasSubscribed;
 
         private bool canActivateSoulSkill => m_canActivateSoulSkill || m_forceSoulSkillActivation;
 
@@ -119,11 +120,15 @@ namespace DChild.Gameplay.SoulSkills
 
         public void Initialize()
         {
-            m_playerHandle.SaveDataLoaded += OnSoulSkillSaveDataLoaded;
-            m_playerHandle.AvailableSoulSkillChanged += OnAvailableSkillsChanged;
-            m_playerHandle.MaxCapacityChanged += OnMaxCapacityChanged;
-            m_skillSelection.OnSelected += OnSoulSkillSelected;
-            m_skillSelection.OnActionRequired += OnSoulSkillActionRequired;
+            if (m_hasSubscribed == false)
+            {
+                m_playerHandle.SaveDataLoaded += OnSoulSkillSaveDataLoaded;
+                m_playerHandle.AvailableSoulSkillChanged += OnAvailableSkillsChanged;
+                m_playerHandle.MaxCapacityChanged += OnMaxCapacityChanged;
+                m_skillSelection.OnSelected += OnSoulSkillSelected;
+                m_skillSelection.OnActionRequired += OnSoulSkillActionRequired;
+            }
+            m_hasSubscribed = true;
             m_availableListUI.InitializeList(m_completeSoulSkillList);
             m_activatedListUI.Reset();
             SyncWithSaveData();
