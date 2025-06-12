@@ -174,6 +174,7 @@ namespace DChild.Gameplay.UI
         {
             m_message = m_textbox.text;
             SetText();
+            Debug.Log("SetTextOnLocalizeCall happened");
         }
 
         private InputBinding GetInputBinding(InputActionConfiguration configuration)
@@ -364,6 +365,7 @@ namespace DChild.Gameplay.UI
             }
         }
 
+        #region OLD STUFF NOT BEING USED
         //Sets text to Inputs that require Modifiers
         private void SetTextToModifierPrompts()
         {
@@ -445,12 +447,11 @@ namespace DChild.Gameplay.UI
                 m_textbox.text = FillInTextWithButtonSprite.ReadAndReplaceBinding(m_message, m_activeDeviceBinding[1], m_spriteButtonList.tmpSpriteList[(int)m_deviceType], m_promptFontSize);
             }
         }
+        #endregion
 
         private void OnDestroy()
         {
 
-            //UnderworldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
-            //OverWorldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
         }
 
         private void Awake()
@@ -458,15 +459,28 @@ namespace DChild.Gameplay.UI
             m_playerControls = new PlayerControls();
             m_action = new InputAction();
             m_textbox = GetComponent<TMP_Text>();
-
-
-            //UnderworldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
-            //OverWorldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
         }
         // Start is called before the first frame update
         void Start()
         {
-            PopulateCurrentBinding(m_actionConfiguration1);
+            switch (m_numberOfActions)
+            {
+                case 1:
+                    PopulateCurrentBinding(m_actionConfiguration1);
+                    break;
+                case 2:
+                    PopulateCurrentBinding(m_actionConfiguration1);
+                    PopulateCurrentBinding(m_actionConfiguration2);
+                    break;
+                case 3:
+                    PopulateCurrentBinding(m_actionConfiguration1);
+                    PopulateCurrentBinding(m_actionConfiguration2);
+                    PopulateCurrentBinding(m_actionConfiguration3);
+                    break;
+                case 4:
+                    break;
+            }
+            
             AddDeviceBindings();
             m_activeDeviceBinding = keyBoardList; //default active device
             SetText();
@@ -474,29 +488,28 @@ namespace DChild.Gameplay.UI
 
         private void OnEnable()
         {
-            //m_inputManager.GetCurrentDevice();
-            //m_inputManager.OnActiveDeviceChange += ChangeDeviceType;
-            //m_inputManager.BindingsChangedEvent += ChangeDeviceType;
             InputSystem.onDeviceChange += OnControllerChanged;
         }
 
         private void OnDisable()
         {
-            //m_inputManager.OnActiveDeviceChange -= ChangeDeviceType;
-            //m_inputManager.BindingsChangedEvent -= ChangeDeviceType;
             InputSystem.onDeviceChange -= OnControllerChanged;
         }
 
 
         private void OnControllerChanged(InputDevice device, InputDeviceChange change)
         {
-            if(Gamepad.current?.device != null)
+            //if usage change happens, if currently at keyboard then change to gamepad and vice versa
+            if(change == InputDeviceChange.UsageChanged)
             {
-                ChangeDeviceType(CurrentDeviceType.Gamepad);
-            }
-            else
-            {
-                ChangeDeviceType(CurrentDeviceType.Keyboard);
+                if(m_deviceType == CurrentDeviceType.Keyboard)
+                {
+                    ChangeDeviceType(CurrentDeviceType.Gamepad);
+                }
+                else
+                {
+                    ChangeDeviceType(CurrentDeviceType.Keyboard);
+                }
             }
         }
 
