@@ -1,4 +1,5 @@
 using DChild.Gameplay.Characters.Players.Modules;
+using DChild.Menu.Inputs;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
@@ -486,31 +487,35 @@ namespace DChild.Gameplay.UI
             SetText();
         }
 
+        private void OnDeviceTypeChanged(CurrentDeviceType type)
+        {
+            ChangeDeviceType(type);
+        }
+
         private void OnEnable()
         {
-            InputSystem.onDeviceChange += OnControllerChanged;
+            InputSystem.onDeviceChange += OnDeviceChanged;
+            UnderworldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
+            OverWorldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
+        }
+
+        private void OnDeviceChanged(InputDevice device, InputDeviceChange change)
+        {
+            if (Gamepad.current != null)
+            {
+                ChangeDeviceType(CurrentDeviceType.Gamepad);
+            }
+            else
+            {
+                ChangeDeviceType(CurrentDeviceType.Keyboard);
+            }
         }
 
         private void OnDisable()
         {
-            InputSystem.onDeviceChange -= OnControllerChanged;
-        }
-
-
-        private void OnControllerChanged(InputDevice device, InputDeviceChange change)
-        {
-            //if usage change happens, if currently at keyboard then change to gamepad and vice versa
-            if(change == InputDeviceChange.UsageChanged)
-            {
-                if(m_deviceType == CurrentDeviceType.Keyboard)
-                {
-                    ChangeDeviceType(CurrentDeviceType.Gamepad);
-                }
-                else
-                {
-                    ChangeDeviceType(CurrentDeviceType.Keyboard);
-                }
-            }
+            InputSystem.onDeviceChange -= OnDeviceChanged;
+            UnderworldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
+            OverWorldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
         }
 
         private void ChangeDeviceType(CurrentDeviceType type)
