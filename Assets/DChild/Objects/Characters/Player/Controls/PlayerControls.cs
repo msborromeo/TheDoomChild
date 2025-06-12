@@ -868,22 +868,22 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a0e02116-64fc-4671-99f4-0cb19259d581"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
+                    ""id"": ""69af6412-b799-4ead-86ad-224aa36467fc"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": """",
                     ""action"": ""Barrier"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""69af6412-b799-4ead-86ad-224aa36467fc"",
-                    ""path"": ""<Keyboard>/z"",
-                    ""interactions"": ""Hold"",
+                    ""id"": ""a0e02116-64fc-4671-99f4-0cb19259d581"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Barrier"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1758,17 +1758,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""3e971558-f138-4a2d-a40d-f92366bf3a81"",
-                    ""path"": ""<Keyboard>/f4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""TeleportingSkull"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""Keyboard"",
                     ""id"": ""65794ed3-793e-4c91-963e-741e549b561b"",
                     ""path"": ""OneModifier"",
@@ -1800,6 +1789,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""TeleportingSkull"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e971558-f138-4a2d-a40d-f92366bf3a81"",
+                    ""path"": ""<Keyboard>/f4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""TeleportingSkull"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""Gamepad"",
