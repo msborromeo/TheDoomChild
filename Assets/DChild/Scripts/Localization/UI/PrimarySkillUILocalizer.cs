@@ -4,6 +4,7 @@ using UnityEngine;
 using I2.Loc;
 using DChild.Gameplay.UI.PrimarySkills;
 using DChild.Gameplay.Characters.Players;
+using System;
 
 namespace DChild.Localization
 {
@@ -21,6 +22,8 @@ namespace DChild.Localization
 
         private IPrimarySkillLocalizer m_Injector;
 
+        public Action PrimarySkillInstructionsLocalized;
+
         private void Awake()
         {
             m_Injector = GetComponent<IPrimarySkillLocalizer>();
@@ -37,6 +40,7 @@ namespace DChild.Localization
             m_localizeDescriptionLabel.SetTerm(LocalizationUtility.GetTermKey(soulSkill,LocalizationUtility.PrimarySkillField.Description));
             m_localizeControlLabel.SetTerm(LocalizationUtility.GetTermKey(soulSkill, LocalizationUtility.PrimarySkillField.Instruction));
             m_localizeSkillNameLabel.SetTerm(LocalizationUtility.GetTermKey(soulSkill, LocalizationUtility.PrimarySkillField.Name));
+            PrimarySkillInstructionsLocalized?.Invoke();
         }
     }
 }
