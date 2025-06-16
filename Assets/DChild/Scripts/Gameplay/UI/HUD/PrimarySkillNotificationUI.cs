@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DChild.Localization;
+using DChild.Gameplay.UI;
 
 namespace DChild.Gameplay
 {
@@ -21,6 +22,10 @@ namespace DChild.Gameplay
         private TextMeshProUGUI m_description;
         [SerializeField]
         private TextMeshProUGUI m_instruction;
+        [SerializeField]
+        private SetTextToTextBox m_buttonPromptSetter;
+        [SerializeField]
+        private PrimarySkillUILocalizer m_primarySkillUILocalizer;
 
         private const string INSTRUCTION_HEADER = "<color=#710B0D>Button:</color><indent=15%>";
 
@@ -32,6 +37,25 @@ namespace DChild.Gameplay
             m_skillName.text = skill.skillName;
             m_description.text = skill.description;
             m_instruction.text = INSTRUCTION_HEADER + skill.instruction;
+
+            switch (skill.numberOfActions)
+            {
+                case 1:
+                    m_buttonPromptSetter.SetText(skill.instruction, skill.action);
+                    break;
+                case 2:
+                    m_buttonPromptSetter.SetText(skill.instruction, skill.action, skill.action2);
+                    break;
+                case 3:
+                    m_buttonPromptSetter.SetText(skill.instruction, skill.action, skill.action2, skill.action3);
+                    break;
+                case 4:
+                    break;
+                default:
+                    m_buttonPromptSetter.SetText(skill.instruction, skill.action);
+                    break;
+            }
+
             localizePrimarySkill?.Invoke(skill);
         }
 
@@ -46,6 +70,21 @@ namespace DChild.Gameplay
                     break;
                 }
             }
+        }
+
+        private void Start()
+        {
+            m_primarySkillUILocalizer.PrimarySkillInstructionsLocalized += OnPrimarySkillInstructionsLocalized;
+        }
+
+        private void OnDestroy()
+        {
+            m_primarySkillUILocalizer.PrimarySkillInstructionsLocalized -= OnPrimarySkillInstructionsLocalized;
+        }
+
+        private void OnPrimarySkillInstructionsLocalized()
+        {
+            m_buttonPromptSetter.SetText(m_instruction.text);
         }
     }
 }
