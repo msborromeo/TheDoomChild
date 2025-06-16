@@ -411,7 +411,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Primary Skills
+  m_text: "Prim\xE4re F\xE4higkeiten"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 21213444537982326, guid: 03de9f858562ece4c9ac9d91b56d9ad5,
@@ -587,7 +587,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Description: '
+  m_text: 'Beschreibung: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 21213444537982326, guid: 03de9f858562ece4c9ac9d91b56d9ad5,
@@ -708,6 +708,7 @@ GameObject:
   - component: {fileID: 2043193861075053502}
   - component: {fileID: 6435684477854100001}
   - component: {fileID: 1176818229909109096}
+  - component: {fileID: 5561132726152511886}
   m_Layer: 5
   m_Name: ControlsLabel
   m_TagString: Untagged
@@ -845,7 +846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTerm: 
+  mTerm: PrimarySkill/Whip/Whip_Instruction
   mTermSecondary: 
   PrimaryTermModifier: 0
   SecondaryTermModifier: 0
@@ -862,7 +863,19 @@ MonoBehaviour:
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5561132726152511886}
+        m_TargetAssemblyTypeName: DChild.Gameplay.UI.SetTextToTextBox, Assembly-CSharp
+        m_MethodName: SetTextOnLocalizeCall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   AlwaysForceLocalize: 0
   LocalizeCallBack:
     Target: {fileID: 0}
@@ -872,6 +885,48 @@ MonoBehaviour:
   mGUI_ShowCallback: 0
   mLocalizeTarget: {fileID: 0}
   mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
+--- !u!114 &5561132726152511886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66572706321568956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81413ba0e41c54249bc0996e528f687a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_message: 
+  m_spriteButtonList: {fileID: 11400000, guid: c3c0ad3f40972da4c81d32b5f158ae38, type: 2}
+  m_deviceType: 0
+  m_promptFontSize: 7
+  m_numberOfActions: 1
+  m_actionConfiguration1:
+    m_actionType: 0
+    m_directionPart: 0
+    m_cycleActionPart: 0
+    m_modifierPart: 0
+    m_inputAction: {fileID: -8017645447679320170, guid: 2e0d81e8951c3384cba5207fae67c9a4,
+      type: 3}
+  m_actionConfiguration2:
+    m_actionType: 0
+    m_directionPart: 0
+    m_cycleActionPart: 0
+    m_modifierPart: 0
+    m_inputAction: {fileID: 0}
+  m_actionConfiguration3:
+    m_actionType: 0
+    m_directionPart: 0
+    m_cycleActionPart: 0
+    m_modifierPart: 0
+    m_inputAction: {fileID: 0}
+  m_actionConfiguration4:
+    m_actionType: 0
+    m_directionPart: 0
+    m_cycleActionPart: 0
+    m_modifierPart: 0
+    m_inputAction: {fileID: 0}
 --- !u!1 &3042396333627443547
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,6 +985,8 @@ MonoBehaviour:
   m_descriptionLabel: {fileID: 5058890074475039440}
   m_controlsLabel: {fileID: 6435684477854100001}
   m_skillNameLabel: {fileID: 5447233568734213405}
+  m_skillDescriptionSetTextToTextBox: {fileID: 5561132726152511886}
+  m_primarySkillUILocalizer: {fileID: 5074445800040585967}
 --- !u!114 &5074445800040585967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1364,7 +1421,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Controls: '
+  m_text: 'Kontrollen: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 21213444537982326, guid: 03de9f858562ece4c9ac9d91b56d9ad5,
