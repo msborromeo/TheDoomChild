@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using DChild.Gameplay.Systems;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DChild.Gameplay.ArmyBattle
 {
-    public class ArmyBattleCharacterRecruiter : MonoBehaviour
+    public class ArmyBattleCharacterRecruiter : MonoBehaviour, IGameplaySystemModule , IGameplayInitializable
     {
         [SerializeField]
         private List<int> m_recruitedCharacters;
