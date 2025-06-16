@@ -37,7 +37,7 @@ public class TextToButtonUIManager : MonoBehaviour
 
         m_currentDeviceType = (CurrentDeviceType)m_dropDownIndex;
 
-        SetTextToTextBox.ChangeDeviceType(m_currentDeviceType);
+        //SetTextToTextBox.ChangeDeviceType(m_currentDeviceType);
 
         
 
