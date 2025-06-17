@@ -22,10 +22,11 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
             private GameObject m_instance;
 
 
-            public Handle(IPlayer m_reference, int hpThreshold, bool isPercentage, float m_cooldownTimer, GameObject m_instance) : base(m_reference)
+            public Handle(IPlayer m_reference, int hpThreshold, bool isPercentage, float cooldownTimer, GameObject m_instance) : base(m_reference)
             {
                 m_hpThreshold = hpThreshold;
                 m_isPercentage = isPercentage;
+                m_cooldownTimer = cooldownTimer;
                 this.m_instanceReference = m_instance;
             }
 
@@ -57,7 +58,7 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                     if (m_isPercentage)
                     {
                         instantlyKillTarget = (targetHealth.currentValue / (float)targetHealth.maxValue) <= (m_hpThreshold / 100f);
-                        activateeffect = (targetHealth.currentValue / (float)targetHealth.maxValue) <= (m_hpThreshold / 100f)+damage;
+                        activateeffect = (targetHealth.currentValue / (float)targetHealth.maxValue) <= (m_hpThreshold / 100f);
                     }
                     else
                     {
@@ -71,8 +72,6 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                         var monoBehaviour = (MonoBehaviour)sender;
                         if (monoBehaviour != null)
                         {
-                            m_cooldown = true;
-                            monoBehaviour.StopCoroutine("CooldownRoutine()");
                             monoBehaviour.StartCoroutine(CooldownRoutine());
                         }
                     }
@@ -83,13 +82,11 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                         m_instance.transform.SetParent(eventArgs.target.instance.transform);
                         m_instance.transform.localPosition = new Vector3(0.0f, 12.0f, 0.0f);
                     }
-                    }
-                
-
+                }
             }
             private IEnumerator CooldownRoutine()
             {
-
+                m_cooldown = true;
                 yield return new WaitForSeconds(m_cooldownTimer);
                 m_cooldown = false;
                 yield return null;
