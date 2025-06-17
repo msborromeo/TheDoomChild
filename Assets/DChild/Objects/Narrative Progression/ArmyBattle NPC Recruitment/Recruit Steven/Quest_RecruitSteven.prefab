@@ -95,7 +95,7 @@ MonoBehaviour:
   setAnotherQuestEntryState: 0
   anotherQuestEntryNumber: 1
   anotherQuestEntryState: 0
-  luaCode: Variable["Steven_recruited"] = true
+  luaCode: Variable["HasRecruited_Steven"] = true
   sequence: 
   sequenceSpeaker: {fileID: 0}
   sequenceListener: {fileID: 0}
@@ -258,8 +258,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicators:
-  - {fileID: 5013130658563492298}
   - {fileID: 0}
+  - {fileID: 5013130658563492298}
 --- !u!114 &751808556321499508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questName: Recruit Steven
   questStateIndicatorLevels:
-  - updateOnStartOnly: 0
+  - updateOnStartOnly: 1
     questState: 2
     condition:
       luaConditions: []
@@ -283,11 +283,11 @@ MonoBehaviour:
       acceptedGameObjects: []
       luaWizardIndex: -1
       lastEvaluationValue: 0
-    indicatorLevel: 0
+    indicatorLevel: 1
     onEnterState:
       m_PersistentCalls:
         m_Calls: []
-  - updateOnStartOnly: 0
+  - updateOnStartOnly: 1
     questState: 4
     condition:
       luaConditions: []
@@ -296,7 +296,7 @@ MonoBehaviour:
       acceptedGameObjects: []
       luaWizardIndex: -1
       lastEvaluationValue: 0
-    indicatorLevel: 1
+    indicatorLevel: 0
     onEnterState:
       m_PersistentCalls:
         m_Calls: []
@@ -334,6 +334,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4489223991584411513}
     m_Modifications:
+    - target: {fileID: 265516679971335113, guid: d7992b5221784f84dbf0f6b36ebfe1b9,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3.104023
+      objectReference: {fileID: 0}
+    - target: {fileID: 265516679971335113, guid: d7992b5221784f84dbf0f6b36ebfe1b9,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.4630108
+      objectReference: {fileID: 0}
     - target: {fileID: 510462717138439929, guid: d7992b5221784f84dbf0f6b36ebfe1b9,
         type: 3}
       propertyPath: _animationName
