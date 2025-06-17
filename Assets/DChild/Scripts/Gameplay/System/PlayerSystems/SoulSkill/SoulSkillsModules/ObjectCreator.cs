@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Collections.LowLevel.Unsafe;
+using UnityEngine;
 #if UNITY_EDITOR
 #endif
 
