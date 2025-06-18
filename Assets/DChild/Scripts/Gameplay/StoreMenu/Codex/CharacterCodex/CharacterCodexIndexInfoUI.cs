@@ -48,7 +48,7 @@ namespace DChild.Codex.Characters
             }
             else
             {
-                m_characterLabel.text = data.creatureName;
+                m_characterLabel.text = data.characterName;
                 m_chracterImage.sprite = data.indexImage;
             }
         }
