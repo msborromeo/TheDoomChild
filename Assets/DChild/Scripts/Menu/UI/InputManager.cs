@@ -12,8 +12,8 @@ public class InputManager : ScriptableObject
 
     private CurrentDeviceType m_deviceType = CurrentDeviceType.Keyboard;
 
-    public event Action OnActiveDeviceChange;
-    public event Action BindingsChangedEvent;
+    public event Action<CurrentDeviceType> OnActiveDeviceChange;
+    public event Action<CurrentDeviceType> BindingsChangedEvent;
 
     private void OnEnable()
     {
@@ -69,14 +69,14 @@ public class InputManager : ScriptableObject
             if (m_deviceType != newDevice)
             {
                 m_deviceType = newDevice;
-                OnActiveDeviceChange?.Invoke();
+                OnActiveDeviceChange?.Invoke(m_deviceType);
             }
 
         }
 
         if (change == InputActionChange.BoundControlsChanged)
         {
-            BindingsChangedEvent?.Invoke();
+            BindingsChangedEvent?.Invoke(m_deviceType);
         }
     }
 
