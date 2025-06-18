@@ -73,8 +73,8 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                     referenceInfo.effectApplied = true;
                 }
               
-                player.health.ValueChanged += OnStatChange;
                 m_reference.Add(referenceInfo);
+                player.health.ValueChanged += OnStatChange;
             }
             else
             {
@@ -88,8 +88,8 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                     }
                     referenceInfo.effectApplied = true;
                 }
-                player.magic.ValueChanged += OnStatChange;
                 m_reference.Add(referenceInfo);
+                player.magic.ValueChanged += OnStatChange;
             }
         }
 
@@ -107,8 +107,8 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                     }
                     referenceInfo.effectApplied = true;
                 }
-                player.health.ValueChanged -= OnStatChange;
                 m_reference.Clear();
+                player.health.ValueChanged -= OnStatChange;
             }
             else
             {
@@ -121,8 +121,8 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                     }
                     referenceInfo.effectApplied = true;
                 }
-                player.magic.ValueChanged -= OnStatChange;
                 m_reference.Clear();
+                player.magic.ValueChanged -= OnStatChange;
             }
 
             for (int i = 0; i < m_reference.Count; i++)
@@ -133,9 +133,6 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                     break;
                 }
             }
-
-          
-
         }
 
         private bool IsValid(float currentPercent)
@@ -169,8 +166,6 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                 }
 
                 return currentPercent < m_value;
-                
-                
             }
         }
 
