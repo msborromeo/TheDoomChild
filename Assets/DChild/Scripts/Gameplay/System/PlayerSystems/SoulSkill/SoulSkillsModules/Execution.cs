@@ -55,16 +55,24 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                         return;
                     if (HitCollider.gameObject.layer == LayerMask.NameToLayer("Environment"))
                         return;
+
+                    //if target is already at 0% HP on hit will not allow the rest of execute to run so 1 hit full HP minions don't waste Execution
+                    var targetHealthPercentage = targetHealth.currentValue / (float)targetHealth.maxValue;
+                    if (targetHealthPercentage <= 0)
+                        return;
+
                     if (m_isPercentage)
                     {
-                        instantlyKillTarget = (targetHealth.currentValue / (float)targetHealth.maxValue) <= (m_hpThreshold / 100f);
-                        activateeffect = (targetHealth.currentValue / (float)targetHealth.maxValue) <= (m_hpThreshold / 100f);
+                        instantlyKillTarget = (targetHealth.currentValue / (float)targetHealth.maxValue) <= (m_hpThreshold / 100f)+damage;
+                        activateeffect = (targetHealth.currentValue / (float)targetHealth.maxValue) <= (m_hpThreshold / 100f)+damage;
                     }
                     else
                     {
                         instantlyKillTarget = targetHealth.currentValue <= m_hpThreshold;
                         activateeffect = targetHealth.currentValue <= m_hpThreshold+damage;
                     }
+
+
 
                     if (instantlyKillTarget)
                     {
