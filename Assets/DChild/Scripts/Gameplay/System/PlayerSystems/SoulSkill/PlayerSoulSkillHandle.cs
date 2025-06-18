@@ -88,8 +88,7 @@ namespace DChild.Gameplay.SoulSkills
         {
             if (m_activatedSkillsID == null)
             {
-                //Temporary For Testing
-                return true;
+                return false;
             }
             return m_maxActivatedSoulSkill >= m_activatedSkillsID.Count + 1 && (m_currentSoulCapacity - soulSkill.capacity) >= 0;
         }
@@ -107,6 +106,11 @@ namespace DChild.Gameplay.SoulSkills
 
         public void AddAsActivated(SoulSkill soulSkill)
         {
+            if(HasActivatedSkill(soulSkill))
+            {
+                return;
+            }
+
             if (m_acquiredSkills.Contains(soulSkill.id))
             {
                 m_activatedSkillsID.Add(soulSkill.id);
@@ -151,6 +155,11 @@ namespace DChild.Gameplay.SoulSkills
             m_activatedSkills = new HashSet<SoulSkill>();
 
             m_player.inventory.SoulSkillItemAcquired += OnSoulSkillItemAcquired;
+        }
+
+        public bool HasActivatedSkill(SoulSkill skill)
+        {
+            return m_activatedSkills.Contains(skill);
         }
 
         private void OnSoulSkillItemAcquired(object sender, SoulSkillAcquiredEventArgs eventArgs)
