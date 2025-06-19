@@ -71,8 +71,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_animator.SetBool(m_animationParameter, true);
                 
                     m_rigibody.velocity = new Vector2(m_rigibody.velocity.x, m_configuration.speed * direction);
+                    m_animator.SetFloat(m_yInputParameter, direction);
                 }
-                m_animator.SetFloat(m_yInputParameter, direction);
+                else
+                {
+                    m_animator.SetBool(m_animationParameter, false);
+                    m_rigibody.velocity = new Vector2(m_rigibody.velocity.x, m_configuration.speed * 0);
+                    m_animator.SetFloat(m_yInputParameter, 0);
+                }
             }
         }
     }

@@ -123,6 +123,28 @@ MonoBehaviour:
     spritePortrait: {fileID: 0}
     alternatePortraits: []
     spritePortraits: []
+  - id: 1
+    fields:
+    - title: Name
+      value: Player
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+    - title: IsPlayer
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    portrait: {fileID: 0}
+    spritePortrait: {fileID: 0}
+    alternatePortraits: []
+    spritePortraits: []
   items: []
   locations:
   - id: 15
@@ -164,17 +186,129 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: 
+  - id: 206
+    fields:
+    - title: Name
+      value: playerIdleExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 1
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 216
+    fields:
+    - title: Name
+      value: playerThinkingExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 2
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 208
+    fields:
+    - title: Name
+      value: playerFacingAwayExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 3
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 209
+    fields:
+    - title: Name
+      value: playerExcitedExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 4
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 217
+    fields:
+    - title: Name
+      value: crazyKnightDoubtful
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 1
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 218
+    fields:
+    - title: Name
+      value: crazyKnightGoofy
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 2
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 219
+    fields:
+    - title: Name
+      value: crazyKnightInLove
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 3
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 220
+    fields:
+    - title: Name
+      value: crazyKnightLaughing
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 4
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
   conversations:
   - id: 193
     fields:
     - title: Title
       value: Game Intro Cinematic
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Description
       value: 
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Actor
       value: 64
       type: 5
@@ -334,11 +468,15 @@ MonoBehaviour:
     - title: Title
       value: Game Intro Wake Up
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
+    - title: Pictures
+      value: '[]'
+      type: 0
+      typeString: CustomFieldType_Files
     - title: Description
       value: FD1
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Actor
       value: 64
       type: 5
@@ -441,7 +579,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 66
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -453,7 +591,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Where am I..? What is this place? What happened?
+        value: '[pic=playerThinkingExpression] Where am I..? What is this place?
+          What happened?'
         type: 0
         typeString: 
       - title: Sequence
@@ -461,11 +600,13 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: en
-        value: Where am I..? What is this place? What happened?
+        value: '[pic=playerThinkingExpression] Where am I..? What is this place?
+          What happened?'
         type: 4
         typeString: CustomFieldType_Localization
       - title: de
-        value: "Wo bin ich...? Was ist das f\xFCr ein Ort? Was ist passiert?"
+        value: "[pic=playerThinkingExpression] Wo bin ich...? Was ist das f\xFCr
+          ein Ort? Was ist passiert?"
         type: 4
         typeString: CustomFieldType_Localization
       conversationID: 194
@@ -516,7 +657,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '(in the background, hiding) Hehehehehe...
+        value: '[pic=crazyKnightLaughing] in the background, hiding) Hehehehehe...
 
 '
         type: 0
@@ -526,13 +667,13 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: en
-        value: '(in the background, hiding) Hehehehehe...
+        value: '[pic=crazyKnightLaughing] (in the background, hiding) Hehehehehe...
 
 '
         type: 4
         typeString: CustomFieldType_Localization
       - title: de
-        value: '(im Hintergrund, versteckt) Hehehehehe...
+        value: '[pic=crazyKnightLaughing] (im Hintergrund, versteckt) Hehehehehe...
 
 '
         type: 4
@@ -746,8 +887,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: (in your head) Why does picking you up feel like something I'd regret
-          after?
+        value: '[pic=crazyKnightDoubtful] (in your head) Why does picking you up
+          feel like something I''d regret after?'
         type: 0
         typeString: 
       - title: Sequence
@@ -755,13 +896,13 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: en
-        value: (in your head) Why does picking you up feel like something I'd regret
-          after?
+        value: '[pic=crazyKnightDoubtful] (in your head) Why does picking you up
+          feel like something I''d regret after?'
         type: 4
         typeString: CustomFieldType_Localization
       - title: de
-        value: "(in deinem Kopf) Warum f\xFChlt es sich so an, als w\xFCrde ich es
-          bereuen, wenn ich dich abgeholt habe?"
+        value: "[pic=crazyKnightDoubtful] (in deinem Kopf) Warum f\xFChlt es sich
+          so an, als w\xFCrde ich es bereuen, wenn ich dich abgeholt habe?"
         type: 4
         typeString: CustomFieldType_Localization
       conversationID: 195
@@ -800,7 +941,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 64
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -812,7 +953,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Who was that who just spoke!?
+        value: '[pic=playerExcitedExpression] Who was that who just spoke!?'
         type: 0
         typeString: 
       - title: Sequence
@@ -820,11 +961,12 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: en
-        value: Who was that who just spoke!?
+        value: '[pic=playerExcitedExpression] Who was that who just spoke!?'
         type: 4
         typeString: CustomFieldType_Localization
       - title: de
-        value: Wer war das, der gerade gesprochen hat!?
+        value: '[pic=playerExcitedExpression] Wer war das, der gerade gesprochen
+          hat!?'
         type: 4
         typeString: CustomFieldType_Localization
       conversationID: 195
@@ -867,7 +1009,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 64
+        value: 67
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -875,7 +1017,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: YOUR MOTHER! Hahahaha!
+        value: '[pic=crazyKnightLaughing] YOUR MOTHER! Hahahaha!'
         type: 0
         typeString: 
       - title: Sequence
@@ -883,11 +1025,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: en
-        value: YOUR MOTHER! Hahahaha!
+        value: '[pic=crazyKnightLaughing] YOUR MOTHER! Hahahaha!'
         type: 4
         typeString: CustomFieldType_Localization
       - title: de
-        value: Ihre Mutter! Hahahaha!
+        value: '[pic=crazyKnightLaughing] Ihre Mutter! Hahahaha!'
         type: 4
         typeString: CustomFieldType_Localization
       conversationID: 195
@@ -2358,7 +2500,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 20.323982, y: 35.557026}
     canvasZoom: 0.7000003
   syncInfo:
     syncActors: 0
@@ -2373,6 +2515,6 @@ MonoBehaviour:
     Item","value":"True","type":2,"typeString":"CustomFieldType_Boolean"}],"questFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Pictures","value":"[]","type":3,"typeString":"CustomFieldType_Files"},{"title":"Description","value":"","type":0,"typeString":""},{"title":"Success
     Description","value":"","type":0,"typeString":""},{"title":"Failure Description","value":"","type":0,"typeString":""},{"title":"State","value":"unassigned","type":0,"typeString":""},{"title":"Is
     Item","value":"False","type":2,"typeString":"CustomFieldType_Boolean"}],"locationFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Description","value":"","type":0,"typeString":""}],"variableFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Initial
-    Value","value":"","type":0,"typeString":""},{"title":"Description","value":"","type":0,"typeString":""}],"conversationFields":[{"title":"Title","value":"","type":0,"typeString":""},{"title":"Description","value":"","type":0,"typeString":""},{"title":"Actor","value":"0","type":5,"typeString":"CustomFieldType_Actor"},{"title":"Conversant","value":"0","type":5,"typeString":"CustomFieldType_Actor"}],"dialogueEntryFields":[{"title":"Title","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"Description","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"Actor","value":"","type":5,"typeString":"CustomFieldType_Actor"},{"title":"Conversant","value":"","type":5,"typeString":"CustomFieldType_Actor"},{"title":"Menu
+    Value","value":"","type":0,"typeString":""},{"title":"Description","value":"","type":0,"typeString":""}],"conversationFields":[{"title":"Title","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"Pictures","value":"[]","type":0,"typeString":"CustomFieldType_Files"},{"title":"Description","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"Actor","value":"0","type":5,"typeString":"CustomFieldType_Actor"},{"title":"Conversant","value":"0","type":5,"typeString":"CustomFieldType_Actor"}],"dialogueEntryFields":[{"title":"Title","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"Description","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"Actor","value":"","type":5,"typeString":"CustomFieldType_Actor"},{"title":"Conversant","value":"","type":5,"typeString":"CustomFieldType_Actor"},{"title":"Menu
     Text","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"Dialogue
     Text","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"Sequence","value":"","type":0,"typeString":"CustomFieldType_Text"}],"actorPrimaryFieldTitles":[],"itemPrimaryFieldTitles":[],"questPrimaryFieldTitles":[],"locationPrimaryFieldTitles":[],"variablePrimaryFieldTitles":[],"conversationPrimaryFieldTitles":[],"dialogueEntryPrimaryFieldTitles":[],"npcLineColor":{"r":1.0,"g":0.0,"b":0.0,"a":1.0},"pcLineColor":{"r":0.0,"g":0.0,"b":1.0,"a":1.0},"repeatLineColor":{"r":0.5,"g":0.5,"b":0.5,"a":1.0}}'

@@ -7,12 +7,13 @@ namespace DChild.Gameplay.Characters.Enemies
     {
         [SerializeField]
         private PuedisYnnusSpike[] m_spikes;
-
+        public bool m_isGrowing;
         public void Grow()
         {
             gameObject.SetActive(true);
             for (int i = 0; i < m_spikes.Length; i++)
             {
+                m_isGrowing = true;
                 m_spikes[i].Grow();
             }
         }
@@ -21,6 +22,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             for (int i = 0; i < m_spikes.Length; i++)
             {
+                m_isGrowing = false;
                 m_spikes[i].Disappear();
             }
         }

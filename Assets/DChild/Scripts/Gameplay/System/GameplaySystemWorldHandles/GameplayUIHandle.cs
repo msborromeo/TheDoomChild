@@ -18,6 +18,8 @@ namespace DChild.Gameplay.Systems
     {
         public static GameplayUIHandle Instance { get; private set; }
 
+        public bool isInCutsceneMode { get; private set; }
+
         public UIAlertManager alertManager => BaseGameplayUIHandle.Instance.uiAlertManager;
         public IUINotificationManager notificationManager => UnderworldGameplayUIHandle.Instance.notificationManager;
 
@@ -188,6 +190,7 @@ namespace DChild.Gameplay.Systems
 
         public void ToggleCinematicMode(bool on, bool instant = false)
         {
+            isInCutsceneMode = on;
             BaseGameplayUIHandle.Instance.ToggleCinematicMode(on);
         }
 
