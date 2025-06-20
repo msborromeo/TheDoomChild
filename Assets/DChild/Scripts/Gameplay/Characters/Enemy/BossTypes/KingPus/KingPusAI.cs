@@ -533,13 +533,14 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private enum Attack
         {
-            TentaspearCrawl,
+            /*TentaspearCrawl,
             SpikeShower1,
             SpikeSpit1,
+            HeavySpearStab,*/
+            TentaCrawlSpitStab,
             SpikeSpit2,
             SpikeSpit1ToSpikeSpit2,
             HeavyGroundStab,
-            HeavySpearStab,
             SpikeShower1toSpikeShower2,
             KrakenRage,
             BodySlam,
@@ -1340,24 +1341,14 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator HeavySpearStabAttackRoutine()
         {
-            //string heavyGroundStabAnticipation = m_targetInfo.position.x > transform.position.x ? m_info.heavySpearStabRightAttack.animation : m_info.heavySpearStabLeftAttack.animation;
-            //m_animation.SetAnimation(0, heavyGroundStabAnticipation, false);
-            //yield return new WaitForAnimationComplete(m_animation.animationState, heavyGroundStabAnticipation);
             m_stateHandle.Wait(State.ReevaluateSituation);
-            //var heavySpearStabAttackAnimation = m_targetInfo.position.x > transform.position.x ? m_info.heavySpearStabRightAttack.animation : m_info.heavySpearStabLeftAttack.animation;
-            //m_stabSlashFX.transform.rotation = Quaternion.Euler(0, 0, heavySpearStabAttackAnimation == m_info.heavySpearStabRightAttack.animation ? 0 : 180);
-
             var selectedAnimation = !IsFacingTarget() ? m_info.heavySpearStabLeftAttack : m_info.heavySpearStabRightAttack;
-
             m_stabSlashFX.Play();
             m_animation.SetAnimation(0, selectedAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, selectedAnimation);
             
             m_animation.DisableRootMotion();
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
-            //m_animation.SetEmptyAnimation(0, 0);
-            m_attackDecider.hasDecidedOnAttack = false;
-            m_stateHandle.ApplyQueuedState();
         }
 
         private IEnumerator HeavyGroundStabAttackRoutine()
@@ -1446,16 +1437,14 @@ namespace DChild.Gameplay.Characters.Enemies
             m_spineListener.Unsubcribe(m_info.moveEvent, EventMoveToLastPosition);
             m_movement.Stop();
             m_animation.SetEmptyAnimation(0, 0);
-            m_animation.DisableRootMotion();
-            m_attackDecider.hasDecidedOnAttack = false;
-            m_stateHandle.ApplyQueuedState();
         }
 
         private void EventMoveToLastPosition()
         {
             m_animation.DisableRootMotion();
             //m_movement.MoveTowards(Vector2.one * transform.localScale.x, transform.localScale.x < 0 ? m_info.tentaSpearRightCrawl.speed : -m_info.tentaSpearRightCrawl.speed);
-            m_rb2d.AddForce(new Vector2(transform.localScale.x > 0 ? m_info.tentaSpearRightCrawl.speed : -m_info.tentaSpearRightCrawl.speed, m_character.physics.velocity.y), ForceMode2D.Impulse);
+            //m_rb2d.AddForce(new Vector2(transform.localScale.x > 0 ? m_info.tentaSpearRightCrawl.speed : -m_info.tentaSpearRightCrawl.speed, m_character.physics.velocity.y), ForceMode2D.Impulse);
+            m_movement.MoveTowards((m_targetInfo.position - (Vector2)transform.position).normalized, 10f);
         }
 
         private IEnumerator SpikeShowerOneFullAttackRoutine()
@@ -1487,32 +1476,9 @@ namespace DChild.Gameplay.Characters.Enemies
                 }
                 m_animation.SetEmptyAnimation(30, 0);
                 m_animation.DisableRootMotion();
-                m_attackDecider.hasDecidedOnAttack = false;
-                m_stateHandle.ApplyQueuedState();
-            }
-            //else
-            //{            
-            //yield return ExtendGrappleRoutine(3f);
-            //yield return SlamToPlayerFromMidairRoutine();
-            //}          
-            //yield return RetractGrappleRoutine();
-            //m_character.physics.simulateGravity = true;
-            //m_animation.SetAnimation(0, m_info.bodySlamStart, false);
-            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.bodySlamStart);
-            //while (!m_groundSensor.isDetecting)
-            //{
-            //    m_animation.SetAnimation(0, m_info.bodySlamLoop, true);
-            //    yield return null;
-            //}
-            //m_bodySlamFX.Play();
-            //m_animation.SetAnimation(0, m_info.bodySlamEnd, false);
-            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.bodySlamEnd);
-            //m_movement.Stop();
-            //m_animation.SetEmptyAnimation(27, 0);
-            //m_animation.SetEmptyAnimation(30, 0);
-            //m_animation.DisableRootMotion();
+            }/*
             m_attackDecider.hasDecidedOnAttack = false;
-            m_stateHandle.ApplyQueuedState();
+            m_stateHandle.ApplyQueuedState();*/
         }
 
         private IEnumerator RetractGrappleRoutine()
@@ -1534,33 +1500,13 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator SpikeSpitAttackFullRoutine(bool spreadShot)
         {
-            //m_willStickToWall = true;
-
-            //if (m_currentHitCount >= m_maxHitCount) 
-            //{
-            //    m_currentHitCount = 0;
-            //}
             m_stateHandle.Wait(State.ReevaluateSituation);
-           // m_animation.EnableRootMotion(true, false);
             m_animation.AddAnimation(0, m_info.idleAnimation, true, 0);
-            //RandomizeTentaclePosition();
             CalculateWallGrapple(true);
             yield return ExtendGrappleRoutine(3f);
-            yield return                                                                                    SlamToWallFromMidAirRoutine()                                                     ;
-            //yield return RetractGrappleRoutine();
-            //if (m_grappleCoroutine != null)
-            //{
-            //    StopCoroutine(m_grappleCoroutine);
-            //}
-            //m_grappleCoroutine = StartCoroutine(GrappleRoutine(true, true, 1/*, true*/));
-            // yield return new WaitUntil(() => m_character.physics.simulateGravity);
+            yield return SlamToWallFromMidAirRoutine();
             m_hitbox.Enable();
-            //m_animation.EnableRootMotion(true, true);
-            //m_rb2d.isKinematic = false;
-            //m_rb2d.useFullKinematicContacts = false;
             m_movement.Stop();
-            //m_animation.SetAnimation(0, DynamicIdleAnimation(), true);
-            // yield return DynamicIdleRoutine();
             m_animation.SetAnimation(30, m_info.idleAnimation.animation, true, 0);
             for (int i = 0; i < m_spitterBone.Count; i++)
             {
@@ -1572,31 +1518,23 @@ namespace DChild.Gameplay.Characters.Enemies
             for (int i = 0; i < m_info.spikeSpitCount; i++)
             {
                 StartCoroutine(ProjectilePositionCheckerRoutine());
-                // yield return ProjectilePositionCheckerRoutine();
                 m_lastTargetPos = m_targetInfo.position;
-                //LaunchProjectile(spreadShot);
                 m_animation.SetAnimation(15, m_info.spikeSpitterAttacks[id].animation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.spikeSpitterAttacks[id].animation);
                 m_animation.SetAnimation(15, m_info.idleAnimation, true);
                   
                 
                 }
-            m_animation.SetAnimation                                                                                                               (15, m_info.spikeSpitterRetractAnimations[id], false);
+            m_animation.SetAnimation(15, m_info.spikeSpitterRetractAnimations[id], false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.spikeSpitterRetractAnimations[id]);
-            //if (m_dynamicIdleCoroutine != null)
-            //{
-            //    StopCoroutine(m_dynamicIdleCoroutine);
-
-            //    m_dynamicIdleCoroutine = null;
-            //}
             m_animation.SetEmptyAnimation(3, 0);
             m_animation.SetEmptyAnimation(15, 0);
             m_animation.SetEmptyAnimation(30, 0);
             m_animation.DisableRootMotion();
-            m_character.physics.simulateGravity = true;
             
             if(m_isStickingToCieling || m_isStickingToWall)
             {
+                m_character.physics.simulateGravity = true;
                 m_animation.SetAnimation(0, m_info.bodySlamStart, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.bodySlamStart);
                 for (int i = 0; i < m_spitterBone.Count; i++)
@@ -1608,16 +1546,11 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_animation.SetAnimation(0, m_info.bodySlamLoop, true);
                     yield return null;
                 }
-                //if (m_character.facing != HorizontalDirection.Right)
-                //    CustomTurn();
                 m_bodySlamFX.Play();
             }
             m_bodyCollider.enabled = true;
             m_legCollider.enabled = true;
             m_character.physics.SetVelocity(0, 0);
-            m_animation.DisableRootMotion();
-            m_attackDecider.hasDecidedOnAttack = false;
-            m_stateHandle.ApplyQueuedState();
         }
         
         //private IEnumerator Phase2Pattern1AttackRoutine()
@@ -2614,11 +2547,52 @@ namespace DChild.Gameplay.Characters.Enemies
 
             return m_attackDecider.chosenAttack.range > distanceToTarget;
         }
-
+        private IEnumerator TentaCrawlSpitStabRoutine()
+        {
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            if(!m_isStickingToCieling || !m_isStickingToWall)
+            {
+                //crawl
+            }
+            if(Vector2.Distance(transform.position, m_targetInfo.position) < 15f)
+            {
+                var random = UnityEngine.Random.RandomRange(0, 2);
+                switch (random)
+                {
+                    case 0:
+                        yield return HeavySpearStabAttackRoutine();
+                        break;
+                    case 1:
+                        yield return TentaspearCrawlAttackFullRoutine(m_targetInfo.position);
+                        break;
+                }
+            }
+            else
+            {
+                var random = UnityEngine.Random.RandomRange(0, 3);
+                switch (random)
+                {
+                    case 0:
+                        yield return SpikeSpitAttackFullRoutine(false);
+                        break;
+                    case 1:
+                        m_lastTargetPos = m_targetInfo.position;
+                        yield return SpikeShowerOneFullAttackRoutine();
+                        break;
+                    case 2:
+                        yield return TentaspearCrawlAttackFullRoutine(m_targetInfo.position);
+                        break;
+                }
+            }
+            m_movement.Stop();
+            m_attackDecider.hasDecidedOnAttack = false;
+            m_stateHandle.ApplyQueuedState();
+            yield return null;
+        }
         private void UpdateAttackDeciderList()
         {
             Debug.Log("Updated Decider List");
-             m_attackDecider.SetList(new AttackInfo<Attack>(Attack.SpikeSpit2, 40f));
+             m_attackDecider.SetList(new AttackInfo<Attack>(Attack.TentaCrawlSpitStab, 0f));
             //switch (m_phaseHandle.currentPhase)
             //{
             //    case Phase.PhaseOne:
@@ -3093,13 +3067,56 @@ namespace DChild.Gameplay.Characters.Enemies
         private float m_cielingYPosSnap;
         [SerializeField]
         private float m_groundYPosSnap;
-
         private void SmartSetOrientationViaAnimation()
         {
             m_isStickingToWall = false;
             m_isStickingToCieling = false;
 
-            if (m_leftWallSensor.isDetecting || m_rightWallSensor.isDetecting)
+            int wallContactScore = 0;
+            if (m_leftWallSensor.allRaysDetecting) wallContactScore++;
+            if (m_rightWallSensor.allRaysDetecting) wallContactScore++;
+
+            int ceilingContactScore = m_cielingSensor.allRaysDetecting ? 1 : 0;
+            if(ceilingContactScore > wallContactScore)
+            {
+                m_isStickingToCieling = true;
+            }
+            else if(wallContactScore > 0)
+            {
+                m_isStickingToWall = true;
+            }
+            else
+            {
+                m_animation.SetEmptyAnimation(ANIMATION_LAYER_ORIENTATION, 0);
+            }
+            var snapPosition = transform.position;
+            if (m_isStickingToCieling)
+            {
+                snapPosition.y = m_cielingYPosSnap;
+                m_animation.SetAnimation(ANIMATION_LAYER_ORIENTATION, m_info.idleCielingAnimation, true);
+            }
+            else if (m_isStickingToWall)
+            {
+                //velocity na lng ni dro ah tak an ko
+                if(m_rb2d.velocity.x < 0)
+                {
+                    snapPosition.x = m_leftWallXPosSnap;
+                    m_animation.SetAnimation(ANIMATION_LAYER_ORIENTATION, m_info.idleLeftWallAnimation, true);
+                }
+                else if(m_rb2d.velocity.x > 0)
+                {
+                    snapPosition.x = m_rightWallXPosSnap;
+                    m_animation.SetAnimation(ANIMATION_LAYER_ORIENTATION, m_info.idleRightWallAnimation, true);
+                }
+            }
+            else
+            {
+                snapPosition.y = m_groundYPosSnap;
+                m_animation.SetEmptyAnimation(ANIMATION_LAYER_ORIENTATION, 0);
+            }
+            transform.position = snapPosition;
+            m_character.physics.SetVelocity(0, 0);
+            /*if (m_leftWallSensor.allRaysDetecting || m_rightWallSensor.allRaysDetecting)
             {
                 m_isStickingToWall = true;
             }
@@ -3135,7 +3152,7 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 snapPosition.y = m_groundYPosSnap;
                 m_animation.SetEmptyAnimation(ANIMATION_LAYER_ORIENTATION, 0);
-            }
+            }*/
         }
 
         /// <summary>
@@ -3198,8 +3215,8 @@ namespace DChild.Gameplay.Characters.Enemies
             var slamDirection = (hit - (Vector2)transform.position).normalized;
             while (IsDetectingEnvironmentBasedOnMovement() == false)
             {
-                m_character.physics.SetVelocity(slamDirection * m_info.toTargetRetractSpeed);
                 yield return null;
+                m_character.physics.SetVelocity(slamDirection * m_info.toTargetRetractSpeed);
             }
 
 
@@ -3212,7 +3229,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_movement.Stop();
             var track = m_animation.SetAnimation(0, m_info.bodySlamEnd, false);
 
-            SnapToSlammedSurface();
+            //SnapToSlammedSurface();
 
             yield return new WaitForSpineAnimationComplete(track);
             Debug.Log("Ended Slam To Target");
@@ -3258,16 +3275,16 @@ namespace DChild.Gameplay.Characters.Enemies
                 {
                     if (m_leftWallSensor.isDetecting)
                     {
-                        snapTo.x = m_leftWallSensor.GetHits()[0].point.x;
+                        snapTo.x = m_leftWallSensor.GetHits()[0].point.x + 1f;
                     }
                     else
                     {
-                        snapTo.x = m_rightWallSensor.GetHits()[0].point.x;
+                        snapTo.x = m_rightWallSensor.GetHits()[0].point.x - 5f;
                     }
                 }
                 else if (m_isStickingToCieling)
                 {
-                    snapTo.y = m_cielingSensor.GetHits()[0].point.y;
+                    snapTo.y = m_cielingSensor.GetHits()[0].point.y - 5f;
                 }
                 else
                 {
@@ -3338,7 +3355,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 case State.Attacking:
                     m_stateHandle.Wait(State.ReevaluateSituation);
                     m_lastTargetPos = m_targetInfo.position;
-                    if (m_startingAttack)
+                    /*if (m_startingAttack)
                     {
                         m_attackDecider.DecideOnAttack(Attack.TentaspearCrawl);
                         m_startingAttack = false;
@@ -3353,11 +3370,12 @@ namespace DChild.Gameplay.Characters.Enemies
                             StartCoroutine(RandomlyChooseInRangeAttack());
                             //m_attackDecider.DecideOnAttack();
                         }
-                    }
-
+                    }*/
+                    // gin comment ko ni sa babaw boss ah
                     switch (m_attackDecider.chosenAttack.attack)
                     {
-                        case Attack.TentaspearCrawl:
+                        #region DeleteKoNiStephenNi
+                        /*case Attack.TentaspearCrawl:
                             //m_currentAttackCoroutine = StartCoroutine(TentaspearCrawlAttackFullRoutine(m_lastTargetPos));
                             //m_pickedCooldown = m_currentFullCooldown[0];
                             StartCoroutine(TentaspearCrawlAttackFullRoutine(m_lastTargetPos));
@@ -3371,6 +3389,15 @@ namespace DChild.Gameplay.Characters.Enemies
                             //m_currentAttackCoroutine = StartCoroutine(SpikeSpitAttackFullRoutine(false));
                             //m_pickedCooldown = m_currentFullCooldown[0];
                             StartCoroutine(SpikeSpitAttackFullRoutine(false));
+                            break;
+                        case Attack.HeavySpearStab:
+                            //m_currentAttackCoroutine = StartCoroutine(HeavySpearStabAttackRoutine());
+                            //m_pickedCooldown = m_currentFullCooldown[0];
+                            StartCoroutine(HeavySpearStabAttackRoutine());
+                            break;*/
+                        #endregion
+                        case Attack.TentaCrawlSpitStab:
+                            StartCoroutine(TentaCrawlSpitStabRoutine());
                             break;
                         case Attack.SpikeSpit2:
                             //m_currentAttackCoroutine = StartCoroutine(SpikeSpitAttackFullRoutine(true));
@@ -3386,11 +3413,6 @@ namespace DChild.Gameplay.Characters.Enemies
                             //m_currentAttackCoroutine = StartCoroutine(HeavyGroundStabAttackRoutine());
                             //m_pickedCooldown = m_currentFullCooldown[0];
                             StartCoroutine(HeavyGroundStabAttackRoutine());
-                            break;
-                        case Attack.HeavySpearStab:
-                            //m_currentAttackCoroutine = StartCoroutine(HeavySpearStabAttackRoutine());
-                            //m_pickedCooldown = m_currentFullCooldown[0];
-                            StartCoroutine(HeavySpearStabAttackRoutine());
                             break;
                         case Attack.SpikeShower1toSpikeShower2:
                             //m_currentAttackCoroutine = StartCoroutine(SpikeShowerOneToSpikeShowerTwoFullAttackRoutine());
