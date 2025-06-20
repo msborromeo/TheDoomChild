@@ -15,10 +15,10 @@ namespace DChild.Gameplay.ArmyBattle
     {
 
         [TabGroup("Main","Reference")]
-        [SerializeField, TabGroup("Main/Reference", "General References")]
-        private SpriteRenderer m_Graphics;
-        [SerializeField, TabGroup("Main/Reference", "General References")]
-        private Vector3 m_promptOffset;
+        //[SerializeField, TabGroup("Main/Reference", "General References")]
+        //private SpriteRenderer m_Graphics;
+        //[SerializeField, TabGroup("Main/Reference", "General References")]
+        //private Vector3 m_promptOffset;
         [SerializeField, TabGroup("Main/Reference", "General References")]
         private CharacterGiver m_CharacterGiver;
 
@@ -81,6 +81,11 @@ namespace DChild.Gameplay.ArmyBattle
         public void GiveReward()
         {
             m_CharacterGiver?.RecruitCharacter(m_CharacterReward);
+
+
+            //Because Characters are usually recieved at isolated maps where save points do not exists
+            //and Underworld data is lost upon existing due to changing into Overworld Data 
+            GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Quest);  
         }
 
         public void RequirementMet(bool isAchieved)
@@ -162,6 +167,7 @@ namespace DChild.Gameplay.ArmyBattle
                 }
             }
 
+            GiveReward();
             m_GiveReward?.Invoke();
         }
 

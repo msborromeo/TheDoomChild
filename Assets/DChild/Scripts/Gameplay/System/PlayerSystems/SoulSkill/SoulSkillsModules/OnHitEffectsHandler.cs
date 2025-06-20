@@ -20,7 +20,7 @@ public class OnHitEffectsHandler : MonoBehaviour
     private bool m_isparticle=false;
     private void Start()
     {
-        if(m_isparticle == true)
+        if (m_isparticle == true)
         {
             m_particleeffects.Stop();
         }
@@ -28,7 +28,7 @@ public class OnHitEffectsHandler : MonoBehaviour
         {
             m_visualeffects.Stop();
         }
-        
+
         GameplaySystem.playerManager.player.health.ValueChanged += OnStatChange;
         this.transform.localPosition = new Vector3(0.0f, 8.0f, 0.0f);
     }
@@ -45,5 +45,10 @@ public class OnHitEffectsHandler : MonoBehaviour
             m_visualeffects.Stop();
             m_visualeffects.Play();
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameplaySystem.playerManager.player.health.ValueChanged -= OnStatChange;
     }
 }
