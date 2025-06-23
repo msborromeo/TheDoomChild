@@ -148,7 +148,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
         [SerializeField, TabGroup("FX")]
         private List<ParticleSystem> m_fxSystem;
-
+        [SerializeField, TabGroup("FX")]
+        private ParticleSystem m_windTrailFX;
         [ShowInInspector]
         private StateHandle<State> m_stateHandle;
         [ShowInInspector]
@@ -364,6 +365,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.attackStart.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attackStart.animation);
             m_trailFX.Play();
+            m_windTrailFX.Play();
             StartCoroutine(AttackRoutine());
             yield return null;
         }
@@ -390,6 +392,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attackEnd);
             m_flinchHandle.gameObject.SetActive(true);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            m_windTrailFX.Stop();
             yield return new WaitForSeconds(0.5f);
             m_flinchHandle.gameObject.SetActive(false);
             m_attackCoroutine = null;
