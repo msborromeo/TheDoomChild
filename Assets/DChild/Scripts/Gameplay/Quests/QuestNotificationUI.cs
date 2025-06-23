@@ -11,8 +11,11 @@ namespace DChild.Gameplay.Quests
     public class QuestNotificationUI : NotificationUI
     {
         [SerializeField] private TextMeshProUGUI m_questTitle;
-        [SerializeField] private List<TextMeshProUGUI> m_questEntries;
+        [SerializeField] private TextMeshProUGUI m_subEntry;
+        [SerializeField] private TextMeshProUGUI m_objective;
+        //[SerializeField] private List<TextMeshProUGUI> m_questEntries;
 
+        [SerializeField] private QuestStateUI m_stateUI;
 
         /// <summary>
         /// entryNumber will be treated as entryCount
@@ -21,43 +24,49 @@ namespace DChild.Gameplay.Quests
         [Button]
         public void UpdateLog(QuestEntryArgs questInfo)
         {
-            ResetEntries();
-            m_questTitle.text = FormattedText.Parse(questInfo.questName).text;
+            var subEntry = QuestLog.GetQuestEntry(questInfo.questName, questInfo.entryNumber);
+            var subEntryState = QuestLog.GetQuestEntryState(questInfo.questName, questInfo.entryNumber);
             
-            var entryCount = questInfo.entryNumber;
+            //m_questTitle.text = FormattedText.Parse(questInfo.questName).text;
+            m_questTitle.text = questInfo.questName;
+            m_subEntry.text = subEntry;
+            m_objective.text = QuestLog.GetQuestDescription(subEntry);
+            
+            m_stateUI.Display(subEntryState);
 
-            for (int i = 0; i < entryCount; i++)
-            {
-                m_questEntries[i].text = "";
-                if (questInfo.entryNumber >= 0)
-                {
-                    var parent = m_questEntries[i].transform.parent;
-                    parent.gameObject.SetActive(true);
 
-                    var entryName = QuestLog.GetQuestEntry(questInfo.questName, i + 1);
-                    m_questEntries[i].text = FormattedText.Parse(entryName).text;
-                }                
-            }
+            //ResetEntries();
+
+            //var entryCount = questInfo.entryNumber;
+            //for (int i = 0; i < entryCount; i++)
+            //{
+            //    m_questEntries[i].text = "";
+            //    if (questInfo.entryNumber >= 0)
+            //    {
+            //        var parent = m_questEntries[i].transform.parent;
+            //        parent.gameObject.SetActive(true);
+
+            //        var entryName = QuestLog.GetQuestEntry(questInfo.questName, i + 1);
+            //        m_questEntries[i].text = FormattedText.Parse(entryName).text;
+            //    }
+            //}
         }
 
-        [Button]
-        public void Display(QuestEntryArgs questInfo)
-        {
-            var questTitle = FormattedText.Parse(questInfo.questName).text;
-            var subEntry = QuestLog.GetQuestEntry(questInfo.questName, 0);
+        //[Button]
+        //public void DisplayProgress(QuestEntryArgs questInfo)
+        //{
+        //    var subEntryState = QuestLog.GetQuestEntryState(questInfo.questName, questInfo.entryNumber);
+        //}
 
-        }
-
-        private void ResetEntries()
-        {
-            foreach ( var entry in m_questEntries)
-            {
-                entry.text = "";
-                
-                var parent = entry.transform.parent;
-                parent.gameObject.SetActive(false);
-            }
-        }
+        //private void ResetEntries()
+        //{
+        //    foreach ( var entry in m_questEntries)
+        //    {
+        //        entry.text = "";  
+        //        var parent = entry.transform.parent;
+        //        parent.gameObject.SetActive(false);
+        //    }
+        //}
 
     }
 }
