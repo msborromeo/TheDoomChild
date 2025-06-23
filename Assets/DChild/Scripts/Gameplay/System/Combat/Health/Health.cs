@@ -14,6 +14,7 @@ namespace DChild.Gameplay.Combat
         public event EventAction<EventActionArgs> Death;
         public event EventAction<StatInfoEventArgs> MaxValueChanged;
         public event EventAction<StatInfoEventArgs> ValueChanged;
+        public event Action<bool> HealthGained;
 
         [ShowInInspector, HideInEditorMode, OnValueChanged("SendValueEvent"), MinValue(0), MaxValue("$maxValue")]
         protected int m_currentHealth;
@@ -46,6 +47,7 @@ namespace DChild.Gameplay.Combat
             }
             ValueChanged?.Invoke(this, new StatInfoEventArgs(m_currentHealth, maxValue));
             m_percentHealth = (float)m_currentHealth / maxValue;
+            HealthGained?.Invoke(false);
         }
 
         public void AddCurrentValue(int value)
@@ -57,6 +59,7 @@ namespace DChild.Gameplay.Combat
             }
             ValueChanged?.Invoke(this, new StatInfoEventArgs(m_currentHealth, maxValue));
             m_percentHealth = (float)m_currentHealth / maxValue;
+            HealthGained?.Invoke(true);
         }
 
         public void ResetValueToMax()
