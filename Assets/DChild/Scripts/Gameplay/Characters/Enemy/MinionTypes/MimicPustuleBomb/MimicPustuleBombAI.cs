@@ -91,6 +91,10 @@ namespace DChild.Gameplay.Characters.Enemies
             private BasicAnimationInfo m_deathUnAggroAnimation = new BasicAnimationInfo();
             public BasicAnimationInfo deathUnAggroAnimation => m_deathUnAggroAnimation;
 
+            [TitleGroup("Events")]
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_deathFXEvent;
+            public string deathFXEvent => m_deathFXEvent;
 
             public override void Initialize()
             {
@@ -190,7 +194,8 @@ namespace DChild.Gameplay.Characters.Enemies
         NavigationTracker navigationTracker = null;
         [SerializeField, TabGroup("Modules")]
         MovementHandle2D movementOverrideHandle;
-
+        [SerializeField]
+        private GameObject m_deathFX;
         [ShowInInspector]
         private StateHandle<State> m_stateHandle;
         private State m_turnState;
@@ -628,6 +633,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_bodycollider.enabled = false;
             SwapPustuleBombPosition();
             m_startPos = transform.position;
+            m_spineEventListener.Subscribe(m_info.deathFXEvent, OnDeath);
         }
 
         protected override void Awake()
@@ -931,7 +937,10 @@ namespace DChild.Gameplay.Characters.Enemies
                 }
             }
         }
-
+        private void OnDeath()
+        {
+            Instantiate(m_deathFX, new Vector2(transform.position.x, transform.position.y - 6f), Quaternion.identity);
+        }
         protected override void OnTargetDisappeared()
         {
             m_pathChecked = false;
