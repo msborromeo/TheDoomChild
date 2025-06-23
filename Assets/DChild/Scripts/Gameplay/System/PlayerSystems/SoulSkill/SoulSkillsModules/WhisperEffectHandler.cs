@@ -60,4 +60,9 @@ public class WhisperEffectHandler : MonoBehaviour
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        FurryWhisperer.Onstatechange -= statechange;
+    }
 }
