@@ -14,15 +14,23 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
 
         public void AttachTo(int soulSkillInstanceID, IPlayer player)
         {
-            Damage temp = player.weapon.damage;
-            float damage = temp.value * (m_damageValue / 100f);
+            //Damage temp = player.weapon.damage;
+            //player.weapon.SetAddedDamage(Calculateddamage);
+            //float damage = temp.value * (m_damageValue / 100f);
+            //int Calculateddamage = (int)Math.Ceiling(damage);
+            var curdamage = player.stats.GetTotalStat(PlayerStat.Attack);
+            float damage = curdamage * (m_damageValue / 100f);
             int Calculateddamage = (int)Math.Ceiling(damage);
-            player.weapon.SetAddedDamage(Calculateddamage);
+            player.stats.AddStat(PlayerStat.Attack, Calculateddamage);
         }
 
         public void DetachFrom(int soulSkillInstanceID, IPlayer player)
         {
-            player.weapon.SetAddedDamage(0);
+            //player.weapon.SetAddedDamage(0);
+            var curdamage = player.stats.GetTotalStat(PlayerStat.Attack);
+            float damage = curdamage * (m_damageValue / 100f);
+            int Calculateddamage = (int)Math.Ceiling(damage);
+            player.stats.AddStat(PlayerStat.Attack, -Calculateddamage);
         }
     }
 }
