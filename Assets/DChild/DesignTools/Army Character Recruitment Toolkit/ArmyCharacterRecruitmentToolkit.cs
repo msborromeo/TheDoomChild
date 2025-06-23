@@ -1,16 +1,10 @@
-using DChild.Gameplay.ArmyBattle;
-using DG.Tweening.Plugins;
 using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Xml.Serialization;
-using UnityEditor;
-using UnityEditor.Events;
 using UnityEngine;
-using UnityEngine.WSA;
 
+#if UNITY_EDITOR
+using UnityEditor;
 public class ArmyCharacterRecruitmentToolkit : MonoBehaviour
 {
     [SerializeField]
@@ -192,4 +186,5 @@ public class ArmyCharacterRecruitmentToolkit : MonoBehaviour
     }
 
     private string GenerateQuestName(string npcName) => $"Recruit {npcName}";
-}
+} 
+#endif
