@@ -22,13 +22,33 @@ public class WhisperEffectHandler : MonoBehaviour
     private GameObject m_whispererDialogue;
     private void Start()
     {
-        if (m_isparticle == true)
+        if (DialogueLua.GetVariable("Whisper").AsBool)
         {
-            m_particleeffects.Stop();
+            if (m_isparticle == true)
+            {
+                m_particleeffects.Stop();
+                m_particleeffects.Play();
+            }
+            else
+            {
+                m_visualeffects.Stop();
+                m_visualeffects.Play();
+            }
+            m_noWhispererDialogue.SetActive(false);
+            m_whispererDialogue.SetActive(true);
         }
         else
         {
-            m_visualeffects.Stop();
+            if (m_isparticle == true)
+            {
+                m_particleeffects.Stop();
+            }
+            else
+            {
+                m_visualeffects.Stop();
+            }
+            m_noWhispererDialogue.SetActive(true);
+            m_whispererDialogue.SetActive(false);
         }
 
         FurryWhisperer.Onstatechange += StateChange;        
