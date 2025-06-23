@@ -7,12 +7,12 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 namespace DChild.Gameplay.Quests
 {
+
     public class QuestNotificationUI : NotificationUI
     {
-        [SerializeField]
-        private TextMeshProUGUI m_questTitle;
-        [SerializeField]
-        private List<TextMeshProUGUI> m_questEntries;
+        [SerializeField] private TextMeshProUGUI m_questTitle;
+        [SerializeField] private List<TextMeshProUGUI> m_questEntries;
+
 
         /// <summary>
         /// entryNumber will be treated as entryCount
@@ -38,6 +38,14 @@ namespace DChild.Gameplay.Quests
                     m_questEntries[i].text = FormattedText.Parse(entryName).text;
                 }                
             }
+        }
+
+        [Button]
+        public void Display(QuestEntryArgs questInfo)
+        {
+            var questTitle = FormattedText.Parse(questInfo.questName).text;
+            var subEntry = QuestLog.GetQuestEntry(questInfo.questName, 0);
+
         }
 
         private void ResetEntries()
