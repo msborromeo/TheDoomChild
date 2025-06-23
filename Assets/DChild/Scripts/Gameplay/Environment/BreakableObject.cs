@@ -53,7 +53,7 @@ namespace DChild.Gameplay.Environment
 
         [SerializeField]
         private bool m_createDebris;
-        [SerializeField, ShowIf("m_createDebris"), Indent]
+        //[SerializeField, ShowIf("m_createDebris"), Indent]
         private AssetReferenceGameObject m_debris;
         [SerializeField, ShowIf("m_createDebris"), Indent]
         private bool m_copySorting;
@@ -119,6 +119,12 @@ namespace DChild.Gameplay.Environment
             {
                 RevertToFixState();
             }
+        }
+
+        public void SetAsAlreadyDestroyed()
+        {
+            m_isDestroyed = true;
+            m_onAlreadyDestroyed?.Invoke();
         }
 
         public void Initialize()
