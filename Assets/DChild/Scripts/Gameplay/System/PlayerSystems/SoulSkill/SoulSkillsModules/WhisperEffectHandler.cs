@@ -16,6 +16,10 @@ public class WhisperEffectHandler : MonoBehaviour
     private VisualEffect m_visualeffects;
     [SerializeField]
     private bool m_isparticle = false;
+    [SerializeField]
+    private GameObject m_noWhispererDialogue;
+    [SerializeField]
+    private GameObject m_whispererDialogue;
     private void Start()
     {
         if (m_isparticle == true)
@@ -27,12 +31,10 @@ public class WhisperEffectHandler : MonoBehaviour
             m_visualeffects.Stop();
         }
 
-        FurryWhisperer.Onstatechange += statechange;
-;
-        
+        FurryWhisperer.Onstatechange += StateChange;        
     }
 
-    private void statechange(object sender, FurryWhisperer.StateChangeEvent eventArgs)
+    private void StateChange(object sender, FurryWhisperer.StateChangeEvent eventArgs)
     {
         
       if (eventArgs.isactive == true)
@@ -47,6 +49,8 @@ public class WhisperEffectHandler : MonoBehaviour
                 m_visualeffects.Stop();
                 m_visualeffects.Play();
             }
+            m_noWhispererDialogue.SetActive(false);
+            m_whispererDialogue.SetActive(true);
         }
       else
         {
@@ -58,11 +62,13 @@ public class WhisperEffectHandler : MonoBehaviour
             {
                 m_visualeffects.Stop();
             }
+            m_noWhispererDialogue.SetActive(true);
+            m_whispererDialogue.SetActive(false);
         }
     }
 
     private void OnDestroy()
     {
-        FurryWhisperer.Onstatechange -= statechange;
+        FurryWhisperer.Onstatechange -= StateChange;
     }
 }
