@@ -30,11 +30,14 @@ namespace DChild.Gameplay.Quests
             //m_questTitle.text = FormattedText.Parse(questInfo.questName).text;
             m_questTitle.text = questInfo.questName;
             m_subEntry.text = subEntry;
-            m_objective.text = QuestLog.GetQuestDescription(subEntry) ?? "Objective here.";
+            //m_objective.text = QuestLog.GetQuestDescription(subEntry) ?? "Objective here.";
             
             m_stateUI.Display(subEntryState);
+            
+            var quest = DialogueManager.databaseManager.masterDatabase.GetItem(questInfo.questName);
+            var instructions = quest.LookupLocalizedValue($"Entry {questInfo.entryNumber} Instructions");
 
-
+            m_objective.text = instructions;
             //ResetEntries();
 
             //var entryCount = questInfo.entryNumber;
@@ -51,13 +54,6 @@ namespace DChild.Gameplay.Quests
             //    }
             //}
         }
-
-        //[Button]
-        //public void DisplayProgress(QuestEntryArgs questInfo)
-        //{
-        //    var subEntryState = QuestLog.GetQuestEntryState(questInfo.questName, questInfo.entryNumber);
-        //}
-
         //private void ResetEntries()
         //{
         //    foreach ( var entry in m_questEntries)
