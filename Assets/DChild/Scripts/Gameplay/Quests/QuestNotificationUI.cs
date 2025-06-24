@@ -30,7 +30,7 @@ namespace DChild.Gameplay.Quests
             //m_questTitle.text = FormattedText.Parse(questInfo.questName).text;
             m_questTitle.text = questInfo.questName;
             m_subEntry.text = subEntry;
-            m_objective.text = QuestLog.GetQuestDescription(subEntry);
+            m_objective.text = QuestLog.GetQuestDescription(subEntry) ?? "Objective here.";
             
             m_stateUI.Display(subEntryState);
 
