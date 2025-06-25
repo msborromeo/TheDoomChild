@@ -10,6 +10,8 @@ namespace DChild.Gameplay.Quests
 
     public class QuestNotificationUI : NotificationUI
     {
+        [SerializeField] private QuestLogDataList m_dataList;
+
         [SerializeField] private TextMeshProUGUI m_questTitle;
         [SerializeField] private TextMeshProUGUI m_subEntry;
         [SerializeField] private TextMeshProUGUI m_objective;
@@ -26,18 +28,25 @@ namespace DChild.Gameplay.Quests
         {
             var subEntry = QuestLog.GetQuestEntry(questInfo.questName, questInfo.entryNumber);
             var subEntryState = QuestLog.GetQuestEntryState(questInfo.questName, questInfo.entryNumber);
-            
-            //m_questTitle.text = FormattedText.Parse(questInfo.questName).text;
+
             m_questTitle.text = questInfo.questName;
             m_subEntry.text = subEntry;
-            //m_objective.text = QuestLog.GetQuestDescription(subEntry) ?? "Objective here.";
-            
             m_stateUI.Display(subEntryState);
-            
-            var quest = DialogueManager.databaseManager.masterDatabase.GetItem(questInfo.questName);
-            var instructions = quest.LookupLocalizedValue($"Entry {questInfo.entryNumber} Instructions");
 
-            m_objective.text = instructions;
+            if (questInfo.entryNumber > 0)
+            {
+                //var quest = DialogueManager.databaseManager.masterDatabase.GetItem(questInfo.questName);
+
+                //var instructions = quest.LookupLocalizedValue($"Entry {questInfo.entryNumber} Instructions")
+                //    ?? "No objectives found.";
+
+
+                var quest = m_dataList.GetQuest(questInfo.questName);
+                var instructions = quest.LookupValue($"Entry {questInfo.entryNumber} Instructions");
+
+                m_objective.text = instructions;
+            }
+
             //ResetEntries();
 
             //var entryCount = questInfo.entryNumber;

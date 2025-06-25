@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,6 +28,28 @@ namespace PixelCrushers.DialogueSystem
 
         public Quest[] mainQuests => m_mainQuests;
         public Quest[] sideQuests => m_sideQuests;
+
+        public Item GetQuest(string name)
+        {
+            Item quest = null;
+
+            foreach (var main in m_mainQuests)
+            {
+                if (main.name == name)
+                    quest = DialogueManager.databaseManager.masterDatabase.GetItem(name);
+            }
+
+            foreach (var side in m_sideQuests)
+            {
+                if (side.name == name)
+                    quest = DialogueManager.databaseManager.masterDatabase.GetItem(name);
+            }
+
+            if (quest != null)
+                return quest;
+
+            return null;
+        }
 
     }
 }
