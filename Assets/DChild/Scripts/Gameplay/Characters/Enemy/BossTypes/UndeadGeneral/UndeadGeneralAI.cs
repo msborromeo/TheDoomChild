@@ -945,7 +945,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             this.transform.SetParent(null);
             m_animation.SetAnimation(0, m_info.defeatStartAnimation, false).MixDuration = 0;
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.moveFastAnticipationAnimation);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.defeatStartAnimation);
             m_animation.SetAnimation(0, m_info.defeatLoopAnimation, true);
             m_isDetecting = false;
             enabled = false;
