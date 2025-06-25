@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1405814610701940657
+--- !u!1 &1263346443667703809
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5347291443358205443}
-  - component: {fileID: 1116830019018191965}
-  - component: {fileID: 5724048901600318934}
-  - component: {fileID: 7017585785615305210}
+  - component: {fileID: 3782150403342255537}
+  - component: {fileID: 2160678855747438406}
+  - component: {fileID: 7315999410330176255}
+  - component: {fileID: 5917388186998560774}
   m_Layer: 0
-  m_Name: Sequence_GiveServantToPlayer
+  m_Name: Sequence_GiveFlyingCarpetToPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5347291443358205443
+--- !u!4 &3782150403342255537
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405814610701940657}
+  m_GameObject: {fileID: 1263346443667703809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2243557112104367706}
+  m_Father: {fileID: 2972979160706186832}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1116830019018191965
+--- !u!114 &2160678855747438406
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405814610701940657}
+  m_GameObject: {fileID: 1263346443667703809}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
@@ -55,7 +55,7 @@ MonoBehaviour:
     luaWizardIndex: -1
     lastEvaluationValue: 0
   setQuestState: 1
-  questName: Recruit Servant
+  questName: Recruit FlyingCarpet
   questState: 4
   setQuestEntryState: 1
   questEntryNumber: 1
@@ -63,7 +63,7 @@ MonoBehaviour:
   setAnotherQuestEntryState: 0
   anotherQuestEntryNumber: 1
   anotherQuestEntryState: 0
-  luaCode: Variable["HasRecruited_Servant"] = true
+  luaCode: Variable["HasRecruited_FlyingCarpet"] = true
   sequence: 
   sequenceSpeaker: {fileID: 0}
   sequenceListener: {fileID: 0}
@@ -102,7 +102,7 @@ MonoBehaviour:
   onExecute:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5724048901600318934}
+      - m_Target: {fileID: 7315999410330176255}
         m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.ArmyBattleCharacterReward,
           Assembly-CSharp
         m_MethodName: AttemptGiveReward
@@ -118,24 +118,24 @@ MonoBehaviour:
   useConversationTitlePicker: 1
   useBarkTitlePicker: 1
   useQuestNamePicker: 1
-  selectedDatabase: {fileID: 11400000, guid: 588f73540b04f6542996cc1811395a09, type: 2}
---- !u!114 &5724048901600318934
+  selectedDatabase: {fileID: 11400000, guid: fda86cbee81924b4ba87511077d61735, type: 2}
+--- !u!114 &7315999410330176255
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405814610701940657}
+  m_GameObject: {fileID: 1263346443667703809}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ed0afc9281a6ae44911db13f4c2155d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CharacterGiver: {fileID: 7017585785615305210}
+  m_CharacterGiver: {fileID: 5917388186998560774}
   m_GiveReward:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11308093497917064}
+      - m_Target: {fileID: 3911586434536470146}
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 6
@@ -151,7 +151,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_CharacterReward:
-  - {fileID: 11400000, guid: a63f86a827c70554e87e88337c8df16c, type: 2}
+  - {fileID: 11400000, guid: 1114c1d12983cd6498b597e57affb211, type: 2}
   m_isFree: 1
   m_requiresSoulEssence: 0
   m_requiredSoulEssence: 0
@@ -166,19 +166,19 @@ MonoBehaviour:
   armyCharacterData: {fileID: 0}
   m_requiresMinimumNPCsRecruited: 0
   neededNPCsRecruited: 0
---- !u!114 &7017585785615305210
+--- !u!114 &5917388186998560774
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405814610701940657}
+  m_GameObject: {fileID: 1263346443667703809}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8df5f1d697e6e347a51d015abbe6e15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2196490709659412132
+--- !u!1 &5109704185697299478
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,46 +186,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 657643308909211368}
-  - component: {fileID: 3048520815075185324}
-  - component: {fileID: 1910092575922879429}
-  - component: {fileID: 4414293445396490294}
+  - component: {fileID: 1976766408127427086}
+  - component: {fileID: 2647581837213458938}
+  - component: {fileID: 2662867697308656349}
+  - component: {fileID: 4167709708035090068}
   m_Layer: 0
-  m_Name: Quest_Recruit_Servant
+  m_Name: Quest_Recruit_FlyingCarpet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &657643308909211368
+--- !u!4 &1976766408127427086
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2196490709659412132}
+  m_GameObject: {fileID: 5109704185697299478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1855240536406857897}
+  - {fileID: 820643734580531358}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3048520815075185324
+--- !u!114 &2647581837213458938
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2196490709659412132}
+  m_GameObject: {fileID: 5109704185697299478}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba2e3066672a3834182d094e4029952d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questName: Recruit Servant
+  questName: Recruit FlyingCarpet
   questStateIndicatorLevels:
   - updateOnStartOnly: 1
     questState: 2
@@ -255,13 +255,13 @@ MonoBehaviour:
         m_Calls: []
   questEntryStateIndicatorLevels: []
   suppressOnEnterStateEventsOnStart: 0
---- !u!114 &1910092575922879429
+--- !u!114 &2662867697308656349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2196490709659412132}
+  m_GameObject: {fileID: 5109704185697299478}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9788c61928f1bb24a8559f5d6aaed894, type: 3}
@@ -269,14 +269,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicators:
   - {fileID: 0}
-  - {fileID: 2387308955422493546}
---- !u!114 &4414293445396490294
+  - {fileID: 7301283629820723130}
+--- !u!114 &4167709708035090068
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2196490709659412132}
+  m_GameObject: {fileID: 5109704185697299478}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6546d1f34e0077748a93d4c356aa9411, type: 3}
@@ -285,7 +285,7 @@ MonoBehaviour:
   addTrigger: 16
   removeTrigger: 1024
   databases:
-  - {fileID: 11400000, guid: 588f73540b04f6542996cc1811395a09, type: 2}
+  - {fileID: 11400000, guid: fda86cbee81924b4ba87511077d61735, type: 2}
   condition:
     luaConditions: []
     questConditions: []
@@ -295,7 +295,7 @@ MonoBehaviour:
     lastEvaluationValue: 0
   once: 0
   onePerFrame: 0
---- !u!1 &2387308955422493546
+--- !u!1 &7301283629820723130
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -303,139 +303,129 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1855240536406857897}
+  - component: {fileID: 820643734580531358}
   m_Layer: 0
-  m_Name: QuestEntry_RecruitServant
+  m_Name: QuestEntry_RecruitFlyingCarpet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1855240536406857897
+--- !u!4 &820643734580531358
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2387308955422493546}
+  m_GameObject: {fileID: 7301283629820723130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2243557112104367706}
-  m_Father: {fileID: 657643308909211368}
+  - {fileID: 2972979160706186832}
+  m_Father: {fileID: 1976766408127427086}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &9086090033136074529
+--- !u!1001 &7711281000349745698
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1855240536406857897}
+    m_TransformParent: {fileID: 820643734580531358}
     m_Modifications:
-    - target: {fileID: 1519939232777061771, guid: 600548d18d741af438480eb315944742,
-        type: 3}
-      propertyPath: conversation
-      value: Recruit/Servant
-      objectReference: {fileID: 0}
-    - target: {fileID: 1519939232777061771, guid: 600548d18d741af438480eb315944742,
-        type: 3}
-      propertyPath: selectedDatabase
-      value: 
-      objectReference: {fileID: 11400000, guid: 588f73540b04f6542996cc1811395a09,
-        type: 2}
-    - target: {fileID: 3197397972591902865, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 1091098774827234712, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6633314671611812709, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 3921725567280263298, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
-      propertyPath: m_Name
-      value: Servant_Recruitable
+      propertyPath: conversation
+      value: Recruit/FlyingCarpet
       objectReference: {fileID: 0}
-    - target: {fileID: 7006178186811853179, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 3921725567280263298, guid: d18ad624b708ff6489188351bfb0b3bc,
+        type: 3}
+      propertyPath: selectedDatabase
+      value: 
+      objectReference: {fileID: 11400000, guid: fda86cbee81924b4ba87511077d61735,
+        type: 2}
+    - target: {fileID: 4774341159685667954, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7006178186811853179, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 4774341159685667954, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7006178186811853179, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 4774341159685667954, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7006178186811853179, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 4774341159685667954, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7006178186811853179, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 4774341159685667954, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7006178186811853179, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 4774341159685667954, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 7006178186811853179, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 4774341159685667954, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 7006178186811853179, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 4774341159685667954, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 7006178186811853179, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 4774341159685667954, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7006178186811853179, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 4774341159685667954, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7006178186811853179, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 4774341159685667954, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8830049486902568089, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 6481118794250408336, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
       propertyPath: _animationName
       value: Idle
       objectReference: {fileID: 0}
-    - target: {fileID: 9092884299078517161, guid: 600548d18d741af438480eb315944742,
+    - target: {fileID: 9184361920455175788, guid: d18ad624b708ff6489188351bfb0b3bc,
         type: 3}
-      propertyPath: m_Size.x
-      value: 4.689347
-      objectReference: {fileID: 0}
-    - target: {fileID: 9092884299078517161, guid: 600548d18d741af438480eb315944742,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: -0.5990341
+      propertyPath: m_Name
+      value: FlyingCarpet_Recruitable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 600548d18d741af438480eb315944742, type: 3}
---- !u!61 &11308093497917064 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 9092884299078517161, guid: 600548d18d741af438480eb315944742,
-    type: 3}
-  m_PrefabInstance: {fileID: 9086090033136074529}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2243557112104367706 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: d18ad624b708ff6489188351bfb0b3bc, type: 3}
+--- !u!4 &2972979160706186832 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7006178186811853179, guid: 600548d18d741af438480eb315944742,
+  m_CorrespondingSourceObject: {fileID: 4774341159685667954, guid: d18ad624b708ff6489188351bfb0b3bc,
     type: 3}
-  m_PrefabInstance: {fileID: 9086090033136074529}
+  m_PrefabInstance: {fileID: 7711281000349745698}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &3911586434536470146 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 6722543928947029152, guid: d18ad624b708ff6489188351bfb0b3bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 7711281000349745698}
   m_PrefabAsset: {fileID: 0}
