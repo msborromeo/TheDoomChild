@@ -3,6 +3,7 @@ using DChild.Gameplay.Combat;
 using DChild.Gameplay.Pathfinding;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
+using Spine.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,6 +45,10 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField]
             private BasicAnimationInfo m_deathAnimation;
             public BasicAnimationInfo deathAnimation => m_deathAnimation;
+
+            [Title("Events")]
+            [ValueDropdown("GetEvents")]
+            public string m_explosionEvent;
 
 
             public override void Initialize()
@@ -120,6 +125,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Vector2 m_currentRetreatPoint;
         [SerializeField]
         private bool m_isReturningToIdle;
+        [SerializeField]
+        private GameObject m_explosionFX;
 
         private void OnTurnRequest(object sender, EventActionArgs eventArgs) => m_stateHandle.OverrideState(State.Turning);
 
@@ -216,7 +223,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_bodyCollider.enabled = false;
             m_startPos = transform.position;
             m_hitbox.damageable.DamageTaken += OnTakesDamage;
-
+            m_spineEventListener.Subscribe(m_info.m_explosionEvent, ExplosionEvent);
             for (int i = 0; i < m_retreatPoints.retreatPoints.Length; i++)
             {
                 m_panicPoints.Add(m_retreatPoints.retreatPoints[i]);
@@ -239,6 +246,10 @@ namespace DChild.Gameplay.Characters.Enemies
 
             //m_deathHandle?.SetAnimation(m_info.deathStartAnimation);
             m_stateHandle = new StateHandle<State>(State.Idle, State.WaitBehaviourEnd);
+        }
+        public void ExplosionEvent()
+        {
+            m_explosionFX.SetActive(true);
         }
 
         private void Update()
