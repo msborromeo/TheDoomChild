@@ -24,6 +24,8 @@ namespace DChild.Gameplay.Items
         private Stat m_toRegenerate;
         [SerializeField, MinValue(1)]
         private int m_value;
+        [SerializeField]
+        private bool m_ignoreFullHealth;
 
         public void Use(IPlayer player)
         {
@@ -56,7 +58,10 @@ namespace DChild.Gameplay.Items
             switch (m_toRegenerate)
             {
                 case Stat.Health:
-                    return player.health.isFull == false;
+                    if(m_ignoreFullHealth)
+                        return true;
+                    else
+                        return player.health.isFull == false;
                 case Stat.Magic:
                     return player.magic.isFull == false;
                 case Stat.Armor:
