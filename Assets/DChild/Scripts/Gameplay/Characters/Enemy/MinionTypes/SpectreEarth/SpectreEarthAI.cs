@@ -1,18 +1,19 @@
-﻿using System;
+﻿using DChild;
 using DChild.Gameplay;
 using DChild.Gameplay.Characters;
-using DChild.Gameplay.Combat;
-using Holysoft.Event;
 using DChild.Gameplay.Characters.AI;
-using UnityEngine;
+using DChild.Gameplay.Characters.Enemies;
+using DChild.Gameplay.Combat;
+using DChild.Gameplay.Pathfinding;
+using DChild.Gameplay.Pooling;
+using Holysoft.Event;
+using Sirenix.OdinInspector;
 using Spine;
 using Spine.Unity;
-using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using DChild;
-using DChild.Gameplay.Characters.Enemies;
-using DChild.Gameplay.Pathfinding;
+using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
@@ -501,8 +502,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private void SpawnSpike()
         {
             Vector2 targetground = new Vector2(m_targetInfo.position.x, GroundPosition().y);
-            Vector3 targetgroundv3 = targetground;
-            Instantiate(m_info.spike, targetgroundv3, Quaternion.identity);
+            //Vector3 targetgroundv3 = targetground;
+            var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_info.spike, gameObject.scene);
+            instance.SpawnAt(targetground, Quaternion.identity);
+            // Instantiate(m_info.spike, targetgroundv3, Quaternion.identity);
         }
 
         protected override void Start()
