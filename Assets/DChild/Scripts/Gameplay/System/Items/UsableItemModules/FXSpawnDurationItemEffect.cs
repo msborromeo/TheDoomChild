@@ -20,6 +20,7 @@ namespace DChild.Gameplay.Items
 
         private Dictionary<int, GameObject> m_fxTracker;
         private FXSpawnHandle<FX> m_fXSpawnHandle;
+        private ParticleFX m_particleFX;
 
         public IDurationItemEffect GetInstance() => this;
 
@@ -29,6 +30,7 @@ namespace DChild.Gameplay.Items
             var bodypart = character.GetBodyPart(m_attachTo);
 
             var instance = m_fXSpawnHandle.InstantiateFX(m_fx, bodypart.position).gameObject;
+            m_particleFX = instance.GetComponent<ParticleFX>();
             instance.transform.parent = bodypart;
             if (m_fxTracker == null)
             {
@@ -50,7 +52,8 @@ namespace DChild.Gameplay.Items
         {
             if (m_fxTracker.ContainsKey(instanceID))
             {
-                UnityEngine.Object.Destroy(m_fxTracker[instanceID]);
+                m_particleFX.Stop();
+                //UnityEngine.Object.Destroy(m_fxTracker[instanceID]);
                 m_fxTracker.Remove(instanceID);
             }
         }
