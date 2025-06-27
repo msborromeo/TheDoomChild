@@ -7,6 +7,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace DChild.Gameplay.Items
 {
@@ -35,8 +36,10 @@ namespace DChild.Gameplay.Items
         private ItemData m_data;
         [SerializeField]
         private bool m_HasNotification;
-        [SerializeField,ShowIf("m_HasNotification")]
+        [SerializeField, ShowIf("m_HasNotification")]
         private string m_notifEvent;
+        [SerializeField]
+        private UnityEvent m_onPickup;
 
         private bool m_hasBeenPickedUp;
 
@@ -61,6 +64,7 @@ namespace DChild.Gameplay.Items
                 GameEventMessage.SendEvent(m_notifEvent);
             }
             m_hasBeenPickedUp = true;
+            m_onPickup?.Invoke();
         }
 
         public ISaveData Save() => new SaveData(m_hasBeenPickedUp);

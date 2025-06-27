@@ -154,14 +154,14 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                     return currentPercent > maxvalue;
                     
                 }
-                return currentPercent > m_value;
+                return currentPercent >= m_value;
             }
             else
             {
                 if (m_isPercentage)
                 {
                     maxvalue = maxvalue * (m_value / 100f);
-                    return currentPercent < maxvalue;
+                    return currentPercent <= maxvalue;
 
                 }
 

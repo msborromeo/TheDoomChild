@@ -20,30 +20,38 @@ public class OnHitEffectsHandler : MonoBehaviour
     private bool m_isparticle=false;
     private void Start()
     {
-        if(m_isparticle == true)
-        {
-            m_particleeffects.Stop();
-        }
-        else
-        {
-            m_visualeffects.Stop();
-        }
-        
-        GameplaySystem.playerManager.player.health.ValueChanged += OnStatChange;
-        this.transform.localPosition = new Vector3(0.0f, 8.0f, 0.0f);
-    }
-
-    private void OnStatChange(object sender, StatInfoEventArgs eventArgs)
-    {
         if (m_isparticle == true)
         {
             m_particleeffects.Stop();
-            m_particleeffects.Play();
         }
         else
         {
             m_visualeffects.Stop();
-            m_visualeffects.Play();
+        }
+
+        GameplaySystem.playerManager.player.health.HealthGained += OnHealthLost;
+        this.transform.localPosition = new Vector3(0.0f, 8.0f, 0.0f);
+    }
+
+    private void OnDestroy()
+    {
+        GameplaySystem.playerManager.player.health.HealthGained -= OnHealthLost;
+    }
+
+    private void OnHealthLost(bool obj)
+    {
+        if (!obj)
+        {
+            if (m_isparticle == true)
+            {
+                m_particleeffects.Stop();
+                m_particleeffects.Play();
+            }
+            else
+            {
+                m_visualeffects.Stop();
+                m_visualeffects.Play();
+            }
         }
     }
 }

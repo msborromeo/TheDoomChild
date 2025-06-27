@@ -1,9 +1,7 @@
 ﻿using DChild.Gameplay.Quests;
 using DChild.Gameplay.Systems;
-using Doozy.Runtime.UIManager.Containers;
 using Holysoft.Event;
 using PixelCrushers.DialogueSystem;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -79,28 +77,55 @@ namespace DChild.Gameplay.UI
 
         public void QueueNotification(QuestEntryArgs questInfo)
         {
-            for (int i = 0; i < m_requests.Count; i++)
+            bool appendQuestNotifiction = false;
+            if (questInfo.entryNumber != 0)
             {
-                var request = m_requests[i];
-                if (request.type == NotificationType.Quest)
+                if (questInfo.entryNumber == 1)
                 {
-                    var requestQuestNotif = (QuestEntryArgs)request.referenceData;
-                    if (requestQuestNotif.questName == questInfo.questName)
+                    if (QuestLog.GetQuestEntryState(questInfo.questName, questInfo.entryNumber) == QuestState.Success)
                     {
-                        if (requestQuestNotif.entryNumber < questInfo.entryNumber)
+                        appendQuestNotifiction = QuestLog.GetQuestState(questInfo.questName) == QuestState.Success;
+                        RemoveQuestNotification(questInfo.questName);
+                    }
+                }
+                else
+                {
+                    if (QuestLog.GetQuestEntryState(questInfo.questName, questInfo.entryNumber) == QuestState.Success)
+                    {
+                        appendQuestNotifiction = QuestLog.GetQuestState(questInfo.questName) == QuestState.Success;
+                    }
+                    RemoveQuestNotification(questInfo.questName);
+                }
+            }
+            else
+            {
+                //There is a chance that the quest Notif will be called twice due to how Quest State Changes work in Dialogue System
+                //Might as well Remove Any Existing ones
+                RemoveQuestNotification(questInfo.questName);
+            }
+
+            AddNotificationRequest(new NotificationRequest<NotificationType>(m_questNotification.priority, NotificationType.Quest, questInfo));
+            if (appendQuestNotifiction)
+            {
+                var newQuestInfo = new QuestEntryArgs(questInfo.questName, 0);
+                AddNotificationRequest(new NotificationRequest<NotificationType>(m_questNotification.priority, NotificationType.Quest, newQuestInfo));
+            }
+
+            void RemoveQuestNotification(string questName)
+            {
+                for (int i = m_requests.Count - 1; i >= 0; i--)
+                {
+                    var request = m_requests[i];
+                    if (request.type == NotificationType.Quest)
+                    {
+                        var requestQuestNotif = (QuestEntryArgs)request.referenceData;
+                        if (requestQuestNotif.questName == questInfo.questName && requestQuestNotif.entryNumber == 0)
                         {
                             m_requests.RemoveAt(i);
-                            break;
-                        }
-                        else if (requestQuestNotif.entryNumber == questInfo.entryNumber)
-                        {
-                            return;
                         }
                     }
                 }
             }
-
-            AddNotificationRequest(new NotificationRequest<NotificationType>(m_questNotification.priority, NotificationType.Quest, questInfo));
         }
 
         public void QueueNotification(LootList lootList)
