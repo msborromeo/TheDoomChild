@@ -11,6 +11,8 @@ namespace DChild.Gameplay
         private GameObject m_placeHolderFX;
         [SerializeField]
         private bool m_useNonAssetReference;
+        [SerializeField]
+        private bool m_flipVFX;
         [SerializeField, HideIf("m_useNonAssetReference")]
         private AssetReferenceFX m_fx;
         private bool m_usePooling;
@@ -28,7 +30,11 @@ namespace DChild.Gameplay
             {
                 var fx = m_fxHandle.InstantiateFX(m_placeHolderFX, Vector3.zero, transform);
                 fx.transform.localPosition = Vector3.zero;
-                fx.transform.localScale = Vector3.one;
+                var scale =  Vector3.one;
+if(m_flipVFX){
+scale.x =-1;
+}
+fx.transform.localScale = scale;
                 fx.transform.parent = null;
                 return;
             }
