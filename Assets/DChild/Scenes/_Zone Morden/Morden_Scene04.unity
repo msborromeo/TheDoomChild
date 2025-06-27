@@ -134448,7 +134448,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708812217}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -153, y: -27, z: -55}
+  m_LocalPosition: {x: -153, y: -27, z: -195}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -134475,7 +134475,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708812217}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
@@ -195101,6 +195101,8 @@ PlayableDirector:
     value: {fileID: 1795724412}
   - key: {fileID: 8113709437470718871, guid: 0a6804705f6de974bb6b46e050352567, type: 2}
     value: {fileID: 1462843322}
+  - key: {fileID: 8344473921898921150, guid: 0a6804705f6de974bb6b46e050352567, type: 2}
+    value: {fileID: 1017231982}
   m_ExposedReferences:
     m_References:
     - 0b4fc0eaa93c21f4981a6c837177af88: {fileID: 980930326}
@@ -295933,7 +295935,7 @@ MonoBehaviour:
   setAnotherQuestEntryState: 0
   anotherQuestEntryNumber: 1
   anotherQuestEntryState: 0
-  luaCode: 
+  luaCode: Variable["EncounteredThreeNPC"] = true
   sequence: 
   sequenceSpeaker: {fileID: 0}
   sequenceListener: {fileID: 0}
@@ -295976,6 +295978,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.Playables.PlayableDirector, UnityEngine
         m_MethodName: Play
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1607113177}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -402235,14 +402249,46 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3931366646497835244, guid: c00d6cb29c24e524186b461fa545c1ed,
         type: 3}
+      propertyPath: m_SceneBindings.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3931366646497835244, guid: c00d6cb29c24e524186b461fa545c1ed,
+        type: 3}
+      propertyPath: m_SceneBindings.Array.data[10].key
+      value: 
+      objectReference: {fileID: -8018638635870441248, guid: 297713fc168f7cc46896165bc08d6a2c,
+        type: 2}
+    - target: {fileID: 3931366646497835244, guid: c00d6cb29c24e524186b461fa545c1ed,
+        type: 3}
       propertyPath: m_SceneBindings.Array.data[0].value
       value: 
       objectReference: {fileID: 708812222}
+    - target: {fileID: 3931366646497835244, guid: c00d6cb29c24e524186b461fa545c1ed,
+        type: 3}
+      propertyPath: m_SceneBindings.Array.data[10].value
+      value: 
+      objectReference: {fileID: 3931366646841769737}
+    - target: {fileID: 3931366647044692391, guid: c00d6cb29c24e524186b461fa545c1ed,
+        type: 3}
+      propertyPath: m_SceneBindings.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3931366647044692391, guid: c00d6cb29c24e524186b461fa545c1ed,
+        type: 3}
+      propertyPath: m_SceneBindings.Array.data[11].key
+      value: 
+      objectReference: {fileID: 2518879986413332566, guid: f7e60c15bd7774747ac20cf47ad7bb9f,
+        type: 2}
     - target: {fileID: 3931366647044692391, guid: c00d6cb29c24e524186b461fa545c1ed,
         type: 3}
       propertyPath: m_SceneBindings.Array.data[0].value
       value: 
       objectReference: {fileID: 708812222}
+    - target: {fileID: 3931366647044692391, guid: c00d6cb29c24e524186b461fa545c1ed,
+        type: 3}
+      propertyPath: m_SceneBindings.Array.data[11].value
+      value: 
+      objectReference: {fileID: 3931366646841769738}
     - target: {fileID: 3931366647185385084, guid: c00d6cb29c24e524186b461fa545c1ed,
         type: 3}
       propertyPath: trigger
@@ -402337,6 +402383,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!320 &3931366646841769737 stripped
+PlayableDirector:
+  m_CorrespondingSourceObject: {fileID: 3931366646497835244, guid: c00d6cb29c24e524186b461fa545c1ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 3931366646841769735}
+  m_PrefabAsset: {fileID: 0}
+--- !u!320 &3931366646841769738 stripped
+PlayableDirector:
+  m_CorrespondingSourceObject: {fileID: 3931366647044692391, guid: c00d6cb29c24e524186b461fa545c1ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 3931366646841769735}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4537216805002840604
 PrefabInstance:
   m_ObjectHideFlags: 0
