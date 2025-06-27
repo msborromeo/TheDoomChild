@@ -76,6 +76,10 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField]
             private SimpleProjectileAttackInfo m_projectile;
             public SimpleProjectileAttackInfo projectile => m_projectile;
+            [TitleGroup("Events")]
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_daggerThrowEvent;
+            public string daggerThrowEvent => m_daggerThrowEvent;
             public override void Initialize()
             {
 #if UNITY_EDITOR
@@ -147,7 +151,7 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField, TabGroup("Sensors")]
         private RaySensor m_edgeSensor;
         [SerializeField, TabGroup("ProjectileInfo")]
-        private List<Transform> m_projectilePoints;
+        private Transform m_projectilePoints;
         [SerializeField]
         private bool m_willPatrol;
 
@@ -247,14 +251,7 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             else
             {
-                //if (!m_enablePatience)
-                //{
-                //    m_enablePatience = true;
-                //    //Patience();
-                //    StartCoroutine(PatienceRoutine());
-                //}
                 m_enablePatience = true;
-                //StartCoroutine(PatienceRoutine());
             }
         }
 
@@ -293,7 +290,6 @@ namespace DChild.Gameplay.Characters.Enemies
         //    m_enablePatience = false;
         //    m_stateHandle.SetState(State.Patrol);
         //}
-
         protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
         {
             //m_Audiosource.clip = m_DeadClip;
@@ -361,7 +357,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.detectAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.detectAnimation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
-            m_stateHandle.OverrideState(State.ReevaluateSituation);
+            m_stateHandle.ApplyQueuedState();
             yield return null;
         }
         private void ExecuteAttack(Attack m_attack)
@@ -387,6 +383,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator AttackRoutine1()
         {
+            if (!IsFacingTarget()) CustomTurn();
             m_animation.SetAnimation(0, m_info.attackMelee.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attackMelee.animation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
@@ -396,10 +393,9 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         private IEnumerator AttackRoutine2()
         {
-            
+            if (!IsFacingTarget()) CustomTurn();
             m_animation.SetAnimation(0, m_info.attackrange.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attackrange.animation);
-            LaunchProjectile();
             m_animation.SetAnimation(0, m_info.afterthrowAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.afterthrowAnimation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
@@ -455,12 +451,9 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 CustomTurn();
             }
-            for (int i = 0; i < m_projectilePoints.Count; i++)
-            {
-                m_projectileLauncher = new ProjectileLauncher(m_info.projectile.projectileInfo, m_projectilePoints[i]);
-                m_projectileLauncher.AimAt(m_targetInfo.position);
-                m_projectileLauncher.LaunchProjectile();
-            }
+            m_projectileLauncher = new ProjectileLauncher(m_info.projectile.projectileInfo, m_projectilePoints);
+            m_projectileLauncher.AimAt(m_targetInfo.position);
+            m_projectileLauncher.LaunchProjectile();
         }
         private Vector2 GroundPosition()
         {
@@ -515,6 +508,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_startPos = transform.position;
             m_currentMoveSpeed = UnityEngine.Random.Range(m_info.move.speed * .75f, m_info.move.speed * 1.25f);
             m_currentFullCD = UnityEngine.Random.Range(m_info.attackCD * .5f, m_info.attackCD * 2f);
+            m_spineEventListener.Subscribe(m_info.daggerThrowEvent, OnDaggerThrow);
         }
 
         protected override void Awake()
@@ -529,7 +523,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle = new StateHandle<State>(State.Patrol, State.WaitBehaviourEnd);
             m_attackDecider = new RandomAttackDecider<Attack>();
             UpdateAttackDeciderList();
-            m_projectileLauncher = new ProjectileLauncher(m_info.projectile.projectileInfo, m_projectilePoints[0]);
+            m_projectileLauncher = new ProjectileLauncher(m_info.projectile.projectileInfo, m_projectilePoints);
             m_projectileLauncher.SetProjectile(m_info.projectile.projectileInfo);
 
             m_attackCache = new List<Attack>();
@@ -557,9 +551,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     else
                     {
-                        m_turnState = State.Detect;
-                        if (m_animation.GetCurrentAnimation(0).ToString() != m_info.turnAnimation)
-                            m_stateHandle.SetState(State.Turning);
+                        CustomTurn();
                     }
                     break;
 
@@ -605,7 +597,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
                 case State.Attacking:
-                    m_stateHandle.Wait(State.Cooldown);
+                    m_stateHandle.Wait(State.ReevaluateSituation);
                     m_movement.Stop();
                     //m_animation.SetAnimation(0, m_info.idleAnimation, true);
                     m_executeMoveCoroutine = StartCoroutine(ExecuteMove(/*m_currentAttackRange*/ m_currentAttackRange, m_currentAttack));
@@ -669,7 +661,10 @@ namespace DChild.Gameplay.Characters.Enemies
                 //StartCoroutine(PatienceRoutine());
             }
         }
-
+        private void OnDaggerThrow()
+        {
+            LaunchProjectile();
+        }
         protected override void OnTargetDisappeared()
         {
             m_stateHandle.OverrideState(State.Patrol);

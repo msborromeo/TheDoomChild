@@ -5,30 +5,48 @@ using UnityEngine.AddressableAssets;
 
 namespace DChild.Gameplay
 {
-
     public class VFXSpawner : MonoBehaviour
     {
+        [SerializeField, ShowIf("m_useNonAssetReference"), LabelText("FX")]
+        private GameObject m_placeHolderFX;
         [SerializeField]
+        private bool m_useNonAssetReference;
+        [SerializeField]
+        private bool m_flipVFX;
+        [SerializeField, HideIf("m_useNonAssetReference")]
         private AssetReferenceFX m_fx;
         private bool m_usePooling;
         private FXSpawnHandle<FX> m_fxHandle;
 
         public void Set(AssetReferenceFX fx)
         {
-            m_fx = fx;
-            m_usePooling = ((GameObject)m_fx.Asset).GetComponent<FX>();
+            //m_fx = fx;
+            //m_usePooling = ((GameObject)m_fx.Asset).GetComponent<FX>();
         }
 
         public void Spawn()
         {
-            if (m_usePooling)
+            if (m_useNonAssetReference)
             {
-                throw new NotImplementedException();
+                var fx = m_fxHandle.InstantiateFX(m_placeHolderFX, Vector3.zero, transform);
+                fx.transform.localPosition = Vector3.zero;
+                var scale =  Vector3.one;
+if(m_flipVFX){
+scale.x =-1;
+}
+fx.transform.localScale = scale;
+                fx.transform.parent = null;
+                return;
             }
-            else
-            {
-                AddressableSpawner.Spawn(m_fx, transform.position, 0, OnSpawn);
-            }
+
+            //if (m_usePooling)
+            //{
+            //    throw new NotImplementedException();
+            //}
+            //else
+            //{
+            //    AddressableSpawner.Spawn(m_fx, transform.position, 0, OnSpawn);
+            //}
         }
 
         private void OnSpawn(GameObject instance, int arg2)
@@ -41,7 +59,7 @@ namespace DChild.Gameplay
 
         private void Awake()
         {
-            m_usePooling = ((GameObject)m_fx.Asset).GetComponent<FX>();
+            //m_usePooling = ((GameObject)m_fx.Asset).GetComponent<FX>();
         }
     }
 }

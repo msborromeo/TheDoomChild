@@ -22,13 +22,13 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
         {
             [SerializeField]
             private Stat m_regenStat;
-            [SerializeField]
-            private int m_amount;
+            [SerializeField, SuffixLabel("%", overlay: true)]
+            private float m_amount;
             [SerializeField]
             private float m_interval;
 
             public Stat regenStat => m_regenStat;
-            public int amount => m_amount;
+            public float amount => m_amount;
             public float interval => m_interval;
         }
 
@@ -56,6 +56,7 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
             private IEnumerator HPRegenRoutine(IHealable module, ICappedStatInfo health)
             {
                 var timer = m_info.interval;
+                float healAmount = (float)health.maxValue * (m_info.amount / 100f);
                 do
                 {
                     if (GameplaySystem.isGamePaused == false)
@@ -89,7 +90,7 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                                 timer -= GameplaySystem.time.deltaTime;
                                 if (timer <= 0)
                                 {
-                                    GameplaySystem.combatManager.Heal(module, m_info.amount);
+                                    GameplaySystem.combatManager.Heal(module, (int)healAmount);
                                     timer = m_info.interval;
                                 }
                             }
@@ -110,7 +111,7 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                         timer -= GameplaySystem.time.deltaTime;
                         if (timer <= 0)
                         {
-                            module.AddCurrentValue(m_info.amount);
+                            module.AddCurrentValue((int)m_info.amount);
                             timer = m_info.interval;
                         }
                     }

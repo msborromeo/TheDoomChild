@@ -23,7 +23,7 @@ namespace DChild.Gameplay.Quests
         {
             ResetEntries();
             m_questTitle.text = FormattedText.Parse(questInfo.questName).text;
-            
+            /*            
             var entryCount = questInfo.entryNumber;
 
             for (int i = 0; i < entryCount; i++)
@@ -37,7 +37,7 @@ namespace DChild.Gameplay.Quests
                     var entryName = QuestLog.GetQuestEntry(questInfo.questName, i + 1);
                     m_questEntries[i].text = FormattedText.Parse(entryName).text;
                 }                
-            }
+            }*/
         }
 
         private void ResetEntries()
