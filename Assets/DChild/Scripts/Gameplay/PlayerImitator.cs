@@ -203,7 +203,6 @@ namespace DChild.Gameplay.Environment
         private Animator m_animatorToImitate;
         [SerializeField]
         private Animator m_attackFXAnimator;
-        private Animator m_attackFXanimatorToImitate;
 
         private float m_imitationDelayTimer;
         private bool m_isDelayed;

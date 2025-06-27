@@ -134,19 +134,23 @@ namespace DChild.Gameplay.Characters.Players
             }
             else
             {
-                var shadow = animator.GetComponent<ShadowCloneAttackFX>();
+                var shadow = animator.GetComponent<PhantomFunctions>();
 
                 switch (m_toExecute)
                 {
-                    case Command.EndAttack:
-                        shadow.FinishAttackAnim();
-                        break;
                     case Command.EndComboAttack:
-                        shadow.FinishSlashComboAttackAnim();
+
                         break;
                     case Command.EndCombo:
-                        shadow.ComboEnd();
+
                         break;
+                    case Command.EndWhipComboAttack:
+
+                        break;
+                    case Command.EndWhipCombo:
+
+                        break;
+                   
                 }
             }
         }
