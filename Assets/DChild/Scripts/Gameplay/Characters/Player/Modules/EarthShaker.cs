@@ -1,6 +1,7 @@
 ﻿using DChild.Gameplay.Combat;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
+using System;
 using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.Modules
@@ -82,11 +83,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_rigidBody.WakeUp();
             m_fallLoopFX?.Stop(true);
             m_fallCollider.enabled = false;
+            m_fallLoopFX.gameObject.SetActive(false); //feels hacky but it works fine 
             m_impactFX?.Play(true);
             m_impactCollider.enabled = true;
             m_rigidbody.velocity = Vector2.zero;
-            //m_animator.SetBool(m_earthShakerAnimationParameter, false);
             OnImpact?.Invoke(this, EventActionArgs.Empty);
+            //m_animator.SetBool(m_earthShakerAnimationParameter, false);
         }
 
         public void HandlePreFall()
@@ -123,18 +125,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_animator.SetBool(m_animationParameter, true);
             m_canEarthShaker = false;
             m_animator.SetBool(m_earthShakerAnimationParameter, !m_canEarthShaker);
+            m_fallLoopFX.gameObject.SetActive(true);
         }
 
         public void EndExecution()
         {
             m_damageable.SetInvulnerability(Invulnerability.None);
+            m_fallLoopFX?.Stop(true);
             m_impactFX?.Stop(true);
-            //m_animator.SetBool(m_animationParameter, false);
             m_canEarthShaker = true;
             m_impactCollider.enabled = false;
-            //m_state.waitForBehaviour = false;
-            //m_state.canAttack = true;
-            //m_state.isAttacking = false;
             m_rigidbody.gravityScale = m_originalGravity;
             m_animator.SetBool(m_earthShakerAnimationParameter, !m_canEarthShaker);
             m_state.isDoingEarthShaker = false;
