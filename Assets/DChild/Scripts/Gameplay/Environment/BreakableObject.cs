@@ -61,6 +61,8 @@ namespace DChild.Gameplay.Environment
         private bool m_applyDebrisColorChange;
         [SerializeField, ShowIf("m_applyDebrisColorChange"), Indent]
         private Color m_colorToApply = Color.white;
+	[SerializeField]
+	private bool m_hasVFXSpawner;
 
         [SerializeField, TabGroup("On Destroy")]
         private UnityEvent m_onDestroy;
@@ -80,6 +82,8 @@ namespace DChild.Gameplay.Environment
         [SerializeField]
         private float m_selfRepairTime;
         private float m_selfRepairTimer;
+
+private VFXSpawner m_spawner;
 
         public Type type => m_type;
 
@@ -138,6 +142,7 @@ namespace DChild.Gameplay.Environment
         {
             m_isDestroyed = true;
             m_onDestroy?.Invoke();
+m_spawner?.Spawn();
             if (m_forceShakeOnDestroy)
             {
                 GameplaySystem.cinema.ExecuteCameraShake(m_onDestroyShake);
@@ -257,6 +262,10 @@ namespace DChild.Gameplay.Environment
             {
                 m_sortingID = sortingGroup.sortingOrder;
             }
+
+if(m_hasVFXSpawner){
+m_spawner = GetComponent<VFXSpawner>();
+}
         }
 
         private void Update()
