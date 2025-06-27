@@ -10,6 +10,7 @@ namespace DChild.Gameplay.Environment
     {
         private class AnimationParameterInfo
         {
+            //Basic actions
             private float m_speedX;
             private float m_speedY;
             private bool m_isIdle;
@@ -32,6 +33,18 @@ namespace DChild.Gameplay.Environment
             private bool m_EarthShake;
             private bool m_SwordThrust;
 
+            //Combat arts
+            private bool m_diagonalSwordDash;
+            private bool m_edgedFury;
+            private bool m_sovereignsImpale;
+            private bool m_reaperHarvest;
+            private bool m_soulFireBlast;
+            private bool m_airSlashRanged;
+            private bool m_hellTrident;
+            private bool m_backDiver;
+            private bool m_barrier;
+            private bool m_icarusWings;
+            private bool m_teleportingSkull;
             public AnimationParameterInfo(Animator animator, AnimationParametersData animationParametersData)
             {
                 m_isIdle = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsIdle));
@@ -57,6 +70,19 @@ namespace DChild.Gameplay.Environment
                 animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SpeedX);
                 m_speedX = animator.GetFloat(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SpeedX));
                 m_speedY = animator.GetFloat(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SpeedY));
+
+                //Combat Arts
+                m_diagonalSwordDash = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.DiagonalSwordDash));
+                m_edgedFury = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.EdgedFury));
+                m_sovereignsImpale = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SovereignImpale));
+                m_reaperHarvest = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ReaperHarvest));
+                m_soulFireBlast = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SoulFireBlast));
+                m_airSlashRanged = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AirSlashRange));
+                m_hellTrident = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.HellTrident));
+                m_backDiver = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.BackDiver));
+                m_barrier = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.Barrier));
+                m_icarusWings = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IcarusWings));
+                m_teleportingSkull = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.TeleportingSkull));
             }
 
             public void Apply(Animator animator, AnimationParametersData animationParametersData)
@@ -82,6 +108,19 @@ namespace DChild.Gameplay.Environment
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsCharging), m_isCharging);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.EarthShaker), m_EarthShake);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SwordTrust), m_SwordThrust);
+
+                //Combat Arts
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.DiagonalSwordDash), m_diagonalSwordDash);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.EdgedFury), m_edgedFury);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SovereignImpale), m_sovereignsImpale);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ReaperHarvest), m_reaperHarvest);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SoulFireBlast), m_soulFireBlast);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AirSlashRange), m_airSlashRanged);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.HellTrident), m_hellTrident);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.BackDiver), m_backDiver);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.Barrier), m_barrier);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IcarusWings), m_icarusWings);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.TeleportingSkull), m_teleportingSkull);
 
                 if (m_ledgeGrab == true)
                 {
@@ -111,15 +150,15 @@ namespace DChild.Gameplay.Environment
 
                 m_currentClipInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-                if (m_currentClipInfo.IsName("SlashCombo1"))
+                if (m_currentClipInfo.IsName("Slash Combo 1"))
                 {
                     m_slashCombo1 = true;
                 }
-                if (m_currentClipInfo.IsName("SlashCombo2"))
+                if (m_currentClipInfo.IsName("Slash Combo 2"))
                 {
                     m_slashCombo2 = true;
                 }
-                if (m_currentClipInfo.IsName("SlashCombo3"))
+                if (m_currentClipInfo.IsName("Slash Combo 3"))
                 {
                     m_slashCombo3 = true;
                 }
