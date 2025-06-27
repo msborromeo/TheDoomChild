@@ -171,14 +171,12 @@ namespace DChild.Gameplay.Environment
         private List<Vector3> m_positionToImitate;
         private List<Vector3> m_scaleToImitate;
         private List<AnimationParameterInfo> m_animationToImitate;
-        private List<FXAnimationParameterInfo> m_fxAnimationToImitate;
 
         public void StartImitating(Player toImitate)
         {
             m_toImitate = toImitate.character.transform;
             m_animator = GetComponent<Animator>();
             m_animatorToImitate = toImitate.character.centerMass.GetComponentInParent<Animator>();
-            m_attackFXanimatorToImitate = toImitate.character.attackFX.GetComponent<Animator>();
             ResetImitation();
         }
 
@@ -198,12 +196,10 @@ namespace DChild.Gameplay.Environment
                 m_positionToImitate = new List<Vector3>();
                 m_scaleToImitate = new List<Vector3>();
                 m_animationToImitate = new List<AnimationParameterInfo>();
-                m_fxAnimationToImitate = new List<FXAnimationParameterInfo>();
             }
             m_positionToImitate.Clear();
             m_scaleToImitate.Clear();
             m_animationToImitate.Clear();
-            m_fxAnimationToImitate.Clear();
         }
 
         private void UpdateImitation()
@@ -211,12 +207,10 @@ namespace DChild.Gameplay.Environment
             transform.position = m_positionToImitate[0];
             transform.localScale = m_scaleToImitate[0];
             m_animationToImitate[0].Apply(m_animator, m_animationParametersData);
-            m_fxAnimationToImitate[0].Apply(m_attackFXAnimator);
 
             m_positionToImitate.RemoveAt(0);
             m_scaleToImitate.RemoveAt(0);
             m_animationToImitate.RemoveAt(0);
-            m_fxAnimationToImitate.RemoveAt(0);
         }
 
         private void RecordInfoToImitate()
@@ -227,7 +221,6 @@ namespace DChild.Gameplay.Environment
             m_scaleToImitate.Add(scale);
 
             m_animationToImitate.Add(new AnimationParameterInfo(m_animatorToImitate, m_animationParametersData));
-            m_fxAnimationToImitate.Add(new FXAnimationParameterInfo(m_attackFXanimatorToImitate));
         }
 
         private void DrawLineConnection()
