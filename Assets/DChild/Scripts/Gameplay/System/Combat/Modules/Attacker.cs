@@ -3,6 +3,7 @@ using DChild.Gameplay.Combat;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,11 +44,16 @@ namespace DChild.Gameplay.Combat
 
         public event EventAction<CombatConclusionEventArgs> TargetDamaged;
         public event EventAction<BreakableObjectEventArgs> BreakableObjectDamage;
+        public event Action<Vector3> CharacterTargetDamaged;
 
         public void Damage(TargetInfo targetInfo, Collider2D colliderThatDealtDamage)
         {
             if (m_currentAttackInfo.ignoreInvulnerability >= targetInfo.bodyDefense.invulnerabilityLevel)
             {
+                if (targetInfo.isCharacter)
+                {
+                    CharacterTargetDamaged?.Invoke(targetInfo.hitCollider.transform.position);
+                }
                 if (targetInfo.isBreakableObject)
                 {
                     using (Cache<BreakableObjectEventArgs> cacheEventArgs = Cache<BreakableObjectEventArgs>.Claim())
