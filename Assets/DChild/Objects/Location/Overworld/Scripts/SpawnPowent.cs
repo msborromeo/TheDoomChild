@@ -65,7 +65,7 @@ public class SpawnPowent: MonoBehaviour
         }
         else
         {
-            if (collision.CompareTag("Sensor") && collision.gameObject.layer == 8)
+            if (collision.CompareTag("Hitbox") && collision.gameObject.layer == 8)
             {
                 if (m_toEnter)
                 {
@@ -96,8 +96,9 @@ public class SpawnPowent: MonoBehaviour
         }
         else
         {
-            if (collision.CompareTag("Sensor") && collision.gameObject.layer == 8)
+            if (collision.CompareTag("Hitbox") && collision.gameObject.layer == 8)
             {
+                Debug.Log("Exit");
                 if (m_sectionArea.activeInHierarchy == true)
                 {
                     m_sectionArea.SetActive(false);
