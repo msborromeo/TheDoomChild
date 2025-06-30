@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
     using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Playables;
 using Random = UnityEngine.Random;
 
@@ -376,7 +377,7 @@ namespace DChild.Gameplay.Characters.Enemies
         [TabGroup("Reference")]
         public bool m_isPlayerBackArena = false;
         [TabGroup("Reference")]
-        public bool m_cutsceneTriggersForPhaseTwo = false;
+        private bool m_cutsceneTriggersForPhaseTwo = false;
         [SerializeField, TabGroup("Reference")]
         private GameObject m_theOneMiniBlackHole;
         [SerializeField, TabGroup("Reference")]
@@ -630,12 +631,13 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.Attacking);
             m_hitbox.Disable();
             //add cinematics
-            m_animation.SetAnimation(0, m_info.introAnimation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.introAnimation);
-            m_animation.SetAnimation(0, m_info.introAnimation2, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.introAnimation2);
-            m_animation.SetAnimation(0, m_info.rageQuake, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.rageQuake);
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            yield return null;
+            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.introAnimation);
+            //m_animation.SetAnimation(0, m_info.introAnimation2, false);
+            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.introAnimation2);
+            //m_animation.SetAnimation(0, m_info.rageQuake, false);
+            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.rageQuake);
             m_theOneHitbox.SetActive(true);
             var ramdomAttack = RandomShit(1, 3);
             if (ramdomAttack == 1)
@@ -1133,6 +1135,13 @@ namespace DChild.Gameplay.Characters.Enemies
         private bool m_skipCinematics;
         [SerializeField]
         private Transform m_cinematicBHPosition;
+        [SerializeField]
+        private UnityEvent m_onFirstDeath;
+        
+        public void TriggerCutsceneForPhase2()
+        {
+            m_cutsceneTriggersForPhaseTwo = true;
+        }
         private IEnumerator ChangePhaseRoutine()
         {
             m_stateHandle.Wait(State.Attacking);
@@ -1145,6 +1154,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 //cinematics;
                 GameplaySystem.gamplayUIHandle.ToggleBossHealth(false);
                 m_animation.SetAnimation(0, m_info.exhaustedAnimation, true);
+                m_onFirstDeath?.Invoke();
                 if (m_skipCinematics)
                 {
                     while (m_cutsceneTriggersForPhaseTwo == false)
