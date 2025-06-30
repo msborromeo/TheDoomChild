@@ -113,6 +113,23 @@ namespace DChild.Gameplay
             m_slashCombo?.PlayFX(true);
             m_slashCombo?.EnableCollision(true);
         }
+        public void DisableBasicSlashCollisions()
+        {
+            m_basicSlashes?.EnableCollision(BasicSlashes.Type.Ground_Overhead, false);
+            m_basicSlashes?.EnableCollision(BasicSlashes.Type.MidAir_Overhead, false);
+            m_basicSlashes?.EnableCollision(BasicSlashes.Type.MidAir_Forward, false);
+            m_basicSlashes?.EnableCollision(BasicSlashes.Type.Crouch, false);
+        }
+
+        public void DisableSlashComboCollisions()
+        {
+            m_slashCombo?.EnableCollision(false);
+        }
+
+        public void DisableWhipComboCollisions()
+        {
+            m_whipCombo?.EnableCollision(false);
+        }
         public void Null() { }
 
         private void Start()

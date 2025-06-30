@@ -138,17 +138,21 @@ namespace DChild.Gameplay.Characters.Players
 
                 switch (m_toExecute)
                 {
-                    case Command.EndComboAttack:
+                    case Command.EndAttack:
+                        shadow.DisableBasicSlashCollisions();
 
+                        break;
+                    case Command.EndComboAttack:
+                        shadow.DisableSlashComboCollisions();
                         break;
                     case Command.EndCombo:
-
+                        shadow.DisableSlashComboCollisions();
                         break;
                     case Command.EndWhipComboAttack:
-
+                        shadow.DisableWhipComboCollisions();
                         break;
                     case Command.EndWhipCombo:
-
+                        shadow.DisableWhipComboCollisions();
                         break;
                    
                 }
