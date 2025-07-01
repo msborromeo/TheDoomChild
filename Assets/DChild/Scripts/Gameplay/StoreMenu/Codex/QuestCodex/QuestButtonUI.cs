@@ -13,7 +13,6 @@ namespace DChild.Codex.Quests.UI
 
 
         [SerializeField] private QuestNameUI m_name;
-        [SerializeField] private List<QuestProgressUI> m_subQuestList;
 
         private Quest m_questData;
         private int m_selectionIndex;
@@ -32,6 +31,7 @@ namespace DChild.Codex.Quests.UI
 
         public void Display(Quest questData)
         {
+
             if (questData == null)
             {
                 m_background.gameObject.SetActive(false);
@@ -41,30 +41,8 @@ namespace DChild.Codex.Quests.UI
             m_lockedBackground.SetActive(false);
             m_background.gameObject.SetActive(true);
 
-            //SetQuestData(questData);
             SetQuestData(localizer.LocalizeQuest(questData));
             m_name.Display(m_questData.name, m_questData.state == QuestState.Success);
-        }
-
-        public void ShowProgress()
-        {
-            int count = m_questData.entryCount;
-            for (int i = 0; i < m_subQuestList.Count; i++)
-            {
-                bool isActive = i < count;
-                m_subQuestList[i].gameObject.SetActive(isActive);
-                if (isActive)
-                    m_subQuestList[i].Display(m_questData.GetEntry(i), i);
-
-                /*if(m_subQuestList[i].TryGetComponent(out QuestDataLocalizer localize))
-                {
-                    Item t = DialogueManager.masterDatabase.GetItem(m_questData?.name);
-                    if(t!=null)
-                    {
-                        localize.SetQuestID(t.id);
-                    }
-                }*/
-            }
         }
     }
 }
