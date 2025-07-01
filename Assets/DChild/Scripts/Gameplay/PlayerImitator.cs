@@ -29,6 +29,7 @@ namespace DChild.Gameplay.Environment
             private bool m_ledgeGrab;
             private float m_YInput;
             private bool m_whipAttack;
+            private int m_whipComboState;
             private bool m_isCharging;
             private bool m_EarthShake;
             private bool m_SwordThrust;
@@ -61,6 +62,7 @@ namespace DChild.Gameplay.Environment
                 m_isGrabbing = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsGrabbing));
                 m_ledgeGrab = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.LedgeGrab));
                 m_slashState = animator.GetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SlashState));
+                m_whipComboState = animator.GetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WhipState));
                 m_YInput = animator.GetFloat(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.YInput));
                 m_whipAttack = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WhipAttack));
                 m_isCharging = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsCharging));
@@ -105,6 +107,7 @@ namespace DChild.Gameplay.Environment
                 animator.SetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SlashState), m_slashState);
                 animator.SetFloat(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.YInput), m_YInput);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WhipAttack), m_whipAttack);
+                animator.SetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WhipState), m_whipComboState);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsCharging), m_isCharging);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.EarthShaker), m_EarthShake);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SwordTrust), m_SwordThrust);
@@ -283,6 +286,9 @@ namespace DChild.Gameplay.Environment
 
         private void Update()
         {
+            if (GameplaySystem.isGamePaused)
+                return;
+
             RecordInfoToImitate();
 
             if (m_isDelayed)
