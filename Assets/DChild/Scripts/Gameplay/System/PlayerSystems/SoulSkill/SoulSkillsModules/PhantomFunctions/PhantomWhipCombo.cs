@@ -26,7 +26,7 @@ namespace DChild.Gameplay.Characters.Players.Module
 
         public void IterateCurrentVisualState()
         {
-            if(m_currentVisualWhipState == m_whipComboInfo.Count)
+            if(m_currentVisualWhipState >= m_whipComboInfo.Count)
             {
                 m_currentVisualWhipState = 0;
             }

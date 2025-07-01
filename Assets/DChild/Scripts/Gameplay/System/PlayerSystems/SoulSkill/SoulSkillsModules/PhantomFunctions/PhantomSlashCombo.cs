@@ -10,6 +10,7 @@ namespace DChild.Gameplay.Characters.Players.Module
         [SerializeField]
         private List<Info> m_slashComboInfo;
 
+        [SerializeField]
         private int m_currentVisualSlashState;
 
         public void PlayFX(bool value)
@@ -24,7 +25,7 @@ namespace DChild.Gameplay.Characters.Players.Module
 
         public void IterateCurrentVisualState()
         {
-            if(m_currentVisualSlashState == m_slashComboInfo.Count)
+            if(m_currentVisualSlashState >= m_slashComboInfo.Count)
             {
                 m_currentVisualSlashState = 0;
             }

@@ -67,14 +67,12 @@ namespace DChild.Gameplay
         {
             m_slashCombo?.PlayFX(true);
             m_slashCombo?.EnableCollision(true);
-            m_slashCombo?.IterateCurrentVisualState();
         }
 
         public void WhipCombo()
         {
             m_whipCombo?.PlayFX(true);
             m_whipCombo?.EnableCollision(true);
-            m_whipCombo?.IterateCurrentVisualState();
         }
 
         public void GroundForwardWhipAttackFX()
@@ -133,14 +131,21 @@ namespace DChild.Gameplay
         public void DisableSlashComboCollisions()
         {
             m_slashCombo?.EnableCollision(false);
-            m_slashCombo?.ResetCurrentVisualState();
         }
 
         public void DisableWhipComboCollisions()
         {
             m_whipCombo?.EnableCollision(false);
-            m_whipCombo?.ResetCurrentVisualState();
+        }
 
+        public void IterateCurrentWhipComboState()
+        {
+            m_whipCombo?.IterateCurrentVisualState();
+        }
+
+        public void IterateCurrentSlashComboState()
+        {
+            m_slashCombo.IterateCurrentVisualState();
         }
         public void Null() { }
 
