@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.UI.Alerts
 {
+    [System.Serializable]
     public class QuestUIAlertRecorder : UIAlertRecorder<Quest>
     {
         [SerializeField]

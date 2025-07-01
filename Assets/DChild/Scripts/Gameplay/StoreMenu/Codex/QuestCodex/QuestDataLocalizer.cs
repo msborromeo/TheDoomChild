@@ -56,43 +56,43 @@ namespace DChild.Localization
 
         public Quest LocalizeQuest(Quest q)
         {
-            if(q==null)
-            {
-                return null;
-            }
-            Item ItemQuest = DialogueManager.masterDatabase.GetItem(q.name);
-            if(ItemQuest==null)
-            {
-                Debug.LogError("AHHHHHHHHHHH"+ItemQuest+" "+q.name);
-                return q;
-            }
-            var questName = ItemQuest.LookupLocalizedValue("Name");
-            var questState = ConvertString(ItemQuest.LookupValue("State").ToString());
+            //if(q==null)
+            //{
+            //    return null;
+            //}
+            //Item ItemQuest = DialogueManager.masterDatabase.GetItem(q.name);
+            //if(ItemQuest==null)
+            //{
+            //    Debug.LogError("AHHHHHHHHHHH"+ItemQuest+" "+q.name);
+            //    return q;
+            //}
+            //var questName = ItemQuest.LookupLocalizedValue("Name");
+            //var questState = ConvertString(ItemQuest.LookupValue("State").ToString());
 
-            var entryCount = 0;
-            entryCount = ItemQuest.LookupInt("Entry Count");
-            QuestEntry[] entries = null;
+            //var entryCount = 0;
+            //entryCount = ItemQuest.LookupInt("Entry Count");
+            //QuestEntry[] entries = null;
 
-            if (entryCount > 0)
-            {
-                entries = new QuestEntry[entryCount];
-                for (int x = 0; x < entryCount; x++)
-                {
-                    var entryNumber = (x + 1);
-                    var entryName = ItemQuest.LookupLocalizedValue("Entry " + entryNumber);
-                    var entryDescription = ItemQuest.LookupLocalizedValue("Entry " + entryNumber + " Description");
-                    var entryState = ConvertString(ItemQuest.LookupValue("Entry " + entryNumber + " State"));
+            //if (entryCount > 0)
+            //{
+            //    entries = new QuestEntry[entryCount];
+            //    for (int x = 0; x < entryCount; x++)
+            //    {
+            //        var entryNumber = (x + 1);
+            //        var entryName = ItemQuest.LookupLocalizedValue("Entry " + entryNumber);
+            //        var entryDescription = ItemQuest.LookupLocalizedValue("Entry " + entryNumber + " Description");
+            //        var entryState = ConvertString(ItemQuest.LookupValue("Entry " + entryNumber + " State"));
 
-                    //Dialogue Retrieval Starts Here
+            //        //Dialogue Retrieval Starts Here
 
-                    entries[x] = new QuestEntry(entryName, entryState, entryDescription);
-                }
-            }
+            //        entries[x] = new QuestEntry(entryName, entryState, entryDescription);
+            //    }
+            //}
 
-            Quest localizedQuest = new Quest(questName, questState, entries);
+            //Quest localizedQuest = new Quest(questName, questState, entries);
 
 
-            return localizedQuest;
+            return q;
         }
 
         public void SetQuestID(int id)

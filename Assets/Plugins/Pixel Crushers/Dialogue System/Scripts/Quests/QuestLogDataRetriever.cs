@@ -17,6 +17,8 @@ namespace PixelCrushers.DialogueSystem
             List<Quest> quests = new List<Quest>();
             foreach (DialogueDatabase database in databases)
             {
+                if(database == null) continue;
+
                 if (database.name.Contains("Auto-Backup"))
                     continue;
 
@@ -36,7 +38,7 @@ namespace PixelCrushers.DialogueSystem
             int questnumber = dialogueDatabase.items.Count;
             for (int i = 0; i < questnumber; i++)
             {
-                var quest = RetrieveQuest(dialogueDatabase.items[i], lookForMainQuests);
+                var quest = RetrieveQuest(dialogueDatabase.items[i], dialogueDatabase, lookForMainQuests);
                 if (quest == null)
                     continue;
 
@@ -46,9 +48,9 @@ namespace PixelCrushers.DialogueSystem
             return null;
         }
 
-     
 
-        public Quest RetrieveQuest(Item item, bool lookForMainQuests =true)
+
+        public Quest RetrieveQuest(Item item, DialogueDatabase dialogueDatabase, bool lookForMainQuests = true)
         {
             if (item.IsItem || item.LookupBool("Trackable") == false)
                 return null;
@@ -75,11 +77,11 @@ namespace PixelCrushers.DialogueSystem
 
                     //Dialogue Retrieval Starts Here
 
-                    entries[x] = new QuestEntry(entryName, entryState, entryDescription);
+                    entries[x] = new QuestEntry(dialogueDatabase, questName, entryNumber);
                 }
             }
 
-            return new Quest(questName, questState, entries);
+            return new Quest(dialogueDatabase, questName, entries);
         }
 
         private QuestState ConvertString(string str)

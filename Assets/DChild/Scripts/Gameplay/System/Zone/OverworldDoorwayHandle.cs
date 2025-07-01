@@ -1,4 +1,5 @@
 using DChild.Gameplay.Characters;
+using Doozy.Runtime.Signals;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,11 +11,15 @@ namespace DChild.Gameplay.Environment
     public class OverworldDoorwayHandle : ISwitchHandle
     {
         [SerializeField]
+        private SignalSender m_showTransistionSignal;
+        [SerializeField]
+        private SignalSender m_hideTransistionSignal;
+        [SerializeField]
         private Transform m_promptSource;
         [SerializeField]
         private Vector3 m_promptOffset;
 
-        public float transitionDelay => 0;
+        public float transitionDelay => 1.2f;
 
         public bool needsButtonInteraction => true;
 
@@ -46,6 +51,7 @@ namespace DChild.Gameplay.Environment
         private void OnDoorwayEnter(Character character)
         {
             GameplaySystem.campaignSerializer.UpdateDialogueSaveData();
+            m_showTransistionSignal.SendSignal();
             Debug.Log("Entered an Overworld Doorway");
         }
 
@@ -56,6 +62,7 @@ namespace DChild.Gameplay.Environment
 
         private void OnDoorwayExit(Character character)
         {
+            m_hideTransistionSignal.SendSignal();
             Debug.Log("Exit Overworld Doorway");
         }
 
