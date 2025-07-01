@@ -140,7 +140,7 @@ namespace DChild.Gameplay.Characters.Players
                 {
                     case Command.EndAttack:
                         shadow.DisableBasicSlashCollisions();
-
+                        shadow.DisableBasicWhipCollisions();
                         break;
                     case Command.EndComboAttack:
                         shadow.DisableSlashComboCollisions();
