@@ -53,8 +53,6 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField]
             private float m_targetDistanceTolerance;
             public float targetDistanceTolerance => m_targetDistanceTolerance;
-
-
             //Animations
             [SerializeField]
             private BasicAnimationInfo m_idleAnimation;
@@ -76,6 +74,26 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, ValueDropdown("GetEvents")]
             private string m_hitboxStartEvent;
             public string hitboxStartEvent => m_hitboxStartEvent;
+            //FX
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_shawtOut;
+
+            public string shawtOut => m_shawtOut;
+
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_stamp;
+
+            public string stamp => m_stamp;
+
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_stamp2;
+
+            public string stamp2 => m_stamp2;
+
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_smash;
+
+            public string smash => m_smash;
 
             public override void Initialize()
             {
@@ -172,7 +190,14 @@ namespace DChild.Gameplay.Characters.Enemies
         private RaySensor m_edgeSensor;
         [SerializeField, TabGroup("BoundingBox")]
         private Collider2D m_attackBB;
-
+        [SerializeField, TabGroup("FX")]
+        private ParticleSystem m_shawtFX;
+        [SerializeField, TabGroup("FX")]
+        private ParticleSystem m_stampFX;
+        [SerializeField, TabGroup("FX")]
+        private ParticleSystem m_stampFX2;
+        [SerializeField, TabGroup("FX")]
+        private ParticleSystem m_smash;
         [SerializeField]
         private bool m_willPatrol;
 
@@ -509,7 +534,10 @@ namespace DChild.Gameplay.Characters.Enemies
             base.Start();
             m_currentMoveSpeed = UnityEngine.Random.Range(m_info.walk.speed * .75f, m_info.walk.speed * 1.25f);
             m_currentFullCD = UnityEngine.Random.Range(m_info.attackCD * .5f, m_info.attackCD * 2f);
-
+            m_spineEventListener.Subscribe(m_info.shawtOut, m_shawtFX.Play);
+            m_spineEventListener.Subscribe(m_info.stamp, m_stampFX.Play);
+            m_spineEventListener.Subscribe(m_info.stamp2, m_stampFX2.Play);
+            m_spineEventListener.Subscribe(m_info.smash, m_smash.Play);
             //m_aggroCollider.enabled = m_willPatrol ? true : false;
 
             if (!m_willPatrol)
