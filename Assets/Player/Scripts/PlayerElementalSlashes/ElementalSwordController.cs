@@ -22,7 +22,8 @@ public class ElementalSwordController : MonoBehaviour
     private ParticleSystem m_iceHandFX;
     [SerializeField]
     private ParticleSystem m_lightningHandFX;
-    private DamageType currentDamageType;
+    private DamageType m_currentDamageType;
+    public DamageType currentDamageType => m_currentDamageType;
 
     private void Start()
     {
@@ -48,9 +49,9 @@ public class ElementalSwordController : MonoBehaviour
     }
     private void UpdateElementalFX()
     {
-        currentDamageType = m_playerWeapon.damage.type;
+        m_currentDamageType = m_playerWeapon.damage.type;
         foreach(var fx in m_elementalSwordFX)fx.Stop();
-        switch (currentDamageType)
+        switch (m_currentDamageType)
         {
             case DamageType.Physical:
                 foreach (var fx in m_elementalSwordFX) fx.SetElementTo(ElementalSwordFX.Element.Physical);

@@ -26,6 +26,9 @@ namespace DChild.Gameplay.Characters.Players
 
         public int GetArtsLevel(int index)
         {
+            if (m_artLevels == null)
+                return 0;
+
             if (index >= m_artLevels.Length)
             {
                 return 0;
