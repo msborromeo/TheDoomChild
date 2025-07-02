@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace DChild.Codex.Quests.UI
 {
+
     public class QuestIndexHandle : MonoBehaviour, IPageHandle
     {
         [SerializeField] private UIScrollbar m_scrollBar;
