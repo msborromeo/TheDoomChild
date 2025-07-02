@@ -14,6 +14,7 @@ namespace DChild.Gameplay
         private PhantomSlashCombo m_slashCombo;
         private PhantomBasicWhip m_whip;
         private PhantomWhipCombo m_whipCombo;
+        private PhantomEarthshaker m_earthShaker;
 
         public void SwordJumpSlashForwardFX()
         {
@@ -147,6 +148,26 @@ namespace DChild.Gameplay
         {
             m_slashCombo.IterateCurrentVisualState();
         }
+
+        public void EarthShakerPreLoop()
+        {
+            m_earthShaker.HandlePreFall();
+        }
+
+        public void EarthShakerLoop()
+        {
+            m_earthShaker.HandleFall();
+        }
+
+        public void EarthShakerImpact()
+        {
+            m_earthShaker.Impact();
+        }
+
+        public void EarthShakerEnd()
+        {
+            m_earthShaker.EndExecution();
+        }
         public void Null() { }
 
         private void Start()
@@ -160,6 +181,7 @@ namespace DChild.Gameplay
             m_slashCombo = GetComponentInChildren<PhantomSlashCombo>();
             m_whip = GetComponentInChildren<PhantomBasicWhip>();
             m_whipCombo = GetComponentInChildren<PhantomWhipCombo>();
+            m_earthShaker = GetComponentInChildren<PhantomEarthshaker>();
         }
     }
 }
