@@ -1,8 +1,12 @@
 ﻿using DChild.Gameplay.Characters.Players;
+using DChild.Menu;
+using Holysoft.Event;
 using Spine.Unity;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DChild.Gameplay.Environment
 {
@@ -10,124 +14,320 @@ namespace DChild.Gameplay.Environment
     {
         private class AnimationParameterInfo
         {
+            //I'd like to thank Google Gemini for making it much faster to deal with all these variables
+            //Note: anytime a new animation parameter is added to player, these variables need to be updated as well as the functions below
             //Basic actions
-            private float m_speedX;
-            private float m_speedY;
             private bool m_isIdle;
+            private bool m_idleState;
             private bool isGrounded;
-            private bool m_isJumping;
-            private bool m_isCrouching;
-            private bool m_isLevitating;
-            private bool m_isDashing;
-            private bool m_isInShadowMode;
-            private bool m_isSliding;
-            private bool m_wallStick;
             private bool m_isInCombatMode;
             private bool m_isAttacking;
             private int m_slashState;
-            private bool m_isGrabbing;
-            private bool m_ledgeGrab;
+            private bool m_isDashing;
+            private bool m_isJumping;
+            private float m_speedX;
+            private float m_speedY;
             private float m_YInput;
-            private bool m_whipAttack;
-            private int m_whipComboState;
-            private bool m_isCharging;
+            private bool m_isCrouching;
+            private bool m_isDead;
+            private bool m_wallStick;
+            private bool m_flinch;
             private bool m_EarthShake;
             private bool m_SwordThrust;
+            private bool m_whipAttack;
+            private bool m_isLevitating;
+            private bool m_isGrabbing;
+            private bool m_isPulling;
+            private bool m_isPushing;
+            private bool m_isInShadowMode;
+            private bool m_isSliding;
+            private bool m_projectileThrow;
+            private bool m_projectileThrowVariance;
+            private bool m_ledgeGrab;
+            private int m_flinchState;
+            private bool m_isBlocking;
+            private bool m_isCharging;
+            private bool m_stepClimb;
+            private bool m_aimingProjectile;
+            private bool m_isWallCrawling;
+            private bool m_isDoubleJumping;
+            private bool m_isWallJumping;
+            private int m_whipState;
+            private int m_Xinput;
 
             //Combat arts
-            private bool m_diagonalSwordDash;
-            private bool m_edgedFury;
-            private bool m_sovereignsImpale;
             private bool m_reaperHarvest;
-            private bool m_soulFireBlast;
-            private bool m_airSlashRanged;
+            private bool m_krakenRage;
+            private bool m_airSlashCombo;
+            private int m_airSlashState;
+            private bool m_sovereignsImpale;
             private bool m_hellTrident;
+            private bool m_foolsVerdict;
+            private bool m_soulFireBlast;
+            private bool m_edgedFury;
             private bool m_backDiver;
             private bool m_barrier;
+            private bool m_diagonalSwordDash;
+            private bool m_championsUprising;
+            private bool m_lightningSpear;
             private bool m_icarusWings;
+            private bool m_airSlashRanged;
             private bool m_teleportingSkull;
             public AnimationParameterInfo(Animator animator, AnimationParametersData animationParametersData)
             {
+                //Basic actions
                 m_isIdle = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsIdle));
+                m_idleState = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IdleState));
                 isGrounded = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsGrounded));
-                m_isJumping = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.Jump));
-                m_isCrouching = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsCrouched));
-                m_isLevitating = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsLevitating));
-                m_isDashing = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsDashing));
-                m_isInShadowMode = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ShadowMode));
-                m_isSliding = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsSliding));
-                m_wallStick = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WallStick));
                 m_isInCombatMode = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.CombatMode));
                 m_isAttacking = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsAttacking));
-                m_isGrabbing = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsGrabbing));
-                m_ledgeGrab = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.LedgeGrab));
                 m_slashState = animator.GetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SlashState));
-                m_whipComboState = animator.GetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WhipState));
-                m_YInput = animator.GetFloat(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.YInput));
-                m_whipAttack = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WhipAttack));
-                m_isCharging = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsCharging));
-                m_EarthShake = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.EarthShaker));
-                m_SwordThrust = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SwordTrust));
-
-                animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SpeedX);
+                m_isDashing = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsDashing));
+                m_isJumping = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.Jump));
                 m_speedX = animator.GetFloat(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SpeedX));
                 m_speedY = animator.GetFloat(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SpeedY));
+                m_YInput = animator.GetFloat(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.YInput));
+                m_isCrouching = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsCrouched));
+                m_isDead = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsDead));
+                m_wallStick = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WallStick));
+                m_flinch = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.Flinch));
+                m_EarthShake = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.EarthShaker));
+                m_SwordThrust = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SwordTrust));
+                m_whipAttack = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WhipAttack));
+                m_isLevitating = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsLevitating));
+                m_isGrabbing = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsGrabbing));
+                m_isPulling = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsPulling));
+                m_isPushing = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsPushing));
+                m_isInShadowMode = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ShadowMode));
+                m_isSliding = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsSliding));
+                m_projectileThrow = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ProjectileThrow));
+                m_projectileThrowVariance = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ProjectileThrowVariant));
+                m_ledgeGrab = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.LedgeGrab));
+                m_flinchState = animator.GetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.FlinchState));
+                m_isBlocking = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsBlocking));
+                m_isCharging = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsCharging));
+                m_stepClimb = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.StepClimb));
+                m_aimingProjectile = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AimingProjectile));
+                m_isWallCrawling = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsWallCrawling));
+                m_isDoubleJumping = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.DoubleJump));
+                m_isWallJumping = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WallJump));
+                m_whipState = animator.GetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WhipState));
+                m_Xinput = animator.GetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.XInput));
 
-                //Combat Arts
-                m_diagonalSwordDash = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.DiagonalSwordDash));
-                m_edgedFury = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.EdgedFury));
-                m_sovereignsImpale = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SovereignImpale));
+                //Combat arts
                 m_reaperHarvest = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ReaperHarvest));
-                m_soulFireBlast = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SoulFireBlast));
-                m_airSlashRanged = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AirSlashRange));
+                m_krakenRage = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.KrakenRage));
+                m_airSlashCombo = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AirSlashCombo));
+                m_airSlashState = animator.GetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AirSlashState));
+                m_sovereignsImpale = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SovereignImpale));
                 m_hellTrident = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.HellTrident));
+                m_foolsVerdict = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.FoolsVerdict));
+                m_soulFireBlast = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SoulFireBlast));
+                m_edgedFury = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.EdgedFury));
                 m_backDiver = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.BackDiver));
                 m_barrier = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.Barrier));
+                m_diagonalSwordDash = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.DiagonalSwordDash));
+                m_championsUprising = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ChampionsUprising));
+                m_lightningSpear = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.LightningSpear));
                 m_icarusWings = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IcarusWings));
+                m_airSlashRanged = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AirSlashRange));
                 m_teleportingSkull = animator.GetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.TeleportingSkull));
             }
 
             public void Apply(Animator animator, AnimationParametersData animationParametersData)
             {
-                animator.SetFloat(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SpeedX), m_speedX);
-                animator.SetFloat(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SpeedY), m_speedY);
-
+                // Basic actions
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsIdle), m_isIdle);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IdleState), m_idleState);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsGrounded), isGrounded);
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.Jump), m_isJumping);
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsCrouched), m_isCrouching);
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsLevitating), m_isLevitating);
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsDashing), m_isDashing);
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ShadowMode), m_isInShadowMode);
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsSliding), m_isSliding);
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WallStick), m_wallStick);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.CombatMode), m_isInCombatMode);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsAttacking), m_isAttacking);
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsGrabbing), m_isGrabbing);
                 animator.SetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SlashState), m_slashState);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsDashing), m_isDashing);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.Jump), m_isJumping);
+                animator.SetFloat(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SpeedX), m_speedX);
+                animator.SetFloat(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SpeedY), m_speedY);
                 animator.SetFloat(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.YInput), m_YInput);
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WhipAttack), m_whipAttack);
-                animator.SetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WhipState), m_whipComboState);
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsCharging), m_isCharging);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsCrouched), m_isCrouching);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsDead), m_isDead);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WallStick), m_wallStick);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.Flinch), m_flinch);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.EarthShaker), m_EarthShake);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SwordTrust), m_SwordThrust);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WhipAttack), m_whipAttack);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsLevitating), m_isLevitating);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsGrabbing), m_isGrabbing);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsPulling), m_isPulling);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsPushing), m_isPushing);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ShadowMode), m_isInShadowMode);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsSliding), m_isSliding);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ProjectileThrow), m_projectileThrow);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ProjectileThrowVariant), m_projectileThrowVariance);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.LedgeGrab), m_ledgeGrab);
+                animator.SetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.FlinchState), m_flinchState);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsBlocking), m_isBlocking);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsCharging), m_isCharging);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.StepClimb), m_stepClimb);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AimingProjectile), m_aimingProjectile);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsWallCrawling), m_isWallCrawling);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.DoubleJump), m_isDoubleJumping);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WallJump), m_isWallJumping);
+                animator.SetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WhipState), m_whipState);
+                animator.SetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.XInput), m_Xinput);
 
-                //Combat Arts
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.DiagonalSwordDash), m_diagonalSwordDash);
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.EdgedFury), m_edgedFury);
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SovereignImpale), m_sovereignsImpale);
+                // Combat arts
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ReaperHarvest), m_reaperHarvest);
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SoulFireBlast), m_soulFireBlast);
-                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AirSlashRange), m_airSlashRanged);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.KrakenRage), m_krakenRage);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AirSlashCombo), m_airSlashCombo);
+                animator.SetInteger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AirSlashState), m_airSlashState);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SovereignImpale), m_sovereignsImpale);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.HellTrident), m_hellTrident);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.FoolsVerdict), m_foolsVerdict);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SoulFireBlast), m_soulFireBlast);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.EdgedFury), m_edgedFury);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.BackDiver), m_backDiver);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.Barrier), m_barrier);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.DiagonalSwordDash), m_diagonalSwordDash);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ChampionsUprising), m_championsUprising);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.LightningSpear), m_lightningSpear);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IcarusWings), m_icarusWings);
+                animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AirSlashRange), m_airSlashRanged);
                 animator.SetBool(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.TeleportingSkull), m_teleportingSkull);
 
+                // Combat Arts (from your C# variables and Animator Triggers)
+                if (m_reaperHarvest == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ReaperHarvest));
+                }
+
+                if (m_krakenRage == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.KrakenRage));
+                }
+
+                // Note: You have m_airSlashCombo (bool) and AirSlashCombo (Trigger)
+                if (m_airSlashCombo == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AirSlashCombo));
+                }
+
+                if (m_sovereignsImpale == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SovereignImpale)); // Assuming your enum label matches "SovereignImpale"
+                }
+
+                if (m_hellTrident == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.HellTrident));
+                }
+
+                if (m_foolsVerdict == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.FoolsVerdict));
+                }
+
+                if (m_soulFireBlast == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SoulFireBlast));
+                }
+
+                if (m_edgedFury == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.EdgedFury));
+                }
+
+                if (m_backDiver == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.BackDiver));
+                }
+
+                if (m_barrier == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.Barrier));
+                }
+
+                if (m_diagonalSwordDash == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.DiagonalSwordDash));
+                }
+
+                if (m_championsUprising == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ChampionsUprising));
+                }
+
+                if (m_lightningSpear == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.LightningSpear));
+                }
+
+                if (m_icarusWings == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IcarusWings));
+                }
+
+                if (m_airSlashRanged == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AirSlashRange)); // Assuming your enum label matches "AirSlashRange"
+                }
+
+                if (m_teleportingSkull == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.TeleportingSkull));
+                }
+
+                // Basic Actions (from your C# variables and Animator Triggers)
+                // Note: You explicitly provided this one, including it for completeness
                 if (m_ledgeGrab == true)
                 {
                     animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.LedgeGrab));
+                }
+
+                if (m_stepClimb == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.StepClimb));
+                }
+
+                // Note: You have m_SwordThrust (bool) and SwordThrust (Trigger)
+                if (m_SwordThrust == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.SwordTrust));
+                }
+
+                // Note: You have m_aimingProjectile (bool) and AimingProjectile (Trigger)
+                if (m_aimingProjectile == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.AimingProjectile));
+                }
+
+                // Note: You have m_projectileThrow (bool) and ProjectileThrow (Trigger)
+                if (m_projectileThrow == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ProjectileThrow));
+                }
+
+                // Note: You have m_projectileThrowVariance (bool) and ProjectileThrowVariance (Trigger)
+                if (m_projectileThrowVariance == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.ProjectileThrowVariant));
+                }
+
+                // Note: You have m_isBlocking (bool) and IsBlocking (Trigger)
+                if (m_isBlocking == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsBlocking));
+                }
+
+                // Note: You have m_isCharging (bool) and IsCharging (Trigger)
+                if (m_isCharging == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsCharging));
+                }
+
+                // Note: You have m_isWallCrawling (bool) and IsWallCrawling (Trigger)
+                if (m_isWallCrawling == true)
+                {
+                    animator.SetTrigger(animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsWallCrawling));
                 }
             }
         }
@@ -282,6 +482,18 @@ namespace DChild.Gameplay.Environment
             var lineConnectionTransform = m_lineConnection.transform;
             lineConnectionTransform.SetParent(null);
             lineConnectionTransform.position = Vector3.zero;
+            LoadingHandle.SceneDone += OnSceneDone;
+            LoadingHandle.LoadingDone += OnSceneLoadDone;
+        }
+
+        private void OnSceneDone(object sender, EventActionArgs eventArgs)
+        {
+            m_lineConnection.enabled = false;
+        }
+
+        private void OnSceneLoadDone(object sender, EventActionArgs eventArgs)
+        {
+            ResetImitation();
         }
 
         private void Update()
@@ -316,6 +528,8 @@ namespace DChild.Gameplay.Environment
 
         private void OnDestroy()
         {
+            LoadingHandle.SceneDone -= OnSceneDone;
+            LoadingHandle.LoadingDone -= OnSceneLoadDone;
             Destroy(m_lineConnection.gameObject);
         }
     }
