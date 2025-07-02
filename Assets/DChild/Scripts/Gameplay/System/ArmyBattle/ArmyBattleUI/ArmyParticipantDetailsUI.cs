@@ -72,19 +72,16 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         private IEnumerator DecreaseArmyHealth(ArmyBannerUI armyBanner, TextMeshProUGUI powerPanel, int damageCounter)
         {
-            while (damageCounter > 0)
+            for (; damageCounter > 0; damageCounter -= 5)
             {
-                damageCounter -= 5;
                 if (powerPanel != null && !string.IsNullOrEmpty(powerPanel.text))
                 {
-                    if (int.TryParse(powerPanel.text, out int currentHealth))
-                    {
-                        currentHealth -= 5;
-                        powerPanel.text = $"{currentHealth}";
-                    }
+                    var currentHealth = Int32.Parse(powerPanel.text) - 5;
+                    powerPanel.text = currentHealth > 0 ? $"{currentHealth}" : "0";
                 }
                 yield return new WaitForEndOfFrame();
             }
+
             armyBanner.DisplayReceivedDamage(damageCounter, true);
             yield return null;
         }
