@@ -9,7 +9,8 @@ using System;
 
 namespace DChild.Codex.Quests.UI
 {
-    public class QuestProgressUI : MonoBehaviour , IQuestDataLocalize
+
+    public class QuestProgressUI : MonoBehaviour, IQuestDataLocalize
     {
 
         [BoxGroup("TMP Fields"), SerializeField] private TextMeshProUGUI m_questOrder;
@@ -22,14 +23,22 @@ namespace DChild.Codex.Quests.UI
 
 
         private string m_currentQuestDescription;
+        private QuestEntry m_entry;
+
+        public QuestEntry entry => m_entry;
 
         public event Action<QuestEntry, int> LocalizeEntry;
 
-        private void SetQuestDescription(string description) => m_currentQuestDescription = description;
+        private void SetQuestDescription(string description)
+        {
+            m_currentQuestDescription = description;
+            m_descriptionPanel.text = description;
+        }
 
         public void Display(QuestEntry entry, int index)
         {
-            m_questOrder.text = $"{toRomanNumeral(index+1)}";
+            m_entry = entry;
+            m_questOrder.text = $"{toRomanNumeral(index + 1)}";
             m_questName.text = entry.name;
             m_questStatus.text = $"{entry.state}".Replace("_", " ");
             SetQuestDescription(entry.description);
@@ -49,7 +58,7 @@ namespace DChild.Codex.Quests.UI
             //}
         }
 
-       
+
 
         private static string toRomanNumeral(int number)
         {

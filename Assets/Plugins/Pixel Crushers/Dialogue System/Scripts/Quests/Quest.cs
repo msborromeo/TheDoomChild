@@ -6,21 +6,34 @@ namespace PixelCrushers.DialogueSystem
     public class Quest
     {
         [SerializeField]
-        private string m_name;
+        private DialogueDatabase m_associatedDatabase;
         [SerializeField]
-        private QuestState m_state;
+        private string m_name;
         [SerializeField]
         private QuestEntry[] m_entries;
 
-        public Quest(string name, QuestState state, QuestEntry[] entries = null)
+        public Quest(DialogueDatabase associatedDatabase, string name, QuestEntry[] entries = null)
         {
+            m_associatedDatabase = associatedDatabase;
             m_name = name;
-            m_state = state;
             m_entries = entries;
         }
 
-        public string name => m_name;
-        public QuestState state => m_state;
+        public string name
+        {
+            get
+            {
+                var result = m_associatedDatabase.GetItem(m_name).localizedName;
+                if (string.IsNullOrEmpty(result))
+                {
+                    return m_name;
+                }
+                return result;
+            }
+        }
+
+        public QuestState state => QuestLog.GetQuestState(m_name);
+        public string description => QuestLog.GetQuestDescription(m_name);
         public int entryCount => m_entries.Length;
 
         public QuestEntry GetEntry(int index) => m_entries[index];
