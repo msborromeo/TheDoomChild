@@ -1,6 +1,7 @@
 ﻿using Holysoft.Event;
 using System;
 using System.Collections;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -57,26 +58,35 @@ namespace DChild.Gameplay.ArmyBattle.UI
             var playerDamage = eventArgs.receivedPlayerDamage;
             var enemyDamage = eventArgs.receivedEnemyDamage;
 
+
+            yield return new WaitForSeconds(3);
             m_playerBanner.DisplayReceivedDamage(playerDamage);
             m_enemyBanner.DisplayReceivedDamage(enemyDamage);
 
             yield return new WaitForEndOfFrame();
             yield return new WaitForSeconds(1);
 
-            while (playerDamage > 0 && enemyDamage > 0)
-            {
-                playerDamage--;
-                enemyDamage--;
-                m_playerBanner.damagePanel.text = $"-{playerDamage}";
-                m_enemyBanner.damagePanel.text = $"-{enemyDamage}";
+            StartCoroutine(DecreaseArmyHealth(m_playerBanner, m_playerPower, playerDamage));
+            StartCoroutine(DecreaseArmyHealth(m_enemyBanner, m_enemyPower, enemyDamage));
+        }
 
-                m_playerPower.text = $"{eventArgs.player.controlledArmy.troopCount}";
-                m_enemyPower.text = $"{eventArgs.enemy.controlledArmy.troopCount}";
+        private IEnumerator DecreaseArmyHealth(ArmyBannerUI armyBanner, TextMeshProUGUI powerPanel, int damageCounter)
+        {
+            while (damageCounter > 0)
+            {
+                damageCounter -= 5;
+                if (powerPanel != null && !string.IsNullOrEmpty(powerPanel.text))
+                {
+                    if (int.TryParse(powerPanel.text, out int currentHealth))
+                    {
+                        currentHealth -= 5;
+                        powerPanel.text = $"{currentHealth}";
+                    }
+                }
                 yield return new WaitForEndOfFrame();
             }
-
-            m_playerBanner.DisplayReceivedDamage(playerDamage, true);
-            m_enemyBanner.DisplayReceivedDamage(enemyDamage, true);
+            armyBanner.DisplayReceivedDamage(damageCounter, true);
+            yield return null;
         }
 
         private string CheckNegativeTroops(ArmyController army)

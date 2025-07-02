@@ -18,7 +18,6 @@ namespace DChild.Gameplay.ArmyBattle.UI
         private Image m_armyIcon;
         [SerializeField]
         private TextMeshProUGUI m_damagePanel;
-        public TextMeshProUGUI damagePanel => m_damagePanel;
 
         public event Action<TextMeshProUGUI, ArmyOverviewData> nameUpdate;
 
