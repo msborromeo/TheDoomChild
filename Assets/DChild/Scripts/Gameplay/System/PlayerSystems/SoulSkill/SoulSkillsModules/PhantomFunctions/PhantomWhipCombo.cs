@@ -28,7 +28,7 @@ namespace DChild.Gameplay.Characters.Players.Module
         {
             if(m_currentVisualWhipState >= m_whipComboInfo.Count)
             {
-                m_currentVisualWhipState = 0;
+                m_currentVisualWhipState = -1; //-1 because 0 is whip combo state
             }
             else
             {
@@ -38,7 +38,7 @@ namespace DChild.Gameplay.Characters.Players.Module
 
         public void ResetCurrentVisualState()
         {
-            m_currentVisualWhipState = 0;
+            m_currentVisualWhipState = -1;
         }
     }
 }
