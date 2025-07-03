@@ -108,9 +108,9 @@ MonoBehaviour:
   setQuestState: 1
   questName: Haunt the Haunter
   questState: 4
-  setQuestEntryState: 0
+  setQuestEntryState: 1
   questEntryNumber: 1
-  questEntryState: 0
+  questEntryState: 4
   setAnotherQuestEntryState: 0
   anotherQuestEntryNumber: 1
   anotherQuestEntryState: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   setQuestState: 1
   questName: Haunt the Haunter
   questState: 2
-  setQuestEntryState: 0
+  setQuestEntryState: 1
   questEntryNumber: 1
   questEntryState: 2
   setAnotherQuestEntryState: 0
@@ -339,7 +339,8 @@ MonoBehaviour:
   - updateOnStartOnly: 0
     questState: 4
     condition:
-      luaConditions: []
+      luaConditions:
+      - CurrentQuestEntryState("Haunt the Haunter", 1) == "success"
       questConditions: []
       acceptedTags: []
       acceptedGameObjects: []
