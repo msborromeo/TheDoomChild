@@ -302,6 +302,7 @@ Transform:
   m_Children:
   - {fileID: 5959110731311423425}
   - {fileID: 3499423888412879154}
+  - {fileID: 7064709469945688226}
   - {fileID: 2807636571403412666}
   - {fileID: 8486362683696809588}
   m_Father: {fileID: 2861229675466010051}
@@ -429,7 +430,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3655622897920063398}
   m_Father: {fileID: 564414504746029540}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1183,7 +1185,7 @@ Transform:
   - {fileID: 7452565894172687629}
   - {fileID: 8115561703021389695}
   m_Father: {fileID: 8161011375066934813}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1978118540988179610
 GameObject:
@@ -1327,9 +1329,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 617036691043792775}
+  - {fileID: 8115561701958585758}
   - {fileID: 1324784890473474274}
   - {fileID: 8537299463564003922}
-  - {fileID: 8115561701958585758}
   m_Father: {fileID: 6355567150113344450}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1579,6 +1581,110 @@ MonoBehaviour:
     - {fileID: 8861252380748612165}
     - {fileID: 720848051797056277}
     - {fileID: 1310969243978433690}
+--- !u!1 &2827786176548745677
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1914031174586936212}
+  - component: {fileID: 1128312643440359102}
+  m_Layer: 0
+  m_Name: Sequence_DefeatMurmurEnd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1914031174586936212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2827786176548745677}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 564414504746029540}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1128312643440359102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2827786176548745677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 32
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 0
+  questName: Black Death
+  questState: 2
+  setQuestEntryState: 1
+  questEntryNumber: 1
+  questEntryState: 4
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: 
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: 
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 0
+  replace: 0
+  skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: 295b65eff68724c4b9a71808c2e2f4ac, type: 2}
 --- !u!1 &2851040460589932224
 GameObject:
   m_ObjectHideFlags: 0
@@ -2180,7 +2286,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8771559559203734676}
   m_Father: {fileID: 6327912046763530362}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2499,6 +2606,110 @@ MonoBehaviour:
     - {fileID: 5636305251128129387}
     - {fileID: 1907916986085107365}
     - {fileID: 6589212906579454826}
+--- !u!1 &4404486450489286774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8771559559203734676}
+  - component: {fileID: 5102589690871856694}
+  m_Layer: 0
+  m_Name: Sequence_DefeatBlackDeathStart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8771559559203734676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4404486450489286774}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 617036691043792775}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5102589690871856694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4404486450489286774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 2
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 0
+  questName: Black Death
+  questState: 2
+  setQuestEntryState: 1
+  questEntryNumber: 3
+  questEntryState: 2
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: 
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: 
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 0
+  replace: 0
+  skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: 295b65eff68724c4b9a71808c2e2f4ac, type: 2}
 --- !u!1 &4524915592094332096
 GameObject:
   m_ObjectHideFlags: 0
@@ -2882,6 +3093,110 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 2478150467866955739}
+--- !u!1 &4923035455960004394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7064709469945688226}
+  - component: {fileID: 5215554088908795790}
+  m_Layer: 0
+  m_Name: Sequence_DefeatRoyalGuardEnd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7064709469945688226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4923035455960004394}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8161011375066934813}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5215554088908795790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4923035455960004394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 32
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 0
+  questName: Black Death
+  questState: 2
+  setQuestEntryState: 1
+  questEntryNumber: 2
+  questEntryState: 4
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: 
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: 
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 0
+  replace: 0
+  skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: 295b65eff68724c4b9a71808c2e2f4ac, type: 2}
 --- !u!1 &4956430969402895202
 GameObject:
   m_ObjectHideFlags: 0
@@ -2910,7 +3225,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1166030419882370117}
   m_Father: {fileID: 8161011375066934813}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3269,6 +3585,110 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 8237453364567845073}
+--- !u!1 &5381855121693566824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3655622897920063398}
+  - component: {fileID: 914787110775545566}
+  m_Layer: 0
+  m_Name: Sequence_DefeatMurmurStart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3655622897920063398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5381855121693566824}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 324880473618330723}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &914787110775545566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5381855121693566824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 2
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 1
+  questName: Black Death
+  questState: 2
+  setQuestEntryState: 1
+  questEntryNumber: 1
+  questEntryState: 2
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: 
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: 
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 0
+  replace: 0
+  skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: 295b65eff68724c4b9a71808c2e2f4ac, type: 2}
 --- !u!1 &5635517168201085824
 GameObject:
   m_ObjectHideFlags: 3
@@ -5132,7 +5552,7 @@ Transform:
   m_Children:
   - {fileID: 5006466041620853203}
   m_Father: {fileID: 564414504746029540}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7278347007822116497
 GameObject:
@@ -8878,7 +9298,7 @@ Transform:
   - {fileID: 7830937240538504658}
   - {fileID: 7830937241641168977}
   m_Father: {fileID: 564414504746029540}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7830937241033629829
 GameObject:
@@ -13201,7 +13621,7 @@ Transform:
   - {fileID: 8240450171341456250}
   - {fileID: 1170677480632675909}
   m_Father: {fileID: 8161011375066934813}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7915051208381607299
 GameObject:
@@ -13311,7 +13731,7 @@ Transform:
   m_Children:
   - {fileID: 6802432226422613468}
   m_Father: {fileID: 564414504746029540}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8048452755043214654
 GameObject:
@@ -13379,6 +13799,110 @@ MonoBehaviour:
     - {fileID: 7223207546495971745}
     - {fileID: 5154816808170971825}
     - {fileID: 6464614528839266833}
+--- !u!1 &8059262586871035437
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1166030419882370117}
+  - component: {fileID: 257274374133637551}
+  m_Layer: 0
+  m_Name: Sequence_DefeatRoyalGuardStart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1166030419882370117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8059262586871035437}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3499423888412879154}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &257274374133637551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8059262586871035437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 2
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 0
+  questName: Black Death
+  questState: 2
+  setQuestEntryState: 1
+  questEntryNumber: 2
+  questEntryState: 2
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: 
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: 
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 0
+  replace: 0
+  skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: 295b65eff68724c4b9a71808c2e2f4ac, type: 2}
 --- !u!1 &8069556822782021738
 GameObject:
   m_ObjectHideFlags: 0
@@ -14234,7 +14758,7 @@ GameObject:
   - component: {fileID: 8115561701958585758}
   - component: {fileID: 8115561701958585745}
   m_Layer: 0
-  m_Name: QuestEnd
+  m_Name: Sequence_DefeatBlackDeathEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14253,7 +14777,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6327912046763530362}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8115561701958585745
 MonoBehaviour:
@@ -14276,11 +14800,11 @@ MonoBehaviour:
     luaWizardIndex: -1
     lastEvaluationValue: 0
   setQuestState: 1
-  questName: Defeat Black Death
+  questName: Black Death
   questState: 4
-  setQuestEntryState: 0
-  questEntryNumber: 1
-  questEntryState: 0
+  setQuestEntryState: 1
+  questEntryNumber: 3
+  questEntryState: 4
   setAnotherQuestEntryState: 0
   anotherQuestEntryNumber: 1
   anotherQuestEntryState: 0
@@ -15338,7 +15862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba2e3066672a3834182d094e4029952d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questName: Defeat Black Death
+  questName: Black Death
   questStateIndicatorLevels:
   - updateOnStartOnly: 0
     questState: 3
@@ -15835,7 +16359,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6327912046763530362}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &8537299463564004013
 BoxCollider2D:
@@ -16660,6 +17184,7 @@ Transform:
   m_Children:
   - {fileID: 5216440418482956241}
   - {fileID: 324880473618330723}
+  - {fileID: 1914031174586936212}
   - {fileID: 7830937240966529023}
   - {fileID: 3253829938211297037}
   - {fileID: 7553521547664017034}
@@ -29057,22 +29582,22 @@ PrefabInstance:
     - target: {fileID: 449568152513247411, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.a
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 449568152513247411, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.b
-      value: 1.14845e-14
+      value: 8.974515e-36
       objectReference: {fileID: 0}
     - target: {fileID: 449568152513247411, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.g
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 449568152513247411, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.r
-      value: 1.14846555e-14
+      value: 8.97467e-36
       objectReference: {fileID: 0}
     - target: {fileID: 888607203775343445, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
@@ -29132,42 +29657,42 @@ PrefabInstance:
     - target: {fileID: 925743339737479629, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.a
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 925743339737479629, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.b
-      value: 1.14845e-14
+      value: 8.974515e-36
       objectReference: {fileID: 0}
     - target: {fileID: 925743339737479629, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.g
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 925743339737479629, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.r
-      value: 1.14846555e-14
+      value: 8.97467e-36
       objectReference: {fileID: 0}
     - target: {fileID: 1584404569793867946, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.a
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 1584404569793867946, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.b
-      value: 1.14845e-14
+      value: 8.974515e-36
       objectReference: {fileID: 0}
     - target: {fileID: 1584404569793867946, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.g
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 1584404569793867946, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.r
-      value: 1.14846555e-14
+      value: 8.97467e-36
       objectReference: {fileID: 0}
     - target: {fileID: 5311126259571329698, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
@@ -29177,102 +29702,102 @@ PrefabInstance:
     - target: {fileID: 6844843980358278411, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.a
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 6844843980358278411, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.b
-      value: 1.14845e-14
+      value: 8.974515e-36
       objectReference: {fileID: 0}
     - target: {fileID: 6844843980358278411, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.g
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 6844843980358278411, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.r
-      value: 1.14846555e-14
+      value: 8.97467e-36
       objectReference: {fileID: 0}
     - target: {fileID: 7409735441273163909, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.a
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 7409735441273163909, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.b
-      value: 1.14845e-14
+      value: 8.974515e-36
       objectReference: {fileID: 0}
     - target: {fileID: 7409735441273163909, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.g
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 7409735441273163909, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.r
-      value: 1.14846555e-14
+      value: 8.97467e-36
       objectReference: {fileID: 0}
     - target: {fileID: 7529249830257424594, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.a
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 7529249830257424594, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.b
-      value: 1.14845e-14
+      value: 8.974515e-36
       objectReference: {fileID: 0}
     - target: {fileID: 7529249830257424594, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.g
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 7529249830257424594, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.r
-      value: 1.14846555e-14
+      value: 8.97467e-36
       objectReference: {fileID: 0}
     - target: {fileID: 7742848928602686376, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.a
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 7742848928602686376, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.b
-      value: 1.14845e-14
+      value: 8.974515e-36
       objectReference: {fileID: 0}
     - target: {fileID: 7742848928602686376, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.g
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 7742848928602686376, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.r
-      value: 1.14846555e-14
+      value: 8.97467e-36
       objectReference: {fileID: 0}
     - target: {fileID: 8491061833986798258, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.a
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 8491061833986798258, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.b
-      value: 1.14845e-14
+      value: 8.974515e-36
       objectReference: {fileID: 0}
     - target: {fileID: 8491061833986798258, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.g
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 8491061833986798258, guid: 0a3fc732b9523f3419fc32af0a026ba8,
         type: 3}
       propertyPath: startColor.m_ColorMin.r
-      value: 1.14846555e-14
+      value: 8.97467e-36
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a3fc732b9523f3419fc32af0a026ba8, type: 3}
@@ -32484,7 +33009,7 @@ PrefabInstance:
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
@@ -32515,7 +33040,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 8844398265238755134}
+      objectReference: {fileID: 1128312643440359102}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -32564,7 +33089,7 @@ PrefabInstance:
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ForceFightWithPlayer
+      value: OnUse
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
@@ -32675,6 +33200,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_alreadyDefeated.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
       value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PixelCrushers.DialogueSystem.DialogueSystemTrigger, Assembly-CSharp-firstpass
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
@@ -33660,7 +34190,7 @@ PrefabInstance:
     - target: {fileID: 7116479645023515046, guid: 69eb62c1a2e826a4db0de39a6f876fe6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7116479645023515046, guid: 69eb62c1a2e826a4db0de39a6f876fe6,
         type: 3}
@@ -35026,62 +35556,62 @@ PrefabInstance:
     - target: {fileID: 1162747502842130085, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.a
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 1162747502842130085, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.b
-      value: 1.14845e-14
+      value: 8.974515e-36
       objectReference: {fileID: 0}
     - target: {fileID: 1162747502842130085, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.g
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 1162747502842130085, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.r
-      value: 1.14846555e-14
+      value: 8.97467e-36
       objectReference: {fileID: 0}
     - target: {fileID: 2714278555276668934, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.a
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 2714278555276668934, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.b
-      value: 1.14845e-14
+      value: 8.974515e-36
       objectReference: {fileID: 0}
     - target: {fileID: 2714278555276668934, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.g
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 2714278555276668934, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.r
-      value: 1.14846555e-14
+      value: 8.97467e-36
       objectReference: {fileID: 0}
     - target: {fileID: 2885548166104277803, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.a
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 2885548166104277803, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.b
-      value: 1.14845e-14
+      value: 8.974515e-36
       objectReference: {fileID: 0}
     - target: {fileID: 2885548166104277803, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.g
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 2885548166104277803, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.r
-      value: 1.14846555e-14
+      value: 8.97467e-36
       objectReference: {fileID: 0}
     - target: {fileID: 4795166402362775803, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
@@ -35141,22 +35671,22 @@ PrefabInstance:
     - target: {fileID: 6567306446944912132, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.a
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 6567306446944912132, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.b
-      value: 1.14845e-14
+      value: 8.974515e-36
       objectReference: {fileID: 0}
     - target: {fileID: 6567306446944912132, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.g
-      value: 3.08e-43
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 6567306446944912132, guid: 2a6be37df204b95418c4adfe74fdeffe,
         type: 3}
       propertyPath: startColor.m_ColorMin.r
-      value: 1.14846555e-14
+      value: 8.97467e-36
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a6be37df204b95418c4adfe74fdeffe, type: 3}
@@ -36346,7 +36876,7 @@ PrefabInstance:
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
@@ -36382,7 +36912,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 8844398265459312634}
+      objectReference: {fileID: 5215554088908795790}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[2].m_Target
@@ -36417,7 +36947,7 @@ PrefabInstance:
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ForceFightWithPlayer
+      value: OnUse
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
@@ -36481,6 +37011,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PixelCrushers.DialogueSystem.DialogueSystemTrigger, Assembly-CSharp-firstpass
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
       value: 0
       objectReference: {fileID: 0}
@@ -36518,6 +37053,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
