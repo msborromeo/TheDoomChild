@@ -36,6 +36,7 @@ namespace DChild.Gameplay.Characters.Players
             EndProjectileThrow,
             EndAirSlashRange,
             EndTeleportingSkull,
+            EndSwordThrustCharge
         }
 
         [SerializeField]
@@ -159,6 +160,9 @@ namespace DChild.Gameplay.Characters.Players
                         break;
                     case Command.EndSwordThrust:
                         shadow.SwordThrustEnd();
+                        break;
+                    case Command.EndSwordThrustCharge:
+                        shadow.SwordThrustChargeEnd();
                         break;
                    
                 }

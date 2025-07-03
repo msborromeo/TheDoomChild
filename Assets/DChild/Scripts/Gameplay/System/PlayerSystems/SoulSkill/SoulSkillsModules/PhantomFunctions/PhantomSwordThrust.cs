@@ -21,7 +21,7 @@ namespace DChild.Gameplay.Characters.Players.Module
         [SerializeField]
         private ParticleSystem m_impactFX;
 
-        public void Execute()
+        public void EndSwordThrustCharge()
         {
             m_chargeFX?.Stop(true);
             m_finishedChargeFX?.Stop(true);
@@ -37,6 +37,8 @@ namespace DChild.Gameplay.Characters.Players.Module
             m_chargeFX?.Stop(true);
             m_thrust.PlayFX(false);
             m_finishedChargeFX?.Stop(true);
+            m_dustFX?.Stop(true);
+            m_impactFX?.Stop(true);
         }
 
         public void EndExecution()

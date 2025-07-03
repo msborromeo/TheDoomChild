@@ -73,6 +73,7 @@ namespace DChild.Gameplay.Environment
             private bool m_icarusWings;
             private bool m_airSlashRanged;
             private bool m_teleportingSkull;
+
             public AnimationParameterInfo(Animator animator, AnimationParametersData animationParametersData)
             {
                 //Basic actions

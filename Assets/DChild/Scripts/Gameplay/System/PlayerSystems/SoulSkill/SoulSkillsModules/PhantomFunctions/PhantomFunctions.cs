@@ -172,8 +172,13 @@ namespace DChild.Gameplay
 
         public void SwordThrustEnd()
         {
-            m_swordThrust?.AttackOver();
+            m_swordThrust.EndSwordThrust();
             m_swordThrust.EndExecution();
+        }
+
+        public void SwordThrustChargeEnd()
+        {
+            m_swordThrust?.EndSwordThrustCharge();
         }
 
         public void Null() { }
