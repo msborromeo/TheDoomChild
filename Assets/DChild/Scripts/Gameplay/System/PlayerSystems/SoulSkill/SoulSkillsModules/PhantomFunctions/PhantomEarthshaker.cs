@@ -49,7 +49,6 @@ namespace DChild.Gameplay.Characters.Players.Module
             m_fallLoopFX?.Stop(true);
             m_impactFX?.Stop(true);
             m_impactCollider.enabled = false;
-            m_state.isDoingEarthShaker = false;
         }
     }
 }

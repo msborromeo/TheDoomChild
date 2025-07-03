@@ -419,12 +419,14 @@ namespace DChild.Gameplay.Environment
             m_animator = GetComponent<Animator>();
             m_animatorToImitate = toImitate.character.centerMass.GetComponentInParent<Animator>();
             ResetImitation();
+            m_lineConnection.enabled = true;
         }
 
         public void ResetImitation()
         {
             transform.position = m_toImitate.position;
             m_imitationDelayTimer = m_imitateDelay;
+            m_lineConnection.enabled = false;
             m_isDelayed = true;
 
             InitializeRecords();
@@ -488,12 +490,12 @@ namespace DChild.Gameplay.Environment
 
         private void OnSceneDone(object sender, EventActionArgs eventArgs)
         {
-            m_lineConnection.enabled = false;
+            ResetImitation();
         }
 
         private void OnSceneLoadDone(object sender, EventActionArgs eventArgs)
         {
-            ResetImitation();
+            StartImitating(GameplaySystem.playerManager.player);
         }
 
         private void Update()

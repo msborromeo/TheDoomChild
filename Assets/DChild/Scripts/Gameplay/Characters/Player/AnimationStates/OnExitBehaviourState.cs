@@ -154,6 +154,9 @@ namespace DChild.Gameplay.Characters.Players
                     case Command.EndWhipCombo:
                         shadow.DisableWhipComboCollisions();
                         break;
+                    case Command.EndEarthShaker:
+                        shadow.EarthShakerEnd();
+                        break;
                    
                 }
             }
