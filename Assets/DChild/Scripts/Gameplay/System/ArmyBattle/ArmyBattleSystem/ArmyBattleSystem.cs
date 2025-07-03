@@ -226,6 +226,7 @@ namespace DChild.Gameplay.ArmyBattle
 
                 m_turnHandle.SetParticipants(m_player, m_enemy);
                 m_turnHandle.OnTurnEnd += OnTurnEnd;
+                m_turnHandle.OnExecuteAttack += m_uiManager.participantDetails.OnExecuteAttack;
                 m_specialSkillHandle.SkillEffectApplied += OnSkillEffectApplied;
                 m_specialSkillHandle.SkillEffectActivated += OnSkillEffectActivated;
             }
