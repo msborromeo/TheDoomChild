@@ -2136,6 +2136,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
                 case State.Attacking:
                     StopAllCoroutines();
+                    m_hitbox.SetInvulnerability(Invulnerability.None);
                     m_stateHandle.Wait(State.ReevaluateSituation);
                     if (m_attackDecider.hasDecidedOnAttack == false)
                     {
@@ -2707,6 +2708,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     else
                     {
+                        Debug.LogWarning("Not Facing Player");
                         m_turnState = State.Chasing;
                         if (m_animation.GetCurrentAnimation(0).ToString() != m_info.turnAnimation.animation /*&& m_animation.GetCurrentAnimation(0).ToString() != m_info.attackDaggersIdle.animation*/)
                             m_stateHandle.SetState(State.Turning);
