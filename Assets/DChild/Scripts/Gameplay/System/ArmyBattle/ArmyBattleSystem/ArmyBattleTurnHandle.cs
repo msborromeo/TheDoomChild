@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.ArmyBattle.SpecialSkills;
+using DChild.Gameplay.ArmyBattle.UI;
 using DChild.Gameplay.ArmyBattle.Visualizer;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
@@ -69,6 +70,8 @@ namespace DChild.Gameplay.ArmyBattle
 
         public int currentTurn => m_turnCount;
 
+        public event EventAction<ReceivedTurnDamageArgs> OnExecuteAttack;
+
         [Button]
         public void TurnStart()
         {
@@ -138,10 +141,14 @@ namespace DChild.Gameplay.ArmyBattle
             var enemyTurn = GenerateTurnAction(m_enemy, m_turnCount);
 
             var result = m_combatSimulator.CalculateCombatResult(playerTurn, enemyTurn);
+
             m_player.controlledArmy.SubtractTroopCount(result.player.damageReceived);
             m_enemy.controlledArmy.SubtractTroopCount(result.enemy.damageReceived);
 
             m_fightManager.VisualizeCombat(result);
+
+            OnExecuteAttack?.Invoke(this, new ReceivedTurnDamageArgs(m_player, m_enemy, result.player.damageReceived, result.enemy.damageReceived));
+
         }
 
         private ArmyTurnAction ConfigureParticipantTurnAction(ArmyTurnAction turnAction, ParticipantConfiguration configuration)
@@ -196,6 +203,7 @@ namespace DChild.Gameplay.ArmyBattle
         private void Awake()
         {
             ResetConfiguration();
+
             m_fightManager.OnFightEnd += OnFightEnd;
         }
     }
