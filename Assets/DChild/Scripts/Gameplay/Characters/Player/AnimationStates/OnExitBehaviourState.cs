@@ -157,6 +157,9 @@ namespace DChild.Gameplay.Characters.Players
                     case Command.EndEarthShaker:
                         shadow.EarthShakerEnd();
                         break;
+                    case Command.EndSwordThrust:
+                        shadow.SwordThrustEnd();
+                        break;
                    
                 }
             }
