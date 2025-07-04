@@ -134,6 +134,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Collider2D m_bodyCollider;
         [SerializeField, TabGroup("Reference")]
         private Hitbox m_hitbox;
+        [SerializeField, TabGroup("Reference")]
+        private GameObject m_ChanellingVFX;
         [SerializeField, TabGroup("Modules")]
         private TransformTurnHandle m_turnHandle;
         [SerializeField, TabGroup("Modules")]
@@ -392,6 +394,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_flinchHandle.m_autoFlinch = false;
             m_agent.Stop();
+            m_ChanellingVFX.SetActive(true);
             switch (m_attack)
             {
                 case Attack.Attack1:
@@ -413,6 +416,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             
             yield return new WaitForSeconds(1.25f);
+            m_ChanellingVFX.SetActive(false);
             LaunchProjectile();
             m_animation.SetAnimation(0, m_info.attack1.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack1.animation);
@@ -426,6 +430,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
 
             yield return new WaitForSeconds(1.25f);
+            m_ChanellingVFX.SetActive(false);
             SpawnSpike();
             m_animation.SetAnimation(0, m_info.attack2.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack2.animation);
