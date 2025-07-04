@@ -144,16 +144,16 @@ namespace DChild.Gameplay.Characters.Players
                         shadow.DisableBasicWhipCollisions();
                         break;
                     case Command.EndComboAttack:
-                        shadow.DisableSlashComboCollisions();
+                        shadow.ResetSlashComboFX();
                         break;
                     case Command.EndCombo:
-                        shadow.DisableSlashComboCollisions();
+                        shadow.ResetSlashComboFX();
                         break;
                     case Command.EndWhipComboAttack:
-                        shadow.DisableWhipComboCollisions();
+                        shadow.ResetWhipComboFX();
                         break;
                     case Command.EndWhipCombo:
-                        shadow.DisableWhipComboCollisions();
+                        shadow.ResetWhipComboFX();
                         break;
                     case Command.EndEarthShaker:
                         shadow.EarthShakerEnd();

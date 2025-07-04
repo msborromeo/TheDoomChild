@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.Characters.Players;
+using DChild.Gameplay.Characters.Players.Module;
 using DChild.Menu;
 using Holysoft.Event;
 using Spine.Unity;
@@ -23,6 +24,7 @@ namespace DChild.Gameplay.Environment
             private bool m_isInCombatMode;
             private bool m_isAttacking;
             private int m_slashState;
+            public int slashState => m_slashState;
             private bool m_isDashing;
             private bool m_isJumping;
             private float m_speedX;
@@ -53,6 +55,7 @@ namespace DChild.Gameplay.Environment
             private bool m_isDoubleJumping;
             private bool m_isWallJumping;
             private int m_whipState;
+            public int whipState => m_whipState;
             private int m_Xinput;
 
             //Combat arts
@@ -414,6 +417,11 @@ namespace DChild.Gameplay.Environment
         private List<Vector3> m_scaleToImitate;
         private List<AnimationParameterInfo> m_animationToImitate;
 
+        [SerializeField]
+        private PhantomSlashCombo m_phantomSlashCombo;
+        [SerializeField]
+        private PhantomWhipCombo m_phantomWhipCombo;
+
         public void StartImitating(Player toImitate)
         {
             m_toImitate = toImitate.character.transform;
@@ -451,6 +459,16 @@ namespace DChild.Gameplay.Environment
             transform.position = m_positionToImitate[0];
             transform.localScale = m_scaleToImitate[0];
             m_animationToImitate[0].Apply(m_animator, m_animationParametersData);
+
+            if (m_animationToImitate[0].slashState > -1)
+            {
+                m_phantomSlashCombo.PlaySlashCombo(m_animationToImitate[0].slashState);
+            }
+
+            if(m_animationToImitate[0].whipState > -1)
+            {
+                m_phantomWhipCombo.PlayWhipCombo(m_animationToImitate[0].whipState);
+            }
 
             m_positionToImitate.RemoveAt(0);
             m_scaleToImitate.RemoveAt(0);

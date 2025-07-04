@@ -1,4 +1,5 @@
 using DChild.Gameplay.Characters.Players.Modules;
+using DChild.Gameplay.Combat;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace DChild.Gameplay.Characters.Players.Module
         [SerializeField]
         private List<Info> m_whipComboInfo;
         private int m_currentVisualWhipState;
+        [SerializeField]
+        private CollisionRegistrator m_collisionRegistrator;
 
         public void PlayFX(bool value)
         {
@@ -21,6 +24,23 @@ namespace DChild.Gameplay.Characters.Players.Module
         public void EnableCollision(bool value)
         {
             m_whipComboInfo[m_currentVisualWhipState].ShowCollider(value);
+        }
+
+
+        public void PlayWhipCombo(int slashState)
+        {
+            m_collisionRegistrator.ClearCache();
+            m_whipComboInfo[slashState].PlayFX(true);
+            m_whipComboInfo[slashState].ShowCollider(true);
+        }
+
+        public void StopWhipCombo()
+        {
+            for (int i = 0; i < m_whipComboInfo.Count; i++)
+            {
+                m_whipComboInfo[i].PlayFX(false);
+                m_whipComboInfo[i].ShowCollider(false);
+            }
         }
 
 

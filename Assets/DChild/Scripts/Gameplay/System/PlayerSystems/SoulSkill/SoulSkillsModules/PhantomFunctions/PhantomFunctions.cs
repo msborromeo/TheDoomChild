@@ -67,8 +67,9 @@ namespace DChild.Gameplay
 
         public void SlashCombo()
         {
-            m_slashCombo?.PlayFX(true);
-            m_slashCombo?.EnableCollision(true);
+            //m_slashCombo?.PlayFX(true);
+            //m_slashCombo?.EnableCollision(true);
+            //m_slashCombo?.IterateCurrentVisualState();
         }
 
         public void WhipCombo()
@@ -109,7 +110,6 @@ namespace DChild.Gameplay
 
         public void ContinueSlashCombo()
         {
-            m_slashCombo?.IterateCurrentVisualState();
             m_slashCombo?.PlayFX(true);
             m_slashCombo?.EnableCollision(true);
         }
@@ -148,6 +148,16 @@ namespace DChild.Gameplay
         public void IterateCurrentSlashComboState()
         {
             m_slashCombo.IterateCurrentVisualState();
+        }
+
+        public void ResetSlashComboFX()
+        {
+            m_slashCombo.StopSlashCombo();
+        }
+
+        public void ResetWhipComboFX()
+        {
+            m_whipCombo.StopWhipCombo();
         }
 
         public void EarthShakerPreLoop()
