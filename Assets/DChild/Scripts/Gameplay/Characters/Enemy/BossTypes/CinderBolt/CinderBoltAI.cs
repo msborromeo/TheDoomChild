@@ -957,7 +957,6 @@ namespace DChild.Gameplay.Characters.Enemies
             else
             {
                 yield return FirebeamLaserRoutine();
-                yield return new WaitForSeconds(.5f);
                 yield return null;
             }
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.overchargedFirebeamAttack);
@@ -976,19 +975,18 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_animation.SetAnimation(0, m_info.overchargedShortDash, false);
                 m_shortDashFX.Play();
                 m_movement.MoveTowards(new Vector2(targetPos - transform.position.x, 0), m_info.shortDash.speed * 2);
+                m_overchargedLongDashCollider.enabled = true;
                 var time = 0f;
-                while (time < 0.05 || !m_wallSensor.allRaysDetecting)
+                while (time < 0.05 && !m_wallSensor.allRaysDetecting)
                 {
                     time += GameplaySystem.time.deltaTime;
                     yield return null;
                 }
                 m_movement.Stop();
-                m_overchargedLongDashCollider.enabled = true;
-                m_shortDashFX.Stop();
-                m_movement.Stop();
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.overchargedShortDash);
-                m_overchargedLongDashCollider.enabled = false;
                 m_shortDashFX.Stop();
+                m_overchargedLongDashCollider.enabled = false;
+                m_movement.Stop();
                 m_hitbox.SetInvulnerability(Invulnerability.None);
                 if (!IsFacingTarget())
                 {
@@ -1420,7 +1418,7 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 yield return FirebeamLaserRoutine();
                 Debug.Log("before wait");
-                yield return new WaitForSeconds(0.5f);
+                //yield return new WaitForSeconds(0.5f);
                 Debug.Log("after wait");
                 yield return null;
             }
@@ -1439,10 +1437,10 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_movement.Stop();
                 m_animation.SetAnimation(0, m_info.shortDash, false);
                 m_shortDashFX.Play();
-                m_longDashCollider.enabled = true;
                 m_movement.MoveTowards(new Vector2(targetPos - transform.position.x, 0).normalized, m_info.shortDash.speed);
+                m_longDashCollider.enabled = true;
                 var time = 0f;
-                while (time <= 0.5f || !m_wallSensor.allRaysDetecting)
+                while (time <= 0.5f && !m_wallSensor.allRaysDetecting)
                 {
                     time += GameplaySystem.time.deltaTime;
                     yield return null;
