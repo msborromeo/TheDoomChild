@@ -87,6 +87,7 @@ namespace DChild
                 m_activeZone = string.Empty;
             }
             m_gameplaySceneActive = false;
+            LoadingHandle.SetLoadType(LoadingHandle.LoadType.Force);
             LoadingHandle.LoadScenes(m_mainMenu);
             Time.timeScale = 1;
             GameSystem.sceneManager.LoadSceneAsync(m_loadingScene.sceneName);
