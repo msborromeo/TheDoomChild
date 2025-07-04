@@ -6,21 +6,49 @@ namespace PixelCrushers.DialogueSystem
     public class QuestEntry
     {
         [SerializeField]
-        private string m_name;
+        private DialogueDatabase m_associatedDatabase;
         [SerializeField]
-        private QuestState m_state;
+        private string m_associatedQuest;
         [SerializeField]
-        private string m_description;
+        private int m_entryNumber;
 
-        public QuestEntry(string name, QuestState state, string description)
+        public QuestEntry(DialogueDatabase associatedDatabase, string assiciatedQuest, int entryNumber)
         {
-            m_name = name;
-            m_state = state;
-            m_description = description;
+            m_associatedDatabase = associatedDatabase;
+            m_associatedQuest = assiciatedQuest;
+            m_entryNumber = entryNumber;
         }
 
-        public string name => m_name;
-        public QuestState state => m_state;
-        public string description => m_description;
+        public string name
+        {
+            get
+            {
+                var quest = m_associatedDatabase.GetItem(m_associatedQuest);
+                var result = quest.LookupLocalizedValue(nameField);
+                if (string.IsNullOrEmpty(result))
+                {
+                    return quest.LookupValue(nameField);
+                }
+                return result; ;
+            }
+        }
+
+        public QuestState state => QuestLog.GetQuestEntryState(m_associatedQuest, m_entryNumber);
+        public string description
+        {
+            get
+            {
+                var quest = m_associatedDatabase.GetItem(m_associatedQuest);
+                var result = quest.LookupLocalizedValue(descriptionField);
+                if (string.IsNullOrEmpty(result))
+                {
+                    return quest.LookupValue(descriptionField);
+                }
+                return result;
+            }
+        }
+
+        private string descriptionField => $"Entry {m_entryNumber} Description";
+        private string nameField => $"Entry {m_entryNumber}";
     }
 }
