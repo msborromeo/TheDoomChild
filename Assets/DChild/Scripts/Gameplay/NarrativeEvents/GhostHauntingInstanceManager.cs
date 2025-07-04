@@ -16,6 +16,8 @@ public class GhostHauntingInstanceManager : MonoBehaviour
     [SerializeField, VariablePopup(true)]
     private string m_connectedVariable;
     [SerializeField, VariablePopup(true)]
+    private string m_currentVariableTotal;
+    [SerializeField, VariablePopup(true)]
     private string m_connectedTotalVariable;
     [SerializeField]
     private DialogueSystemTrigger m_questStartDialogueSystemTrigger;
@@ -46,17 +48,17 @@ public class GhostHauntingInstanceManager : MonoBehaviour
             }
         }
 
-        DialogueLua.SetVariable(m_connectedVariable, (int)instanceTracker);
-        DialogueLua.SetVariable(m_connectedVariable, DialogueLua.GetVariable($"{m_connectedVariable}").AsInt + 1);
+        DialogueLua.SetVariable($"{m_connectedVariable}", (int)instanceTracker);
+        DialogueLua.SetVariable($"{m_currentVariableTotal}", DialogueLua.GetVariable($"{m_currentVariableTotal}").AsInt + 1);
 
         //Set Seeds Quest active if Seeds count is less than 1
-        if (DialogueLua.GetVariable($"{m_connectedVariable}").AsInt >= 1)
+        if (DialogueLua.GetVariable($"{m_currentVariableTotal}").AsInt >= 1)
         {
             m_questStartDialogueSystemTrigger.OnUse();
         }
 
         //Set Seeds Quest as success when dead seeds is equal to total seeds and set Desecrate Statue Quest as active
-        if (DialogueLua.GetVariable($"{m_connectedVariable}").AsInt >= DialogueLua.GetVariable($"{m_connectedTotalVariable}").AsInt)
+        if (DialogueLua.GetVariable($"{m_currentVariableTotal}").AsInt >= DialogueLua.GetVariable($"{m_connectedTotalVariable}").AsInt)
         {
             m_questEndDialogueSystemTrigger.OnUse();
         }
