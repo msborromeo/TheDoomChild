@@ -105,7 +105,7 @@ namespace DChild.Gameplay.Environment.Interractables
                 StartCoroutine(OpenAnimationRoutine());
               
             }
-            if(m_animationFinished == true && wasPreviouslyActive == true)
+            if(wasPreviouslyActive == true)
             {
                 GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location);
             }
