@@ -124,4 +124,10 @@ public class WhenStatEffectHandler : MonoBehaviour
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        GameplaySystem.playerManager.player.health.ValueChanged -= OnStatChange;
+        GameplaySystem.playerManager.player.magic.ValueChanged -= OnStatChange;
+    }
 }
