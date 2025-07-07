@@ -29,6 +29,9 @@ namespace DChild.Gameplay.Characters.Players.Module
 
         public void PlayWhipCombo(int slashState)
         {
+            if (m_currentVisualWhipState == slashState)
+                return;
+            m_currentVisualWhipState = slashState;
             m_collisionRegistrator.ClearCache();
             m_whipComboInfo[slashState].PlayFX(true);
             m_whipComboInfo[slashState].ShowCollider(true);
@@ -41,6 +44,7 @@ namespace DChild.Gameplay.Characters.Players.Module
                 m_whipComboInfo[i].PlayFX(false);
                 m_whipComboInfo[i].ShowCollider(false);
             }
+            m_currentVisualWhipState = -1;
         }
 
 
