@@ -957,7 +957,6 @@ namespace DChild.Gameplay.Characters.Enemies
             else
             {
                 yield return FirebeamLaserRoutine();
-                yield return new WaitForSeconds(1f);
                 yield return null;
             }
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.overchargedFirebeamAttack);
@@ -976,19 +975,18 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_animation.SetAnimation(0, m_info.overchargedShortDash, false);
                 m_shortDashFX.Play();
                 m_movement.MoveTowards(new Vector2(targetPos - transform.position.x, 0), m_info.shortDash.speed * 2);
+                m_overchargedLongDashCollider.enabled = true;
                 var time = 0f;
-                while (time < 0.05 || !m_wallSensor.allRaysDetecting)
+                while (time < 0.05 && !m_wallSensor.allRaysDetecting)
                 {
                     time += GameplaySystem.time.deltaTime;
                     yield return null;
                 }
                 m_movement.Stop();
-                m_overchargedLongDashCollider.enabled = true;
-                m_shortDashFX.Stop();
-                m_movement.Stop();
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.overchargedShortDash);
-                m_overchargedLongDashCollider.enabled = false;
                 m_shortDashFX.Stop();
+                m_overchargedLongDashCollider.enabled = false;
+                m_movement.Stop();
                 m_hitbox.SetInvulnerability(Invulnerability.None);
                 if (!IsFacingTarget())
                 {
@@ -1354,6 +1352,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator FirebeamRoutine(bool movingFirebeam = false)
         {
             yield return new WaitForSeconds(0.5f);
+            Debug.Log("message mo lng kaugalingon");
             int closestPointIndex = 0;
             float closestDistance = Vector2.Distance(m_firebeamTransformPoints[closestPointIndex].position, m_targetInfo.position);
             for (int i = 0; i < m_firebeamTransformPoints.Count; i++)
@@ -1374,6 +1373,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_movement.MoveTowards(direction, m_info.move.speed);
                 yield return null;
             }
+            Debug.Log("mo kng dn ka sa yield return");
             m_steamThrustFX.SetActive(false);
             m_movement.Stop();
             for (int i = 1; i < m_firebeamTransformPoints.Count; i++)
@@ -1389,8 +1389,9 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_character.SetFacing(HorizontalDirection.Right);
                 }
             }
-            m_animation.SetAnimation(0, m_info.firebeamAttack, false);
-            yield return new WaitForSeconds(1.25f);
+            var firebeamAttack = m_animation.SetAnimation(0, m_info.firebeamAttack, false);
+            yield return new WaitForSeconds(1f);
+            Debug.Log("before firebeam");
             if (movingFirebeam)
             {
                 //StartCoroutine(OnRuneShieldRoutine(3));
@@ -1408,7 +1409,7 @@ namespace DChild.Gameplay.Characters.Enemies
                         m_movement.MoveTowards(moveDir, m_info.move.speed);
                         yield return null;
                     }
-
+                    
                     m_movement.Stop();
                     closestPointIndex = targetIndex; // Update if needed
                 }
@@ -1416,10 +1417,13 @@ namespace DChild.Gameplay.Characters.Enemies
             else
             {
                 yield return FirebeamLaserRoutine();
-                yield return new WaitForSeconds(1f);
+                Debug.Log("before wait");
+                //yield return new WaitForSeconds(0.5f);
+                Debug.Log("after wait");
                 yield return null;
             }
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.firebeamAttack);
+            yield return new WaitForSpineAnimationComplete(firebeamAttack);
+            Debug.Log("im at the end lol");
             yield return null;
         }
         private IEnumerator ShortDashRoutine()
@@ -1433,10 +1437,10 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_movement.Stop();
                 m_animation.SetAnimation(0, m_info.shortDash, false);
                 m_shortDashFX.Play();
-                m_longDashCollider.enabled = true;
                 m_movement.MoveTowards(new Vector2(targetPos - transform.position.x, 0).normalized, m_info.shortDash.speed);
+                m_longDashCollider.enabled = true;
                 var time = 0f;
-                while (time <= 0.5f || !m_wallSensor.allRaysDetecting)
+                while (time <= 0.5f && !m_wallSensor.allRaysDetecting)
                 {
                     time += GameplaySystem.time.deltaTime;
                     yield return null;
