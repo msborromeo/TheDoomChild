@@ -29,9 +29,6 @@ namespace DChild.Gameplay.Characters.Players.Module
 
         public void PlaySlashCombo(int slashState)
         {
-            if (m_currentVisualSlashState == slashState)
-                return;
-            m_currentVisualSlashState = slashState;
             m_collisionRegistrator.ClearCache();
             m_slashComboInfo[slashState].PlayFX(true);
             m_slashComboInfo[slashState].ShowCollider(true);

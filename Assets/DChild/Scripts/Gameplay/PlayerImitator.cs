@@ -460,16 +460,6 @@ namespace DChild.Gameplay.Environment
             transform.localScale = m_scaleToImitate[0];
             m_animationToImitate[0].Apply(m_animator, m_animationParametersData);
 
-            if (m_animationToImitate[0].slashState > -1)
-            {
-                m_phantomSlashCombo.PlaySlashCombo(m_animationToImitate[0].slashState);
-            }
-
-            if(m_animationToImitate[0].whipState > -1)
-            {
-                m_phantomWhipCombo.PlayWhipCombo(m_animationToImitate[0].whipState);
-            }
-
             m_positionToImitate.RemoveAt(0);
             m_scaleToImitate.RemoveAt(0);
             m_animationToImitate.RemoveAt(0);

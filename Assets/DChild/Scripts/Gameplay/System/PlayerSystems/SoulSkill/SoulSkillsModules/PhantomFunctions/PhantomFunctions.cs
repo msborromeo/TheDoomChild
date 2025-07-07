@@ -74,8 +74,8 @@ namespace DChild.Gameplay
 
         public void WhipCombo()
         {
-            m_whipCombo?.PlayFX(true);
-            m_whipCombo?.EnableCollision(true);
+            //m_whipCombo?.PlayFX(true);
+            //m_whipCombo?.EnableCollision(true);
         }
 
         public void GroundForwardWhipAttackFX()
@@ -189,6 +189,16 @@ namespace DChild.Gameplay
         public void SwordThrustChargeEnd()
         {
             m_swordThrust?.EndSwordThrustCharge();
+        }
+
+        public void SlashComboOn(int slashState)
+        {
+            m_slashCombo.PlaySlashCombo(slashState);
+        }
+
+        public void WhipComboOn(int whipState)
+        {
+            m_whipCombo.PlayWhipCombo(whipState);
         }
 
         public void Null() { }
