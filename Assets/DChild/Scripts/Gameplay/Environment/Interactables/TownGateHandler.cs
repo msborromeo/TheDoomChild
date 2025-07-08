@@ -28,6 +28,8 @@ namespace DChild.Gameplay.Environment.Interractables
         private LocationPoster m_poster;
         [SerializeField, TabGroup("Reference")]
         private SoulEssenceOffering m_soulOffering;
+        [SerializeField]
+        private bool m_animationFinished;
 
         [SerializeField, Spine.Unity.SpineAnimation, TabGroup("Animation")]
         private string m_closeIdle;
@@ -37,6 +39,8 @@ namespace DChild.Gameplay.Environment.Interractables
         private string m_openIdle;
         [SerializeField]
         public Vector3 m_Offset;
+
+
 
         public event EventAction<EventActionArgs> InteractionOptionChange;
 
@@ -79,6 +83,17 @@ namespace DChild.Gameplay.Environment.Interractables
             m_animation.SetAnimation(0, m_closeIdle, false);
         }
 
+        private IEnumerator OpenAnimationRoutine()
+        {
+            m_animation.SetAnimation(0, m_openTransition, false);
+            //yield return new WaitForSeconds(1.6f);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_openTransition);
+            //m_animation.AddAnimation(0, m_openIdle, true, 0);
+            InteractionOptionChange?.Invoke(this, EventActionArgs.Empty);
+            GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location);
+            m_animationFinished = true;
+            yield return null;
+        }
         [Button, HideInEditorMode]
         public void Interact(Character character)
         {
@@ -87,11 +102,13 @@ namespace DChild.Gameplay.Environment.Interractables
             if (wasPreviouslyActive == false)
             {
                 m_soulOffering.Interact(character);
-                m_animation.SetAnimation(0, m_openTransition, false);
-                m_animation.AddAnimation(0, m_openIdle, true, 0);
-                InteractionOptionChange?.Invoke(this, EventActionArgs.Empty);
+                StartCoroutine(OpenAnimationRoutine());
+              
             }
-            GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location);
+            if(wasPreviouslyActive == true)
+            {
+                GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location);
+            }
             NearPortal();
 
         }
