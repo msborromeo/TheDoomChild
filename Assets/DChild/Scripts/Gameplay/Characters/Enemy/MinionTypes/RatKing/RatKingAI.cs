@@ -414,11 +414,7 @@ namespace DChild.Gameplay.Characters.Enemies
             var newPos = Vector2.zero;
             while (!inRange || TargetBlocked())
             {
-                if(Repeat > 5)
-                {
-                    m_stateHandle.ApplyQueuedState();
-                    yield break;
-                }
+                
                 Debug.LogError(" AXE 2222");
                 newPos = new Vector2(m_targetInfo.position.x, /*GroundPosition().y + 20*/m_targetInfo.position.y);
                 bool xTargetInRange = Mathf.Abs(/*m_targetInfo.position.x*/newPos.x - transform.position.x) < attackRange ? true : false;
@@ -433,6 +429,13 @@ namespace DChild.Gameplay.Characters.Enemies
                 Debug.LogError(" AXE ");
                 Repeat++;
                 yield return new WaitForSeconds(0.2f);
+                if (Repeat > 5)
+                {
+                    inRange = true;
+                    attack = Attack.AttackRange;
+                    //m_stateHandle.ApplyQueuedState();
+                    //yield break;
+                }
             }
             ExecuteAttack(attack);
             yield return null;
@@ -595,17 +598,15 @@ namespace DChild.Gameplay.Characters.Enemies
                             m_movement.Stop();
                             Vector3 dir = (m_startPos - (Vector2)rb2d.transform.position).normalized;
                             m_animation.SetAnimation(0, m_info.move.animation, true);
-                            rb2d.MovePosition(rb2d.transform.position + dir * (m_info.move.speed+5) * Time.fixedDeltaTime);
+                            rb2d.MovePosition(rb2d.transform.position + dir * (m_info.move.speed+20) * Time.fixedDeltaTime);
                         }
                         else
                         {
-                            Debug.LogError("AAAAAAAAAAAAAAA");
                             m_stateHandle.OverrideState(State.Patrol);
                         }
                     }
                     else
                     {
-                        CustomTurn();
                         m_turnState = State.ReturnToPatrol;
                         m_stateHandle.SetState(State.Turning);
                     }
