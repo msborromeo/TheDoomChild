@@ -11,7 +11,14 @@ namespace Holysoft.Gameplay.UI
         private float m_maxValue;
 
         public override float maxValue { set => m_maxValue = value; }
-        public override float currentValue { set => m_target.enabled = value == m_maxValue; }
+        public override float currentValue
+        {
+            set
+            {
+                m_target.enabled = value == m_maxValue;
+                gameObject.SetActive(value == m_maxValue);
+            }
+        }
     }
 
 }
