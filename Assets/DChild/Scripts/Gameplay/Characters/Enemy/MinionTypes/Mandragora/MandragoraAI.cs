@@ -130,8 +130,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private SpineEventListener m_spineEventListener;
         [SerializeField, TabGroup("Reference")]
         private IsolatedCharacterPhysics2D m_characterPhysics;
-        [SerializeField, TabGroup("Reference")]
-        private GameObject m_spriteMask;
+        //[SerializeField, TabGroup("Reference")]
+        //private GameObject m_spriteMask;
         [SerializeField, TabGroup("Reference")]
         private GameObject m_shadow;
         [SerializeField, TabGroup("Sensors")]
@@ -278,9 +278,10 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.detectAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.detectAnimation);
             GetComponentInChildren<SkeletonAnimation>().maskInteraction = SpriteMaskInteraction.None;
-            m_spriteMask.SetActive(false);
+            //m_spriteMask.SetActive(false);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             m_stateHandle.OverrideState(State.ReevaluateSituation);
+            Debug.Log("xxxx");
             yield return null;
         }
 
