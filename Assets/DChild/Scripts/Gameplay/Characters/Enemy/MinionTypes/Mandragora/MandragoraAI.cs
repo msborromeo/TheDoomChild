@@ -134,6 +134,12 @@ namespace DChild.Gameplay.Characters.Enemies
         //private GameObject m_spriteMask;
         [SerializeField, TabGroup("Reference")]
         private GameObject m_shadow;
+
+
+        [SerializeField, TabGroup("Fx")]
+        private ParticleFX m_screamFx;
+
+
         [SerializeField, TabGroup("Sensors")]
         private RaySensor m_wallSensor;
         [SerializeField, TabGroup("Sensors")]
@@ -166,7 +172,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void SpawnProjectile()
         {
-            Debug.Log("Scream Attack");
+            m_screamFx.Play();
         }
 
         private void OnAttackDone(object sender, EventActionArgs eventArgs)
@@ -277,7 +283,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_shadow.SetActive(true);
             m_animation.SetAnimation(0, m_info.detectAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.detectAnimation);
-            GetComponentInChildren<SkeletonAnimation>().maskInteraction = SpriteMaskInteraction.None;
+            //GetComponentInChildren<SkeletonAnimation>().maskInteraction = SpriteMaskInteraction.None;
             //m_spriteMask.SetActive(false);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             m_stateHandle.OverrideState(State.ReevaluateSituation);
