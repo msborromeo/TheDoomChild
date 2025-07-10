@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using DChild;
 using DChild.Gameplay.Characters.Enemies;
 using DChild.Gameplay.Environment;
+using DChild.Gameplay.Pooling;
+using DChild.Gameplay.Projectiles;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
@@ -30,6 +32,9 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, BoxGroup("Attack")]
             private SimpleAttackInfo m_attack = new SimpleAttackInfo();
             public SimpleAttackInfo attack => m_attack;
+            [SerializeField, BoxGroup("Attack")]
+            private SimpleAttackInfo m_attack2 = new SimpleAttackInfo();
+            public SimpleAttackInfo attack2 => m_attack2;
             [SerializeField, MinValue(0), BoxGroup("Attack")]
             private float m_attackCD;
             public float attackCD => m_attackCD;
@@ -54,6 +59,9 @@ namespace DChild.Gameplay.Characters.Enemies
             private float m_targetDistanceTolerance;
             public float targetDistanceTolerance => m_targetDistanceTolerance;
             //Animations
+            [SerializeField]
+            private BasicAnimationInfo m_SkullThrowAnimation;
+            public BasicAnimationInfo SkullThrowAnimation => m_SkullThrowAnimation;
             [SerializeField]
             private BasicAnimationInfo m_idleAnimation;
             public BasicAnimationInfo idleAnimation => m_idleAnimation;
@@ -94,13 +102,19 @@ namespace DChild.Gameplay.Characters.Enemies
             private string m_smash;
 
             public string smash => m_smash;
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_throwProjectile;
 
+            public string throwProjectile => m_throwProjectile;
+            [SerializeField]
+            private SimpleProjectileAttackInfo m_projectile;
+            public SimpleProjectileAttackInfo projectile => m_projectile;
             public override void Initialize()
             {
 #if UNITY_EDITOR
                 m_walk.SetData(m_skeletonDataAsset);
                 m_attack.SetData(m_skeletonDataAsset);
-
+                m_attack2.SetData(m_skeletonDataAsset);
                 m_idleAnimation.SetData(m_skeletonDataAsset);
                 m_detectionAnimation.SetData(m_skeletonDataAsset);
                 m_flinchAnimation.SetData(m_skeletonDataAsset);
@@ -129,6 +143,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private enum Attack
         {
             Attack,
+            Attack2,
             [HideInInspector]
             _COUNT
         }
@@ -373,6 +388,10 @@ namespace DChild.Gameplay.Characters.Enemies
             }
         }
 
+        private void ThrowProjectileEvent()
+        {
+
+        }
         private IEnumerator FlinchRoutine()
         {
             enabled = false;
@@ -393,6 +412,16 @@ namespace DChild.Gameplay.Characters.Enemies
             StartCoroutine(ArmorFlinchRoutine());
         }
 
+        private IEnumerator SkullThrowAttackRoutine()
+        {
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            m_animation.SetAnimation(0, m_info.attack2, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack2);
+
+            m_attackDecider.hasDecidedOnAttack = false;
+            m_stateHandle.ApplyQueuedState();
+
+        }
         private IEnumerator ArmorFlinchRoutine()
         {
             m_helmetHitbox.Disable();
@@ -450,7 +479,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void UpdateAttackDeciderList()
         {
-            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Attack, m_info.attack.range));
+            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Attack, m_info.attack2.range),
+                new AttackInfo<Attack>(Attack.Attack2, m_info.attack.range));
             m_attackDecider.hasDecidedOnAttack = false;
         }
 
@@ -515,7 +545,79 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return null;
             }
         }
+        private void ThrowSkullEvent()
+        {
+            ThrowProjectile(3);
+        }
+        private Vector2 m_targetLastPos;
+        private void ThrowProjectile(int loops)
+        {
+            m_targetLastPos = m_targetInfo.transform.GetComponent<Character>().centerMass.position;
+            Vector2 currentPos = m_targetLastPos;
+            for (int i = 0; i < loops; i++)
+            {
+                while (Vector2.Distance(m_targetLastPos, currentPos) <= 15)
+                {
+                    currentPos = new Vector2(m_targetLastPos.x + UnityEngine.Random.Range(-15 * transform.localScale.x, 20 * transform.localScale.x), m_targetLastPos.y + UnityEngine.Random.Range(-5, 5));
+                }
+                m_targetLastPos = currentPos;
+                LaunchProjectile(currentPos);
+            }
+        }
 
+        [SerializeField]
+        private Transform m_throwPoint;
+        private void LaunchProjectile(Vector2 target)
+        {
+            if (m_targetInfo.isValid)
+            {
+                //m_muzzleFX.Play();
+                //Vector2 target = m_targetLastPos;
+                target = new Vector2(target.x, target.y - 2);
+                Vector2 spitPos = new Vector2(transform.localScale.x < 0 ? m_throwPoint.position.x - 1.5f : m_throwPoint.position.x + 1.5f, m_throwPoint.position.y - 0.75f);
+                Vector3 v_diff = (target - spitPos);
+                float atan2 = Mathf.Atan2(v_diff.y, v_diff.x);
+
+                GameObject projectile = m_info.projectile.projectileInfo.projectile;
+                var instance = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(projectile);
+                instance.transform.position = m_throwPoint.position;
+                var component = instance.GetComponent<Projectile>();
+                component.ResetState();
+                //component.GetComponent<IsolatedObjectPhysics2D>().AddForce(BallisticVel(), ForceMode2D.Impulse);
+                component.GetComponent<IsolatedObjectPhysics2D>().SetVelocity(BallisticVelocity(target));
+                //return instance.gameObject;
+            }
+        }
+        [SerializeField, TabGroup("Cannon Values")]
+        private float m_speed;
+        [SerializeField, TabGroup("Cannon Values")]
+        private float m_gravityScale;
+        [SerializeField, TabGroup("Cannon Values")]
+        private Vector2 m_posOffset;
+        [SerializeField, TabGroup("Cannon Values")]
+        private float m_velOffset;
+        [SerializeField, TabGroup("Cannon Values")]
+        private Vector2 m_targetOffset;
+
+        private float m_targetDistance;
+        private Vector2 BallisticVelocity(Vector2 targetCenterMass)
+        {
+            //Vector2 targetCenterMass = m_targetLastPos;
+            m_info.projectile.projectileInfo.projectile.GetComponent<IsolatedObjectPhysics2D>().gravity.gravityScale = m_gravityScale;
+
+            m_targetDistance = Vector2.Distance(targetCenterMass, m_throwPoint.position);
+            var dir = (targetCenterMass - new Vector2(m_throwPoint.position.x, m_throwPoint.position.y));
+            var h = dir.y;
+            dir.y = 0;
+            var dist = dir.magnitude;
+            dir.y = dist;
+            dist += h;
+
+            var currentSpeed = m_speed;
+
+            var vel = Mathf.Sqrt(dist * m_info.projectile.projectileInfo.projectile.GetComponent<IsolatedObjectPhysics2D>().gravity.gravityScale);
+            return (vel * new Vector3(dir.x * m_posOffset.x, dir.y * m_posOffset.y).normalized) * m_targetOffset.sqrMagnitude; //closest to accurate
+        }
         private void EnableAttackBB()
         {
             StartCoroutine(AttackBBRoutine());
@@ -534,6 +636,7 @@ namespace DChild.Gameplay.Characters.Enemies
             base.Start();
             m_currentMoveSpeed = UnityEngine.Random.Range(m_info.walk.speed * .75f, m_info.walk.speed * 1.25f);
             m_currentFullCD = UnityEngine.Random.Range(m_info.attackCD * .5f, m_info.attackCD * 2f);
+            m_spineEventListener.Subscribe(m_info.throwProjectile, ThrowSkullEvent);
             m_spineEventListener.Subscribe(m_info.shawtOut, m_shawtFX.Play);
             m_spineEventListener.Subscribe(m_info.stamp, m_stampFX.Play);
             m_spineEventListener.Subscribe(m_info.stamp2, m_stampFX2.Play);
@@ -638,9 +741,11 @@ namespace DChild.Gameplay.Characters.Enemies
                     switch (m_attackDecider.chosenAttack.attack)
                     {
                         case Attack.Attack:
+                            m_attackHandle.ExecuteAttack(m_info.attack2.animation, m_info.idleAnimation.animation);
+                            break;
+                        case Attack.Attack2:
                             m_attackHandle.ExecuteAttack(m_info.attack.animation, m_info.idleAnimation.animation);
                             EnableAttackBB();
-                            //m_attackRoutine = StartCoroutine(AttackRoutine());
                             break;
                     }
                     m_attackDecider.hasDecidedOnAttack = false;
