@@ -1,4 +1,6 @@
 ﻿using DChild.Gameplay.Environment;
+using Doozy.Runtime.UIManager.Components;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -38,11 +40,15 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
             }
         }
 
-
+        [Button]
+        public void ShowAsCurrent()
+        {
+            var button = gameObject.GetComponent<UIButton>();
+            button.Select();
+        }
 
         public void SelectLevel()
         {
-            Debug.Log($"m_elevator : {m_elevator.gameObject.name}");
             if (m_elevator == null) return;
             m_elevator.GoDestination(m_level);
         }
