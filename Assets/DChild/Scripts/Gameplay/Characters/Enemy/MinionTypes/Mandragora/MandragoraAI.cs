@@ -166,7 +166,7 @@ namespace DChild.Gameplay.Characters.Enemies
             base.Start();
             m_currentMoveSpeed = UnityEngine.Random.Range(m_info.move.speed * .75f, m_info.move.speed * 1.25f);
             m_currentFullCD = UnityEngine.Random.Range(m_info.attackCD * .5f, m_info.attackCD * 2f);
-
+            m_screamCollider.enabled = false;
             m_spineEventListener.Subscribe(m_info.attackEvent, SpawnProjectile);
             //GameplaySystem.SetBossHealth(m_character);
             m_startPoint = transform.position;
@@ -180,8 +180,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void OnAttackDone(object sender, EventActionArgs eventArgs)
         {
-            m_screamFx.Stop();
             m_screamCollider.enabled = false;
+            m_screamFx.Stop();
             m_flinchHandle.m_autoFlinch = true;
             m_animation.DisableRootMotion();
             m_stateHandle.ApplyQueuedState();
