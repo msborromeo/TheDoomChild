@@ -134,6 +134,8 @@ namespace DChild.Gameplay.Characters.Enemies
         //private GameObject m_spriteMask;
         [SerializeField, TabGroup("Reference")]
         private GameObject m_shadow;
+        [SerializeField, TabGroup("Reference")]
+        private CircleCollider2D m_screamCollider;
 
 
         [SerializeField, TabGroup("Fx")]
@@ -172,11 +174,14 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void SpawnProjectile()
         {
+            m_screamCollider.enabled = true;
             m_screamFx.Play();
         }
 
         private void OnAttackDone(object sender, EventActionArgs eventArgs)
         {
+            m_screamFx.Stop();
+            m_screamCollider.enabled = false;
             m_flinchHandle.m_autoFlinch = true;
             m_animation.DisableRootMotion();
             m_stateHandle.ApplyQueuedState();
