@@ -319,6 +319,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_stateHandle.Wait(State.ReevaluateSituation);
                     m_movement.Stop();
                     m_flinchHandle.m_autoFlinch = false;
+                    m_screamCollider.enabled = false;
                     StartCoroutine(DetectRoutine());
                     break;
 
@@ -340,10 +341,11 @@ namespace DChild.Gameplay.Characters.Enemies
 
                     m_animation.EnableRootMotion(true, false);
                     m_attackHandle.ExecuteAttack(m_info.attack.animation, m_info.idleAnimation.animation);
-
+                    m_screamCollider.enabled = false;
                     break;
 
                 case State.Cooldown:
+                    m_screamCollider.enabled = false;
                     //m_stateHandle.Wait(State.ReevaluateSituation);
                     //if (m_animation.GetCurrentAnimation(0).ToString() != m_info.turnAnimation)
                     if (!IsFacingTarget())
@@ -373,6 +375,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
                 case State.Chasing:
                     {
+                        m_screamCollider.enabled = false;
                         m_flinchHandle.m_autoFlinch = false;
                         if (IsFacingTarget())
                         {
