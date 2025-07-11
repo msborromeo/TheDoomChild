@@ -15,12 +15,12 @@ GameObject:
   - component: {fileID: -7726454310196839486}
   - component: {fileID: 7156887700195661915}
   - component: {fileID: 464627247548859935}
-  - component: {fileID: -1548591063088770562}
   - component: {fileID: -8694963318543674621}
   - component: {fileID: 1551809512722027365}
   - component: {fileID: 8350481395008708940}
   - component: {fileID: 7930575218346855706}
   - component: {fileID: -2144033120326488060}
+  - component: {fileID: 4391293190061936383}
   m_Layer: 13
   m_Name: PoisonJellyfish_PoisonCloudVFX_Holder
   m_TagString: Untagged
@@ -4934,32 +4934,6 @@ MonoBehaviour:
   m_linearDrag:
     m_x: 0
     m_y: 0
---- !u!61 &-1548591063088770562
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5665448482842076262}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 15, y: 15}
-  m_EdgeRadius: 0
 --- !u!114 &-8694963318543674621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5073,7 +5047,22 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 9
+  m_Radius: 5.75
+--- !u!114 &4391293190061936383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5665448482842076262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8006aafcb6e5970479e7b911a42a3326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Duration: 0.7
+  m_Collider: {fileID: -2144033120326488060}
+  m_spreadSpeed: 2
 --- !u!1 &5665448483138997857
 GameObject:
   m_ObjectHideFlags: 0
