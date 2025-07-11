@@ -273,6 +273,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_targetInfo.Set(null, null);
             m_flinchHandle.m_autoFlinch = true;
             m_isDetecting = false;
+            m_enablePatience = false;
         }
         //private IEnumerator PatienceRoutine()
         //{
@@ -409,9 +410,12 @@ namespace DChild.Gameplay.Characters.Enemies
             bool inRange = false;
             /*Vector2.Distance(transform.position, target) > m_info.spearMeleeAttack.range*/ //old target in range condition
             var moveSpeed = m_info.move.speed - UnityEngine.Random.Range(0, 3);
+            var Repeat = 0;
             var newPos = Vector2.zero;
             while (!inRange || TargetBlocked())
             {
+                
+                Debug.LogError(" AXE 2222");
                 newPos = new Vector2(m_targetInfo.position.x, /*GroundPosition().y + 20*/m_targetInfo.position.y);
                 bool xTargetInRange = Mathf.Abs(/*m_targetInfo.position.x*/newPos.x - transform.position.x) < attackRange ? true : false;
                 bool yTargetInRange = Mathf.Abs(/*m_targetInfo.position.y*/newPos.y - transform.position.y) < attackRange ? true : false;
@@ -422,28 +426,43 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_animation.EnableRootMotion(true, false);
                 //DynamicMovement(/*new Vector2(m_targetInfo.position.x, m_targetInfo.position.y)*/ newPos);
                 StartCoroutine(HopRoutine());
-                yield return null;
-            }
-            if (!IsFacingTarget())
-            {
-                CustomTurn();
+                Debug.LogError(" AXE ");
+                Repeat++;
+                yield return new WaitForSeconds(0.2f);
+                if (Repeat > 5)
+                {
+                    inRange = true;
+                    attack = Attack.AttackRange;
+                    //m_stateHandle.ApplyQueuedState();
+                    //yield break;
+                }
             }
             ExecuteAttack(attack);
             yield return null;
         }
         private IEnumerator HopRoutine()
         {
+            Debug.LogError(" AXE 33333");
             //m_hitbox.gameObject.SetActive(false);
             m_selfCollider.enabled = false;
             m_animation.SetAnimation(0, m_info.HopAnimation, false);
+            Debug.LogError(" AXE 555555");
             var waitTime = m_animation.animationState.GetCurrent(0).AnimationEnd * .5f;
             yield return new WaitForSeconds(waitTime);
             //m_hitbox.gameObject.SetActive(true);
             GetComponent<IsolatedCharacterPhysics2D>().UseStepClimb(true);
-            m_animation.EnableRootMotion(true, false);
+            //m_animation.EnableRootMotion(true, false);
+            Debug.LogError(" AXE 6");
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.HopAnimation);
+            if (!IsFacingTarget())
+            {
+                CustomTurn();
+            }
+            //GetComponent<IsolatedCharacterPhysics2D>().UseStepClimb(false);
             m_selfCollider.enabled = true;
-            yield return null;
+            Debug.LogError(" AXE 44444");
+            yield break;
+            //yield return null;
         }
         private void LaunchProjectile()
         {
@@ -579,6 +598,7 @@ namespace DChild.Gameplay.Characters.Enemies
                             m_movement.Stop();
                             Vector3 dir = (m_startPos - (Vector2)rb2d.transform.position).normalized;
                             m_animation.SetAnimation(0, m_info.move.animation, true);
+                            rb2d.MovePosition(rb2d.transform.position + dir * (m_info.move.speed+20) * Time.fixedDeltaTime);
                         }
                         else
                         {
