@@ -29,7 +29,7 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
             m_levelNumber.text = $"{m_level + 1}";
         }
 
-        public void Display(ElevatorLevelInfo info)
+        public void Display(ElevatorLevelInfo info, bool isCurrentValue = false)
         {
             bool hasInfo = info != null;
 
@@ -38,6 +38,9 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
             {
                 SetPathLabel(info);
             }
+
+            if (isCurrentValue == true)
+                ShowAsCurrent();
         }
 
         [Button]

@@ -48,12 +48,9 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
             {
                 var info = labels[i];
                 m_elevatorButtons[i].SetElevatorLevel(m_elevator, info.destinationIndex);
-                m_elevatorButtons[i].Display(info);
 
-                if (m_elevator.currentWayPoint != info.destinationIndex)
-                    continue;
-
-                m_elevatorButtons[i].ShowAsCurrent();
+                var isCurrent = m_elevator.currentWayPoint != info.destinationIndex;
+                m_elevatorButtons[i].Display(info, isCurrent);
             }
 
             for (int i = levelCount; i < m_elevatorButtons.Count; i++)
