@@ -63,6 +63,8 @@ namespace DChild.Gameplay.Environment
         private int m_wayPointDestination;
         [ShowInInspector, ReadOnly, TabGroup("Debug")]
         private int m_currentWayPoint;
+        public int currentWayPoint => m_currentWayPoint;
+        
         private int m_incrementerValue;
 
         private Rigidbody2D m_rigidbody;

@@ -136,6 +136,9 @@ namespace DChild.Gameplay.Characters.Enemies
         private RaySensor m_edgeSensor;
 
         [SerializeField]
+        private List<Collider2D> m_collidersToDisable;
+
+        [SerializeField]
         private bool m_willPatrol;
 
         [ShowInInspector]
@@ -300,6 +303,10 @@ namespace DChild.Gameplay.Characters.Enemies
             if (m_sneerRoutine != null)
             {
                 StopCoroutine(m_sneerRoutine);
+            }
+            foreach(Collider2D col in m_collidersToDisable)
+            {
+                col.enabled = false;
             }
             m_animation.SetEmptyAnimation(0, 0);
             m_animation.SetAnimation(0, m_info.deathAnimation, false);
