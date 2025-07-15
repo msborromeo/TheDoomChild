@@ -24,6 +24,12 @@ public class BuffMinions : MonoBehaviour
     [SerializeField]
     private Dictionary<GameObject, List<Collider2D>> m_MinionColliderPair = new Dictionary<GameObject, List<Collider2D>>();
 
+    Collider2D col;
+
+    private void Start()
+    {
+        col = GetComponent<Collider2D>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(m_isDead)
@@ -128,11 +134,11 @@ public class BuffMinions : MonoBehaviour
         {
 
             var minionAttacker = collision.GetComponentInParent<Attacker>();
-            if (minionAttacker != null)
+            if (minionAttacker != null/*&&!col.bounds.Contains(collision.gameObject.transform.position)*/)
             {
                 //Minion is already recorded in Radius
                 var minion = minionAttacker.gameObject;
-                if(m_MinionColliderPair.ContainsKey(minion))
+                if(m_MinionColliderPair.ContainsKey(minion)&&!col.bounds.Contains(minion.gameObject.transform.position))
                 {
                     var minionColliders = m_MinionColliderPair.GetValueOrDefault(minion);
                     if (minionColliders.Contains(collision))
