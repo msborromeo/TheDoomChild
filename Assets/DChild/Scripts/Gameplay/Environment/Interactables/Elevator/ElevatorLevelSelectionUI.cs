@@ -1,4 +1,5 @@
 using DChild.Gameplay.Environment;
+using Doozy.Runtime.UIManager.Components;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,6 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 
         private void SetupFloorLevels(ElevatorLocation location, ElevatorLevelInfo[] labels)
         {
-
             int levelCount;
 
             switch (location)
@@ -48,7 +48,9 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
             {
                 var info = labels[i];
                 m_elevatorButtons[i].SetElevatorLevel(m_elevator, info.destinationIndex);
-                m_elevatorButtons[i].Display(info);
+
+                var isCurrent = m_elevator.currentWayPoint != info.destinationIndex;
+                m_elevatorButtons[i].Display(info, isCurrent);
             }
 
             for (int i = levelCount; i < m_elevatorButtons.Count; i++)

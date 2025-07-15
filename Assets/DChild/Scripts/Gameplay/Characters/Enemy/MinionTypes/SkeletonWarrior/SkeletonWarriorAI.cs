@@ -666,6 +666,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                     m_selfCollider.enabled = true;
                                 }
                                 m_animation.SetAnimation(0, m_info.idleAnimation, true);
+                                m_currentTargetPos = m_targetInfo.position;
                             }
                         }
                     }
@@ -706,6 +707,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                 }
                                 m_selfCollider.enabled = true;
                                 m_animation.SetAnimation(0, m_info.idleAnimation, true);
+                                
                             }
                         }
                     }
