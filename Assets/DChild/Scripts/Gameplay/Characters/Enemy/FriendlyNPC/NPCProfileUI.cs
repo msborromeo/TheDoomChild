@@ -15,6 +15,7 @@ namespace DChild.Gameplay.Characters.NPC
 
         public void Set(NPCProfile profile)
         {
+            gameObject.SetActive(profile.baseIcon != null);
             m_icon.sprite = profile.baseIcon;
             m_name.text = profile.characterName;
             if (m_title)
