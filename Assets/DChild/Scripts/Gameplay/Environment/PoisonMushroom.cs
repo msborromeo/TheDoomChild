@@ -112,7 +112,7 @@ namespace DChild.Gameplay.Environment.Obstacles
             m_animation.SetAnimation(0, m_data.emissionAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_data.emissionAnimation);
             m_animation.SetAnimation(0, m_idleAnimation, true);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3f);
             m_trigger.enabled = true;
             m_damageCollider.enabled = false;
 
