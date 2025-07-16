@@ -681,7 +681,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #region Input Handles
         private void OnVector2PerformedInput(Vector2 vector)
         {
-            if (m_state.isChargingAttack || m_state.isDoingSwordThrust || m_state.isExecutingCombatArt)
+            if(m_state.isChargingAttack || m_state.isDoingSwordThrust)
+            {
+                m_vector2Input = Vector2.zero;
+                return;
+            }
+
+            if ( m_state.isExecutingCombatArt)
                 return;
             
             m_vector2Input = vector;
@@ -692,7 +698,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isChargingAttack || m_state.isDoingSwordThrust)
                 return;
 
-            m_vector2Input = new Vector2(0, 0);
+            m_vector2Input = Vector2.zero;
 
             if (m_state.isCrouched)
             {
