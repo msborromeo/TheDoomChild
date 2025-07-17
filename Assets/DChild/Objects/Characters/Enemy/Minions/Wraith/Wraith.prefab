@@ -779,6 +779,32 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.26104838
       objectReference: {fileID: 0}
+    - target: {fileID: 3882184508217764921, guid: 19d40a624ec837b448f0678ad4a31e59,
+        type: 3}
+      propertyPath: m_damageFXInfo.m_fx
+      value: 
+      objectReference: {fileID: 8259047391205215404, guid: 960498dddf6d32f4aa75952e185f33f7,
+        type: 3}
+    - target: {fileID: 3882184508217764921, guid: 19d40a624ec837b448f0678ad4a31e59,
+        type: 3}
+      propertyPath: m_damageFXInfo.m_scaleToUse.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3882184508217764921, guid: 19d40a624ec837b448f0678ad4a31e59,
+        type: 3}
+      propertyPath: m_damageFXInfo.m_scaleToUse.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3882184508217764921, guid: 19d40a624ec837b448f0678ad4a31e59,
+        type: 3}
+      propertyPath: m_damageFXInfo.m_scaleToUse.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3882184508217764921, guid: 19d40a624ec837b448f0678ad4a31e59,
+        type: 3}
+      propertyPath: m_damageFXInfo.m_overrideColor
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5200193786051739178, guid: 19d40a624ec837b448f0678ad4a31e59,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -994,12 +1020,42 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 5493429827639464134}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4351390262158099999}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4351390262158099999 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8097378882614417113, guid: 19d40a624ec837b448f0678ad4a31e59,
+    type: 3}
+  m_PrefabInstance: {fileID: 5493429827639464134}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8260404965999282102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4351390262158099999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f2fa991881c6d419500ccc40ad443f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghostingEnabled: 1
+  spawnInterval: 0.01
+  maximumGhosts: 100
+  fadeSpeed: 8
+  ghostShader: {fileID: 4800000, guid: 3873d4699ee8a4b4da8fa6b8c229b94d, type: 3}
+  color:
+    serializedVersion: 2
+    rgba: 224631880
+  additive: 0
+  textureFade: 0.015
+  sortWithDistanceOnly: 0
+  zOffset: 0
 --- !u!61 &5477143532815190186 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 17500190055028844, guid: 19d40a624ec837b448f0678ad4a31e59,
@@ -1048,7 +1104,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5493429827639464134}
   m_PrefabAsset: {fileID: 0}
---- !u!60 &1268443713253448346
+--- !u!60 &1914283004078172863
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
