@@ -695,10 +695,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnVector2CancelledInput(Vector2 vector)
         {
+            m_vector2Input = Vector2.zero;
+
             if (m_state.isChargingAttack || m_state.isDoingSwordThrust)
                 return;
-
-            m_vector2Input = Vector2.zero;
 
             if (m_state.isCrouched)
             {
@@ -1189,6 +1189,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_idle?.Execute(m_state.allowExtendedIdle);
                 }
             }
+            
         }
 
         private void OnWhipCancelledInput()
