@@ -240,6 +240,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             //m_Audiosource.clip = m_DeadClip;
             //m_Audiosource.Play();
+            StopAllCoroutines();
             m_deathFX.gameObject.SetActive(true);
             m_deathFX.Play();
             base.OnDestroyed(sender, eventArgs);
@@ -330,12 +331,12 @@ namespace DChild.Gameplay.Characters.Enemies
             m_isSubmerged = false;
             m_animation.SetAnimation(0, m_info.idleAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleAnimation);
-            m_hitbox.Disable();
+            //m_hitbox.Disable();
             m_animation.SetAnimation(0, m_info.attack1, false);
             yield return new WaitForSeconds(m_info.attackHitboxDelay);
             m_slashFX.GetComponent<ParticleSystemRenderer>().flip = m_character.facing == HorizontalDirection.Right ? Vector3.zero : Vector3.right;
-            m_hitbox.Enable();
-            yield return new WaitForSeconds(.9f);
+            //m_hitbox.Enable();
+            yield return new WaitForSeconds(1.6f);
             m_slashFX.Play();
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack1.animation);
             m_attackBB.SetActive(false);
@@ -347,7 +348,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator RetreatRoutine()
         {
-            m_hitbox.Disable();
+            //m_hitbox.Disable();
             m_animation.EnableRootMotion(true, false);
             m_flinchHandle.enabled = false;
             AIBrainUtility.SetAnimation(m_animation, 0, m_info.retreatAnimation, false);
