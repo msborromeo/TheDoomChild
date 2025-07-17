@@ -189,7 +189,7 @@ namespace DChild.Gameplay.Combat
             ApplyDamageModification(m_data.info.damage);
         }
 
-        private void ApplyData()
+        public void ApplyData()
         {
             SetData(m_data);
         }
