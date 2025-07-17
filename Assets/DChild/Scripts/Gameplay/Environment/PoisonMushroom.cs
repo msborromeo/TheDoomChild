@@ -8,10 +8,10 @@ using System;
 using System.Collections;
 
 namespace DChild.Gameplay.Environment.Obstacles
-{   
+{
     public class PoisonMushroom : MonoBehaviour
     {
-        [SerializeField,OnValueChanged("OnDataChanged",includeChildren: true)]
+        [SerializeField, OnValueChanged("OnDataChanged", includeChildren: true)]
         private PoisonMushroomData m_data;
 
         private CountdownTimer m_emmisionDelayTime;
@@ -31,6 +31,10 @@ namespace DChild.Gameplay.Environment.Obstacles
 
         private FX m_emissionFX;
 
+        [SerializeField]
+        private ParticleSystem m_preBurstFX;
+        [SerializeField]
+        private ParticleSystem m_burstFX;
         private string m_idleAnimation;
         private SpineAnimation m_animation;
         private SortingHandle m_sortingHandle;
@@ -42,7 +46,7 @@ namespace DChild.Gameplay.Environment.Obstacles
             enabled = false;
             m_trigger.enabled = true;
             m_animation.SetAnimation(0, m_idleAnimation, true);
-           
+
         }
 
         private void OnDelayEnd(object sender, EventActionArgs eventArgs)
@@ -69,7 +73,7 @@ namespace DChild.Gameplay.Environment.Obstacles
         {
             if (e.Data.Name == m_data.emissionFXEvent)
             {
-               // OnEmissionFXSpawn(m_fxSpawner.InstantiateFX(m_data.emissionFXReference, Vector2.zero).gameObject, 0);
+                OnEmissionFXSpawn(m_fxSpawner.InstantiateFX(m_data.emissionFXReference, Vector2.zero).gameObject, 0);
             }
         }
 
@@ -83,9 +87,9 @@ namespace DChild.Gameplay.Environment.Obstacles
             instanceTransform.parent = null;
             m_emissionFX = instance.GetComponent<FX>();
             m_emissionFX.Play();
-            OnEmissionFXDone();
-            instance.GetComponent<SortingHandle>().SetOrder(m_sortingHandle.sortingLayerID, m_sortingHandle.sortingOrder+1);
-            m_damageCollider.enabled = true;
+            //OnEmissionFXDone();
+            instance.GetComponent<SortingHandle>().SetOrder(m_sortingHandle.sortingLayerID, m_sortingHandle.sortingOrder + 1);
+            //m_damageCollider.enabled = true;
         }
 
         private void OnEmissionFXDone()
@@ -95,15 +99,24 @@ namespace DChild.Gameplay.Environment.Obstacles
         }
 
         [Button]
-        private void EmitPoison()
+        private IEnumerator EmitPoison()
         {
             m_animation.SetAnimation(0, m_data.anticipationAnimation, true);
-            m_emmisionDelayTime.Reset();
-            OnAnticipationFXSpawn(m_fxSpawner.InstantiateFX(m_data.anticipationFXReference, Vector2.zero).gameObject,0);
-
-            enabled = true;
+            m_preBurstFX.Play();
             m_trigger.enabled = false;
-            StartCoroutine(DelayCoroutine());
+            yield return new WaitForSeconds(1f);
+            m_preBurstFX.Stop();
+            m_burstFX.Play();
+            m_trigger.enabled = false;
+            m_damageCollider.enabled = true;
+            m_animation.SetAnimation(0, m_data.emissionAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_data.emissionAnimation);
+            m_animation.SetAnimation(0, m_idleAnimation, true);
+            yield return new WaitForSeconds(3f);
+            m_trigger.enabled = true;
+            m_damageCollider.enabled = false;
+
+
 
         }
         IEnumerator DelayCoroutine()
@@ -123,7 +136,7 @@ namespace DChild.Gameplay.Environment.Obstacles
             instanceTransform.parent = null;
             m_anticipationFX = instance.GetComponent<FX>();
             m_anticipationFX.Play();
-            instance.GetComponent<SortingHandle>().SetOrder(m_sortingHandle.sortingLayerID, m_sortingHandle.sortingOrder+1);
+            instance.GetComponent<SortingHandle>().SetOrder(m_sortingHandle.sortingLayerID, m_sortingHandle.sortingOrder + 1);
         }
 
         private void Awake()
@@ -142,8 +155,7 @@ namespace DChild.Gameplay.Environment.Obstacles
         private void Start()
         {
             m_idleAnimation = m_animation.animationState.GetCurrent(0).Animation.Name;
-            m_animation.animationState.Event += OnEvent;
-            enabled = false;
+            // m_animation.animationState.Event += OnEvent;
         }
 
         private void Update()
@@ -159,9 +171,8 @@ namespace DChild.Gameplay.Environment.Obstacles
             {
                 if (collision.TryGetComponentInParent(out Hitbox hitbox))
                 {
-                    EmitPoison();
-                  
-                    
+                    StopAllCoroutines();
+                    StartCoroutine(EmitPoison());
                 }
             }
         }
