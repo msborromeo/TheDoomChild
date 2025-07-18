@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -7,50 +8,41 @@ namespace DChild.Gameplay.UI.Map
 {
     public class MapZoomHandler : MonoBehaviour
     {
-        [SerializeField] float _minimumScale = 0.5f;
-        [SerializeField] float _initialScale = 1f;
-        [SerializeField] float _maximumScale = 3f;
+        private RectTransform m_currentMap;
 
-        [SerializeField] float _scaleIncrement = .5f;
+        private const float DEFAULT_ZOOM = 1.0f;
+        private const float MIN_ZOOM = 0.75f;
+        private const float MAX_ZOOM = 1.5f;
 
-        [HideInInspector] Vector3 _scale;
+        private float m_currentX;
+        private float m_currentY;
 
-        RectTransform _thisTransform;
+        [SerializeField] private float m_scaleRate;
 
-        private void Awake()
+        public void SetupZoom(RectTransform receivedMap)
         {
-
-            _thisTransform = transform as RectTransform;
-
-            _scale.Set(_initialScale, _initialScale, 1f);
-            _thisTransform.localScale = _scale;
-
+            m_currentMap = receivedMap;
+            m_currentX = DEFAULT_ZOOM;
+            m_currentY = DEFAULT_ZOOM;
         }
 
-        public void OnScroll(PointerEventData eventData)
+
+        public void Zoom()
         {
-            Vector2 relativeMousePosition;
+            m_currentMap.localScale = new Vector2(m_currentX, m_currentY);
 
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(_thisTransform, Input.mousePosition, null, out relativeMousePosition);
+            var currentZoom = m_currentMap.localScale.y;
 
-            float delta = eventData.scrollDelta.y;
+            var scrollWheel = Mouse.current.scroll.ReadValue();
 
-            if (delta > 0 && _scale.x < _maximumScale)
-            {   //zoom in
+            if (scrollWheel.y == 0) { return; }
 
-                _scale.Set(_scale.x + _scaleIncrement, _scale.y + _scaleIncrement, 1f);
-                _thisTransform.localScale = _scale;
-                _thisTransform.anchoredPosition -= (relativeMousePosition * _scaleIncrement);
-            }
 
-            else if (delta < 0 && _scale.x > _minimumScale)
-            {   //zoom out
-                float scalex = Mathf.Clamp(_scale.x - _scaleIncrement, _minimumScale, _maximumScale);
-                float scaley = Mathf.Clamp(_scale.y - _scaleIncrement, _minimumScale, _maximumScale);
-                _scale.Set(scalex, scaley, 1f);
-                _thisTransform.localScale = _scale;
-                _thisTransform.anchoredPosition += (relativeMousePosition * _scaleIncrement);
-            }
+            var ySign = Mathf.Sign(scrollWheel.y);
+
+            m_currentX += m_scaleRate * ySign;
+            m_currentY += m_scaleRate * ySign;
+
         }
     }
 }

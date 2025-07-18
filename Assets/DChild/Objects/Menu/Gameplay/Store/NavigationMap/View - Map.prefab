@@ -1593,6 +1593,7 @@ MonoBehaviour:
   m_tracker: {fileID: 7802630305321987522}
   m_mapNeedsCompleteUpdate: 1
   m_collectathonManager: {fileID: 1740936220815580299}
+  m_zoomHandler: {fileID: 5412824514664571244}
 --- !u!114 &7802630305321987577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2568,7 +2569,7 @@ MonoBehaviour:
   m_Content: {fileID: 0}
   m_Horizontal: 1
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
@@ -2582,7 +2583,19 @@ MonoBehaviour:
   m_VerticalScrollbarSpacing: -3
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5412824514664571244}
+        m_TargetAssemblyTypeName: DChild.Gameplay.UI.Map.MapZoomHandler, Assembly-CSharp
+        m_MethodName: Zoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5412824514664571244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2595,11 +2608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c5db465d0b72a842b6293bdaff68406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomSpeed: 0.1
-  minZoom: 0.5
-  maxZoom: 2
-  scrollRect: {fileID: 7802630306628228373}
-  content: {fileID: 7802630304946552158}
+  m_scaleRate: 0.025
 --- !u!1 &7959035831616585203
 GameObject:
   m_ObjectHideFlags: 0
