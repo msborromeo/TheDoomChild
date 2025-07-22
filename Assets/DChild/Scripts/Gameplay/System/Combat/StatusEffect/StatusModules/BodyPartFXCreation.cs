@@ -12,7 +12,10 @@ namespace DChild.Gameplay.Combat.StatusAilment
         private BodyReference.BodyPart m_attachTo;
         [SerializeField]
         private GameObject m_fx;
-
+        [SerializeField]
+        private bool m_isSpine;
+        [SerializeField, ShowIf("m_isSpine")]
+        private CobwebNiOtot m_spineModel;
         private Dictionary<int, GameObject> m_fxTracker;
         private FXSpawnHandle<FX> m_fXSpawnHandle;
 
@@ -26,10 +29,14 @@ namespace DChild.Gameplay.Combat.StatusAilment
         public void Start(Character character)
         {
             var bodypart = character.GetBodyPart(m_attachTo);
-            if(m_startFX == null)
+            if (m_startFX == null)
             {
                 var instance = m_fXSpawnHandle.InstantiateFX(m_fx, bodypart.position).gameObject;
+                m_spineModel = instance.GetComponentInChildren<CobwebNiOtot>();
+                if (m_isSpine)
+                    m_spineModel.Appear();
                 instance.transform.parent = bodypart;
+                instance.transform.parent = null;
                 if (m_fxTracker == null)
                 {
                     m_fxTracker = new Dictionary<int, GameObject>();
@@ -53,18 +60,30 @@ namespace DChild.Gameplay.Combat.StatusAilment
 
         public void Stop(Character character)
         {
+            if (m_isSpine)
+                m_spineModel.Disappear();
             var instanceID = character.GetInstanceID();
             character.InstanceDestroyed -= OnInstanceDestroyed;
             RemoveFXForInstance(instanceID);
-           if(m_endFX != null)
+            if (m_endFX != null)
             {
                 var bodypart = character.GetBodyPart(m_attachTo);
                 var instance = m_fXSpawnHandle.InstantiateFX(m_endFX.gameObject, bodypart.position).gameObject;
                 instance.transform.parent = bodypart;
                 instance.GetComponent<ParticleFX>().Play();
             }
+            else
+            {
+                if (m_isSpine)
+                {
+                    var bodypart = character.GetBodyPart(m_attachTo);
+                    var instance = m_fXSpawnHandle.InstantiateFX(m_fx, bodypart.position).gameObject;
+                    m_spineModel = instance.GetComponentInChildren<CobwebNiOtot>();
+                    m_spineModel.Disappear();
+                    instance.transform.parent = bodypart;
+                }
+            }
         }
-
         private void RemoveFXForInstance(int instanceID)
         {
             if (m_fxTracker.ContainsKey(instanceID))
@@ -78,7 +97,5 @@ namespace DChild.Gameplay.Combat.StatusAilment
         {
             RemoveFXForInstance(eventArgs.ID);
         }
-
-       
     }
 }
