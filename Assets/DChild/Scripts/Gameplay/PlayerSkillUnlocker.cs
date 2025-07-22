@@ -92,7 +92,7 @@ namespace DChild.Gameplay
                 return;
             }
             m_isUsed = false;
-            m_collider.enabled = true;
+            //m_collider.enabled = true;
             SetGlows(true);
             m_shrineVisualHandle.SkillShrineState(m_isUsed);
 
