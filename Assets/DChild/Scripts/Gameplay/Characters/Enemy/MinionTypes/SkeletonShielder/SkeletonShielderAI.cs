@@ -365,7 +365,7 @@ namespace DChild.Gameplay.Characters.Enemies
             GetComponentInChildren<Hitbox>().gameObject.SetActive(false);
             m_boundBoxGO.SetActive(false);
             m_movement.Stop();
-            //StartCoroutine(DeathRoutine());
+            StartCoroutine(DeathRoutine());
             base.OnDestroyed(sender, eventArgs);
          
         }
@@ -396,7 +396,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 
             }
 
-            m_stateHandle.ApplyQueuedState();
+            //m_stateHandle.ApplyQueuedState();
 
             // }
         }
@@ -492,10 +492,12 @@ namespace DChild.Gameplay.Characters.Enemies
             //    m_turnHandle.Execute(m_info.turnAnimation.animation, m_info.idleAnimation.animation);
             //    yield return new WaitForAnimationComplete(m_animation.animationState, m_info.turnAnimation.animation);
             //}
+            yield return new WaitForSeconds(0.2f);
             var distancefromplayer = Vector2.Distance(m_targetInfo.position, transform.position);
             var isPlayerNear = distancefromplayer < m_info.ShieldBash.range;
             if (!isPlayerNear)
             {
+                Debug.LogError("!!!!!!!!!!!!!!!!");
                 do
                 {
                     distancefromplayer = Vector2.Distance(m_targetInfo.position, transform.position);
@@ -505,7 +507,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     yield return null;
                 } while (!isPlayerNear && !m_wallSensor.isDetecting && m_edgeSensor.isDetecting && IsFacingTarget());
             }
-
+            Debug.LogError("222222222222222222");
             m_movement.Stop();
             m_animation.SetAnimation(0, m_info.idleGuardAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleGuardAnimation);
@@ -524,14 +526,17 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_attackDecider.hasDecidedOnAttack = false;
 
                 }
-                //else
-                //{
+                else
+                {
+                    m_stateHandle.QueueState(State.Cooldown);
                 //    m_turnHandle.Execute(m_info.turnAnimation.animation, m_info.idleAnimation.animation);
                 //    yield return new WaitForAnimationComplete(m_animation.animationState, m_info.turnAnimation.animation);
-                //}
+                }
 
             }
+            //m_stateHandle.SetState(State.ReevaluateSituation);
             m_stateHandle.ApplyQueuedState();
+            Debug.LogError("33333333333333333333333");
             //if (m_targetHit)
             //{
             //    m_targetHitVfx.Play();
@@ -623,18 +628,18 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator DeathRoutine()
         {
-            StopAllCoroutines();
+            //StopAllCoroutines();
             if (m_minionMode == MinionMode.NoShield)
             {
-                m_animation.SetAnimation(0, m_info.deathAnimation2, false);
-                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathAnimation2);
+                //m_animation.SetAnimation(0, m_info.deathAnimation2, false);
+                //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathAnimation2);
                 m_deathFx.Play();
     
             }
             else
             {
                 m_shieldGlow.Stop();
-                m_animation.SetAnimation(0, m_info.deathAnimation, false);
+                //m_animation.SetAnimation(0, m_info.deathAnimation, false);
             }
 
             yield return null;
@@ -703,7 +708,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
                 case State.Turning:
                     m_stateHandle.Wait(m_turnState);
-
+                    Debug.LogError("I GOT CALLED no guard");
                     m_turnHandle.Execute(m_info.turnAnimation.animation, m_info.idleAnimation.animation);
 
 
@@ -744,8 +749,9 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
                 case State.Turning:
                     m_stateHandle.Wait(m_turnState);
+                    Debug.LogError("I GOT CALLED yes guard");
                     m_turnHandle.Execute(m_info.turnAnimation.animation, m_info.idleGuardAnimation.animation);
-                    m_stateHandle.ApplyQueuedState();
+                    //m_stateHandle.ApplyQueuedState();
                     break;
 
                 case State.Attacking:
@@ -882,8 +888,9 @@ namespace DChild.Gameplay.Characters.Enemies
 
                 case State.Turning:
                     m_stateHandle.Wait(m_turnState);
+                    Debug.LogError("I GOT CALLED no shield");
                     m_turnHandle.Execute(m_info.noShieldTurn.animation, m_info.noShieldIdle.animation);
-                    m_stateHandle.ApplyQueuedState();
+                    //m_stateHandle.ApplyQueuedState();
                     break;
 
                 case State.Crouching:

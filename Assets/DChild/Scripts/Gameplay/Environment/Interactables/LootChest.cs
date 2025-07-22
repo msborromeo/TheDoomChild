@@ -89,6 +89,7 @@ namespace DChild.Gameplay.Environment
             {
                 GivePlayerLoot();
                 SendNotification();
+                GetComponent<Collider2D>().enabled = false;
             }
 
             InteractionOptionChange?.Invoke(this, EventActionArgs.Empty);
@@ -98,7 +99,7 @@ namespace DChild.Gameplay.Environment
         private void ShowOpenChestVisual()
         {
             m_visuals.Open();
-            GetComponent<Collider2D>().enabled = false;
+            //GetComponent<Collider2D>().enabled = false;
             GetComponent<EventSounds>().ActivateCodeTriggeredEvent1();
             //GetComponent<VFXSpawner>().Spawn();
             m_chestFx.Play();
