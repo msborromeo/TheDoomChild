@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.Environment;
+using DChild.Gameplay.UI.Map;
 using DChild.UI;
 using Doozy.Runtime.UIManager.Containers;
 using UnityEngine;
@@ -18,6 +19,9 @@ namespace DChild.Gameplay.NavigationMap
         private bool m_mapNeedsCompleteUpdate = true;
         [SerializeField]
         private CollectathonUIManager m_collectathonManager;
+        [SerializeField]
+        private MapZoomHandler m_zoomHandler;
+
 
         public void UpdateConfiguration(Location location, int sceneIndex, Transform inGameReference, Vector2 mapReferencePoint, Vector2 calculationOffset)
         {
@@ -26,6 +30,7 @@ namespace DChild.Gameplay.NavigationMap
                 NavigationMapSceneHandle.changes.Clear();
                 m_tracker.RemoveUIReferencesFromCurrentMap();
                 m_currentMap = m_instantiator.LoadMapFor(location);
+                m_zoomHandler.SetupZoom(m_currentMap);
                 m_mapNeedsCompleteUpdate = true;
                 m_mapInstance = m_currentMap.GetComponentInChildren<NavigationMapInstance>();
                 m_collectathonManager.SetCollectathonDetails(location);
@@ -36,11 +41,17 @@ namespace DChild.Gameplay.NavigationMap
             m_tracker.SetCalculationOffsets(calculationOffset);
         }
 
+        public void Zoom()
+        {
+
+        }
+
         public void ForceMapUpdateOnNextOpen()
         {
             m_mapNeedsCompleteUpdate = true;
         }
 
+       
         public void OpenMap()
         {
             if (m_mapNeedsCompleteUpdate)
