@@ -55,6 +55,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public bool IsSwordThrustDurationOver() => m_durationTimer <= 0;
 
+        public void HandleCharge() => m_chargeTimer -= GameplaySystem.time.deltaTime;
+
         public void StartCharge()
         {
             m_chargeTimer = m_configuration.chargeDuration;
@@ -64,19 +66,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_animator.SetBool(m_swordThrustAnimationParameter, true);
             m_animator.SetBool(m_chargingAnimationParameter, true);
             m_attacker.SetDamageModifier(m_thrust.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
-        }
-
-        public void HandleCharge()
-        {
-            if (m_chargeTimer > 0)
-            {
-                m_chargeTimer -= GameplaySystem.time.deltaTime;
-            }
-            else
-            {
-                //m_chargeFX?.Stop(true);
-                //m_finishedChargeFX?.Play(true);
-            }
         }
 
         public override void Cancel()
