@@ -20,12 +20,15 @@ namespace DChildDebug.Cutscene
         private UIContainer m_view;
         private float m_holdButtonDurationTimer;
 
+
+
         public static event Action SkipExecute;
 
         public void Reset()
         {
             m_holdButtonDurationTimer = 0;
             m_ui.SetProgression(0);
+
         }
 
         public void SubscribeToInput()
@@ -42,6 +45,7 @@ namespace DChildDebug.Cutscene
 
         private void OnSkipHoldStart(InputAction.CallbackContext obj)
         {
+            m_view.Show();
             StopAllCoroutines();
             StartCoroutine(SkipRoutine());
         }
@@ -51,6 +55,7 @@ namespace DChildDebug.Cutscene
             Debug.Log("Skip Routine Canceled");
             StopAllCoroutines();
             m_ui.SetProgression(0);
+            m_view.Hide();
         }
 
         private IEnumerator SkipRoutine()
@@ -70,6 +75,7 @@ namespace DChildDebug.Cutscene
         [Button]
         private void SkipSequence()
         {
+            //DO NOT CONTROL TIMELINE SKIP HERE PLS TYVM RAAAAAAAAAAAAAAAAAAH
             m_view.Hide();
             SkipExecute?.Invoke();
         }

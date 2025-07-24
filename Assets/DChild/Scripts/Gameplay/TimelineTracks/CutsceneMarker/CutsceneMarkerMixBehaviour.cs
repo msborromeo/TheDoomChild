@@ -28,7 +28,7 @@ namespace DChildDebug.Cutscene
                     if (Application.isPlaying)
                     {
                         SequenceSkipHandle.SkipExecute += OnSkip;
-                        GameplaySystem.gamplayUIHandle.ShowSequenceSkip(true);
+                        /*GameplaySystem.gamplayUIHandle.ShowSequenceSkip(true);*/
                     }
                     m_playedBehaviourIndex.Add(i);
                 }
