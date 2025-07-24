@@ -1031,8 +1031,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
                 m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
                 return;
-            if (m_state.isChargingAttack)
-                return;
             if (m_state.isAimingProjectile)
                 return;
 
@@ -1126,7 +1124,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashHeldInput()
         {
-            if (m_state.isSliding || m_state.isCrouched || m_state.isAttacking || m_state.isGrounded == false)
+            if (m_state.isSliding || m_state.isCrouched)
+                return;
+            if (m_state.isGrounded == false)
                 return;
             if (m_state.isAimingProjectile)
                 return;
@@ -1160,6 +1160,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             if (m_state.isChargingAttack)
             {
+                m_chargeAttackHandle.Set(m_swordThrust, () => false);
                 if (m_swordThrust.IsChargeComplete())
                 {
                     PrepareForGroundAttack();
@@ -2007,11 +2008,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             if (m_state.isAttacking)
             {
-                if (m_state.isChargingAttack)
-                {
-                    m_chargeAttackHandle?.Execute();
-                }
-                else if (m_state.isAimingProjectile)
+                if (m_state.isAimingProjectile)
                 {
                     if (m_projectileThrow?.HasReachedVerticalThreshold() == true)
                     {
@@ -2026,6 +2023,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     m_attackRegistrator?.ResetHitCache();
                 }
+            }
+            else if (m_state.isChargingAttack)
+            {
+                m_chargeAttackHandle?.Execute();
             }
             else if (m_state.isDashing)
             {
