@@ -2,6 +2,7 @@
 using DChild.Gameplay.Characters.Players.State;
 using DChild.Gameplay.Combat;
 using Sirenix.OdinInspector;
+using System;
 using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.Modules
@@ -23,7 +24,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             private float m_nextAttackDelay;
             [SerializeField, Range(0f, 100f)]
             private float m_critChance = 0;
-            [SerializeField, MinValue(0), Tooltip("Multiply damage by this value on critical hit")]
+            [SerializeField, MinValue(0), Tooltip("Multiply modifier by this value on critical hit")]
             private float m_critModifier;
             [SerializeField]
             private ParticleSystem m_critFX;
@@ -32,6 +33,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             public float damageModifier => m_damageModifier;
             public float critChance => m_critChance;
             public float critModifier => m_critModifier;
+            public ParticleSystem critFX => m_critFX;
             public Transform fxPosition => m_fxPosition;
             public void PlayFX(bool value)
             {

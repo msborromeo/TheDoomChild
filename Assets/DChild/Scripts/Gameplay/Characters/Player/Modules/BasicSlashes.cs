@@ -150,7 +150,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_animator.SetFloat(m_yInputParameter, 1);
                     m_timer = m_groundOverhead.nextAttackDelay;
                     m_attacker.SetDamageModifier(m_groundOverhead.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage), 
-                        m_groundOverhead.critChance, m_groundOverhead.critModifier);
+                        m_groundOverhead.critChance,
+                        m_groundOverhead.critModifier,
+                        m_groundOverhead.critFX);
                     m_rigidBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
                     break;
                 case Type.Crouch:

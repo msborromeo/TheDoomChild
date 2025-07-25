@@ -24,7 +24,7 @@ namespace DChild.Gameplay.Combat
         private AttackDamageInfo m_currentAttackInfo;
         private Damage m_baseDamage;
         private bool m_isDoingCrit = false;
-
+        private ParticleSystem m_critFX = null;
 
         [ShowInInspector, HideInEditorMode, MinValue(0), OnValueChanged("ApplyDamageModification")]
         private float m_damageModifier;
@@ -85,7 +85,15 @@ namespace DChild.Gameplay.Combat
                     using (Cache<CombatConclusionEventArgs> cacheEventArgs = Cache<CombatConclusionEventArgs>.Claim())
                     {
                         cacheEventArgs.Value.Initialize(cacheInfo, targetInfo, cacheResult);
+                        if (m_isDoingCrit)
+                        {
+                            if (m_critFX != null)
+                            {
+                              m_critFX?.Play();
+                            }
+                        }
                         TargetDamaged?.Invoke(this, cacheEventArgs.Value);
+      
                         cacheEventArgs.Release();
                     }
                     cacheInfo.Release();
@@ -116,7 +124,7 @@ namespace DChild.Gameplay.Combat
             ApplyDamageModification(m_baseDamage);
         }
 
-        public void SetDamageModifier(float value, float critChance = 0, float critModifier = 0)
+        public void SetDamageModifier(float value, float critChance = 0, float critModifier = 0, ParticleSystem critFX = null)
         {
             //Crit modifies modifier here
             float rollValue = UnityEngine.Random.Range(0, 100f);
@@ -131,6 +139,7 @@ namespace DChild.Gameplay.Combat
             if (m_isDoingCrit)
             {
                 m_damageModifier *= critModifier;
+                m_critFX = critFX;
             }
             ApplyDamageModification(m_baseDamage);
         }
