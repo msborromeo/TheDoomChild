@@ -157,11 +157,17 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     break;
                 case Type.Crouch:
                     m_timer = m_crouch.nextAttackDelay;
-                    m_attacker.SetDamageModifier(m_crouch.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+                    m_attacker.SetDamageModifier(m_crouch.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage),
+                        m_crouch.critChance,
+                        m_crouch.critModifier,
+                        m_crouch.critFX);
                     break;
                 case Type.MidAir_Forward:
                     m_timer = m_midAirForward.nextAttackDelay;
-                    m_attacker.SetDamageModifier(m_midAirForward.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+                    m_attacker.SetDamageModifier(m_midAirForward.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage),
+                        m_midAirForward.critChance,
+                        m_midAirForward.critModifier,
+                        m_midAirForward.critFX);
                     m_canAirAttack = false;
 
                     if (m_adjustGravity == true)
@@ -174,7 +180,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 case Type.MidAir_Overhead:
                     m_animator.SetFloat(m_yInputParameter, 1);
                     m_timer = m_midAirOverhead.nextAttackDelay;
-                    m_attacker.SetDamageModifier(m_midAirOverhead.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+                    m_attacker.SetDamageModifier(m_midAirOverhead.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage),
+                        m_midAirOverhead.critChance, 
+                        m_midAirOverhead.critModifier,
+                        m_midAirOverhead.critFX);
                     m_canAirAttack = false;
 
                     if (m_adjustGravity == true)
