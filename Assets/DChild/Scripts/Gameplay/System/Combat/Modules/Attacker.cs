@@ -114,13 +114,36 @@ namespace DChild.Gameplay.Combat
             ApplyDamageModification(m_baseDamage);
         }
 
-        public void SetDamageModifier(float value)
+        public void SetDamageModifier(float value, float critChance = 0, float critModifier = 0)
         {
+            //Crit modifies modifier here
+            float rollValue = UnityEngine.Random.Range(0, 100f);
+            bool willCrit = rollValue <= critChance;
+            
             if (m_damageModifier != value)
             {
                 m_damageModifier = Mathf.Max(0, value);
-                ApplyDamageModification(m_baseDamage);
+
             }
+
+            if (willCrit)
+            {
+                m_damageModifier *= critModifier;
+            }
+            ApplyDamageModification(m_baseDamage);
+        }
+
+        public void RollForCrit(float critChance, float critModifier)
+        {
+            float rollValue = UnityEngine.Random.Range(0, 100f);
+            m_willCrit = rollValue <= critChance;
+            if (m_willCrit == false)
+                return;
+
+            var damage = m_currentAttackInfo.damage;
+            damage.value = Mathf.CeilToInt(damage.value * critModifier);
+            m_currentAttackInfo.damage = damage;
+            m_willCrit = false;
         }
 
         public void SetIgnoresBlock(bool ignoresBlock)
