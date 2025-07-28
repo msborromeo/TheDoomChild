@@ -11,23 +11,12 @@ namespace DChild.Gameplay.NavigationMap
         [SerializeField] private PointOfInterestIconGroupUI[] m_iconGroupCollection;
 
 
-        public void OnMapZoom(object sender, MapZoomEventActionArgs eventArgs)
+        public void OnMapZoom(object sender, MapZoomEventActionArgs zoomArgs)
         {
-            AdjustCollectionScaling(m_iconGroupCollection, eventArgs, 0);
-        }
-        //foreach (var iconGroup in m_iconGroupCollection)
-            //{
-            //    iconGroup.Zoom(eventArgs.iconScaleRate);
-            //}
-        //}
-
-        private void AdjustCollectionScaling(PointOfInterestIconGroupUI[] groupCollection, MapZoomEventActionArgs zoomArgs , int i)
-        {
-            if ( i == groupCollection.Length)
-                return;
-
-            groupCollection[i].Zoom(zoomArgs.scrollWheel, zoomArgs.iconScaleRate);
-            AdjustCollectionScaling(groupCollection, zoomArgs, i + 1);
+            foreach (var iconGroup in m_iconGroupCollection)
+            {
+                iconGroup.Zoom(zoomArgs.scrollWheel, zoomArgs.iconScaleRate);
+            }
         }
     }
 }
