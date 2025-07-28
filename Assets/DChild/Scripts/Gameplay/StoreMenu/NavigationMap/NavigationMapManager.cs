@@ -75,6 +75,8 @@ namespace DChild.Gameplay.NavigationMap
             m_tracker.UpdateTrackerPosition();
             MoveTrackerToCenter();
             m_collectathonManager.ShowCollectathonDetails();
+            m_zoomHandler.OnMapZoom += m_iconManager.OnMapZoom;
+
         }
 
         private void MoveTrackerToCenter()
