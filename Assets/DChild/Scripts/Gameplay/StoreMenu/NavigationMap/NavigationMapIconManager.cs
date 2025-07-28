@@ -26,7 +26,7 @@ namespace DChild.Gameplay.NavigationMap
             if ( i == groupCollection.Length)
                 return;
 
-            groupCollection[i].Zoom(zoomArgs.scrollWheel, i);
+            groupCollection[i].Zoom(zoomArgs.scrollWheel, zoomArgs.iconScaleRate);
             AdjustCollectionScaling(groupCollection, zoomArgs, i + 1);
         }
     }
