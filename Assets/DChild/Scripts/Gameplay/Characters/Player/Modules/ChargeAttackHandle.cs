@@ -16,29 +16,29 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void Execute()
         {
-            if (m_instance != null)
+            if (m_instance == null)
+                return;
+
+            if (m_instance?.IsChargeComplete() ?? false)
             {
-                if (m_instance?.IsChargeComplete() ?? false)
+                if (GetInput() == false)
                 {
-                    if (GetInput() == false)
-                    {
-                        m_instance?.Execute();
-                    }
-                    else
-                    {
-                        m_instance.HandleCharge();
-                    }
+                    m_instance?.Execute();
                 }
                 else
                 {
-                    if (GetInput() == true)
-                    {
-                        m_instance.HandleCharge();
-                    }
-                    else
-                    {
-                        m_instance.Cancel();
-                    }
+                    m_instance.HandleCharge();
+                }
+            }
+            else
+            {
+                if (GetInput() == true)
+                {
+                    m_instance.HandleCharge();
+                }
+                else
+                {
+                    m_instance.Cancel();
                 }
             }
         }
