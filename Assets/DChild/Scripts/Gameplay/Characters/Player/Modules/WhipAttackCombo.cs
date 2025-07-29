@@ -108,7 +108,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_animator.SetBool(m_animationParameter, true);
             m_animator.SetBool(m_whipAttackAnimationParameter, true);
             m_animator.SetInteger(m_whipStateAnimationParameter, m_currentWhipState);
-            m_attacker.SetDamageModifier(m_whipComboInfo[m_currentWhipState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+            m_attacker.SetDamageModifier(m_whipComboInfo[m_currentWhipState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage),
+                m_whipComboInfo[m_currentWhipState].critChance, 
+                m_whipComboInfo[m_currentWhipState].critModifier, 
+                m_whipComboInfo[m_currentWhipState].critFX);
             m_currentVisualWhipState = m_currentWhipState;
 
             m_comboResetDelayTimer = m_whipComboInfo[m_currentWhipState].nextAttackDelay;
