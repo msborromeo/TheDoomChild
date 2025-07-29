@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.Characters;
+using DChild.Gameplay.Systems.Serialization;
 using PlayerNew;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -135,6 +136,11 @@ namespace DChild.Gameplay.Environment
                     m_exitDirection = TravelDirection.Up;
                 }
             }
+        }
+
+        public void SetLocationDataReference(LocationData locationData)
+        {
+           // no need
         }
 #endif
     }
