@@ -1,6 +1,7 @@
 ﻿using DChild.Gameplay.Characters;
 using DChild.Gameplay.Characters.Players.Modules;
 using DChild.Gameplay.Systems;
+using DChild.Gameplay.Systems.Serialization;
 using PlayerNew;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,12 +11,11 @@ namespace DChild.Gameplay.Environment
     [System.Serializable]
     public class DoorwayHandle : ISwitchHandle
     {
-        [SerializeField, InfoBox("IF CUSTOM NAME IS NOT ENABLED, REFERENCE THIS GAMEOBJECT TO Destination Name :D", InfoMessageType.Warning)]
+        [SerializeField]
         private bool m_isCustomName;
         [SerializeField, ShowIf("m_isCustomName")]
         private string m_CustomName;
-        [SerializeField, HideIf("m_isCustomName")]
-        private LocationSwitcher m_DestinationName;
+        private LocationData m_destinationName;
         [SerializeField]
         private Transform m_promptSource;
         [SerializeField]
@@ -36,8 +36,8 @@ namespace DChild.Gameplay.Environment
         {
             get
             {
-
-                var locationName = m_DestinationName.locationData.location.ToString().Replace("_", " ");
+                
+                var locationName = m_destinationName.location.ToString().Replace("_", " ");
                 if (locationName != null && !m_isCustomName)
                 {
                     m_CustomName = locationName;
@@ -103,6 +103,11 @@ namespace DChild.Gameplay.Environment
         private void OnDoorwayPostExit()
         {
             GameplaySystem.playerManager.StopCharacterControlOverride();
+        }
+
+        public void SetLocationDataReference(LocationData locationData)
+        {
+            m_destinationName = locationData;
         }
     }
 }
