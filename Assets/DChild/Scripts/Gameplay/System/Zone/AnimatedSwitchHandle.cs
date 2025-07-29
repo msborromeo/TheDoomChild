@@ -1,6 +1,7 @@
 ﻿using DChild.Gameplay;
 using DChild.Gameplay.Characters.Players.Modules;
 using DChild.Gameplay.Environment;
+using DChild.Gameplay.Systems.Serialization;
 using PlayerNew;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -79,6 +80,11 @@ namespace DChild.Gameplay.Environment
                     }
                     break;
             }
+        }
+
+        public void SetLocationDataReference(LocationData locationData)
+        {
+           //no need
         }
     }
 }
