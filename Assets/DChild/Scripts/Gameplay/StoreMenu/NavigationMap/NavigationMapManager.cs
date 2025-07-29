@@ -2,6 +2,7 @@
 using DChild.Gameplay.UI.Map;
 using DChild.UI;
 using Doozy.Runtime.UIManager.Containers;
+using Holysoft.Event;
 using UnityEngine;
 
 namespace DChild.Gameplay.NavigationMap
@@ -22,6 +23,9 @@ namespace DChild.Gameplay.NavigationMap
         [SerializeField]
         private MapZoomHandler m_zoomHandler;
 
+        private NavigationMapIconManager m_iconManager;
+
+        public event EventAction<EventActionArgs> OnMapZoom;
 
         public void UpdateConfiguration(Location location, int sceneIndex, Transform inGameReference, Vector2 mapReferencePoint, Vector2 calculationOffset)
         {
@@ -33,17 +37,13 @@ namespace DChild.Gameplay.NavigationMap
                 m_zoomHandler.SetupZoom(m_currentMap);
                 m_mapNeedsCompleteUpdate = true;
                 m_mapInstance = m_currentMap.GetComponentInChildren<NavigationMapInstance>();
+                m_iconManager= m_currentMap.GetComponentInChildren<NavigationMapIconManager>();
                 m_collectathonManager.SetCollectathonDetails(location);
             }
 
             m_tracker.SetReferencePointPosition(m_currentMap, mapReferencePoint);
             m_tracker.SetInGameTrackReferencePoint(inGameReference);
             m_tracker.SetCalculationOffsets(calculationOffset);
-        }
-
-        public void Zoom()
-        {
-
         }
 
         public void ForceMapUpdateOnNextOpen()
@@ -75,6 +75,8 @@ namespace DChild.Gameplay.NavigationMap
             m_tracker.UpdateTrackerPosition();
             MoveTrackerToCenter();
             m_collectathonManager.ShowCollectathonDetails();
+            m_zoomHandler.OnMapZoom += m_iconManager.OnMapZoom;
+
         }
 
         private void MoveTrackerToCenter()
@@ -88,6 +90,7 @@ namespace DChild.Gameplay.NavigationMap
         public void HideNavigationMap()
         {
             var showMap = m_currentMap.GetComponent<UIContainer>();
+            m_zoomHandler.OnMapZoom -= m_iconManager.OnMapZoom;
             showMap.Hide();
         }
         public void ShowNavigationMap()
