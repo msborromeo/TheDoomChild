@@ -90,6 +90,7 @@ namespace DChild.Gameplay.NavigationMap
         public void HideNavigationMap()
         {
             var showMap = m_currentMap.GetComponent<UIContainer>();
+            m_zoomHandler.OnMapZoom -= m_iconManager.OnMapZoom;
             showMap.Hide();
         }
         public void ShowNavigationMap()
