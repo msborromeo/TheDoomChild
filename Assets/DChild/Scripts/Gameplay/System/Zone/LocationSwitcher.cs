@@ -151,6 +151,7 @@ namespace DChild.Gameplay.Systems
             m_poster = GetComponent<LocationPoster>();
             m_poster.data.OnArrival += OnArrival;
             Debug.Log($"{m_poster.name} is Logged", this);
+            m_handle.SetLocationDataReference(m_destination);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
