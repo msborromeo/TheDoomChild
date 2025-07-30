@@ -42,7 +42,7 @@ namespace DChild.Gameplay.NavigationMap
 
         private void Awake()
         {
-            var iconList = GetComponentsInChildren<RectTransform>(true).Skip(1);
+            var iconList = GetComponentsInChildren<RectTransform>().Skip(1);
             m_pointIcons = iconList.ToArray();
         }
     }
