@@ -7,10 +7,16 @@ namespace DChild.Gameplay.NavigationMap
 {
     public class PointOfInterestIconGroupUI: MonoBehaviour
     {
-        private const float MIN_SIZE= 1f;
-        private const float MAX_SIZE = 3f;
+        private float m_minSize= 1f;
+        private float m_maxSize = 3f;
 
         private RectTransform[] m_pointIcons;
+
+        public void SetZoomConstraints(float min, float max)
+        {
+            m_minSize = min;
+            m_maxSize = max;
+        }
 
         public void Zoom(Vector2 scrollValue, float scaleRate)
         {
@@ -26,14 +32,14 @@ namespace DChild.Gameplay.NavigationMap
             var currentY = icon.localScale.y;
             currentY += ySign * scaleRate;
 
-            if (currentY < MIN_SIZE)
+            if (currentY < m_minSize)
             {
-                currentY = MIN_SIZE;
+                currentY = m_minSize;
 
             }
-            else if (currentY > MAX_SIZE)
+            else if (currentY > m_maxSize)
             {
-                currentY = MAX_SIZE;
+                currentY = m_maxSize;
             }
 
             icon.localScale = new Vector2(currentY, currentY);

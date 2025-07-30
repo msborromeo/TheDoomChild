@@ -10,6 +10,8 @@ namespace DChild.Gameplay.NavigationMap
     {
         [SerializeField] private PointOfInterestIconGroupUI[] m_iconGroupCollection;
 
+        [SerializeField] private float m_minZoom;
+        [SerializeField] private float m_maxZoom;
 
         public void OnMapZoom(object sender, MapZoomEventActionArgs zoomArgs)
         {
@@ -17,6 +19,15 @@ namespace DChild.Gameplay.NavigationMap
             {
                 iconGroup.Zoom(zoomArgs.scrollWheel, zoomArgs.iconScaleRate);
             }
+        }
+
+        private void Awake()
+        {
+            foreach (var iconGroup in m_iconGroupCollection)
+            {
+                iconGroup.SetZoomConstraints(m_minZoom, m_maxZoom);
+            }
+
         }
     }
 }
