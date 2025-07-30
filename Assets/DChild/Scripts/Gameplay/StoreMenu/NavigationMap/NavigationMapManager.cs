@@ -39,6 +39,7 @@ namespace DChild.Gameplay.NavigationMap
                 m_mapInstance = m_currentMap.GetComponentInChildren<NavigationMapInstance>();
                 m_iconManager= m_currentMap.GetComponentInChildren<NavigationMapIconManager>();
                 m_collectathonManager.SetCollectathonDetails(location);
+                m_zoomHandler.SetZoomConstraints(m_mapInstance.minZoom, m_mapInstance.maxZoom);
             }
 
             m_tracker.SetReferencePointPosition(m_currentMap, mapReferencePoint);

@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.Characters.Enemies;
+using Doozy.Runtime.Nody;
 using Holysoft.Event;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -28,8 +29,8 @@ namespace DChild.Gameplay.UI.Map
         private RectTransform m_currentMap;
 
         private const float DEFAULT_ZOOM = 1.0f;
-        private const float MIN_ZOOM = 0.5f;
-        private const float MAX_ZOOM = 1.5f;
+        private float m_minZoom;
+        private float m_maxZoom;
 
         private float m_currentY;
 
@@ -45,6 +46,11 @@ namespace DChild.Gameplay.UI.Map
             m_currentY = DEFAULT_ZOOM;
         }
 
+        public void SetZoomConstraints(float min, float max)
+        {
+            m_minZoom = min;
+            m_maxZoom = max;
+        }
 
         public void Zoom()
         {
@@ -59,17 +65,18 @@ namespace DChild.Gameplay.UI.Map
 
             m_currentY += m_mapScale * ySign;
 
-            if (m_currentY < MIN_ZOOM)
-            {
-                m_currentY = MIN_ZOOM;
-
-            }
-            else if (m_currentY > MAX_ZOOM)
-            {
-                m_currentY = MAX_ZOOM;
-            }
-
+            Debug.Log($"current y: {m_currentY}");
             OnMapZoom?.Invoke(this, new MapZoomEventActionArgs(scrollWheel, m_iconScale));
+
+            if (m_currentY < m_minZoom)
+            {
+                m_currentY = m_minZoom;
+            }
+            else if (m_currentY > m_maxZoom)
+            {
+                m_currentY = m_maxZoom;
+            }
+
         }
 
     }
