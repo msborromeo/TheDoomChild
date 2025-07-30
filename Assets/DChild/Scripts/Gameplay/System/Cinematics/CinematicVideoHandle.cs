@@ -60,7 +60,7 @@ namespace DChild.Gameplay.Systems
         private IEnumerator VideoPlayingRoutine()
         {
             var waitForFade = new WaitForSeconds(m_fadeBufferTime);
-
+            GameplaySystem.playerManager.OverrideCharacterControls();
             m_isPlaying = true;
             GameplaySystem.gamplayUIHandle.ToggleFadeUI(true);
             yield return waitForFade;
@@ -80,7 +80,7 @@ namespace DChild.Gameplay.Systems
             m_videoCinemaEndSignal?.SendSignal();
             OnVideoDone?.Invoke();
             yield return waitForFade;
-
+            GameplaySystem.playerManager.StopCharacterControlOverride();
             GameplaySystem.gamplayUIHandle.ToggleFadeUI(false);
 
             m_isPlaying = false;

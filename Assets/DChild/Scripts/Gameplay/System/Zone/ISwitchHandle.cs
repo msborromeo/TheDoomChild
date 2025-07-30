@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay;
+using DChild.Gameplay.Systems.Serialization;
 using UnityEngine;
 
 namespace DChild.Gameplay.Environment
@@ -13,6 +14,8 @@ namespace DChild.Gameplay.Environment
 
     public interface ISwitchHandle
     {
+        void SetLocationDataReference(LocationData locationData);
+
         bool isDebugSwitchHandle { get; }
 
         void DoSceneTransition(Character character, TransitionType type);
