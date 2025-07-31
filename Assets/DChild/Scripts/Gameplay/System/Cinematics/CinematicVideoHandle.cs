@@ -93,5 +93,12 @@ namespace DChild.Gameplay.Systems
             m_isPlaying = false;
             m_videoPlayingRoutine = null;
         }
+
+        private void MuteAllSounds()
+        {
+            // this function should handle the mute logic of sounds except the video.
+            //for future reference, put this function to the VideoPlayingRoutine()
+
+        }
     }
 }
