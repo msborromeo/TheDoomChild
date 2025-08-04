@@ -76,6 +76,11 @@ namespace DChild.Gameplay.Environment
         {
             //no need
         }
+
+        public void RemoveInfluenceFrom(Character character)
+        {
+            //No Need
+        }
     }
 }
 
