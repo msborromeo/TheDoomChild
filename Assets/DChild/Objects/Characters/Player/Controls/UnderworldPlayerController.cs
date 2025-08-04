@@ -1845,6 +1845,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_wallSlide?.Cancel();
                 m_wallMovement?.Move(m_vector2Input.y);
 
+                if(m_vector2Input.y != 0)
+                {
+                    m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Midair);
+                }
+                else
+                {
+                    m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Ground);
+                }
+
                 m_groundedness?.Evaluate();
 
                 if ((m_wallMovement?.IsThereAWall(WallMovement.SensorType.Body) ?? false) == false ||
