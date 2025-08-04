@@ -133,7 +133,6 @@ namespace DChild.Gameplay.Combat
             if (m_damageModifier != value)
             {
                 m_damageModifier = Mathf.Max(0, value);
-
             }
 
             if (m_isDoingCrit)
