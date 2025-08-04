@@ -62,14 +62,7 @@ namespace DChild.Gameplay.Environment
                     }
                     break;
                 case TransitionType.Exit:
-                    character.StopCoroutine("UpEntranceRoutine");
-
-                    if (forceFloatCoroutine != null)
-                    {
-                        characterPhysics.simulated = true;
-                        character.StopCoroutine(forceFloatCoroutine);
-                        forceFloatCoroutine = null;
-                    }
+                    RemoveInfluenceFrom(character);
 
                     if (m_exitDirection == TravelDirection.Up)
                     {
@@ -119,6 +112,24 @@ namespace DChild.Gameplay.Environment
             }
         }
 
+        public void SetLocationDataReference(LocationData locationData)
+        {
+            // no need
+        }
+
+        public void RemoveInfluenceFrom(Character character)
+        {
+            var characterPhysics = character.GetComponent<Rigidbody2D>();
+            character.StopCoroutine("UpEntranceRoutine");
+
+            if (forceFloatCoroutine != null)
+            {
+                characterPhysics.simulated = true;
+                character.StopCoroutine(forceFloatCoroutine);
+                forceFloatCoroutine = null;
+            }
+        }
+
 #if UNITY_EDITOR
         [SerializeField, PropertyOrder(-1)]
         private bool m_customTravelDirections;
@@ -136,11 +147,6 @@ namespace DChild.Gameplay.Environment
                     m_exitDirection = TravelDirection.Up;
                 }
             }
-        }
-
-        public void SetLocationDataReference(LocationData locationData)
-        {
-           // no need
         }
 #endif
     }

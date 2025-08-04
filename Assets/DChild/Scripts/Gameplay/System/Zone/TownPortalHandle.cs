@@ -64,7 +64,7 @@ namespace DChild.Gameplay.Environment
                 }
                 OnDoorwayExit(character);
             }
-            
+
         }
 
         private void OnDoorwayEnter(Character character)
@@ -91,14 +91,19 @@ namespace DChild.Gameplay.Environment
 
             Rigidbody2D rigidBody = character.GetComponent<Rigidbody2D>();
             rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
-            collisionState.forcedCurrentGroundedness = false;
+            RemoveInfluenceFrom(character);
             m_miniplayer.position = m_destination;
         }
 
         public void SetLocationDataReference(LocationData locationData)
         {
-           // no need
+            // no need
+        }
+
+        public void RemoveInfluenceFrom(Character character)
+        {
+            CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
+            collisionState.forcedCurrentGroundedness = false;
         }
     }
 }
