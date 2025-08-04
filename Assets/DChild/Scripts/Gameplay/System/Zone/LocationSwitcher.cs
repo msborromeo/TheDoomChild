@@ -17,6 +17,9 @@ namespace DChild.Gameplay.Systems
     [RequireComponent(typeof(LocationPoster))]
     public class LocationSwitcher : SerializedMonoBehaviour, IButtonToInteract
     {
+        private static Type previousSwtichType;
+        private static Action<Character> RemoveInfluenceOfPreviousSwitch;
+
         [SerializeField]
         private LocationData m_destination;
 
@@ -71,6 +74,9 @@ namespace DChild.Gameplay.Systems
             m_handle.DoSceneTransition(character, type);
             if (type == TransitionType.Enter)
             {
+                previousSwtichType = m_handle.GetType();
+                RemoveInfluenceOfPreviousSwitch = m_handle.RemoveInfluenceFrom;
+
                 GameplaySystem.playerManager.ReturnPlayerToOrginalScene();
                 GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Zone);
 
@@ -142,6 +148,12 @@ namespace DChild.Gameplay.Systems
 
         public void OnArrival(object sender, CharacterEventArgs eventArgs)
         {
+            if (previousSwtichType != m_handle.GetType())
+            {
+                RemoveInfluenceOfPreviousSwitch?.Invoke(eventArgs.character);
+                RemoveInfluenceOfPreviousSwitch = null;
+            }
+
             StartCoroutine(DoTransition(eventArgs.character, TransitionType.Exit));
             Debug.LogError("Exit");
         }
@@ -158,7 +170,7 @@ namespace DChild.Gameplay.Systems
         {
             if (m_handle.needsButtonInteraction)
                 return;
-            
+
             if (GameSystem.gamePaused == true)
                 return;
 
