@@ -48,6 +48,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public event EventAction<EventActionArgs> ExecutionRequested;
         public event EventAction<EventActionArgs> ProjectileThrown;
 
+
+        [SerializeField, Range(0f, 100f)]
+        private float m_critChance;
+        [SerializeField, MinValue(0), Tooltip("Multiply modifier by this value on critical hit")]
+        private float m_critModifier;
+        [SerializeField]
+        private ParticleSystem m_critFX;
+
         public void RequestExecution()
         {
             ExecutionRequested?.Invoke(this, EventActionArgs.Empty);
@@ -197,8 +205,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             //m_cacheProjectile = m_projectile;
             if (m_projectile != info)
-            {
-                
+            {            
                 m_projectile = info;
                 m_launcher.SetProjectile(m_projectile);
                 var skullThrowVariantIndex = info.projectile.GetComponent<Projectile>().hasConstantSpeed ? true : false;
@@ -262,7 +269,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
 
                 m_launcher.LaunchProjectile(direction, m_spawnedProjectile.gameObject);
-                m_spawnedProjectile.GetComponent<Attacker>().SetDamageModifier(m_modifier.Get(PlayerModifier.AttackDamage));
+                //m_spawnedProjectile.GetComponent<Attacker>().SetDamageModifier(m_modifier.Get(PlayerModifier.AttackDamage));
                 var scale = m_spawnedProjectile.transform.localScale;
                 scale.x = 1;
                 m_spawnedProjectile.transform.localScale = scale;
@@ -298,7 +305,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //m_spawnedProjectile.transform.position = m_spawnPoint.position;
             m_spawnedProjectile.transform.parent = transform;
             //m_spawnedProjectile.transform.rotation = Quaternion.identity;
-            m_spawnedProjectile.GetComponent<Attacker>().SetParentAttacker(m_attacker);
+            var projectileAttacker = m_spawnedProjectile.GetComponent<Attacker>();
+            projectileAttacker.SetParentAttacker(m_attacker);
+            projectileAttacker.SetDamageModifier(1, m_critChance, m_critModifier, m_critFX);
+         
             //TEST
 
             var scale = m_spawnedProjectile.transform.localScale;

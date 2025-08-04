@@ -13,6 +13,14 @@ namespace DChild.Gameplay.NavigationMap
         [SerializeField, HideInEditorMode]
         private Dictionary<string, NavMapFogOfWarSegment> m_fogOfWarSegments;
 
+        [SerializeField, HideInPlayMode]
+        private float m_minZoom;
+        [SerializeField, HideInPlayMode]
+        private float m_maxZoom;
+
+        public float minZoom => m_minZoom;
+        public float maxZoom => m_maxZoom;
+
         public void UpdateFogOfWar()
         {
             foreach (var varName in m_fogOfWarSegments.Keys)
