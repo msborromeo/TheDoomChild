@@ -1,4 +1,5 @@
 using DChild.Gameplay.Characters;
+using DChild.Gameplay.Systems.Serialization;
 using Doozy.Runtime.Signals;
 using Sirenix.OdinInspector;
 using System.Collections;
@@ -69,6 +70,16 @@ namespace DChild.Gameplay.Environment
         private void OnDoorwayPostExit()
         {
             Debug.Log("Post Exited Overworld Doorway");
+        }
+
+        public void SetLocationDataReference(LocationData locationData)
+        {
+            //no need
+        }
+
+        public void RemoveInfluenceFrom(Character character)
+        {
+            //No Need
         }
     }
 }
