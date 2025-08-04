@@ -14,8 +14,9 @@ namespace DChild.Gameplay.Combat
 
         public Collider2D hitCollider { get; private set; }
         public GameObject damageFX { get; private set; }
+        public bool isDoingCrit { get; private set; }
 
-        public void Initialize(GameObject attacker, Vector2 position, AttackDamageInfo attackerInfo, Collider2D hitCollider, GameObject damageFX)
+        public void Initialize(GameObject attacker, Vector2 position, AttackDamageInfo attackerInfo, Collider2D hitCollider, GameObject damageFX, bool isCrit = false)
         {
             this.instance = attacker;
             this.isPlayer = GameplaySystem.playerManager.IsPartOfPlayer(attacker);
@@ -25,9 +26,10 @@ namespace DChild.Gameplay.Combat
             forceDirection = Vector2.zero;
             this.hitCollider = hitCollider;
             this.damageFX = damageFX;
+            this.isDoingCrit = isCrit;
         }
 
-        public void Initialize(GameObject attacker, Vector2 position, AttackDamageInfo attackerInfo,Vector2 forceDirection, Collider2D hitCollider, GameObject damageFX)
+        public void Initialize(GameObject attacker, Vector2 position, AttackDamageInfo attackerInfo,Vector2 forceDirection, Collider2D hitCollider, GameObject damageFX, bool isCrit = false)
         {
             this.instance = attacker;
             this.isPlayer = GameplaySystem.playerManager.IsPartOfPlayer(attacker);
@@ -37,6 +39,7 @@ namespace DChild.Gameplay.Combat
             this.forceDirection = forceDirection;
             this.hitCollider = hitCollider;
             this.damageFX = damageFX;
+            this.isDoingCrit = isCrit;
         }
     }
 }

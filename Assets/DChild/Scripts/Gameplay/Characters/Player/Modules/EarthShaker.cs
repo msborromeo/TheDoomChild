@@ -79,7 +79,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void Impact()
         {
             //m_state.waitForBehaviour = true;
-            m_attacker.SetDamageModifier(/*m_impactDamageModifier*/m_configuration.impactDamageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+            m_attacker.SetDamageModifier(/*m_impactDamageModifier*/m_configuration.impactDamageModifier * m_modifier.Get(PlayerModifier.AttackDamage), 
+                m_configuration.critChance,
+                m_configuration.critModifier,
+                m_configuration.critFX);
             m_rigidBody.WakeUp();
             m_fallLoopFX?.Stop(true);
             m_fallCollider.enabled = false;
@@ -114,7 +117,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void StartExecution()
         {
             m_damageable.SetInvulnerability(Invulnerability.Level_1);
-            m_attacker.SetDamageModifier(/*m_fallDamageModifier*/m_configuration.fallDamageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+            m_attacker.SetDamageModifier(/*m_fallDamageModifier*/m_configuration.fallDamageModifier * m_modifier.Get(PlayerModifier.AttackDamage), 
+                m_configuration.critChance, 
+                m_configuration.critModifier,
+                m_configuration.critFX);
             m_rigidbody.velocity = /*Vector2.zero*/new Vector2(m_rigidbody.velocity.x * m_momentumVelocity.x, m_rigidbody.velocity.y * m_momentumVelocity.y);
             m_originalGravity = m_rigidbody.gravityScale;
             m_rigidbody.gravityScale = 0;

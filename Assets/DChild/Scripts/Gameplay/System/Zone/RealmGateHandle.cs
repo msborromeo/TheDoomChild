@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.Characters;
 using DChild.Gameplay.Characters.Players.Modules;
+using DChild.Gameplay.Systems.Serialization;
 using DChild.Temp;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -89,6 +90,11 @@ namespace DChild.Gameplay.Environment
         private void OnDoorwayPostExit()
         {
             GameplaySystem.playerManager.StopCharacterControlOverride();
+        }
+
+        public void SetLocationDataReference(LocationData locationData)
+        {
+            //no need
         }
     }
 }

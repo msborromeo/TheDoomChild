@@ -106,7 +106,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_animator.SetBool(m_animationParameter, true);
             m_currentSlashState += m_currentSlashState >= m_configuration.slashStateAmount - 1 ? 0 : 1;
             m_animator.SetInteger(m_slashStateAnimationParameter, m_currentSlashState);
-            m_attacker.SetDamageModifier(m_slashComboInfo[m_currentSlashState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+            m_attacker.SetDamageModifier(m_slashComboInfo[m_currentSlashState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage),
+                m_slashComboInfo[m_currentSlashState].critChance,
+                m_slashComboInfo[m_currentSlashState].critModifier,
+                m_slashComboInfo[m_currentSlashState].critFX);
             m_currentVisualSlashState = m_currentSlashState;
 
             m_comboResetDelayTimer = m_slashComboInfo[m_currentSlashState].nextAttackDelay;
