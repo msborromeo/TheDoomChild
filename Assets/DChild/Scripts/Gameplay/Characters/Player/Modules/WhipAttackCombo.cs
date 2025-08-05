@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
-    public class WhipAttackCombo : AttackBehaviour
+    public class WhipAttackCombo : AttackBehaviour, IPlayerCritAttack
     {
         [SerializeField, HideLabel]
         private WhipAttackComboStatsInfo m_configuration;
@@ -321,6 +321,29 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_whipMovementCooldownTimer = /*m_whipMovementCooldown*/m_configuration.whipMovementCooldown;
                 m_canMove = true;
             }
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+            for (int i = 0; i < info.Count; i++)
+            {
+                m_whipComboInfo[i].SetCritConfiguration(info[i]);
+            }
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+
         }
     }
 }

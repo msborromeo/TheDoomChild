@@ -172,20 +172,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private PlayerCritStatsInfo m_crouchSlashSlashCritStatsInfo;
         public PlayerCritStatsInfo crouchSlashSlashCritStatsInfo => m_crouchSlashSlashCritStatsInfo;
 
-        [Title("Slash Combo One"), FoldoutGroup("Critical Hit Stats")]
+        [Title("Slash Combo"), FoldoutGroup("Critical Hit Stats")]
         [SerializeField, HideLabel]
-        private PlayerCritStatsInfo m_slashComboOneCritStatsInfo;
-        public PlayerCritStatsInfo slashComboOneCritStatsInfo => m_slashComboOneCritStatsInfo;
+        private List<PlayerCritStatsInfo> m_slashComboCritStatsInfo;
+        public List<PlayerCritStatsInfo> slashComboCritStatsInfo => m_slashComboCritStatsInfo;
 
-        [Title("Slash Combo Two"), FoldoutGroup("Critical Hit Stats")]
-        [SerializeField, HideLabel]
-        private PlayerCritStatsInfo m_slashComboTwoCritStatsInfo;
-        public PlayerCritStatsInfo slashComboTwoCritStatsInfo => m_slashComboTwoCritStatsInfo;
-
-        [Title("Slash Combo Three"), FoldoutGroup("Critical Hit Stats")]
-        [SerializeField, HideLabel]
-        private PlayerCritStatsInfo m_slashComboThreeCritStatsInfo;
-        public PlayerCritStatsInfo slashComboThreeCritStatsInfo => m_slashComboThreeCritStatsInfo;
 
         [Header("Primary Skill Attacks Crit Stats")]
         [Title("Earth Shaker"), FoldoutGroup("Critical Hit Stats")]
@@ -230,18 +221,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         [Title("Whip Combo One"), FoldoutGroup("Critical Hit Stats")]
         [SerializeField, HideLabel]
-        private PlayerCritStatsInfo m_whipComboOneCritStatsInfo;
-        public PlayerCritStatsInfo whipComboOneCritStatsInfo => m_whipComboOneCritStatsInfo;
-
-        [Title("Whip Combo Two"), FoldoutGroup("Critical Hit Stats")]
-        [SerializeField, HideLabel]
-        private PlayerCritStatsInfo m_whipComboTwoCritStatsInfo;
-        public PlayerCritStatsInfo whipComboTwoCritStatsInfo => m_whipComboTwoCritStatsInfo;
-
-        [Title("Whip Combo Three"), FoldoutGroup("Critical Hit Stats")]
-        [SerializeField, HideLabel]
-        private PlayerCritStatsInfo m_whipComboThreeCritStatsInfo;
-        public PlayerCritStatsInfo whipComboThreeCritStatsInfo => m_whipComboThreeCritStatsInfo;
+        private List<PlayerCritStatsInfo> m_whipComboCritStatsInfo;
+        public List<PlayerCritStatsInfo> whipComboCritStatsInfo => m_whipComboCritStatsInfo;
 
         [Header("Combat Arts Crit Stats")]
         [Title("Reaper Harvest"), FoldoutGroup("Critical Hit Stats")]
