@@ -150,5 +150,139 @@ namespace DChild.Gameplay.Characters.Players.Modules
         [SerializeField, HideLabel]
         private BarrierStatsInfo m_barrierStatsInfo;
         public BarrierStatsInfo barrierInfo => m_barrierStatsInfo;
+
+        [Header("Basic Attacks Crit Stats")]
+        [Title("Overhead Slash"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_overheadSlashCritStatsInfo;
+        public PlayerCritStatsInfo overheadSlashCritStatsInfo => m_overheadSlashCritStatsInfo;
+
+        [Title("Midair Forward Slash"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_midairForwardSlashCritStatsInfo;
+        public PlayerCritStatsInfo midairForwardSlashCritStatsInfo => m_midairForwardSlashCritStatsInfo;
+
+        [Title("Midair Overhead Slash"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_midairOverheadSlashCritStatsInfo;
+        public PlayerCritStatsInfo midairOverheadSlashCritStatsInfo => m_midairOverheadSlashCritStatsInfo;
+
+        [Title("Crouch Slash"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_crouchSlashSlashCritStatsInfo;
+        public PlayerCritStatsInfo crouchSlashSlashCritStatsInfo => m_crouchSlashSlashCritStatsInfo;
+
+        [Title("Slash Combo One"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_slashComboOneCritStatsInfo;
+        public PlayerCritStatsInfo slashComboOneCritStatsInfo => m_slashComboOneCritStatsInfo;
+
+        [Title("Slash Combo Two"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_slashComboTwoCritStatsInfo;
+        public PlayerCritStatsInfo slashComboTwoCritStatsInfo => m_slashComboTwoCritStatsInfo;
+
+        [Title("Slash Combo Three"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_slashComboThreeCritStatsInfo;
+        public PlayerCritStatsInfo slashComboThreeCritStatsInfo => m_slashComboThreeCritStatsInfo;
+
+        [Header("Primary Skill Attacks Crit Stats")]
+        [Title("Earth Shaker"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_earthShakerCritStatsInfo;
+        public PlayerCritStatsInfo earthShakerCritStatsInfo => m_earthShakerCritStatsInfo;
+
+        [Title("Sword Thrust"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_swordThrustCritStatsInfo;
+        public PlayerCritStatsInfo swordThrustCritStatsInfo => m_swordThrustCritStatsInfo;
+
+        [Title("Whip Forward"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_whipForwardCritStatsInfo;
+        public PlayerCritStatsInfo whipForwardCritStatsInfo => m_whipForwardCritStatsInfo;
+
+        [Title("Whip Overhead"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_whipOverheadCritStatsInfo;
+        public PlayerCritStatsInfo whipOverheadCritStatsInfo => m_whipOverheadCritStatsInfo;
+
+        [Title("Whip Midair Forward"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_whipMidairForwardCritStatsInfo;
+        public PlayerCritStatsInfo whipMidairForwardCritStatsInfo => m_whipMidairForwardCritStatsInfo;
+
+        [Title("Whip Midair Overhead"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_whipMidairOverheadCritStatsInfo;
+        public PlayerCritStatsInfo whipMidairOverheadCritStatsInfo => m_whipMidairOverheadCritStatsInfo;
+
+        [Title("Whip Crouch"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_whipCrouchCritStatsInfo;
+        public PlayerCritStatsInfo whipCrouchCritStatsInfo => m_whipCrouchCritStatsInfo;
+
+        [Title("Projectile Throw"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_projectileThrowCritStatsInfo;
+        public PlayerCritStatsInfo projectileThrowCritStatsInfo => m_projectileThrowCritStatsInfo;
+
+        [Title("Whip Combo One"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_whipComboOneCritStatsInfo;
+        public PlayerCritStatsInfo whipComboOneCritStatsInfo => m_whipComboOneCritStatsInfo;
+
+        [Title("Whip Combo Two"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_whipComboTwoCritStatsInfo;
+        public PlayerCritStatsInfo whipComboTwoCritStatsInfo => m_whipComboTwoCritStatsInfo;
+
+        [Title("Whip Combo Three"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_whipComboThreeCritStatsInfo;
+        public PlayerCritStatsInfo whipComboThreeCritStatsInfo => m_whipComboThreeCritStatsInfo;
+
+        [Header("Combat Arts Crit Stats")]
+        [Title("Reaper Harvest"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_reaperHarvestCritStatsInfo;
+        public PlayerCritStatsInfo reaperHarvestCritStatsInfo => m_reaperHarvestCritStatsInfo;
+
+        [Title("Hell Trident"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_hellTridentCritStatsInfo;
+        public PlayerCritStatsInfo hellTridentCritStatsInfo => m_hellTridentCritStatsInfo;
+
+        [Title("Edged Fury"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_edgedFuryCritStatsInfo;
+        public PlayerCritStatsInfo edgedFuryCritStatsInfo => m_edgedFuryCritStatsInfo;
+
+        [Title("Diagonal Sword Dash"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_diagonalSwordDashCritStatsInfo;
+        public PlayerCritStatsInfo diagonalSwordDashCritStatsInfo => m_diagonalSwordDashCritStatsInfo;
+
+        [Title("Air Slash Ranged"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_airSlashRangedCritStatsInfo;
+        public PlayerCritStatsInfo airSlashRangedCritStatsInfo => m_airSlashRangedCritStatsInfo;
+
+        [Title("Lightning Spear"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_lightningSpearCritStatsInfo;
+        public PlayerCritStatsInfo lightningSpearCritStatsInfo => m_lightningSpearCritStatsInfo;
+
+        [Title("Soul Fire Blast"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_soulFireBlastCritStatsInfo;
+        public PlayerCritStatsInfo soulFireBlastCritStatsInfo => m_soulFireBlastCritStatsInfo;
+
+        [Title("Sovereigns Impale"), FoldoutGroup("Critical Hit Stats")]
+        [SerializeField, HideLabel]
+        private PlayerCritStatsInfo m_sovereignsImpaleCritStatsInfo;
+        public PlayerCritStatsInfo sovereignsImpaleCritStatsInfo => m_sovereignsImpaleCritStatsInfo;
+
     }
 }
