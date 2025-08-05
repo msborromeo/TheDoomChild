@@ -142,7 +142,9 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_startFX.SetActive(false);
             var instance = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(m_projectileInfo.projectile);
             instance.transform.position = m_startPoint.position;
-            instance.GetComponent<Attacker>().SetParentAttacker(m_attacker);
+            var instanceAttacker = instance.GetComponent<Attacker>();
+            instanceAttacker.SetParentAttacker(m_attacker);
+            instanceAttacker.SetDamageModifier(1, m_lightningSpearInfo.critChance, m_lightningSpearInfo.critModifier, m_lightningSpearInfo.critFX);
 
             m_physics.velocity = Vector2.zero;
             m_physics.AddForce(new Vector2(m_character.facing == HorizontalDirection.Right ? m_pushForce.x : -m_pushForce.x, m_pushForce.y), ForceMode2D.Impulse);

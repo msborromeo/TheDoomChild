@@ -242,7 +242,9 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                     var instance = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(m_projectileInfo.projectile);
                     instance.transform.position = new Vector2(summonPoint.x, GroundPosition(summonPoint).y + (m_summonOffsetScales[i].y - 1));
                     instance.transform.localScale = new Vector3(m_character.facing == HorizontalDirection.Right ? m_summonOffsetScales[i].x : -m_summonOffsetScales[i].x, m_summonOffsetScales[i].y, m_summonOffsetScales[i].z);
-                    instance.GetComponent<Attacker>().SetParentAttacker(m_attacker);
+                    var instanceAttacker = instance.GetComponent<Attacker>();
+                    instanceAttacker.SetParentAttacker(m_attacker);
+                    instanceAttacker.SetDamageModifier(1, m_sovereignImpaleInfo.critChance, m_sovereignImpaleInfo.critModifier, m_sovereignImpaleInfo.critFX);
                     //Debug.Log("Wall Positon " + WallPosition(summonPoint) + "Ground Position " + GroundPosition(summonPoint));
                     //var component = instance.GetComponent<Projectile>();
                     //component.ResetState();
