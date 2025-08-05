@@ -8,7 +8,7 @@ using DChild.Menu;
 using DChild.Serialization;
 using Holysoft.Event;
 using System;
-using System.Numerics;
+using UnityEngine;
 
 namespace DChild.Gameplay
 {
@@ -52,6 +52,7 @@ namespace DChild.Gameplay
         public static CampaignSerializer campaignSerializer => BaseGameplaySystem.campaignSerializer;
 
         public static bool isGamePaused { get; private set; }
+        private static Vector2 SceneTransitionPosition => new Vector2(-9999, -9999);
 
         public static WorldType GetCurrentWorldType() => BaseGameplaySystem.GetCurrentWorldType();
 
@@ -108,6 +109,7 @@ namespace DChild.Gameplay
         public static void LoadGame(CampaignSlot campaignSlot, LoadingHandle.LoadType loadType)
         {
             ClearCaches();
+            LoadingHandle.OnLoadScreenTakeOver += OnLoadScreenTakeOver;
             BaseGameplaySystem.LoadGame(campaignSlot, loadType);
             if (GetCurrentWorldType() == WorldType.Underworld)
             {
@@ -118,6 +120,7 @@ namespace DChild.Gameplay
                 OverworldGameplaySystem.LoadGame();
             }
         }
+
 
         public static void ReloadGame()
         {
@@ -162,8 +165,10 @@ namespace DChild.Gameplay
 
         public static void ListenToNextSceneLoad()
         {
+            Debug.Log("Listen To Next Scene Load");
             if (BaseGameplaySystem.HasInstance)
             {
+                LoadingHandle.OnLoadScreenTakeOver += OnLoadScreenTakeOver;
                 if (GetCurrentWorldType() == WorldType.Underworld)
                 {
                     UnderworldGameplaySystem.ListenToNextSceneLoad();
@@ -176,6 +181,20 @@ namespace DChild.Gameplay
                     UnderworldGameplaySystem.ListenToNextSceneLoad();
                 }
             }
+        }
+
+        private static void OnLoadScreenTakeOver()
+        {
+            Debug.Log("Teleport Player to Scene Transistion Position");
+            if (GetCurrentWorldType() == WorldType.Underworld)
+            {
+                UnderworldGameplaySystem.playerManager.TeleportPlayer(SceneTransitionPosition);
+            }
+            else
+            {
+                OverworldGameplaySystem.playerManager.TeleportPlayer(SceneTransitionPosition);
+            }
+            LoadingHandle.OnLoadScreenTakeOver -= OnLoadScreenTakeOver;
         }
     }
 }
