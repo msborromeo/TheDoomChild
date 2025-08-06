@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
-    public class BasicSlashes : AttackBehaviour
+    public class BasicSlashes : AttackBehaviour, IPlayerCritAttack
     {
         public struct BasicSlashEventArgs : IEventActionArgs
         {
@@ -328,5 +328,28 @@ namespace DChild.Gameplay.Characters.Players.Modules
         }
 
         public (int index, float value) getSomething() { return (0, 1f); }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+            m_groundOverhead.SetCritConfiguration(overheadInfo);
+            m_midAirForward.SetCritConfiguration(midairForwardInfo);
+            m_midAirOverhead.SetCritConfiguration(midairOverheadInfo);
+            m_crouch.SetCritConfiguration(crouchInfo);
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+
+        }
     }
 }

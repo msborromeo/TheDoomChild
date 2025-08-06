@@ -56,6 +56,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 m_collider.enabled = value;
             }
+
+            public void SetCritConfiguration(PlayerCritStatsInfo info)
+            {
+                m_critChance = info.critChance;
+                m_critModifier = info.critModifier;
+            }
         }
 
         protected float m_timer;
