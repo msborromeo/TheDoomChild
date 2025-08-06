@@ -39,6 +39,7 @@ namespace DChild.Gameplay.Systems
         void SyncVisualsWith(SpineSyncer spineSyncer);
         IEnumerator PlayerActionChange(Action<PlayerInput> Callback);
 
+        void TeleportPlayer(Vector2 position);
 
         void ReturnPlayerToOrginalScene();
     }

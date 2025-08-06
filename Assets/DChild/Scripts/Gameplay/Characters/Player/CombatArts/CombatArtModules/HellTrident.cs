@@ -183,7 +183,9 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         {
             var instance = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(m_projectileInfo.projectile);
             instance.transform.position = m_startPoint.position;
-            instance.GetComponent<Attacker>().SetParentAttacker(m_attacker);
+            var instanceAttacker = instance.GetComponent<Attacker>();
+            instanceAttacker.SetParentAttacker(m_attacker);
+            instanceAttacker.SetDamageModifier(1, m_hellTridentInfo.critChance, m_hellTridentInfo.critModifier, m_hellTridentInfo.critFX);
 
             //LaunchSpike(PuedisYnnusSpike.SkinType.Big, false, Quaternion.identity, true);
             m_launcher.AimAt(new Vector2(m_startPoint.position.x + (m_character.facing == HorizontalDirection.Right ? 10 : -10), m_startPoint.position.y));
