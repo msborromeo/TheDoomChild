@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 namespace DChild.Menu
 {
@@ -34,6 +35,9 @@ namespace DChild.Menu
         private Sprite[] m_loadingSceneImages;
 
         public static LoadType loadType { get; private set; }
+
+
+        public static event Action OnLoadScreenTakeOver;
 
         #region SceneManager Load
         private static List<string> scenesToLoad;
@@ -127,6 +131,7 @@ namespace DChild.Menu
 
         public void DoLoad()
         {
+            OnLoadScreenTakeOver?.Invoke();
             Debug.LogError("False Positive: Loading Start");
             StartCoroutine(ExecuteLoadUnloadScene());
         }
@@ -310,7 +315,7 @@ namespace DChild.Menu
             }
 
             Debug.LogError("False Positive: Scene Done Event Sent");
-            
+
             if (loadType == LoadType.Smart)
             {
                 m_loadDoneSignal.SendSignal();

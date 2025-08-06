@@ -142,11 +142,12 @@ namespace DChild.Gameplay.Projectiles
                 m_spawnHandle = new FXSpawnHandle<FX>();
                 m_fxHandleInstantiated = true;
             }
+            ProjectileDamageConfigHandle();
         }
 
         private void Start()
         {
-            ProjectileDamageConfigHandle();
+            
         }
 
 
