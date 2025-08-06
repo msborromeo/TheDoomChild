@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.Video;
 
 namespace DChild.Gameplay.Narrative
@@ -7,9 +8,15 @@ namespace DChild.Gameplay.Narrative
 
     public class TutorialEntry : ScriptableObject
     {
-        [SerializeField] private VideoClip m_attachmentVideo;
+        public enum DisplayType
+        { Image, Video }
+        
+        [SerializeField] private DisplayType m_displayType;
+        public DisplayType displayType => m_displayType;
+
+        [SerializeField, ShowIf("@m_displayType == DisplayType.Video")] private VideoClip m_attachmentVideo;
         public VideoClip attachmentVideo => m_attachmentVideo;
-        [SerializeField] private Sprite m_attachmentImage;
+        [SerializeField, ShowIf("@m_displayType == DisplayType.Image")] private Sprite m_attachmentImage;
         public Sprite attachmentImage => m_attachmentImage;
 
         [SerializeField, TextArea]
