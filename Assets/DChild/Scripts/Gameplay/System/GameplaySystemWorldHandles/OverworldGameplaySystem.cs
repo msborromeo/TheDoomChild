@@ -10,6 +10,9 @@ namespace DChild.Gameplay.Systems
     {
         private static OverworldGameplaySystem m_instance;
 
+        [SerializeField]
+        private static VolumeMixerManager m_volumeMixerManager;
+
         #region Modules
         private static OverworldPlayerManager m_playerManager;
         private static OverworldGameplayUIHandle m_uiHandler;
@@ -20,6 +23,7 @@ namespace DChild.Gameplay.Systems
 
         private static bool m_hasBeenRequested;
         private static Vector2 m_requestPosition;
+        public static VolumeMixerManager volumeMixerManager => m_volumeMixerManager;
 
         public static void RequestForPlayerCharacterTeleport(Vector2 position)
         {
@@ -66,6 +70,7 @@ namespace DChild.Gameplay.Systems
             {
                 Destroy(gameObject);
             }
+            m_volumeMixerManager = GameplaySystem.volumeMixerManager;
         }
 
         private void OnDestroy()

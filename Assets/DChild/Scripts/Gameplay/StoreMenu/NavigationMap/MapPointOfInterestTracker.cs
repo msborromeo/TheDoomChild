@@ -27,5 +27,10 @@ namespace DChild.Gameplay.NavigationMap
         {
             m_isTracked = isRevealed;
         }
+
+        public void SetForQuestIndicator(string valuename)
+        {
+            m_varName = valuename; ;
+        }
     }
 }

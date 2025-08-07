@@ -8,10 +8,11 @@ using Spine.Unity;
 using DChild.Gameplay.Pooling;
 using DChild.Gameplay.Combat;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
-    public class ProjectileThrow : AttackBehaviour
+    public class ProjectileThrow : AttackBehaviour, IPlayerCritAttack
     {
         [SerializeField, HideLabel]
         private ProjectileThrowStatsInfo m_configuration;
@@ -404,6 +405,27 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void SetConfiguration(ProjectileThrowStatsInfo info)
         {
             m_configuration.CopyInfo(info);
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+            m_critChance = info.critChance;
+            m_critModifier = info.critModifier;
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+
         }
     }
 }
