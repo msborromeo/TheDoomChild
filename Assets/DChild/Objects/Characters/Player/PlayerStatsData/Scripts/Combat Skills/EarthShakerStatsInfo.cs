@@ -22,10 +22,6 @@ public struct EarthShakerStatsInfo
     [SerializeField]
     private ParticleSystem m_critFX;
 
-    public float critChance => m_critChance;
-    public float critModifier => m_critModifier;
-    public ParticleSystem critFX => m_critFX;
-
     public void CopyInfo(EarthShakerStatsInfo reference)
     {
         m_fallSpeed = reference.fallSpeed;

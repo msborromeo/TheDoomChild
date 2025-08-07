@@ -12,10 +12,15 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private bool m_doNotTeleportPlayerOnAwake;
 
+        [SerializeField]
+        private static VolumeMixerManager m_volumeMixerManager;
+
         private static UnderworldGameplaySystem m_instance;
 
         private static bool m_hasBeenRequested;
         private static Vector2 m_requestPosition;
+
+        public static VolumeMixerManager volumeMixerManager => m_volumeMixerManager;
 
         #region Modules
         private static IGameplayActivatable[] m_activatableModules;
@@ -167,6 +172,8 @@ namespace DChild.Gameplay.Systems
 
                 Debug.Log("Underworld Gameplay Awake Done");
             }
+
+            m_volumeMixerManager = GameplaySystem.volumeMixerManager;
         }
 
         private void Start()

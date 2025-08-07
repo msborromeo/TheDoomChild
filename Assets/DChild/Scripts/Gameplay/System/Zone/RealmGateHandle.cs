@@ -83,8 +83,7 @@ namespace DChild.Gameplay.Environment
 
             Rigidbody2D rigidBody = character.GetComponent<Rigidbody2D>();
             rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
-            collisionState.forcedCurrentGroundedness = false;
+            RemoveInfluenceFrom(character);
         }
 
         private void OnDoorwayPostExit()
@@ -95,6 +94,12 @@ namespace DChild.Gameplay.Environment
         public void SetLocationDataReference(LocationData locationData)
         {
             //no need
+        }
+
+        public void RemoveInfluenceFrom(Character character)
+        {
+            CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
+            collisionState.forcedCurrentGroundedness = false;
         }
     }
 }
