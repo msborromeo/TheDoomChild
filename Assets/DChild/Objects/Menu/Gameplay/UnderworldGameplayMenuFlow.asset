@@ -520,7 +520,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 1
   ClearGraphHistory: 0
-  Position: {x: -169.06322, y: 1331.2203}
+  Position: {x: -232.00005, y: 1573.7335}
   PivotOrientation: 3
 --- !u!114 &-3822672865287985315
 MonoBehaviour:
@@ -731,6 +731,17 @@ MonoBehaviour:
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     CanBeDeleted: 1
     CanBeReordered: 1
+  - NodeId: 86772b50-9887-4f43-8ac6-abba1ec63b20
+    PortId: c12e192d-3042-4735-ab86-bb788cfa2f30
+    Direction: 1
+    Capacity: 0
+    Connections:
+    - 2f967466-d019-403d-8223-8ba60b3a6dba
+    Value: '{"Trigger":1,"TimeDelay":3.0,"SignalPayload":{"StreamId":{"Category":"GameNotifications","Name":"Tutorial","Custom":false},"SignalValueType":0,"IntegerValue":0,"BooleanValue":false,"FloatValue":0.0,"StringValue":"","ColorValue":{"r":0.0,"g":0.0,"b":0.0,"a":0.0},"Vector2Value":{"x":0.0,"y":0.0},"Vector3Value":{"x":0.0,"y":0.0,"z":0.0},"Vector4Value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}},"ButtonId":{"Category":"None","Name":"None","Custom":false},"ToggleId":{"Category":"None","Name":"None","Custom":false},"CommandToggle":2,"ViewId":{"Category":"None","Name":"None","Custom":false},"CommandShowHide":0}'
+    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.UIOutputPortData,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    CanBeDeleted: 1
+    CanBeReordered: 1
   RunUpdate: 0
   RunFixedUpdate: 0
   RunLateUpdate: 0
@@ -738,7 +749,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 1
-  Position: {x: 759.3575, y: 468.99997}
+  Position: {x: 760.9998, y: 468.99994}
   OnEnterShowViews: []
   OnEnterHideViews: []
   OnExitShowViews: []
@@ -828,6 +839,7 @@ MonoBehaviour:
     - 03db145a-5e5d-4b0f-9ee9-d2c0ce053e8c
     - f044ec9d-13bd-4e7b-a04a-3ddbfd1ede55
     - ee740c30-34c5-461f-b974-b57e3e34625c
+    - 0e41d0f4-51e8-4a66-b2ed-f0579ebdd251
     Value: 
     ValueTypeQualifiedName: 
     CanBeDeleted: 0
@@ -850,7 +862,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 1
   ClearGraphHistory: 0
-  Position: {x: 2408.4397, y: 1365}
+  Position: {x: 2421.9993, y: 1601.2942}
   PivotOrientation: 2
 --- !u!114 &-2182660078673291029
 MonoBehaviour:
@@ -955,6 +967,71 @@ MonoBehaviour:
   ClearGraphHistory: 0
   Position: {x: 1066.2502, y: 221.99995}
   PivotOrientation: 3
+--- !u!114 &-1118321931484277897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c01f9a7d07f5c04a9f277379e94a10b, type: 3}
+  m_Name: UI
+  m_EditorClassIdentifier: 
+  FlowGraphId: cc4022c0-bbcf-4ff3-b644-de466cf85d32
+  NodeId: 7dc79df1-22d0-4578-8986-ecb317d2d45e
+  NodeType: 0
+  NodeName: Gameplay Tutorial
+  NodeDescription: 
+  InputPorts:
+  - NodeId: 7dc79df1-22d0-4578-8986-ecb317d2d45e
+    PortId: 2f967466-d019-403d-8223-8ba60b3a6dba
+    Direction: 0
+    Capacity: 1
+    Connections:
+    - c12e192d-3042-4735-ab86-bb788cfa2f30
+    Value: '{"CanGoBack":false}'
+    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.GoBackInputPortData,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    CanBeDeleted: 0
+    CanBeReordered: 0
+  OutputPorts:
+  - NodeId: 7dc79df1-22d0-4578-8986-ecb317d2d45e
+    PortId: 0e41d0f4-51e8-4a66-b2ed-f0579ebdd251
+    Direction: 1
+    Capacity: 0
+    Connections:
+    - 0dd286d5-5630-4dac-a28e-28201cd0cb2f
+    Value: '{"Trigger":2,"TimeDelay":3.0,"SignalPayload":{"StreamId":{"Category":"None","Name":"None","Custom":false},"SignalValueType":0,"IntegerValue":0,"BooleanValue":false,"FloatValue":0.0,"StringValue":"","ColorValue":{"r":0.0,"g":0.0,"b":0.0,"a":0.0},"Vector2Value":{"x":0.0,"y":0.0},"Vector3Value":{"x":0.0,"y":0.0,"z":0.0},"Vector4Value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}},"ButtonId":{"Category":"General","Name":"Back","Custom":false},"ToggleId":{"Category":"None","Name":"None","Custom":false},"CommandToggle":2,"ViewId":{"Category":"None","Name":"None","Custom":false},"CommandShowHide":0}'
+    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.UIOutputPortData,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    CanBeDeleted: 0
+    CanBeReordered: 0
+  RunUpdate: 0
+  RunFixedUpdate: 0
+  RunLateUpdate: 0
+  NodeState: 0
+  CanBeDeleted: 1
+  Passthrough: 0
+  ClearGraphHistory: 0
+  Position: {x: 1450, y: 1432.498}
+  OnEnterShowViews:
+  - Id:
+      Category: Gameplay
+      Name: Tutorial
+      Custom: 0
+    Mode: 0
+  OnEnterHideViews: []
+  OnExitShowViews: []
+  OnExitHideViews:
+  - Id:
+      Category: Gameplay
+      Name: Tutorial
+      Custom: 0
+    Mode: 0
+  OnEnterHideAllViews: 0
+  OnExitHideAllViews: 0
 --- !u!114 &-544288208870892321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1146,8 +1223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02761efe598a45c98fa1baf4d446c6a7, type: 3}
   m_Name: UnderworldGameplayMenuFlow
   m_EditorClassIdentifier: 
-  EditorPosition: {x: 309, y: 41, z: 0}
-  EditorScale: {x: 0.21494322, y: 0.21494322, z: 1}
+  EditorPosition: {x: -55, y: -166, z: 0}
+  EditorScale: {x: 0.49717674, y: 0.49717674, z: 1}
   Id: cc4022c0-bbcf-4ff3-b644-de466cf85d32
   GraphName: Flow Graph
   GraphDescription: 
@@ -1189,6 +1266,7 @@ MonoBehaviour:
   - {fileID: -5128776055181682025}
   - {fileID: -2137256930414172695}
   - {fileID: -3135645439559771753}
+  - {fileID: -1118321931484277897}
   RootNode: {fileID: 6426440333755477475}
   ActiveNode: {fileID: 0}
 --- !u!114 &1575822920452196179
