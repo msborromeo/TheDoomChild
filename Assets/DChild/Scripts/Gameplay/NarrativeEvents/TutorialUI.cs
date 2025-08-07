@@ -1,4 +1,5 @@
-﻿using Doozy.Runtime.UIManager.Containers;
+﻿using Doozy.Runtime.Signals;
+using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using TMPro;
@@ -14,61 +15,84 @@ namespace DChild.Gameplay.Narrative
         [SerializeField] private HorizontalLayoutGroup m_bulletSection;
         [SerializeField] private Image m_bulletPoint;
 
+        [BoxGroup("Navigation Buttons"), SerializeField] private GameObject m_prevButton;
+        [BoxGroup("Navigation Buttons"), SerializeField] private GameObject m_nextButton;
+        [BoxGroup("Navigation Buttons"), SerializeField] private GameObject m_backButton;
+
         private TutorialEntry[] m_entryInfos;
-        private List<GameObject> m_bullets = new List<GameObject>();
-        private int pageIndex;
+        private List<Image> m_bullets = new();
+        private int pageIndex = 0;
 
-        [ShowInInspector, BoxGroup("TEST DATA"), SerializeField] private TutorialData m_testData;
 
-        [Button]
         public void SetEntry(TutorialData data)
         {
-            pageIndex = 0;
+            if (data == null)
+                return;
+
+            Reset();
+
             m_entryTitle.text = data.entryTitle;
             m_entryInfos = data.entrySections;
-            AddBullet(m_bulletPoint.gameObject, 0);
+            SetupBullets();
+            Display();
+        }
 
+        private void SetupBullets()
+        {
+            AddBullet(m_bulletPoint, 0);
 
-            m_bullets.Add(m_bulletPoint.gameObject);
             for (int i = 1; i < m_entryInfos.Length; i++)
             {
                 var bullet = Instantiate(m_bulletPoint, m_bulletSection.transform).gameObject;
-                AddBullet(bullet, i);
+                AddBullet(bullet.GetComponent<Image>(), i);
             }
-            Display();
 
-            //line below for debugging only
-            gameObject.GetComponent<UIView>().Show();
         }
 
-        private void AddBullet(GameObject bullet, int number)
+        private void AddBullet(Image bullet, int number)
         {
-            bullet.name = $"Image - SectionBullet ({number})";
+            bullet.name = $"Image - SectionBullet ({number + 1})";
             m_bullets.Add(bullet);
+        }
+
+        private void UpdateUIElements()
+        {
+            m_bullets[pageIndex].color = Color.yellow;
+            m_prevButton.gameObject.SetActive(pageIndex > 0);
+            m_nextButton.gameObject.SetActive(pageIndex < m_entryInfos.Length - 1);
+
+            if (m_nextButton.gameObject.activeSelf == false)
+                m_backButton.SetActive(true);
+
         }
 
         public void Display()
         {
+            UpdateUIElements();
             m_entryUI.Display(m_entryInfos[pageIndex]);
         }
 
         public void Previous()
         {
-            if (pageIndex < 1)
-                return;
+            m_bullets[pageIndex].color = Color.white;
             pageIndex--;
-
             Display();
         }
 
         public void Next()
         {
-            if (pageIndex == m_entryInfos.Length - 1)
-                return;
+            m_bullets[pageIndex].color = Color.white;
             pageIndex++;
-
             Display();
         }
 
+        private void Reset()
+        {
+            m_backButton.SetActive(false);
+            pageIndex = 0;
+            m_entryTitle.text = "";
+            m_entryInfos = null;
+            m_bullets.Clear();
+        }
     }
 }
