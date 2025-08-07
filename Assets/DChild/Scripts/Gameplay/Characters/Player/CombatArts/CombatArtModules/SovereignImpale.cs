@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class SovereignImpale : AttackBehaviour, IInterruptableCombatArtModule
+    public class SovereignImpale : AttackBehaviour, IInterruptableCombatArtModule, IPlayerCritAttack
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -258,6 +258,26 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 }
             }
             yield return null;
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+            m_sovereignImpaleInfo.SetCritConfiguration(info);
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+            
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+            
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+           
         }
     }
 }

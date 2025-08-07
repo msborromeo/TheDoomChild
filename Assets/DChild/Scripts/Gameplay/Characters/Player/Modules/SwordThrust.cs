@@ -1,11 +1,12 @@
 ﻿using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
-    public class SwordThrust : AttackBehaviour, IChargeAttackBehaviour
+    public class SwordThrust : AttackBehaviour, IChargeAttackBehaviour, IPlayerCritAttack
     {
         [SerializeField, HideLabel]
         private SwordThrustStatsInfo m_configuration;
@@ -156,6 +157,26 @@ namespace DChild.Gameplay.Characters.Players.Modules
             var direction = (float)m_character.facing;
             m_rigidBody.velocity = Vector2.zero;
             m_rigidBody.velocity = new Vector2(direction * m_configuration.thrustVelocity * m_modifier.Get(PlayerModifier.Dash_Distance), 0);
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+            m_thrust.SetCritConfiguration(info);
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+
         }
     }
 }
