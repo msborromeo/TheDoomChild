@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DChild.QuestHints;
 
 namespace DChild.Gameplay.NavigationMap
 {
@@ -11,7 +12,10 @@ namespace DChild.Gameplay.NavigationMap
         [SerializeField]
         private MapPointOfInterestTracker[] m_mapPointTracker;
 
-       // public event EventAction<FogOfWarStateChangeEvent> TriggerValueChanged;
+        [SerializeField]
+        private MapLegendTracker m_legendTracker;
+
+        // public event EventAction<FogOfWarStateChangeEvent> TriggerValueChanged;
 
         public void Initialize()
         {
@@ -30,6 +34,7 @@ namespace DChild.Gameplay.NavigationMap
                 var isRevealed = DialogueLua.GetVariable(pointOfInterest.varName).asBool;
                 pointOfInterest.SetStateAs(isRevealed);
             }
+            m_legendTracker?.RevealObject();
         }
 
         //private void OnValueChanged(object sender, FogOfWarStateChangeEvent eventArgs)
