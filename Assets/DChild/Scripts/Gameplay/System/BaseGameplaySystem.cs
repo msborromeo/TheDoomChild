@@ -20,9 +20,12 @@ namespace DChild.Gameplay.Systems
     public class BaseGameplaySystem : MonoBehaviour
     {
         [SerializeField]
+        private static VolumeMixerManager m_volumeMixerManager;
+        [SerializeField]
         private bool m_doNotDeserializeOnAwake;
         [SerializeField]
         private AudioListenerPositioner m_audioListener;
+       
 
         private GameplaySettings m_settings;
         private static BaseGameplaySystem m_instance;
@@ -34,6 +37,7 @@ namespace DChild.Gameplay.Systems
         private static CampaignSerializer m_campaignSerializer;
 
         public static CampaignSerializer campaignSerializer => m_campaignSerializer;
+        public static VolumeMixerManager volumeMixerManager => m_volumeMixerManager;
 
         public static AudioListenerPositioner audioListener { get; private set; }
 
@@ -205,6 +209,7 @@ namespace DChild.Gameplay.Systems
                 m_activatableModules = GetComponentsInChildren<IGameplayActivatable>();
                 var initializables = GetComponentsInChildren<IGameplayInitializable>();
                 m_worldTypeManager = GetComponentInChildren<WorldTypeManager>();
+                m_volumeMixerManager = GetComponentInChildren<VolumeMixerManager>();
 
                 for (int i = 0; i < m_gameplayModuleManager.Length; i++)
                 {

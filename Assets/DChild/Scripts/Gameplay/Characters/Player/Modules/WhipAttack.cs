@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
-    public class WhipAttack : AttackBehaviour
+    public class WhipAttack : AttackBehaviour, IPlayerCritAttack
     {
         public struct WhipAttackEventArgs : IEventActionArgs
         {
@@ -346,6 +346,30 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_canMove = true;
                 }
             }
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+            m_groundForward.SetCritConfiguration(forwardInfo);
+            m_groundOverhead.SetCritConfiguration(overheadInfo);
+            m_midAirForward.SetCritConfiguration(midairForwardInfo);
+            m_midAirOverhead.SetCritConfiguration(midairOverheadInfo);
+            m_crouchForward.SetCritConfiguration(crouchInfo);
         }
     }
 }

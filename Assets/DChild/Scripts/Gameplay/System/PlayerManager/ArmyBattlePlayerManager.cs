@@ -114,5 +114,11 @@ namespace DChild.Gameplay.Systems
         {
             Debug.Log("Theres no Player visuals to modify");
         }
+
+
+        public void TeleportPlayer(Vector2 position)
+        {
+            Debug.Log("Theres no Player visuals to modify");
+        }
     }
 }

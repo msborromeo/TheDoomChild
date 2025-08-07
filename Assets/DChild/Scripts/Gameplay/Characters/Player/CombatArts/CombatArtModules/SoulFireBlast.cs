@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class SoulFireBlast : AttackBehaviour, IInterruptableCombatArtModule
+    public class SoulFireBlast : AttackBehaviour, IInterruptableCombatArtModule, IPlayerCritAttack
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -169,13 +169,35 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         {
             var instance = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(m_projectileInfo.projectile);
             instance.transform.position = m_startPoint.position;
-            instance.GetComponent<Attacker>().SetParentAttacker(m_attacker);
+            var instanceAttacker = instance.GetComponent<Attacker>();
+            instanceAttacker.SetParentAttacker(m_attacker);
+            instanceAttacker.SetDamageModifier(1, m_soulFireBlastInfo.critChance, m_soulFireBlastInfo.critModifier, m_soulFireBlastInfo.critFX);
 
             m_physics.velocity = Vector2.zero;
             m_physics.AddForce(new Vector2(m_character.facing == HorizontalDirection.Right ? m_pushForce.x : -m_pushForce.x, m_pushForce.y), ForceMode2D.Impulse);
 
             m_launcher.AimAt(new Vector2(m_startPoint.position.x + (m_character.facing == HorizontalDirection.Right ? 10 : -10), m_startPoint.position.y));
             m_launcher.LaunchProjectile(m_startPoint.right, instance.gameObject);
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+            m_soulFireBlastInfo.SetCritConfiguration(info);
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+            
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+            
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+            
         }
     }
 }
