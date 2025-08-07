@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class EdgedFury : AttackBehaviour, IInterruptableCombatArtModule
+    public class EdgedFury : AttackBehaviour, IInterruptableCombatArtModule, IPlayerCritAttack
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -169,6 +169,23 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 //m_state.isAttacking = false;
                 m_canEdgedFury = true;
             }
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+            m_edgedFuryInfo.SetCritConfiguration(info);
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
         }
 
         //public void HandleMovementTimer()
