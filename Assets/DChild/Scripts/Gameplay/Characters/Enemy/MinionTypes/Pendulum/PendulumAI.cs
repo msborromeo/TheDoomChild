@@ -363,7 +363,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator DetectRoutine()
         {
-            m_animation.SetAnimation(0, m_info.detectAnimation, false);
+            m_animation.SetAnimation(0, m_info.detectAnimation, false).TimeScale = 2f;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.detectAnimation);
             m_animation.SetAnimation(0, RandomIdleAnimation(), true);
             m_stateHandle.ApplyQueuedState();

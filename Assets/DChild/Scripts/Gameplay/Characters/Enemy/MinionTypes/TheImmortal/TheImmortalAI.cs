@@ -22,6 +22,9 @@ namespace DChild.Gameplay.Characters.Enemies
         [System.Serializable]
         public class Info : BaseInfo
         {
+            [SerializeField, TabGroup("Values")]
+            private int m_numberOfResurection;
+            public int numberOfResurection => m_numberOfResurection;
             [SerializeField, TabGroup("Movement")]
             private MovementInfo m_walk = new MovementInfo();
             public MovementInfo walk => m_walk;
@@ -174,7 +177,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private Coroutine m_patienceRoutine;
         private Coroutine m_randomIdleRoutine;
         private Coroutine m_randomTurnRoutine;
-
+        private int m_resurect = 0;
         private void OnAttackDone(object sender, EventActionArgs eventArgs)
         {
             //m_animation.DisableRootMotion();
@@ -306,7 +309,7 @@ namespace DChild.Gameplay.Characters.Enemies
             StopAllCoroutines();
             m_bodyCollider.enabled = false;
             //m_selfCollider.enabled = false;
-            base.OnDestroyed(sender, eventArgs);
+           
             m_stateHandle.OverrideState(State.WaitBehaviourEnd);
 
             if (m_attackRoutine != null)
@@ -325,9 +328,31 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetEmptyAnimation(0, 0);
             m_animation.SetEmptyAnimation(1, 0);
             m_animation.SetEmptyAnimation(2, 0);
-            StartCoroutine(ResurrectRoutine());
-        }
 
+            if (m_resurect < m_info.numberOfResurection)
+            {
+                m_health.SetHealthPercentage(0.1f);
+                m_resurect += 1;
+                StartCoroutine(ResurrectRoutine());
+            }
+            else
+            {
+                StartCoroutine(DeathRoutine());
+                m_deathHandle.gameObject.SetActive(true);
+                m_deathHandle.enabled = true;
+                m_resurect = 0;
+            }
+            base.OnDestroyed(sender, eventArgs);
+        }
+        private IEnumerator DeathRoutine()
+        {
+            m_hitbox.Disable();
+            //m_selfCollider.enabled = false;
+            m_animation.SetAnimation(0, m_info.deathAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathAnimation);
+        }
+        [SerializeField]
+        private DeathHandle m_deathHandle;
         private IEnumerator ResurrectRoutine()
         {
             m_hitbox.Disable();

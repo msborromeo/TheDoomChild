@@ -326,7 +326,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetEmptyAnimation(0, 0);
             m_animation.SetAnimation(0, m_info.assembleAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.assembleAnimation);
-            m_animation.SetAnimation(0, m_info.detectAnimation, false);
+            m_animation.SetAnimation(0, m_info.detectAnimation, false).TimeScale = 2f;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.detectAnimation);
             m_boundingBox.SetActive(true);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);

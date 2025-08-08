@@ -329,19 +329,20 @@ namespace DChild.Gameplay.Characters.Enemies
             m_selfCollider.SetActive(false);
             m_hitbox.Enable();
             m_isSubmerged = false;
-            m_animation.SetAnimation(0, m_info.idleAnimation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleAnimation);
+           // m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleAnimation);
             //m_hitbox.Disable();
             m_animation.SetAnimation(0, m_info.attack1, false);
             yield return new WaitForSeconds(m_info.attackHitboxDelay);
             m_slashFX.GetComponent<ParticleSystemRenderer>().flip = m_character.facing == HorizontalDirection.Right ? Vector3.zero : Vector3.right;
             //m_hitbox.Enable();
-            yield return new WaitForSeconds(1.6f);
-            m_slashFX.Play();
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack1.animation);
-            m_attackBB.SetActive(false);
+            yield return new WaitForSeconds(0.8f);
+            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack1.animation);
+            m_slashFX.Play(); 
             m_selfCollider.SetActive(true);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            yield return new WaitForSeconds(.3f);
+            m_attackBB.SetActive(false);
             m_stateHandle.ApplyQueuedState();
             yield return null;
         }

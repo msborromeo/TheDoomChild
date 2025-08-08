@@ -383,7 +383,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_spikeEdgeSensor.transform.position = Vector2.MoveTowards(m_spikeEdgeSensor.transform.position, target, 5);
                 yield return null;
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(.7f);
             Instantiate(m_info.spikeGO, target, Quaternion.identity);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack.animation);
             m_spikeEdgeSensor.transform.localPosition = new Vector2(7.5f, 2f); 
@@ -400,7 +400,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
 
             m_hitbox.Enable();
-            m_animation.SetAnimation(0, m_info.detectAnimation, false);
+            m_animation.SetAnimation(0, m_info.detectAnimation, false).TimeScale = 2f;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.detectAnimation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             //Debug.Log("DETECT PLAYER CRYSTAL");

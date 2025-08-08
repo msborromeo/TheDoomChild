@@ -14,6 +14,7 @@ using DChild;
 using DChild.Gameplay.Characters.Enemies;
 using DChild.Gameplay.Environment;
 using UnityEngine.Rendering.Universal;
+using Doozy.Runtime.Common;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
@@ -411,7 +412,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator DetectRoutine()
         {
             m_animation.EnableRootMotion(true, false);
-            m_animation.SetAnimation(0, m_info.detectAnimation, false);
+            m_animation.SetAnimation(0, m_info.detectAnimation, false).TimeScale = 2f;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.detectAnimation);
             m_selfCollider.enabled = true;
             m_animation.SetAnimation(0, m_info.detectToWalkAnimation, false);
@@ -424,8 +425,9 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_flinchHandle.m_enableMixFlinch = false;
             m_animation.SetAnimation(0, m_info.idleToAttackAnimation, false);
-            var waitTime = m_animation.animationState.GetCurrent(0).AnimationEnd * 0.85f;
-            yield return new WaitForSeconds(waitTime);
+            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleToAttackAnimation);
+            //var waitTime = m_animation.animationState.GetCurrent(0).AnimationEnd * 0.85f;
+            //yield return new WaitForSeconds(waitTime);
             m_flinchHandle.m_enableMixFlinch = true;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleToAttackAnimation);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
@@ -597,7 +599,6 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_animation.EnableRootMotion(true, false);
 
                     //m_attackRoutine = StartCoroutine(AttackRoutine()); //commented this out in favor of using attack handle to work with timescale 2
-
                     m_attackHandle.ExecuteAttack(m_info.idleToAttackAnimation.animation, m_info.idleAnimation.animation);
                     StartCoroutine(ChangeAttackDamageRoutine());
                     break;

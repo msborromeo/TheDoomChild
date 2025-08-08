@@ -372,7 +372,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
 
             m_hitbox.Enable();
-            m_animation.SetAnimation(0, m_info.detectAnimation, false);
+            m_animation.SetAnimation(0, m_info.detectAnimation, false).TimeScale = 1.5f;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.detectAnimation);
             var idleAnim = UnityEngine.Random.Range(0, 2) == 1 ? m_info.idle1Animation : m_info.idle2Animation;
             m_animation.SetAnimation(0, idleAnim, true);
