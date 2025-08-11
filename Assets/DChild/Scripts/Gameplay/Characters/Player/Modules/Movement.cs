@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.Characters.Players.Behaviour;
+using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -18,6 +19,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         [SerializeField, HideLabel]
         private MovementStatsInfo m_configuration;
+        [SerializeField]
+        private ParticleSystem m_fastFallFX;
 
         private float m_currentSpeed;
         private IPlayerModifer m_modifier;
@@ -269,9 +272,17 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_rigidbody.gravityScale = 20f;
                 }
             }
-            /*else
-            {*/
-            //}
+        }
+
+        public void TriggerFastFall()
+        {
+            m_fastFallFX?.Play();
+            m_rigidbody.gravityScale = m_configuration.fastFallGravity;
+        }
+
+        public void ResetGravity()
+        {
+            m_rigidbody.gravityScale = 20f;
         }
     }
 }
