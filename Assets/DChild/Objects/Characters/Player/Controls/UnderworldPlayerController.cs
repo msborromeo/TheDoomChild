@@ -2147,6 +2147,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_initialDescentBoost?.Reset();
                     m_extraJump?.Reset();
                     m_movement?.SwitchConfigTo(Movement.Type.Jog);
+                    m_movement?.ResetGravity();
 
                     if (m_state.isAttacking)
                     {
@@ -2204,7 +2205,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     m_activeSlide?.Cancel();
                     m_activeDash?.Cancel(); //Cancelling here because repeated flinch sometimes cause vfx to stay stuck because it doesn't go into dash/slide state
-                    m_movement?.ResetGravity();
                     if (m_state.isAttacking)
                     {
                         if (m_state.isChargingAttack)

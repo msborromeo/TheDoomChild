@@ -276,7 +276,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void TriggerFastFall()
         {
-            m_fastFallFX?.Play();
+            if(m_fastFallFX != null)
+                m_fastFallFX?.Play();
+
             m_rigidbody.gravityScale = m_configuration.fastFallGravity;
         }
 
