@@ -504,11 +504,14 @@ MonoBehaviour:
   m_worldMap: {fileID: 0}
   m_navMap: {fileID: 0}
   m_regen: {fileID: 0}
+  m_elevator: {fileID: 0}
   m_journalNotification: {fileID: 0}
   m_playerHUD: {fileID: 0}
   m_interactablePrompt: {fileID: 0}
   m_movableObjectPrompt: {fileID: 0}
   m_upgradeWeaponHandler: {fileID: 551703440}
+  m_BossHealth: {fileID: 0}
+  m_QuickItems: {fileID: 0}
 --- !u!114 &3721159369177224701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -809,6 +812,7 @@ Transform:
   - {fileID: 1194054607693842078}
   - {fileID: 5441033869379620666}
   - {fileID: 7077439233691718184}
+  - {fileID: 2695269723999366100}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1604,6 +1608,144 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+--- !u!1 &6555510488020371021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2695269723999366100}
+  - component: {fileID: 5490378401369124829}
+  - component: {fileID: 5609659329302768057}
+  m_Layer: 0
+  m_Name: OverworldTeleportHandle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2695269723999366100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6555510488020371021}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -103.18569, y: -43.901913, z: 0.04830938}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1915674415855239025}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5490378401369124829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6555510488020371021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1540b2ee4d88e440b0dece364fd65e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 798be571dc89fe14aa97c6a23998845f, type: 2}
+    - {fileID: 11400000, guid: 3c154c5051cf4ca4db8bc0536dc30e1b, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: overworldFastTravelDictionary
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Holysoft.Collections.SceneInfo,
+        HolysoftEditor],[DChild.Gameplay.FastTravel.FastTravelData, Assembly-CSharp]],
+        mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[Holysoft.Collections.SceneInfo,
+        HolysoftEditor]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 7
+      Data: 2|Holysoft.Collections.SceneInfo, HolysoftEditor
+    - Name: m_sceneName
+      Entry: 1
+      Data: CityOfTheDead_Revised_Scene1
+    - Name: m_scenePath
+      Entry: 1
+      Data: Assets/DChild/Scenes/_Zone City of The Dead/CityOfTheDead_Revised_Map/CityOfTheDead_Revised_Scene1.unity
+    - Name: m_isAddressables
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 7
+      Data: 3|Holysoft.Collections.SceneInfo, HolysoftEditor
+    - Name: m_sceneName
+      Entry: 1
+      Data: CityOfTheDead_Revised_Scene2
+    - Name: m_scenePath
+      Entry: 1
+      Data: Assets/DChild/Scenes/_Zone City of The Dead/CityOfTheDead_Revised_Map/CityOfTheDead_Revised_Scene2.unity
+    - Name: m_isAddressables
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  m_fastTravelHandle: {fileID: 5609659329302768057}
+--- !u!114 &5609659329302768057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6555510488020371021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61062ed74815e8e409a5fa692e4140a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7424291319281110897
 GameObject:
   m_ObjectHideFlags: 0
