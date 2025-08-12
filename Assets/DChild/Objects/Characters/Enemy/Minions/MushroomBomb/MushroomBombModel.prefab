@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1248922198839841087}
   - component: {fileID: 1502516854004538424}
   - component: {fileID: 5863602995375770009}
+  - component: {fileID: 1899753299859904796}
   m_Layer: 13
   m_Name: MushroomBombModel
   m_TagString: Untagged
@@ -174,9 +175,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_renderer: {fileID: 207434295726285928}
-  m_color: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 0}
-  m_fadeInDuration: 0.05
-  m_fadeOutDuration: 0.1
+  m_color: {r: 1, g: 1, b: 1, a: 0}
+  m_fadeInDuration: 0.025
+  m_fadeOutDuration: 0.4
+--- !u!114 &1899753299859904796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207434295726285925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb0641d37f1cbc418dcf04f60a07c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 0}
+  m_renderer: {fileID: 207434295726285928}
+  m_startDissolveEvent: StartFade
+  m_dissolveDuration: 1
+  m_delay: 0.5
 --- !u!1 &207434296979794106
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,6 +740,7 @@ MonoBehaviour:
       damageModifier: 0
     ignoreInvulnerability: 0
     ignoresBlock: 0
+    isCrit: 0
 --- !u!1 &4703510280405917063
 GameObject:
   m_ObjectHideFlags: 0
