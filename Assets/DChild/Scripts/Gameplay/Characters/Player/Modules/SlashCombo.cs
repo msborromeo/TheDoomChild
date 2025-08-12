@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
-    public class SlashCombo : AttackBehaviour
+    public class SlashCombo : AttackBehaviour, IPlayerCritAttack
     {
         [SerializeField, HideLabel]
         private SlashComboStatsInfo m_configuration;
@@ -106,7 +106,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_animator.SetBool(m_animationParameter, true);
             m_currentSlashState += m_currentSlashState >= m_configuration.slashStateAmount - 1 ? 0 : 1;
             m_animator.SetInteger(m_slashStateAnimationParameter, m_currentSlashState);
-            m_attacker.SetDamageModifier(m_slashComboInfo[m_currentSlashState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+            m_attacker.SetDamageModifier(m_slashComboInfo[m_currentSlashState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage),
+                m_slashComboInfo[m_currentSlashState].critChance,
+                m_slashComboInfo[m_currentSlashState].critModifier,
+                m_slashComboInfo[m_currentSlashState].critFX);
             m_currentVisualSlashState = m_currentSlashState;
 
             m_comboResetDelayTimer = m_slashComboInfo[m_currentSlashState].nextAttackDelay;
@@ -173,6 +176,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public override void AttackOver()
         {
             m_state.canAttack = true;
+            m_canSlashCombo = false;
 
             for (int i = 0; i < m_slashComboInfo.Count; i++)
             {
@@ -269,6 +273,29 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_slashMovementCooldownTimer = m_configuration.slashMovementCooldown;
                 m_canMove = true;
             }
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+            for(int i = 0; i < info.Count; i++)
+            {
+                m_slashComboInfo[i].SetCritConfiguration(info[i]);
+            }
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+            
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo infoOne, PlayerCritStatsInfo infoTwo, PlayerCritStatsInfo infoThree, PlayerCritStatsInfo infoFour)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo infoOne, PlayerCritStatsInfo infoTwo, PlayerCritStatsInfo infoThree, PlayerCritStatsInfo infoFour, PlayerCritStatsInfo infoFive)
+        {
+
         }
     }
 }

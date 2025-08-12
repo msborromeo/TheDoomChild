@@ -1,5 +1,6 @@
 ﻿
 using DChild.Gameplay.Combat;
+using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
 
@@ -84,7 +85,6 @@ namespace DChild.Gameplay.Projectiles
                     var projectileDamage = projectileData.damage;
                     m_attackDamageInfo.damage.value = projectileDamage.value;
                     m_attackDamageInfo.damage.type = projectileDamage.type;
-                    projectileAttacker.SetDamageModifier(1);
                     projectileAttacker.SetDamage(m_attackDamageInfo.damage);
                     if (m_attackDamageInfo.criticalDamageInfo.chance != 0)
                     {
@@ -142,11 +142,12 @@ namespace DChild.Gameplay.Projectiles
                 m_spawnHandle = new FXSpawnHandle<FX>();
                 m_fxHandleInstantiated = true;
             }
+            ProjectileDamageConfigHandle();
         }
 
         private void Start()
         {
-            ProjectileDamageConfigHandle();
+            
         }
 
 

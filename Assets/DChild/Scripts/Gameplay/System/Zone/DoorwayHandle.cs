@@ -1,5 +1,7 @@
 ﻿using DChild.Gameplay.Characters;
 using DChild.Gameplay.Characters.Players.Modules;
+using DChild.Gameplay.Systems;
+using DChild.Gameplay.Systems.Serialization;
 using PlayerNew;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,6 +11,11 @@ namespace DChild.Gameplay.Environment
     [System.Serializable]
     public class DoorwayHandle : ISwitchHandle
     {
+        [SerializeField]
+        private bool m_isCustomName;
+        [SerializeField, ShowIf("m_isCustomName")]
+        private string m_CustomName;
+        private LocationData m_destinationName;
         [SerializeField]
         private Transform m_promptSource;
         [SerializeField]
@@ -24,8 +31,22 @@ namespace DChild.Gameplay.Environment
 
         public Vector3 promptPosition => m_promptSource.position + m_promptOffset;
 
-        public string prompMessage => "Enter";
+        //  public string prompMessage => $"Enter: {m_CustomName} ";
+        public string prompMessage
+        {
+            get
+            {
+                
+                var locationName = m_destinationName.location.ToString().Replace("_", " ");
+                if (locationName != null && !m_isCustomName)
+                {
+                    m_CustomName = locationName;
+                }
+                return
 
+                    $"Enter: {m_CustomName} ";
+            }
+        }
         public bool isDebugSwitchHandle => false;
 
         public void DoSceneTransition(Character character, TransitionType type)
@@ -75,13 +96,23 @@ namespace DChild.Gameplay.Environment
 
             Rigidbody2D rigidBody = character.GetComponent<Rigidbody2D>();
             rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
-            collisionState.forcedCurrentGroundedness = false;
+            RemoveInfluenceFrom(character);
         }
 
         private void OnDoorwayPostExit()
         {
             GameplaySystem.playerManager.StopCharacterControlOverride();
+        }
+
+        public void SetLocationDataReference(LocationData locationData)
+        {
+            m_destinationName = locationData;
+        }
+
+        public void RemoveInfluenceFrom(Character character)
+        {
+            CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
+            collisionState.forcedCurrentGroundedness = false;
         }
     }
 }

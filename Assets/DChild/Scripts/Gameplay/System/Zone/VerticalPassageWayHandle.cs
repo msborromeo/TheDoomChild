@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.Characters;
+using DChild.Gameplay.Systems.Serialization;
 using PlayerNew;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -61,14 +62,7 @@ namespace DChild.Gameplay.Environment
                     }
                     break;
                 case TransitionType.Exit:
-                    character.StopCoroutine("UpEntranceRoutine");
-
-                    if (forceFloatCoroutine != null)
-                    {
-                        characterPhysics.simulated = true;
-                        character.StopCoroutine(forceFloatCoroutine);
-                        forceFloatCoroutine = null;
-                    }
+                    RemoveInfluenceFrom(character);
 
                     if (m_exitDirection == TravelDirection.Up)
                     {
@@ -115,6 +109,24 @@ namespace DChild.Gameplay.Environment
                 physics.velocity = Vector2.up * m_upVelocity;
                 yield return waitFor;
                 time -= Time.deltaTime;
+            }
+        }
+
+        public void SetLocationDataReference(LocationData locationData)
+        {
+            // no need
+        }
+
+        public void RemoveInfluenceFrom(Character character)
+        {
+            var characterPhysics = character.GetComponent<Rigidbody2D>();
+            character.StopCoroutine("UpEntranceRoutine");
+
+            if (forceFloatCoroutine != null)
+            {
+                characterPhysics.simulated = true;
+                character.StopCoroutine(forceFloatCoroutine);
+                forceFloatCoroutine = null;
             }
         }
 

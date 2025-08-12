@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
-    public class WhipAttackCombo : AttackBehaviour
+    public class WhipAttackCombo : AttackBehaviour, IPlayerCritAttack
     {
         [SerializeField, HideLabel]
         private WhipAttackComboStatsInfo m_configuration;
@@ -108,7 +108,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_animator.SetBool(m_animationParameter, true);
             m_animator.SetBool(m_whipAttackAnimationParameter, true);
             m_animator.SetInteger(m_whipStateAnimationParameter, m_currentWhipState);
-            m_attacker.SetDamageModifier(m_whipComboInfo[m_currentWhipState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+            m_attacker.SetDamageModifier(m_whipComboInfo[m_currentWhipState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage),
+                m_whipComboInfo[m_currentWhipState].critChance, 
+                m_whipComboInfo[m_currentWhipState].critModifier, 
+                m_whipComboInfo[m_currentWhipState].critFX);
             m_currentVisualWhipState = m_currentWhipState;
 
             m_comboResetDelayTimer = m_whipComboInfo[m_currentWhipState].nextAttackDelay;
@@ -318,6 +321,29 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_whipMovementCooldownTimer = /*m_whipMovementCooldown*/m_configuration.whipMovementCooldown;
                 m_canMove = true;
             }
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+            for (int i = 0; i < info.Count; i++)
+            {
+                m_whipComboInfo[i].SetCritConfiguration(info[i]);
+            }
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+
         }
     }
 }

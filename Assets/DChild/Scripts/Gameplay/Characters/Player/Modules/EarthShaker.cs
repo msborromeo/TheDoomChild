@@ -2,11 +2,12 @@
 using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
-    public class EarthShaker : AttackBehaviour
+    public class EarthShaker : AttackBehaviour, IPlayerCritAttack
     {
         [SerializeField, HideLabel]
         private EarthShakerStatsInfo m_configuration;
@@ -31,6 +32,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
         //[SerializeField, MinValue(0)]
         //private float m_impactDamageModifier = 1;
         //GIGA NIGGA
+        [SerializeField, Range(0f, 100f)]
+        private float m_critChance;
+        [SerializeField, MinValue(0), Tooltip("Multiply modifier by this value on critical hit")]
+        private float m_critModifier;
+        [SerializeField]
+        private ParticleSystem m_critFX;
 
         private bool m_canEarthShaker;
         private IPlayerModifer m_modifier;
@@ -38,6 +45,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private Damageable m_damageable;
         private int m_earthShakerAnimationParameter;
         private float m_originalGravity;
+
 
         public event EventAction<EventActionArgs> OnImpact;
 
@@ -79,7 +87,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void Impact()
         {
             //m_state.waitForBehaviour = true;
-            m_attacker.SetDamageModifier(/*m_impactDamageModifier*/m_configuration.impactDamageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+            m_attacker.SetDamageModifier(/*m_impactDamageModifier*/m_configuration.impactDamageModifier * m_modifier.Get(PlayerModifier.AttackDamage), 
+                m_critChance,
+                m_critModifier,
+                m_critFX);
             m_rigidBody.WakeUp();
             m_fallLoopFX?.Stop(true);
             m_fallCollider.enabled = false;
@@ -114,7 +125,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void StartExecution()
         {
             m_damageable.SetInvulnerability(Invulnerability.Level_1);
-            m_attacker.SetDamageModifier(/*m_fallDamageModifier*/m_configuration.fallDamageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+            m_attacker.SetDamageModifier(/*m_fallDamageModifier*/m_configuration.fallDamageModifier * m_modifier.Get(PlayerModifier.AttackDamage), 
+                m_critChance, 
+                m_critModifier,
+                m_critFX);
             m_rigidbody.velocity = /*Vector2.zero*/new Vector2(m_rigidbody.velocity.x * m_momentumVelocity.x, m_rigidbody.velocity.y * m_momentumVelocity.y);
             m_originalGravity = m_rigidbody.gravityScale;
             m_rigidbody.gravityScale = 0;
@@ -139,6 +153,24 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_animator.SetBool(m_earthShakerAnimationParameter, !m_canEarthShaker);
             m_state.isDoingEarthShaker = false;
             base.AttackOver();
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+            m_critChance = info.critChance;
+            m_critModifier = info.critModifier;
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
         }
     }
 }
