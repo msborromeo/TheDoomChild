@@ -1,15 +1,16 @@
-﻿using DChild.Temp;
-using Doozy.Runtime.UIManager.Components;
+﻿using Doozy.Runtime.UIManager.Components;
 using Doozy.Runtime.UIManager.Containers;
 using PixelCrushers.DialogueSystem;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace DChild.UI
 {
     public class DoozyUISubtitlePanel : StandardUISubtitlePanel
     {
+
         private static List<UIButton> m_continueButtons = new List<UIButton>();
         private static bool isActive = true;
 
@@ -26,6 +27,9 @@ namespace DChild.UI
 
         [SerializeField]
         private UIButton m_continueUIButton;
+        [SerializeField]
+        private bool m_isBanter;
+
         private UIContainer m_container;
 
         public override void HideImmediate()
@@ -54,7 +58,20 @@ namespace DChild.UI
 
             // With quick panel changes, panel may not reach OnEnable/OnDisable before being reused.
             // Update panelStack here also to handle this case:
+            if (m_isBanter && currentSubtitle != null)
+                UpdateCurrentActor(currentSubtitle);
+
+
             PushToPanelStack();
+        }
+
+        private void UpdateCurrentActor(Subtitle subtitle)
+        {
+            var actor = DialogueManager.masterDatabase.GetActor(subtitle.dialogueEntry.ActorID);
+
+            portraitImage.sprite = actor.spritePortraits.Last();
+            portraitName.text = $"{portraitActorName}: ";
+            portraitName.color = Tools.WebColor(actor.LookupValue("BanterColor"));
         }
 
         public override void Close()
