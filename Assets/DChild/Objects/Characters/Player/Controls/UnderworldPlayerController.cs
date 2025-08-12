@@ -689,6 +689,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             if ( m_state.isExecutingCombatArt)
                 return;
+
+            if(m_state.isGrounded == false && vector.y < 0)
+                m_movement.TriggerFastFall();
             
             m_vector2Input = vector;
         }
@@ -2144,6 +2147,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_initialDescentBoost?.Reset();
                     m_extraJump?.Reset();
                     m_movement?.SwitchConfigTo(Movement.Type.Jog);
+                    m_movement?.ResetGravity();
 
                     if (m_state.isAttacking)
                     {
