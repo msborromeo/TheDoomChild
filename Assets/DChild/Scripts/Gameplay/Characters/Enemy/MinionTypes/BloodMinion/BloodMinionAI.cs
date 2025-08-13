@@ -330,7 +330,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_hitbox.Enable();
             m_isSubmerged = false;
             m_animation.SetAnimation(0, m_info.idleAnimation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleAnimation);
+            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleAnimation);
             //m_hitbox.Disable();
             m_animation.SetAnimation(0, m_info.attack1, false);
             yield return new WaitForSeconds(m_info.attackHitboxDelay);
