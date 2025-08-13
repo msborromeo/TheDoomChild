@@ -17,7 +17,7 @@ namespace DChild.Gameplay
         private Dictionary<Location, List<SceneInfo>> m_locationAndSceneRelationDictionary = new Dictionary<Location, List<SceneInfo>>();
 
         [Button]
-        public Location CheckCurrentLocation()
+        public Location GetCurrentLocation()
         {
             var currentScene = SceneManager.GetActiveScene().name;
 
