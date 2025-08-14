@@ -14,8 +14,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private ParticleSystem m_chargeFX;
         [SerializeField]
         private ParticleSystem m_finishedChargeFX;
-        [SerializeField]
-        private ParticleSystem m_dustFX;
+        //[SerializeField]
+        //private ParticleSystem m_dustFX;
         [SerializeField]
         private ParticleSystem m_impactFX;
         [SerializeField]
@@ -108,7 +108,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_thrust.PlayFX(true);
                 m_thrust.ShowCollider(true);
                 m_impactFX?.Play(true);
-                m_dustFX?.Play(true);
+                //m_dustFX?.Play(true);
                 m_chargeTimer = -1;
                 m_animator.SetBool(m_chargingAnimationParameter, false);
             }
