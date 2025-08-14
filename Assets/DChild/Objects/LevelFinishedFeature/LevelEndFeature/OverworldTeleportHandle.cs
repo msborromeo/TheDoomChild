@@ -17,9 +17,9 @@ namespace DChild.Gameplay
         [SerializeField]
         private FastTravelHandle m_fastTravelHandle;
         [SerializeField]
-        private Dictionary<SceneInfo, FastTravelData> overworldFastTravelDictionary = new Dictionary<SceneInfo, FastTravelData>();
-        [SerializeField]
         private CurrentLocationChecker m_currentLocationChecker;
+        [SerializeField]
+        private Dictionary<SceneInfo, FastTravelData> overworldFastTravelDictionary = new Dictionary<SceneInfo, FastTravelData>();
 
         [SerializeField]
         private Dictionary<Environment.Location, LevelCompleteVariables> m_levelCompleteDictionary = new Dictionary<Environment.Location, LevelCompleteVariables>();
