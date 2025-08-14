@@ -24,6 +24,8 @@ namespace DChild.Gameplay.Systems
 
         void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null);
 
+	void ForceStopCinematicVideo();
+
         void ToggleCinematicMode(bool on, bool instant = false);
 
         void ToggleCinematicBars(bool value);
