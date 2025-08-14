@@ -1,5 +1,6 @@
 using DChild.Gameplay.Environment;
 using DChild.Gameplay.FastTravel;
+using DChild.Gameplay.Systems;
 using DChild.Gameplay.Systems.Serialization;
 using Holysoft.Collections;
 using PixelCrushers.DialogueSystem;
@@ -11,7 +12,7 @@ using UnityEngine.SceneManagement;
 
 namespace DChild.Gameplay
 {
-    public class OverworldTeleportHandle : SerializedMonoBehaviour
+    public class OverworldTeleportHandle : SerializedMonoBehaviour, IGameplaySystemModule
     {
         [SerializeField]
         private FastTravelHandle m_fastTravelHandle;
@@ -26,8 +27,9 @@ namespace DChild.Gameplay
         [Button]
         public void TeleportToOverworld()
         {
-            //if current area is not done, return
-            if(CanTeleportToOverworld() == false)
+            //TODO: Maybe in different script but show confirmation box to travel to overworld before teleporting
+            //TODO: Show text or something to signify you can't go to overworld yet if you can
+            if (CanTeleportToOverworld() == false)
                 return;
 
             var currentSceneName = SceneManager.GetActiveScene().name;

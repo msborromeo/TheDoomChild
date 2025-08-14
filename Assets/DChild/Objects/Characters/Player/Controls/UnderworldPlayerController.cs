@@ -1034,7 +1034,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnTransitionToOverworld()
         {
-            //TODO: Reference Underworld Gameplay System to teleport
+            //Note: May need to change with gameplayUIHandle check to do it through confirmation window
+            UnderworldGameplaySystem.overworldTeleportHandle.TeleportToOverworld();
         }
 
         private void OnSlashStartedInput()
