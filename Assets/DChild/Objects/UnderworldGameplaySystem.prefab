@@ -2829,7 +2829,7 @@ GameObject:
   - component: {fileID: 5490378401369124829}
   - component: {fileID: 5609659329302768057}
   m_Layer: 0
-  m_Name: OverworldTeleportHandle
+  m_Name: MobileTeleportHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2866,57 +2866,58 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 798be571dc89fe14aa97c6a23998845f, type: 2}
-    - {fileID: 11400000, guid: 3c154c5051cf4ca4db8bc0536dc30e1b, type: 2}
-    - {fileID: 11400000, guid: c2f9caf39222f8f41959e13dcf7c76f0, type: 2}
     - {fileID: 11400000, guid: 9c18a288b00d48447ba0c0c4719756fb, type: 2}
     - {fileID: 11400000, guid: f3fd31c06f9838f4f9d6d9a229755bd9, type: 2}
     - {fileID: 11400000, guid: 9b87b5385da1c804dadd6c0943501309, type: 2}
-    - {fileID: 11400000, guid: 91c440c0606e3d140be8d9b359394211, type: 2}
     - {fileID: 11400000, guid: 73c76c43ff21eb745a4e9e8f47983b04, type: 2}
     - {fileID: 11400000, guid: de782e7323b1c8a4d9f8b3ef4199ff28, type: 2}
     - {fileID: 11400000, guid: 1d092c0783279d54d8dbf4b175ed26f7, type: 2}
+    - {fileID: 11400000, guid: c2f9caf39222f8f41959e13dcf7c76f0, type: 2}
+    - {fileID: 11400000, guid: 91c440c0606e3d140be8d9b359394211, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: overworldFastTravelDictionary
+    - Name: m_throneRoomTeleportLevelCompleteDictionary
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Holysoft.Collections.SceneInfo,
-        HolysoftEditor],[DChild.Gameplay.FastTravel.FastTravelData, Assembly-CSharp]],
+      Data: 0|System.Collections.Generic.Dictionary`2[[DChild.Gameplay.Environment.Location,
+        Assembly-CSharp],[DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp]],
         mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[Holysoft.Collections.SceneInfo,
-        HolysoftEditor]], mscorlib
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[DChild.Gameplay.Environment.Location,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 11
     - Name: 
       Entry: 7
       Data: 
     - Name: $k
-      Entry: 7
-      Data: 2|Holysoft.Collections.SceneInfo, HolysoftEditor
-    - Name: m_sceneName
-      Entry: 1
-      Data: CityOfTheDead_Revised_Scene1
-    - Name: m_scenePath
-      Entry: 1
-      Data: Assets/DChild/Scenes/_Zone City of The Dead/CityOfTheDead_Revised_Map/CityOfTheDead_Revised_Scene1.unity
-    - Name: m_isAddressables
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
+      Entry: 3
+      Data: 15
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
+    - Name: m_bossDialogueDatabase
       Entry: 10
       Data: 0
+    - Name: m_bossDefeatVariableName
+      Entry: 1
+      Data: LichLord_HasBeenDefeated
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -2924,23 +2925,209 @@ MonoBehaviour:
       Entry: 7
       Data: 
     - Name: $k
+      Entry: 3
+      Data: 17
+    - Name: $v
       Entry: 7
-      Data: 3|Holysoft.Collections.SceneInfo, HolysoftEditor
-    - Name: m_sceneName
+      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
+    - Name: m_bossDialogueDatabase
+      Entry: 10
+      Data: 0
+    - Name: m_bossDefeatVariableName
       Entry: 1
-      Data: CityOfTheDead_Revised_Scene2
-    - Name: m_scenePath
-      Entry: 1
-      Data: Assets/DChild/Scenes/_Zone City of The Dead/CityOfTheDead_Revised_Map/CityOfTheDead_Revised_Scene2.unity
-    - Name: m_isAddressables
-      Entry: 5
-      Data: false
+      Data: LichLord_HasBeenDefeated
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
     - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
+    - Name: m_bossDialogueDatabase
+      Entry: 10
+      Data: 0
+    - Name: m_bossDefeatVariableName
+      Entry: 1
+      Data: LichLord_HasBeenDefeated
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 14
+    - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
+    - Name: m_bossDialogueDatabase
       Entry: 10
       Data: 1
+    - Name: m_bossDefeatVariableName
+      Entry: 1
+      Data: MotherMantis_HasBeenDefeated
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 13
+    - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
+    - Name: m_bossDialogueDatabase
+      Entry: 10
+      Data: 2
+    - Name: m_bossDefeatVariableName
+      Entry: 1
+      Data: QueenBee_HasBeenDefeated
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
+    - Name: m_bossDialogueDatabase
+      Entry: 10
+      Data: 3
+    - Name: m_bossDefeatVariableName
+      Entry: 1
+      Data: ShadowDash_Acquired
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
+    - Name: m_bossDialogueDatabase
+      Entry: 10
+      Data: 4
+    - Name: m_bossDefeatVariableName
+      Entry: 1
+      Data: Franky_HasBeenDefeated
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 12
+    - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
+    - Name: m_bossDialogueDatabase
+      Entry: 10
+      Data: 3
+    - Name: m_bossDefeatVariableName
+      Entry: 1
+      Data: WallJump_Acquired
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 16
+    - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
+    - Name: m_bossDialogueDatabase
+      Entry: 10
+      Data: 5
+    - Name: m_bossDefeatVariableName
+      Entry: 1
+      Data: YnnusPuedis_hasBeenDefeated
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 10
+    - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
+    - Name: m_bossDialogueDatabase
+      Entry: 10
+      Data: 3
+    - Name: m_bossDefeatVariableName
+      Entry: 1
+      Data: BlackBloodImmunity_Acquired
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 11
+    - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
+    - Name: m_bossDialogueDatabase
+      Entry: 10
+      Data: 3
+    - Name: m_bossDefeatVariableName
+      Entry: 1
+      Data: BlackBloodImmunity_Acquired
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -2950,7 +3137,28 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: m_levelCompleteDictionary
+    - Name: m_overworldFastTravelDictionary
+      Entry: 7
+      Data: 2|System.Collections.Generic.Dictionary`2[[Holysoft.Collections.SceneInfo,
+        HolysoftEditor],[DChild.Gameplay.FastTravel.FastTravelData, Assembly-CSharp]],
+        mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 3|System.Collections.Generic.ObjectEqualityComparer`1[[Holysoft.Collections.SceneInfo,
+        HolysoftEditor]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: m_overworldTeleportLevelCompleteDictionary
       Entry: 7
       Data: 4|System.Collections.Generic.Dictionary`2[[DChild.Gameplay.Environment.Location,
         Assembly-CSharp],[DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp]],
@@ -2982,10 +3190,31 @@ MonoBehaviour:
       Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
     - Name: m_bossDialogueDatabase
       Entry: 10
-      Data: 2
+      Data: 6
     - Name: m_bossDefeatVariableName
       Entry: 1
       Data: UndeadGeneral_HasBeenDefeated
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 17
+    - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
+    - Name: m_bossDialogueDatabase
+      Entry: 10
+      Data: 7
+    - Name: m_bossDefeatVariableName
+      Entry: 1
+      Data: Adran_HasBeenDefeated
     - Name: 
       Entry: 8
       Data: 
@@ -3003,7 +3232,7 @@ MonoBehaviour:
       Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
     - Name: m_bossDialogueDatabase
       Entry: 10
-      Data: 3
+      Data: 0
     - Name: m_bossDefeatVariableName
       Entry: 1
       Data: LichLord_HasBeenDefeated
@@ -3024,7 +3253,7 @@ MonoBehaviour:
       Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
     - Name: m_bossDialogueDatabase
       Entry: 10
-      Data: 4
+      Data: 1
     - Name: m_bossDefeatVariableName
       Entry: 1
       Data: MotherMantis_HasBeenDefeated
@@ -3045,31 +3274,10 @@ MonoBehaviour:
       Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
     - Name: m_bossDialogueDatabase
       Entry: 10
-      Data: 5
+      Data: 2
     - Name: m_bossDefeatVariableName
       Entry: 1
       Data: QueenBee_HasBeenDefeated
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 17
-    - Name: $v
-      Entry: 7
-      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
-    - Name: m_bossDialogueDatabase
-      Entry: 10
-      Data: 6
-    - Name: m_bossDefeatVariableName
-      Entry: 1
-      Data: Adran_HasBeenDefeated
     - Name: 
       Entry: 8
       Data: 
@@ -3087,7 +3295,7 @@ MonoBehaviour:
       Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
     - Name: m_bossDialogueDatabase
       Entry: 10
-      Data: 7
+      Data: 3
     - Name: m_bossDefeatVariableName
       Entry: 1
       Data: ShadowDash_Acquired
@@ -3108,7 +3316,7 @@ MonoBehaviour:
       Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
     - Name: m_bossDialogueDatabase
       Entry: 10
-      Data: 8
+      Data: 4
     - Name: m_bossDefeatVariableName
       Entry: 1
       Data: Franky_HasBeenDefeated
@@ -3129,10 +3337,31 @@ MonoBehaviour:
       Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
     - Name: m_bossDialogueDatabase
       Entry: 10
-      Data: 7
+      Data: 3
     - Name: m_bossDefeatVariableName
       Entry: 1
       Data: WallJump_Acquired
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 16
+    - Name: $v
+      Entry: 7
+      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
+    - Name: m_bossDialogueDatabase
+      Entry: 10
+      Data: 5
+    - Name: m_bossDefeatVariableName
+      Entry: 1
+      Data: YnnusPuedis_hasBeenDefeated
     - Name: 
       Entry: 8
       Data: 
@@ -3150,7 +3379,7 @@ MonoBehaviour:
       Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
     - Name: m_bossDialogueDatabase
       Entry: 10
-      Data: 7
+      Data: 3
     - Name: m_bossDefeatVariableName
       Entry: 1
       Data: BlackBloodImmunity_Acquired
@@ -3171,31 +3400,10 @@ MonoBehaviour:
       Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
     - Name: m_bossDialogueDatabase
       Entry: 10
-      Data: 7
+      Data: 3
     - Name: m_bossDefeatVariableName
       Entry: 1
       Data: BlackBloodImmunity_Acquired
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 16
-    - Name: $v
-      Entry: 7
-      Data: DChild.Gameplay.LevelCompleteVariables, Assembly-CSharp
-    - Name: m_bossDialogueDatabase
-      Entry: 10
-      Data: 9
-    - Name: m_bossDefeatVariableName
-      Entry: 1
-      Data: YnnusPuedis_hasBeenDefeated
     - Name: 
       Entry: 8
       Data: 
@@ -3210,6 +3418,7 @@ MonoBehaviour:
       Data: 
   m_fastTravelHandle: {fileID: 5609659329302768057}
   m_currentLocationChecker: {fileID: 6026859184908587914}
+  m_throneRoomFastTravelData: {fileID: 0}
 --- !u!114 &5609659329302768057
 MonoBehaviour:
   m_ObjectHideFlags: 0

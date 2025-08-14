@@ -32,7 +32,7 @@ namespace DChild.Gameplay.Systems
         private static LootHandler m_lootHandler;
         private static DChild.Gameplay.Systems.PlayerManager m_playerManager;
         private static UnderworldGameplayUIHandle m_gameplayUIHandle;
-        private static OverworldTeleportHandle m_overworldTeleportHandle;
+        private static MobileTeleportHandle m_overworldTeleportHandle;
 
         public static IMinionManager minionManager => m_minionManager;
         public static ISoulSkillManager soulSkillManager => m_soulSkillManager;
@@ -43,7 +43,7 @@ namespace DChild.Gameplay.Systems
         public static ILootHandler lootHandler => m_lootHandler;
 
         public static IPlayerManager playerManager => m_playerManager;
-        public static OverworldTeleportHandle overworldTeleportHandle => m_overworldTeleportHandle;
+        public static MobileTeleportHandle overworldTeleportHandle => m_overworldTeleportHandle;
         private static UnderworldGameplayUIHandle gameplayUIHandle => m_gameplayUIHandle;
 
         #endregion
