@@ -269,6 +269,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OverworldTransition"",
+                    ""type"": ""Button"",
+                    ""id"": ""50b27411-7919-4dcc-9842-8e7c989f8304"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1855,6 +1864,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""SwordThrust"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d5d79753-435e-4fe0-80c3-28a968765963"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""OverworldTransition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -3076,6 +3096,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Underworld_ReaperHarvest = m_Underworld.FindAction("ReaperHarvest", throwIfNotFound: true);
         m_Underworld_IcarusWings = m_Underworld.FindAction("IcarusWings", throwIfNotFound: true);
         m_Underworld_TeleportingSkull = m_Underworld.FindAction("TeleportingSkull", throwIfNotFound: true);
+        m_Underworld_OverworldTransition = m_Underworld.FindAction("OverworldTransition", throwIfNotFound: true);
         // Overworld
         m_Overworld = asset.FindActionMap("Overworld", throwIfNotFound: true);
         m_Overworld_Move = m_Overworld.FindAction("Move", throwIfNotFound: true);
@@ -3187,6 +3208,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Underworld_ReaperHarvest;
     private readonly InputAction m_Underworld_IcarusWings;
     private readonly InputAction m_Underworld_TeleportingSkull;
+    private readonly InputAction m_Underworld_OverworldTransition;
     public struct UnderworldActions
     {
         private @PlayerControls m_Wrapper;
@@ -3218,6 +3240,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @ReaperHarvest => m_Wrapper.m_Underworld_ReaperHarvest;
         public InputAction @IcarusWings => m_Wrapper.m_Underworld_IcarusWings;
         public InputAction @TeleportingSkull => m_Wrapper.m_Underworld_TeleportingSkull;
+        public InputAction @OverworldTransition => m_Wrapper.m_Underworld_OverworldTransition;
         public InputActionMap Get() { return m_Wrapper.m_Underworld; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -3308,6 +3331,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @TeleportingSkull.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnTeleportingSkull;
                 @TeleportingSkull.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnTeleportingSkull;
                 @TeleportingSkull.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnTeleportingSkull;
+                @OverworldTransition.started -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnOverworldTransition;
+                @OverworldTransition.performed -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnOverworldTransition;
+                @OverworldTransition.canceled -= m_Wrapper.m_UnderworldActionsCallbackInterface.OnOverworldTransition;
             }
             m_Wrapper.m_UnderworldActionsCallbackInterface = instance;
             if (instance != null)
@@ -3393,6 +3419,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @TeleportingSkull.started += instance.OnTeleportingSkull;
                 @TeleportingSkull.performed += instance.OnTeleportingSkull;
                 @TeleportingSkull.canceled += instance.OnTeleportingSkull;
+                @OverworldTransition.started += instance.OnOverworldTransition;
+                @OverworldTransition.performed += instance.OnOverworldTransition;
+                @OverworldTransition.canceled += instance.OnOverworldTransition;
             }
         }
     }
@@ -3689,6 +3718,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnReaperHarvest(InputAction.CallbackContext context);
         void OnIcarusWings(InputAction.CallbackContext context);
         void OnTeleportingSkull(InputAction.CallbackContext context);
+        void OnOverworldTransition(InputAction.CallbackContext context);
     }
     public interface IOverworldActions
     {
