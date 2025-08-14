@@ -12,35 +12,6 @@ namespace DChild.QuestHints
         [SerializeField]
         private RectTransform m_RevealedTransform;
 
-        [SerializeField]
-        List<GameObject> m_PointsOfInterests = new List<GameObject>();
-
-        [SerializeField, TabGroup("Point Of Interest")]
-        private MapPointOfInterestHandle m_pointOfInterest;
-
-        private void OnEnable()
-        {
-            m_pointOfInterest.Initialize();
-            m_pointOfInterest.LoadStates();
-            //MapHintRevealer.MarkerRevealer.RevealMapHint += RevealObject;
-        }
-        private void OnDestroy()
-        {
-            //MapHintRevealer.MarkerRevealer.RevealMapHint -= RevealObject;
-        }
-
-        public void RevealObject()
-        {
-            foreach (GameObject POI in m_PointsOfInterests)
-            {
-                if (POI.GetComponent<MapPointOfInterestTracker>().isTracked)
-                {
-                    POI.transform.SetParent(m_RevealedTransform);
-                    break;
-                }
-            }
-        }
-
         public void Reveal(GameObject obj)
         {
             obj.transform.SetParent(m_RevealedTransform);
