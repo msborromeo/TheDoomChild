@@ -268,7 +268,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportingSkullStartedEvent += OnTeleportingSkullStartedInput;
             m_inputReader.TeleportingSkullPerformedEvent += OnTeleportingSkullPerformedInput;
             m_inputReader.TeleportingSkullCancelledEvent += OnTeleportingSkullCancelledInput;
-            m_inputReader.TransitionToOverworld += OnTransitionToOverworld;
+            m_inputReader.TeleportToOverworld += OnTeleportToOverworld;
+            m_inputReader.TeleportToMordenThroneRoom += OnTeleportToMordenThroneRoom;
         }
 
         private void OnDisable()
@@ -347,7 +348,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportingSkullStartedEvent -= OnTeleportingSkullStartedInput;
             m_inputReader.TeleportingSkullPerformedEvent -= OnTeleportingSkullPerformedInput;
             m_inputReader.TeleportingSkullCancelledEvent -= OnTeleportingSkullCancelledInput;
-            m_inputReader.TransitionToOverworld -= OnTransitionToOverworld;
+            m_inputReader.TeleportToOverworld -= OnTeleportToOverworld;
+            m_inputReader.TeleportToMordenThroneRoom -= OnTeleportToMordenThroneRoom;
         }
 
         private void FixedUpdate()
@@ -1032,10 +1034,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         }
 
-        private void OnTransitionToOverworld()
+        private void OnTeleportToOverworld()
         {
             //Note: May need to change with gameplayUIHandle check to do it through confirmation window
             UnderworldGameplaySystem.overworldTeleportHandle.TeleportToOverworld();
+        }
+
+        private void OnTeleportToMordenThroneRoom()
+        {
+            //Note: May need to change with gameplayUIHandle check to do it through confirmation window
+            UnderworldGameplaySystem.overworldTeleportHandle.TeleportToThroneRoom();
         }
 
         private void OnSlashStartedInput()

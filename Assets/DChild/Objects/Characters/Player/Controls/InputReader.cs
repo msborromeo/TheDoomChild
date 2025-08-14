@@ -83,7 +83,8 @@ namespace DChild.Inputs
         public event Action<Vector2> MouseDeltaPerformedEvent;
         public event Action SwordThrustPerformedEvent;
         public event Action SwordThrustCancelledEvent;
-        public event Action TransitionToOverworld;
+        public event Action TeleportToOverworld;
+        public event Action TeleportToMordenThroneRoom;
         #endregion
         #region Combat Arts Input
         public event Action BarrierStartedEvent;
@@ -278,11 +279,19 @@ namespace DChild.Inputs
             }
         }
 
-        public void OnTransitionToOverworld(InputAction.CallbackContext context)
+        public void OnTeleportToOverworld(InputAction.CallbackContext context)
         {
             if(context.phase == InputActionPhase.Performed)
             {
-                TransitionToOverworld?.Invoke();
+                TeleportToOverworld?.Invoke();
+            }
+        }    
+        
+        public void OnTeleportToMordenThroneRoom(InputAction.CallbackContext context)
+        {
+            if(context.phase == InputActionPhase.Performed)
+            {
+                TeleportToMordenThroneRoom?.Invoke();
             }
         }
 
