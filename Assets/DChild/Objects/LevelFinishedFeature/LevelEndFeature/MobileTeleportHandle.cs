@@ -20,12 +20,12 @@ namespace DChild.Gameplay
         private CurrentLocationChecker m_currentLocationChecker;
 
         [SerializeField, BoxGroup("Throne Room Teleport Variables")]
-        private FastTravelData m_throneRoomFastTravelData;
+        private LocationData m_throneRoomTravelData;
         [SerializeField, BoxGroup("Throne Room Teleport Variables")]
         private Dictionary<Environment.Location, LevelCompleteVariables> m_throneRoomTeleportLevelCompleteDictionary = new Dictionary<Environment.Location, LevelCompleteVariables>();
 
         [SerializeField, BoxGroup("Overworld Teleport Variables")]
-        private Dictionary<SceneInfo, FastTravelData> m_overworldFastTravelDictionary = new Dictionary<SceneInfo, FastTravelData>();
+        private Dictionary<SceneInfo, LocationData> m_overworldTravelDictionary = new Dictionary<SceneInfo, LocationData>();
 
         [SerializeField, BoxGroup("Overworld Teleport Variables")]
         private Dictionary<Environment.Location, LevelCompleteVariables> m_overworldTeleportLevelCompleteDictionary = new Dictionary<Environment.Location, LevelCompleteVariables>();
@@ -39,18 +39,18 @@ namespace DChild.Gameplay
                 return;
 
             var currentSceneName = SceneManager.GetActiveScene().name;
-            FastTravelData fastTravelData = null;
+            LocationData travelData = null;
 
-            foreach (SceneInfo sceneInfo in m_overworldFastTravelDictionary.Keys)
+            foreach (SceneInfo sceneInfo in m_overworldTravelDictionary.Keys)
             {
                 if (sceneInfo.sceneName == currentSceneName)
                 {
-                    fastTravelData = m_overworldFastTravelDictionary[sceneInfo];
+                    travelData = m_overworldTravelDictionary[sceneInfo];
                     break;
                 }
             }
 
-            m_fastTravelHandle.TransferPlayerTo(fastTravelData.fastTravelPoint);
+            m_fastTravelHandle.TransferPlayerTo(travelData);
         }
 
         public void TeleportToThroneRoom()
@@ -58,7 +58,7 @@ namespace DChild.Gameplay
             if (CanTeleportToThroneRoom() == false)
                 return;
 
-            m_fastTravelHandle.TransferPlayerTo(m_throneRoomFastTravelData.fastTravelPoint);
+            m_fastTravelHandle.TransferPlayerTo(m_throneRoomTravelData);
         }
 
         private bool CanTeleportToOverworld()
