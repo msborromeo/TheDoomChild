@@ -249,12 +249,21 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OverworldTransition",
+                    "name": "OverworldTeleport",
                     "type": "Button",
                     "id": "50b27411-7919-4dcc-9842-8e7c989f8304",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold(duration=1.5)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MordenThroneRoomTeleport",
+                    "type": "Button",
+                    "id": "a433c9e0-987b-4005-bd68-f5c3adc055ff",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -1850,7 +1859,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "OverworldTransition",
+                    "action": "OverworldTeleport",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f6a3424e-6b18-4001-8a98-a7b8e3bcc7ce",
+                    "path": "<Keyboard>/h",
+                    "interactions": "Hold(duration=1.5)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MordenThroneRoomTeleport",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
