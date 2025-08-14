@@ -268,6 +268,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportingSkullStartedEvent += OnTeleportingSkullStartedInput;
             m_inputReader.TeleportingSkullPerformedEvent += OnTeleportingSkullPerformedInput;
             m_inputReader.TeleportingSkullCancelledEvent += OnTeleportingSkullCancelledInput;
+            m_inputReader.TransitionToOverworld += OnTransitionToOverworld;
         }
 
         private void OnDisable()
@@ -346,6 +347,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportingSkullStartedEvent -= OnTeleportingSkullStartedInput;
             m_inputReader.TeleportingSkullPerformedEvent -= OnTeleportingSkullPerformedInput;
             m_inputReader.TeleportingSkullCancelledEvent -= OnTeleportingSkullCancelledInput;
+            m_inputReader.TransitionToOverworld -= OnTransitionToOverworld;
         }
 
         private void FixedUpdate()
@@ -1028,6 +1030,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnPauseInput()
         {
 
+        }
+
+        private void OnTransitionToOverworld()
+        {
+            //TODO: Reference Underworld Gameplay System to teleport
         }
 
         private void OnSlashStartedInput()

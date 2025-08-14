@@ -83,6 +83,7 @@ namespace DChild.Inputs
         public event Action<Vector2> MouseDeltaPerformedEvent;
         public event Action SwordThrustPerformedEvent;
         public event Action SwordThrustCancelledEvent;
+        public event Action TransitionToOverworld;
         #endregion
         #region Combat Arts Input
         public event Action BarrierStartedEvent;
@@ -274,6 +275,14 @@ namespace DChild.Inputs
             if (context.phase == InputActionPhase.Started)
             {
                 PauseStartedEvent?.Invoke();
+            }
+        }
+
+        public void OnTransitionToOverworld(InputAction.CallbackContext context)
+        {
+            if(context.phase == InputActionPhase.Performed)
+            {
+                TransitionToOverworld?.Invoke();
             }
         }
 
