@@ -128,6 +128,12 @@ namespace DChild.Gameplay.Systems
         {
             m_cinematicVideoHandle.ShowCinematicVideo(clip, behindTheSceneRoutine, OnVideoDone);
         }
+
+	public void ForceStopCinematicVideo()
+	{
+		m_cinematicVideoHandle.ForceStopCinematicVideo();
+	}
+
         public void OpenFastTravel(DLocation startingLocation)
         {
             m_fastTravelUI.ForceOpenPage(startingLocation);
