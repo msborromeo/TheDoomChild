@@ -58,20 +58,25 @@ namespace DChild.UI
 
             // With quick panel changes, panel may not reach OnEnable/OnDisable before being reused.
             // Update panelStack here also to handle this case:
-            if (m_isBanter && currentSubtitle != null)
-                UpdateCurrentActor(currentSubtitle);
-
-
+            //if (m_isBanter && currentSubtitle != null)
             PushToPanelStack();
         }
 
-        private void UpdateCurrentActor(Subtitle subtitle)
+        public override void SetContent(Subtitle subtitle)
         {
+            base.SetContent(subtitle);
+
+            if (!m_isBanter || currentSubtitle == null)
+                return;
+
             var actor = DialogueManager.masterDatabase.GetActor(subtitle.dialogueEntry.ActorID);
 
-            portraitImage.sprite = actor.spritePortraits.Last();
+            //var portraits = actor.spritePortraits;
+            //portraitImage.sprite = actor.spritePortraits.Last();
+            SetPortraitImage(actor.spritePortraits.Last());
             portraitName.text = $"{portraitActorName}: ";
             portraitName.color = Tools.WebColor(actor.LookupValue("BanterColor"));
+
         }
 
         public override void Close()
@@ -92,6 +97,13 @@ namespace DChild.UI
             }
             ClearText();
             hasFocus = false;
+        }
+
+        public override void ClearText()
+        {
+            base.ClearText();
+            portraitName.text = "";
+            SetPortraitImage(null);
         }
 
         public override void HideContinueButton()
