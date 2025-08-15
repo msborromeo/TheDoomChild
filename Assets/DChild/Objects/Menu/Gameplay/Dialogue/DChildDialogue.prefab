@@ -35,10 +35,10 @@ RectTransform:
   m_Father: {fileID: 8450357915977343487}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.14427084, y: 0.029450431}
-  m_AnchorMax: {x: 0.85572916, y: 0.22232974}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -404.02}
+  m_SizeDelta: {x: 1360.11, y: 208.29999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1235566150393003085
 MonoBehaviour:
@@ -57,13 +57,13 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 1
-  m_Spacing: 0
+  m_ChildAlignment: 4
+  m_Spacing: 8
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
-  m_ChildScaleWidth: 0
+  m_ChildScaleWidth: 1
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
 --- !u!1 &1701304339205128966
@@ -1110,8 +1110,8 @@ GameObject:
   - component: {fileID: 2615764344572537835}
   - component: {fileID: 3396343243496948813}
   - component: {fileID: 4544218371227833650}
-  - component: {fileID: 613013192862928196}
   - component: {fileID: 6517771648696250431}
+  - component: {fileID: 4026911130681270299}
   m_Layer: 0
   m_Name: Image - ActorIcon
   m_TagString: Untagged
@@ -1163,7 +1163,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1177,7 +1177,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &613013192862928196
+--- !u!225 &6517771648696250431
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2272562251916442666}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &4026911130681270299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1197,18 +1209,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!225 &6517771648696250431
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2272562251916442666}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &2678748711533312917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,7 +1265,7 @@ GameObject:
   - component: {fileID: 7344620866152010919}
   - component: {fileID: 5575270259394362978}
   - component: {fileID: 417763481876742430}
-  - component: {fileID: 7744746587834675108}
+  - component: {fileID: 8164514551572728900}
   m_Layer: 0
   m_Name: Label - ActorName
   m_TagString: Untagged
@@ -1324,8 +1324,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Doomed Knight:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e95cc0731bb77b44491cb875ccc17168, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: c2ce2e0463459bd4da65f3812dec4a6c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6a576fbe1b6faba498194776bfd96bc4, type: 2}
+  m_sharedMaterial: {fileID: 21892830720195836, guid: 6a576fbe1b6faba498194776bfd96bc4,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1385,24 +1386,32 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 10.6, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!225 &7744746587834675108
-CanvasGroup:
+--- !u!114 &8164514551572728900
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5058788118951616883}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &5562878816111278853
 GameObject:
   m_ObjectHideFlags: 0
@@ -3854,8 +3863,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: where am i... what is this place?
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e95cc0731bb77b44491cb875ccc17168, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: c2ce2e0463459bd4da65f3812dec4a6c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6a576fbe1b6faba498194776bfd96bc4, type: 2}
+  m_sharedMaterial: {fileID: 21892830720195836, guid: 6a576fbe1b6faba498194776bfd96bc4,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3915,7 +3925,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 10.6, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

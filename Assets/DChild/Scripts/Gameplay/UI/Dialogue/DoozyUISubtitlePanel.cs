@@ -2,6 +2,8 @@
 using Doozy.Runtime.UIManager.Containers;
 using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor.Validation;
+using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -73,10 +75,13 @@ namespace DChild.UI
 
             //var portraits = actor.spritePortraits;
             //portraitImage.sprite = actor.spritePortraits.Last();
-            SetPortraitImage(actor.spritePortraits.Last());
             portraitName.text = $"{portraitActorName}: ";
             portraitName.color = Tools.WebColor(actor.LookupValue("BanterColor"));
 
+            var portraits = actor.spritePortraits;
+            var portrait = portraits.IsNullOrEmpty() ? actor.spritePortrait : portraits.Last();
+
+            SetPortraitImage(portrait);
         }
 
         public override void Close()
