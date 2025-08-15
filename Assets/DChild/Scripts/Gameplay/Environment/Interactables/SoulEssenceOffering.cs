@@ -87,6 +87,7 @@ namespace DChild.Gameplay.Environment
                 if (m_currentAmount == m_amountRequired)
                 {
                     m_onComplete?.Invoke();
+                    InteractionOptionChange?.Invoke(this, EventActionArgs.Empty);
                     StopAllCoroutines();
                     StartCoroutine(DelayedReenableTrigger());
                 }

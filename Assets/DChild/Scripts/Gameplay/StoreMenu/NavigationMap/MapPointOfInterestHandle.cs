@@ -34,7 +34,7 @@ namespace DChild.Gameplay.NavigationMap
                 var isRevealed = DialogueLua.GetVariable(pointOfInterest.varName).asBool;
                 pointOfInterest.SetStateAs(isRevealed);
             }
-            m_legendTracker?.RevealObject();
+            //m_legendTracker?.RevealObject();
         }
 
         //private void OnValueChanged(object sender, FogOfWarStateChangeEvent eventArgs)

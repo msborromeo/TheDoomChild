@@ -48,6 +48,17 @@ namespace DChild.Gameplay.Systems
             }
         }
 
+	public void ForceStopCinematicVideo()
+	{
+	    StopAllCoroutines();
+            m_videoPlayer.Stop();
+            m_videoCinemaEndSignal?.SendSignal();
+            GameplaySystem.playerManager.StopCharacterControlOverride();
+            GameplaySystem.gamplayUIHandle.ToggleFadeUI(false);    
+            m_isPlaying = false;
+            m_videoPlayingRoutine = null;
+	}
+
         public void Initialize()
         {
             m_videoPlayer.loopPointReached += OnVideoClipDone;

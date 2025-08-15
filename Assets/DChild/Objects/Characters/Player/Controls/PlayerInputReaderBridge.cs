@@ -47,6 +47,15 @@ namespace DChild.Inputs
             m_reader.OnPause(context);
         }
 
+        public void OnTeleportToOverworld(InputAction.CallbackContext context)
+        {
+            m_reader.OnTeleportToOverworld(context);
+        }
+        public void OnTeleportToMordenThroneRoom(InputAction.CallbackContext context)
+        {
+            m_reader.OnTeleportToMordenThroneRoom(context);
+        }
+
         public void OnQuickItemCycle(InputAction.CallbackContext context)
         {
             m_reader.OnQuickItemCycle(context);

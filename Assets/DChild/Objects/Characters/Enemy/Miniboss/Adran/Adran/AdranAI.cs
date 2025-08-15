@@ -274,16 +274,17 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         base.OnDestroyed(sender, eventArgs);
         Debug.Log("Death?");     
         StopAllCoroutines();
-        DeathEvent();
-        m_deathHandle.enabled = true;   
+        //DeathEvent();
+        m_deathHandle.enabled = true;
+        //m_animation.DisableRootMotion();
         m_movement.Stop();
-        m_animation.DisableRootMotion();
+        
 
     }
     public void DeathEvent()
     {
-        var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_deathFX, gameObject.scene);
-        instance.SpawnAt(new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+        //var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_deathFX, gameObject.scene);
+        //instance.SpawnAt(new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
     }
     private void Health_Death(object sender, Holysoft.Event.EventActionArgs eventArgs)
     {
