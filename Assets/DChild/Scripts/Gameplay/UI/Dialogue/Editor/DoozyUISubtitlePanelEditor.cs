@@ -17,6 +17,7 @@ namespace DChildEditor.Gameplay.Dialogue
         {
             serializedObject.Update();
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_continueUIButton"), true);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("m_isBanter"), true);
             serializedObject.ApplyModifiedProperties();
             base.OnInspectorGUI();
 
