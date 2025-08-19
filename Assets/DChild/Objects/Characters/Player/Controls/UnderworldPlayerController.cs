@@ -268,6 +268,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportingSkullStartedEvent += OnTeleportingSkullStartedInput;
             m_inputReader.TeleportingSkullPerformedEvent += OnTeleportingSkullPerformedInput;
             m_inputReader.TeleportingSkullCancelledEvent += OnTeleportingSkullCancelledInput;
+            m_inputReader.TeleportToOverworld += OnTeleportToOverworld;
+            m_inputReader.TeleportToMordenThroneRoom += OnTeleportToMordenThroneRoom;
         }
 
         private void OnDisable()
@@ -346,6 +348,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportingSkullStartedEvent -= OnTeleportingSkullStartedInput;
             m_inputReader.TeleportingSkullPerformedEvent -= OnTeleportingSkullPerformedInput;
             m_inputReader.TeleportingSkullCancelledEvent -= OnTeleportingSkullCancelledInput;
+            m_inputReader.TeleportToOverworld -= OnTeleportToOverworld;
+            m_inputReader.TeleportToMordenThroneRoom -= OnTeleportToMordenThroneRoom;
         }
 
         private void FixedUpdate()
@@ -689,6 +693,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             if ( m_state.isExecutingCombatArt)
                 return;
+
+            if(m_state.isGrounded == false && vector.y < 0)
+                m_movement.TriggerFastFall();
             
             m_vector2Input = vector;
         }
@@ -1025,6 +1032,18 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnPauseInput()
         {
 
+        }
+
+        private void OnTeleportToOverworld()
+        {
+            //Note: May need to change with gameplayUIHandle check to do it through confirmation window
+            UnderworldGameplaySystem.overworldTeleportHandle.TeleportToOverworld();
+        }
+
+        private void OnTeleportToMordenThroneRoom()
+        {
+            //Note: May need to change with gameplayUIHandle check to do it through confirmation window
+            UnderworldGameplaySystem.overworldTeleportHandle.TeleportToThroneRoom();
         }
 
         private void OnSlashStartedInput()
@@ -2144,6 +2163,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_initialDescentBoost?.Reset();
                     m_extraJump?.Reset();
                     m_movement?.SwitchConfigTo(Movement.Type.Jog);
+                    m_movement?.ResetGravity();
 
                     if (m_state.isAttacking)
                     {
