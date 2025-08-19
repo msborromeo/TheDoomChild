@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9153750469019364572}
   - component: {fileID: 3487612945905814996}
   - component: {fileID: 2207252905273120213}
+  - component: {fileID: 8123459529723136269}
   m_Layer: 0
   m_Name: NavigationMapHandle
   m_TagString: Untagged
@@ -57,6 +58,7 @@ MonoBehaviour:
     m_segmentList: []
   m_pointOfInterest:
     m_mapPointTracker: []
+    m_legendTracker: {fileID: 0}
 --- !u!114 &3487612945905814996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +164,33 @@ MonoBehaviour:
   useConversationTitlePicker: 1
   useBarkTitlePicker: 1
   useQuestNamePicker: 1
-  selectedDatabase: {fileID: 0}
+  selectedDatabase: {fileID: 11400000, guid: 5426898a4414e3440a8c7a9fa1cabaec, type: 2}
+--- !u!114 &8123459529723136269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502459922259247481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6546d1f34e0077748a93d4c356aa9411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addTrigger: 16
+  removeTrigger: 1024
+  databases:
+  - {fileID: 11400000, guid: 5426898a4414e3440a8c7a9fa1cabaec, type: 2}
+  - {fileID: 11400000, guid: ac16140410a31ac4aabb0ef6a82fa461, type: 2}
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  once: 0
+  onePerFrame: 0
 --- !u!1 &4157843587072262453
 GameObject:
   m_ObjectHideFlags: 0
