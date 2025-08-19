@@ -4,6 +4,7 @@ using DChild.Gameplay.UI.Alerts;
 using DChild.Menu;
 using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
+using Holysoft.Event;
 using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using System;
@@ -90,6 +91,12 @@ namespace DChild.Gameplay.Systems
             {
                 m_fadeUI.Hide();
             }
+        }
+
+        public void RequestTeleportConfirmation(EventAction<EventActionArgs> eventAction, string confirmationMessage)
+        {
+            m_confirmationWindow.RequestConfirmation(eventAction, confirmationMessage);
+            m_confirmationWindowSignal.SendSignal();
         }
 
         public void ShowGameOverScreen()
