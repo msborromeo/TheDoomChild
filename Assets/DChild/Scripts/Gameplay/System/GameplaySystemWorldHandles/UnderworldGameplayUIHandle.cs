@@ -46,8 +46,6 @@ namespace DChild.Gameplay.Systems
         private RegenerationEffectsHandler m_regen;
         [SerializeField]
         private ElevatorLevelSelectionUI m_elevator;
-        [SerializeField]
-        private LevelFinishUI m_levelFinish;
 
 
         [SerializeField, FoldoutGroup("Side Notification")]
@@ -242,11 +240,6 @@ namespace DChild.Gameplay.Systems
         public void OpenWeaponUpgradeConfirmationWindow()
         {
             m_upgradeWeaponHandler.RequestUpgrade();
-        }
-
-        public void NotifyAvailableLocation(AvailableLocations location, InputActionConfiguration input)
-        {
-            m_levelFinish.NotifyAvailableLocation(location, input);
         }
 
         private void OnPostDeserialization(object sender, CampaignSlotUpdateEventArgs eventArgs)

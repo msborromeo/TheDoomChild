@@ -3,6 +3,7 @@ using DChild.Gameplay.Characters.NPC;
 using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Environment;
 using DChild.Gameplay.LevelFinish.UI;
+using DChild.Gameplay.Systems.Serialization;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
 using DChild.Gameplay.UI.Alerts;
@@ -115,14 +116,14 @@ namespace DChild.Gameplay.Systems
             throw new NotImplementedException();
         }
 
-        public void RequestTeleportConfirmation(EventAction<EventActionArgs> eventAction, string confirmationMessage)
+        public void RequestTeleportConfirmation(LocationData destinationData)
         {
-            BaseGameplayUIHandle.Instance.RequestTeleportConfirmation(eventAction, confirmationMessage);
+            BaseGameplayUIHandle.Instance.RequestTeleportConfirmation(destinationData);
         }
 
-        public void NotifyAvailableLocation(AvailableLocations location, InputActionConfiguration input)
+        public void NotifyUnlockedLocation(AvailableLocations location, InputActionConfiguration input)
         {
-            UnderworldGameplayUIHandle.Instance.NotifyAvailableLocation(location, input);
+            BaseGameplayUIHandle.Instance.NotifyUnlockedLocation(location, input);
         }
 
         public void ResetGameplayUI()
