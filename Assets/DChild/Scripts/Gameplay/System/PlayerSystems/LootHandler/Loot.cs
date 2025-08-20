@@ -11,6 +11,8 @@ namespace DChild.Gameplay.Systems
     public abstract class Loot : PoolableObject
     {
         [SerializeField]
+        private Collider2D m_collider;
+        [SerializeField]
         private CountdownTimer m_popTimer;
         [SerializeField, BoxGroup("Basic Loot Info")]
         protected Rigidbody2D m_rigidbody;
@@ -21,7 +23,6 @@ namespace DChild.Gameplay.Systems
         private bool m_hasBeenApplied;
 
         public static string objectTag => "Loot";
-        private Collider2D m_collider;
         protected IPlayer m_pickedBy;
 
         public void DisableEnvironmentCollider() => m_collider.isTrigger = true;
@@ -78,7 +79,6 @@ namespace DChild.Gameplay.Systems
         protected virtual void Awake()
         {
             m_originalDrag = m_rigidbody.drag;
-            m_collider = GetComponentInChildren<Collider2D>();
             m_popTimer.CountdownEnd += OnPopDurationEnd;
         }
 
