@@ -128,6 +128,11 @@ namespace DChild.Gameplay.Systems
             BaseGameplayUIHandle.Instance.ShowCinematicVideo(clip, behindTheSceneRoutine, OnVideoDone);
         }
 
+	public void ForceStopCinematicVideo()
+	{
+		BaseGameplayUIHandle.Instance.ForceStopCinematicVideo();
+	}
+
         public void ShowGameOverScreen()
         {
             BaseGameplayUIHandle.Instance.ShowGameOverScreen();
