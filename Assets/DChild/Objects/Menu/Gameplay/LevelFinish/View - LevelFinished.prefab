@@ -160,8 +160,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 24
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_enableKerning: 1
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
-  m_isRichText: 0
+  m_isRichText: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -215,16 +215,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_message: Hold BUTTONPROMPT to access the Overworld.
-  m_spriteButtonList: {fileID: 0}
+  m_spriteButtonList: {fileID: 11400000, guid: c3c0ad3f40972da4c81d32b5f158ae38, type: 2}
   m_deviceType: 0
-  m_promptFontSize: 7
+  m_promptFontSize: 12
   m_numberOfActions: 1
   m_actionConfiguration1:
-    m_actionType: 3
+    m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
-    m_modifierPart: 3
-    m_inputAction: {fileID: 0}
+    m_modifierPart: 0
+    m_inputAction: {fileID: -7406305168509700932, guid: 2e0d81e8951c3384cba5207fae67c9a4,
+      type: 3}
   m_actionConfiguration2:
     m_actionType: 0
     m_directionPart: 0
@@ -437,6 +438,7 @@ GameObject:
   - component: {fileID: 7877473073387451703}
   - component: {fileID: 7865614700719630141}
   - component: {fileID: 2784724188165752190}
+  - component: {fileID: 1269293289824612350}
   m_Layer: 5
   m_Name: View - LevelFinished
   m_TagString: Untagged
@@ -535,7 +537,19 @@ MonoBehaviour:
     Runners: []
     Event:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: DChild.Menu.PauseHandle, Assembly-CSharp
+          m_MethodName: PauseGame
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   OnVisibleCallback:
     EventName: OnVisibleCallback
     Runners: []
@@ -547,7 +561,19 @@ MonoBehaviour:
     Runners: []
     Event:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: DChild.Menu.PauseHandle, Assembly-CSharp
+          m_MethodName: ResumeGame
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   OnHiddenCallback:
     EventName: OnHiddenCallback
     Runners: []
@@ -1142,6 +1168,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_headerText: {fileID: 7078645462973192409}
   m_instructionsText: {fileID: 8079277407701627004}
+  m_promptSetter: {fileID: 8795409581326534968}
+  m_confirmationHandler: {fileID: 0}
+  m_fastTravelHandle: {fileID: 1269293289824612350}
+--- !u!114 &1269293289824612350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3856331381947499707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61062ed74815e8e409a5fa692e4140a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8288513041379674234
 GameObject:
   m_ObjectHideFlags: 0
@@ -1208,7 +1249,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You can now Travel to the Overworld
+  m_text: You can now travel the Overworld
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 21213444537982326, guid: 03de9f858562ece4c9ac9d91b56d9ad5,
