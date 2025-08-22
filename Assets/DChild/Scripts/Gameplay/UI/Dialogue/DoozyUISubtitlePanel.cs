@@ -81,7 +81,15 @@ namespace DChild.UI
             var portraits = actor.spritePortraits;
             var portrait = portraits.IsNullOrEmpty() ? actor.spritePortrait : portraits.Last();
 
-            SetPortraitImage(portrait);
+            switch (actor.Name)
+            {
+                case "Doomed Knight":
+                case "Crazy Knight":
+                case "Necro":
+                    SetPortraitImage(portrait);
+                    break;
+            }
+
         }
 
         public override void Close()
