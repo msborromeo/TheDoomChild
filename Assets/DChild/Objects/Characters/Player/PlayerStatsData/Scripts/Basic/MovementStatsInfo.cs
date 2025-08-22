@@ -21,6 +21,9 @@ public struct MovementStatsInfo
     [SerializeField, MinValue(0)]
     private float m_pushSpeed;
     public float pushSpeed => m_pushSpeed;
+    [SerializeField]
+    private float m_fastFallGravity;
+    public float fastFallGravity => m_fastFallGravity;
 
     public void CopyInfo(MovementStatsInfo reference)
     {
@@ -29,5 +32,6 @@ public struct MovementStatsInfo
         m_midAirSpeed = reference.midAirSpeed;
         m_pullSpeed = reference.pullSpeed;
         m_pushSpeed = reference.pushSpeed;
+        m_fastFallGravity = reference.fastFallGravity;
     }
 }
