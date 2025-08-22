@@ -55,10 +55,12 @@ namespace DChild.Gameplay.LevelFinish.UI
             m_destinationData = data;
             var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
 
-            if (WorldTypeVar.CurrentWorldType != WorldTypeVar.GetLocationWorldType(m_destinationData.location))
+            //if (WorldTypeVar.CurrentWorldType != WorldTypeVar.GetLocationWorldType(m_destinationData.location))
+            //{
+            //    WorldTypeVar.SetCurrentWorldType(m_destinationData.location);
+            //}
                 //GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Player);
 
-                WorldTypeVar.SetCurrentWorldType(m_destinationData.location);
 
             switch (WorldTypeVar.CurrentWorldType)
             {
