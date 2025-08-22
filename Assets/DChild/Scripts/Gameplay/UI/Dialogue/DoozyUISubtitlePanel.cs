@@ -73,25 +73,31 @@ namespace DChild.UI
 
             var actor = DialogueManager.masterDatabase.GetActor(subtitle.dialogueEntry.ActorID);
 
+            var isMainCharacter = actor.Name == "Player" ||
+                actor.Name == "Doomed Knight" ||
+                actor.Name == "Crazy Knight" ||
+                actor.Name == "Necro";
+            //if (actor.Name != "Player" ||
+            //    actor.Name != "Doomed Knight" ||
+            //    actor.Name != "Crazy Knight" ||
+            //    actor.Name != "Necro")
+            //    return;
+
             //var portraits = actor.spritePortraits;
             //portraitImage.sprite = actor.spritePortraits.Last();
+
             portraitName.text = $"{portraitActorName}: ";
-            portraitName.color = Tools.WebColor(actor.LookupValue("BanterColor"));
+            var actorColor = actor.LookupValue("BanterColor");
+            portraitName.color = actorColor != null ? Tools.WebColor(actorColor) : Tools.WebColor("#FA990E");
 
-            var portraits = actor.spritePortraits;
-            var portrait = portraits.IsNullOrEmpty() ? actor.spritePortrait : portraits.Last();
-
-            switch (actor.Name)
+            if (!isMainCharacter)
             {
-                case "Doomed Knight":
-                case "Crazy Knight":
-                case "Necro":
-                    SetPortraitImage(portrait);
-                    break;
+                SetPortraitImage(null);
+                return;
             }
-
+            var portrait = actor.spritePortraits.IsNullOrEmpty() ? actor.spritePortrait : actor.spritePortraits.Last();
+            SetPortraitImage(portrait);
         }
-
         public override void Close()
         {
             if (isOpen)

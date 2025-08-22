@@ -2,6 +2,8 @@
 using DChild.Gameplay.Characters.NPC;
 using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Environment;
+using DChild.Gameplay.LevelFinish.UI;
+using DChild.Gameplay.Systems.Serialization;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
 using DChild.Gameplay.UI.Alerts;
@@ -64,6 +66,9 @@ namespace DChild.Gameplay.Systems
         void ShowMordenElevatorUI(ElevatorLocation location, ElevatorLevelInfo[] labels, MovingPlatform elevator);
 
         void TogglePause(bool toggle);
+
+        void RequestTeleportConfirmation(LocationData destinationData);
+        public void NotifyUnlockedLocation(AvailableLocations location, InputActionConfiguration input);
 
         UIHandlerExtraReference GetReference();
     }
