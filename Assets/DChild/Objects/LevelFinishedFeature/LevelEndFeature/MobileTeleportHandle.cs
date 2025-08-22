@@ -29,8 +29,7 @@ namespace DChild.Gameplay
 
         [SerializeField, BoxGroup("Overworld Teleport Variables")]
         private Dictionary<Environment.Location, LevelCompleteVariables> m_overworldTeleportLevelCompleteDictionary = new Dictionary<Environment.Location, LevelCompleteVariables>();
-        
-        [Button]
+
         public void TeleportToOverworld()
         {
             //TODO: Maybe in different script but show confirmation box to travel to overworld before teleporting
@@ -50,7 +49,8 @@ namespace DChild.Gameplay
                 }
             }
 
-            m_fastTravelHandle.TransferPlayerTo(travelData);
+            //m_fastTravelHandle.TransferPlayerTo(travelData);
+            GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(travelData);
         }
 
         public void TeleportToThroneRoom()
@@ -58,7 +58,8 @@ namespace DChild.Gameplay
             if (CanTeleportToThroneRoom() == false)
                 return;
 
-            m_fastTravelHandle.TransferPlayerTo(m_throneRoomTravelData);
+            //m_fastTravelHandle.TransferPlayerTo(m_throneRoomTravelData);
+            GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(m_throneRoomTravelData);
         }
 
         private bool CanTeleportToOverworld()
