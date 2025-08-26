@@ -47,7 +47,6 @@ namespace DChild.Gameplay
                 }
             }
 
-            //m_fastTravelHandle.TransferPlayerTo(travelData);
             GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(travelData);
         }
 
@@ -56,7 +55,6 @@ namespace DChild.Gameplay
             if (CanTeleportToThroneRoom() == false)
                 return;
 
-            //m_fastTravelHandle.TransferPlayerTo(m_throneRoomTravelData);
             GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(m_throneRoomTravelData);
         }
 
