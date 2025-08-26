@@ -2,7 +2,6 @@
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -62,10 +61,13 @@ public class ForceOneTimeEnvironmentTrigger_tool : MonoBehaviour
         if (m_dialogueDatabases.Count > 0)
         {
             m_hideScriptConverterFunciton = true;
+#if UNITY_EDITOR
+
             EditorUtility.DisplayDialog(
                 "DONE",
                 "Check each dialogues",
                 "OKAY");
+#endif
             for (int i = 0; i < m_dialogueDatabases.Count; i++)
             {
 
@@ -78,11 +80,13 @@ public class ForceOneTimeEnvironmentTrigger_tool : MonoBehaviour
         }
         else
         {
+#if UNITy_EDITOR
             EditorUtility.DisplayDialog(
                 "Empty List Of Dialogues",
                 "No dialogues Found",
                 "Sorry My Bad"
             );
+#endif
 
 
            // TrollPopup.ShowWindow();
@@ -119,19 +123,21 @@ public class ForceOneTimeEnvironmentTrigger_tool : MonoBehaviour
             m_hideFindAllDialogueSystemTriggers = false;
             m_RevertChangesClearData = false;
             m_dialogueDatabases.Clear();
+#if UNITY_EDITOR
             EditorUtility.DisplayDialog(
                           "Empty List of Dialogues",
                           "No dialogues Found :D",
                           "Sorry My Bad :("
                       );
-           // m_wantToRevertChanges = false;
+#endif
+            // m_wantToRevertChanges = false;
         }    
     }
 
 
 
 
-
+#if UNITY_EDITOR
     #region :D
     public class TrollPopup : EditorWindow
     {
@@ -173,7 +179,7 @@ public class ForceOneTimeEnvironmentTrigger_tool : MonoBehaviour
         }
     }
     #endregion
-
+#endif
 
 }
 
