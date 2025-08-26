@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class ChampionsUprising : AttackBehaviour
+    public class ChampionsUprising : AttackBehaviour, IInterruptableCombatArtModule
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -86,6 +86,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         public void Execute()
         {
             m_state.waitForBehaviour = true;
+            m_state.isExecutingCombatArt = true;
             StopAllCoroutines();
             m_state.isAttacking = true;
             m_state.canAttack = false;
@@ -109,6 +110,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             //m_championsUprisingAnimation.gameObject.SetActive(false);
             m_physics.gravityScale = m_cacheGravity;
             m_animator.SetBool(m_championsUprisingStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
             base.AttackOver();
         }
 
@@ -121,6 +123,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             //m_championsUprisingAnimation.gameObject.SetActive(false);
             m_physics.gravityScale = m_cacheGravity;
             m_animator.SetBool(m_championsUprisingStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
             base.Cancel();
         }
 

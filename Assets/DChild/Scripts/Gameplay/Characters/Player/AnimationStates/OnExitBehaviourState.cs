@@ -36,6 +36,7 @@ namespace DChild.Gameplay.Characters.Players
             EndProjectileThrow,
             EndAirSlashRange,
             EndTeleportingSkull,
+            EndSwordThrustCharge
         }
 
         [SerializeField]
@@ -46,12 +47,13 @@ namespace DChild.Gameplay.Characters.Players
             base.OnStateExit(animator, stateInfo, layerIndex);
 
             var player = animator.GetComponent<PlayerFunctions>();
-
+            Debug.Log("Search for player function");
             if (player != null)
             {
                 switch (m_toExecute)
                 {
                     case Command.EndAttack:
+                        Debug.Log("initiate attack over");
                         player.FinishAttackAnim();
                         break;
                     case Command.EndEarthShaker:
@@ -133,19 +135,36 @@ namespace DChild.Gameplay.Characters.Players
             }
             else
             {
-                var shadow = animator.GetComponent<ShadowCloneAttackFX>();
+                var shadow = animator.GetComponent<PhantomFunctions>();
 
                 switch (m_toExecute)
                 {
                     case Command.EndAttack:
-                        shadow.FinishAttackAnim();
+                        shadow.DisableBasicSlashCollisions();
+                        shadow.DisableBasicWhipCollisions();
                         break;
                     case Command.EndComboAttack:
-                        shadow.FinishSlashComboAttackAnim();
+                        shadow.ResetSlashComboFX();
                         break;
                     case Command.EndCombo:
-                        shadow.ComboEnd();
+                        shadow.ResetSlashComboFX();
                         break;
+                    case Command.EndWhipComboAttack:
+                        shadow.ResetWhipComboFX();
+                        break;
+                    case Command.EndWhipCombo:
+                        shadow.ResetWhipComboFX();
+                        break;
+                    case Command.EndEarthShaker:
+                        shadow.EarthShakerEnd();
+                        break;
+                    case Command.EndSwordThrust:
+                        shadow.SwordThrustEnd();
+                        break;
+                    case Command.EndSwordThrustCharge:
+                        shadow.SwordThrustChargeEnd();
+                        break;
+                   
                 }
             }
         }

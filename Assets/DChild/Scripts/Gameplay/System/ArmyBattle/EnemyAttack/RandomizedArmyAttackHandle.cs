@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DChild.Gameplay.ArmyBattle;
+using Sirenix.OdinInspector;
 
 [System.Serializable]
 public class RandomizedArmyAttackHandle
 {
-    [SerializeField]
+    [SerializeField,SuffixLabel("%",true)]
     private float[] m_probabilities = new float[3];
     [SerializeField]
-    private ArmyGroupTemplateData[] m_outcomes;
-    public ArmyGroupTemplateData Randomized()
+    private ArmyAIAttackInfo[] m_outcomes;
+    public ArmyAIAttackInfo Randomized()
     {
         float rand = Random.Range(0f, 100f);
 

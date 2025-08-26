@@ -75,6 +75,10 @@ namespace DChild.Gameplay
 
         public void Load(ISaveData data)
         {
+            if(enabled == false)
+            {
+                return;
+            }
             m_isUsed = ((SaveData)data).isUsed;
             m_collider.enabled = !m_isUsed;
             SetGlows(!m_isUsed);
@@ -83,8 +87,12 @@ namespace DChild.Gameplay
 
         public void Initialize()
         {
+            if(enabled == false)
+            {
+                return;
+            }
             m_isUsed = false;
-            m_collider.enabled = true;
+            //m_collider.enabled = true;
             SetGlows(true);
             m_shrineVisualHandle.SkillShrineState(m_isUsed);
 

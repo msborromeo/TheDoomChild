@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class KrakenRage : AttackBehaviour
+    public class KrakenRage : AttackBehaviour, IInterruptableCombatArtModule
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -77,6 +77,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         public void Execute()
         {
             m_state.waitForBehaviour = true;
+            m_state.isExecutingCombatArt = true;
             m_state.isAttacking = true;
             m_state.canAttack = false;
             m_cacheGravity = m_physics.gravityScale;
@@ -99,6 +100,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_physics.gravityScale = m_cacheGravity;
             m_physics.velocity = Vector2.zero;
             m_animator.SetBool(m_krakenRageStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
         }
 
         public override void Cancel()
@@ -108,6 +110,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_physics.velocity = Vector2.zero;
             m_krakenRageInfo.ShowCollider(false);
             m_fxAnimator.Play("Buffer");
+            m_state.isExecutingCombatArt = false;
         }
 
         public void EnableCollision(bool value)

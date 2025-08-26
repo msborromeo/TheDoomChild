@@ -63,6 +63,8 @@ namespace DChild.Gameplay.Environment
         private int m_wayPointDestination;
         [ShowInInspector, ReadOnly, TabGroup("Debug")]
         private int m_currentWayPoint;
+        public int currentWayPoint => m_currentWayPoint;
+        
         private int m_incrementerValue;
 
         private Rigidbody2D m_rigidbody;
@@ -73,6 +75,9 @@ namespace DChild.Gameplay.Environment
 
         private int m_pingPongWaypoint;
         private const int m_significantFloatingPointPlace = 2;
+
+
+        public bool isStopped;
 
         public event EventAction<UpdateEventArgs> DestinationReached;
         public event EventAction<UpdateEventArgs> DestinationChanged;
@@ -254,6 +259,7 @@ namespace DChild.Gameplay.Environment
         private void Update()
         {
             var currentPosition = (Vector2)transform.position;
+            isStopped = false;
             if (MathfExt.RoundVectorValuesTo(m_significantFloatingPointPlace, currentPosition) != MathfExt.RoundVectorValuesTo(m_significantFloatingPointPlace, m_cacheDestination))
             {
                 transform.position = Vector2.MoveTowards(currentPosition, m_cacheCurrentWaypoint, m_speed * m_isolatedTime.deltaTime);
@@ -267,6 +273,7 @@ namespace DChild.Gameplay.Environment
             {
                 enabled = false;
                 DestinationReached?.Invoke(this, new UpdateEventArgs(GetInstanceID(), m_currentWayPoint, m_listSize, m_incrementerValue == 1));
+                isStopped = true;
             }
         }
 

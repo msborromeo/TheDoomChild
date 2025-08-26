@@ -14,6 +14,7 @@ using DChild;
 using DChild.Gameplay.Characters.Enemies;
 using DChild.Gameplay.Pathfinding;
 using DarkTonic.MasterAudio;
+using DChild.Gameplay.Systems;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
@@ -136,6 +137,9 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField, TabGroup("Hurtbox")]
         private Collider2D m_explodeBB;
 
+        [SerializeField, TabGroup("Reference")]
+        private LootDropper m_lootDropper; //Due to Special Circumstance on how this should drop loot, manual reference is neccessarry to inform control when it drops loot;
+
         [ShowInInspector]
         private StateHandle<State> m_stateHandle;
         private State m_turnState;
@@ -156,6 +160,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private float duration;
 
         private Coroutine m_executeMoveCoroutine;
+
+        private bool m_isDoingChargeAttack;
 
         private void OnAttackDone(object sender, EventActionArgs eventArgs)
         {
@@ -309,7 +315,7 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
         {
             base.OnDestroyed(sender, eventArgs);
-            
+
             StopAllCoroutines();
             if (m_executeMoveCoroutine != null)
             {
@@ -321,7 +327,9 @@ namespace DChild.Gameplay.Characters.Enemies
             m_selfCollider.SetActive(false);
             m_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
             //m_muzzleLoopFX.Stop();
-            StartCoroutine(ExplodeRoutine());
+            if (m_isDoingChargeAttack == false)
+                StartCoroutine(ExplodeRoutine());
+
         }
         private IEnumerator ExplodeRoutine()
         {
@@ -334,8 +342,18 @@ namespace DChild.Gameplay.Characters.Enemies
             //m_explodieBB.SetActive(false);
             enabled = false;
             yield return new WaitForSeconds(1f);
+            if (m_damageable.isAlive)
+            {
+                GameplaySystem.combatManager.Damage(m_damageable, new Damage(DamageType.True, 99999999));
+            }
+            yield return null;
+            if (m_isDoingChargeAttack == false)
+            {
+                m_lootDropper.DropLoot();
+            }
             this.gameObject.SetActive(false);
             yield return null;
+
         }
         private IEnumerator Charge()
         {
@@ -350,11 +368,13 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 var lerpedValue = 0f;
 
-                while(lerpedValue < duration){
+                m_isDoingChargeAttack = true;
+                StartCoroutine(ExplodeRoutine());
+                while (lerpedValue < duration)
+                {
                     float t = lerpedValue / duration;
                     transform.position = Vector2.Lerp(transform.position, m_lastTargetPos, t);
                     lerpedValue += Time.deltaTime;
-                    StartCoroutine(ExplodeRoutine());
                     yield return null;
                 }
                 transform.position = m_lastTargetPos;
@@ -470,7 +490,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             Debug.Log(m_info);
             base.Awake();
-            
+
             m_patrolHandle.TurnRequest += OnTurnRequest;
             m_attackHandle.AttackDone += OnAttackDone;
             m_flinchHandle.FlinchStart += OnFlinchStart;

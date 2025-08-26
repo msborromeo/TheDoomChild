@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.Characters;
 using DChild.Gameplay.Characters.Players.Modules;
+using DChild.Gameplay.Systems.Serialization;
 using DChild.Temp;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -82,13 +83,23 @@ namespace DChild.Gameplay.Environment
 
             Rigidbody2D rigidBody = character.GetComponent<Rigidbody2D>();
             rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
-            collisionState.forcedCurrentGroundedness = false;
+            RemoveInfluenceFrom(character);
         }
 
         private void OnDoorwayPostExit()
         {
             GameplaySystem.playerManager.StopCharacterControlOverride();
+        }
+
+        public void SetLocationDataReference(LocationData locationData)
+        {
+            //no need
+        }
+
+        public void RemoveInfluenceFrom(Character character)
+        {
+            CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
+            collisionState.forcedCurrentGroundedness = false;
         }
     }
 }

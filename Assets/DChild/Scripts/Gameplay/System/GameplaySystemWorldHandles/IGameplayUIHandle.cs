@@ -2,9 +2,13 @@
 using DChild.Gameplay.Characters.NPC;
 using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Environment;
+using DChild.Gameplay.LevelFinish.UI;
+using DChild.Gameplay.Systems.Serialization;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
+using DChild.Gameplay.UI.Alerts;
 using DChild.Menu.Trade;
+using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -15,9 +19,14 @@ namespace DChild.Gameplay.Systems
 
     public interface IGameplayUIHandle
     {
+        bool isInCutsceneMode { get; }
+
+        UIAlertManager alertManager { get; }
         IUINotificationManager notificationManager { get; }
 
         void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null);
+
+	void ForceStopCinematicVideo();
 
         void ToggleCinematicMode(bool on, bool instant = false);
 
@@ -53,5 +62,14 @@ namespace DChild.Gameplay.Systems
         void DeactivateHealthRegenEffect();
         void ActivateShadowRegenEffect();
         void DeactivateShadowRegenEffect();
+
+        void ShowMordenElevatorUI(ElevatorLocation location, ElevatorLevelInfo[] labels, MovingPlatform elevator);
+
+        void TogglePause(bool toggle);
+
+        void RequestTeleportConfirmation(LocationData destinationData);
+        public void NotifyUnlockedLocation(AvailableLocations location, InputActionConfiguration input);
+
+        UIHandlerExtraReference GetReference();
     }
 }

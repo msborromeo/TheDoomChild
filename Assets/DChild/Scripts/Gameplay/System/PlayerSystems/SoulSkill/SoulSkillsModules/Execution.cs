@@ -22,10 +22,11 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
             private GameObject m_instance;
 
 
-            public Handle(IPlayer m_reference, int hpThreshold, bool isPercentage, float m_cooldownTimer, GameObject m_instance) : base(m_reference)
+            public Handle(IPlayer m_reference, int hpThreshold, bool isPercentage, float cooldownTimer, GameObject m_instance) : base(m_reference)
             {
                 m_hpThreshold = hpThreshold;
                 m_isPercentage = isPercentage;
+                m_cooldownTimer = cooldownTimer;
                 this.m_instanceReference = m_instance;
             }
 
@@ -54,9 +55,15 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                         return;
                     if (HitCollider.gameObject.layer == LayerMask.NameToLayer("Environment"))
                         return;
+
+                    //if target is already at 0% HP on hit will not allow the rest of execute to run so 1 hit full HP minions don't waste Execution
+                    var targetHealthPercentage = targetHealth.currentValue / (float)targetHealth.maxValue;
+                    if (targetHealthPercentage <= 0)
+                        return;
+
                     if (m_isPercentage)
                     {
-                        instantlyKillTarget = (targetHealth.currentValue / (float)targetHealth.maxValue) <= (m_hpThreshold / 100f);
+                        instantlyKillTarget = (targetHealth.currentValue / (float)targetHealth.maxValue) <= (m_hpThreshold / 100f)+damage;
                         activateeffect = (targetHealth.currentValue / (float)targetHealth.maxValue) <= (m_hpThreshold / 100f)+damage;
                     }
                     else
@@ -65,14 +72,14 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                         activateeffect = targetHealth.currentValue <= m_hpThreshold+damage;
                     }
 
+
+
                     if (instantlyKillTarget)
                     {
                         GameplaySystem.combatManager.Damage(eventArgs.target.instance, new Damage(DamageType.True, 9999999));
                         var monoBehaviour = (MonoBehaviour)sender;
                         if (monoBehaviour != null)
                         {
-                            m_cooldown = true;
-                            monoBehaviour.StopCoroutine("CooldownRoutine()");
                             monoBehaviour.StartCoroutine(CooldownRoutine());
                         }
                     }
@@ -83,13 +90,11 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
                         m_instance.transform.SetParent(eventArgs.target.instance.transform);
                         m_instance.transform.localPosition = new Vector3(0.0f, 12.0f, 0.0f);
                     }
-                    }
-                
-
+                }
             }
             private IEnumerator CooldownRoutine()
             {
-
+                m_cooldown = true;
                 yield return new WaitForSeconds(m_cooldownTimer);
                 m_cooldown = false;
                 yield return null;

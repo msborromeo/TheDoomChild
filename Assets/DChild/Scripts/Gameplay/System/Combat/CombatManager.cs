@@ -1,10 +1,12 @@
 ﻿using DChild.Gameplay.Characters;
 using DChild.Gameplay.Characters.AI;
 using DChild.Gameplay.Characters.Enemies;
+using DChild.Gameplay.Characters.Players;
 using DChild.Gameplay.Combat.StatusAilment;
 using DChild.Gameplay.Combat.UI;
 using DChild.Gameplay.Systems;
 using DChildDebug;
+using Holysoft.Event;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using Sirenix.Utilities;
@@ -94,7 +96,7 @@ namespace DChild.Gameplay.Combat
                 }
             }
 
-            //CustomDebug.Log(CustomDebug.LogType.System_Combat, GenerateDebugMessage);
+            CustomDebug.Log(CustomDebug.LogType.System_Combat, GenerateDebugMessage);
 
             return summary;
 

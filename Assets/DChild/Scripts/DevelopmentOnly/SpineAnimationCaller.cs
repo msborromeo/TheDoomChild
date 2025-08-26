@@ -36,6 +36,10 @@ namespace DChild.Gameplay.Characters
             m_animation.SetAnimation(m_trackIndex, animation.Animation.Name, m_isLooping);
         }
 
+        public void AddAnimation(AnimationReferenceAsset animation)
+        {
+            m_animation.AddAnimation(m_trackIndex, animation.Animation.Name, m_isLooping, 0f);
+        }
         private void Awake()
         {
             m_animation = GetComponent<SpineAnimation>();

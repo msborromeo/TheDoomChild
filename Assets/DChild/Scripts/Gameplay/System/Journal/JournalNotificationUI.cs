@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DChild.Localization;
+using System;
 
 namespace DChild.Gameplay.Systems.Journal
 {
-    public class JournalNotificationUI : NotificationUI
+    public class JournalNotificationUI : NotificationUI , IJournalDataLocalizer
     {
         [SerializeField]
         private Image m_notifinfo;
@@ -17,6 +19,7 @@ namespace DChild.Gameplay.Systems.Journal
         [SerializeField]
         private TextMeshProUGUI m_itemDescription;
 
+        public event Action<JournalData> LocalizeJournal;
 
         public void UpdateUI(JournalData journaldata)
         {
@@ -24,6 +27,7 @@ namespace DChild.Gameplay.Systems.Journal
             m_itemName.text = journaldata.itemName;
             m_itemDescription.text = journaldata.itemDescription;
             m_notifinfo.material = journaldata.material;
+            LocalizeJournal?.Invoke(journaldata);
         }
     }
 }

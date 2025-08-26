@@ -184,6 +184,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private ParticleSystem m_dustTrail;
         [SerializeField, TabGroup("Vfx")]
         private ParticleSystem m_dustImpact;
+        [SerializeField, TabGroup("Vfx")]
+        private ParticleSystem m_DrillEffects;
 
         [SerializeField]
         private bool m_willPatrol;
@@ -259,10 +261,10 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator FlinchRoutine()
         {
-            m_hitbox.gameObject.SetActive(false);
+            //m_hitbox.gameObject.SetActive(false);
             m_animation.SetAnimation(0, m_info.flinchAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.flinchAnimation);
-            m_hitbox.gameObject.SetActive(true);
+            //m_hitbox.gameObject.SetActive(true);
             m_stabAttackBB.enabled = false;
             m_chargedAttackBB.enabled = false;
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
@@ -394,7 +396,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
             //fakeOut
             yield return FakeOutRoutine();
-
+            m_DrillEffects.Play();
             //attackProper
             m_stabAttackAttacker.TargetDamaged += OnTargetHit;
             m_stabAttackBB.enabled = true;
@@ -412,6 +414,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
             m_agent.Stop();
             m_dustTrail.Stop();
+            m_DrillEffects.Stop();
             m_stabAttackBB.enabled = false;
             m_animation.SetAnimation(0, m_info.verticalStabEnd, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.verticalStabEnd);
@@ -526,9 +529,11 @@ namespace DChild.Gameplay.Characters.Enemies
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             
             float distanceToGround = 0f;
+            m_hitbox.gameObject.SetActive(false);
             m_animation.SetAnimation(0, m_info.fadeOutAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.fadeOutAnimation);
             transform.position = new Vector2(m_targetInfo.position.x + 10, m_targetInfo.position.y + 30);
+            m_hitbox.gameObject.SetActive(true);
             m_animation.SetAnimation(0, m_info.fadeInAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.fadeInAnimation);
 
@@ -549,6 +554,7 @@ namespace DChild.Gameplay.Characters.Enemies
             var distanceToWall = 0f;
             m_animation.SetAnimation(0, m_info.ChargeStabAttack, true);
             m_dustTrail.Play();
+            m_DrillEffects.Play();
             do
             {
                 m_agent.MoveTowardsForced(directionFacing, 120);
@@ -556,6 +562,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 distanceToWall = Vector2.Distance(transform.position, WallPosition());
                 yield return null;
             } while (distanceToGround >= 10f && distanceToWall >= 20f);
+            m_DrillEffects.Stop();
             m_dustTrail.Stop();
             m_agent.Stop();
 

@@ -24,7 +24,7 @@ namespace DChild.Gameplay.UI
 
         void QueueNotification(LootList lootList);
 
-        void QueueNotification(StoreNotificationType notificationType);
+        void QueueNotification(StoreNotificationType notificationType,int ID);
 
         void RemoveAllQueuedNotifications();
     }

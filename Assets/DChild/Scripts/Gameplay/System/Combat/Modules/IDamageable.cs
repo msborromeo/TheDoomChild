@@ -17,6 +17,7 @@ namespace DChild.Gameplay.Combat
         void SetHitboxActive(bool enable);
         Hitbox[] GetHitboxes();
         void SetInvulnerability(Invulnerability level);
+        event EventAction<InvulnerabilityEventArgs> InvulnerabilityChanged;
         event EventAction<DamageEventArgs> DamageTaken;
         event EventAction<DamageEventArgs> DamageBlock;
         event EventAction<EventActionArgs> Destroyed;

@@ -12,14 +12,18 @@ public class RayOfFrostColliderConfigurator : MonoBehaviour
     private float m_activateColliderThreshold;
 
     private List<Vector2> m_colliderPoints;
-
+    [SerializeField]
+    private bool m_isInverted;
 
     public void ReorientCollider()
     {
         m_colliderPoints.Clear();
         for (int i = 0; i < m_reference.positionCount; i++)
         {
-            m_colliderPoints.Add(m_reference.GetPosition(i));
+            var position = m_reference.GetPosition(i) - transform.position;
+            if (m_isInverted)
+                position.x *= -1;
+            m_colliderPoints.Add(position);
 
         }
         m_collider.SetPoints(m_colliderPoints);

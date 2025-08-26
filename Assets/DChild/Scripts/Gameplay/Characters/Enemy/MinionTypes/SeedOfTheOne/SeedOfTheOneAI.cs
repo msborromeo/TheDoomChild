@@ -3,6 +3,8 @@ using DChild.Gameplay.Combat;
 using DChild.Gameplay.Pathfinding;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
+using Spine.Unity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +39,16 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField]
             private BasicAnimationInfo m_panicAnimation;
             public BasicAnimationInfo panicAnimation => m_panicAnimation;
+            [SerializeField]
+            private BasicAnimationInfo m_flinchAnimation;
+            public BasicAnimationInfo flinchAnimation => m_flinchAnimation;
+            [SerializeField]
+            private BasicAnimationInfo m_deathAnimation;
+            public BasicAnimationInfo deathAnimation => m_deathAnimation;
+
+            [Title("Events")]
+            [ValueDropdown("GetEvents")]
+            public string m_explosionEvent;
 
 
             public override void Initialize()
@@ -49,6 +61,8 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_idleAnimation.SetData(m_skeletonDataAsset);
                 m_movingAnimation.SetData(m_skeletonDataAsset);
                 m_panicAnimation.SetData(m_skeletonDataAsset);
+                m_deathAnimation.SetData(m_skeletonDataAsset);
+                m_flinchAnimation.SetData(m_skeletonDataAsset);
 #endif
 
             }
@@ -76,6 +90,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private GameObject m_selfCollider;
         [SerializeField, TabGroup("Reference")]
         private Collider2D m_bodyCollider;
+        [SerializeField, TabGroup("Reference")]
+        private ParticleFX m_deathVFX;
         [SerializeField, TabGroup("Modules")]
         private TransformTurnHandle m_turnHandle;
         [SerializeField, TabGroup("Modules")]
@@ -109,6 +125,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Vector2 m_currentRetreatPoint;
         [SerializeField]
         private bool m_isReturningToIdle;
+        [SerializeField]
+        private GameObject m_explosionFX;
 
         private void OnTurnRequest(object sender, EventActionArgs eventArgs) => m_stateHandle.OverrideState(State.Turning);
 
@@ -160,7 +178,6 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
         {
             StopAllCoroutines();
-            base.OnDestroyed(sender, eventArgs);
             if (m_executeMoveCoroutine != null)
             {
                 StopCoroutine(m_executeMoveCoroutine);
@@ -180,21 +197,22 @@ namespace DChild.Gameplay.Characters.Enemies
             m_hitbox.Disable();
             m_animation.SetEmptyAnimation(0, 0);
             StartCoroutine(DeathRoutine());
+            base.OnDestroyed(sender, eventArgs);
         }
 
         private IEnumerator DeathRoutine()
         {
             m_agent.Stop();
             Debug.Log("DIE HERE");
-            //m_animation.SetAnimation(0, m_info.deathStartAnimation, false);
-            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathStartAnimation);
-            //m_animation.SetAnimation(0, m_info.deathLoopAnimation, true);
-            //m_animation.SetAnimation(0, m_info.deathEndAnimation, false);
-            //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathEndAnimation);
+
+            m_deathVFX.Play();
+            m_animation.SetAnimation(0, m_info.deathAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathAnimation);
+            yield return new WaitForSeconds(1f); //added wait for seconds here because death animation is too fast to notice death
             enabled = false;
             m_bodyCollider.enabled = false;
-            this.gameObject.SetActive(false);
             m_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+            this.gameObject.SetActive(false);
             yield return null;
         }
 
@@ -205,7 +223,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_bodyCollider.enabled = false;
             m_startPos = transform.position;
             m_hitbox.damageable.DamageTaken += OnTakesDamage;
-
+            m_spineEventListener.Subscribe(m_info.m_explosionEvent, ExplosionEvent);
             for (int i = 0; i < m_retreatPoints.retreatPoints.Length; i++)
             {
                 m_panicPoints.Add(m_retreatPoints.retreatPoints[i]);
@@ -228,6 +246,10 @@ namespace DChild.Gameplay.Characters.Enemies
 
             //m_deathHandle?.SetAnimation(m_info.deathStartAnimation);
             m_stateHandle = new StateHandle<State>(State.Idle, State.WaitBehaviourEnd);
+        }
+        public void ExplosionEvent()
+        {
+            m_explosionFX.SetActive(true);
         }
 
         private void Update()
@@ -334,6 +356,11 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 m_agent.Move(m_info.panic.speed);
 
+                if (IsFacingTarget())
+                {
+                    m_stateHandle.SetState(State.Turning);
+                }
+
                 yield return null;
             }
 
@@ -432,7 +459,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private Vector2 SetRetreatPosition()
         {
-            int chosenIndex = Random.Range(0, m_panicPoints.Count);
+            int chosenIndex = UnityEngine.Random.Range(0, m_panicPoints.Count);
 
             m_currentRetreatPoint = m_panicPoints[chosenIndex];
 

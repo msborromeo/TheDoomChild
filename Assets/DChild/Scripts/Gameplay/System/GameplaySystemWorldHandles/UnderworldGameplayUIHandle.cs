@@ -3,15 +3,18 @@ using DChild.Gameplay.Characters.NPC;
 using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Combat.UI;
 using DChild.Gameplay.Environment;
+using DChild.Gameplay.LevelFinish.UI;
 using DChild.Gameplay.NavigationMap;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
 using DChild.Menu;
 using DChild.Menu.Trade;
+using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
 using DChild.Temp;
 using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
+using System.Drawing.Text;
 using UnityEngine;
 
 namespace DChild.Gameplay.Systems
@@ -41,6 +44,9 @@ namespace DChild.Gameplay.Systems
         private NavigationMapManager m_navMap;
         [SerializeField]
         private RegenerationEffectsHandler m_regen;
+        [SerializeField]
+        private ElevatorLevelSelectionUI m_elevator;
+
 
         [SerializeField, FoldoutGroup("Side Notification")]
         private UIContainer m_journalNotification;
@@ -57,6 +63,12 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private WeaponUpgradeHandle m_upgradeWeaponHandler;
 
+        [SerializeField, FoldoutGroup("Extra References")]
+        private RectTransform m_BossHealth;
+        [SerializeField, FoldoutGroup("Extra References")]
+        private RectTransform m_QuickItems;
+
+        private UIHandlerExtraReference _ExtraReference = new UIHandlerExtraReference();
 
         public IUINotificationManager notificationManager => m_notificationManager;
 
@@ -102,6 +114,11 @@ namespace DChild.Gameplay.Systems
         public void OpenStore()
         {
             m_storeNavigator.OpenStore();
+        }
+
+        public void OpenElevator(ElevatorLocation location, ElevatorLevelInfo[] labels, MovingPlatform elevator)
+        {
+            m_elevator.Display(location, labels, elevator);
         }
 
         public void MonitorBoss(Boss boss)
@@ -228,6 +245,15 @@ namespace DChild.Gameplay.Systems
         private void OnPostDeserialization(object sender, CampaignSlotUpdateEventArgs eventArgs)
         {
             m_navMap.ForceMapUpdateOnNextOpen();
+        }
+        
+        public UIHandlerExtraReference getReference()
+        {
+            //Initialization
+            _ExtraReference.m_BossHealth = m_BossHealth;
+            _ExtraReference.m_QuickItems = m_QuickItems;
+            
+            return _ExtraReference;
         }
 
         private void Awake()

@@ -1,4 +1,5 @@
 ﻿using Holysoft.Event;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Enemies
@@ -32,6 +33,12 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_currentValue = 0;
             HeatChanged?.Invoke(this, EventActionArgs.Empty);
+        }
+        [Button]
+        private void ForcedOvercharge()
+        {
+            HeatFull?.Invoke(this, EventActionArgs.Empty);
+            m_currentValue = m_maxValue;
         }
     }
 }

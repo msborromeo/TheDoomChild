@@ -69,9 +69,9 @@ namespace DChild.Gameplay.Combat
         public void StartCombat()
         {
             //GameplaySystem.gamplayUIHandle.MonitorBoss(m_boss);
-            GameplaySystem.gamplayUIHandle.ToggleBossHealth(true);
             m_boss.SetTarget(m_targetTuple.damageable, m_targetTuple.character);
             m_boss.Enable();
+            GameplaySystem.gamplayUIHandle.ToggleBossHealth(true);
         }
 
         public void SetupBossUI()
@@ -146,17 +146,18 @@ namespace DChild.Gameplay.Combat
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (m_isTriggered == false)
+            if (m_isTriggered)
+                return;
+            if (collision.tag == "Sensor")
+                return;
+            if (collision.tag != "Hitbox")
+                return;
+
+            var target = collision.GetComponentInParent<ITarget>();
+            if (target.CompareTag(Character.objectTag))
             {
-                if (collision.tag != "Sensor")
-                {
-                    var target = collision.GetComponentInParent<ITarget>();
-                    if (target.CompareTag(Character.objectTag))
-                    {
-                        m_targetTuple = (collision.GetComponentInParent<Damageable>(), collision.GetComponentInParent<Character>());
-                        StartFight();
-                    }
-                }
+                m_targetTuple = (collision.GetComponentInParent<Damageable>(), collision.GetComponentInParent<Character>());
+                StartFight();
             }
         }
 

@@ -5,6 +5,7 @@ using Holysoft.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using I2.Loc;
 
 namespace DChild.Menu.Trade
 {
@@ -16,17 +17,21 @@ namespace DChild.Menu.Trade
         private TradeManager m_manager;
         [SerializeField]
         private TextMeshProUGUI m_filterAppliedLabel;
+        [SerializeField]
+        private Localize m_filterLabellocalize;
 
         public void ResetFilters()
         {
             m_manager.ResetTradeUI();
             m_filterAppliedLabel.text = "";
+            m_filterLabellocalize?.SetTerm("Empty");
         }
 
         public void SetFilter(ItemCategory category, string label)
         {
             m_filterAppliedLabel.text = label;
             m_manager.SetTradeFilter(category);
+            m_filterLabellocalize.SetTerm("ShopUI/Inventory/"+label);
         }
 
         private void OnToggleSelected(TradePoolFilterInfo filterButton)

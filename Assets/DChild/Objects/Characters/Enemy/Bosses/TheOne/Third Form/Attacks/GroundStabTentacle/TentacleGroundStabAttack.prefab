@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3129559779964938464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1371603968730090371}
+  m_Layer: 0
+  m_Name: TentacleGroundSpawnHeight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1371603968730090371
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3129559779964938464}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -84.34, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6119479188711547184}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6119479188711547186
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +44,7 @@ GameObject:
   m_Layer: 0
   m_Name: TentacleGroundStabAttack
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -30,6 +61,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2697999466469936575}
+  - {fileID: 1371603968730090371}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47,8 +79,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_groundTentacleStab: {fileID: 8135972556375984720, guid: cd2219acf832722409389111dfcb1fc9,
     type: 3}
-  m_tentacleSpawnInterval: 2
+  m_miniGroundTentacleStab: {fileID: 8135972556375984720, guid: 7853f210662e55e458c5aff89e8a37f7,
+    type: 3}
+  m_tentacleSpawnInterval: 3
+  m_spawnOffsetMin: 0
+  m_spawnOffsetMax: 0
   m_tentacleSpawnHeight: {fileID: 2697999466469936575}
+  m_tentacleGroundspawnHeight: {fileID: 1371603968730090371}
   m_backgroundSortingLayerID: -3
   m_midgroundSortingLayerID: -2
   m_playablegroundSortingLayerID: -1
@@ -57,6 +94,8 @@ MonoBehaviour:
   m_midgroundSortingLayerName: Midground1
   m_playablegroundSortingLayerName: PlayableGround
   m_foregroundSortingLayerName: Foreground
+  m_tentaclesSpawned: []
+  m_tentaclesSpawnedXPositions: []
 --- !u!1 &7391455459863640240
 GameObject:
   m_ObjectHideFlags: 0

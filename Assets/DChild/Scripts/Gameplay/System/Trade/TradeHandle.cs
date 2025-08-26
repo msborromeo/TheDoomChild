@@ -29,6 +29,9 @@ namespace DChild.Gameplay.Trade
 
         public bool CanBuyerAffordTransaction(int inferredIncreasedAmount = 0)
         {
+            if (m_currentItemBeingTraded == null)
+                return false;
+
             var sellerHasEnoughItem = m_currentItemBeingTraded.count >= m_transaction.count + inferredIncreasedAmount;
             var buyerHasEnoughMoney = m_buyer.GetCurrencyAmount(m_currencyTypeToTrade) >= m_transaction.totalCost + (m_currentItemBeingTraded.cost.GetCostOfType(m_currencyTypeToTrade) * inferredIncreasedAmount);
             var buyerCanStoreItem = m_buyer.HasSpaceFor(m_transaction.item, m_transaction.count + inferredIncreasedAmount);

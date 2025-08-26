@@ -16,8 +16,8 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 94ccc0d72d98ad94096d5419d0288e0f, type: 3}
     - {fileID: 7284584553480126261, guid: afc5863c6044fd246b12cf16f45f3a1a, type: 3}
-    - {fileID: 5640761678958703664, guid: afc5863c6044fd246b12cf16f45f3a1a, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -26,12 +26,18 @@ MonoBehaviour:
     - Name: m_specialSkill
       Entry: 7
       Data: 0|DChild.Gameplay.ArmyBattle.SpecialSkills.SpecialSkill, Assembly-CSharp
+    - Name: m_icon
+      Entry: 10
+      Data: 0
+    - Name: m_description
+      Entry: 1
+      Data: 5% Increase damage to chosen attack
     - Name: m_type
       Entry: 3
       Data: 1
-    - Name: m_description
-      Entry: 6
-      Data: 
+    - Name: m_delay
+      Entry: 3
+      Data: 0
     - Name: m_duration
       Entry: 3
       Data: 0
@@ -81,7 +87,7 @@ MonoBehaviour:
       Data: 5|DChild.Gameplay.ArmyBattle.SpecialSkills.Modules.WaitForVisuals, Assembly-CSharp
     - Name: m_fx
       Entry: 10
-      Data: 0
+      Data: 1
     - Name: m_visualType
       Entry: 3
       Data: 1
@@ -89,8 +95,8 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: m_fxStatus
-      Entry: 10
-      Data: 1
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -119,9 +125,6 @@ MonoBehaviour:
     - Name: m_damageModiferPercentageValue
       Entry: 3
       Data: 5
-    - Name: m_reduceDamage
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -140,9 +143,6 @@ MonoBehaviour:
     - Name: m_damageModiferPercentageValue
       Entry: 3
       Data: 5
-    - Name: m_reduceDamage
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -161,9 +161,6 @@ MonoBehaviour:
     - Name: m_damageModiferPercentageValue
       Entry: 3
       Data: 5
-    - Name: m_reduceDamage
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -194,4 +191,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 01f75219712922045a237d94ee906796, type: 2}
   m_requiredCharactersToBeAValidGroup: []
   m_damageType: 2
+  m_forcedDamageValue: 0
   m_hasSpecialSkill: 1

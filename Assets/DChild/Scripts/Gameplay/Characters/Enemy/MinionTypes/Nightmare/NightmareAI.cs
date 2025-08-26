@@ -348,8 +348,8 @@ namespace DChild.Gameplay.Characters.Enemies
         public void OnOffHoofFX()
         {
             Debug.Log("asd");
+            m_HoofFX.transform.localScale = new Vector3(transform.localScale.x, 1, 1);
             Instantiate(m_HoofFX, m_spawnPointFX.position, m_spawnPointFX.rotation);
-        
            
         }
         private IEnumerator ChargeAttackRoutine()

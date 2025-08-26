@@ -18,6 +18,6 @@ namespace DChild.Gameplay.FastTravel
 
         public LocationData fastTravelPoint => m_fastTravelPoint;
         public string pointName => m_pointName;
-        public Sprite image => image;
+        public Sprite image => m_image;
     } 
 }

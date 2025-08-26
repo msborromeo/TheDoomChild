@@ -117,5 +117,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_state.waitForBehaviour = false;
         }
+
+        public void ContinueSlide()
+        {
+            m_slide.ContinueSlide();
+        }
+
+        public void Clear()
+        {
+            Cancel();
+            m_shadowFX?.Clear();
+        }
     }
 }

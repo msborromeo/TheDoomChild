@@ -1,13 +1,20 @@
 using DChild.Gameplay.Environment;
 using DChild.Gameplay.FastTravel;
+using DChild.Gameplay.LevelFinish.UI;
+using DChild.Gameplay.Systems.Serialization;
+using DChild.Gameplay.UI;
+using DChild.Gameplay.UI.Alerts;
 using DChild.Menu;
 using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
+using Holysoft.Event;
+using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Video;
+using DLocation = DChild.Gameplay.Environment.Location;
 
 namespace DChild.Gameplay.Systems
 {
@@ -21,12 +28,24 @@ namespace DChild.Gameplay.Systems
         private SignalSender m_fastTravelSignal;
         [SerializeField, FoldoutGroup("Signals")]
         private SignalSender m_gameOverSignal;
-        [SerializeField, FoldoutGroup("Signals")]
+        [SerializeField, FoldoutGroup("Signals/Confirmation")]
         private SignalSender m_confirmationWindowSignal;
+        [SerializeField, FoldoutGroup("Signals/Confirmation")]
+        private SignalSender m_requestTeleportSignal;
+        [SerializeField, FoldoutGroup("Signals")]
+        private SignalSender m_cinematicBarsSignal;
+        [SerializeField, FoldoutGroup("Signals")]
+        private SignalSender m_levelFinishedSignal;
+        [SerializeField, FoldoutGroup("Signals/Game Pause")]
+        private SignalSender m_gamePauseSignal;
+        [SerializeField, FoldoutGroup("Signals/Game Pause")]
+        private GameObject m_gamePause;
 
 
         [SerializeField]
         private ConfirmationHandler m_confirmationWindow;
+        [SerializeField]
+        private UIAlertManager m_uiAlertManager;
 
 
         [SerializeField]
@@ -40,15 +59,27 @@ namespace DChild.Gameplay.Systems
         private CinematicVideoHandle m_cinematicVideoHandle;
         [SerializeField]
         private UIView m_cinematicBars;
+        [SerializeField]
+        private LevelFinishUI m_levelFinish;
+
+
+        public UIAlertManager uiAlertManager => m_uiAlertManager;
+
 
         public void ToggleCinematicMode(bool on)
         {
+            if (on == true)
+            {
+                DialogueManager.StopAllConversations();
+            }
             m_cinemaSignal.Payload.booleanValue = on;
             m_cinemaSignal.SendSignal();
         }
 
         public void ToggleCinematicBars(bool value)
         {
+            m_cinematicBarsSignal.Payload.booleanValue = value;
+            m_cinematicBarsSignal.SendSignal();
             if (value)
             {
                 m_cinematicBars.Show();
@@ -65,15 +96,36 @@ namespace DChild.Gameplay.Systems
             {
                 m_fadeUI.Show();
             }
-            else
-            {
+            else{
                 m_fadeUI.Hide();
             }
         }
 
+        public void RequestTeleportConfirmation(LocationData destinationData)
+        {
+            m_levelFinish.SetupTeleportableLocation(destinationData);
+            m_requestTeleportSignal.SendSignal();
+        }
+
+        public void NotifyUnlockedLocation(AvailableLocations location, InputActionConfiguration input)
+        {
+            m_levelFinish.NotifyAvailableLocation(location, input);
+            m_levelFinishedSignal.SendSignal();
+        }
+
+
         public void ShowGameOverScreen()
         {
             m_gameOverSignal.SendSignal();
+        }
+
+        public void TogglePause(bool toggle)
+        {
+            m_gamePause.SetActive(toggle);
+            if (toggle)
+            {
+                m_gamePauseSignal.SendSignal();
+            }
         }
 
 
@@ -98,7 +150,13 @@ namespace DChild.Gameplay.Systems
         {
             m_cinematicVideoHandle.ShowCinematicVideo(clip, behindTheSceneRoutine, OnVideoDone);
         }
-        public void OpenFastTravel(Location startingLocation)
+
+        public void ForceStopCinematicVideo()
+        {
+            m_cinematicVideoHandle.ForceStopCinematicVideo();
+        }
+
+        public void OpenFastTravel(DLocation startingLocation)
         {
             m_fastTravelUI.ForceOpenPage(startingLocation);
             m_fastTravelSignal?.SendSignal();
@@ -124,5 +182,6 @@ namespace DChild.Gameplay.Systems
                 Instance = null;
             }
         }
+
     }
 }

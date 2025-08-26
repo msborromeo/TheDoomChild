@@ -17,6 +17,7 @@ namespace DChild.Gameplay.FastTravel
         public void TransferPlayerTo(LocationData destination)
         {
             var zoneData = FindObjectOfType<ZoneDataHandle>();
+            var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
             if(zoneData != null)
             {
                 zoneData.ForceUpdateZoneData();
@@ -28,17 +29,19 @@ namespace DChild.Gameplay.FastTravel
             character.transform.position  = new Vector2(50000, 50000);
             m_spawnPosition = destination.position;
 
-            var controller = GameplaySystem.playerManager.OverrideCharacterControls();
-            controller.moveDirectionInput = 0;
-            Rigidbody2D rigidBody = character.GetComponent<Rigidbody2D>();
-            rigidBody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
-            CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
-            collisionState.forcedCurrentGroundedness = true;
+            if(WorldTypeVar.CurrentWorldType == WorldType.Underworld)
+            {
+                var controller = GameplaySystem.playerManager.OverrideCharacterControls();
+                controller.moveDirectionInput = 0;
+                Rigidbody2D rigidBody = character.GetComponent<Rigidbody2D>();
+                rigidBody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+                CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
+                collisionState.forcedCurrentGroundedness = true;
+            }
 
             LoadingHandle.SetLoadType(LoadingHandle.LoadType.Smart);
             GameplaySystem.ResumeGame();
 
-            var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
             if (WorldTypeVar.CurrentWorldType != WorldTypeVar.GetLocationWorldType(destination.location))
             {
                 GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Player);

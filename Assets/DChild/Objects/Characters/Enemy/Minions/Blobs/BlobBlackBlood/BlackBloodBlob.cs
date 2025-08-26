@@ -8,17 +8,24 @@ using DChild;
 using DChild.Gameplay;
 using DChild.Gameplay.Combat;
 using Holysoft.Event;
+using DChild.Gameplay.Pooling;
 
 public class BlackBloodBlob : MonoBehaviour
 {
     [SerializeField, TabGroup("Reference")]
+    private MovingPlatform m_speed;
+    [SerializeField, TabGroup("Reference")]
     private SpineRootAnimation m_animation;
+    [SerializeField, TabGroup("Reference")]
+    private Transform m_ownTransform;
     [SerializeField, TabGroup("Reference")]
     private Damageable m_damageable;
     [SerializeField, TabGroup("Reference")]
     private BreakableObject m_mainInstance;
     [SerializeField, TabGroup("Modules")]
     private MovementHandle2D m_movement;
+    [SerializeField, TabGroup("FX")]
+    private GameObject m_deathFX;
     [SerializeField]
     private bool m_canMove;
     public bool canMove => m_canMove;
@@ -121,6 +128,7 @@ public class BlackBloodBlob : MonoBehaviour
     {
         Death?.Invoke(this, EventActionArgs.Empty);
         m_animation.SetAnimation(0, m_death, false);
+        m_speed.PauseMovement();
         yield return new WaitForAnimationComplete(m_animation.animationState, m_death);
         gameObject.SetActive(false);
 
@@ -151,5 +159,25 @@ public class BlackBloodBlob : MonoBehaviour
         m_animation.SetAnimation(0, m_rightToCeiling, false);
         yield return new WaitForAnimationComplete(m_animation.animationState, m_rightToCeiling);
         m_animation.SetAnimation(0, m_idle, true);
+    }
+
+    private void Awake()
+    {
+        m_damageable.health.Death += Health_Death;
+    }
+
+    private void Health_Death(object sender, Holysoft.Event.EventActionArgs eventArgs)
+    {
+        
+        var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_deathFX, gameObject.scene);
+        instance.SpawnAt(new Vector2(transform.position.x, transform.position.y), transform.rotation);
+        Debug.Log("Death");
+    }
+
+    public void CallDeathFX()
+    {
+        var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_deathFX, gameObject.scene);
+        instance.SpawnAt(new Vector2(transform.position.x, transform.position.y), transform.rotation);
+        Debug.Log("Death_2");
     }
 }

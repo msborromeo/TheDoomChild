@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class DiagonalSwordDash : AttackBehaviour
+    public class DiagonalSwordDash : AttackBehaviour, IInterruptableCombatArtModule, IPlayerCritAttack
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -93,6 +93,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         public void Execute()
         {
             m_state.waitForBehaviour = true;
+            m_state.isExecutingCombatArt = true;
             StopAllCoroutines();
             m_state.isAttacking = true;
             m_state.canAttack = false;
@@ -125,6 +126,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 StopCoroutine(m_checkImpactCoroutine);
                 m_checkImpactCoroutine = null;
             }
+            m_state.isExecutingCombatArt = false;
             base.AttackOver();
         }
 
@@ -142,6 +144,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 StopCoroutine(m_checkImpactCoroutine);
                 m_checkImpactCoroutine = null;
             }
+            m_state.isExecutingCombatArt = false;
             base.Cancel();
         }
 
@@ -251,6 +254,23 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_physics.velocity = new Vector2(m_character.facing == HorizontalDirection.Right ? -m_backForce.x : m_backForce.x, m_backForce.y);
             //m_physics.velocity = Vector2.zero;
             yield return null;
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+            m_diagonalSwordDashInfo.SetCritConfiguration(info);
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
         }
     }
 }

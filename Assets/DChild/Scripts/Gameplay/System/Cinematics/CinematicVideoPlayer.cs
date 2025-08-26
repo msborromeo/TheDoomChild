@@ -22,6 +22,8 @@ namespace DChild.Gameplay.Cinematics
 
         [SerializeField]
         private VideoClip m_clip;
+	[SerializeField]
+	private bool m_doNotWaitForVideoCleanup;
         [SerializeField, TabGroup("During")]
         private DelayEvent[] m_duringCinematicEvents;
         [SerializeField, TabGroup("After")]
@@ -52,6 +54,12 @@ namespace DChild.Gameplay.Cinematics
 
         private void OnVideoDone()
         {
+		if(m_doNotWaitForVideoCleanup)
+		{
+			GameplaySystem.gamplayUIHandle.ForceStopCinematicVideo();
+
+		}
+
             m_afterCinematicEvent.Invoke();
         }
     }

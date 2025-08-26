@@ -1,11 +1,12 @@
 ﻿using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
-    public class SwordThrust : AttackBehaviour, IChargeAttackBehaviour
+    public class SwordThrust : AttackBehaviour, IChargeAttackBehaviour, IPlayerCritAttack
     {
         [SerializeField, HideLabel]
         private SwordThrustStatsInfo m_configuration;
@@ -13,6 +14,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private ParticleSystem m_chargeFX;
         [SerializeField]
         private ParticleSystem m_finishedChargeFX;
+        //[SerializeField]
+        //private ParticleSystem m_dustFX;
+        [SerializeField]
+        private ParticleSystem m_impactFX;
         [SerializeField]
         private Info m_thrust;
 
@@ -51,6 +56,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public bool IsSwordThrustDurationOver() => m_durationTimer <= 0;
 
+        public void HandleCharge() => m_chargeTimer -= GameplaySystem.time.deltaTime;
+
         public void StartCharge()
         {
             m_chargeTimer = m_configuration.chargeDuration;
@@ -59,20 +66,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.isChargingAttack = true;
             m_animator.SetBool(m_swordThrustAnimationParameter, true);
             m_animator.SetBool(m_chargingAnimationParameter, true);
-            m_attacker.SetDamageModifier(m_thrust.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
-        }
-
-        public void HandleCharge()
-        {
-            if (m_chargeTimer > 0)
-            {
-                m_chargeTimer -= GameplaySystem.time.deltaTime;
-            }
-            else
-            {
-                m_chargeFX?.Stop(true);
-                m_finishedChargeFX?.Play(true);
-            }
+            m_attacker.SetDamageModifier(m_thrust.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage), m_thrust.critChance, 
+                m_thrust.critModifier, 
+                m_thrust.critFX);
         }
 
         public override void Cancel()
@@ -84,6 +80,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_state.canAttack = true;
             }
 
+            m_state.waitForBehaviour = false;
             m_rigidBody.velocity = Vector2.zero;
             m_thrust.ShowCollider(false);
             m_state.isChargingAttack = false;
@@ -100,6 +97,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void Execute()
         {
+            m_state.isAttacking = true;
             if (m_state.isDoingSwordThrust == false)
             {
                 m_state.isChargingAttack = false;
@@ -109,6 +107,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_finishedChargeFX?.Stop(true);
                 m_thrust.PlayFX(true);
                 m_thrust.ShowCollider(true);
+                m_impactFX?.Play(true);
+                //m_dustFX?.Play(true);
                 m_chargeTimer = -1;
                 m_animator.SetBool(m_chargingAnimationParameter, false);
             }
@@ -157,6 +157,26 @@ namespace DChild.Gameplay.Characters.Players.Modules
             var direction = (float)m_character.facing;
             m_rigidBody.velocity = Vector2.zero;
             m_rigidBody.velocity = new Vector2(direction * m_configuration.thrustVelocity * m_modifier.Get(PlayerModifier.Dash_Distance), 0);
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+            m_thrust.SetCritConfiguration(info);
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+
         }
     }
 }

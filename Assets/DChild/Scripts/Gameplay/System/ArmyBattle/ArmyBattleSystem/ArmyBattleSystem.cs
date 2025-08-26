@@ -62,15 +62,17 @@ namespace DChild.Gameplay.ArmyBattle
         public ArmyController enemy => m_enemy;
 
         public ArmyFightManager fightManager => m_fightManager;
+        public ArmyBattleSpecialSkillHandle specialSkillHandle => m_specialSkillHandle;
         public ArmyBattleTurnHandle turnHandle => m_turnHandle;
 
 
 
+        public static bool CanPlayerActivateSpecialSkill() => Instance.specialSkillHandle.CanPlayerActivateMoreSkills();
         public static int GetCurrentTurnNumber() => Instance.turnHandle.currentTurn;
         public static ArmyBattleTurnHandle.TurnConfiguration turnConfiguration { get => Instance.turnHandle.configuration; set => Instance.turnHandle.configuration = value; }
         public static ArmyController GetPlayer() => Instance.player;
         public static ArmyController GetEnemy() => Instance.enemy;
-      
+
         public static void SetCurrentTurn(int turnNumber)
         {
             Instance.turnHandle.ForceSetTurnNumber(turnNumber);
@@ -108,6 +110,8 @@ namespace DChild.Gameplay.ArmyBattle
         public static void StartBattleGameplay() => Instance.StartBattle();
         public static void StartNewTurn() => Instance.StartTurn();
 
+        public static void ForceEndBattle() => Instance.EndBattle();
+
         [Button, ShowIf("@canBattleBeStarted == true")]
         public void StartBattle()
         {
@@ -122,6 +126,7 @@ namespace DChild.Gameplay.ArmyBattle
 
         public void StartTurn()
         {
+            m_specialSkillHandle.ResetSkillActivationTracker();
             m_uiManager.UpdatePlayerOptions();
             m_turnStartSignal.SendSignal();
             m_turnHandle.TurnStart();
@@ -147,7 +152,7 @@ namespace DChild.Gameplay.ArmyBattle
             }
         }
 
-        private void EndBattle()
+        public void EndBattle()
         {
             m_battleEndSignal.Payload.booleanValue = m_enemy.controlledArmy.troopCount <= 0;
             m_battleEndSignal.SendSignal();
@@ -181,6 +186,8 @@ namespace DChild.Gameplay.ArmyBattle
                 var enemyCombatRecord = new ArmyBattleCombatResult.Record(false, m_enemyStatsTracker.GetTrackedTroopCount(), m_enemy.controlledArmy.troopCount, DamageType._COUNT, DamageType._COUNT);
                 var combatResult = new ArmyBattleCombatResult(playerCombatRecord, enemyCombatRecord);
 
+                m_uiManager.participantDetails.UpdateTroopCount(player, enemy);
+
                 m_fightManager.VisualizeCombatEndResultImmidiate(combatResult);
 
                 if (WillBattleEnd())
@@ -205,6 +212,11 @@ namespace DChild.Gameplay.ArmyBattle
             }
         }
 
+        private void OnSkillEffectActivated(object sender, EventActionArgs eventArgs)
+        {
+            m_uiManager.UpdatePlayerOptions();
+        }
+
 
         private void Awake()
         {
@@ -214,7 +226,9 @@ namespace DChild.Gameplay.ArmyBattle
 
                 m_turnHandle.SetParticipants(m_player, m_enemy);
                 m_turnHandle.OnTurnEnd += OnTurnEnd;
+                m_turnHandle.OnExecuteAttack += m_uiManager.participantDetails.OnExecuteAttack;
                 m_specialSkillHandle.SkillEffectApplied += OnSkillEffectApplied;
+                m_specialSkillHandle.SkillEffectActivated += OnSkillEffectActivated;
             }
             else
             {

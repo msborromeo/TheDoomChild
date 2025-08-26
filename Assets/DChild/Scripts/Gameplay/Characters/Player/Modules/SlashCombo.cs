@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
-    public class SlashCombo : AttackBehaviour
+    public class SlashCombo : AttackBehaviour, IPlayerCritAttack
     {
         [SerializeField, HideLabel]
         private SlashComboStatsInfo m_configuration;
@@ -101,15 +101,22 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.waitForBehaviour = true;
             m_state.isAttacking = true;
             m_state.canAttack = false;
+            m_state.isDoingCombo = true;
             m_canMove = false;
             m_animator.SetBool(m_animationParameter, true);
             m_currentSlashState += m_currentSlashState >= m_configuration.slashStateAmount - 1 ? 0 : 1;
             m_animator.SetInteger(m_slashStateAnimationParameter, m_currentSlashState);
-            m_attacker.SetDamageModifier(m_slashComboInfo[m_currentSlashState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+            m_attacker.SetDamageModifier(m_slashComboInfo[m_currentSlashState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage),
+                m_slashComboInfo[m_currentSlashState].critChance,
+                m_slashComboInfo[m_currentSlashState].critModifier,
+                m_slashComboInfo[m_currentSlashState].critFX);
             m_currentVisualSlashState = m_currentSlashState;
 
             m_comboResetDelayTimer = m_slashComboInfo[m_currentSlashState].nextAttackDelay;
             m_slashMovementCooldownTimer = /*m_slashMovementCooldown*/m_configuration.slashMovementCooldown;
+            //added this guard forcing state to 0 if at max state to prevent looking like first slash repeated
+            if (m_currentSlashState == m_configuration.slashStateAmount - 1)
+                m_currentSlashState = -1;
             OnSlash?.Invoke(this, EventActionArgs.Empty);
         }
 
@@ -169,6 +176,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public override void AttackOver()
         {
             m_state.canAttack = true;
+            m_canSlashCombo = false;
 
             for (int i = 0; i < m_slashComboInfo.Count; i++)
             {
@@ -197,6 +205,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 //Debug.Log("Attack Over");
                 //m_skeletonAnimation.state.SetEmptyAnimation(0, 0);
                 m_canSlashCombo = false;
+                m_state.isDoingCombo = false;
                 m_currentSlashState = -1;
                 m_currentVisualSlashState = 0;
                 m_animator.SetInteger(m_slashStateAnimationParameter, m_currentSlashState);
@@ -264,6 +273,29 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_slashMovementCooldownTimer = m_configuration.slashMovementCooldown;
                 m_canMove = true;
             }
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+            for(int i = 0; i < info.Count; i++)
+            {
+                m_slashComboInfo[i].SetCritConfiguration(info[i]);
+            }
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+            
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo infoOne, PlayerCritStatsInfo infoTwo, PlayerCritStatsInfo infoThree, PlayerCritStatsInfo infoFour)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo infoOne, PlayerCritStatsInfo infoTwo, PlayerCritStatsInfo infoThree, PlayerCritStatsInfo infoFour, PlayerCritStatsInfo infoFive)
+        {
+
         }
     }
 }

@@ -244,8 +244,10 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathAnimation);
             //explode
             m_detonationDamageCollider.enabled = true;
-            yield return new WaitForSeconds(0.5f);
+            //yield return new WaitForSeconds(0.5f);
             m_detonationDamageCollider.enabled = false;
+            m_deathExplosionEffect.Play();
+            yield return new WaitForSeconds(0.5f);
             m_detonationIceCloud.Play();
             m_iceCloudStatusInflictionCollider.enabled = true;
             float cloudDuration = m_detonationIceCloud.main.duration;

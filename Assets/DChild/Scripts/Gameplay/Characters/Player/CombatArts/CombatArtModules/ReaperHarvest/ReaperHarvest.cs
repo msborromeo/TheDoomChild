@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class ReaperHarvest : AttackBehaviour
+    public class ReaperHarvest : AttackBehaviour, IInterruptableCombatArtModule, IPlayerCritAttack
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -105,6 +105,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         {
             m_hasExecuted = true;
             m_state.waitForBehaviour = true;
+            m_state.isExecutingCombatArt = true;
             m_currentState = state;
             StopAllCoroutines();
             m_state.isAttacking = true;
@@ -119,17 +120,18 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 
             m_physics.velocity = Vector2.zero;
             m_reaperHarvestAnimation.gameObject.SetActive(true);
-            switch (m_currentState)
-            {
-                case ReaperHarvestState.Grounded:
-                    m_reaperHarvestAnimation.StartGrounded();
-                    break;
-                case ReaperHarvestState.Midair:
-                    m_cacheGravity = m_physics.gravityScale;
-                    m_physics.gravityScale = 0;
-                    m_reaperHarvestAnimation.StartMidair();
-                    break;
-            }
+            m_reaperHarvestAnimation.StartGrounded();
+            //switch (m_currentState)
+            //{
+            //    case ReaperHarvestState.Grounded:
+            //        m_reaperHarvestAnimation.StartGrounded();
+            //        break;
+            //    case ReaperHarvestState.Midair:
+            //        m_cacheGravity = m_physics.gravityScale;
+            //        m_physics.gravityScale = 0;
+            //        m_reaperHarvestAnimation.StartMidair();
+            //        break;
+            //}
         }
 
         public void EndExecution()
@@ -145,6 +147,8 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_hitbox.Enable();
             }
             m_animator.SetBool(m_reaperHarvestStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
+            m_state.isDoingCombo = false; //set here because slash combo causes is doing combo to be true but combat art execution causes slash not to finish
             base.AttackOver();
         }
 
@@ -163,6 +167,8 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             }
             m_animator.SetBool(m_reaperHarvestStateAnimationParameter, false);
             m_reaperHarvestAfterImageFX.Stop();
+            m_state.isExecutingCombatArt = false;
+            m_state.isDoingCombo = false; //set here because slash combo causes is doing combo to be true but combat art execution causes slash not to finish
             base.Cancel();
         }
 
@@ -322,6 +328,26 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             }
 #endif
             return m_hitResults;
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+            m_reaperHarvestInfo.SetCritConfiguration(info);
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+            
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+            
         }
     }
 }

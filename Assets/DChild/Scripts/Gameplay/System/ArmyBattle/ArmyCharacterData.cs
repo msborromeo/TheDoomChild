@@ -23,6 +23,8 @@ namespace DChild.Gameplay.ArmyBattle
         private int m_attackPower = 1;
         [SerializeField, DisableInInlineEditors, VerticalGroup("Line/Vert"), MinValue(1)]
         private Location m_location;
+        [SerializeField, TextArea(5,10)]
+        private string m_description;
 
 
         public ArmyCharacterData()
@@ -48,5 +50,6 @@ namespace DChild.Gameplay.ArmyBattle
         public string name => m_name;
         public int troopCount => m_troopCount;
         public int attackPower => m_attackPower;
+        public string description => m_description;
     }
 }

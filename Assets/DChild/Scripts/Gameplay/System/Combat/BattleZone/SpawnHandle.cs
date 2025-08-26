@@ -127,7 +127,10 @@ namespace DChild.Gameplay.Combat.BattleZoneComponents
 
         private IEnumerator DelayedSpawn(GameObject gameObject, Vector3 position, float delay)
         {
-            yield return new WaitForSeconds(delay);
+            if (delay > 0)
+            {
+                yield return new WaitForSeconds(delay);
+            }
             var instance = Object.Instantiate(gameObject, position, Quaternion.identity);
             using (Cache<EventActionArgs<GameObject>> cache = Cache<EventActionArgs<GameObject>>.Claim())
             {

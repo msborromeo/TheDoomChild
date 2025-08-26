@@ -16,10 +16,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private TentacleCeiling m_leftTentacle;
         [SerializeField]
         private TentacleCeiling m_rightTentacle;
-
         [SerializeField]
         private float m_ceilingDuration;
 
+        public bool m_isRightTentacle;
         public event EventAction<EventActionArgs> AttackStart;
         public event EventAction<EventActionArgs> AttackDone;
 
@@ -39,29 +39,51 @@ namespace DChild.Gameplay.Characters.Enemies
             AttackDone?.Invoke(this, EventActionArgs.Empty);
         }
 
+        public IEnumerator RetractTentacleAttack(bool isRightTentacle)
+        {
+            if (isRightTentacle)
+            {
+                yield return m_rightTentacle.Retract();
+            }
+            else
+            {
+                yield return m_leftTentacle.Retract();
+            }
+        }
         public IEnumerator ExecuteAttack()
         {
             var rollOdds = UnityEngine.Random.Range(1, 3);
-
-            //Decide whether to use one or two tentacles to create ceiling
-            if(rollOdds == 1)
+            if (rollOdds == 1)
             {
-                var rollSide = UnityEngine.Random.Range(1, 3);
-
-                if(rollSide == 1)
-                {
-                    StartCoroutine(m_leftTentacle.Attack(m_ceilingDuration));
-                }
-                else if(rollSide == 2)
-                {
-                    StartCoroutine(m_rightTentacle.Attack(m_ceilingDuration));
-                }
+                m_isRightTentacle = false;
+                yield return m_leftTentacle.Attack();
+                
             }
-            else if(rollOdds == 2)
+            else
             {
-                StartCoroutine(m_leftTentacle.Attack(m_ceilingDuration));
-                StartCoroutine(m_rightTentacle.Attack(m_ceilingDuration));
+                m_isRightTentacle = true;
+                yield return m_rightTentacle.Attack();
             }
+
+            ////Decide whether to use one or two tentacles to create ceiling
+            //if (rollOdds == 1)
+            //{
+            //    var rollSide = UnityEngine.Random.Range(1, 3);
+
+            //    if(rollSide == 1)
+            //    {
+            //        StartCoroutine(m_leftTentacle.Attack(m_ceilingDuration));
+            //    }
+            //    else if(rollSide == 2)
+            //    {
+            //        StartCoroutine(m_rightTentacle.Attack(m_ceilingDuration));
+            //    }
+            //}
+            //else if(rollOdds == 2)
+            //{
+            //    StartCoroutine(m_leftTentacle.Attack(m_ceilingDuration));
+            //    StartCoroutine(m_rightTentacle.Attack(m_ceilingDuration));
+            //}
 
             yield return null;
         }

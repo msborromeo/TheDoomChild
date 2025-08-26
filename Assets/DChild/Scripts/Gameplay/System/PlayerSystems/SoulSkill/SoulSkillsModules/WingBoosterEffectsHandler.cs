@@ -9,7 +9,7 @@ public class WingBoosterEffectsHandler : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject m_effects;
+    private GameObject m_effects; //keep VFX looping
 
     private void Update()
     {
@@ -18,11 +18,11 @@ public class WingBoosterEffectsHandler : MonoBehaviour
 
         if (isLevitating == true)
         {
-            m_effects.SetActive(true);
+            m_effects.gameObject.SetActive(true);
         }
         else
         {
-            m_effects.SetActive(false);
+            m_effects.gameObject.SetActive(false);
         }
     }
 

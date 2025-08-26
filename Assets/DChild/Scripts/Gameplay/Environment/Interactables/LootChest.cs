@@ -34,7 +34,8 @@ namespace DChild.Gameplay.Environment
 
             public ISaveData ProduceCopy() => new SaveData(m_isLooted);
         }
-
+        [SerializeField]
+        private ParticleSystem m_chestFx;
         [SerializeField]
         private LootChestVisual m_visuals;
         [SerializeField]
@@ -88,6 +89,7 @@ namespace DChild.Gameplay.Environment
             {
                 GivePlayerLoot();
                 SendNotification();
+                GetComponent<Collider2D>().enabled = false;
             }
 
             InteractionOptionChange?.Invoke(this, EventActionArgs.Empty);
@@ -97,9 +99,10 @@ namespace DChild.Gameplay.Environment
         private void ShowOpenChestVisual()
         {
             m_visuals.Open();
-            GetComponent<Collider2D>().enabled = false;
+            //GetComponent<Collider2D>().enabled = false;
             GetComponent<EventSounds>().ActivateCodeTriggeredEvent1();
-            GetComponent<VFXSpawner>().Spawn();
+            //GetComponent<VFXSpawner>().Spawn();
+            m_chestFx.Play();
         }
 
         private void GivePlayerLoot()

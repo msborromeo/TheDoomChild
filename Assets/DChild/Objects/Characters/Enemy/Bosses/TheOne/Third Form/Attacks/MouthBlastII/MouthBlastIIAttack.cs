@@ -7,13 +7,22 @@ using Sirenix.OdinInspector;
 using Spine.Unity;
 using DChild.Gameplay.Characters.AI;
 using Holysoft.Event;
+using DChild.Gameplay.Combat;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
     public class MouthBlastIIAttack : MonoBehaviour, IEyeBossAttacks
     {
+        [SerializeField ,TabGroup("Reference")]
+        private Transform leftLimitTransform;
+        [SerializeField, TabGroup("Reference")]
+        private Transform rightLimitTransform;
+        [SerializeField, TabGroup("Reference")]
+        private float speed;
         [SerializeField, TabGroup("Reference")]
         protected SpineRootAnimation m_animation;
+        [SerializeField, TabGroup("Reference")]
+        private WallMouth m_wallMouth;
         [SerializeField]
         private SkeletonAnimation m_skeletonAnimation;
         [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
@@ -32,19 +41,63 @@ namespace DChild.Gameplay.Characters.Enemies
 
         [SerializeField]
         private float m_blastDuration;
+        [SerializeField]
+        private bool m_isCeilingBlast;
+        private int direction;
+        [SerializeField]
+        private Attacker m_attacker;
 
         public event EventAction<EventActionArgs> AttackStart;
         public event EventAction<EventActionArgs> AttackDone;
 
+        public event EventAction<EventActionArgs> HasDamageTarget;
+
+        
         public IEnumerator ExecuteAttack()
         {
-           // AttackStart?.Invoke(this, EventActionArgs.Empty);
-            yield return GrowMouth();
+            m_attacker.TargetDamaged += on_TargetDamage;
+            if (m_isCeilingBlast)
+            {
+                StartCoroutine(MoveRoutine());
+            }
+            
+            yield return m_wallMouth.AttackSkyTown();
 
-           // AttackDone?.Invoke(this, EventActionArgs.Empty);
-            yield return null;
+            m_attacker.TargetDamaged -= on_TargetDamage;
         }
 
+        private void on_TargetDamage(object sender, CombatConclusionEventArgs eventArgs)
+        {
+            Debug.Log(" hit player on mouth blast two script");
+            HasDamageTarget?.Invoke(this, EventActionArgs.Empty);
+            
+        }
+
+        IEnumerator MoveRoutine()
+        {
+            direction = Random.value > 0.5f ? 1 : -1;
+            transform.position = direction == 1 ? leftLimitTransform.position : rightLimitTransform.position;
+            yield return new WaitForSeconds(4f);
+           
+            while (true)
+            {
+                transform.Translate(Vector2.right * speed * direction * Time.deltaTime);
+
+                // Check boundaries
+                if (transform.position.x >= rightLimitTransform.position.x)
+                {
+                    transform.position = new Vector2(rightLimitTransform.position.x, transform.position.y);
+                    yield break; // Stop coroutine
+                }
+                else if (transform.position.x <= leftLimitTransform.position.x)
+                {
+                    transform.position = new Vector2(leftLimitTransform.position.x, transform.position.y);
+                    yield break; // Stop coroutine
+                }
+
+                yield return null; // Wait for next frame
+            }
+        }
         public IEnumerator ExecuteAttack(Vector2 PlayerPosition)
         {
             throw new System.NotImplementedException();
@@ -94,7 +147,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void Start()
         {
-            m_animation.SetAnimation(0, m_waitForInitializeAnimation, false);
+            //m_animation.SetAnimation(0, m_waitForInitializeAnimation, false);
         }
     }
 }

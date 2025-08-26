@@ -405,7 +405,7 @@ MonoBehaviour:
   useConversationTitlePicker: 1
   useBarkTitlePicker: 1
   useQuestNamePicker: 1
-  selectedDatabase: {fileID: 11400000, guid: 0261f9a557275204180e4259492917ad, type: 2}
+  selectedDatabase: {fileID: 11400000, guid: 1bb79fa20a849dc4ba8683ece22067e9, type: 2}
 --- !u!1 &704687853744632232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,6 +1969,11 @@ MonoBehaviour:
   m_exitEvents:
     m_PersistentCalls:
       m_Calls: []
+  m_DelayedExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DelaySeconds: 1
+  m_collider: {fileID: 0}
 --- !u!1 &704687853747719684
 GameObject:
   m_ObjectHideFlags: 0
@@ -2118,7 +2123,7 @@ MonoBehaviour:
   useConversationTitlePicker: 1
   useBarkTitlePicker: 1
   useQuestNamePicker: 1
-  selectedDatabase: {fileID: 11400000, guid: 0261f9a557275204180e4259492917ad, type: 2}
+  selectedDatabase: {fileID: 11400000, guid: 1bb79fa20a849dc4ba8683ece22067e9, type: 2}
 --- !u!114 &9168092951979918943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2288,6 +2293,8 @@ PlayableDirector:
     value: {fileID: 3856834042149236604}
   - key: {fileID: -8738493868456568428, guid: f33488ebd10a6fe43b7bae881e46097f, type: 2}
     value: {fileID: 704687853747719684}
+  - key: {fileID: -8340116649062378226, guid: f33488ebd10a6fe43b7bae881e46097f, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - 28a78410a022734419ab871829f3b58c: {fileID: 704687855389443258}
@@ -2330,6 +2337,11 @@ MonoBehaviour:
   m_exitEvents:
     m_PersistentCalls:
       m_Calls: []
+  m_DelayedExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DelaySeconds: 1
+  m_collider: {fileID: 0}
 --- !u!114 &704687853850842714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3969,6 +3981,11 @@ MonoBehaviour:
   m_exitEvents:
     m_PersistentCalls:
       m_Calls: []
+  m_DelayedExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DelaySeconds: 1
+  m_collider: {fileID: 0}
 --- !u!1 &704687854416104986
 GameObject:
   m_ObjectHideFlags: 0
@@ -5574,6 +5591,11 @@ MonoBehaviour:
   m_exitEvents:
     m_PersistentCalls:
       m_Calls: []
+  m_DelayedExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DelaySeconds: 1
+  m_collider: {fileID: 0}
 --- !u!1 &704687854536281174
 GameObject:
   m_ObjectHideFlags: 0
@@ -7265,6 +7287,11 @@ MonoBehaviour:
   m_exitEvents:
     m_PersistentCalls:
       m_Calls: []
+  m_DelayedExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DelaySeconds: 1
+  m_collider: {fileID: 0}
 --- !u!1 &704687854639418130
 GameObject:
   m_ObjectHideFlags: 0
@@ -9527,6 +9554,11 @@ MonoBehaviour:
   m_exitEvents:
     m_PersistentCalls:
       m_Calls: []
+  m_DelayedExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DelaySeconds: 1
+  m_collider: {fileID: 0}
 --- !u!1 &704687855259097111
 GameObject:
   m_ObjectHideFlags: 0
@@ -11317,6 +11349,11 @@ MonoBehaviour:
   m_exitEvents:
     m_PersistentCalls:
       m_Calls: []
+  m_DelayedExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DelaySeconds: 1
+  m_collider: {fileID: 0}
 --- !u!1 &704687855291332241
 GameObject:
   m_ObjectHideFlags: 0
@@ -13026,7 +13063,7 @@ PrefabInstance:
     - target: {fileID: 2243716286825608668, guid: fa545183616353140bb70b940dc28cdf,
         type: 3}
       propertyPath: _animationName
-      value: Act_Helpless3
+      value: Distress
       objectReference: {fileID: 0}
     - target: {fileID: 5317720780919947706, guid: fa545183616353140bb70b940dc28cdf,
         type: 3}
@@ -13234,7 +13271,52 @@ MonoBehaviour:
   setAnimatorStateActions: []
   onExecute:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6386039184840413712}
+        m_TargetAssemblyTypeName: DChild.Gameplay.Characters.SpineAnimationCaller,
+          Assembly-CSharp
+        m_MethodName: SetAnimation
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 117bb461f60710640aad3ca4de30c4d5,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: Spine.Unity.AnimationReferenceAsset,
+            spine-unity
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6386039184840413712}
+        m_TargetAssemblyTypeName: DChild.Gameplay.Characters.SpineAnimationCaller,
+          Assembly-CSharp
+        m_MethodName: AddAnimation
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: da99710819259a6448f753b8c76f3db0,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: Spine.Unity.AnimationReferenceAsset,
+            spine-unity
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6386039184840413712}
+        m_TargetAssemblyTypeName: DChild.Gameplay.Characters.SpineAnimationCaller,
+          Assembly-CSharp
+        m_MethodName: AddAnimation
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 18b6b1993a08c90419e4741474b468b8,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: Spine.Unity.AnimationReferenceAsset,
+            spine-unity
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   useConversationTitlePicker: 1
   useBarkTitlePicker: 1
   useQuestNamePicker: 1
@@ -15568,7 +15650,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 704687854201101853}
   m_PrefabAsset: {fileID: 0}
---- !u!60 &3204246894901457189
+--- !u!60 &3197191405042533557
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -16014,6 +16096,17 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 27
       objectReference: {fileID: 0}
+    - target: {fileID: 3229121963395161193, guid: 637cc7b5b5eee404badfeeeb69029cb6,
+        type: 3}
+      propertyPath: m_enterEvents.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: DChild.Gameplay.Characters.SpineAnimationCaller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3229121963395161193, guid: 637cc7b5b5eee404badfeeeb69029cb6,
+        type: 3}
+      propertyPath: m_enterEvents.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 117bb461f60710640aad3ca4de30c4d5,
+        type: 2}
     - target: {fileID: 4083272032033839314, guid: 637cc7b5b5eee404badfeeeb69029cb6,
         type: 3}
       propertyPath: m_RootOrder

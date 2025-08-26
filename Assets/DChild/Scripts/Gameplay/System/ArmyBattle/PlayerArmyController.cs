@@ -35,18 +35,21 @@ namespace DChild.Gameplay.ArmyBattle
                 return new ArmyTurnAction
                 {
                     troopCount = m_controlledArmy.troopCount,
+                    modifiers = m_controlledArmy.modifiers,
                     willAttack = false
                 };
 
             return new ArmyTurnAction()
             {
                 troopCount = m_controlledArmy.troopCount,
+                modifiers = m_controlledArmy.modifiers,
                 attack = new ArmyDamage(m_chosenAttack.GetDamageType(), m_chosenAttack.GetAttackPower()),
                 willAttack = true
             };
         }
         public override void CleanUpForNextTurn()
         {
+            m_controlledArmy.modifiers.Reset();
             if (m_chosenAttack == null)
                 return;
 

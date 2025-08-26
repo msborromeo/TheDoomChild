@@ -27,6 +27,16 @@ namespace DChild.Menu
         {
             m_confirmation.GetComponent<UIView>().Show();
         }
+
+        public void ChangeMessage(string message)
+        {
+            m_confirmationMessage = message;
+        }
+
+        public void ChangeHandler(ConfirmationHandler handler)
+        {
+            m_confirmation = handler;
+        }
     }
 
 }

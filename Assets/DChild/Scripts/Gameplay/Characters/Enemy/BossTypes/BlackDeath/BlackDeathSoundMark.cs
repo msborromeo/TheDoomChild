@@ -56,6 +56,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return null;
 
             m_isActivated = false;
+            Destroy(gameObject);
         }
 
         private IEnumerator DelayedSpawnProjectileRoutine(Transform target)

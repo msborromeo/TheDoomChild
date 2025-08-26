@@ -19,6 +19,9 @@ namespace DChild.Gameplay.FastTravel.Debug
                 {
                     var variable = FastTravelUtility.GenerateActivationVariableName(data.GetUnderworldTravelData(j));
                     DialogueLua.SetVariable(variable, unlock);
+
+                    var overWorldvariable = FastTravelUtility.GenerateActivationVariableName(data.GetOverworldTravelData());
+                    DialogueLua.SetVariable(overWorldvariable, unlock);
                 }
             }
         }

@@ -3,6 +3,7 @@ using Holysoft.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using I2.Loc;
 
 namespace DChild.Menu.Trade
 {
@@ -13,6 +14,8 @@ namespace DChild.Menu.Trade
         private UIButton m_tradeButton;
         [SerializeField]
         private TextMeshProUGUI m_tradeButtonLabel;
+        [SerializeField]
+        private Localize m_tradeButtonLabelLocalize;
 
         public TradeType tradeType => m_tradeType;
 
@@ -25,11 +28,13 @@ namespace DChild.Menu.Trade
         {
             m_tradeType = TradeType.Buy;
             m_tradeButtonLabel.text = "Buy";
+            m_tradeButtonLabelLocalize?.SetTerm("ShopUI/ItemInfo/Buy");
         }
         public void ChangeToSellOption(bool instant)
         {
             m_tradeType = TradeType.Sell;
             m_tradeButtonLabel.text = "Sell";
+            m_tradeButtonLabelLocalize?.SetTerm("ShopUI/ItemInfo/Sell");
         }
     }
 }

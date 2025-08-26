@@ -556,13 +556,15 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             enabled = true;
             m_aggroCollider.enabled = true;
+            m_animation.EnableRootMotion(true, false);
             m_stateHandle.OverrideState(State.Detect);
         }
 
         public void PrepareAmbush(Vector2 position)
         {
             StopAllCoroutines();
-
+            m_animation.EnableRootMotion(false, false);
+            m_animation.DisableRootMotion();
             m_character.transform.position = m_startPoint;
             m_aggroCollider.enabled = false;
             m_character.physics.simulateGravity = false;

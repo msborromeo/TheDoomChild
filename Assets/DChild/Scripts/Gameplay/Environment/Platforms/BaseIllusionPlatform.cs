@@ -15,11 +15,21 @@ namespace DChild.Gameplay.Environment
         [SerializeField]
         private Collider2D m_environmentCollider;
         [SerializeField]
+        private Collider2D m_environmentTriggerCoillider;
+        [SerializeField]
         private List<MaterialParameterCall> m_materialParameterCall;
         [Button]
         public override void Appear(bool instant)
         {
+            if(m_environmentCollider.enabled)
+            {
+                return;
+            }
             m_environmentCollider.enabled = true;
+            if(m_environmentTriggerCoillider)
+            {
+                m_environmentTriggerCoillider.enabled = true;
+            }
             AppearEffect();
             if (m_worldInteraction == null)
             {
@@ -31,7 +41,15 @@ namespace DChild.Gameplay.Environment
         [Button]
         public override void Disappear(bool instant)
         {
+            if(!m_environmentCollider.enabled)
+            {
+                return;
+            }
             m_environmentCollider.enabled = false;
+            if (m_environmentTriggerCoillider)
+            {
+                m_environmentTriggerCoillider.enabled = false;
+            }
             DissapearEffect();
             if (m_worldInteraction == null)
             {

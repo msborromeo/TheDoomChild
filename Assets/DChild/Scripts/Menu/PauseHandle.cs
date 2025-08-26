@@ -26,6 +26,7 @@ namespace DChild.Menu
 
         private void OnMainMenuConfirm(object sender, EventActionArgs eventArgs)
         {
+            GameSystem.SetGamePause(true);
             GameSystem.LoadMainMenu();
         }
     }

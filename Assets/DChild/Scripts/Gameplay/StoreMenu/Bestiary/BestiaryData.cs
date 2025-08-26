@@ -160,7 +160,7 @@ namespace DChild.Menu.Bestiary
             connection.Close();
             if (m_connectToDatabase && m_name != databaseName)
             {
-                UpdateReference();
+                //UpdateReference();
             }
         }
 

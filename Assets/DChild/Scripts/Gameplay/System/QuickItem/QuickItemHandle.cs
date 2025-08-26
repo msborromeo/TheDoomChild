@@ -73,6 +73,20 @@ namespace DChild.Gameplay.Inventories
 
         public bool CanUseCurrentItem() => m_currentItemData.CanBeUse(m_player);
 
+        public bool IsCoolDownOver() => m_cooldown.isOver;
+
+        public bool IsCurrentItemThrowable()
+        {
+            bool result = false;
+
+            if(m_currentItemData.category == ItemCategory.Throwable)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
         public void UseCurrentItem()
         {
             if (m_cooldown.isOver && CanUseCurrentItem())
@@ -147,7 +161,8 @@ namespace DChild.Gameplay.Inventories
                 m_currentItem = m_selections.GetItem(m_currentIndex);
 
             }
-            if (m_currentItem != null && m_currentItem.data.category == ItemCategory.Consumable || m_currentItem.data.category == ItemCategory.Throwable)
+
+            if (m_currentItem != null && (m_currentItem.data.category == ItemCategory.Consumable || m_currentItem.data.category == ItemCategory.Throwable))
             {
                 m_currentItemData = (ConsumableItemData)m_currentItem.data;
 

@@ -43,6 +43,9 @@ namespace DChild
         private static GameSystem m_instance;
 
 
+        public static bool gamePaused { get; private set; }
+
+
         [SerializeField]
         private Cursor m_instanceCursor;
         [SerializeField]
@@ -87,16 +90,16 @@ namespace DChild
 
         public static void LoadZone(GameMode gameMode, SceneInfo scene, bool withLoadingScene)
         {
-            GameplaySystem.ListenToNextSceneLoad();
             m_gameModeValidator.SetupGameMode(gameMode);
+            GameplaySystem.ListenToNextSceneLoad();
             m_zoneLoader.LoadZone(scene, withLoadingScene);
             GameplaySystem.ClearCaches();
         }
 
         public static void LoadZone(GameMode gameMode, SceneInfo scene, bool withLoadingScene, Action CallAfterSceneDone)
         {
-            GameplaySystem.ListenToNextSceneLoad();
             m_gameModeValidator.SetupGameMode(gameMode);
+            GameplaySystem.ListenToNextSceneLoad();
             m_zoneLoader.LoadZone(scene, withLoadingScene, CallAfterSceneDone);
             GameplaySystem.ClearCaches();
         }
@@ -112,6 +115,11 @@ namespace DChild
             dataManager.InitializeCampaignSlotList();
             m_gameModeValidator.RemoveAllGameModeSystems();
             m_zoneLoader.LoadMainMenu();
+        }
+
+        public static void SetGamePause(bool value)
+        {
+            gamePaused = value;
         }
 
         private void Awake()
@@ -139,6 +147,7 @@ namespace DChild
                 m_poolManager = GetComponentInChildren<PoolManager>();
                 m_poolManager.Initialize();
                 m_cursor = m_instanceCursor;
+                gamePaused = false;
 
                 sceneManager = new AddressableSceneManager();
             }
@@ -159,6 +168,7 @@ namespace DChild
                 m_zoneLoader = null;
                 dataManager = null;
                 m_poolManager = null;
+                gamePaused = false;
             }
         }
     }

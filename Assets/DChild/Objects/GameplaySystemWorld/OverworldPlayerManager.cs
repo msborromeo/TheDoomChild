@@ -79,7 +79,7 @@ namespace DChild.Gameplay.Systems
             ////m_player.controller?.Enable();
             //m_overrideController.enabled = true;
             //m_player.state.allowExtendedIdle = false;
-            return null;
+            return m_overrideController;
         }
 
         public IEnumerator PlayerActionChange(Action<PlayerInput> Callback)

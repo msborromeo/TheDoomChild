@@ -76,6 +76,10 @@ namespace DChild.Gameplay.Characters.Enemies
             private string m_flinchAnimation;
             public string flinchAnimation => m_flinchAnimation;
 
+            [TitleGroup("Events")]
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_deathFXEvent;
+            public string deathFXEvent => m_deathFXEvent;
             public override void Initialize()
             {
 #if UNITY_EDITOR
@@ -108,6 +112,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private GameObject m_chain;
         [SerializeField, TabGroup("Chain")]
         private List<Rigidbody2D> m_chainRigidbodies;
+        [SerializeField]
+        private GameObject m_deathFX;
 
         private string m_currentIdleAnimation;
         private string m_currentTwitchAnimation;
@@ -269,8 +275,12 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             m_animation.SetAnimation(0, m_currentIdleAnimation, true).TimeScale = m_info.idleTimeScale;
             m_floatRoutine = StartCoroutine(FloatingRoutine());
+            m_spineEventListener.Subscribe(m_info.deathFXEvent, OnDeath);
         }
-
+        private void OnDeath()
+        {
+            Instantiate(m_deathFX, new Vector2(transform.position.x, transform.position.y - 6f), Quaternion.identity);
+        }
         protected override void Awake()
         {
             base.Awake();

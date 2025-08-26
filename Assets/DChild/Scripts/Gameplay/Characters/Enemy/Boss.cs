@@ -44,6 +44,11 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_brain = GetComponentInChildren<ICombatAIBrain>(true);
         }
+
+        public BestiaryData GetBestiaryData()
+        {
+            return m_data;
+        }
 #if UNITY_EDITOR
         public void InitializeFields(BestiaryData data, Health health)
         {

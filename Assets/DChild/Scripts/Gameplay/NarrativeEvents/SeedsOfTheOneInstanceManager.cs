@@ -80,10 +80,10 @@ public class SeedsOfTheOneInstanceManager : MonoBehaviour
                 instanceTracker |= currentFlag;
             }
 
-            if (instanceTracker.HasFlag(currentFlag))
-            {
-                m_SeedsOfTheOne[i].gameObject.SetActive(false);
-            }
+            //if (instanceTracker.HasFlag(currentFlag))
+            //{
+            //    m_SeedsOfTheOne[i].gameObject.SetActive(false);
+            //}
         }
 
         DialogueLua.SetVariable(m_connectedVariable, (int)instanceTracker);

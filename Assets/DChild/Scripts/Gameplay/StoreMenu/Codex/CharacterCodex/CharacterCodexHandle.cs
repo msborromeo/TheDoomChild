@@ -10,7 +10,8 @@ namespace DChild.Codex.Characters
     {
         public void SelectButton(CharacterCodexIndexButton button)
         {
-            Select(button);
+            if (button != null)
+                Select(button);
         }
 
     }

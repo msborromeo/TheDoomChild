@@ -1,10 +1,9 @@
+using DChild.Gameplay.ArmyBattle;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace DChild.Gameplay.ArmyBattle.UI
+namespace DChild.Scripts.Gameplay.Systems.ArmyBattle.ArmyBattleUI
 {
     public class ArmyHealthUI : MonoBehaviour
     {
@@ -12,7 +11,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         private TextMeshProUGUI m_armyPower;
         public void MonitorHealth(Army army)
         {
-            //Set Cuurent UI to Count without anim
+            //Set Current UI to Count without anim
             army.OnTroopCountChange += OnTroopCountChange;
         }
 

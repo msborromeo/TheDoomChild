@@ -19,11 +19,15 @@ namespace DChild.Gameplay.ArmyBattle.Visualizer
             {
                 m_fx.transform.position = target.centerPosition;
             }
+            foreach (var unit in units)
+            {
+                unit.Attack();
+            }
             if (m_fx!=null)
             {
                 m_fx.PlayEffects();
             }
-            
+
         }
 
         public override void StopAttack(List<ArmyUnit> units)

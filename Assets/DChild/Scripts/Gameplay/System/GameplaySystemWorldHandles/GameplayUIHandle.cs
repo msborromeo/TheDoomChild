@@ -2,9 +2,14 @@
 using DChild.Gameplay.Characters.NPC;
 using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Environment;
+using DChild.Gameplay.LevelFinish.UI;
+using DChild.Gameplay.Systems.Serialization;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
+using DChild.Gameplay.UI.Alerts;
 using DChild.Menu.Trade;
+using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
+using Holysoft.Event;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -16,6 +21,9 @@ namespace DChild.Gameplay.Systems
     {
         public static GameplayUIHandle Instance { get; private set; }
 
+        public bool isInCutsceneMode { get; private set; }
+
+        public UIAlertManager alertManager => BaseGameplayUIHandle.Instance.uiAlertManager;
         public IUINotificationManager notificationManager => UnderworldGameplayUIHandle.Instance.notificationManager;
 
         public void ActivateHealthRegenEffect(PassiveRegeneration.Handle regenHandle)
@@ -60,11 +68,15 @@ namespace DChild.Gameplay.Systems
 
         public void OpenStore()
         {
-            if(GameSystem.CurrentGameMode == GameMode.Underworld)
+            if (GameplaySystem.isGamePaused)
+                return;
+
+            if (GameSystem.CurrentGameMode == GameMode.Underworld)
             {
                 UnderworldGameplayUIHandle.Instance.OpenStore();
+ 
             }
-            else if(GameSystem.CurrentGameMode == GameMode.Overworld)
+            else if (GameSystem.CurrentGameMode == GameMode.Overworld)
             {
                 OverworldGameplayUIHandle.Instance.OpenStore();
             }
@@ -74,13 +86,14 @@ namespace DChild.Gameplay.Systems
         {
             if (GameSystem.CurrentGameMode == GameMode.Underworld)
             {
-                UnderworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage);
+                UnderworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage); 
+
             }
             else if (GameSystem.CurrentGameMode == GameMode.Overworld)
             {
                 OverworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage);
             }
-            
+
         }
 
         public void OpenTradeWindow(NPCProfile merchantData, ITradeInventory merchantInventory, TradeAskingPrice merchantBuyingPriceRate, CurrencyType type)
@@ -103,6 +116,16 @@ namespace DChild.Gameplay.Systems
             throw new NotImplementedException();
         }
 
+        public void RequestTeleportConfirmation(LocationData destinationData)
+        {
+            BaseGameplayUIHandle.Instance.RequestTeleportConfirmation(destinationData);
+        }
+
+        public void NotifyUnlockedLocation(AvailableLocations location, InputActionConfiguration input)
+        {
+            BaseGameplayUIHandle.Instance.NotifyUnlockedLocation(location, input);
+        }
+
         public void ResetGameplayUI()
         {
             UnderworldGameplayUIHandle.Instance.ResetGameplayUI();
@@ -117,6 +140,11 @@ namespace DChild.Gameplay.Systems
         {
             BaseGameplayUIHandle.Instance.ShowCinematicVideo(clip, behindTheSceneRoutine, OnVideoDone);
         }
+
+	public void ForceStopCinematicVideo()
+	{
+		BaseGameplayUIHandle.Instance.ForceStopCinematicVideo();
+	}
 
         public void ShowGameOverScreen()
         {
@@ -148,6 +176,11 @@ namespace DChild.Gameplay.Systems
             UnderworldGameplayUIHandle.Instance.ShowJournalNotificationPrompt(duration);
         }
 
+        public void ShowMordenElevatorUI(ElevatorLocation location, ElevatorLevelInfo[] labels, MovingPlatform elevator)
+        {
+            UnderworldGameplayUIHandle.Instance.OpenElevator(location, labels, elevator);
+        }
+
         public void ShowMovableObjectPrompt(bool willshow)
         {
             UnderworldGameplayUIHandle.Instance.ShowMovableObjectPrompt(willshow);
@@ -175,6 +208,7 @@ namespace DChild.Gameplay.Systems
 
         public void ToggleCinematicMode(bool on, bool instant = false)
         {
+            isInCutsceneMode = on;
             BaseGameplayUIHandle.Instance.ToggleCinematicMode(on);
         }
 
@@ -183,9 +217,14 @@ namespace DChild.Gameplay.Systems
             BaseGameplayUIHandle.Instance.ToggleFadeUI(willshow);
         }
 
+        public void TogglePause(bool toggle)
+        {
+            BaseGameplayUIHandle.Instance.TogglePause(toggle);
+        }
+
         public void UpdateNavMapConfiguration(Location location, int sceneIndex, Transform inGameReference, Vector2 mapReferencePoint, Vector2 calculationOffset)
         {
-            if(location == Location.Overworld)
+            if (location == Location.Overworld)
             {
                 OverworldGameplayUIHandle.Instance.UpdateNavMapConfiguration(location, sceneIndex, inGameReference, mapReferencePoint, calculationOffset);
             }
@@ -194,5 +233,11 @@ namespace DChild.Gameplay.Systems
                 UnderworldGameplayUIHandle.Instance.UpdateNavMapConfiguration(location, sceneIndex, inGameReference, mapReferencePoint, calculationOffset);
             }
         }
+
+        public UIHandlerExtraReference GetReference()
+        {
+            return UnderworldGameplayUIHandle.Instance.getReference();
+        }
+
     }
 }

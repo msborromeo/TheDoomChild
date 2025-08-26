@@ -1,18 +1,19 @@
-﻿using System;
+﻿using DChild;
 using DChild.Gameplay;
 using DChild.Gameplay.Characters;
-using DChild.Gameplay.Combat;
-using Holysoft.Event;
 using DChild.Gameplay.Characters.AI;
-using UnityEngine;
+using DChild.Gameplay.Characters.Enemies;
+using DChild.Gameplay.Combat;
+using DChild.Gameplay.Pathfinding;
+using DChild.Gameplay.Pooling;
+using Holysoft.Event;
+using Sirenix.OdinInspector;
 using Spine;
 using Spine.Unity;
-using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using DChild;
-using DChild.Gameplay.Characters.Enemies;
-using DChild.Gameplay.Pathfinding;
+using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
@@ -133,6 +134,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Collider2D m_bodyCollider;
         [SerializeField, TabGroup("Reference")]
         private Hitbox m_hitbox;
+        [SerializeField, TabGroup("Reference")]
+        private GameObject m_ChanellingVFX;
         [SerializeField, TabGroup("Modules")]
         private TransformTurnHandle m_turnHandle;
         [SerializeField, TabGroup("Modules")]
@@ -391,6 +394,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_flinchHandle.m_autoFlinch = false;
             m_agent.Stop();
+            m_ChanellingVFX.SetActive(true);
             switch (m_attack)
             {
                 case Attack.Attack1:
@@ -412,6 +416,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             
             yield return new WaitForSeconds(1.25f);
+            m_ChanellingVFX.SetActive(false);
             LaunchProjectile();
             m_animation.SetAnimation(0, m_info.attack1.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack1.animation);
@@ -425,6 +430,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
 
             yield return new WaitForSeconds(1.25f);
+            m_ChanellingVFX.SetActive(false);
             SpawnSpike();
             m_animation.SetAnimation(0, m_info.attack2.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack2.animation);
@@ -501,8 +507,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private void SpawnSpike()
         {
             Vector2 targetground = new Vector2(m_targetInfo.position.x, GroundPosition().y);
-            Vector3 targetgroundv3 = targetground;
-            Instantiate(m_info.spike, targetgroundv3, Quaternion.identity);
+            //Vector3 targetgroundv3 = targetground;
+            var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_info.spike, gameObject.scene);
+            instance.SpawnAt(targetground, Quaternion.identity);
+            // Instantiate(m_info.spike, targetgroundv3, Quaternion.identity);
         }
 
         protected override void Start()
@@ -590,6 +598,10 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_animation.SetAnimation(0, m_info.patrol.animation, true);
                     var characterInfo = new PatrolHandle.CharacterInfo(m_character.centerMass.position, m_character.facing);
                     m_patrolHandle.Patrol(m_agent, m_info.patrol.speed, characterInfo);
+                    if (m_isDetecting)
+                    {
+                        m_stateHandle.SetState(State.ReevaluateSituation);
+                    }
                     break;
 
                 case State.Idle:

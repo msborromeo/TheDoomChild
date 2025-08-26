@@ -43,7 +43,15 @@ namespace DChild.Visuals
         {
             var referenceTransform = reference.transform;
             transform.position = referenceTransform.position;
-            transform.localScale = referenceTransform.localScale;
+            
+            if(referenceTransform.localScale.x>0)
+            {
+                GetComponent<Character>().SetFacing(Gameplay.Characters.HorizontalDirection.Right);
+            }else
+            {
+                GetComponent<Character>().SetFacing(Gameplay.Characters.HorizontalDirection.Left);
+            }
+            //transform.localScale = referenceTransform.localScale;
         }
 
         private void SyncAnimation(SpineSyncer reference)

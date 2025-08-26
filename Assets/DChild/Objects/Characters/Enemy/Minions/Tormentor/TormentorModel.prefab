@@ -641,9 +641,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287635789975126035}
-  m_LocalRotation: {x: 0, y: 0, z: -0.000000006256692, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.0000000062566916, w: 1}
   m_LocalPosition: {x: -0.29682153, y: 0.19541661, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_LocalScale: {x: 1, y: 0.99999994, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7960687991879650791}
@@ -893,14 +893,10 @@ MonoBehaviour:
   m_forceShakeOnDestroy: 0
   m_onDestroyShake: {fileID: 0}
   m_createDebris: 0
-  m_debris:
-    m_AssetGUID: 
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   m_copySorting: 0
   m_applyDebrisColorChange: 0
   m_colorToApply: {r: 1, g: 1, b: 1, a: 1}
+  m_hasVFXSpawner: 0
   m_onDestroy:
     m_PersistentCalls:
       m_Calls: []
@@ -2020,7 +2016,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: da3eb5b773d517f41aa465341410d3b8, type: 2}
+  - {fileID: 2100000, guid: 4b56bb98293ecdb41be60526549639bf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2054,7 +2050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 39858891209a8bc4987c8f6dcd702659, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 1901b87b2e268d9499d2a0455ed4d82a, type: 2}
   initialSkinName: default
   initialFlipX: 0
   initialFlipY: 0
@@ -2475,6 +2471,7 @@ GameObject:
   - component: {fileID: 8534805078828744577}
   - component: {fileID: 6798172990839143688}
   - component: {fileID: 8921394504905817154}
+  - component: {fileID: 6979153662132826541}
   - component: {fileID: 2993936127687476776}
   m_Layer: 13
   m_Name: HitBox
@@ -2543,14 +2540,37 @@ MonoBehaviour:
   - {fileID: 525607393450463904}
   - {fileID: 371571348703211691}
   m_damageFXInfo:
-    m_fx: {fileID: 4025808106930532386, guid: 8a88a66cf00c45849ae287257e1ee932, type: 3}
-    m_overrideColor: 1
+    m_fx: {fileID: 3826423719558993263, guid: 577cb1c4c971a6e40912b8dad217c2fd, type: 3}
+    m_overrideColor: 0
     m_colorToUse: {r: 0.4245283, g: 0.06506962, b: 0.030037375, a: 0.5882353}
     m_overrideScale: 1
-    m_scaleToUse: {x: 7, y: 7, z: 7}
+    m_scaleToUse: {x: 1.5, y: 1.5, z: 1.5}
   m_invulnerabilityLevel: 0
   m_damageReduction: 0
   m_canBlockDamage: 0
+--- !u!114 &6979153662132826541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5358357814533948390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e10454193b54c9a4eb8bfb67b80c746d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_centerMass: {fileID: 5435017820234869477}
+  m_data: {fileID: 11400000, guid: d5d7b26c351cc32428d6410431e8f70e, type: 2}
+  m_currentAttackInfo:
+    damage:
+      m_type: 1
+      m_value: 0
+    criticalDamageInfo:
+      chance: 0
+      damageModifier: 0
+    ignoreInvulnerability: 0
+    ignoresBlock: 0
 --- !u!114 &2993936127687476776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2737,7 +2757,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6638615658337105591}
-  - component: {fileID: 3509947196710884828}
   m_Layer: 13
   m_Name: BoundingBox
   m_TagString: Untagged
@@ -2761,29 +2780,6 @@ Transform:
   m_Father: {fileID: 4499315948039898785}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3509947196710884828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5494933757962382313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e10454193b54c9a4eb8bfb67b80c746d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_centerMass: {fileID: 4899556793871030745}
-  m_data: {fileID: 11400000, guid: 5441d8bcae2caba4eb9bcf1fd0df6e61, type: 2}
-  m_currentAttackInfo:
-    damage:
-      m_type: 1
-      m_value: 0
-    criticalDamageInfo:
-      chance: 0
-      damageModifier: 0
-    ignoreInvulnerability: 0
-    ignoresBlock: 0
 --- !u!1 &5861544818437703425
 GameObject:
   m_ObjectHideFlags: 0
@@ -3446,11 +3442,11 @@ MonoBehaviour:
   m_collider2Ds:
   - {fileID: 8422622023463989830}
   m_damageFXInfo:
-    m_fx: {fileID: 0}
-    m_overrideColor: 1
+    m_fx: {fileID: 7882641215213764831, guid: ed78adbcc920a5f44bbc57e0913f1976, type: 3}
+    m_overrideColor: 0
     m_colorToUse: {r: 0.28235295, g: 0.40392157, b: 0.25490198, a: 0.5882353}
     m_overrideScale: 1
-    m_scaleToUse: {x: 5, y: 5, z: 5}
+    m_scaleToUse: {x: 1, y: 1, z: 1}
   m_invulnerabilityLevel: 0
   m_damageReduction: 0
   m_canBlockDamage: 0
@@ -3941,7 +3937,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8798573348044699296}
   m_LocalRotation: {x: -0, y: -0, z: -0.050439734, w: 0.99872714}
-  m_LocalPosition: {x: -10.047108, y: 19.160364, z: 0}
+  m_LocalPosition: {x: -10.047108, y: 19.16037, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

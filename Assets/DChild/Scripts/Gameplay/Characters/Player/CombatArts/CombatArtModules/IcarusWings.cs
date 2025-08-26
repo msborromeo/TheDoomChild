@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class IcarusWings : AttackBehaviour
+    public class IcarusWings : AttackBehaviour, IInterruptableCombatArtModule
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -78,6 +78,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         public void Execute()
         {
             m_state.waitForBehaviour = true;
+            m_state.isExecutingCombatArt = true;
             m_state.isAttacking = true;
             m_state.canAttack = false;
             m_canIcarusWings = false;
@@ -103,6 +104,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_cielingCheckRoutine = null;
             }
             m_animator.SetBool(m_icarusWingsStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
             base.AttackOver();
         }
 
@@ -117,6 +119,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             //m_icarusWingsInfo.ShowCollider(false);
             m_fxAnimator.Play("Buffer");
             m_animator.SetBool(m_icarusWingsStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
             base.Cancel();
         }
 

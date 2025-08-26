@@ -49,8 +49,6 @@ namespace DChild.Codex.Characters
             {
                 creatureNameText = m_showDataOf.name;
                 SetImage(m_creatureImage, m_showDataOf.infoImage);
-                SetImage(m_sketchImage, m_showDataOf.sketchImage);
-                UpdateLocation(m_showDataOf.locatedIn);
                 m_description.text = m_showDataOf.description;
 
             }

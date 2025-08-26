@@ -186,17 +186,6 @@ namespace DChild.Gameplay.Characters.Enemies
                 //StopCoroutine(patienceRoutine);
                 m_enablePatience = false;
             }
-            else
-            {
-                //if (!m_enablePatience)
-                //{
-                //    m_enablePatience = true;
-                //    //Patience();
-                //    StartCoroutine(PatienceRoutine());
-                //}
-                m_enablePatience = true;
-                //StartCoroutine(PatienceRoutine());
-            }
         }
 
         private void OnTurnDone(object sender, FacingEventArgs eventArgs)
@@ -532,10 +521,15 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public void ResetAI()
         {
+            Debug.Log("CALLED !!!!");
             m_selfCollider.enabled = false;
             m_targetInfo.Set(null, null);
             m_isDetecting = false;
             m_enablePatience = false;
+            if(m_stateHandle.currentState==State.Idle)
+            {
+                return;
+            }
             m_stateHandle.OverrideState(State.ReevaluateSituation);
             enabled = true;
         }

@@ -19,14 +19,14 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
         public static event EventAction<FurryWhisperer.StateChangeEvent> Onstatechange;
         public void AttachTo(int soulSkillInstanceID, IPlayer player)
         {
-            DialogueLua.SetVariable("whisper", true);
+            DialogueLua.SetVariable("Whisper", true);
             Onstatechange?.Invoke(this, new StateChangeEvent(true));
             
         }
 
         public void DetachFrom(int soulSkillInstanceID, IPlayer player)
         {
-            DialogueLua.SetVariable("whisper", false);
+            DialogueLua.SetVariable("Whisper", false);
             Onstatechange?.Invoke(this, new StateChangeEvent(false));
         }
     }

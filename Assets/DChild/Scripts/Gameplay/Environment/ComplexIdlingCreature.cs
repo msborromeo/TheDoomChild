@@ -441,7 +441,7 @@ namespace DChild.Gameplay.Environment
             m_damageable = GetComponent<Damageable>();
             if (m_damageable != null)
             {
-                m_damageable.Destroyed += OnDestroy;
+                m_damageable.Destroyed += OnDeath;
             }
 
 #if UNITY_EDITOR
@@ -449,7 +449,7 @@ namespace DChild.Gameplay.Environment
 #endif
         }
 
-        private void OnDestroy(object sender, EventActionArgs eventArgs)
+        private void OnDeath(object sender, EventActionArgs eventArgs)
         {
             enabled = false;
         }

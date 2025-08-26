@@ -114,6 +114,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_playerHitbox.enabled = false;
 
             m_state.waitForBehaviour = true;
+            m_state.isLedgeGrabbing = true;
             m_animator.SetTrigger(m_animation);
             m_animator.SetBool(m_jumpParameter, false);
             m_rigidbody.velocity = Vector2.zero;
@@ -125,6 +126,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
             m_state.waitForBehaviour = false;
+            m_state.isLedgeGrabbing = false;
         }
 
         public void Teleport()

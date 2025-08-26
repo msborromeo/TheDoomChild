@@ -12,10 +12,15 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private bool m_doNotTeleportPlayerOnAwake;
 
+        [SerializeField]
+        private static VolumeMixerManager m_volumeMixerManager;
+
         private static UnderworldGameplaySystem m_instance;
 
         private static bool m_hasBeenRequested;
         private static Vector2 m_requestPosition;
+
+        public static VolumeMixerManager volumeMixerManager => m_volumeMixerManager;
 
         #region Modules
         private static IGameplayActivatable[] m_activatableModules;
@@ -27,6 +32,7 @@ namespace DChild.Gameplay.Systems
         private static LootHandler m_lootHandler;
         private static DChild.Gameplay.Systems.PlayerManager m_playerManager;
         private static UnderworldGameplayUIHandle m_gameplayUIHandle;
+        private static MobileTeleportHandle m_overworldTeleportHandle;
 
         public static IMinionManager minionManager => m_minionManager;
         public static ISoulSkillManager soulSkillManager => m_soulSkillManager;
@@ -37,6 +43,7 @@ namespace DChild.Gameplay.Systems
         public static ILootHandler lootHandler => m_lootHandler;
 
         public static IPlayerManager playerManager => m_playerManager;
+        public static MobileTeleportHandle overworldTeleportHandle => m_overworldTeleportHandle;
         private static UnderworldGameplayUIHandle gameplayUIHandle => m_gameplayUIHandle;
 
         #endregion
@@ -120,6 +127,7 @@ namespace DChild.Gameplay.Systems
             AssignModule(out m_soulSkillManager);
             AssignModule(out m_minionManager);
             AssignModule(out m_gameplayUIHandle);
+            AssignModule(out m_overworldTeleportHandle);
         }
 
         private IEnumerator DelayedShowGameplay()
@@ -167,6 +175,8 @@ namespace DChild.Gameplay.Systems
 
                 Debug.Log("Underworld Gameplay Awake Done");
             }
+
+            m_volumeMixerManager = GameplaySystem.volumeMixerManager;
         }
 
         private void Start()

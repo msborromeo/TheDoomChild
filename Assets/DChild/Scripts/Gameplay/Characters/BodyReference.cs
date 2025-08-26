@@ -16,6 +16,8 @@ namespace DChild.Gameplay
             Head,
             Body,
             Feet,
+            RightHand,
+            LeftHand,
             [HideInInspector]
             _COUNT,
         }

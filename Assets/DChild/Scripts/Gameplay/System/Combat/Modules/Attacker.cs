@@ -3,6 +3,7 @@ using DChild.Gameplay.Combat;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +23,8 @@ namespace DChild.Gameplay.Combat
 #endif
         private AttackDamageInfo m_currentAttackInfo;
         private Damage m_baseDamage;
-
+        private bool m_isDoingCrit = false;
+        private ParticleSystem m_critFX = null;
 
         [ShowInInspector, HideInEditorMode, MinValue(0), OnValueChanged("ApplyDamageModification")]
         private float m_damageModifier;
@@ -43,11 +45,17 @@ namespace DChild.Gameplay.Combat
 
         public event EventAction<CombatConclusionEventArgs> TargetDamaged;
         public event EventAction<BreakableObjectEventArgs> BreakableObjectDamage;
+        public event Action<Vector3> CharacterTargetDamaged;
+        public event Action PlayerDealthCritDamage;
 
         public void Damage(TargetInfo targetInfo, Collider2D colliderThatDealtDamage)
         {
             if (m_currentAttackInfo.ignoreInvulnerability >= targetInfo.bodyDefense.invulnerabilityLevel)
             {
+                if (targetInfo.isCharacter)
+                {
+                    CharacterTargetDamaged?.Invoke(targetInfo.hitCollider.transform.position);
+                }
                 if (targetInfo.isBreakableObject)
                 {
                     using (Cache<BreakableObjectEventArgs> cacheEventArgs = Cache<BreakableObjectEventArgs>.Claim())
@@ -72,12 +80,20 @@ namespace DChild.Gameplay.Combat
                         owner = rootParentAttacker.gameObject;
                     }
 
-                    cacheInfo.Value.Initialize(owner, position, m_currentAttackInfo, colliderThatDealtDamage, m_data?.damageFX ?? null);
+                    cacheInfo.Value.Initialize(owner, position, m_currentAttackInfo, colliderThatDealtDamage, m_data?.damageFX ?? null, m_isDoingCrit);
                     AttackSummaryInfo cacheResult = GameplaySystem.combatManager.ResolveConflict(cacheInfo.Value, targetInfo);
                     using (Cache<CombatConclusionEventArgs> cacheEventArgs = Cache<CombatConclusionEventArgs>.Claim())
                     {
                         cacheEventArgs.Value.Initialize(cacheInfo, targetInfo, cacheResult);
+                        if (m_isDoingCrit)
+                        {
+                            if (m_critFX != null)
+                            {
+                              m_critFX?.Play();
+                            }
+                        }
                         TargetDamaged?.Invoke(this, cacheEventArgs.Value);
+      
                         cacheEventArgs.Release();
                     }
                     cacheInfo.Release();
@@ -108,13 +124,23 @@ namespace DChild.Gameplay.Combat
             ApplyDamageModification(m_baseDamage);
         }
 
-        public void SetDamageModifier(float value)
+        public void SetDamageModifier(float value, float critChance = 0, float critModifier = 0, ParticleSystem critFX = null)
         {
+            //Crit modifies modifier here
+            float rollValue = UnityEngine.Random.Range(0, 100f);
+            m_isDoingCrit = rollValue <= critChance;
+            
             if (m_damageModifier != value)
             {
                 m_damageModifier = Mathf.Max(0, value);
-                ApplyDamageModification(m_baseDamage);
             }
+
+            if (m_isDoingCrit)
+            {
+                m_damageModifier *= critModifier;
+                m_critFX = critFX;
+            }
+            ApplyDamageModification(m_baseDamage);
         }
 
         public void SetIgnoresBlock(bool ignoresBlock)
@@ -183,7 +209,7 @@ namespace DChild.Gameplay.Combat
             ApplyDamageModification(m_data.info.damage);
         }
 
-        private void ApplyData()
+        public void ApplyData()
         {
             SetData(m_data);
         }

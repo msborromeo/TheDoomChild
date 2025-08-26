@@ -260,6 +260,8 @@ GameObject:
   - component: {fileID: 3624352417133690119}
   - component: {fileID: 7080931480721302645}
   - component: {fileID: 256970806261176358}
+  - component: {fileID: 5631925211537150027}
+  - component: {fileID: 8915080040133482442}
   m_Layer: 0
   m_Name: BackButton-PauseGame
   m_TagString: Untagged
@@ -355,6 +357,75 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pauseGameSignal: {fileID: 7080931480721302645}
+  m_UITransitionInProgress: 0
+--- !u!114 &5631925211537150027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906412781797905480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec4976bef1d463b82e8013afa2cb347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Callback:
+    EventName: Callback triggered every time a signal is received
+    Runners: []
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 256970806261176358}
+          m_TargetAssemblyTypeName: PauseGameGuard, Assembly-CSharp
+          m_MethodName: SetUITransitionInProgress
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  StreamId:
+    Category: General
+    Name: ViewTransistionDone
+    Custom: 0
+--- !u!114 &8915080040133482442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906412781797905480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec4976bef1d463b82e8013afa2cb347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Callback:
+    EventName: Callback triggered every time a signal is received
+    Runners: []
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 256970806261176358}
+          m_TargetAssemblyTypeName: PauseGameGuard, Assembly-CSharp
+          m_MethodName: SetUITransitionInProgress
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  StreamId:
+    Category: General
+    Name: ViewTransitionStart
+    Custom: 0
 --- !u!1 &2457540533068367656
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,6 +435,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3959289406568764592}
+  - component: {fileID: 4014180366311307645}
   - component: {fileID: 7880475160326357352}
   - component: {fileID: 7285364416098342667}
   - component: {fileID: 4979850189623587606}
@@ -392,6 +464,19 @@ Transform:
   m_Father: {fileID: 6478014794679475506}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4014180366311307645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2457540533068367656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa96d497585c39b44a82c68b89d37932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inputReader: {fileID: 11400000, guid: f10ab9566613cb14b98648d2d13c9ed9, type: 2}
 --- !u!114 &7880475160326357352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,9 +495,10 @@ MonoBehaviour:
     Event:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Systems.PlayerInputShifter, Assembly-CSharp
-          m_MethodName: SwitchToGameplayActionMap
+        - m_Target: {fileID: 4014180366311307645}
+          m_TargetAssemblyTypeName: DChild.Gameplay.Characters.Players.Modules.GeneralUIController,
+            Assembly-CSharp
+          m_MethodName: SetInputModeToCurrentGameplay
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -444,9 +530,10 @@ MonoBehaviour:
     Event:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Systems.PlayerInputShifter, Assembly-CSharp
-          m_MethodName: SwitchToUIActionMap
+        - m_Target: {fileID: 4014180366311307645}
+          m_TargetAssemblyTypeName: DChild.Gameplay.Characters.Players.Modules.GeneralUIController,
+            Assembly-CSharp
+          m_MethodName: SetInputModeToUI
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -478,9 +565,10 @@ MonoBehaviour:
     Event:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Systems.PlayerInputShifter, Assembly-CSharp
-          m_MethodName: SwitchToGameplayActionMap
+        - m_Target: {fileID: 4014180366311307645}
+          m_TargetAssemblyTypeName: DChild.Gameplay.Characters.Players.Modules.GeneralUIController,
+            Assembly-CSharp
+          m_MethodName: SetInputModeToCurrentGameplay
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -512,9 +600,10 @@ MonoBehaviour:
     Event:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Systems.PlayerInputShifter, Assembly-CSharp
-          m_MethodName: SwitchToUIActionMap
+        - m_Target: {fileID: 4014180366311307645}
+          m_TargetAssemblyTypeName: DChild.Gameplay.Characters.Players.Modules.GeneralUIController,
+            Assembly-CSharp
+          m_MethodName: SetInputModeToUI
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -565,6 +654,7 @@ Transform:
   - {fileID: 8700814139049096025}
   - {fileID: 7169248552564290885}
   - {fileID: 712446644022810396}
+  - {fileID: 911568515682953909}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -629,6 +719,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_silverCoinItemData: {fileID: 11400000, guid: 85cc3263d3adc5f4a85182dafdbfb93a,
     type: 2}
+--- !u!1 &3701530312371412813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3713909868673508032}
+  - component: {fileID: 8274653363868059396}
+  m_Layer: 0
+  m_Name: RequestTeleportSignal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3713909868673508032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3701530312371412813}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7169248552564290885}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8274653363868059396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3701530312371412813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f003aa0ad0a4c469338c205df004d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Payload:
+    StreamId:
+      Category: ConfirmationWindow
+      Name: RequestTeleport
+      Custom: 0
+    SignalValueType: 0
+    IntegerValue: 0
+    BooleanValue: 0
+    FloatValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  SendOnStart: 0
+  SendOnEnable: 0
+  SendOnDisable: 0
+  SendOnDestroy: 0
 --- !u!1 &5092079524882277341
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,6 +839,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7169248552564290885}
   - component: {fileID: 164364884442238860}
+  - component: {fileID: 6828250404446119209}
   m_Layer: 0
   m_Name: GameplayUIHandle
   m_TagString: Untagged
@@ -710,6 +863,9 @@ Transform:
   - {fileID: 1906314717}
   - {fileID: 1131147809}
   - {fileID: 31342839375653837}
+  - {fileID: 1550281842700579856}
+  - {fileID: 5301228604802302412}
+  - {fileID: 3713909868673508032}
   m_Father: {fileID: 6478014794679475506}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -729,12 +885,104 @@ MonoBehaviour:
   m_fastTravelSignal: {fileID: 7316053785741085971}
   m_gameOverSignal: {fileID: 1131147808}
   m_confirmationWindowSignal: {fileID: 1906314718}
+  m_requestTeleportSignal: {fileID: 8274653363868059396}
+  m_cinematicBarsSignal: {fileID: 3245858311185027369}
+  m_levelFinishedSignal: {fileID: 6029624676166457006}
+  m_gamePauseSignal: {fileID: 4478558027050700039}
+  m_gamePause: {fileID: 1906412781797905480}
   m_confirmationWindow: {fileID: 0}
+  m_uiAlertManager: {fileID: 6828250404446119209}
   m_skippableUI: {fileID: 0}
   m_fadeUI: {fileID: 0}
   m_fastTravelUI: {fileID: 0}
   m_cinematicVideoHandle: {fileID: 1812084480293302985}
   m_cinematicBars: {fileID: 0}
+  m_levelFinish: {fileID: 0}
+--- !u!114 &6828250404446119209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5195194276054363823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 356899ebe2933f740b98bcbcaa66e863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_primarySkillAlerts:
+    m_value: 0
+  m_soulSkillAlerts:
+    m_alerts: 
+  m_bestiaryAlerts:
+    m_alerts: 
+  m_charactersAlerts:
+    m_alerts: 
+  m_questAlerts:
+    m_recordedItems: []
+    m_alerts: []
+--- !u!1 &5378970981719822047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5301228604802302412}
+  - component: {fileID: 6029624676166457006}
+  m_Layer: 0
+  m_Name: LevelFinishedSignal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5301228604802302412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378970981719822047}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7169248552564290885}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6029624676166457006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378970981719822047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f003aa0ad0a4c469338c205df004d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Payload:
+    StreamId:
+      Category: Gameplay
+      Name: LevelFinished
+      Custom: 0
+    SignalValueType: 0
+    IntegerValue: 0
+    BooleanValue: 0
+    FloatValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  SendOnStart: 0
+  SendOnEnable: 0
+  SendOnDisable: 0
+  SendOnDestroy: 0
 --- !u!1 &5967057859737043456
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,6 +1031,68 @@ MonoBehaviour:
     StreamId:
       Category: CinematicVideo
       Name: Finished
+      Custom: 0
+    SignalValueType: 0
+    IntegerValue: 0
+    BooleanValue: 0
+    FloatValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  SendOnStart: 0
+  SendOnEnable: 0
+  SendOnDisable: 0
+  SendOnDestroy: 0
+--- !u!1 &7535126276684987284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1550281842700579856}
+  - component: {fileID: 4478558027050700039}
+  m_Layer: 0
+  m_Name: TogglePauseSignal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1550281842700579856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7535126276684987284}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7169248552564290885}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4478558027050700039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7535126276684987284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f003aa0ad0a4c469338c205df004d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Payload:
+    StreamId:
+      Category: Gameplay
+      Name: TogglePause
       Custom: 0
     SignalValueType: 0
     IntegerValue: 0
@@ -1151,6 +1461,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: m_uiAlertSaveData
+      Entry: 6
+      Data: 
     - Name: m_importable
       Entry: 6
       Data: 
@@ -1221,6 +1534,7 @@ Transform:
   - {fileID: 200565599125277529}
   - {fileID: 1604965127886781910}
   - {fileID: 2820612938750950463}
+  - {fileID: 7873775956793223379}
   m_Father: {fileID: 6478014794679475506}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1307,6 +1621,126 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &8477944414457878406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 911568515682953909}
+  - component: {fileID: 8463920664695988943}
+  m_Layer: 0
+  m_Name: VolumeMixerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &911568515682953909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8477944414457878406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6478014794679475506}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8463920664695988943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8477944414457878406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a4411cbbe09814428206a93f68cd995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: m_snapshotHandle
+      Entry: 6
+      Data: 
+  m_mixerGroup: {fileID: 0}
+  m_audioMixer: {fileID: 0}
+--- !u!1 &8555509944426212268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7873775956793223379}
+  - component: {fileID: 3245858311185027369}
+  m_Layer: 0
+  m_Name: CinematicBarsSignal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7873775956793223379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8555509944426212268}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8700814139049096025}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3245858311185027369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8555509944426212268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f003aa0ad0a4c469338c205df004d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Payload:
+    StreamId:
+      Category: Cinematic
+      Name: Bars
+      Custom: 0
+    SignalValueType: 2
+    IntegerValue: 0
+    BooleanValue: 0
+    FloatValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  SendOnStart: 0
+  SendOnEnable: 0
+  SendOnDisable: 0
+  SendOnDestroy: 0
 --- !u!1 &8668686674052265008
 GameObject:
   m_ObjectHideFlags: 0

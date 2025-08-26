@@ -8,6 +8,7 @@ using DChild.Gameplay.Characters;
 using DChild.Gameplay.Combat;
 using PixelCrushers;
 using Holysoft.Gameplay;
+using static DChild.Gameplay.Combat.Damageable;
 
 namespace DChild.Gameplay.Characters
 {
@@ -27,6 +28,7 @@ namespace DChild.Gameplay.Characters
         public event EventAction<Damageable.DamageEventArgs> DamageTaken;
         public event EventAction<EventActionArgs> Destroyed;
         public event EventAction<Damageable.DamageEventArgs> DamageBlock;
+        public event EventAction<InvulnerabilityEventArgs> InvulnerabilityChanged;
 
         public Vector2 position => m_model.position;
         public HorizontalDirection currentFacingDirection => m_facing;

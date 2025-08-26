@@ -19,20 +19,19 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
             /*Cannot display the visuals and apply the effects due to the NullException found here.*/
             DialogueManager.instance.StartConversation(m_dialoguetitle, null, null, 0);
             DialogueManager.instance.conversationEnded += OnConversationEnd;
+            m_activedialogue = true;
             while (m_activedialogue)
             {
                 yield return null;
             }
 
             Debug.Log("Dialogue finish!");
-            //yield return true;
-
-
+            yield return true;
         }
 
         private void OnConversationEnd(Transform t)
         {
-            m_activedialogue = true;
+            m_activedialogue = false;
         }
 
 

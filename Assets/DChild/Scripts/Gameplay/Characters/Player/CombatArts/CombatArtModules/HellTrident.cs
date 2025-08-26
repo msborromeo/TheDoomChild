@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class HellTrident : AttackBehaviour
+    public class HellTrident : AttackBehaviour, IInterruptableCombatArtModule, IPlayerCritAttack
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -94,6 +94,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         public void Execute()
         {
             m_state.waitForBehaviour = true;
+            m_state.isExecutingCombatArt = true;
             m_state.isAttacking = true;
             m_state.canAttack = false;
             m_canHellTrident = false;
@@ -116,6 +117,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_hellTridentStartAnimation.Stop();
             m_hellTridentGO.SetActive(false);
             m_animator.SetBool(m_hellTridentStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
             base.AttackOver();
         }
 
@@ -127,6 +129,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_hellTridentStartAnimation.Stop();
             m_hellTridentGO.SetActive(false);
             m_animator.SetBool(m_hellTridentStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
             base.Cancel();
         }
 
@@ -180,7 +183,9 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         {
             var instance = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(m_projectileInfo.projectile);
             instance.transform.position = m_startPoint.position;
-            instance.GetComponent<Attacker>().SetParentAttacker(m_attacker);
+            var instanceAttacker = instance.GetComponent<Attacker>();
+            instanceAttacker.SetParentAttacker(m_attacker);
+            instanceAttacker.SetDamageModifier(1, m_hellTridentInfo.critChance, m_hellTridentInfo.critModifier, m_hellTridentInfo.critFX);
 
             //LaunchSpike(PuedisYnnusSpike.SkinType.Big, false, Quaternion.identity, true);
             m_launcher.AimAt(new Vector2(m_startPoint.position.x + (m_character.facing == HorizontalDirection.Right ? 10 : -10), m_startPoint.position.y));
@@ -190,6 +195,23 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         public void PlaySpawnFX()
         {
             m_hellTridentInfo.PlayFX(true);
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+            m_hellTridentInfo.SetCritConfiguration(info);
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
         }
     }
 }

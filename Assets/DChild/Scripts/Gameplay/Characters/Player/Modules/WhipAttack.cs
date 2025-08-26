@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
-    public class WhipAttack : AttackBehaviour
+    public class WhipAttack : AttackBehaviour, IPlayerCritAttack
     {
         public struct WhipAttackEventArgs : IEventActionArgs
         {
@@ -49,6 +49,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private bool m_canMove;
         private IPlayerModifer m_modifier;
         private int m_whipAttackAnimationParameter;
+        private int m_yInputParameter;
         private List<Type> m_executedTypes;
         private Rigidbody2D m_rigidbody;
         private float m_cacheGravity;
@@ -60,6 +61,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public bool CanMove() => m_canMove;
         public bool CanAirWhip() => m_canAirWhip;
+        public bool IsGravityAdjusted() => m_adjustGravity;
 
         public override void Initialize(ComplexCharacterInfo info)
         {
@@ -68,6 +70,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_modifier = info.modifier;
             m_executedTypes = new List<Type>();
             m_whipAttackAnimationParameter = info.animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.WhipAttack);
+            m_yInputParameter = info.animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.YInput);
             m_rigidbody = info.rigidbody;
             m_cacheGravity = m_rigidbody.gravityScale;
             m_adjustGravity = true;
@@ -81,7 +84,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public override void Cancel()
         {
-            m_rigidbody.gravityScale = m_cacheGravity;
+            m_rigidbody.gravityScale = m_configuration.defaultGravity;
+            m_state.waitForBehaviour = false;
             m_adjustGravity = true;
 
             if (m_executedTypes.Count > 0)
@@ -147,42 +151,62 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     //m_state.canAttack = true;
                     //m_state.isAttacking = false;
                     //m_state.waitForBehaviour = false;
+                    m_animator.SetFloat(m_yInputParameter, 0);
                     m_timer = m_groundForward.nextAttackDelay;
-                    m_attacker.SetDamageModifier(m_groundForward.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+                    m_attacker.SetDamageModifier(m_groundForward.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage), 
+                        m_groundForward.critChance, 
+                        m_groundForward.critModifier, 
+                        m_groundForward.critFX);
                     break;
                 case Type.Ground_Overhead:
+                    m_animator.SetFloat(m_yInputParameter, 1);
                     m_timer = m_groundOverhead.nextAttackDelay;
-                    m_attacker.SetDamageModifier(m_groundOverhead.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+                    m_attacker.SetDamageModifier(m_groundOverhead.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage), 
+                        m_groundOverhead.critChance, 
+                        m_groundOverhead.critModifier, 
+                        m_groundOverhead.critFX);
                     break;
                 case Type.MidAir_Forward:
+                    m_animator.SetFloat(m_yInputParameter, 0);
                     m_timer = m_midAirForward.nextAttackDelay;
-                    m_attacker.SetDamageModifier(m_midAirForward.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+                    m_attacker.SetDamageModifier(m_midAirForward.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage), 
+                        m_midAirForward.critChance, 
+                        m_midAirForward.critModifier,
+                        m_midAirForward.critFX);
                     m_canAirWhip = false;
 
                     if (m_adjustGravity == true)
                     {
-                        m_cacheGravity = m_rigidbody.gravityScale;
+                        //m_cacheGravity = m_rigidbody.gravityScale;
                         m_rigidbody.gravityScale = /*m_aerialGravity*/m_configuration.aerialGravity;
                         m_rigidbody.velocity = /*Vector2.zero*/new Vector2(m_rigidbody.velocity.x * m_configuration.momentumVelocity.x, m_rigidbody.velocity.y * m_configuration.momentumVelocity.y);
                     }
 
                     break;
                 case Type.MidAir_Overhead:
+                    m_animator.SetFloat(m_yInputParameter, 1);
                     m_timer = m_midAirOverhead.nextAttackDelay;
-                    m_attacker.SetDamageModifier(m_midAirOverhead.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+                    m_attacker.SetDamageModifier(m_midAirOverhead.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage), 
+                        m_midAirOverhead.critChance, 
+                        m_midAirOverhead.critModifier,
+                        m_midAirOverhead.critFX);
                     m_canAirWhip = false;
 
                     if (m_adjustGravity == true)
                     {
-                        m_cacheGravity = m_rigidbody.gravityScale;
+                        //m_cacheGravity = m_rigidbody.gravityScale;
                         m_rigidbody.gravityScale = /*m_aerialGravity*/m_configuration.aerialGravity;
                         m_rigidbody.velocity = /*Vector2.zero*/new Vector2(m_rigidbody.velocity.x * m_configuration.momentumVelocity.x, m_rigidbody.velocity.y * m_configuration.momentumVelocity.y);
                     }
 
                     break;
                 case Type.Crouch_Forward:
+                    m_animator.SetFloat(m_yInputParameter, -1);
                     m_timer = m_crouchForward.nextAttackDelay;
-                    m_attacker.SetDamageModifier(m_crouchForward.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+                    m_attacker.SetDamageModifier(m_crouchForward.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage),
+                        m_crouchForward.critChance, 
+                        m_crouchForward.critModifier, 
+                        m_crouchForward.critFX);
                     break;
             }
             Record(type);
@@ -255,7 +279,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
 
             m_animator.SetBool(m_whipAttackAnimationParameter, false);
-            m_rigidbody.gravityScale = m_cacheGravity;
+            m_rigidbody.gravityScale = m_configuration.defaultGravity;
             m_adjustGravity = false;
         }
 
@@ -266,7 +290,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_timer -= GameplaySystem.time.deltaTime;
                 if (m_timer <= 0)
                 {
-                    m_timer = 1;
+                    m_timer = 1.5f;
                     m_state.canAttack = true;
                 }
             }
@@ -322,6 +346,30 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_canMove = true;
                 }
             }
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+            m_groundForward.SetCritConfiguration(forwardInfo);
+            m_groundOverhead.SetCritConfiguration(overheadInfo);
+            m_midAirForward.SetCritConfiguration(midairForwardInfo);
+            m_midAirOverhead.SetCritConfiguration(midairOverheadInfo);
+            m_crouchForward.SetCritConfiguration(crouchInfo);
         }
     }
 }

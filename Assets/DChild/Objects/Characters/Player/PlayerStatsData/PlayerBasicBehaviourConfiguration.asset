@@ -16,12 +16,13 @@ MonoBehaviour:
     m_jogSpeed: 45
     m_crouchSpeed: 22
     m_midAirSpeed: 28
-    m_pullSpeed: 10
+    m_pullSpeed: 5
     m_pushSpeed: 25
+    m_fastFallGravity: 50
   m_groundJumpInfo:
     m_jumpPower: 86
     m_jumpCutoffPower: 30
-    m_allowCutoffAfterDuration: 0.1
+    m_allowCutoffAfterDuration: 0.05
   m_objectManipulationInfo:
     m_pushForce: 600
     m_pullForce: 600
@@ -32,10 +33,11 @@ MonoBehaviour:
     m_sourceRequiredAmount: 1
     m_sourceConsumptionRate: 50
   m_autoStepClimbInfo:
-    m_distanceFromLegContactForDestination: 0.5
-    m_spaceCheckerOffset: {x: 0, y: 5.06}
+    m_distanceFromLegContactForDestination: 0.1
+    m_spaceCheckerOffset: {x: 0, y: 5}
   m_basicSlashesStatsInfo:
     m_momentumVelocity: {x: 0.5, y: 0.25}
+    m_defaultGravity: 20
   m_slashComboStatsInfo:
     m_slashStateAmount: 3
     m_slashComboCooldown: 0.2
@@ -67,6 +69,7 @@ MonoBehaviour:
     m_baseSourceRequiredAmount: 25
   m_slideInfo:
     m_velocity: 90
+    m_continuousSlideVelocity: 75
     m_cooldown: 0.3
     m_duration: 0.3
   m_wallJumpStatsInfo:
@@ -82,13 +85,17 @@ MonoBehaviour:
     m_fallSpeed: 200
     m_fallDamageModifier: 0.5
     m_impactDamageModifier: 1.5
+    m_critChance: 0
+    m_critModifier: 0
+    m_critFX: {fileID: 0}
   m_swordThrustStatsInfo:
-    m_chargeDuration: 0.8
-    m_thrustVelocity: 150
+    m_chargeDuration: 1
+    m_thrustVelocity: 75
     m_duration: 0.1
     m_cooldown: 0.2
   m_whipAttackStatsInfo:
     m_aerialGravity: 1
+    m_defaultGravity: 20
     m_whipMovementCooldown: 0.6
     m_momentumVelocity: {x: 0.5, y: 0.25}
   m_whipAttackComboStatsInfo:
@@ -96,9 +103,9 @@ MonoBehaviour:
     m_whipComboCooldown: 0.2
     m_whipMovementCooldown: 0.4
     m_pushForce:
-    - {x: 50, y: 0}
-    - {x: 50, y: 0}
-    - {x: 50, y: 0}
+    - {x: 25, y: 0}
+    - {x: 25, y: 0}
+    - {x: 25, y: 0}
   m_projectileThrowStatsInfo:
     m_skullThrowCooldown: 0.5
     m_defaultAim: {x: 5, y: 1.7}
@@ -106,12 +113,89 @@ MonoBehaviour:
       m_min: 0
       m_max: 10
     m_verticalThreshold: 10
-    m_aimSensitivity: 0.5
+    m_aimSensitivity: 0.4
     m_adjustableXSpeed: 1
   m_blockStatsInfo:
     m_blockDuration: 0
   m_combatReadinessStatsInfo:
-    m_duration: 5
+    m_duration: 0.2
   m_idleHandleStatsInfo:
     m_playExtendedIdleAnimAfter: 60
     m_maxIdleAnimCount: 2
+  m_barrierStatsInfo:
+    m_sourceRequiredAmount: 1
+    m_sourceConsumptionRate: 25
+  m_overheadSlashCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_midairForwardSlashCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_midairOverheadSlashCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_crouchSlashSlashCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_slashComboCritStatsInfo:
+  - m_critChance: 0
+    m_critModifier: 2
+  - m_critChance: 0
+    m_critModifier: 2
+  - m_critChance: 0
+    m_critModifier: 2
+  m_earthShakerCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_swordThrustCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_whipForwardCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_whipOverheadCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_whipMidairForwardCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_whipMidairOverheadCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_whipCrouchCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_projectileThrowCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_whipComboCritStatsInfo:
+  - m_critChance: 0
+    m_critModifier: 2
+  - m_critChance: 0
+    m_critModifier: 2
+  - m_critChance: 0
+    m_critModifier: 2
+  m_reaperHarvestCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_hellTridentCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_edgedFuryCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_diagonalSwordDashCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_airSlashRangedCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_lightningSpearCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_soulFireBlastCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2
+  m_sovereignsImpaleCritStatsInfo:
+    m_critChance: 0
+    m_critModifier: 2

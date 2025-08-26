@@ -1,5 +1,6 @@
 ﻿
 using DChild.Gameplay.Combat;
+using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
 
@@ -29,11 +30,15 @@ namespace DChild.Gameplay.Projectiles
         {
             base.Collide();
             var projectileAttacker = GetComponent<Attacker>();
-            var explosion = m_spawnHandle.InstantiateFX(projectileData.impactFX, transform.position);
-            var explosionAttacker = explosion.gameObject.GetComponent<Attacker>();
-            PassProjectileAttacker(projectileAttacker);
-            explosion.transform.parent = null;
-            SetImpactFxInfo(explosionAttacker);
+            if (projectileData.impactFX != null)
+            {
+
+                var explosion = m_spawnHandle.InstantiateFX(projectileData.impactFX, transform.position);
+                var explosionAttacker = explosion.gameObject.GetComponent<Attacker>();
+                PassProjectileAttacker(projectileAttacker);
+                explosion.transform.parent = null;
+                SetImpactFxInfo(explosionAttacker);
+            }
             UnloadProjectile();
             CallImpactedEvent();
 
@@ -80,7 +85,6 @@ namespace DChild.Gameplay.Projectiles
                     var projectileDamage = projectileData.damage;
                     m_attackDamageInfo.damage.value = projectileDamage.value;
                     m_attackDamageInfo.damage.type = projectileDamage.type;
-                    projectileAttacker.SetDamageModifier(1);
                     projectileAttacker.SetDamage(m_attackDamageInfo.damage);
                     if (m_attackDamageInfo.criticalDamageInfo.chance != 0)
                     {
@@ -138,11 +142,12 @@ namespace DChild.Gameplay.Projectiles
                 m_spawnHandle = new FXSpawnHandle<FX>();
                 m_fxHandleInstantiated = true;
             }
+            ProjectileDamageConfigHandle();
         }
 
         private void Start()
         {
-            ProjectileDamageConfigHandle();
+            
         }
 
 

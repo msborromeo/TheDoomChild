@@ -3,6 +3,8 @@
     public enum StoreNotificationType
     {
         Bestiary,
+        Character,
+        Location,
         Lore,
         Extras
     }

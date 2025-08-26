@@ -178,6 +178,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private bool m_enablePatience;
         private bool m_isDetecting;
         private bool m_isDetectedOnce;
+        [SerializeField]
         private Vector2 m_startPoint;
 
         [SerializeField, TabGroup("Sensors")]
@@ -449,20 +450,26 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator ReturnToStartingPoint()
         {
             m_stateHandle.Wait(State.Idle);
-            var direction = (int)m_character.facing * Vector2.right;
-            if(!IsFacing(m_startPoint))
+            
+            if (!IsFacing(m_startPoint))
             {
                 CustomTurn();
             }
-            do
+            var direction = (int)m_character.facing * Vector2.right;
+            var distance = Mathf.Abs(transform.position.x - m_startPoint.x);
+            m_animation.SetAnimation(0, m_info.move, true);
+            while (distance > 1f)
             {
-                m_animation.SetAnimation(0, m_info.move, true);
+                
                 m_movement.MoveTowards(direction, m_info.move.speed);
                 Debug.Log("Return to spot");
+                distance = Mathf.Abs(transform.position.x - m_startPoint.x);
                 yield return null;
-
-            } while (Vector2.Distance(transform.position, m_startPoint) > 1f);
+                
+            } 
             Debug.Log("outside loop");
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.move);
+            m_movement.Stop();
             m_stateHandle.ApplyQueuedState();
         }
         protected override void Start()

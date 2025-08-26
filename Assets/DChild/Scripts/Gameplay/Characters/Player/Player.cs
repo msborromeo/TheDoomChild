@@ -70,7 +70,7 @@ namespace DChild.Gameplay.Characters.Players
         [SerializeField]
         private CombatArts m_combatArts;
         [SerializeField]
-        private PlayerCharacterController m_controller;
+        private UnderworldPlayerController m_controller;
         [SerializeField]
         private PlayerIntroControlsController m_introController;
         [SerializeField]

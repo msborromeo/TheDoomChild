@@ -39,13 +39,13 @@ namespace Doozy.Runtime.UIManager.Containers
     [SelectionBase]
     public class UIContainer : MonoBehaviour, ICanvasElement, IUseMultiplayerInfo
     {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         [UnityEditor.MenuItem("GameObject/UI/Containers/UIContainer", false, 8)]
         private static void CreateComponent(UnityEditor.MenuCommand menuCommand)
         {
             GameObjectUtils.AddToScene<UIContainer>("UIContainer", false, true);
         }
-        #endif
+#endif
 
         /// <summary> Stream category name </summary>
         public const string k_StreamCategory = nameof(UIContainer);
@@ -308,7 +308,7 @@ namespace Doozy.Runtime.UIManager.Containers
             OnVisibilityChangedCallback = new VisibilityStateEvent();
         }
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
 
         protected virtual void OnValidate()
         {
@@ -316,13 +316,13 @@ namespace Doozy.Runtime.UIManager.Containers
                 CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(this);
         }
 
-        #endif // if UNITY_EDITOR
+#endif // if UNITY_EDITOR
 
         #region ICanvasElement
 
-        public virtual void Rebuild(CanvasUpdate executing) {}
-        public virtual void LayoutComplete() {}
-        public virtual void GraphicUpdateComplete() {}
+        public virtual void Rebuild(CanvasUpdate executing) { }
+        public virtual void LayoutComplete() { }
+        public virtual void GraphicUpdateComplete() { }
         public bool IsDestroyed() => this == null;
 
         #endregion
@@ -383,7 +383,7 @@ namespace Doozy.Runtime.UIManager.Containers
             StopAllCoroutines();
         }
 
-        protected virtual void OnDestroy() {}
+        protected virtual void OnDestroy() { }
 
         public virtual void SetCustomStartPosition(Vector3 startPosition, bool jumpToPosition = true)
         {
@@ -537,6 +537,7 @@ namespace Doozy.Runtime.UIManager.Containers
                 graphicRaycaster.enabled = true; //enable the graphic raycaster
                 if (hasCanvasGroup)
                 {
+                    canvasGroup.interactable = true;
                     canvasGroup.blocksRaycasts = graphicRaycaster.enabled; //blocks raycasts if the graphic raycaster is enabled
                 }
             }
@@ -662,6 +663,7 @@ namespace Doozy.Runtime.UIManager.Containers
                 graphicRaycaster.enabled = true; //enable the graphic raycaster
                 if (hasCanvasGroup)
                 {
+                    canvasGroup.interactable = true;
                     canvasGroup.blocksRaycasts = graphicRaycaster.enabled; //blocks raycasts if the graphic raycaster is enabled
                 }
             }
@@ -907,10 +909,11 @@ namespace Doozy.Runtime.UIManager.Containers
                 graphicRaycaster.enabled = !DisableGraphicRaycasterWhenHidden; //disable the graphic raycaster, if the option is enabled
                 if (hasCanvasGroup)
                 {
+                    canvasGroup.interactable = graphicRaycaster.enabled;
                     canvasGroup.blocksRaycasts = graphicRaycaster.enabled; //blocks raycasts should be enabled if the graphic raycaster is enabled
                 }
             }
-            
+
             StartDisableGameObject();
         }
 

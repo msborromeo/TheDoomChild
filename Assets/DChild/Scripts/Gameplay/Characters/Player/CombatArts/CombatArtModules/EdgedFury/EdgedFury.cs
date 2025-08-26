@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class EdgedFury : AttackBehaviour
+    public class EdgedFury : AttackBehaviour, IInterruptableCombatArtModule, IPlayerCritAttack
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -88,6 +88,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         {
             m_edgedFuryCamera.ActivateCullingMask();
             m_state.waitForBehaviour = true;
+            m_state.isExecutingCombatArt = true;
             m_state.isAttacking = true;
             m_state.canAttack = false;
             m_cacheGravity = m_physics.gravityScale;
@@ -113,6 +114,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_physics.gravityScale = m_cacheGravity;
             m_physics.velocity = Vector2.zero;
             m_animator.SetBool(m_edgedFuryStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
             base.AttackOver();
         }
 
@@ -127,6 +129,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_edgedFuryInfo.ShowCollider(false);
             m_fxAnimator.Play("Buffer");
             m_animator.SetBool(m_edgedFuryStateAnimationParameter, false);
+            m_state.isExecutingCombatArt = false;
             base.Cancel();
         }
 
@@ -166,6 +169,23 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 //m_state.isAttacking = false;
                 m_canEdgedFury = true;
             }
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+            m_edgedFuryInfo.SetCritConfiguration(info);
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
         }
 
         //public void HandleMovementTimer()

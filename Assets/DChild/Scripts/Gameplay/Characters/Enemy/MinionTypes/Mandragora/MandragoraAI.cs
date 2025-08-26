@@ -130,10 +130,18 @@ namespace DChild.Gameplay.Characters.Enemies
         private SpineEventListener m_spineEventListener;
         [SerializeField, TabGroup("Reference")]
         private IsolatedCharacterPhysics2D m_characterPhysics;
-        [SerializeField, TabGroup("Reference")]
-        private GameObject m_spriteMask;
+        //[SerializeField, TabGroup("Reference")]
+        //private GameObject m_spriteMask;
         [SerializeField, TabGroup("Reference")]
         private GameObject m_shadow;
+        [SerializeField, TabGroup("Reference")]
+        private CircleCollider2D m_screamCollider;
+
+
+        [SerializeField, TabGroup("Fx")]
+        private ParticleFX m_screamFx;
+
+
         [SerializeField, TabGroup("Sensors")]
         private RaySensor m_wallSensor;
         [SerializeField, TabGroup("Sensors")]
@@ -158,7 +166,7 @@ namespace DChild.Gameplay.Characters.Enemies
             base.Start();
             m_currentMoveSpeed = UnityEngine.Random.Range(m_info.move.speed * .75f, m_info.move.speed * 1.25f);
             m_currentFullCD = UnityEngine.Random.Range(m_info.attackCD * .5f, m_info.attackCD * 2f);
-
+            m_screamCollider.enabled = false;
             m_spineEventListener.Subscribe(m_info.attackEvent, SpawnProjectile);
             //GameplaySystem.SetBossHealth(m_character);
             m_startPoint = transform.position;
@@ -166,11 +174,14 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void SpawnProjectile()
         {
-            Debug.Log("Scream Attack");
+            m_screamCollider.enabled = true;
+            m_screamFx.Play();
         }
 
         private void OnAttackDone(object sender, EventActionArgs eventArgs)
         {
+            m_screamCollider.enabled = false;
+            m_screamFx.Stop();
             m_flinchHandle.m_autoFlinch = true;
             m_animation.DisableRootMotion();
             m_stateHandle.ApplyQueuedState();
@@ -277,10 +288,11 @@ namespace DChild.Gameplay.Characters.Enemies
             m_shadow.SetActive(true);
             m_animation.SetAnimation(0, m_info.detectAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.detectAnimation);
-            GetComponentInChildren<SkeletonAnimation>().maskInteraction = SpriteMaskInteraction.None;
-            m_spriteMask.SetActive(false);
+            //GetComponentInChildren<SkeletonAnimation>().maskInteraction = SpriteMaskInteraction.None;
+            //m_spriteMask.SetActive(false);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             m_stateHandle.OverrideState(State.ReevaluateSituation);
+            Debug.Log("xxxx");
             yield return null;
         }
 
@@ -307,12 +319,13 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_stateHandle.Wait(State.ReevaluateSituation);
                     m_movement.Stop();
                     m_flinchHandle.m_autoFlinch = false;
+                    m_screamCollider.enabled = false;
                     StartCoroutine(DetectRoutine());
                     break;
 
                 case State.Burrowed:
                     m_animation.EnableRootMotion(false, false);
-                    m_spriteMask.SetActive(true);
+                    //m_spriteMask.SetActive(true);
                     m_shadow.SetActive(false);
                     m_animation.SetAnimation(0, m_info.burrowedAnimation.animation, true);
                     //m_animation.SetEmptyAnimation(0, 0);
@@ -328,10 +341,11 @@ namespace DChild.Gameplay.Characters.Enemies
 
                     m_animation.EnableRootMotion(true, false);
                     m_attackHandle.ExecuteAttack(m_info.attack.animation, m_info.idleAnimation.animation);
-
+                    m_screamCollider.enabled = false;
                     break;
 
                 case State.Cooldown:
+                    m_screamCollider.enabled = false;
                     //m_stateHandle.Wait(State.ReevaluateSituation);
                     //if (m_animation.GetCurrentAnimation(0).ToString() != m_info.turnAnimation)
                     if (!IsFacingTarget())
@@ -361,6 +375,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
                 case State.Chasing:
                     {
+                        m_screamCollider.enabled = false;
                         m_flinchHandle.m_autoFlinch = false;
                         if (IsFacingTarget())
                         {

@@ -2,10 +2,11 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DChild.Localization;
 
 namespace DChild.Gameplay.SoulSkills.UI
 {
-    public class SoulSkillInfoUI : MonoBehaviour
+    public class SoulSkillInfoUI : MonoBehaviour , ISoulSkillLocalizer
     {
         [SerializeField]
         private CanvasGroup m_parentCanvas;
@@ -18,14 +19,21 @@ namespace DChild.Gameplay.SoulSkills.UI
         [SerializeField]
         private TextMeshProUGUI m_description;
 
+        public event System.Action<TextMeshProUGUI, TextMeshProUGUI, SoulSkill> soulSkillLocalize;
 
         public void DisplayInfoOf(SoulSkill soulSkill)
         {
             m_parentCanvas.enabled = soulSkill != null;
-            m_skillUI.DisplayAs(soulSkill);
-            m_name.text = soulSkill.name;
             m_capcity.text = soulSkill.capacity.ToString();
-            m_description.text = soulSkill.description;
+            if (soulSkillLocalize!=null)
+            {
+                soulSkillLocalize?.Invoke(m_name,m_description,soulSkill);
+                return;
+            }
+                m_skillUI.DisplayAs(soulSkill);
+                m_name.text = soulSkill.name;
+                
+                m_description.text = soulSkill.description;  
         }
     }
 }

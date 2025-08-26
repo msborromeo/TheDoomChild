@@ -1,19 +1,14 @@
 ﻿using Cinemachine;
-using DChild.Gameplay.Cinematics;
 using DChild.Gameplay.Systems;
 using DChild.Serialization;
-using DChild.Temp;
 using Doozy.Runtime.UIManager.Containers;
 using PixelCrushers.DialogueSystem;
 using Spine.Unity;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.Playables;
-using UnityEngine.Video;
 
 namespace DChild.Gameplay.Narrative
 {
@@ -64,6 +59,11 @@ namespace DChild.Gameplay.Narrative
         private bool m_isDone;
         bool hasPressedPrompt = false;
 
+        public static event Action NewGameIntroStarted;
+        public static event Action NewGamePlayerWokeUp;
+        public static event Action NewGameIntroPromptPressed;
+        public static event Action PickedUpBook;
+
         private void OnInputPerformed(InputAction.CallbackContext context)
         {
             hasPressedPrompt = true;
@@ -89,8 +89,9 @@ namespace DChild.Gameplay.Narrative
             m_storePickupSequence.SetActive(false);
             var WorldTypeThigy = FindObjectOfType<WorldTypeManager>();
             WorldTypeThigy.SetCurrentWorldType(Environment.Location.City_Of_The_Dead);
-            GameplaySystem.playerManager.player.GetComponentInChildren<PlayerInput>().actions.FindActionMap("Gameplay").Disable();
+           // GameplaySystem.playerManager.player.GetComponentInChildren<PlayerInput>().actions.FindActionMap("Gameplay").Disable();
             m_introStartEvent?.Invoke();
+            NewGameIntroStarted?.Invoke();
         }
 
         public void TransferPlayerToStartPosition()
@@ -99,7 +100,7 @@ namespace DChild.Gameplay.Narrative
             player.transform.position = m_playerStartPosition.position;
 
             var skeleton = GameplaySystem.playerManager.player.character.GetComponentInChildren<SkeletonAnimation>();
-            var lyingDownAnimation = skeleton.state.SetAnimation(0, m_playerLyingDownAnimation, false);
+            var lyingDownAnimation = skeleton.state.SetAnimation(0, m_playerLyingDownAnimation, true);
         }
 
         public void PromptPlayerToStand()
@@ -113,6 +114,11 @@ namespace DChild.Gameplay.Narrative
             m_storePickupSequence.SetActive(startSequence);
         }
 
+        public void InvokeBookPickedUp()
+        {
+            PickedUpBook?.Invoke();
+        }
+
         public void EndEvent()
         {
             m_isDone = true;
@@ -124,7 +130,7 @@ namespace DChild.Gameplay.Narrative
             var skeleton = GameplaySystem.playerManager.player.character.GetComponentInChildren<SkeletonAnimation>();
             yield return null;
             yield return GameplaySystem.playerManager.PlayerActionChange(PlayerInputFindActionMap);
-            GameplaySystem.playerManager.player.GetComponentInChildren<PlayerInput>().actions.FindActionMap("Gameplay").Enable();
+            //GameplaySystem.playerManager.player.GetComponentInChildren<PlayerInput>().actions.FindActionMap("Gameplay").Enable();
             m_wakeUpPrompt.Show();
 
             yield return WakeupPromptRoutine();
@@ -156,7 +162,14 @@ namespace DChild.Gameplay.Narrative
 
         private void PlayerInputFindActionMap(PlayerInput playerInput)
         {
-            playerInput.actions.FindAction(m_wakeUpInput.action.name).performed += OnInputPerformed;
+            var action = playerInput.actions.FindAction(m_wakeUpInput.action.name);
+            action.Enable();
+            action.performed += OnInputPerformed;
+        }
+
+        private void Start()
+        {
+            
         }
     }
 

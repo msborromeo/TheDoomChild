@@ -1,13 +1,10 @@
-﻿using Holysoft.Event;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
-using System;
 using Holysoft.Collections;
-using DChild.Gameplay.Environment;
-using UnityEditor;
 using PixelCrushers.DialogueSystem;
 using DLocation = DChild.Gameplay.Environment.Location;
 using DChild.Gameplay.ArmyBattle;
+using DChild.Gameplay.UI.Alerts;
 
 namespace DChild.Serialization
 {
@@ -41,8 +38,13 @@ namespace DChild.Serialization
         private ArmyCharactersSaveData m_armyCharacterSaveData;
         [SerializeField, HideReferenceObjectPicker, HideIf("m_newGame"), TabGroup("Zone")]
         private SerializeDataList m_zoneDatas;
+        [SerializeField, HideReferenceObjectPicker, HideIf("m_newGame"), TabGroup("UI")]
+        private UIAlertManager.SaveData m_uiAlertSaveData;
         [SerializeField, DrawWithUnity, TabGroup("ZoneSlots Importable")]
         private ZoneSlot[] m_importable;
+
+
+
         [Button, TabGroup("ZoneSlots Importable")]
         public void Import()
         {
@@ -104,6 +106,7 @@ namespace DChild.Serialization
         public ArmyCharactersSaveData armyCharactersSaveData => m_armyCharacterSaveData;
 
         public SerializeDataList campaignProgress => m_campaignProgress;
+        public UIAlertManager.SaveData uiAlertSaveData => m_uiAlertSaveData;
         public SerializeDataList zoneDatas => m_zoneDatas;
         public string dialogueSaveData => m_dialogueSaveData;
         public ZoneSlot[] Importable => m_importable;
@@ -112,8 +115,8 @@ namespace DChild.Serialization
         [Button]
         public void Reset()
         {
+            m_location = m_demoGame || m_newGame ? DLocation.City_Of_The_Dead : DLocation.None;
             m_newGame = false;
-            m_location = m_demoGame ? DLocation.City_Of_The_Dead : DLocation.None;
             m_spawnPosition = new SerializedVector2();
             m_spawnPosition.x = -1209f;
             m_spawnPosition.y = 90f;
@@ -154,6 +157,7 @@ namespace DChild.Serialization
 
         public void UpdateCharacterData(PlayerCharacterData data) => m_characterData = data;
         public void UpdateArmyCharacterData(ArmyCharactersSaveData data) => m_armyCharacterSaveData = data;
+        public void UpdateUIAlertSaveData(UIAlertManager.SaveData data) => m_uiAlertSaveData = data;
 
         public void UpdateCampaignProgress(SerializeID ID, ISaveData saveData) => m_campaignProgress.UpdateData(ID, saveData);
 
@@ -186,9 +190,11 @@ namespace DChild.Serialization
 
         private void OnNewGameChange()
         {
+            var newGameValue = m_newGame;
             if (m_newGame)
             {
                 Reset();
+                m_newGame = newGameValue;
             }
         }
 #endif 

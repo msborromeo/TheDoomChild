@@ -2,10 +2,13 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DChild.Localization;
+using System;
+using DChild.Codex.Characters;
 
 namespace DChild.Menu.Codex
 {
-    public class BasicCodexIndexInfoUI : CodexIndexInfoUI<ICodexIndexInfo>
+    public class BasicCodexIndexInfoUI : CodexIndexInfoUI<ICodexIndexInfo>, ICharacterCodexLocalizer
     {
         [SerializeField]
         private Image m_background;
@@ -23,6 +26,9 @@ namespace DChild.Menu.Codex
         private Image m_infoImage;
         [SerializeField, FoldoutGroup("IndexInfoUI")]
         private Image m_newStamp;
+
+        public event Action<CharacterCodexData> localizeCharacterData;
+
 
         public override void SetAsNewInfo(bool isNew)
         {
@@ -43,12 +49,11 @@ namespace DChild.Menu.Codex
             {
                 m_infoLabel.text = "Nothing";
                 m_infoImage.sprite = null;
+                return;
             }
-            else
-            {
-                m_infoLabel.text = data.indexName;
-                m_infoImage.sprite = data.indexImage;
-            }
+            m_infoLabel.text = data.indexName;
+            m_infoImage.sprite = data.indexImage;
+            //localizeCharacterData?.Invoke(data);
         }
 
 #if UNITY_EDITOR

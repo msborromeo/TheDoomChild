@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
-    public class BasicSlashes : AttackBehaviour
+    public class BasicSlashes : AttackBehaviour, IPlayerCritAttack
     {
         public struct BasicSlashEventArgs : IEventActionArgs
         {
@@ -53,6 +53,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private float m_cacheGravity;
         private bool m_adjustGravity;
         private bool m_canAirAttack;
+        private int m_yInputParameter;
 
         private Animator m_fxAnimator;
         private SkeletonAnimation m_skeletonAnimation;
@@ -60,6 +61,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public event EventAction<BasicSlashEventArgs> OnSlash;
 
         public bool CanAirAttack() => m_canAirAttack;
+        public bool IsGravityAdjusted() => m_adjustGravity;
 
         public override void Initialize(ComplexCharacterInfo info)
         {
@@ -73,6 +75,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             m_fxAnimator = m_attackFX.gameObject.GetComponentInChildren<Animator>();
             m_skeletonAnimation = m_attackFX.gameObject.GetComponent<SkeletonAnimation>();
+            m_animator.SetBool(m_animationParameter, false);
+            m_yInputParameter = info.animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.YInput);
         }
 
         public void SetConfiguration(BasicSlashesStatsInfo info)
@@ -82,9 +86,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public override void Cancel()
         {
-            m_rigidbody.gravityScale = m_cacheGravity;
+            m_rigidbody.gravityScale = m_configuration.defaultGravity;
             m_adjustGravity = true;
-            m_canAirAttack = false;
+            m_state.waitForBehaviour = false;
 
             if (m_executedTypes.Count > 0)
             {
@@ -99,6 +103,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_executedTypes.Clear();
             }
 
+            m_animator.SetBool(m_animationParameter, false);
             m_rigidBody.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
         }
 
@@ -142,35 +147,47 @@ namespace DChild.Gameplay.Characters.Players.Modules
             switch (type)
             {
                 case Type.Ground_Overhead:
+                    m_animator.SetFloat(m_yInputParameter, 1);
                     m_timer = m_groundOverhead.nextAttackDelay;
-                    m_attacker.SetDamageModifier(m_groundOverhead.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+                    m_attacker.SetDamageModifier(m_groundOverhead.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage), 
+                        m_groundOverhead.critChance,
+                        m_groundOverhead.critModifier,
+                        m_groundOverhead.critFX);
                     m_rigidBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
                     break;
                 case Type.Crouch:
                     m_timer = m_crouch.nextAttackDelay;
-                    m_attacker.SetDamageModifier(m_crouch.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+                    m_attacker.SetDamageModifier(m_crouch.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage),
+                        m_crouch.critChance,
+                        m_crouch.critModifier,
+                        m_crouch.critFX);
                     break;
                 case Type.MidAir_Forward:
                     m_timer = m_midAirForward.nextAttackDelay;
-                    m_attacker.SetDamageModifier(m_midAirForward.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+                    m_attacker.SetDamageModifier(m_midAirForward.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage),
+                        m_midAirForward.critChance,
+                        m_midAirForward.critModifier,
+                        m_midAirForward.critFX);
                     m_canAirAttack = false;
 
                     if (m_adjustGravity == true)
                     {
-                        m_cacheGravity = m_rigidbody.gravityScale;
                         m_rigidbody.gravityScale = m_aerialGravity;
                         //m_rigidbody.velocity = new Vector2(m_rigidBody.velocity.x, 0);
                         m_rigidbody.velocity = /*Vector2.zero*/new Vector2(m_rigidbody.velocity.x * m_configuration.momentumVelocity.x, m_rigidbody.velocity.y * m_configuration.momentumVelocity.y);
                     }
                     break;
                 case Type.MidAir_Overhead:
+                    m_animator.SetFloat(m_yInputParameter, 1);
                     m_timer = m_midAirOverhead.nextAttackDelay;
-                    m_attacker.SetDamageModifier(m_midAirOverhead.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
+                    m_attacker.SetDamageModifier(m_midAirOverhead.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage),
+                        m_midAirOverhead.critChance, 
+                        m_midAirOverhead.critModifier,
+                        m_midAirOverhead.critFX);
                     m_canAirAttack = false;
 
                     if (m_adjustGravity == true)
                     {
-                        m_cacheGravity = m_rigidbody.gravityScale;
                         m_rigidbody.gravityScale = m_aerialGravity;
                         //m_rigidbody.velocity = new Vector2(m_rigidBody.velocity.x, 0);
                         m_rigidbody.velocity = /*Vector2.zero*/new Vector2(m_rigidbody.velocity.x * m_configuration.momentumVelocity.x, m_rigidbody.velocity.y * m_configuration.momentumVelocity.y);
@@ -222,7 +239,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_state.isDoingCombo = false;
             }
 
-            m_rigidbody.gravityScale = m_cacheGravity;
+            m_animator.SetBool(m_animationParameter, false); 
+            m_animator.SetFloat(m_yInputParameter, 0);
+            m_rigidbody.gravityScale = m_configuration.defaultGravity;
             m_adjustGravity = false;
             //m_fxAnimator.Play("Buffer");
             //test.state.AddEmptyAnimation(0, 0, 0);
@@ -230,6 +249,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //m_skeletonAnimation.state.SetEmptyAnimation(0, 0);
             //m_fxAnimator.Play("Buffer");
             m_rigidBody.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+            Debug.Log("Slash Attack Over");
         }
 
         public void ClearFXFor(Type type)
@@ -253,7 +273,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void ResetAttackDelay()
         {
-            m_timer = 1;
+            m_timer = 1.5f;
             m_state.canAttack = true;
         }
 
@@ -264,7 +284,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_timer -= GameplaySystem.time.deltaTime;
                 if (m_timer <= 0)
                 {
-                    m_timer = 1;
+                    m_timer = 1.5f;
                     m_state.canAttack = true;
                 }
             }
@@ -308,5 +328,28 @@ namespace DChild.Gameplay.Characters.Players.Modules
         }
 
         public (int index, float value) getSomething() { return (0, 1f); }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+            m_groundOverhead.SetCritConfiguration(overheadInfo);
+            m_midAirForward.SetCritConfiguration(midairForwardInfo);
+            m_midAirOverhead.SetCritConfiguration(midairOverheadInfo);
+            m_crouch.SetCritConfiguration(crouchInfo);
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+
+        }
     }
 }

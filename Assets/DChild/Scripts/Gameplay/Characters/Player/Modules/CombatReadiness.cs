@@ -28,6 +28,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state = info.state;
             m_animator = info.animator;
             m_animationParameter = info.animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.CombatMode);
+            m_animator.SetBool(m_animationParameter, false);
         }
 
         public void SetConfiguration(CombatReadinessStatsInfo info)

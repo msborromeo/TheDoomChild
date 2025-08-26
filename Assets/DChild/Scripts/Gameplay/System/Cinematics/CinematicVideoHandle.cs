@@ -1,4 +1,5 @@
-﻿using Doozy.Runtime.Signals;
+﻿using DChildDebug.Cutscene;
+using Doozy.Runtime.Signals;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace DChild.Gameplay.Systems
 
         private Coroutine m_videoPlayingRoutine;
 
+
         public void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null)
         {
             if (m_isPlaying == false)
@@ -46,9 +48,27 @@ namespace DChild.Gameplay.Systems
             }
         }
 
+	public void ForceStopCinematicVideo()
+	{
+	    StopAllCoroutines();
+            m_videoPlayer.Stop();
+            m_videoCinemaEndSignal?.SendSignal();
+            GameplaySystem.playerManager.StopCharacterControlOverride();
+            GameplaySystem.gamplayUIHandle.ToggleFadeUI(false);    
+            m_isPlaying = false;
+            m_videoPlayingRoutine = null;
+	}
+
         public void Initialize()
         {
             m_videoPlayer.loopPointReached += OnVideoClipDone;
+            SequenceSkipHandle.SkipExecute += SequenceSkipHandle_SkipExecute;
+        }
+
+        private void SequenceSkipHandle_SkipExecute()
+        {
+            m_videoClipPlaying = false;
+            OnVideoDone?.Invoke();            
         }
 
         private void OnVideoClipDone(VideoPlayer source)
@@ -60,12 +80,11 @@ namespace DChild.Gameplay.Systems
         private IEnumerator VideoPlayingRoutine()
         {
             var waitForFade = new WaitForSeconds(m_fadeBufferTime);
-
+            GameplaySystem.playerManager.OverrideCharacterControls();           
             m_isPlaying = true;
             GameplaySystem.gamplayUIHandle.ToggleFadeUI(true);
             yield return waitForFade;
             m_videoCinemaStartSignal?.SendSignal();
-
             m_videoClipPlaying = true;
             m_videoPlayer.Play();
 
@@ -80,11 +99,17 @@ namespace DChild.Gameplay.Systems
             m_videoCinemaEndSignal?.SendSignal();
             OnVideoDone?.Invoke();
             yield return waitForFade;
-
-            GameplaySystem.gamplayUIHandle.ToggleFadeUI(false);
-
+            GameplaySystem.playerManager.StopCharacterControlOverride();
+            GameplaySystem.gamplayUIHandle.ToggleFadeUI(false);    
             m_isPlaying = false;
             m_videoPlayingRoutine = null;
+        }
+
+        private void MuteAllSounds()
+        {
+            // this function should handle the mute logic of sounds except the video.
+            //for future reference, put this function to the VideoPlayingRoutine()
+
         }
     }
 }

@@ -16,6 +16,7 @@ namespace DChild.Menu.Inputs
         private bool m_isUsingGamepad;
 
         public event EventAction<EventActionArgs> InputControlChange;
+        public event Action<CurrentDeviceType> CurrentDeviceTypeChanged;
 
         public bool isUsingGamepad => m_isUsingGamepad;
 
@@ -29,6 +30,7 @@ namespace DChild.Menu.Inputs
                     {
                         m_isUsingGamepad = false;
                         InputControlChange?.Invoke(this, EventActionArgs.Empty);
+                        CurrentDeviceTypeChanged?.Invoke(CurrentDeviceType.Keyboard);
                     }
                 }
                 else
@@ -37,6 +39,7 @@ namespace DChild.Menu.Inputs
                     {
                         m_isUsingGamepad = true;
                         InputControlChange?.Invoke(this, EventActionArgs.Empty);
+                        CurrentDeviceTypeChanged?.Invoke(CurrentDeviceType.Gamepad);
                     }
                 }
             }
