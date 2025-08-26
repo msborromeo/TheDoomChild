@@ -83,6 +83,7 @@ namespace DChildDebug.Cutscene
         private void Awake()
         {
             m_view = GetComponent<UIContainer>();
+            m_view.Hide();
         }
     }
 }
