@@ -1,8 +1,6 @@
 ﻿using Doozy.Runtime.UIManager.Components;
 using Doozy.Runtime.UIManager.Containers;
 using PixelCrushers.DialogueSystem;
-using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor.Validation;
 using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
