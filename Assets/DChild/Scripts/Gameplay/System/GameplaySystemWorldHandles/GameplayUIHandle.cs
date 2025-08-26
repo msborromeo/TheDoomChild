@@ -2,11 +2,14 @@
 using DChild.Gameplay.Characters.NPC;
 using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Environment;
+using DChild.Gameplay.LevelFinish.UI;
+using DChild.Gameplay.Systems.Serialization;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
 using DChild.Gameplay.UI.Alerts;
 using DChild.Menu.Trade;
 using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
+using Holysoft.Event;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -111,6 +114,16 @@ namespace DChild.Gameplay.Systems
         public void PromptKeystoneFragmentNotification()
         {
             throw new NotImplementedException();
+        }
+
+        public void RequestTeleportConfirmation(LocationData destinationData)
+        {
+            BaseGameplayUIHandle.Instance.RequestTeleportConfirmation(destinationData);
+        }
+
+        public void NotifyUnlockedLocation(AvailableLocations location, InputActionConfiguration input)
+        {
+            BaseGameplayUIHandle.Instance.NotifyUnlockedLocation(location, input);
         }
 
         public void ResetGameplayUI()

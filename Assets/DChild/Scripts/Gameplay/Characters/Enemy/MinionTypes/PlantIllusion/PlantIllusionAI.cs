@@ -158,14 +158,6 @@ namespace DChild.Gameplay.Characters.Enemies
         private Transform m_projectileStart;
 
         private bool isFirstEncounter = true;
-        protected override void Start()
-        {
-            base.Start();
-
-            m_spineEventListener.Subscribe(m_info.dartFXEvent, LaunchProjectile);
-           
-            //GameplaySystem.SetBossHealth(m_character);
-        }
 
         private void LaunchProjectile()
         {
@@ -349,8 +341,7 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void Awake()
         {
             base.Awake();
-            m_spineEventListener.Subscribe(m_info.smokeFXEvent, SmokeStart);
-            m_spineEventListener.Subscribe(m_info.smokeStopFXEvent, SmokeEnd);
+           
             m_attackHandle.AttackDone += OnAttackDone;
             m_turnHandle.TurnDone += OnTurnDone;
             m_deathHandle.SetAnimation(m_info.deathAnimation.animation);
@@ -360,6 +351,17 @@ namespace DChild.Gameplay.Characters.Enemies
             m_attackDecider = new RandomAttackDecider<Attack>();
             UpdateAttackDeciderList();
             m_projectileLauncher = new ProjectileLauncher(m_info.projectile.projectileInfo, m_projectileStart);
+        }
+		
+		protected override void Start()
+        {
+            base.Start();
+
+			m_spineEventListener.Subscribe(m_info.smokeFXEvent, SmokeStart);
+            m_spineEventListener.Subscribe(m_info.smokeStopFXEvent, SmokeEnd);
+            m_spineEventListener.Subscribe(m_info.dartFXEvent, LaunchProjectile);
+           
+            //GameplaySystem.SetBossHealth(m_character);
         }
 
 
