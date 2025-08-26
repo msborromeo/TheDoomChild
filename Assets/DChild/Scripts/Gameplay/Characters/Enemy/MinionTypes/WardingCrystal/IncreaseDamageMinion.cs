@@ -15,7 +15,7 @@ public class IncreaseDamageMinion : MonoBehaviour
 
     private Damage IncreaseDamage(GameObject minion)
     {
-        minion.GetComponent<Attacker>().ApplyData();
+        //minion.GetComponent<Attacker>().ApplyData();
         var minionBaseDamage = minion.GetComponent<Attacker>().GetBaseDamage();
         if (minionBaseDamage.value * m_damageMultiplier <= 0)
             return minionBaseDamage;
