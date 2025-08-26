@@ -32,8 +32,6 @@ namespace DChild.Gameplay
 
         public void TeleportToOverworld()
         {
-            //TODO: Maybe in different script but show confirmation box to travel to overworld before teleporting
-            //TODO: Show text or something to signify you can't go to overworld yet if you can
             if (CanTeleportToOverworld() == false)
                 return;
 
@@ -49,7 +47,6 @@ namespace DChild.Gameplay
                 }
             }
 
-            //m_fastTravelHandle.TransferPlayerTo(travelData);
             GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(travelData);
         }
 
@@ -58,7 +55,6 @@ namespace DChild.Gameplay
             if (CanTeleportToThroneRoom() == false)
                 return;
 
-            //m_fastTravelHandle.TransferPlayerTo(m_throneRoomTravelData);
             GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(m_throneRoomTravelData);
         }
 
