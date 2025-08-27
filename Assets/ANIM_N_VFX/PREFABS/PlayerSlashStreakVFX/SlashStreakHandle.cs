@@ -1,3 +1,4 @@
+using DChild.Gameplay.Pooling;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
@@ -16,15 +17,15 @@ namespace DChild.Gameplay.Combat
         private DamageType m_damageType;
 
         [SerializeField, BoxGroup("Elemental Streaks")]
-        private ParticleSystem m_physicalSlashStreak;
+        private ParticleFX m_physicalSlashStreak;
         [SerializeField, BoxGroup("Elemental Streaks")]
-        private ParticleSystem m_blazeSlashStreak;
+        private ParticleFX m_blazeSlashStreak;
         [SerializeField, BoxGroup("Elemental Streaks")]
-        private ParticleSystem m_frostSlashStreak;
+        private ParticleFX m_frostSlashStreak;
         [SerializeField, BoxGroup("Elemental Streaks")]
-        private ParticleSystem m_zapSlashStreak;
+        private ParticleFX m_zapSlashStreak;
         [SerializeField, BoxGroup("Elemental Streaks")]
-        private ParticleSystem m_shadowSlashStreak;
+        private ParticleFX m_shadowSlashStreak;
 
 
 
@@ -46,22 +47,17 @@ namespace DChild.Gameplay.Combat
             switch (m_damageType)
             {
                 case DamageType.Physical:
-                    m_physicalSlashStreak.transform.position = vector;
-                    m_physicalSlashStreak.Play();
+                    var physicalStreak = GameSystem.poolManager.GetPool<FXPool>().GetOrCreateItem(m_physicalSlashStreak.gameObject, vector, Quaternion.identity);
                     break;
                 case DamageType.Fire:
-                    m_blazeSlashStreak.transform.position = vector;
-                    m_blazeSlashStreak.Play();
+                    var blazeStreak = GameSystem.poolManager.GetPool<FXPool>().GetOrCreateItem(m_blazeSlashStreak.gameObject, vector, Quaternion.identity);
                     break;
                 case DamageType.Ice:
-                    m_frostSlashStreak.transform.position = vector;
-                    m_frostSlashStreak.Play();
+                    var frostStreak = GameSystem.poolManager.GetPool<FXPool>().GetOrCreateItem(m_frostSlashStreak.gameObject, vector, Quaternion.identity);
                     break;
                 case DamageType.Lightning:
-                    m_zapSlashStreak.transform.position = vector;
-                    m_zapSlashStreak.Play();
+                    var zapStreak = GameSystem.poolManager.GetPool<FXPool>().GetOrCreateItem(m_zapSlashStreak.gameObject, vector, Quaternion.identity);
                     break;
-
             }
         }
     }
