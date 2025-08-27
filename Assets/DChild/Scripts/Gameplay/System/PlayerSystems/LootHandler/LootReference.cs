@@ -15,6 +15,17 @@ namespace DChild.Gameplay.Systems
         public ItemData data => m_dataReference;
         public GameObject loot => m_loot;
 
+        public void ChangeReference(ItemData data)
+        {
+            m_dataReference = data;
+            m_loot.TryGetComponent<ItemLoot>(out ItemLoot lootItem);
+            if(!lootItem)
+            {
+                return;
+            }
+            lootItem.SetData(m_dataReference);
+        }
+
 #if UNITY_EDITOR
         public void Initialize(GameObject loot) => m_loot = loot;
 
