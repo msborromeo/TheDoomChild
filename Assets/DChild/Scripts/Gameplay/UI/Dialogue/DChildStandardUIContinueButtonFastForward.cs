@@ -1,4 +1,5 @@
-﻿using Doozy.Runtime.Signals;
+﻿using DarkTonic.MasterAudio;
+using Doozy.Runtime.Signals;
 using PixelCrushers.DialogueSystem;
 using UnityEngine;
 
@@ -10,11 +11,14 @@ namespace DChild.UI
 
         [SerializeField]
         private SignalSender m_continueDialogueSignal;
+        [SerializeField]
+        private EventSounds m_dialogueContinueSFX;
 
         protected override void ContinueConversation()
         {
+            m_dialogueContinueSFX.ActivateCodeTriggeredEvent1();
             base.ContinueConversation();
-            m_continueDialogueSignal.SendSignal();
+            m_continueDialogueSignal?.SendSignal();
         }
 
         public override void Awake()
