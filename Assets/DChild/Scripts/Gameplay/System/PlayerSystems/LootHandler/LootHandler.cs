@@ -1,4 +1,5 @@
-﻿using DChild.Gameplay.Pooling;
+﻿using DChild.Gameplay.Items;
+using DChild.Gameplay.Pooling;
 using Holysoft;
 using Holysoft.Collections;
 using System.Collections.Generic;
@@ -63,6 +64,10 @@ namespace DChild.Gameplay.Systems
                 m_cachedLoot = pool.GetOrCreateItem(request.loot).GetComponent<Loot>();
                 m_cachedLoot.SpawnAt(request.location, Quaternion.identity);
                 m_cachedLoot.Pop(GetRandomPopVelocity());
+                if (m_cachedLoot.TryGetComponent<ItemLootChanger>(out ItemLootChanger lootItem))
+                {
+                    lootItem.SetData(request.data);
+                }
             }
             request.count -= instanceToCreate;
             m_cachedLoot = null;
