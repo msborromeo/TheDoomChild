@@ -2,6 +2,8 @@
 using DChild.Gameplay.Systems;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using DChild.Gameplay.Pooling;
+
 #if UNITY_EDITOR
 using System.IO;
 using UnityEditor;
@@ -12,6 +14,8 @@ namespace DChild.Gameplay.Items
     {
         [SerializeField, OnValueChanged("OnDataChange")]
         private ItemData m_data;
+        [SerializeField]
+        private VFXSpawner m_pickupVfx;
 
 #if UNITY_EDITOR
         [SerializeField]
@@ -67,7 +71,12 @@ namespace DChild.Gameplay.Items
             }
             else if (m_data is UsableItemData)
             {
-                ((UsableItemData)m_data).Use(m_pickedBy);
+                m_pickedBy.inventory.AddItem(m_data);
+                //((UsableItemData)m_data).Use(m_pickedBy);
+            }
+            if(m_pickupVfx!=null)
+            {
+                m_pickupVfx.Spawn();
             }
             DisableEnvironmentCollider();
         }
