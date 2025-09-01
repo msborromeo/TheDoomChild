@@ -17,13 +17,10 @@ namespace DChild.Gameplay.Systems
 
         public void ChangeReference(ItemData data)
         {
-            m_dataReference = data;
-            m_loot.TryGetComponent<ItemLoot>(out ItemLoot lootItem);
-            if(!lootItem)
-            {
+            if (m_dataReference == null) {
                 return;
             }
-            lootItem.SetData(m_dataReference);
+            m_dataReference = data;
         }
 
 #if UNITY_EDITOR
