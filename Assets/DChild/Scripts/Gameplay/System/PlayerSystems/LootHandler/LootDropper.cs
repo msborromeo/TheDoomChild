@@ -17,12 +17,6 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private LootData m_loot;
 
-        [SerializeField, HideInEditorMode]
-        private LootReference m_reference;
-
-        [SerializeField]
-        private UsableItemData itemData;
-
         [SerializeField]
         private bool m_dropWhenDestroyed;
         private Damageable m_damageable;
@@ -34,21 +28,6 @@ namespace DChild.Gameplay.Systems
             {
                 m_loot.DropLoot(m_damageable.position);
             }
-        }
-
-        [Button,HideInEditorMode]
-        public void ChangeItemDrop()
-        {
-            if(itemData == null)
-            {
-                return;
-            }
-            IndividualLootData InLootData = (IndividualLootData)m_loot.data;
-            if (InLootData != null)
-            {
-                m_reference = InLootData.reference;
-            }
-            m_reference.ChangeReference(itemData);
         }
 
         public void SetLootData(LootData lootData)
