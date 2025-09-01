@@ -80,6 +80,21 @@ namespace DChild.Gameplay.Systems
         {
             m_originalDrag = m_rigidbody.drag;
             m_popTimer.CountdownEnd += OnPopDurationEnd;
+            if(m_collider==null)
+            {
+                if(TryGetComponent<Collider2D>(out m_collider))
+                {
+                    return;
+                }
+                try
+                {
+                    m_collider = this.GetComponentInChildren<Collider2D>();
+                }catch
+                {
+                    return;
+                }
+                
+            }
         }
 
 

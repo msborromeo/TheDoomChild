@@ -20,7 +20,8 @@ namespace DChild.Gameplay.Systems
 
         public void DropLoot(Vector2 position)
         {
-            GameplaySystem.lootHandler.DropLoot(new LootDropRequest(m_reference.loot, m_count, position));
+            m_reference.ChangeReference(m_reference.data);
+            GameplaySystem.lootHandler.DropLoot(new LootDropRequest(m_reference.loot, m_count, position,m_reference.data));
         }
 
         public void GenerateLootInfo(ref LootList recordList)
