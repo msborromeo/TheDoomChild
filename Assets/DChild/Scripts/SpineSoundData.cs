@@ -100,6 +100,13 @@ namespace DChild
         public EventInfo GetEventInfo(int index) => m_eventInfo[index];
 
 #if UNITY_EDITOR
+        [Button,PropertyOrder(0)]
+        private void ReinitializeInfo()
+        {
+            InitializeEventInfo();
+            InitializeAnimationInfo();
+        }
+
         private void InitializeEventInfo()
         {
             for (int i = 0; i < m_eventInfo.Length; i++)

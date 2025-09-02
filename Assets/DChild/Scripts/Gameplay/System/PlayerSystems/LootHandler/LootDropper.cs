@@ -2,6 +2,8 @@
 using DChild.Gameplay.Combat;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using DChild.Gameplay.Items;
+
 
 #if UNITY_EDITOR
 using System.IO;
