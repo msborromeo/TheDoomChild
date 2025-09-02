@@ -1,15 +1,16 @@
-using DChild.Gameplay;
 using DChild.Gameplay.Essence;
 using DChild.Gameplay.Items;
-using DChild.Gameplay.Systems;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities.Editor;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
 
-namespace DChild.Gameplay.Systems { 
+using UnityEngine;
+#if UNITY_EDITOR
+using Sirenix.Utilities.Editor;
+using UnityEditor;
+#endif
+
+namespace DChild.Gameplay.Systems
+{
     public class MultipleItemLootData : ILootDataContainer
     {
         [System.Serializable]
@@ -77,10 +78,10 @@ namespace DChild.Gameplay.Systems {
                 recordList.Add(m_SoulEssenceData.data, m_SoulEssenceCount);
             }
         }
-
-    #if UNITY_EDITOR
-        public LootReference SoulEssence => m_SoulEssenceData;
         public int count => m_SoulEssenceCount;
+#if UNITY_EDITOR
+        public LootReference SoulEssence => m_SoulEssenceData;
+ 
 
         private void OnLootReferenceGUI()
         {

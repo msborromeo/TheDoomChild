@@ -21,7 +21,8 @@ namespace DChild.Gameplay.Systems
         {
             m_data.DrawDetails(drawContainer, label);
         }
-        public ILootDataContainer data => m_data;
+
 #endif
+        public ILootDataContainer data => m_data;
     }
 }

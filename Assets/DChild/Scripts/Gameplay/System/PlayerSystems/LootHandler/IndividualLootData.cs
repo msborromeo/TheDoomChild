@@ -46,9 +46,9 @@ namespace DChild.Gameplay.Systems
                 recordList.Add(m_reference.data, m_count);
             }
         }
-
-#if UNITY_EDITOR
         public LootReference reference => m_reference;
+#if UNITY_EDITOR
+
         public int count => m_count;
 
         private void OnLootReferenceGUI()
