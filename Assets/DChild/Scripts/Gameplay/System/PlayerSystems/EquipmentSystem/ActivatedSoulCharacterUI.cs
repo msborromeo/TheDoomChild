@@ -6,9 +6,6 @@ namespace DChild.Gameplay.SoulSkills.UI
 {
     public class ActivatedSoulCharacterUI : SoulSkillButton
     {
-        [SerializeField]
-        private SoulSlot m_soulSlot;
-
         public override void Show(bool immidiate)
         {
             if (m_button == null)

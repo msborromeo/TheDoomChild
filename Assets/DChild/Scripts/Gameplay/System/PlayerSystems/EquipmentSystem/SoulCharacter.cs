@@ -10,11 +10,7 @@ namespace DChild.Gameplay.SoulSkills
     [CreateAssetMenu(fileName = "SoulCharacter", menuName = "DChild/Database/Soul Character")]
     public class SoulCharacter : SoulSkill
     {
-        [SerializeField]
-        private SoulSlot m_soulSlot;
 
-
-        public SoulSlot soulSlot => m_soulSlot;
     }
 }
 
