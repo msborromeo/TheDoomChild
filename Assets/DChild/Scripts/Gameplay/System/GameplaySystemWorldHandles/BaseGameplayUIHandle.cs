@@ -5,6 +5,7 @@ using DChild.Gameplay.Systems.Serialization;
 using DChild.Gameplay.UI;
 using DChild.Gameplay.UI.Alerts;
 using DChild.Menu;
+using DChildDebug.Cutscene;
 using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
 using Holysoft.Event;
@@ -61,7 +62,8 @@ namespace DChild.Gameplay.Systems
         private UIView m_cinematicBars;
         [SerializeField]
         private LevelFinishUI m_levelFinish;
-
+        [SerializeField]
+        private SequenceSkipHandle m_skipHandle;
 
         public UIAlertManager uiAlertManager => m_uiAlertManager;
 
@@ -96,7 +98,8 @@ namespace DChild.Gameplay.Systems
             {
                 m_fadeUI.Show();
             }
-            else{
+            else
+            {
                 m_fadeUI.Hide();
             }
         }
@@ -129,15 +132,18 @@ namespace DChild.Gameplay.Systems
         }
 
 
-        public void ShowSequenceSkip(bool willShow)
+        public void ToggleSequenceSkip(bool willShow)
         {
             if (willShow)
             {
-                m_skippableUI.Show();
+                m_skipHandle.Reset();
+                m_skipHandle.SubscribeToInput();
+                //m_skippableUI.Show();
             }
             else
             {
-                m_skippableUI.Hide();
+                m_skipHandle.UnsubscribeToInput();
+                //m_skippableUI.Hide();
             }
         }
 

@@ -50,10 +50,10 @@ namespace DChild.UI
                 }
                 else
                 {
-                    if (conversation.LookupBool("IsSkippable"))
+                    if (conversation.LookupBool("IsSkippable") && !isInCutscene)
                     {
                         SequenceSkipHandle.SkipExecute += OnSkipExecute;
-                        GameplaySystem.gamplayUIHandle.ShowSequenceSkip(true);
+                        GameplaySystem.gamplayUIHandle.ToggleSequenceSkip(true);
                         m_skipUIShown = true;
                     }
 
@@ -61,6 +61,7 @@ namespace DChild.UI
 
                     if (!isInCutscene)
                     {
+
                         GameplaySystem.minionManager?.ForbidAllFromAttackingTarget(true);
                     }
                 }
@@ -120,7 +121,7 @@ namespace DChild.UI
 
         private void OnSkipExecute()
         {
-            GameplaySystem.gamplayUIHandle.ShowSequenceSkip(false);
+            GameplaySystem.gamplayUIHandle.ToggleSequenceSkip(false);
             DialogueManager.StopConversation();
             dialogueActive = false;
             SequenceSkipHandle.SkipExecute -= OnSkipExecute;
@@ -138,15 +139,13 @@ namespace DChild.UI
                 GameplaySystem.playerManager?.EnableControls();
                 if (m_skipUIShown)
                 {
-                    GameplaySystem.gamplayUIHandle.ShowSequenceSkip(false);
+                    GameplaySystem.gamplayUIHandle.ToggleSequenceSkip(false);
                     SequenceSkipHandle.SkipExecute -= OnSkipExecute;
                 }
 
             }
             base.Close();
             dialogueActive = false;
-
-
         }
     }
 }
