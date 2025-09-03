@@ -57,7 +57,7 @@ namespace DChild.Gameplay.Systems
         void ShowMovableObjectPrompt(bool willshow);
         void ShowGameOverScreen();
         void ShowGameplayUI(bool willshow);
-        void ShowSequenceSkip(bool willShow);
+        void ToggleSequenceSkip(bool willShow);
         void ActivateHealthRegenEffect(PassiveRegeneration.Handle regenHandle);
         void DeactivateHealthRegenEffect();
         void ActivateShadowRegenEffect();
