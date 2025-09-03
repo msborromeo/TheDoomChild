@@ -34,7 +34,6 @@ namespace DChild.UI
 
         public static bool isInCutscene;
         public static bool dialogueActive;
-        private bool m_skipUIShown;
 
         public static bool currentConverstionIsABanter { get; private set; }
 
@@ -54,7 +53,6 @@ namespace DChild.UI
                     {
                         SequenceSkipHandle.SkipExecute += OnSkipExecute;
                         GameplaySystem.gamplayUIHandle.ToggleSequenceSkip(true);
-                        m_skipUIShown = true;
                     }
 
                     HandleOpenDialogue();
