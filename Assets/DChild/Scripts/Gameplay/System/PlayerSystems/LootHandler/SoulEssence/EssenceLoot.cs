@@ -26,6 +26,7 @@ namespace DChild.Gameplay.Essence
         {
             base.PickUp(player);
             m_hasBeenPickUp = true;
+            m_isFading = false;
             m_pickupCollider.isTrigger = true;
         }
 
@@ -45,7 +46,7 @@ namespace DChild.Gameplay.Essence
         {
             base.ApplyPickUp();
             OnApplyPickup(m_pickedBy);
-            //CallPoolRequest();
+            CallPoolRequest();
         }
 
 
@@ -78,8 +79,9 @@ namespace DChild.Gameplay.Essence
                 if (m_timer <= 0)
                 {
                     CallPoolRequest();
+
+                    return;
                 }
-                return;
             }
 
             if (m_hasBeenPickUp)
