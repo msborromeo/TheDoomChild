@@ -186,9 +186,9 @@ namespace DChild.Gameplay.Systems
             UnderworldGameplayUIHandle.Instance.ShowMovableObjectPrompt(willshow);
         }
 
-        public void ShowSequenceSkip(bool willShow)
+        public void ToggleSequenceSkip(bool willShow)
         {
-            BaseGameplayUIHandle.Instance.ShowSequenceSkip(willShow);
+            BaseGameplayUIHandle.Instance.ToggleSequenceSkip(willShow);
         }
 
         public void ToggleBossCombatUI(bool willshow)
