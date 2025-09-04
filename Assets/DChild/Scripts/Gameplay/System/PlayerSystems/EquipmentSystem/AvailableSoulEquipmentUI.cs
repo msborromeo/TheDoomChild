@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.SoulSkills.UI
 {
-    public class AvailableSoulItemUI : SoulSkillButton
+    public class AvailableSoulEquipmentUI : SoulSkillButton
     {
         [SerializeField]
         private SoulSlot m_soulSlot;

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.SoulSkills
 {
-    public class PlayerSoulItemHandle : SerializedMonoBehaviour, ISerializable<PlayerSoulSkillData>
+    public class PlayerSoulEquipmentHandle : SerializedMonoBehaviour, ISerializable<PlayerSoulSkillData>
     {
         [SerializeField]
         private IPlayer m_player;
