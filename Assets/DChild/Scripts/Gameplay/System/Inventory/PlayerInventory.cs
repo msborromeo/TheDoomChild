@@ -100,6 +100,14 @@ namespace DChild.Gameplay.Inventories
 
                 SoulSkillItemAcquired?.Invoke(this, eventArgs);
             }
+            else if(item.category == ItemCategory.SoulItem)
+            {
+
+            }
+            else if(item.category == ItemCategory.SoulCharacter)
+            {
+
+            }
             else
             {
                 m_inventory.AddItem(item, count);
