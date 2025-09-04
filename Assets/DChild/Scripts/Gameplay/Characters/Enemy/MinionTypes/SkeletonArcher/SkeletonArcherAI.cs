@@ -333,8 +333,9 @@ namespace DChild.Gameplay.Characters.Enemies
             if (m_targetInfo.isValid)
             {
                 m_targetPointIK.transform.position = m_lastTargetPos;
-                //m_projectileLauncher.AimAt(m_lastTargetPos);
-                m_projectileLauncher.LaunchProjectile(m_character.facing == HorizontalDirection.Right ? m_arrowPoint.transform.right : -m_arrowPoint.transform.right);
+                m_projectileLauncher.AimAt(m_lastTargetPos);
+                //m_projectileLauncher.LaunchProjectile(m_character.facing == HorizontalDirection.Right ? m_arrowPoint.transform.right : m_arrowPoint.transform.right * -1);
+                m_projectileLauncher.LaunchProjectile(m_arrowPoint.transform.right);
             }
         }
 
