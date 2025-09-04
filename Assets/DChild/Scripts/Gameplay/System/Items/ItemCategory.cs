@@ -10,7 +10,7 @@ namespace DChild.Gameplay.Items
         Quest = 1 << 2,
         Key = 1 << 3,
         SoulSkill = 1 << 4,
-        SoulItem = 1 << 5,
+        SoulEquipment = 1 << 5,
         SoulCharacter = 1 << 6,
 
         QuickItem = Throwable | Consumable,
