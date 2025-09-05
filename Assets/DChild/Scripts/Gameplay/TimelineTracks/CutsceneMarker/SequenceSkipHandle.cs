@@ -20,15 +20,18 @@ namespace DChildDebug.Cutscene
         private UIContainer m_view;
         private float m_holdButtonDurationTimer;
 
-
-
+        private static float m_delayDuration;
         public static event Action SkipExecute;
 
         public void Reset()
         {
             m_holdButtonDurationTimer = 0;
             m_ui.SetProgression(0);
+        }
 
+        public static void SetDelayDuration(float value)
+        {
+            m_delayDuration = value;
         }
 
         public void SubscribeToInput()
@@ -45,7 +48,6 @@ namespace DChildDebug.Cutscene
 
         private void OnSkipHoldStart(InputAction.CallbackContext obj)
         {
-            m_view.Show();
             StopAllCoroutines();
             StartCoroutine(SkipRoutine());
         }
@@ -60,6 +62,9 @@ namespace DChildDebug.Cutscene
 
         private IEnumerator SkipRoutine()
         {
+            yield return new WaitForSecondsRealtime(m_delayDuration);
+            m_view.Show();
+            
             Debug.Log("Skip Routine Start");
             Reset();
             yield return null;
@@ -82,6 +87,7 @@ namespace DChildDebug.Cutscene
 
         private void Awake()
         {
+            SetDelayDuration(0);
             m_view = GetComponent<UIContainer>();
             m_view.Hide();
         }
