@@ -1,9 +1,14 @@
 using DChild.Gameplay.Environment;
 using DChild.Gameplay.FastTravel;
+using DChild.Gameplay.LevelFinish.UI;
+using DChild.Gameplay.Systems.Serialization;
+using DChild.Gameplay.UI;
 using DChild.Gameplay.UI.Alerts;
 using DChild.Menu;
+using DChildDebug.Cutscene;
 using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
+using Holysoft.Event;
 using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using System;
@@ -24,10 +29,14 @@ namespace DChild.Gameplay.Systems
         private SignalSender m_fastTravelSignal;
         [SerializeField, FoldoutGroup("Signals")]
         private SignalSender m_gameOverSignal;
-        [SerializeField, FoldoutGroup("Signals")]
+        [SerializeField, FoldoutGroup("Signals/Confirmation")]
         private SignalSender m_confirmationWindowSignal;
+        [SerializeField, FoldoutGroup("Signals/Confirmation")]
+        private SignalSender m_requestTeleportSignal;
         [SerializeField, FoldoutGroup("Signals")]
         private SignalSender m_cinematicBarsSignal;
+        [SerializeField, FoldoutGroup("Signals")]
+        private SignalSender m_levelFinishedSignal;
         [SerializeField, FoldoutGroup("Signals/Game Pause")]
         private SignalSender m_gamePauseSignal;
         [SerializeField, FoldoutGroup("Signals/Game Pause")]
@@ -51,7 +60,10 @@ namespace DChild.Gameplay.Systems
         private CinematicVideoHandle m_cinematicVideoHandle;
         [SerializeField]
         private UIView m_cinematicBars;
-
+        [SerializeField]
+        private LevelFinishUI m_levelFinish;
+        [SerializeField]
+        private SequenceSkipHandle m_skipHandle;
 
         public UIAlertManager uiAlertManager => m_uiAlertManager;
 
@@ -92,6 +104,19 @@ namespace DChild.Gameplay.Systems
             }
         }
 
+        public void RequestTeleportConfirmation(LocationData destinationData)
+        {
+            m_levelFinish.SetupTeleportableLocation(destinationData);
+            m_requestTeleportSignal.SendSignal();
+        }
+
+        public void NotifyUnlockedLocation(AvailableLocations location, InputActionConfiguration input)
+        {
+            m_levelFinish.NotifyAvailableLocation(location, input);
+            m_levelFinishedSignal.SendSignal();
+        }
+
+
         public void ShowGameOverScreen()
         {
             m_gameOverSignal.SendSignal();
@@ -107,15 +132,18 @@ namespace DChild.Gameplay.Systems
         }
 
 
-        public void ShowSequenceSkip(bool willShow)
+        public void ToggleSequenceSkip(bool willShow)
         {
             if (willShow)
             {
-                m_skippableUI.Show();
+                m_skipHandle.Reset();
+                m_skipHandle.SubscribeToInput();
+                //m_skippableUI.Show();
             }
             else
             {
-                m_skippableUI.Hide();
+                m_skipHandle.UnsubscribeToInput();
+                //m_skippableUI.Hide();
             }
         }
 
@@ -128,6 +156,12 @@ namespace DChild.Gameplay.Systems
         {
             m_cinematicVideoHandle.ShowCinematicVideo(clip, behindTheSceneRoutine, OnVideoDone);
         }
+
+        public void ForceStopCinematicVideo()
+        {
+            m_cinematicVideoHandle.ForceStopCinematicVideo();
+        }
+
         public void OpenFastTravel(DLocation startingLocation)
         {
             m_fastTravelUI.ForceOpenPage(startingLocation);
@@ -154,5 +188,6 @@ namespace DChild.Gameplay.Systems
                 Instance = null;
             }
         }
+
     }
 }

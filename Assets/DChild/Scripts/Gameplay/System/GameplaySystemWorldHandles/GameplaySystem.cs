@@ -27,6 +27,8 @@ namespace DChild.Gameplay
         public static IWorld world { get => BaseGameplaySystem.world; }
         public static ITime time { get => BaseGameplaySystem.time; }
 
+        public  static VolumeMixerManager  volumeMixerManager { get => BaseGameplaySystem.volumeMixerManager; }
+
         public static IPlayerManager playerManager
         {
             get
@@ -188,11 +190,11 @@ namespace DChild.Gameplay
             Debug.Log("Teleport Player to Scene Transistion Position");
             if (GetCurrentWorldType() == WorldType.Underworld)
             {
-                UnderworldGameplaySystem.playerManager.TeleportPlayer(SceneTransitionPosition);
+                UnderworldGameplaySystem.playerManager?.TeleportPlayer(SceneTransitionPosition);
             }
             else
             {
-                OverworldGameplaySystem.playerManager.TeleportPlayer(SceneTransitionPosition);
+                OverworldGameplaySystem.playerManager?.TeleportPlayer(SceneTransitionPosition);
             }
             LoadingHandle.OnLoadScreenTakeOver -= OnLoadScreenTakeOver;
         }

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
-    public class LightningSpear : AttackBehaviour, IInterruptableCombatArtModule
+    public class LightningSpear : AttackBehaviour, IInterruptableCombatArtModule, IPlayerCritAttack
     {
         [SerializeField]
         private SkeletonAnimation m_attackFX;
@@ -256,6 +256,23 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_state.isAttacking = true;
                 yield return null;
             }
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo info)
+        {
+            m_lightningSpearInfo.SetCritConfiguration(info); 
+        }
+
+        public void SetCritConfiguration(List<PlayerCritStatsInfo> info)
+        {
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
+        }
+
+        public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
+        {
         }
     }
 }

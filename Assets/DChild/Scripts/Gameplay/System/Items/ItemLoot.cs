@@ -2,6 +2,8 @@
 using DChild.Gameplay.Systems;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using DChild.Gameplay.Pooling;
+
 #if UNITY_EDITOR
 using System.IO;
 using UnityEditor;
@@ -12,15 +14,22 @@ namespace DChild.Gameplay.Items
     {
         [SerializeField, OnValueChanged("OnDataChange")]
         private ItemData m_data;
+        [SerializeField]
+        private VFXSpawner m_pickupVfx;
 
 #if UNITY_EDITOR
         [SerializeField]
+        private bool m_HideLoot = true;
+        [SerializeField,HideIf("m_HideLoot")]
         private SpriteRenderer m_spriteRenderer;
 
         private void OnDataChange()
         {
-            m_spriteRenderer.sprite = m_data.icon;
-            gameObject.name = m_data.itemName.Replace(" ", string.Empty) + "Loot";
+            if(!m_HideLoot)
+            {
+                m_spriteRenderer.sprite = m_data.icon;
+                gameObject.name = m_data.itemName.Replace(" ", string.Empty) + "Loot";
+            }
         }
 
         [Button, HideInPrefabInstances]
@@ -62,7 +71,12 @@ namespace DChild.Gameplay.Items
             }
             else if (m_data is UsableItemData)
             {
-                ((UsableItemData)m_data).Use(m_pickedBy);
+                m_pickedBy.inventory.AddItem(m_data);
+                //((UsableItemData)m_data).Use(m_pickedBy);
+            }
+            if(m_pickupVfx!=null)
+            {
+                m_pickupVfx.Spawn();
             }
             DisableEnvironmentCollider();
         }

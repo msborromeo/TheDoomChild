@@ -1,15 +1,16 @@
-﻿using DChild.Temp;
-using Doozy.Runtime.UIManager.Components;
+﻿using Doozy.Runtime.UIManager.Components;
 using Doozy.Runtime.UIManager.Containers;
 using PixelCrushers.DialogueSystem;
+using Sirenix.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace DChild.UI
 {
     public class DoozyUISubtitlePanel : StandardUISubtitlePanel
     {
+
         private static List<UIButton> m_continueButtons = new List<UIButton>();
         private static bool isActive = true;
 
@@ -26,6 +27,9 @@ namespace DChild.UI
 
         [SerializeField]
         private UIButton m_continueUIButton;
+        [SerializeField]
+        private bool m_isBanter;
+
         private UIContainer m_container;
 
         public override void HideImmediate()
@@ -54,9 +58,44 @@ namespace DChild.UI
 
             // With quick panel changes, panel may not reach OnEnable/OnDisable before being reused.
             // Update panelStack here also to handle this case:
+            //if (m_isBanter && currentSubtitle != null)
             PushToPanelStack();
         }
 
+        public override void SetContent(Subtitle subtitle)
+        {
+            base.SetContent(subtitle);
+
+            if (!m_isBanter || currentSubtitle == null)
+                return;
+
+            var actor = DialogueManager.masterDatabase.GetActor(subtitle.dialogueEntry.ActorID);
+
+            var isMainCharacter = actor.Name == "Player" ||
+                actor.Name == "Doomed Knight" ||
+                actor.Name == "Crazy Knight" ||
+                actor.Name == "Necro";
+            //if (actor.Name != "Player" ||
+            //    actor.Name != "Doomed Knight" ||
+            //    actor.Name != "Crazy Knight" ||
+            //    actor.Name != "Necro")
+            //    return;
+
+            //var portraits = actor.spritePortraits;
+            //portraitImage.sprite = actor.spritePortraits.Last();
+
+            portraitName.text = $"{portraitActorName}: ";
+            var actorColor = actor.LookupValue("BanterColor");
+            portraitName.color = actorColor != null ? Tools.WebColor(actorColor) : Tools.WebColor("#FA990E");
+
+            if (!isMainCharacter)
+            {
+                SetPortraitImage(null);
+                return;
+            }
+            var portrait = actor.spritePortraits.IsNullOrEmpty() ? actor.spritePortrait : actor.spritePortraits.Last();
+            SetPortraitImage(portrait);
+        }
         public override void Close()
         {
             if (isOpen)
@@ -75,6 +114,13 @@ namespace DChild.UI
             }
             ClearText();
             hasFocus = false;
+        }
+
+        public override void ClearText()
+        {
+            base.ClearText();
+            portraitName.text = "";
+            SetPortraitImage(null);
         }
 
         public override void HideContinueButton()

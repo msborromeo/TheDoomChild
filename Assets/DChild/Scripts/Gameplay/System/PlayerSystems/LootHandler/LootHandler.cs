@@ -1,4 +1,5 @@
-﻿using DChild.Gameplay.Pooling;
+﻿using DChild.Gameplay.Items;
+using DChild.Gameplay.Pooling;
 using Holysoft;
 using Holysoft.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,11 @@ namespace DChild.Gameplay.Systems
         private RangeFloat m_popVelocityX;
         [SerializeField]
         private RangeFloat m_popVelocityY;
+
+        // Adjust this if there are still lag spikes when dropping loots VV
+        float m_requestInterval=0.15f;
+        //     ^^
+        float m_Timer;
 
         private List<LootDropRequest> m_requests;
         private Loot m_cachedLoot;
@@ -63,6 +69,10 @@ namespace DChild.Gameplay.Systems
                 m_cachedLoot = pool.GetOrCreateItem(request.loot).GetComponent<Loot>();
                 m_cachedLoot.SpawnAt(request.location, Quaternion.identity);
                 m_cachedLoot.Pop(GetRandomPopVelocity());
+                if (m_cachedLoot.TryGetComponent<ItemLootChanger>(out ItemLootChanger lootItem))
+                {
+                    lootItem.SetData(request.data);
+                }
             }
             request.count -= instanceToCreate;
             m_cachedLoot = null;
@@ -84,7 +94,12 @@ namespace DChild.Gameplay.Systems
 
         private void Update()
         {
-            HandleRequests();
+            if(m_Timer<=0)
+            {
+                HandleRequests();
+                m_Timer = m_requestInterval;
+            }
+            m_Timer -= Time.deltaTime;
             if (m_requests.Count <= 0)
             {
                 enabled = false;

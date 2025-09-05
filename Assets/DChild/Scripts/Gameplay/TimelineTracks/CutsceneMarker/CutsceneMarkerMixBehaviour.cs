@@ -28,7 +28,8 @@ namespace DChildDebug.Cutscene
                     if (Application.isPlaying)
                     {
                         SequenceSkipHandle.SkipExecute += OnSkip;
-                        /*GameplaySystem.gamplayUIHandle.ShowSequenceSkip(true);*/
+                        SequenceSkipHandle.SetDelayDuration(0f);
+                        GameplaySystem.gamplayUIHandle.ToggleSequenceSkip(true);
                     }
                     m_playedBehaviourIndex.Add(i);
                 }
@@ -37,7 +38,7 @@ namespace DChildDebug.Cutscene
                     if (Application.isPlaying)
                     {
                         SequenceSkipHandle.SkipExecute -= OnSkip;
-                        GameplaySystem.gamplayUIHandle.ShowSequenceSkip(false);
+                        GameplaySystem.gamplayUIHandle.ToggleSequenceSkip(false);
                     }
                     m_playedBehaviourIndex.Remove(i);
                 }
