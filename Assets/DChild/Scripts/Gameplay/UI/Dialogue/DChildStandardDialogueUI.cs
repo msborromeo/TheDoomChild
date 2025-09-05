@@ -36,36 +36,42 @@ namespace DChild.UI
         public static bool dialogueActive;
         private bool m_skipUIShown;
 
+        [SerializeField]
+        private float m_skipDelayDuration;
+
         public static bool currentConverstionIsABanter { get; private set; }
 
         public override void Open()
         {
             var conversation = DialogueManager.MasterDatabase.GetConversation(DialogueManager.lastConversationStarted);
 
-            if (conversation != null)
+            if (conversation == null)
             {
-                if (conversation.LookupBool("IsBanter"))
-                {
-                    HandleOpenBanter();
-                }
-                else
-                {
-                    if (conversation.LookupBool("IsSkippable") && !isInCutscene)
-                    {
-                        SequenceSkipHandle.SkipExecute += OnSkipExecute;
-                        GameplaySystem.gamplayUIHandle.ToggleSequenceSkip(true);
-                        m_skipUIShown = true;
-                    }
-
-                    HandleOpenDialogue();
-
-                    if (!isInCutscene)
-                    {
-
-                        GameplaySystem.minionManager?.ForbidAllFromAttackingTarget(true);
-                    }
-                }
+                base.Open();
+                return;
             }
+
+            if (conversation.LookupBool("IsBanter"))
+            {
+                HandleOpenBanter();
+                base.Open();
+                return;
+            }
+
+            if (isInCutscene)
+            {
+                HandleOpenDialogue();
+                base.Open();
+                return;
+            }
+
+            SequenceSkipHandle.SkipExecute += OnSkipExecute;
+            SequenceSkipHandle.SetDelayDuration(m_skipDelayDuration);
+            GameplaySystem.gamplayUIHandle.ToggleSequenceSkip(true);
+            m_skipUIShown = true;
+            GameplaySystem.minionManager?.ForbidAllFromAttackingTarget(true);
+
+            HandleOpenDialogue();
 
             base.Open();
         }
