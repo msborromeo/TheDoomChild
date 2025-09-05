@@ -659,10 +659,16 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: DChild.Gameplay.UI.CombatArts.CombatArtSelectButton,
+  OnVisibleCallback:
+    EventName: OnVisibleCallback
+    Runners: []
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 91416169356637619}
+          m_TargetAssemblyTypeName: DChild.Gameplay.UI.CombatArts.CombatArtUIManager,
             Assembly-CSharp
-          m_MethodName: Select
+          m_MethodName: Initialize
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -672,18 +678,24 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  OnVisibleCallback:
-    EventName: OnVisibleCallback
-    Runners: []
-    Event:
-      m_PersistentCalls:
-        m_Calls: []
   OnHideCallback:
     EventName: OnHideCallback
     Runners: []
     Event:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 281424058738952354}
+          m_TargetAssemblyTypeName: UnityEngine.Video.VideoPlayer, UnityEngine
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   OnHiddenCallback:
     EventName: OnHiddenCallback
     Runners: []
@@ -7131,7 +7143,7 @@ PrefabInstance:
     - target: {fileID: 1052742788808953637, guid: 96a8d100b09800e4cb7123c24487abb6,
         type: 3}
       propertyPath: m_text
-      value: Desctiption
+      value: Description
       objectReference: {fileID: 0}
     - target: {fileID: 1711499881921555272, guid: 96a8d100b09800e4cb7123c24487abb6,
         type: 3}
@@ -7162,6 +7174,12 @@ PrefabInstance:
         type: 3}
       propertyPath: mLocalizeTarget
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4044025627115615649, guid: 96a8d100b09800e4cb7123c24487abb6,
+        type: 3}
+      propertyPath: m_text
+      value: (While Midair) Hold BUTTONPROMPT + Press/Hold SECONDPROMPT + Press/Hold
+        THIRDPROMPT
       objectReference: {fileID: 0}
     - target: {fileID: 4191023823124956639, guid: 96a8d100b09800e4cb7123c24487abb6,
         type: 3}
@@ -7395,6 +7413,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96a8d100b09800e4cb7123c24487abb6, type: 3}
+--- !u!328 &281424058738952354 stripped
+VideoPlayer:
+  m_CorrespondingSourceObject: {fileID: 5443671279173747601, guid: 96a8d100b09800e4cb7123c24487abb6,
+    type: 3}
+  m_PrefabInstance: {fileID: 5218580838010555187}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1032004078377578810 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5061612372728527369, guid: 96a8d100b09800e4cb7123c24487abb6,
