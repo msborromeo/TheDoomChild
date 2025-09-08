@@ -8,7 +8,7 @@ using System;
 
 namespace DChild.Gameplay.UI.CombatArts
 {
-    public class CombatArtUIDetail : MonoBehaviour , ICombatArtLocalizer
+    public class CombatArtUIDetail : MonoBehaviour, ICombatArtLocalizer
     {
         [SerializeField]
         private TextMeshProUGUI m_artNameLabel;
@@ -25,7 +25,7 @@ namespace DChild.Gameplay.UI.CombatArts
         [SerializeField]
         private CombatArtLocalizer m_combatArtLocalizer;
 
-        public event Action<CombatArtData,int> localizeCombatArt;
+        public event Action<CombatArtData, int> localizeCombatArt;
 
         public void Display(CombatArtData data, int level)
         {
@@ -46,19 +46,19 @@ namespace DChild.Gameplay.UI.CombatArts
                     m_controlsPromptSetter.SetText(data.controls, data.action);
                     break;
             }
-            if (data != null)
-            {
-                m_artNameLabel.text = data.combatArtName;
-                m_controlsLabel.text = data.controls;
-                if (level > 1)
-                {
-                    m_artNameLabel.text += $" {level}";
-                }
-                
+            if (data == null)
+                return;
 
-                Display(data.GetCombatArtLevelData(level));
-                localizeCombatArt?.Invoke(data,level);
+            m_artNameLabel.text = data.combatArtName;
+            m_controlsLabel.text = data.controls;
+            if (level > 1)
+            {
+                m_artNameLabel.text += $" {level}";
             }
+
+
+            Display(data.GetCombatArtLevelData(level));
+            localizeCombatArt?.Invoke(data, level);
         }
 
         private void Display(CombatArtLevelData levelData)
