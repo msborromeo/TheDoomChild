@@ -1,0 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace DChild.Gameplay.Dialogues
+{
+    public class SoulLampBanterTriggerHandle : MonoBehaviour
+    {
+        [SerializeField]
+        private SoulLampBanterCooldownHandle m_soulLampBanterCooldownHandle;
+
+        private void Start()
+        {
+            m_soulLampBanterCooldownHandle = FindObjectOfType<SoulLampBanterCooldownHandle>();
+        }
+
+        public void OnLampDestroyed()
+        {
+            m_soulLampBanterCooldownHandle.TriggerBanterCooldown();
+        }
+    }
+}
+
