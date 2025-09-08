@@ -359,7 +359,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_boundingBox.SetActive(false);
             StopAllCoroutines();
             base.OnDestroyed(sender, eventArgs);
-            
+
             this.transform.SetParent(null);
             IsDead?.Invoke(this, new EventActionArgs());
             m_stateHandle.OverrideState(State.WaitBehaviourEnd);
@@ -441,14 +441,14 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator DetectRoutine()
         {
-
+            m_stateHandle.Wait(State.Attacking);
             m_hitbox.Enable();
             m_animation.SetAnimation(0, m_info.detectAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.detectAnimation);
             m_hitbox.SetInvulnerability(Invulnerability.None);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             //m_stateHandle.ApplyQueuedState();
-            m_attackRoutine = StartCoroutine(AttackRoutine());
+            m_stateHandle.ApplyQueuedState();
             yield return null;
         }
 
@@ -510,7 +510,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.move.animation, true);
             m_playerStepRoutine = StartCoroutine(PlayerSteppedOnRoutine());
             float time = 0;
-            while (time < m_chargeDuration&& m_edgeSensor.isDetecting)
+            while (time < m_chargeDuration && m_edgeSensor.isDetecting)
             {
                 time += Time.deltaTime;
                 m_chargerAI.transform.localPosition = new Vector2(-6.5f, 0);
@@ -600,7 +600,7 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void Awake()
         {
             base.Awake();
-            
+
             m_patrolHandle.TurnRequest += OnTurnRequest;
             m_attackHandle.AttackDone += OnAttackDone;
             //m_turnHandle.TurnDone += OnTurnDone;
@@ -638,7 +638,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     //    return;
                     //}
 
-                    m_stateHandle.Wait(State.Cooldown);
+
                     StartCoroutine(DetectRoutine());
                     break;
 
@@ -677,7 +677,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
                 case State.Attacking:
                     m_stateHandle.Wait(State.Cooldown);
-                    
+
                     switch (m_attackDecider.chosenAttack.attack)
                     {
                         case Attack.AttackMelee:
