@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using DChild.Localization;
 using System;
+using System.Collections;
 
 namespace DChild.Gameplay.UI
 {
@@ -33,6 +34,15 @@ namespace DChild.Gameplay.UI
 
         private void OnInteractableDetected(object sender, DetectedInteractableEventArgs eventArgs)
         {
+            StopAllCoroutines();
+            StartCoroutine(DisplayPromptRoutine(eventArgs));
+        }
+
+        private IEnumerator DisplayPromptRoutine(DetectedInteractableEventArgs eventArgs)
+        {
+            //update visibility state before proceeding below
+            yield return new WaitForEndOfFrame();
+
             GameplaySystem.gamplayUIHandle.ShowInteractionPrompt(false);
             if (eventArgs.interactable?.showPrompt ?? false)
             {
@@ -50,6 +60,7 @@ namespace DChild.Gameplay.UI
                 m_invalidPrompt.enabled = !eventArgs.showInteractionButton;
                 m_promptMessage.text = eventArgs.message;
                 m_requirementMessage.text = eventArgs.message;
+                yield return new WaitForEndOfFrame();
                 GameplaySystem.gamplayUIHandle.ShowInteractionPrompt(true);
                 LocalizeText?.Invoke(eventArgs.message);
             }
