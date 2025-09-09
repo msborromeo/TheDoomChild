@@ -37,6 +37,14 @@ namespace DChild.Gameplay.UI.CombatArts
             m_unlockArtHandler.InitializeReferences(m_progressionReference, m_referenceList);
             m_unlockArtHandler.ResetUnlockProgress();
             SyncButtonStates();
+
+            SetupUIData();
+        }
+
+        private void SetupUIData()
+        {
+            var combatArtData = m_referenceList.GetCombatArtData(m_firstSelected.skillUnlock);
+            m_uiDetail.Display(combatArtData, m_firstSelected.unlockLevel);
         }
 
         public void SyncButtonStates()
@@ -183,13 +191,6 @@ namespace DChild.Gameplay.UI.CombatArts
             PopulateCombatArtList(buttons);
             m_artRequirements = GetComponentsInChildren<CombatArtSelectRequirements>();
             Debug.Log(m_artRequirements.Length);
-        }
-
-        private void Start()
-        {
-            Initialize();
-            var combatArtData = m_referenceList.GetCombatArtData(m_firstSelected.skillUnlock);
-            m_uiDetail.Display(combatArtData, m_firstSelected.unlockLevel);
         }
     }
 
