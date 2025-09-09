@@ -81,6 +81,18 @@ namespace DChild.Gameplay.Environment
             GameplaySystem.playerManager.StopCharacterControlOverride();
         }
 
+
+        public void RemoveInfluenceFrom(Character character)
+        {
+            CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
+            collisionState.forcedCurrentGroundedness = false;
+        }
+
+        public void SetLocationDataReference(LocationData locationData)
+        {
+            //no need
+        }
+
 #if UNITY_EDITOR
         [SerializeField, PropertyOrder(-1)]
         private bool m_customTravelDirections;
@@ -100,16 +112,8 @@ namespace DChild.Gameplay.Environment
             }
         }
 
-        public void SetLocationDataReference(LocationData locationData)
-        {
-            //no need
-        }
 
-        public void RemoveInfluenceFrom(Character character)
-        {
-            CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
-            collisionState.forcedCurrentGroundedness = false;
-        }
+
 #endif
 
     }

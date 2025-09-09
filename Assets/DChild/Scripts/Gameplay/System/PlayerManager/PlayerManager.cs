@@ -214,7 +214,8 @@ namespace DChild.Gameplay.Systems
         {
             if (eventArgs.IsPartOfTheUpdate(SerializationScope.Player) && m_player)
             {
-                m_player.SetPosition(eventArgs.slot.spawnPosition);
+                var playerPosition = m_playerIsDead ? new Vector2(-99999, -99999) : eventArgs.slot.spawnPosition;
+                m_player.SetPosition(playerPosition);
                 m_player.LoadData(eventArgs.slot.characterData);
             }
         }

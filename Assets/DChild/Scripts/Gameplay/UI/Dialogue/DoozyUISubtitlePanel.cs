@@ -1,8 +1,6 @@
 ﻿using Doozy.Runtime.UIManager.Components;
 using Doozy.Runtime.UIManager.Containers;
 using PixelCrushers.DialogueSystem;
-using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor.Validation;
 using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,17 +71,31 @@ namespace DChild.UI
 
             var actor = DialogueManager.masterDatabase.GetActor(subtitle.dialogueEntry.ActorID);
 
+            var isMainCharacter = actor.Name == "Player" ||
+                actor.Name == "Doomed Knight" ||
+                actor.Name == "Crazy Knight" ||
+                actor.Name == "Necro";
+            //if (actor.Name != "Player" ||
+            //    actor.Name != "Doomed Knight" ||
+            //    actor.Name != "Crazy Knight" ||
+            //    actor.Name != "Necro")
+            //    return;
+
             //var portraits = actor.spritePortraits;
             //portraitImage.sprite = actor.spritePortraits.Last();
+
             portraitName.text = $"{portraitActorName}: ";
-            portraitName.color = Tools.WebColor(actor.LookupValue("BanterColor"));
+            var actorColor = actor.LookupValue("BanterColor");
+            portraitName.color = actorColor != null ? Tools.WebColor(actorColor) : Tools.WebColor("#FA990E");
 
-            var portraits = actor.spritePortraits;
-            var portrait = portraits.IsNullOrEmpty() ? actor.spritePortrait : portraits.Last();
-
+            if (!isMainCharacter)
+            {
+                SetPortraitImage(null);
+                return;
+            }
+            var portrait = actor.spritePortraits.IsNullOrEmpty() ? actor.spritePortrait : actor.spritePortraits.Last();
             SetPortraitImage(portrait);
         }
-
         public override void Close()
         {
             if (isOpen)

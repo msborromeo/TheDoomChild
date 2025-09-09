@@ -3,6 +3,7 @@ using DChild.Gameplay.Characters.NPC;
 using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Combat.UI;
 using DChild.Gameplay.Environment;
+using DChild.Gameplay.LevelFinish.UI;
 using DChild.Gameplay.NavigationMap;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
@@ -13,6 +14,7 @@ using DChild.Temp;
 using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
+using System.Drawing.Text;
 using UnityEngine;
 
 namespace DChild.Gameplay.Systems
@@ -44,6 +46,7 @@ namespace DChild.Gameplay.Systems
         private RegenerationEffectsHandler m_regen;
         [SerializeField]
         private ElevatorLevelSelectionUI m_elevator;
+
 
         [SerializeField, FoldoutGroup("Side Notification")]
         private UIContainer m_journalNotification;

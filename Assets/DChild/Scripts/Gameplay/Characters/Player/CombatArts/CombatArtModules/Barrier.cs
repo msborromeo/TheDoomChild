@@ -4,9 +4,11 @@ using Holysoft.Gameplay;
 using Sirenix.OdinInspector;
 using Spine.Unity;
 using Spine.Unity.Examples;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 {
@@ -152,6 +154,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_isDoingBarrier = false;
             m_animator.SetBool(m_barrierStateAnimationParameter, false);
             m_state.isExecutingCombatArt = false;
+            m_hitbox.SetCanBlockDamageState(false);
             base.Cancel();
         }
 
@@ -175,7 +178,6 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_materialReplacement.replacementEnabled = false;
                 m_isDoingBarrier = false;
             }
-
             m_physics.AddForce(new Vector2(m_character.facing == HorizontalDirection.Right ? m_pushForce.x : -m_pushForce.x, m_pushForce.y), ForceMode2D.Impulse);
         }
 

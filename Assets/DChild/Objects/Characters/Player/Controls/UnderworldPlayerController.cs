@@ -582,6 +582,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 else
                 {
                     m_barrier?.EndExecution();
+                    m_barrier?.EnableShield(false);
                     m_shadowGaugeRegen?.Enable(true);
                 }
             }

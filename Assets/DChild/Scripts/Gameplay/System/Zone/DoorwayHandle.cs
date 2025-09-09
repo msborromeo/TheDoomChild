@@ -112,6 +112,8 @@ namespace DChild.Gameplay.Environment
         public void RemoveInfluenceFrom(Character character)
         {
             CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
+		if(collisionState == null)
+			return;
             collisionState.forcedCurrentGroundedness = false;
         }
     }
