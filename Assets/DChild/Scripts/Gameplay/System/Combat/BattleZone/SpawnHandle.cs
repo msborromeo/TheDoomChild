@@ -40,6 +40,9 @@ namespace DChild.Gameplay.Combat.BattleZoneComponents
         public EventAction<EventActionArgs> EntitiesFinishSpawning;
         public EventAction<EventActionArgs<GameObject>> EntitySpawned;
 
+        private int m_totalEntitiesToSpawn;
+        private int m_entitiesSpawned;
+
         public SpawnHandle()
         {
             m_timer = 0;
@@ -74,6 +77,9 @@ namespace DChild.Gameplay.Combat.BattleZoneComponents
                     m_toSpawn.Add(new Data(entityIndex, fxIndex, info.fxThenInstantiateDelay, info.datas[j]));
                 }
             }
+
+            m_totalEntitiesToSpawn = m_toSpawn.Count;
+            m_entitiesSpawned = 0;
 
             int RecordObject(List<GameObject> recordList, GameObject toRecord)
             {
@@ -116,11 +122,6 @@ namespace DChild.Gameplay.Combat.BattleZoneComponents
                             m_toSpawn.RemoveAt(i);
                         }
                     }
-
-                    if (m_toSpawn.Count == 0)
-                    {
-                        EntitiesFinishSpawning?.Invoke(this, EventActionArgs.Empty);
-                    }
                 }
             }
         }
@@ -131,12 +132,18 @@ namespace DChild.Gameplay.Combat.BattleZoneComponents
             {
                 yield return new WaitForSeconds(delay);
             }
+            m_entitiesSpawned++;
             var instance = Object.Instantiate(gameObject, position, Quaternion.identity);
             using (Cache<EventActionArgs<GameObject>> cache = Cache<EventActionArgs<GameObject>>.Claim())
             {
                 cache.Value.Set(instance);
                 EntitySpawned?.Invoke(this, cache.Value);
                 cache.Release();
+            }
+
+            if (m_entitiesSpawned == m_totalEntitiesToSpawn)
+            {
+                EntitiesFinishSpawning?.Invoke(this, EventActionArgs.Empty);
             }
         }
     }
