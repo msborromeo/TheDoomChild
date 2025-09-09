@@ -6,7 +6,6 @@ namespace DChild.Gameplay.Dialogues
 {
     public class SoulLampBanterTriggerHandle : MonoBehaviour
     {
-        [SerializeField]
         private SoulLampBanterCooldownHandle m_soulLampBanterCooldownHandle;
 
         private void Start()
