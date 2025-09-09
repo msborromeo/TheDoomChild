@@ -15,7 +15,7 @@ public class SpineSkinRandomizer : MonoBehaviour
 
     private SkeletonAnimation m_skeletonAnimation;
 
-    private void Awake()
+    private void Start()
     {
         if (m_variation.Count > 0)
         {
