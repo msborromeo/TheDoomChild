@@ -1008,7 +1008,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0abc0bcb2a8f74c96283cadae11897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_soulLampBanterCooldownHandle: {fileID: 0}
 --- !u!1 &5911807625180462877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,6 +1056,7 @@ MonoBehaviour:
   condition:
     luaConditions:
     - 0 <= Variable["LightsOff"] and Variable["LightsOff"] <= 12
+    - Variable["CanExecuteSoulLampBanter"] == true
     questConditions: []
     acceptedTags: []
     acceptedGameObjects: []
