@@ -473,24 +473,28 @@ namespace DChild.Gameplay.Characters.Enemies
             float time = 0;
             while (time < (!m_isCartDead ? m_info.chargeAttackDuration : 0.65f))
             {
-
                 Debug.Log("In while loop");
                 time += Time.deltaTime;
+                if (m_isCartDead ? m_wallSensor.isDetecting || !m_edgeSensor.isDetecting : m_cartBreakSensor.isDetecting || !m_cartEdgeSensor.isDetecting)
+                {
+                    if (!m_playerSensor.isDetecting)
+                    {
+                        //m_animation.SetAnimation(0, !m_isCartDead ? m_info.idleAnimation.animation : m_info.idleSoloAnimation.animation, false);
+                        m_movement.Stop();
+                        m_physics.velocity.Set(0, 0);
+                        time = m_info.chargeAttackDuration;
+                        break;
+                    }
+
+                }
+               
                 if (m_isCartDead)
                 {
                     m_animation.SetAnimation(0, !m_isCartDead ? m_info.move.animation : m_info.attack.animation, false);
                     m_movement.MoveTowards(Vector2.one * transform.localScale.x, m_info.moveSolo.speed);
                 }
                 //yield return new WaitForSeconds(!m_isCartDead ? 0.1f : 0);
-                if (m_isCartDead ? m_wallSensor.isDetecting || !m_edgeSensor.isDetecting: m_cartBreakSensor.isDetecting || !m_cartEdgeSensor.isDetecting)
-                {
-                    if (!m_playerSensor.isDetecting) {
-                        //m_animation.SetAnimation(0, !m_isCartDead ? m_info.idleAnimation.animation : m_info.idleSoloAnimation.animation, false);
-                        time = m_info.chargeAttackDuration;
-                        break;
-                    }
-                    
-                }
+               
                 yield return null;
             }
             m_animation.SetAnimation(0, !m_isCartDead ? m_info.idleAnimation.animation : m_info.idleSoloAnimation.animation, false);
@@ -627,7 +631,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
                 case State.Attacking:
 
-
+                    StopAllCoroutines();
                     switch (m_isCartDead)
                     {
                         case true:
@@ -643,6 +647,8 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
                 case State.Cooldown:
+                    m_movement.Stop();
+                    m_physics.velocity.Set(0, 0);
                     inAttackState = false;
                     if (!IsFacingTarget() /*&& m_isCartDead*/)
                     {

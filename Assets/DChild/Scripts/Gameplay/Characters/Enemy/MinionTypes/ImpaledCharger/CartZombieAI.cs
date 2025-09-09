@@ -516,7 +516,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_chargerAI.transform.localPosition = new Vector2(-6.5f, 0);
                 m_movement.MoveTowards(Vector2.one * transform.localScale.x, m_info.move.speed);
                 m_chargerMovement?.MoveTowards(Vector2.one * transform.localScale.x, m_info.move.speed);
-                yield return new WaitForSeconds(0.1f);
+               // yield return new WaitForSeconds(0.1f);
                 if (m_breakSensor.isDetecting || !m_edgeSensor.isDetecting)
                 {
                     time = m_chargeDuration;
