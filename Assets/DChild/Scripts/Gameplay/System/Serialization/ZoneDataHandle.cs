@@ -194,6 +194,12 @@ namespace DChild.Serialization
                 }
                 catch (Exception e)
                 {
+                    if(m_cacheComponentSerializer == null)
+                    {
+                        Debug.LogError($"Deserialization Error: component serializer contains null");
+                        continue;
+                    }
+
                     Debug.LogError($"Deserialization Error: {m_cacheComponentSerializer.gameObject.name} \n {e.Message}", m_cacheComponentSerializer);
                 }
             }
