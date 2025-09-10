@@ -26,9 +26,12 @@ namespace DChild.Gameplay.Cinematics.Cameras
         private CameraShakeData m_onEarthShakerImpactShakeData;
         [SerializeField, ShowIf("m_shakeOnAttackHit")]
         private CameraShakeData m_onSwordThrustShakeData;
+        [SerializeField, ShowIf("m_shakeOnAttackHit")]
+        private CameraShakeData m_onCriticalHitDealtData;
 
         private ICinema m_cinema;
         private ISwordThrustState m_swordThrustState;
+        private Attacker m_attacker;
 
 
         public void Initialize()
@@ -39,9 +42,23 @@ namespace DChild.Gameplay.Cinematics.Cameras
             m_swordThrustState = player.state;
             var playerCharacter = GameplaySystem.playerManager.player.character;
             playerCharacter.GetComponentInChildren<EarthShaker>().OnImpact += OnEarthShakerImpact;
+            m_attacker = playerCharacter.GetComponent<Attacker>();
         }
 
+        private void OnEnable()
+        {
+            m_attacker.CriticalHitInflicted += OnCriticalHitInflicted;
+        }
 
+        private void OnDisable()
+        {
+            m_attacker.CriticalHitInflicted -= OnCriticalHitInflicted;
+        }
+
+        private void OnCriticalHitInflicted(Vector3 vector, ParticleFX fX)
+        {
+            m_cinema.ExecuteCameraShake(m_onCriticalHitDealtData);
+        }
 
         public void HandleOnDamageRecieveShake()
         {

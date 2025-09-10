@@ -27,13 +27,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
             [SerializeField, MinValue(0), Tooltip("Multiply modifier by this value on critical hit")]
             private float m_critModifier;
             [SerializeField]
-            private ParticleSystem m_critFX;
+            private ParticleFX m_critFX;
 
             public float nextAttackDelay => m_nextAttackDelay;
             public float damageModifier => m_damageModifier;
             public float critChance => m_critChance;
             public float critModifier => m_critModifier;
-            public ParticleSystem critFX => m_critFX;
+            public ParticleFX critFX => m_critFX;
             public Transform fxPosition => m_fxPosition;
             public void PlayFX(bool value)
             {
