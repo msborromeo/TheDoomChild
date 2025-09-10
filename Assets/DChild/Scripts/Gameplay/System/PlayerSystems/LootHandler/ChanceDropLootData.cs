@@ -11,31 +11,25 @@ using UnityEngine;
 using static DChild.Gameplay.Systems.LootDropData;
 
 namespace DChild.Gameplay.Systems { 
-    public class MultipleItemLootData : ILootDataContainer
+    public class ChanceDropLootData : ILootDataContainer
     {
         [SerializeField]
-        private List<DropInfo> m_Drops = new List<DropInfo>();
+        private List<ILootDataContainer> m_Drops = new List<ILootDataContainer>();
+        [SerializeField,Range(0,100)]
+        private float m_Chance;
 
         public void DropLoot(Vector2 position)
         {
+            if(m_Chance < Random.Range(0,100))
+            {
+                return;
+            }
             if (m_Drops.Count > 0)
             {
                 for (int i = 0; i < m_Drops.Count; i++)
                 { 
-                    WillDrop(m_Drops[i])?.DropLoot(position);
+                    m_Drops[i].DropLoot(position);
                 }
-            }
-        }
-
-        public ILootDataContainer WillDrop(DropInfo drop)
-        {
-
-            if (drop.chance >= Random.Range(0, 100))
-            {
-                return drop.loot;
-            }else
-            {
-                return null;
             }
         }
 
@@ -43,24 +37,25 @@ namespace DChild.Gameplay.Systems {
         {
             for (int i = 0; i < m_Drops.Count; i++)
             {
-                WillDrop(m_Drops[i])?.GenerateLootInfo(ref recordList);
+                m_Drops[i]?.GenerateLootInfo(ref recordList);
             }
         }
 
 #if UNITY_EDITOR
         void ILootDataContainer.DrawDetails(bool drawContainer, string label = null)
         {
+            EditorGUILayout.LabelField($"Drop Chance: {m_Chance}%");
             SirenixEditorGUI.BeginBox(label);
             EditorGUI.indentLevel++;
             for (int i = 0; i < m_Drops.Count; i++)
             {
-                if (m_Drops[i].loot == null)
+                if (m_Drops[i] == null)
                 {
-                    EditorGUILayout.LabelField($"None - {m_Drops[i].chance}%");
+                    EditorGUILayout.LabelField($"None%");
                 }
                 else
                 {
-                    m_Drops[i].loot.DrawDetails(true, $" - {m_Drops[i].chance}%");
+                    m_Drops[i].DrawDetails(true, null);
                 }
             }
             EditorGUI.indentLevel--;
