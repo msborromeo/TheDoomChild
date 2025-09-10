@@ -348,7 +348,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 StopCoroutine(m_sneerRoutine);
                 m_sneerRoutine = null;
             }
-            m_stateHandle.SetState(State.Idle);
+            m_stateHandle.SetState(State.Detect);
         }
 
         protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
@@ -415,10 +415,10 @@ namespace DChild.Gameplay.Characters.Enemies
                     transform.localScale = Vector3.one;
                     break;
             }
-            for (int i = 0; i < m_rotators.Count; i++)
-            {
-                m_rotators[i].AlignRotationToFacing(m_character.facing);
-            }
+            //for (int i = 0; i < m_rotators.Count; i++)
+            //{
+            //    m_rotators[i].AlignRotationToFacing(m_character.facing);
+            //}
             StartCoroutine(CartDiesRoutine());
         }
 
@@ -469,35 +469,35 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.chargeAttack.animation);
                 m_playerStepRoutine = StartCoroutine(PlayerSteppedOnRoutine());
             }
-            //m_animation.SetAnimation(0, !m_isCartDead ? m_info.move.animation : m_info.attack.animation, false);
+            
             float time = 0;
             while (time < (!m_isCartDead ? m_info.chargeAttackDuration : 0.65f))
             {
                 Debug.Log("In while loop");
                 time += Time.deltaTime;
-                if (m_isCartDead ? m_wallSensor.isDetecting || !m_edgeSensor.isDetecting : m_cartBreakSensor.isDetecting || !m_cartEdgeSensor.isDetecting)
-                {
-                    if (!m_playerSensor.isDetecting)
-                    {
-                        //m_animation.SetAnimation(0, !m_isCartDead ? m_info.idleAnimation.animation : m_info.idleSoloAnimation.animation, false);
-                        m_movement.Stop();
-                        m_physics.velocity.Set(0, 0);
-                        time = m_info.chargeAttackDuration;
-                        break;
-                    }
-
-                }
-               
                 if (m_isCartDead)
                 {
                     m_animation.SetAnimation(0, !m_isCartDead ? m_info.move.animation : m_info.attack.animation, false);
                     m_movement.MoveTowards(Vector2.one * transform.localScale.x, m_info.moveSolo.speed);
                 }
+                if (m_isCartDead ? m_wallSensor.isDetecting || !m_edgeSensor.isDetecting : m_cartBreakSensor.isDetecting || !m_cartEdgeSensor.isDetecting)
+                {
+                    
+                    m_movement.Stop();
+                    m_physics.velocity.Set(0, 0);
+                    time = m_info.chargeAttackDuration;
+                    break;
+                    
+
+                }
+               
+              
                 //yield return new WaitForSeconds(!m_isCartDead ? 0.1f : 0);
                
                 yield return null;
             }
-            m_animation.SetAnimation(0, !m_isCartDead ? m_info.idleAnimation.animation : m_info.idleSoloAnimation.animation, false);
+            
+            m_animation.SetAnimation(0, !m_isCartDead ? m_info.idleAnimation.animation : m_info.idleSoloAnimation.animation, true);
             if (!m_isCartDead)
             {
                 StopCoroutine(m_playerStepRoutine);
@@ -509,8 +509,10 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             else
             {
+                Debug.Log("Sa else ni ha");
+                m_animation.SetAnimation(0, m_info.attack.animation, false);     
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack.animation);
                 m_movement.Stop();
-
                 m_animation.SetAnimation(0, !m_isCartDead ? m_info.idleAnimation : m_info.idleSoloAnimation, true);
                 inAttackState = false;
                 m_stateHandle.ApplyQueuedState();
@@ -632,6 +634,10 @@ namespace DChild.Gameplay.Characters.Enemies
                 case State.Attacking:
 
                     StopAllCoroutines();
+                    if (!IsFacingTarget())
+                    {
+                        CustomTurn();
+                    }
                     switch (m_isCartDead)
                     {
                         case true:
@@ -650,12 +656,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_movement.Stop();
                     m_physics.velocity.Set(0, 0);
                     inAttackState = false;
-                    if (!IsFacingTarget() /*&& m_isCartDead*/)
-                    {
-                        //m_turnState = State.Cooldown;
-                        //m_stateHandle.SetState(State.Turning);
-                        CustomTurn();
-                    }
+                  
                     m_animation.SetAnimation(0, !m_isCartDead ? m_info.idleAnimation : m_info.idleSoloAnimation, true);
 
                     if (m_currentCD <= m_info.attackCD)
@@ -768,10 +769,10 @@ namespace DChild.Gameplay.Characters.Enemies
                         StopCoroutine(m_patienceRoutine);
                         m_patienceRoutine = null;
                     }
-                    if (m_isCartDead)
-                    {
-                        m_stateHandle.OverrideState(State.Returning);
-                    }
+                    //if (m_isCartDead)
+                    //{
+                    //    m_stateHandle.OverrideState(State.Returning);
+                    //}
                     return;
                 }
 

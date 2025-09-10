@@ -246,13 +246,13 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void OnCharacterTurn(object sender, FacingEventArgs eventArgs)
         {
-            if (!m_isPusherDead)
-            {
-                for (int i = 0; i < m_rotators.Count; i++)
-                {
-                    m_rotators[i].AlignRotationToFacing(eventArgs.currentFacingDirection);
-                }
-            }
+            //if (!m_isPusherDead)
+            //{
+            //    for (int i = 0; i < m_rotators.Count; i++)
+            //    {
+            //        m_rotators[i].AlignRotationToFacing(eventArgs.currentFacingDirection);
+            //    }
+            //}
         }
 
         private void CustomTurn()
