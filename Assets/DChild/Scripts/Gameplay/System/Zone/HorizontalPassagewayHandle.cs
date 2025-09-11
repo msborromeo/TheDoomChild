@@ -88,6 +88,9 @@ namespace DChild.Gameplay.Environment
                 return;
 
             CharacterState collisionState = character.GetComponentInChildren<CharacterState>();
+
+            if(collisionState == null)
+                return;
             collisionState.forcedCurrentGroundedness = false;
         }
 
