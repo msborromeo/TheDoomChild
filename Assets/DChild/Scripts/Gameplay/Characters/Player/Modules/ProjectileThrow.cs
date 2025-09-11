@@ -55,7 +55,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         [SerializeField, MinValue(0), Tooltip("Multiply modifier by this value on critical hit")]
         private float m_critModifier;
         [SerializeField]
-        private ParticleSystem m_critFX;
+        private ParticleFX m_critFX;
 
         public void RequestExecution()
         {
