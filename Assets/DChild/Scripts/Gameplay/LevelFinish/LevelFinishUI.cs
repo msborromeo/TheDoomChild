@@ -24,6 +24,8 @@ namespace DChild.Gameplay.LevelFinish.UI
         private ConfirmationHandler m_confirmationHandler;
         [SerializeField]
         private FastTravelHandle m_fastTravelHandle;
+        [SerializeField]
+        private LocationInWorldData m_underworldLocations;
 
         private LocationData m_destinationData;
 
@@ -53,23 +55,14 @@ namespace DChild.Gameplay.LevelFinish.UI
         public void SetupTeleportableLocation(LocationData data)
         {
             m_destinationData = data;
-            var WorldTypeVar = FindObjectOfType<WorldTypeManager>();
 
-            //if (WorldTypeVar.CurrentWorldType != WorldTypeVar.GetLocationWorldType(m_destinationData.location))
-            //{
-            //    WorldTypeVar.SetCurrentWorldType(m_destinationData.location);
-            //}
-                //GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Player);
-
-
-            switch (WorldTypeVar.CurrentWorldType)
+            if (m_underworldLocations.Locations.Contains(data.location))
             {
-                case WorldType.Underworld:
-                    m_confirmationHandler.RequestConfirmation(OnConfirm, $"Teleport to the Throne Room?");
-                    break;
-                case WorldType.Overworld:
-                    m_confirmationHandler.RequestConfirmation(OnConfirm, $"Teleport to the Overworld?");
-                    break;
+                m_confirmationHandler.RequestConfirmation(OnConfirm, $"Teleport to the Throne Room?");
+            }
+            else
+            {
+                m_confirmationHandler.RequestConfirmation(OnConfirm, $"Teleport to the Overworld?");
             }
         }
 
