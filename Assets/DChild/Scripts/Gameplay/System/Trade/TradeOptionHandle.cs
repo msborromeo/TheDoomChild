@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using I2.Loc;
+using Doozy.Runtime.UIManager;
 
 namespace DChild.Menu.Trade
 {
@@ -21,7 +22,9 @@ namespace DChild.Menu.Trade
 
         public void SetInteractability(bool interactability)
         {
+            var buttonState = interactability ? UISelectionState.Normal : UISelectionState.Disabled;
             m_tradeButton.interactable = interactability;
+            m_tradeButton.SetState(buttonState);
         }
 
         public void ChangeToBuyOption(bool instant)
