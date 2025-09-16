@@ -1263,24 +1263,32 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     return;
                 }
 
-                if (m_vector2Input.x == 0)
+                if (m_whipCombo.CanWhipCombo())
                 {
-                    m_whipCombo.Cancel();
-
-                    m_whip.Execute(WhipAttack.Type.Ground_Forward);
+                    m_whipCombo.Execute();
                     return;
                 }
-                else if (m_vector2Input.x != 0)
-                {
-                    if (IsFacingInput(m_vector2Input.x))
-                    {
-                        if (m_whipCombo.CanWhipCombo())
-                        {
-                            m_whipCombo.Execute();
-                            return;
-                        }
-                    }
-                }
+
+                #region Old Forward Whip and Whip Combo
+                //if (m_vector2Input.x == 0)
+                //{
+                //    m_whipCombo.Cancel();
+
+                //    m_whip.Execute(WhipAttack.Type.Ground_Forward);
+                //    return;
+                //}
+                //else if (m_vector2Input.x != 0)
+                //{
+                //    if (IsFacingInput(m_vector2Input.x))
+                //    {
+                //        if (m_whipCombo.CanWhipCombo())
+                //        {
+                //            m_whipCombo.Execute();
+                //            return;
+                //        }
+                //    }
+                //}
+                #endregion
             }
             else
             {
