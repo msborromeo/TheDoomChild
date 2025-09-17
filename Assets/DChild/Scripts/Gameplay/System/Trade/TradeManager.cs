@@ -12,6 +12,7 @@ using UnityEngine.UI;
 using DChild.Gameplay.Items;
 using I2.Loc;
 using DChild.Localization;
+using Doozy.Runtime.UIManager.Components;
 
 namespace DChild.Gameplay.Trade
 {
@@ -35,6 +36,8 @@ namespace DChild.Gameplay.Trade
         private NPCProfileUI m_sellerProfile;
         [SerializeField]
         private Image m_highlight;
+        [SerializeField]
+        private UIToggle m_defaultToggle;
 
         [SerializeField]
         private ConfirmationHandler m_tradeConfirmation;
@@ -48,11 +51,14 @@ namespace DChild.Gameplay.Trade
 
         public void SetupTrade(ITradeInventory buyer, ITradeInventory seller, CurrencyType type)
         {
+            m_defaultToggle.SetIsOn(true);
+
             m_tradeHandle.SetCurrencyToTrade(type);
             m_tradeHandle.SetTraders(buyer, seller);
             m_tradeOption.ChangeToBuyOption(true);
             m_itemBeingTradedUI.SetCostTypeToDisplay(type);
             ResetTradeUI();
+
             UpdateCurrencyUI();
         }
 

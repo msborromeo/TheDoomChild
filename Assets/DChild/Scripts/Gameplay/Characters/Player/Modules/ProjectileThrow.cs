@@ -55,7 +55,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         [SerializeField, MinValue(0), Tooltip("Multiply modifier by this value on critical hit")]
         private float m_critModifier;
         [SerializeField]
-        private ParticleSystem m_critFX;
+        private ParticleFX m_critFX;
 
         public void RequestExecution()
         {
@@ -306,9 +306,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //m_spawnedProjectile.transform.position = m_spawnPoint.position;
             m_spawnedProjectile.transform.parent = transform;
             //m_spawnedProjectile.transform.rotation = Quaternion.identity;
-            var projectileAttacker = m_spawnedProjectile.GetComponent<Attacker>();
-            projectileAttacker.SetParentAttacker(m_attacker);
-            projectileAttacker.SetDamageModifier(1, m_critChance, m_critModifier, m_critFX);
+            var simpleAttackProjectile = m_spawnedProjectile.GetComponent<SimpleAttackProjectile>();
+            if (simpleAttackProjectile != null)
+            {
+                simpleAttackProjectile.ApplyCritValues(1, m_critChance, m_critModifier, m_critFX);
+            }
          
             //TEST
 
