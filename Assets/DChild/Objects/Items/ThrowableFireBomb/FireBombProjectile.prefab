@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 89069668880259602}
   - component: {fileID: 89069668880260077}
   - component: {fileID: -7333134345073826356}
+  - component: {fileID: 5659866944302453359}
   m_Layer: 8
   m_Name: FireBombProjectile
   m_TagString: Untagged
@@ -146,6 +147,7 @@ MonoBehaviour:
       damageModifier: 0
     ignoreInvulnerability: 0
     ignoresBlock: 0
+    isCrit: 0
   m_projectileFXDamage:
     damage:
       m_type: 0
@@ -155,6 +157,7 @@ MonoBehaviour:
       damageModifier: 0
     ignoreInvulnerability: 0
     ignoresBlock: 0
+    isCrit: 0
 --- !u!114 &89069668880259602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +181,7 @@ MonoBehaviour:
       damageModifier: 0
     ignoreInvulnerability: 0
     ignoresBlock: 0
+    isCrit: 0
 --- !u!114 &89069668880260077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +214,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &5659866944302453359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89069668880260079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c95ecee9e80c5d04bb7a7bfb1a0a0ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_attacker: {fileID: 89069668880259602}
 --- !u!1 &3827549098272639419
 GameObject:
   m_ObjectHideFlags: 0
