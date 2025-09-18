@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DChild.Gameplay.SoulSkills
+namespace DChild.Gameplay.SoulEquipment
 {
     public class SoulEquipmentManager : MonoBehaviour
     {
         
-        public void ActivateSoulEquipment(SoulEquipment soulItem)
+        public void EquipSoulEquipment(SoulEquipment soulItem)
         {
 
         }
 
-        public void DeactivateSoulEquipment(SoulEquipment soulItem)
+        public void UnequipSoulEquipment(SoulEquipment soulItem)
         {
 
         }

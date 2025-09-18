@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DChild.Gameplay.SoulSkills
+namespace DChild.Gameplay.SoulEquipment
 {
     public enum SoulSlot
     {

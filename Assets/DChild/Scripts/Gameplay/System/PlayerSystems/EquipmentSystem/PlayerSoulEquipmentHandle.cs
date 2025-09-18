@@ -5,19 +5,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DChild.Gameplay.SoulSkills
+namespace DChild.Gameplay.SoulEquipment
 {
-    public class PlayerSoulEquipmentHandle : SerializedMonoBehaviour, ISerializable<PlayerSoulSkillData>
+    public class PlayerSoulEquipmentHandle : SerializedMonoBehaviour, ISerializable<PlayerSoulEquipmentData>
     {
         [SerializeField]
         private IPlayer m_player;
 
-        public void LoadData(PlayerSoulSkillData data)
+        [SerializeField]
+        private Dictionary<SoulSlot, SoulEquipment> m_equippedSoulEquipment = new Dictionary<SoulSlot, SoulEquipment>();
+
+        public void LoadData(PlayerSoulEquipmentData data)
         {
             throw new System.NotImplementedException();
         }
 
-        public PlayerSoulSkillData SaveData()
+        public PlayerSoulEquipmentData SaveData()
         {
             throw new System.NotImplementedException();
         }

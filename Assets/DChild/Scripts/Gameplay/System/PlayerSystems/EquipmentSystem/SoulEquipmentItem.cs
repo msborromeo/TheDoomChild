@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DChild.Gameplay.SoulSkills
+namespace DChild.Gameplay.SoulEquipment
 {
     [CreateAssetMenu(fileName = "SoulEquipment", menuName = "DChild/Database/Soul Equipment Item")]
     public class SoulEquipmentItem : ItemData
@@ -12,6 +12,7 @@ namespace DChild.Gameplay.SoulSkills
         [SerializeField, ToggleGroup("m_enableEdit")]
         private SoulEquipment m_soulEquipment;
         public SoulEquipment soulEquipment => m_soulEquipment;
+
     }
 }
 

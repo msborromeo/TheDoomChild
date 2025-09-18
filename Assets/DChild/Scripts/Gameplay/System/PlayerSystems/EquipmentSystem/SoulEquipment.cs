@@ -5,17 +5,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DChild.Gameplay.SoulSkills
+namespace DChild.Gameplay.SoulEquipment
 {
-    [ShowOdinSerializedPropertiesInInspector]
-    [CreateAssetMenu(fileName = "SoulItem", menuName = "DChild/Database/Soul Equipment")]
-    public class SoulEquipment : SoulSkill
+    public class SoulEquipment
     {
         [SerializeField]
-        private SoulSlot m_soulSlot;
-
-
-        public SoulSlot soulSlot => m_soulSlot;
+        private SoulSlot m_slot;
+        [SerializeField]
+        private List<SoulSkill> m_soulSkillList;
     }
 }
 
