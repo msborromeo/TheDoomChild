@@ -33,11 +33,12 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
             switch (location)
             {
                 case ElevatorLocation.East:
+                case ElevatorLocation.Upper_West:
                     levelCount = 4;
                     break;
-                case ElevatorLocation.Upper_West:
-                    levelCount = 3;
-                    break;
+                //case ElevatorLocation.Upper_West:
+                //    levelCount = 3;
+                //    break;
                 default:
                     levelCount = m_elevatorButtons.Count;
                     break;
