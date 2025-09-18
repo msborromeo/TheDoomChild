@@ -22,16 +22,23 @@ namespace DChild.Gameplay.Characters.Players.Modules
         [SerializeField]
         private ParticleSystem m_shadowMorphFX;
         //HACK
-        [SerializeField, SpineSkin(dataField = "m_skeletonData")]
-        private string m_originalSkinName;
-        [SerializeField, SpineSkin(dataField = "m_skeletonData")]
-        private string m_shadowMorphSkinName;
+        //[SerializeField, SpineSkin(dataField = "m_skeletonData")]
+        //private string m_originalSkinName;
+        //[SerializeField, SpineSkin(dataField = "m_skeletonData")]
+        //private string m_shadowMorphSkinName;
         [SerializeField]
         private SkeletonAnimation m_skeletonData;
         [SerializeField]
         private GameObject m_playerShadow;
-        [SerializeField, BoxGroup("FX")]
-        private MaterialReplacementExample m_materialReplacement;
+        //[SerializeField, BoxGroup("FX")]
+        //private MaterialReplacementExample m_materialReplacement;
+        [SerializeField, BoxGroup("VISUAL FLARE")]
+        public SkeletonRendererCustomMaterials matChanger;
+        public ParticleSystem shadowMorphStartFx;
+        public ParticleSystem shadowMorphLoopFx;
+        public ParticleSystem shadowMorphEndFx;
+
+
 
         private Damageable m_damageable;
         private ICappedStat m_source;
@@ -70,9 +77,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void EndExecution()
         {
-            m_skeletonData.Skeleton.SetSkin(m_shadowMorphSkinName);
+            //m_skeletonData.Skeleton.SetSkin(m_shadowMorphSkinName);
             m_state.isInShadowMode = true;
             m_state.waitForBehaviour = false;
+            matChanger.enabled = true;
+            shadowMorphLoopFx.Play();
             //m_materialReplacement.replacementEnabled = false;
             GameplaySystem.world.SetShadowColliders(true);
             //End?.Invoke(this, EventActionArgs.Empty);
@@ -83,7 +92,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
             Debug.Log("Shadow Morph");
             m_animator.Play(SHADOW_MORPH_ANIMATION_STATE);
             m_shadowMorphFX.Play();
-            m_materialReplacement.replacementEnabled = true;
+            shadowMorphStartFx.Play();
+            //m_materialReplacement.replacementEnabled = true;
+            //matChanger.enabled = true;
             m_damageable.SetInvulnerability(Invulnerability.Level_2);
             //m_animator.SetBool(m_animationParameter, true);
             m_skeletonGhost.enabled = true;
@@ -106,14 +117,17 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void Cancel()
         {
             GameplaySystem.world.SetShadowColliders(false);
-            m_skeletonData.Skeleton.SetSkin(m_originalSkinName);
+            //m_skeletonData.Skeleton.SetSkin(m_originalSkinName);
             m_damageable.SetInvulnerability(Invulnerability.None);
             m_state.isInShadowMode = false;
             m_animator.SetBool(m_animationParameter, false);
             m_stackedConsumptionRate = 0;
             m_shadowMorphFX.Stop(true);
-            m_materialReplacement.replacementEnabled = false;
+            shadowMorphLoopFx.Stop(true);
+            shadowMorphEndFx.Play();
+            //m_materialReplacement.replacementEnabled = false;
             m_skeletonGhost.enabled = false;
+            matChanger.enabled = false;
             m_playerShadow.SetActive(true);
             m_statusEffectReciever.EnableUpdatableEffects();
             End?.Invoke(this, EventActionArgs.Empty);

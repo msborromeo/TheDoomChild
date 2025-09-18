@@ -49,8 +49,8 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         private Hitbox m_hitbox;
         [SerializeField, BoxGroup("FX")]
         private Animator m_barrierFX;
-        [SerializeField, BoxGroup("FX")]
-        private MaterialReplacementExample m_materialReplacement;
+        //[SerializeField, BoxGroup("FX")]
+        //private MaterialReplacementExample m_materialReplacement;
 
         [SerializeField]
         private Vector2 m_pushForce;
@@ -127,7 +127,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_state.waitForBehaviour = false;
             m_state.isAttacking = false;
             m_barrierFX.SetBool("BarrierIsOn", false);
-            m_materialReplacement.replacementEnabled = false;
+            //m_materialReplacement.replacementEnabled = false;
             m_isDoingBarrier = false;
             m_animator.SetBool(m_barrierStateAnimationParameter, false);
             m_state.isExecutingCombatArt = false;
@@ -150,7 +150,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             //m_barrierInfo.ShowCollider(false);
 
             m_barrierFX.SetBool("BarrierIsOn", false);
-            m_materialReplacement.replacementEnabled = false;
+            //m_materialReplacement.replacementEnabled = false;
             m_isDoingBarrier = false;
             m_animator.SetBool(m_barrierStateAnimationParameter, false);
             m_state.isExecutingCombatArt = false;
@@ -169,13 +169,13 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             if (value)
             {
                 m_barrierFX.SetBool("BarrierIsOn", true);
-                m_materialReplacement.replacementEnabled = true;
+                //m_materialReplacement.replacementEnabled = true;
                 m_isDoingBarrier = true;
             }
             else
             {
                 m_barrierFX.SetBool("BarrierIsOn", false);
-                m_materialReplacement.replacementEnabled = false;
+                //m_materialReplacement.replacementEnabled = false;
                 m_isDoingBarrier = false;
             }
             m_physics.AddForce(new Vector2(m_character.facing == HorizontalDirection.Right ? m_pushForce.x : -m_pushForce.x, m_pushForce.y), ForceMode2D.Impulse);
