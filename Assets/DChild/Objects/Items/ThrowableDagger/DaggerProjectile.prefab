@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 6653861029073845264}
   - component: {fileID: 8148064972648964911}
   - component: {fileID: 6466113315994412892}
+  - component: {fileID: 8312935138601831935}
   m_Layer: 8
   m_Name: DaggerProjectile
   m_TagString: Sensor
@@ -232,6 +233,7 @@ MonoBehaviour:
       damageModifier: 0
     ignoreInvulnerability: 0
     ignoresBlock: 0
+    isCrit: 0
   m_projectileFXDamage:
     damage:
       m_type: 0
@@ -241,6 +243,7 @@ MonoBehaviour:
       damageModifier: 0
     ignoreInvulnerability: 0
     ignoresBlock: 0
+    isCrit: 0
 --- !u!114 &2653865785415988179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +267,7 @@ MonoBehaviour:
       damageModifier: 0
     ignoreInvulnerability: 0
     ignoresBlock: 0
+    isCrit: 0
 --- !u!114 &2653865785415987756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,6 +360,19 @@ MonoBehaviour:
   m_fxAnimator: {fileID: 8148064972648964911}
   m_impactFX: {fileID: 4095843489774876487, guid: b7fae0836b9ae324296c3a5672becfdb,
     type: 3}
+--- !u!114 &8312935138601831935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2653865785415987758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c95ecee9e80c5d04bb7a7bfb1a0a0ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_attacker: {fileID: 2653865785415988179}
 --- !u!1 &5622616269560391877
 GameObject:
   m_ObjectHideFlags: 0

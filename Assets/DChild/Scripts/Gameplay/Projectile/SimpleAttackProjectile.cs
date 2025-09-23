@@ -26,6 +26,16 @@ namespace DChild.Gameplay.Projectiles
         [SerializeField]
         AttackDamageInfo m_projectileFXDamage;
 
+        public void ApplyCritValues(float value, float critChance, float critModifier, ParticleFX critFX)
+        {
+            var attacker = GetComponent<Attacker>();
+
+            if(attacker != null)
+            {
+                attacker.SetDamageModifier(value, critChance, critModifier, critFX);
+            }
+        }
+
         protected override void Collide()
         {
             base.Collide();

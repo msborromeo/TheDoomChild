@@ -22,6 +22,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
         [SerializeField]
         private ParticleSystem m_wingsFX;
 
+        
+        public ParticleSystem devilWingTriggerFX;
+
         [SerializeField, BoxGroup("Sensors")]
         private RaySensor m_wallSensor;
 
@@ -77,6 +80,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             //m_source.ReduceCurrentValue(m_configuration.sourceRequiredAmount);
             m_wingsFX.Play();
+            devilWingTriggerFX.Play();
             m_state.isLevitating = true;
             //m_cacheGravity = m_rigidbody.gravityScale;
             m_rigidbody.gravityScale = 0;
