@@ -4,6 +4,7 @@ using Holysoft.Collections;
 using Holysoft.Event;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace DChild.Gameplay.Environment.Obstacles
 {
@@ -27,11 +28,14 @@ namespace DChild.Gameplay.Environment.Obstacles
         private bool m_dropOnSpawn;
         private Collider2D m_spawnedBoulderCollider;
 
+        public UnityEvent onBoulderSpawn;
+
         public void Release()
         {
             if (m_spawnedBoulder != null)
             {
                 var rigidbody = m_spawnedBoulder.GetComponent<Rigidbody2D>();
+                onBoulderSpawn?.Invoke();
                 rigidbody.simulated = true;
                 rigidbody.velocity = Vector2.zero;
 
