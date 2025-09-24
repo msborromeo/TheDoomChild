@@ -306,9 +306,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //m_spawnedProjectile.transform.position = m_spawnPoint.position;
             m_spawnedProjectile.transform.parent = transform;
             //m_spawnedProjectile.transform.rotation = Quaternion.identity;
-            var projectileAttacker = m_spawnedProjectile.GetComponent<Attacker>();
-            projectileAttacker.SetParentAttacker(m_attacker);
-            projectileAttacker.SetDamageModifier(1, m_critChance, m_critModifier, m_critFX);
+            var simpleAttackProjectile = m_spawnedProjectile.GetComponent<SimpleAttackProjectile>();
+            if (simpleAttackProjectile != null)
+            {
+                simpleAttackProjectile.ApplyCritValues(1, m_critChance, m_critModifier, m_critFX);
+            }
          
             //TEST
 
