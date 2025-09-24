@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 6644392870442830450}
   - component: {fileID: 8759771723816923318}
   - component: {fileID: 6033988701015405795}
+  - component: {fileID: 2580995352806923724}
   m_Layer: 8
   m_Name: BouncingDaggerProjectile
   m_TagString: Untagged
@@ -165,6 +166,7 @@ MonoBehaviour:
       damageModifier: 0
     ignoreInvulnerability: 0
     ignoresBlock: 0
+    isCrit: 0
   m_projectileFXDamage:
     damage:
       m_type: 0
@@ -174,6 +176,7 @@ MonoBehaviour:
       damageModifier: 0
     ignoreInvulnerability: 0
     ignoresBlock: 0
+    isCrit: 0
 --- !u!58 &4607640415938562024
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -225,6 +228,7 @@ MonoBehaviour:
       damageModifier: 0
     ignoreInvulnerability: 0
     ignoresBlock: 0
+    isCrit: 0
 --- !u!114 &6033988701015405795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +246,19 @@ MonoBehaviour:
   m_bodyCollider2D: {fileID: 4607640415938562024}
   m_hurtbox: {fileID: 4075946399660628490}
   m_fx: {fileID: 5338552585145004654}
+--- !u!114 &2580995352806923724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543959659078774030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c95ecee9e80c5d04bb7a7bfb1a0a0ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_attacker: {fileID: 8759771723816923318}
 --- !u!1 &1267008377476379557
 GameObject:
   m_ObjectHideFlags: 0
