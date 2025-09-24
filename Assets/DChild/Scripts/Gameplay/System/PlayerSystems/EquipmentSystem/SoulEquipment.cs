@@ -10,9 +10,14 @@ namespace DChild.Gameplay.SoulEquipment
     public class SoulEquipment
     {
         [SerializeField]
+        private string m_name;
+        [SerializeField]
         private SoulSlot m_slot;
         [SerializeField]
         private List<SoulSkill> m_soulSkillList;
+
+        public SoulSlot Slot => m_slot;
+        public List<SoulSkill> soulSkillList => m_soulSkillList; 
     }
 }
 
