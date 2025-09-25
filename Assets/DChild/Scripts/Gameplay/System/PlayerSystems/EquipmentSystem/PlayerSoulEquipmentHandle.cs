@@ -47,6 +47,7 @@ namespace DChild.Gameplay.EquipmentSystem
             return new PlayerSoulEquipmentData(m_acquiredSoulEquipment, m_equippedSoulEquipment);
         }
 
+        [Button]
         public void EquipSoulEquipment(SoulEquipment soulEquipment)
         {
             if (m_equippedSoulEquipment.ContainsKey(soulEquipment.Slot))
@@ -60,6 +61,7 @@ namespace DChild.Gameplay.EquipmentSystem
             }
         }
 
+        [Button]
         public void UnequipSoulEquipment(SoulEquipment soulEquipment)
         {
             m_equippedSoulEquipment.Remove(soulEquipment.Slot);
@@ -70,6 +72,7 @@ namespace DChild.Gameplay.EquipmentSystem
             }
         }
 
+        [Button]
         public void AddAcquiredSoulEquipment(SoulEquipment soulEquipment)
         {
             m_acquiredSoulEquipment.Add(soulEquipment);
