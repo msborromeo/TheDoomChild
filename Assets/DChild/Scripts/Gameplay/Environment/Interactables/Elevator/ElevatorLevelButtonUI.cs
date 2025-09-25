@@ -3,6 +3,7 @@ using Doozy.Runtime.UIManager.Components;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 {
@@ -11,6 +12,9 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         [SerializeField] private ElevatorLabelUI m_leftLabel;
         [SerializeField] private ElevatorLabelUI m_rightLabel;
         [SerializeField] private TextMeshProUGUI m_levelNumber;
+
+        [BoxGroup("Current Floor Icon"), SerializeField] private Image m_elevatorIcon;
+
 
         private MovingPlatform m_elevator;
         private int m_level;
@@ -39,15 +43,10 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
                 SetPathLabel(info);
             }
 
-            if (isCurrentValue == true)
-                ShowAsCurrent();
-        }
-
-        [Button]
-        public void ShowAsCurrent()
-        {
-            var button = gameObject.GetComponent<UIButton>();
-            button.Select();
+            m_elevatorIcon.enabled = isCurrentValue;
+            
+            if (isCurrentValue)
+                gameObject.GetComponent<UIButton>().Select();
         }
 
         public void SelectLevel()
