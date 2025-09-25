@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DChild.Gameplay.SoulEquipment
+namespace DChild.Gameplay.EquipmentSystem
 {
     [CreateAssetMenu(fileName = "SoulEquipment", menuName = "DChild/Database/Soul Equipment Item")]
     public class SoulEquipmentItem : ItemData

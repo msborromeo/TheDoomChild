@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DChild.Gameplay.SoulEquipment.UI
+namespace DChild.Gameplay.EquipmentSystem.UI
 {
     public class AvailableSoulEquipmentUI : SoulSkillButton
     {

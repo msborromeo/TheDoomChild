@@ -1,5 +1,5 @@
 ﻿using DChild.Gameplay.Items;
-using DChild.Gameplay.SoulEquipment;
+using DChild.Gameplay.EquipmentSystem;
 using DChild.Gameplay.SoulSkills;
 using DChild.Gameplay.Systems;
 using DChild.Gameplay.Trade;

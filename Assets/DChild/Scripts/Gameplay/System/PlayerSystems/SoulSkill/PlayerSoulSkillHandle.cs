@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.Characters.Players;
 using DChild.Gameplay.Characters.Players.SoulSkills;
+using DChild.Gameplay.EquipmentSystem;
 using DChild.Serialization;
 using Holysoft.Collections;
 using Holysoft.Event;
@@ -11,7 +12,6 @@ using UnityEngine;
 
 namespace DChild.Gameplay.SoulSkills
 {
-
     public class PlayerSoulSkillHandle : SerializedMonoBehaviour, ISerializable<PlayerSoulSkillData>
     {
         [SerializeField]
@@ -111,6 +111,8 @@ namespace DChild.Gameplay.SoulSkills
                 return;
             }
 
+            //TODO: Add logic to equip soul skill regardless of cost if is equipment soul skill
+
             if (m_acquiredSkills.Contains(soulSkill.id))
             {
                 m_activatedSkillsID.Add(soulSkill.id);
@@ -129,6 +131,8 @@ namespace DChild.Gameplay.SoulSkills
                 soulSkill.DetachFrom(m_player);
                 m_currentSoulCapacity += soulSkill.capacity;
             }
+
+            //TODO: Add logic to not remove Soul Skill if it should be a permanent skill from equipment
         }
 
         public void AddMaxCapacity(int additionCapacity)
@@ -143,6 +147,16 @@ namespace DChild.Gameplay.SoulSkills
             m_maxSoulCapacity = maxCapacity;
             MaxCapacityChanged?.Invoke(this, EventActionArgs.Empty);
             m_currentSoulCapacity = Mathf.Min(m_currentSoulCapacity, m_maxSoulCapacity);
+        }
+
+        public void ActivateSoulEquipmentSoulSkills(SoulEquipment equipment)
+        {
+            //TODO: Equip Soul Skills in list of skills 
+        }
+
+        public void DeactivateSoulEquipmentSoulSkills(SoulEquipment equipment)
+        {
+
         }
 
         public void Initialize()
