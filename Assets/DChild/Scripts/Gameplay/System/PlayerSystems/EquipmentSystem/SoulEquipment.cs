@@ -14,14 +14,11 @@ namespace DChild.Gameplay.EquipmentSystem
         private string m_name;
         [SerializeField]
         private SoulSlot m_slot;
-
-        public SoulSlot Slot => m_slot;
-    }
-
-    public struct SoulEquipmentSkills
-    {
         [SerializeField]
         private List<SoulSkill> m_soulSkillList;
+
+        public SoulSlot Slot => m_slot;
+        public List<SoulSkill> soulSkillList => m_soulSkillList;
     }
 }
 

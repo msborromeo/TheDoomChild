@@ -1,4 +1,6 @@
 using DChild.Gameplay.Characters.Players;
+using DChild.Gameplay.Characters.Players.SoulSkills;
+using DChild.Gameplay.SoulSkills;
 using Holysoft.Collections;
 using Sirenix.OdinInspector;
 using System.Collections;
@@ -11,6 +13,9 @@ namespace DChild.Gameplay.EquipmentSystem
     {
         [SerializeField]
         private IPlayer m_player;
+
+        [SerializeField]
+        private PlayerSoulSkillHandle m_soulSkillHandle;
 
         [SerializeField]
         private Dictionary<SoulSlot, SoulEquipment> m_equippedSoulEquipment = new Dictionary<SoulSlot, SoulEquipment>();
@@ -48,16 +53,31 @@ namespace DChild.Gameplay.EquipmentSystem
                 return;
 
             m_equippedSoulEquipment.Add(soulEquipment.Slot, soulEquipment);
+            //Logic for setting soul skill as activated when equipped
+            foreach(SoulSkill soulSkill in soulEquipment.soulSkillList)
+            {
+                m_soulSkillHandle.AddAsActivated(soulSkill);
+            }
         }
 
         public void UnequipSoulEquipment(SoulEquipment soulEquipment)
         {
             m_equippedSoulEquipment.Remove(soulEquipment.Slot);
+            //Logic for setting soul skill as deactivated when unequipped
+            foreach (SoulSkill soulSkill in soulEquipment.soulSkillList)
+            {
+                m_soulSkillHandle.RemoveAsActivated(soulSkill);
+            }
         }
 
         public void AddAcquiredSoulEquipment(SoulEquipment soulEquipment)
         {
             m_acquiredSoulEquipment.Add(soulEquipment);
+            //Logic to set soul skills in acquired equipment as activated
+            foreach(SoulSkill soulSkill in soulEquipment.soulSkillList)
+            {
+                m_soulSkillHandle.AddAsAcquired(soulSkill.id);
+            }
         }
     }
 }

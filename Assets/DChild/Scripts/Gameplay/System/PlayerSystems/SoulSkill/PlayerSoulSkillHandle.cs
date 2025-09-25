@@ -111,28 +111,37 @@ namespace DChild.Gameplay.SoulSkills
                 return;
             }
 
-            //TODO: Add logic to equip soul skill regardless of cost if is equipment soul skill
-
             if (m_acquiredSkills.Contains(soulSkill.id))
             {
                 m_activatedSkillsID.Add(soulSkill.id);
                 m_activatedSkills.Add(soulSkill);
                 soulSkill.AttachTo(m_player);
-                m_currentSoulCapacity -= soulSkill.capacity;
+                //Equipment Skill check to only deduct soul capacity if skill is not equipment skill
+                if(soulSkill.isEquipmentSoulSkill == false)
+                    m_currentSoulCapacity -= soulSkill.capacity;
             }
         }
 
         public void RemoveAsActivated(SoulSkill soulSkill)
         {
+            //logic to prevent unequipping skill if fully learned equipment skill
+            if (soulSkill.isEquipmentSoulSkill)
+            {
+                if (soulSkill.isSkillFullyLearned)
+                {
+                    return;
+                }
+            }
+
             if (m_activatedSkillsID.Contains(soulSkill.id))
             {
                 m_activatedSkillsID.Remove(soulSkill.id);
                 m_activatedSkills.Remove(soulSkill);
                 soulSkill.DetachFrom(m_player);
-                m_currentSoulCapacity += soulSkill.capacity;
+                //Equipment Skill check to only add soul capacity if skill is not equipment skill
+                if (soulSkill.isEquipmentSoulSkill == false)
+                    m_currentSoulCapacity += soulSkill.capacity;
             }
-
-            //TODO: Add logic to not remove Soul Skill if it should be a permanent skill from equipment
         }
 
         public void AddMaxCapacity(int additionCapacity)
@@ -147,16 +156,6 @@ namespace DChild.Gameplay.SoulSkills
             m_maxSoulCapacity = maxCapacity;
             MaxCapacityChanged?.Invoke(this, EventActionArgs.Empty);
             m_currentSoulCapacity = Mathf.Min(m_currentSoulCapacity, m_maxSoulCapacity);
-        }
-
-        public void ActivateSoulEquipmentSoulSkills(SoulEquipment equipment)
-        {
-            //TODO: Equip Soul Skills in list of skills 
-        }
-
-        public void DeactivateSoulEquipmentSoulSkills(SoulEquipment equipment)
-        {
-
         }
 
         public void Initialize()

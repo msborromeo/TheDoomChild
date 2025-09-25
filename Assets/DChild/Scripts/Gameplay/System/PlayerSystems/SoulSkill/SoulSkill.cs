@@ -107,17 +107,14 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
         [SerializeField]
         private bool m_isEquipmentSoulSkill;
         [SerializeField]
-        private float m_learnPoints;
-        [SerializeField]
-        private float m_maxLearnPoints;
-        [SerializeField]
-        private float m_isSkillFullyLearned;
+        private bool m_isSkillFullyLearned;
 
         public SoulSkillOrbData orbData => m_orbData;
         public Sprite icon => m_icon;
         public int capacity => m_capacity;
         public string description => m_description;
         public bool isEquipmentSoulSkill => m_isEquipmentSoulSkill;
+        public bool isSkillFullyLearned => m_isSkillFullyLearned;
 
         public void AttachTo(IPlayer player)
         {
