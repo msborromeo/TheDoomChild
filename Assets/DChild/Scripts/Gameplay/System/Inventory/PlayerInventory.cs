@@ -104,7 +104,7 @@ namespace DChild.Gameplay.Inventories
             }
             else if(item.category == ItemCategory.SoulEquipment)
             {
-                var soulEquipmentEventArgs = new SoulEquipmentAcquiredEventArgs(((SoulEquipmentItem)item).soulEquipment);
+                var soulEquipmentEventArgs = new SoulEquipmentAcquiredEventArgs(((SoulEquipmentItem)item));
 
                 SoulEquipmentAcquired?.Invoke(this, soulEquipmentEventArgs);
             }

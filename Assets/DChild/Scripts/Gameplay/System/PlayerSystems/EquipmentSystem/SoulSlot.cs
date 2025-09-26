@@ -13,7 +13,8 @@ namespace DChild.Gameplay.EquipmentSystem
         Legs,
         Boots,
         Cape,
-        Amulet
+        Amulet,
+        _COUNT
     }
 }
 

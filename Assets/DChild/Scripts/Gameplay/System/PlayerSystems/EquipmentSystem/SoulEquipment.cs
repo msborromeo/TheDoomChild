@@ -15,9 +15,12 @@ namespace DChild.Gameplay.EquipmentSystem
         [SerializeField]
         private SoulSlot m_slot;
         [SerializeField]
+        private int m_expRequired = 200;
+        [SerializeField]
         private List<SoulSkill> m_soulSkillList;
 
         public SoulSlot Slot => m_slot;
+        public int ExpRequired => m_expRequired;
         public List<SoulSkill> soulSkillList => m_soulSkillList;
     }
 }

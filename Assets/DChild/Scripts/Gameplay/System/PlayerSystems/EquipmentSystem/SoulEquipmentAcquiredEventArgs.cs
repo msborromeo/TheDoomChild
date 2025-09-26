@@ -7,12 +7,12 @@ namespace DChild.Gameplay.EquipmentSystem
 {
     public struct SoulEquipmentAcquiredEventArgs : IEventActionArgs
     {
-        public SoulEquipmentAcquiredEventArgs(SoulEquipment item) : this()
+        public SoulEquipmentAcquiredEventArgs(SoulEquipmentItem item) : this()
         {
             this.Item = item;
         }
 
-        public SoulEquipment Item { get; }
+        public SoulEquipmentItem Item { get; }
     }
 }
 
