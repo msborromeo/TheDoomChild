@@ -87,7 +87,7 @@ namespace DChild.Gameplay.Environment.Obstacles
 
             do
             {
-                onBoulderSpawn?.Invoke();
+                
                 m_spawnedBoulder.transform.position = Vector3.Lerp(setupPosition, spawnPosition, lerpValue);
                 lerpValue += GameplaySystem.time.deltaTime;
                 yield return null;
@@ -95,7 +95,7 @@ namespace DChild.Gameplay.Environment.Obstacles
 
             if (m_dropOnSpawn)
             {
-               
+                onBoulderSpawn?.Invoke();
                 Release();
             }
         }
