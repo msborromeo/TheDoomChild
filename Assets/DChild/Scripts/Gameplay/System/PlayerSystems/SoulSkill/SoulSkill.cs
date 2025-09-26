@@ -104,17 +104,11 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
         protected string m_description;
         [NonSerialized, OdinSerialize, ToggleGroup("m_enableEdit")]
         protected ISoulSkillModule[] m_modules = new ISoulSkillModule[1];
-        [SerializeField]
-        private bool m_isEquipmentSoulSkill;
-        [SerializeField]
-        private bool m_isSkillFullyLearned;
 
         public SoulSkillOrbData orbData => m_orbData;
         public Sprite icon => m_icon;
         public int capacity => m_capacity;
         public string description => m_description;
-        public bool isEquipmentSoulSkill => m_isEquipmentSoulSkill;
-        public bool isSkillFullyLearned => m_isSkillFullyLearned;
 
         public void AttachTo(IPlayer player)
         {

@@ -1,8 +1,10 @@
 using DChild.Gameplay.Characters.Players;
 using DChild.Gameplay.Characters.Players.SoulSkills;
+using DChild.Gameplay.Inventories;
 using DChild.Gameplay.SoulSkills;
 using Holysoft.Collections;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +24,21 @@ namespace DChild.Gameplay.EquipmentSystem
 
         [SerializeField]
         private List<SoulEquipment> m_acquiredSoulEquipment = new List<SoulEquipment>();
+
+        private void OnEnable()
+        {
+            m_player.inventory.SoulEquipmentAcquired += OnSoulEquipmentAcquired;
+        }
+
+        private void OnDisable()
+        {
+            m_player.inventory.SoulEquipmentAcquired -= OnSoulEquipmentAcquired;
+        }
+
+        private void OnSoulEquipmentAcquired(object sender, SoulEquipmentAcquiredEventArgs eventArgs)
+        {
+            AddAcquiredSoulEquipmentItem(eventArgs.Item);
+        }
 
         public void LoadData(PlayerSoulEquipmentData data)
         {
@@ -57,7 +74,7 @@ namespace DChild.Gameplay.EquipmentSystem
             //Logic for setting soul skill as activated when equipped
             foreach(SoulSkill soulSkill in soulEquipment.soulSkillList)
             {
-                m_soulSkillHandle.AddAsActivated(soulSkill);
+                m_soulSkillHandle.AddAsActivated(soulSkill,false);
             }
         }
 
@@ -73,13 +90,14 @@ namespace DChild.Gameplay.EquipmentSystem
         }
 
         [Button]
-        public void AddAcquiredSoulEquipment(SoulEquipment soulEquipment)
+        public void AddAcquiredSoulEquipmentItem(SoulEquipment soulEquipment)
         {
             m_acquiredSoulEquipment.Add(soulEquipment);
             //Logic to set soul skills in acquired equipment as activated
             foreach(SoulSkill soulSkill in soulEquipment.soulSkillList)
             {
                 m_soulSkillHandle.AddAsAcquired(soulSkill.id);
+                m_soulSkillHandle.SetActivationRestriction(soulSkill.id, false);
             }
         }
     }

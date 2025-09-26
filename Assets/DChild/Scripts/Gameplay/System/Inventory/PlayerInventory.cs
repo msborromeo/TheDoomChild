@@ -23,7 +23,6 @@ namespace DChild.Gameplay.Inventories
         public event EventAction<CurrencyUpdateEventArgs> OnAmountAdded;
         public event EventAction<SoulSkillAcquiredEventArgs> SoulSkillItemAcquired;
         public event EventAction<SoulEquipmentAcquiredEventArgs> SoulEquipmentAcquired;
-        public event EventAction<SoulCharacterAcquiredEventArgs> SoulCharacterAcquired;
         public event EventAction<ItemEventArgs> InventoryItemUpdate
         {
             add
@@ -108,12 +107,6 @@ namespace DChild.Gameplay.Inventories
                 var soulEquipmentEventArgs = new SoulEquipmentAcquiredEventArgs(((SoulEquipmentItem)item).soulEquipment);
 
                 SoulEquipmentAcquired?.Invoke(this, soulEquipmentEventArgs);
-            }
-            else if(item.category == ItemCategory.SoulCharacter)
-            {
-                var soulCharacterEventArgs = new SoulCharacterAcquiredEventArgs(((SoulCharacterItem)item).soulCharacter);
-
-                SoulCharacterAcquired?.Invoke(this, soulCharacterEventArgs);
             }
             else
             {
