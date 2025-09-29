@@ -18,17 +18,18 @@ public class Morden_Actors_Setup : MonoBehaviour
         foreach (GameObject go in _list)
         {
             go.name = go.name.Replace(" Variant", "");
-            Actor x = te.CreateActor(te.GetNextActorID(_database),go.name,false);
-            _database.actors.Add(x);
+            GetName(go);
+            //Actor x = te.CreateActor(te.GetNextActorID(_database),GetName(go),false);
+            //_database.actors.Add(x);
         }
     }
 
     string GetName(GameObject x)
     {
         //string ActorName;
-        x.name = x.name.Replace(" Variant", "");
-        string z = ("NPC_Interactable_"+ x.name);
+        x.name = x.name.Replace("NPC_Interactable_", "");
+        //string z = ("NPC_Interactable_"+ x.name);
         //ActorName = z.Replace(" Variant","");
-        return z;
+        return x.name;
     }
 }

@@ -44,6 +44,26 @@ public class Morden_Recruit_NameChanger : MonoBehaviour
     }
 
     [Button]
+    void SetupActor()
+    {
+        foreach (GameObject pref in _list)
+        {
+            for (int x = 0; x < pref.transform.childCount; x++)
+            {
+                GameObject child = pref.transform.GetChild(x).gameObject;
+
+                GameObject childOfChild = child.transform.GetChild(0).gameObject;
+                DialogueActor c; 
+                childOfChild.TryGetComponent<DialogueActor>(out c);
+                if(c!=null)
+                {
+                    c.actor = pref.name;
+                }
+            }
+        }
+    }
+
+    [Button]
     void SetTransform()
     {
         
