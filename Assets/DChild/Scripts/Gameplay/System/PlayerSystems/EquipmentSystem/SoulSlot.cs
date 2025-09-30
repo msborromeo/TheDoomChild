@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DChild.Gameplay.SoulSkills
+namespace DChild.Gameplay.EquipmentSystem
 {
     public enum SoulSlot
     {
@@ -13,7 +13,8 @@ namespace DChild.Gameplay.SoulSkills
         Legs,
         Boots,
         Cape,
-        Amulet
+        Amulet,
+        _COUNT
     }
 }
 

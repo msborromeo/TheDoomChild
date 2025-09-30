@@ -1,5 +1,7 @@
 ﻿using DChild.Gameplay.Characters.Players;
 using DChild.Gameplay.Characters.Players.SoulSkills;
+using DChild.Gameplay.EquipmentSystem;
+using DChild.Gameplay.SoulSkills.UI;
 using DChild.Serialization;
 using Holysoft.Collections;
 using Holysoft.Event;
@@ -11,7 +13,6 @@ using UnityEngine;
 
 namespace DChild.Gameplay.SoulSkills
 {
-
     public class PlayerSoulSkillHandle : SerializedMonoBehaviour, ISerializable<PlayerSoulSkillData>
     {
         [SerializeField]
@@ -29,9 +30,11 @@ namespace DChild.Gameplay.SoulSkills
         private HashSet<int> m_activatedSkillsID;
         private HashSet<SoulSkill> m_activatedSkills;
 
+        private Dictionary<int, bool> m_canBeActivatedAsPermanent;
+
         public int maxSoulCapacity => m_maxSoulCapacity;
         public int currentSoulCapacity => m_currentSoulCapacity;
-        public IReadOnlyCollection<int> acquiredSkills => m_acquiredSkills;
+        public IReadOnlyCollection<int> acquiredSkills => m_acquiredSkills; 
         public IReadOnlyCollection<int> activatedSkills => m_activatedSkillsID;
 
         public event EventAction<EventActionArgs> SaveDataLoaded;
@@ -41,19 +44,23 @@ namespace DChild.Gameplay.SoulSkills
 
         public PlayerSoulSkillData SaveData()
         {
-            return new PlayerSoulSkillData(m_currentSoulCapacity, m_acquiredSkills.ToArray(), m_activatedSkillsID.ToArray());
+           var acquiredAsPermanent = m_canBeActivatedAsPermanent.Where(x => x.Value == true).Select(x => x.Key);
+            return new PlayerSoulSkillData(m_currentSoulCapacity, acquiredAsPermanent.ToArray(), m_activatedSkillsID.ToArray());
         }
 
         public void LoadData(PlayerSoulSkillData data)
         {
             m_acquiredSkills.Clear();
+            m_canBeActivatedAsPermanent.Clear();
             RemoveAllActiveSoulSkills();
 
             if (data != null)
             {
                 for (int i = 0; i < data.acquiredSoulSkills.Length; i++)
                 {
-                    m_acquiredSkills.Add(data.acquiredSoulSkills[i]);
+                    var skillId = data.acquiredSoulSkills[i];
+                    m_acquiredSkills.Add(skillId);
+                    m_canBeActivatedAsPermanent.Add(skillId, true);
                 }
 
                 for (int i = 0; i < data.activatedSoulSkills.Length; i++)
@@ -75,7 +82,24 @@ namespace DChild.Gameplay.SoulSkills
         public void AddAsAcquired(int soulSkillID)
         {
             m_acquiredSkills.Add(soulSkillID);
+
+            if (m_canBeActivatedAsPermanent.ContainsKey(soulSkillID) == false)
+            {
+                m_canBeActivatedAsPermanent.Add(soulSkillID, true);
+            }
+
             AvailableSoulSkillChanged?.Invoke(this, EventActionArgs.Empty);
+        }
+
+        public bool CanBeActivatedAsPermanent(int soulSkillID)
+        {
+            if(m_canBeActivatedAsPermanent.TryGetValue(soulSkillID, out var result)) { return result; }
+            return false;
+        }
+
+        public void SetActivationRestriction(int soulSkillID, bool canBeActivatedAsPermanent)
+        {
+            m_canBeActivatedAsPermanent[soulSkillID] = canBeActivatedAsPermanent;
         }
 
         public void RemoveAsAcquired(int soulSkillID)
@@ -104,7 +128,7 @@ namespace DChild.Gameplay.SoulSkills
             return m_acquiredSkills.Contains(soulSkill.id);
         }
 
-        public void AddAsActivated(SoulSkill soulSkill)
+        public void AddAsActivated(SoulSkill soulSkill, bool asPermanent = true)
         {
             if(HasActivatedSkill(soulSkill))
             {
@@ -116,17 +140,20 @@ namespace DChild.Gameplay.SoulSkills
                 m_activatedSkillsID.Add(soulSkill.id);
                 m_activatedSkills.Add(soulSkill);
                 soulSkill.AttachTo(m_player);
+                //Equipment Skill check to only deduct soul capacity if skill is not equipment skill
                 m_currentSoulCapacity -= soulSkill.capacity;
             }
         }
 
         public void RemoveAsActivated(SoulSkill soulSkill)
         {
+            //logic to prevent unequipping skill if fully learned equipment skill
             if (m_activatedSkillsID.Contains(soulSkill.id))
             {
                 m_activatedSkillsID.Remove(soulSkill.id);
                 m_activatedSkills.Remove(soulSkill);
                 soulSkill.DetachFrom(m_player);
+                //Need to add boolean check if soul skill was activated as temporary, if so do not add soul capacity
                 m_currentSoulCapacity += soulSkill.capacity;
             }
         }
@@ -153,6 +180,8 @@ namespace DChild.Gameplay.SoulSkills
             m_acquiredSkills = new HashSet<int>();
             m_activatedSkillsID = new HashSet<int>();
             m_activatedSkills = new HashSet<SoulSkill>();
+
+            m_canBeActivatedAsPermanent = new Dictionary<int, bool>();
 
             m_player.inventory.SoulSkillItemAcquired += OnSoulSkillItemAcquired;
         }
