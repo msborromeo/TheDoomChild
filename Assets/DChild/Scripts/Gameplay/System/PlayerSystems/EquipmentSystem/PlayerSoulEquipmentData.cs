@@ -32,7 +32,7 @@ namespace DChild.Gameplay.EquipmentSystem
             {
 
                 if(equippedEquipment.TryGetValue((SoulSlot)i, out SoulEquipmentItem value))
-                    {
+                {
                     m_equippedSoulEquipmentID[i] = value.id;
                 }
                 else

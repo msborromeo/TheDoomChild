@@ -16,5 +16,4 @@ namespace DChild.Gameplay.UI.CombatArts
             }
         }
     }
-
 }

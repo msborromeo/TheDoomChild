@@ -142,6 +142,16 @@ namespace DChild.Gameplay.EquipmentSystem
                 m_soulSkillHandle.SetActivationRestriction(soulSkill.id, false);
             }
         }
+
+        public List<LeveledEquipment> GetAcquiredSoulEquipment()
+        {
+            return m_acquiredSoulEquipment;
+        }
+
+        public SoulEquipmentList GetFullSoulEquipmentList()
+        {
+            return m_data;
+        }
     }
 }
 
