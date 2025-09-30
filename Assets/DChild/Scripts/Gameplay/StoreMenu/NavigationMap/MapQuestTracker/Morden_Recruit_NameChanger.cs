@@ -1,5 +1,6 @@
 using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,21 +10,22 @@ public class Morden_Recruit_NameChanger : MonoBehaviour
     public List<GameObject> _list;
     [SerializeField]
     private DialogueDatabase _database;
+    public List<GameObject> _Reference;
 
     [Button]
     void SetupForMorden()
     {
         foreach(GameObject pref in _list)
         {
-            pref.name = pref.name.Replace("Quest_Recruit_","NPC_Interactable_");
+            pref.name = (String)("NPC_Interactable_"+ pref.name.Replace(" Recruit", ""));
             for (int x = 0;x < pref.transform.childCount ;x++)
             {
                 GameObject child = pref.transform.GetChild(x).gameObject;
                 if(child.name.Contains("QuestEntry"))
                 {
-                    child.name = "Morden_NPC";
+                    child.name = "NPC";
                     GameObject childOfChild = child.transform.GetChild(0).gameObject;
-                    if (childOfChild.name.Contains("_Recruitable"))
+                    if (childOfChild.name.Contains("_Base"))
                     {
                         Debug.LogError("AAAA");
                         childOfChild.TryGetComponent<DialogueSystemTrigger>(out DialogueSystemTrigger trigger);
@@ -37,6 +39,82 @@ public class Morden_Recruit_NameChanger : MonoBehaviour
                     }
                 }
                     
+            }
+        }
+    }
+
+    [Button]
+    void SetupActor()
+    {
+        foreach (GameObject pref in _list)
+        {
+            for (int x = 0; x < pref.transform.childCount; x++)
+            {
+                GameObject child = pref.transform.GetChild(x).gameObject;
+
+                GameObject childOfChild = child.transform.GetChild(0).gameObject;
+                DialogueActor c; 
+                childOfChild.TryGetComponent<DialogueActor>(out c);
+                if(c!=null)
+                {
+                    c.actor = pref.name;
+                }
+            }
+        }
+    }
+
+    [Button]
+    void SetTransform()
+    {
+        
+        foreach(GameObject pref in _list)
+        {
+            foreach(GameObject reference in _Reference)
+            {
+                if(pref.name.Contains(reference.name))
+                {
+                    pref.transform.position = reference.transform.position;
+                    break;
+                }
+                else
+                {
+                    pref.transform.position = Vector3.zero;
+                }    
+            }
+        }
+    }
+
+    [Button]
+    void AddToExtraDatabase()
+    {
+        foreach(GameObject pref in _list)
+        {
+
+            //dialogueDatabase.Add(_database);
+        }
+    }
+    [Button]
+    void RemoveExtraThings()
+    {
+        foreach(GameObject pref in _list)
+        {
+            for (int x = 0; x < pref.transform.childCount; x++)
+            {
+                GameObject child = pref.transform.GetChild(x).gameObject;
+                for(int y = 0; y < child.transform.childCount; y++)
+                {
+                    GameObject childofchild = child.transform.GetChild(y).gameObject;
+                    for(int z = 0; z < childofchild.transform.childCount; z++)
+                    {
+                        GameObject ccc = childofchild.transform.GetChild(z).gameObject;
+                        if (ccc.TryGetComponent<DialogueSystemTrigger>(out var dialogue))
+                        {
+                            //DestroyImmediate(ccc);
+                            ccc.SetActive(false);
+                        }
+                    }
+                    
+                }
             }
         }
     }
