@@ -269,7 +269,6 @@ GameObject:
   m_Component:
   - component: {fileID: 210940540560734904}
   - component: {fileID: 3545605371165710675}
-  - component: {fileID: 8701709227031260703}
   m_Layer: 13
   m_Name: Behaviours
   m_TagString: Untagged
@@ -292,6 +291,7 @@ Transform:
   - {fileID: 210940540211868358}
   - {fileID: 210940540920976548}
   - {fileID: 314651647577685173}
+  - {fileID: 1816964683112300424}
   m_Father: {fileID: 210940540927979971}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -308,26 +308,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_source: {fileID: 210940540927979965}
---- !u!114 &8701709227031260703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 210940540560734919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5830f2bbb3b8ac149905b0850dbf3c4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_source: {fileID: 210940540927979974}
-  m_animator: {fileID: 210940540927979961}
-  m_animation: Death
-  m_bodyDuration:
-    m_startTime: 1
-  m_fx:
-  - {fileID: 1688609477164154734}
-  m_destroySource: 0
 --- !u!1 &210940540639797220
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,7 +707,7 @@ MonoBehaviour:
   m_flinchHandler: {fileID: 4443531820580436123}
   m_flinchHandler_2: {fileID: 3376864940543672296}
   m_hitbox: {fileID: 1185737821531119720}
-  m_deathHandle: {fileID: 0}
+  m_deathHandle: {fileID: 7334715526595750242}
   m_hitboxCollider: {fileID: 2315645851168398289}
   m_offSetAbovePlayer: 5
   m_dropSpeed: 50
@@ -763,17 +743,26 @@ MonoBehaviour:
   - {fileID: 2620407045219562885}
   - {fileID: 454571773612338782}
   - {fileID: 8132734968574292838}
-  m_flightSpeed: 20
-  m_flightSpeedReturn: 30
-  m_levelOne: 10000
-  m_levelTwo: 7575
-  m_levelThree: 5150
-  m_levelFour: 2725
-  m_levelFive: 300
-  m_damageOnDeath:
-    m_type: 0
-    m_value: 2475
-  m_returnTimeOfAdran: 4
+  m_flightSpeed: 15
+  m_flightSpeedReturn: 20
+  m_levelOne: 10130
+  m_levelTwo: 7630
+  m_levelThree: 5130
+  m_levelFour: 2630
+  m_levelFive: 130
+  m_damageOnDeathLevel1:
+    m_type: 1
+    m_value: 2500
+  m_damageOnDeathLevel2:
+    m_type: 1
+    m_value: 1250
+  m_damageOnDeathLevel3:
+    m_type: 1
+    m_value: 834
+  m_damageOnDeathLevel4:
+    m_type: 1
+    m_value: 1250
+  m_returnTimeOfAdran: 10
 --- !u!114 &210940540927979965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1088,6 +1077,58 @@ MonoBehaviour:
     m_rayColor: {r: 0, g: 1, b: 0, a: 1}
   m_enable: 1
   m_debugMode: 1
+--- !u!1 &3187543542295350727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1816964683112300424}
+  - component: {fileID: 7334715526595750242}
+  m_Layer: 13
+  m_Name: DeathHandel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1816964683112300424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187543542295350727}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 210940540560734904}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7334715526595750242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187543542295350727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5830f2bbb3b8ac149905b0850dbf3c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_source: {fileID: 210940540927979974}
+  m_animator: {fileID: 210940540927979961}
+  m_animation: Death
+  m_bodyDuration:
+    m_startTime: 1
+  m_fx:
+  - {fileID: 1688609477164154734}
+  m_destroySource: 0
 --- !u!1 &3762336181057995060
 GameObject:
   m_ObjectHideFlags: 0

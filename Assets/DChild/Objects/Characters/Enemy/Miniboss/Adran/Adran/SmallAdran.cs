@@ -1,4 +1,4 @@
-using DChild;
+﻿using DChild;
 using DChild.Gameplay;
 using DChild.Gameplay.Characters;
 using DChild.Gameplay.Characters.AI;
@@ -41,11 +41,15 @@ public class SmallAdran : MonoBehaviour
     private string m_deathFX;
     public event EventAction<EventActionArgs> GotDamagedByPlayer;
     public event EventAction<EventActionArgs> SmallAdranGotDestroyed;
+    public event EventAction<EventActionArgs> SmallAdranReachedZone;
     public bool isReturningToSummonSpot;
+    public bool m_stopHomingMissile;
+    public bool m_reachedAreaToActivate;
 
-    
     private void Start()
     {
+        m_reachedAreaToActivate = false;
+        m_stopHomingMissile = false;
         m_spineListener.Subscribe(m_deathFX, DeathVFX);
         m_Damageable.DamageTaken += Damageable_DamageTaken;
         m_Damageable.Destroyed += ObjectOnDestroyed;
@@ -67,6 +71,7 @@ public class SmallAdran : MonoBehaviour
     {
         Debug.Log("Adran is Destroyed");
         gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+        m_stopHomingMissile = true;
         //m_deathVfx.Play();
 
         SmallAdranGotDestroyed?.Invoke(this, EventActionArgs.Empty);
@@ -83,10 +88,11 @@ public class SmallAdran : MonoBehaviour
     {
         m_animatedTurnHandle.Execute(m_turnAnimation, m_idle);
     }
+
+   
     private bool hasTurned;
     private void Update()
     {
-
         Vector2 playerPos = GameplaySystem.playerManager.player.character.transform.position;
         if (isReturningToSummonSpot == false)
         {
@@ -96,6 +102,10 @@ public class SmallAdran : MonoBehaviour
         {
             FacingStartingPointUpdate(startingPosition);
         }
+      
+     
+
+       
     }
     public void ColliderController(bool condition)
     {
@@ -142,6 +152,16 @@ public class SmallAdran : MonoBehaviour
         else
         {
             return m_character.facing == HorizontalDirection.Left;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.name == "BoxKoNiYaHa")
+        {
+            SmallAdranReachedZone?.Invoke(this, EventActionArgs.Empty);
+            Debug.Log("Reached ZOne");
+            m_reachedAreaToActivate = true;
         }
     }
 

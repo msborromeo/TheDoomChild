@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d65502d98619e438c6388e3da86e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 75
+  m_maxHealth: 20
 --- !u!1 &2907897547607461434
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
   _animationName: Walk_Stationary
-  loop: 0
+  loop: 1
   timeScale: 1
   m_alwaysUpdateMesh: 1
 --- !u!114 &782547405619976251
@@ -299,6 +299,8 @@ MonoBehaviour:
   m_spineListener: {fileID: 2759721004292814878}
   m_deathFX: Explode_FX
   isReturningToSummonSpot: 0
+  m_stopHomingMissile: 0
+  m_reachedAreaToActivate: 0
 --- !u!114 &3036939116371861433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -767,6 +769,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3349457238760106539}
+  - component: {fileID: 6100776415084523343}
   m_Layer: 13
   m_Name: BodyCollider
   m_TagString: Untagged
@@ -789,6 +792,22 @@ Transform:
   m_Father: {fileID: 6196365676483998750}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &6100776415084523343
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8118757366212163195}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
 --- !u!1001 &3890849647814380864
 PrefabInstance:
   m_ObjectHideFlags: 0
