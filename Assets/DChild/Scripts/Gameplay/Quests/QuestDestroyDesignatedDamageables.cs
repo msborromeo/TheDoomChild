@@ -2,6 +2,7 @@
 using DChild.Gameplay.Combat;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
+using UnityEngine.Events;
 
 namespace DChild.Gameplay.Quests
 {
@@ -9,6 +10,8 @@ namespace DChild.Gameplay.Quests
     {
         [SerializeField]
         private Damageable[] m_toDestroy;
+        public UnityEvent onAllDamageableKilled;
+
 
         private int m_aliveCount;
         private void OnObjectDestroyed(object sender, EventActionArgs eventArgs)
@@ -16,7 +19,9 @@ namespace DChild.Gameplay.Quests
             m_aliveCount--;
             if (m_aliveCount <= 0)
             {
+                
                 ExecuteLuaScript();
+                onAllDamageableKilled?.Invoke();
             }
         }
 
