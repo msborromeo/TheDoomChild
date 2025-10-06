@@ -12,6 +12,8 @@ public class Morden_Recruit_NameChanger : MonoBehaviour
     private DialogueDatabase _database;
     public List<GameObject> _Reference;
 
+    public Transform Holder;
+
     [Button]
     void SetupForMorden()
     {
@@ -58,6 +60,11 @@ public class Morden_Recruit_NameChanger : MonoBehaviour
                 if(c!=null)
                 {
                     c.actor = pref.name;
+                }else
+                {
+                    string namez = pref.name.Replace("NPC_Interactable_", "");
+                    namez = namez.Replace(" Variant","");
+                    childOfChild.AddComponent<DialogueActor>().actor = namez;
                 }
             }
         }
@@ -93,6 +100,19 @@ public class Morden_Recruit_NameChanger : MonoBehaviour
             //dialogueDatabase.Add(_database);
         }
     }
+    [Button]
+    void Getmissing()
+    {
+        foreach (GameObject pref in _list)
+        {
+            QuestStateListener listener;
+            if(!pref.TryGetComponent<QuestStateListener>(out listener))
+            {
+                pref.transform.SetParent(Holder);
+            }
+        }
+    }
+
     [Button]
     void RemoveExtraThings()
     {
