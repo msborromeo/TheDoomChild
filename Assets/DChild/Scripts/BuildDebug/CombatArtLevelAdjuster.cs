@@ -27,6 +27,5 @@ namespace DChildDebug.Window
         {
             m_level.exp.ValueChanged += OnValueChange;
         }
-
     }
 }
