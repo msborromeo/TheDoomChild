@@ -30,7 +30,8 @@ namespace DChild.Gameplay.Systems
         {
             if (m_isPlaying == false)
             {
-                if(clip == null) {
+                if (clip == null)
+                {
                     Debug.LogWarning("There was an attempt to play a null video cinematic");
 
                     return;
@@ -41,6 +42,7 @@ namespace DChild.Gameplay.Systems
                 this.OnVideoDone = OnVideoDone;
 
                 m_videoPlayingRoutine = StartCoroutine(VideoPlayingRoutine());
+                SequenceSkipHandle.SkipExecute += SequenceSkipHandle_SkipExecute;
             }
             else
             {
@@ -48,39 +50,41 @@ namespace DChild.Gameplay.Systems
             }
         }
 
-	public void ForceStopCinematicVideo()
-	{
-	    StopAllCoroutines();
+        public void ForceStopCinematicVideo()
+        {
+            StopAllCoroutines();
             m_videoPlayer.Stop();
             m_videoCinemaEndSignal?.SendSignal();
             GameplaySystem.playerManager.StopCharacterControlOverride();
-            GameplaySystem.gamplayUIHandle.ToggleFadeUI(false);    
+            GameplaySystem.gamplayUIHandle.ToggleFadeUI(false);
             m_isPlaying = false;
             m_videoPlayingRoutine = null;
-	}
+        }
 
         public void Initialize()
         {
             m_videoPlayer.loopPointReached += OnVideoClipDone;
-            SequenceSkipHandle.SkipExecute += SequenceSkipHandle_SkipExecute;
+
         }
 
         private void SequenceSkipHandle_SkipExecute()
         {
             m_videoClipPlaying = false;
-            OnVideoDone?.Invoke();            
+            OnVideoDone?.Invoke();
+            SequenceSkipHandle.SkipExecute -= SequenceSkipHandle_SkipExecute;
         }
 
         private void OnVideoClipDone(VideoPlayer source)
         {
             m_videoClipPlaying = false;
             OnVideoDone?.Invoke();
+            SequenceSkipHandle.SkipExecute -= SequenceSkipHandle_SkipExecute;
         }
 
         private IEnumerator VideoPlayingRoutine()
         {
             var waitForFade = new WaitForSeconds(m_fadeBufferTime);
-            GameplaySystem.playerManager.OverrideCharacterControls();           
+            GameplaySystem.playerManager.OverrideCharacterControls();
             m_isPlaying = true;
             GameplaySystem.gamplayUIHandle.ToggleFadeUI(true);
             yield return waitForFade;
@@ -100,7 +104,7 @@ namespace DChild.Gameplay.Systems
             OnVideoDone?.Invoke();
             yield return waitForFade;
             GameplaySystem.playerManager.StopCharacterControlOverride();
-            GameplaySystem.gamplayUIHandle.ToggleFadeUI(false);    
+            GameplaySystem.gamplayUIHandle.ToggleFadeUI(false);
             m_isPlaying = false;
             m_videoPlayingRoutine = null;
         }
