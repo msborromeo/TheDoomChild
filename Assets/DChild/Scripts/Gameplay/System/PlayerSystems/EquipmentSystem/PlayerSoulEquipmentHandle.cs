@@ -1,5 +1,7 @@
+using DChild.Gameplay.Characters.Player.CombatArt.Leveling;
 using DChild.Gameplay.Characters.Players;
 using DChild.Gameplay.Characters.Players.SoulSkills;
+using DChild.Gameplay.Combat;
 using DChild.Gameplay.Inventories;
 using DChild.Gameplay.SoulSkills;
 using Holysoft.Collections;
@@ -29,6 +31,11 @@ namespace DChild.Gameplay.EquipmentSystem
 
             public SoulEquipmentItem item => m_item;
             public int exp => m_exp;
+
+            public void GainEXP(int exp)
+            {
+                m_exp += exp;
+            }
         }
 
         [SerializeField]
@@ -41,6 +48,9 @@ namespace DChild.Gameplay.EquipmentSystem
         private PlayerSoulSkillHandle m_soulSkillHandle;
 
         [SerializeField]
+        private Attacker m_attacker;
+
+        [SerializeField]
         private Dictionary<SoulSlot, SoulEquipmentItem> m_equippedSoulSlotEquipmentPair = new Dictionary<SoulSlot, SoulEquipmentItem>();
 
         [SerializeField]
@@ -51,16 +61,44 @@ namespace DChild.Gameplay.EquipmentSystem
         private void OnEnable()
         {
             m_player.inventory.SoulEquipmentAcquired += OnSoulEquipmentAcquired;
+            m_player.attackModule.TargetDamaged += OnTargetDamaged;
         }
 
         private void OnDisable()
         {
             m_player.inventory.SoulEquipmentAcquired -= OnSoulEquipmentAcquired;
+            m_player.attackModule.TargetDamaged -= OnTargetDamaged;
         }
 
         private void OnSoulEquipmentAcquired(object sender, SoulEquipmentAcquiredEventArgs eventArgs)
         {
             AddAcquiredSoulEquipmentItem(eventArgs.Item);
+        }
+
+
+        private void OnTargetDamaged(object sender, CombatConclusionEventArgs eventArgs)
+        {
+            if (eventArgs.target.instance.isAlive)
+                return;
+
+            if (m_eqiuppedItems.Count <= 0)
+                return;
+
+            var expPoints = eventArgs.target.instance.transform.GetComponent<CombatArtExperienceDropper>().Data.exp;
+
+            for(int i = 0; i < m_eqiuppedItems.Count; i++)
+            {
+                if (m_acquiredSoulEquipment.Contains(m_eqiuppedItems[i]))
+                {
+                    for(int j = 0; j < m_acquiredSoulEquipment.Count; j++)
+                    {
+                        if (m_acquiredSoulEquipment[j] == m_eqiuppedItems[i])
+                        {
+                            m_acquiredSoulEquipment[j].GainEXP(expPoints);
+                        }
+                    }
+                }
+            }
         }
 
         public void LoadData(PlayerSoulEquipmentData data)
@@ -105,10 +143,21 @@ namespace DChild.Gameplay.EquipmentSystem
         public void EquipSoulEquipment(SoulEquipmentItem soulEquipment)
         {
             var equipment = soulEquipment.soulEquipment;
+
             if (m_equippedSoulSlotEquipmentPair.ContainsKey(equipment.Slot))
                 return;
 
             m_equippedSoulSlotEquipmentPair.Add(equipment.Slot, soulEquipment);
+
+            //find item to equip in acquired items
+            for(int i = 0; i < m_acquiredSoulEquipment.Count; i++)
+            {
+                if (m_acquiredSoulEquipment[i].item == soulEquipment)
+                {
+                    m_eqiuppedItems.Add(m_acquiredSoulEquipment[i]);
+                }
+            }
+
             //Logic for setting soul skill as activated when equipped
             foreach(SoulSkill soulSkill in equipment.soulSkillList)
             {

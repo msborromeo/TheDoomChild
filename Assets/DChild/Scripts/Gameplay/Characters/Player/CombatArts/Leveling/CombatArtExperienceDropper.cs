@@ -11,6 +11,8 @@ namespace DChild.Gameplay.Characters.Player.CombatArt.Leveling
 
         private Damageable m_damageable;
 
+        public CombatArtExperienceDropData Data => m_data;
+
         public void GiveEXP()
         {
             GameplaySystem.playerManager.player.combatArts.level.exp.AddCurrentValue(m_data.exp);
