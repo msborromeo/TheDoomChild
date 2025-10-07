@@ -15,7 +15,7 @@ public class EquipmentItemUI : MonoBehaviour
     private Image m_itemIcon;
 
     [Button]
-    private void Display(SoulEquipmentItem item)
+    private void Display(/*SoulEquipmentItem item*/)
     {
         if (m_item == null)
             return;
