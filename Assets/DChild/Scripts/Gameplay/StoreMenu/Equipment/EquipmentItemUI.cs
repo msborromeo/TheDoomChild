@@ -6,20 +6,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EquipmentItemUI : MonoBehaviour
+namespace DChild.Menu.Equipment.UI
 {
-    [SerializeField]
-    private SoulEquipmentItem m_item;
-
-    [SerializeField]
-    private Image m_itemIcon;
-
-    [Button]
-    private void Display(/*SoulEquipmentItem item*/)
+    public class EquipmentItemUI : MonoBehaviour
     {
-        if (m_item == null)
-            return;
+        [SerializeField]
+        private Image m_itemIcon;
 
-        m_itemIcon.sprite = m_item.icon;
+        [Button]
+        public void Display(SoulEquipmentItem item)
+        {
+            gameObject.SetActive(item != null);
+            if (item == null)
+                return;
+
+            m_itemIcon.sprite = item.icon;
+        }
     }
 }
