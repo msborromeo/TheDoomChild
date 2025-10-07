@@ -21,6 +21,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         [SerializeField]
         private ParticleSystem m_shadowMorphFX;
+        [SerializeField]
+        private ParticleSystem m_shadowMorphStartFx;
+        [SerializeField]
+        private ParticleSystem m_shadowMorphLoopFx;
+        [SerializeField]
+        private ParticleSystem m_shadowMorphEndFx;
         //HACK
         //[SerializeField, SpineSkin(dataField = "m_skeletonData")]
         //private string m_originalSkinName;
@@ -34,9 +40,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         //private MaterialReplacementExample m_materialReplacement;
         [SerializeField, BoxGroup("VISUAL FLARE")]
         public SkeletonRendererCustomMaterials matChanger;
-        public ParticleSystem shadowMorphStartFx;
-        public ParticleSystem shadowMorphLoopFx;
-        public ParticleSystem shadowMorphEndFx;
+
 
 
 
@@ -81,7 +85,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.isInShadowMode = true;
             m_state.waitForBehaviour = false;
             matChanger.enabled = true;
-            shadowMorphLoopFx.Play();
+            m_shadowMorphLoopFx.Stop(true);
+            m_shadowMorphEndFx.Play();
             //m_materialReplacement.replacementEnabled = false;
             GameplaySystem.world.SetShadowColliders(true);
             //End?.Invoke(this, EventActionArgs.Empty);
@@ -91,8 +96,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             Debug.Log("Shadow Morph");
             m_animator.Play(SHADOW_MORPH_ANIMATION_STATE);
-            m_shadowMorphFX.Play();
-            shadowMorphStartFx.Play();
+            //m_shadowMorphFX.Play();
+            m_shadowMorphStartFx.Play();
             //m_materialReplacement.replacementEnabled = true;
             //matChanger.enabled = true;
             m_damageable.SetInvulnerability(Invulnerability.Level_2);
@@ -122,9 +127,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.isInShadowMode = false;
             m_animator.SetBool(m_animationParameter, false);
             m_stackedConsumptionRate = 0;
-            m_shadowMorphFX.Stop(true);
-            shadowMorphLoopFx.Stop(true);
-            shadowMorphEndFx.Play();
+            m_shadowMorphLoopFx.Stop(true);
+            //m_shadowMorphFX.Stop(true);
             //m_materialReplacement.replacementEnabled = false;
             m_skeletonGhost.enabled = false;
             matChanger.enabled = false;
