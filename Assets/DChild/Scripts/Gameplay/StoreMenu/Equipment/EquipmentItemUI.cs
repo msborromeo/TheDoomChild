@@ -13,7 +13,6 @@ namespace DChild.Menu.Equipment.UI
         [SerializeField]
         private Image m_itemIcon;
 
-        [Button]
         public void Display(SoulEquipmentItem item)
         {
             gameObject.SetActive(item != null);

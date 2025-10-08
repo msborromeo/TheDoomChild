@@ -1,8 +1,13 @@
 ﻿using DChild.Gameplay.EquipmentSystem;
+using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace DChild.Menu.Equipment.UI
 {
@@ -11,18 +16,22 @@ namespace DChild.Menu.Equipment.UI
 
         [SerializeField] private List<SoulEquipmentItem> m_sampleData;
         [SerializeField] private List<EquipmentItemUI> m_itemGrid;
+        [SerializeField] private TextMeshProUGUI m_noItemsLabel;
 
         private SoulSlot m_slotFilter;
-
         public void SetFilter(SoulSlot value) => m_slotFilter = value;
+        
         public void SetupUI() => m_slotFilter = SoulSlot.Head;
 
 
         [Button]
-        public void DisplayItems(SoulSlot filter)
+        public void DisplayItems()
         {
-            m_slotFilter = filter;
             var filteredItems = m_sampleData.Where(item => item.soulEquipment.Slot == m_slotFilter).ToList();
+            var hasItems = filteredItems != null && filteredItems.Count > 0;
+
+            m_noItemsLabel.gameObject.SetActive(!hasItems);
+
             int i = 0;
             for (; i < filteredItems.Count; i++)
             {
@@ -35,5 +44,6 @@ namespace DChild.Menu.Equipment.UI
                 m_itemGrid[i].Display(null);
             }
         }
+  
     }
 }
