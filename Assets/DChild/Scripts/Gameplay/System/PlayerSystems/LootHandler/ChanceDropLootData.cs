@@ -3,12 +3,15 @@ using DChild.Gameplay.Essence;
 using DChild.Gameplay.Items;
 using DChild.Gameplay.Systems;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities.Editor;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using static DChild.Gameplay.Systems.LootDropData;
+#if UNITY_EDITOR
+using Sirenix.Utilities.Editor;
+#endif
 
 namespace DChild.Gameplay.Systems { 
     public class ChanceDropLootData : ILootDataContainer
