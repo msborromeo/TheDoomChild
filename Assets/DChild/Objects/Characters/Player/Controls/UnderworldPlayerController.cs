@@ -1367,11 +1367,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnGrabCancelledInput()
         {
+            m_isGrabbing = false;
+            m_objectManipulation?.Cancel();
+
             if (m_state.isGrabbing == false)
                 return;
-            m_isGrabbing = false;
+
             m_movement?.SwitchConfigTo(Movement.Type.Jog);
-            m_objectManipulation?.Cancel();
         }
 
         private void OnGrabStartedInput()
@@ -1925,15 +1927,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void GrabMoveAction()
         {
+            if (m_isGrabbing == false)
+                return;
+
             if (m_objectManipulation.IsThereAMovableObject())
             {
                 if (m_vector2Input.x == 0)
                 {
-                    if (m_objectManipulation.IsThereAMovableObject())
-                    {
-                        m_objectManipulation?.GrabIdle();
-                        return;
-                    }
+                    m_objectManipulation?.GrabIdle();
+                    return;
                 }
 
                 if (m_vector2Input.x != 0)
@@ -1947,6 +1949,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         m_movement?.SwitchConfigTo(Movement.Type.Pull);
                     }
 
+                    m_idle.Cancel();
                     m_objectManipulation?.MoveObject(m_vector2Input.x, m_character.facing);
                 }
             }
