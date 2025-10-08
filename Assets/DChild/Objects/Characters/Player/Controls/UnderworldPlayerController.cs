@@ -1380,8 +1380,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if(m_state.isCrouched || m_state.isLevitating)
                 return;
-            if (m_vector2Input.x == 0)
-                return;
+
             m_idle?.Cancel();
             m_objectManipulation?.Execute();
             m_isGrabbing = true;
@@ -1933,6 +1932,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     if (m_objectManipulation.IsThereAMovableObject())
                     {
                         m_objectManipulation?.GrabIdle();
+                        return;
                     }
                 }
 
