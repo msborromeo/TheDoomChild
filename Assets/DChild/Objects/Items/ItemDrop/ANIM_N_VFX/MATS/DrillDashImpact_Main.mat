@@ -7,18 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SPECTERSPINE_TornadoSwirl_VFX
+  m_Name: DrillDashImpact_Main
   m_Shader: {fileID: 4800000, guid: b430983578466934c944e7171b4c372c, type: 3}
   m_ValidKeywords:
   - ADDITIVECONFIG_ON
-  - ALPHASMOOTHSTEP_ON
   - COLORRAMP_ON
   - FADE_ON
-  - HSV_ON
-  - MASK_ON
   - PREMULTIPLYCOLOR_ON
-  - SHAPE2ROTATE_ON
-  - SHAPE2_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -30,13 +25,12 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _ColorRampTex:
-        m_Texture: {fileID: -8335998379438682004, guid: 22d61c3350e32a84682955cb4228044e,
+        m_Texture: {fileID: 3297981710789386120, guid: 65fd003225f71b14ca03484719ced783,
           type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorRampTexGradient:
-        m_Texture: {fileID: 6881847011633178661, guid: 8dfc370697956c04582c6cc6ddd0aab1,
-          type: 2}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistNormalMap:
@@ -45,14 +39,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _DistortTex:
         m_Texture: {fileID: 2800000, guid: fcb027caad6963b4a80539bbce0d10e9, type: 3}
-        m_Scale: {x: 5, y: 5}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeBurnTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeTex:
-        m_Texture: {fileID: 2800000, guid: a50b555b303199b46b7529c56c1e77f5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 596805a25b337ce4797911d55518e143, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GlowTex:
@@ -60,7 +54,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e3763a0fd85c67f4f9f31b55f886d31d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 63a326476ef71ac4d810fd5cb21036c3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -76,7 +70,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Shape2Tex:
-        m_Texture: {fileID: 2800000, guid: 53cb5d9a7a2eae44eb1ff3b53c1e10d2, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Shape3DistortTex:
@@ -104,24 +98,24 @@ Material:
     - _Alpha: 1
     - _AlphaCutoffValue: 0.25
     - _AlphaFadeAmount: -0.1
-    - _AlphaFadePow: 0.2
-    - _AlphaFadeSmooth: 0.174
-    - _AlphaStepMax: 1
-    - _AlphaStepMin: 0.198
+    - _AlphaFadePow: 1
+    - _AlphaFadeSmooth: 0.075
+    - _AlphaStepMax: 0.075
+    - _AlphaStepMin: 0
     - _CamDistFadeStepMax: 100
     - _CamDistFadeStepMin: 0
     - _CamDistProximityFade: 0
     - _ColorGradingMidPoint: 0.5
     - _ColorMask: 15
     - _ColorRampBlend: 1
-    - _ColorRampLuminosity: 0
+    - _ColorRampLuminosity: -0.47
     - _CullingOption: 0
     - _DebugShape: 1
     - _DepthGlow: 1
     - _DepthGlowDist: 0.5
     - _DepthGlowGlobal: 1
     - _DepthGlowPow: 1
-    - _DistortAmount: 2.55
+    - _DistortAmount: 0.5
     - _DistortTexXSpeed: 5
     - _DistortTexYSpeed: 5
     - _DistortionBlend: 1
@@ -133,19 +127,19 @@ Material:
     - _FadeAmount: -0.1
     - _FadeBurnGlow: 5
     - _FadeBurnWidth: 0.01
-    - _FadePower: 0.4
+    - _FadePower: 0.3
     - _FadeScrollXSpeed: 0
-    - _FadeScrollYSpeed: -0.35
-    - _FadeTransition: 0.75
+    - _FadeScrollYSpeed: 0
+    - _FadeTransition: 0.075
     - _Glow: 0
     - _GlowGlobal: 1
     - _HandDrawnAmount: 10
     - _HandDrawnSpeed: 5
-    - _HsvBright: 0.76
-    - _HsvSaturation: 2
-    - _HsvShift: 0
+    - _HsvBright: 1
+    - _HsvSaturation: 1
+    - _HsvShift: 180
     - _LightAmount: 0
-    - _MaskPow: 1.1
+    - _MaskPow: 1
     - _OffsetSh1: 1
     - _OffsetSh2: 1
     - _OffsetSh3: 1
@@ -183,7 +177,7 @@ Material:
     - _Shape2DistortAmount: 0.5
     - _Shape2DistortXSpeed: 0.1
     - _Shape2DistortYSpeed: 0.1
-    - _Shape2RotationOffset: 5.98
+    - _Shape2RotationOffset: 0
     - _Shape2RotationSpeed: 0
     - _Shape2XSpeed: 0
     - _Shape2YSpeed: 0
@@ -207,8 +201,8 @@ Material:
     - _ShapeDistortYSpeed: 0.1
     - _ShapeRotationOffset: 0
     - _ShapeRotationSpeed: 0
-    - _ShapeXSpeed: 0.1
-    - _ShapeYSpeed: -2
+    - _ShapeXSpeed: 0
+    - _ShapeYSpeed: 0
     - _SoftFactor: 0.5
     - _SrcMode: 1
     - _TextureScrollXSpeed: 1
