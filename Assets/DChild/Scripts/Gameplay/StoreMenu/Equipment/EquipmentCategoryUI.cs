@@ -1,18 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EquipmentCategoryUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private Image m_tabIcon;
 
-    // Update is called once per frame
-    void Update()
+    private void UpdateItemGrid()
     {
-        
+
     }
 }
