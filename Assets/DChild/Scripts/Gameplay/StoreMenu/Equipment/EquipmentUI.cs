@@ -1,3 +1,4 @@
+using DChild.Gameplay.EquipmentSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,7 +9,11 @@ namespace DChild.Menu.Equipment.UI
 {
     public class EquipmentUI : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI m_activeItem;
-        [SerializeField] private List<Image> m_partsList;
+        [SerializeField] private EquipmentSelectionUI m_selectionUI;
+
+        public void Initialize()
+        {
+            m_selectionUI.SetupUI();
+        }
     }
 }
