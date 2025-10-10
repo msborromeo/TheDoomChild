@@ -115,7 +115,8 @@ namespace DChild.Gameplay.Systems
 
             try
             {
-                MasterAudio.UnpauseEverything();
+                m_volumeMixerManager.UseSnapshot(AudioSnapshot.Gameplay);
+                //MasterAudio.UnpauseEverything();
             }
             catch (Exception e)
             {
@@ -129,7 +130,8 @@ namespace DChild.Gameplay.Systems
             GameTime.RegisterValueChange(m_instance, 0, GameTime.Factor.Multiplication);
             isGamePaused = true;
             GameSystem.SetCursorVisibility(true);
-            MasterAudio.PauseEverything();
+            //MasterAudio.PauseEverything();
+            m_volumeMixerManager.UseSnapshot(AudioSnapshot.GamePause);
             SkeletonAnimationManager.Instance.PauseAllSpines();
         }
 
