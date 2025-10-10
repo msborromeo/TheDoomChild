@@ -420,7 +420,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                 }
 
-                if (m_state.isStickingToWall)
+                if (m_state.isStickingToWall || m_state.isGrounded)
                 {
                     m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Ground);
                 }
