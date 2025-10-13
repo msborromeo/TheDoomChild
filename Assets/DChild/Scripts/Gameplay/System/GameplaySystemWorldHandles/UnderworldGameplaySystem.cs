@@ -49,6 +49,7 @@ namespace DChild.Gameplay.Systems
         #endregion
         public static void ResumeGame()
         {
+            m_volumeMixerManager.UseSnapshot(AudioSnapshot.Gameplay);
             m_playerManager?.EnableInput();
         }
 
@@ -60,6 +61,7 @@ namespace DChild.Gameplay.Systems
 
         public static void PauseGame()
         {
+            m_volumeMixerManager.UseSnapshot(AudioSnapshot.GamePause);
             m_playerManager?.DisableInput();
         }
         public static void LoadGame()
