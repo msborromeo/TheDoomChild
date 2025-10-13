@@ -127,11 +127,12 @@ namespace DChild.Gameplay.Systems
 
         public static void PauseGame()
         {
+            m_volumeMixerManager.UseSnapshot(AudioSnapshot.GamePause);
             GameTime.RegisterValueChange(m_instance, 0, GameTime.Factor.Multiplication);
             isGamePaused = true;
             GameSystem.SetCursorVisibility(true);
             //MasterAudio.PauseEverything();
-            m_volumeMixerManager.UseSnapshot(AudioSnapshot.GamePause);
+            
             SkeletonAnimationManager.Instance.PauseAllSpines();
         }
 
