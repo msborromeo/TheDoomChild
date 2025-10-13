@@ -17,12 +17,13 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private Dictionary<AudioSnapshot, AudioMixerSnapshot> m_snapshot;
 
+        [SerializeField]
         private AudioMixerSnapshot m_currentSnapshot;
         private AudioMixer m_reference;
 
         private AudioMixerSnapshot[] transistionReference;
         private float[] transistionWeight;
-        private const float DEFAULT_TRANSISTION_DURATION = 1;
+        private const float DEFAULT_TRANSISTION_DURATION = 0f;
 
         public bool HasCurrentSnapshot => m_currentSnapshot != null;
 
@@ -51,6 +52,7 @@ namespace DChild.Gameplay.Systems
             transistionReference[0] = m_currentSnapshot;
             transistionReference[1] = GetAudioMixerSnapshot(snapshot);
             m_reference.TransitionToSnapshots(transistionReference, transistionWeight, duration);
+            m_currentSnapshot = transistionReference[1];
         }
 
         private AudioMixerSnapshot GetAudioMixerSnapshot(AudioSnapshot snapshot)
