@@ -8,7 +8,7 @@ namespace DChild.Gameplay.EquipmentSystem
     {
         Head,
         Breast,
-        Arms,
+        Pauldron,
         Gloves,
         Legs,
         Boots,
