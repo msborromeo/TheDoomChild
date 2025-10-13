@@ -47,11 +47,12 @@ namespace DChild.Visuals
             if(referenceTransform.localScale.x>0)
             {
                 GetComponent<Character>().SetFacing(Gameplay.Characters.HorizontalDirection.Right);
-            }else
+            }
+            else
             {
                 GetComponent<Character>().SetFacing(Gameplay.Characters.HorizontalDirection.Left);
             }
-            //transform.localScale = referenceTransform.localScale;
+            transform.localScale = referenceTransform.localScale;
         }
 
         private void SyncAnimation(SpineSyncer reference)
