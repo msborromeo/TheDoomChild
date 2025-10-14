@@ -1265,6 +1265,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                 if (m_whipCombo.CanWhipCombo())
                 {
+                    m_movement.Cancel();
+                    m_idle.Cancel();
                     m_whipCombo.Execute();
                     return;
                 }
