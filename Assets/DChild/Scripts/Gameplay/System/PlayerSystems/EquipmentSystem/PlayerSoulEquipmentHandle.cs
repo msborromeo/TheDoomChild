@@ -95,6 +95,14 @@ namespace DChild.Gameplay.EquipmentSystem
                         if (m_acquiredSoulEquipment[j] == m_eqiuppedItems[i])
                         {
                             m_acquiredSoulEquipment[j].GainEXP(expPoints);
+
+                            if (m_acquiredSoulEquipment[j].exp >= m_acquiredSoulEquipment[j].item.soulEquipment.ExpRequired)
+                            {
+                                foreach(SoulSkill skill in m_acquiredSoulEquipment[j].item.soulEquipment.soulSkillList)
+                                {
+                                    skill.SetFullyLearned(true);
+                                }
+                            }
                         }
                     }
                 }
@@ -171,9 +179,11 @@ namespace DChild.Gameplay.EquipmentSystem
             var equipment = soulEquipment.soulEquipment;
             m_equippedSoulSlotEquipmentPair.Remove(equipment.Slot);
             //Logic for setting soul skill as deactivated when unequipped
+
             foreach (SoulSkill soulSkill in equipment.soulSkillList)
             {
-                m_soulSkillHandle.RemoveAsActivated(soulSkill);
+                if (soulSkill.isFullyLearned == false)
+                    m_soulSkillHandle.RemoveAsActivated(soulSkill);
             }
         }
 
