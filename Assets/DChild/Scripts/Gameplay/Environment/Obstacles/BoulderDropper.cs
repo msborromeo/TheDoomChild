@@ -4,6 +4,7 @@ using Holysoft.Collections;
 using Holysoft.Event;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace DChild.Gameplay.Environment.Obstacles
 {
@@ -27,11 +28,13 @@ namespace DChild.Gameplay.Environment.Obstacles
         private bool m_dropOnSpawn;
         private Collider2D m_spawnedBoulderCollider;
 
+        public UnityEvent onBoulderSpawn;
+
         public void Release()
         {
             if (m_spawnedBoulder != null)
             {
-                var rigidbody = m_spawnedBoulder.GetComponent<Rigidbody2D>();
+                var rigidbody = m_spawnedBoulder.GetComponent<Rigidbody2D>();  
                 rigidbody.simulated = true;
                 rigidbody.velocity = Vector2.zero;
 
@@ -56,6 +59,7 @@ namespace DChild.Gameplay.Environment.Obstacles
 
         private void InitializeBoulder(PoolableObject boulder)
         {
+
             // boulder.GetComponent<IsolatedPhysics2D>().bodyType = RigidbodyType2D.Kinematic;
             boulder.gameObject.SetActive(true);
             boulder.transform.position = m_spawnPoint.position;
@@ -65,6 +69,7 @@ namespace DChild.Gameplay.Environment.Obstacles
             m_spawnedBoulderCollider = boulder.GetComponentInChildren<Collider2D>();
             Physics2D.IgnoreCollision(m_ceilingColliderToIgnore, m_spawnedBoulderCollider,true);
             m_spawnedBoulderCollider.enabled = false;
+            
         }
 
         private void SpawnNewBoulder(object sender, EventActionArgs eventArgs)
@@ -82,6 +87,7 @@ namespace DChild.Gameplay.Environment.Obstacles
 
             do
             {
+                
                 m_spawnedBoulder.transform.position = Vector3.Lerp(setupPosition, spawnPosition, lerpValue);
                 lerpValue += GameplaySystem.time.deltaTime;
                 yield return null;
@@ -89,6 +95,7 @@ namespace DChild.Gameplay.Environment.Obstacles
 
             if (m_dropOnSpawn)
             {
+                onBoulderSpawn?.Invoke();
                 Release();
             }
         }

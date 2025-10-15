@@ -17,16 +17,19 @@ public class Morden_Actors_Setup : MonoBehaviour
         Template te = new Template();
         foreach (GameObject go in _list)
         {
-            Actor x = te.CreateActor(te.GetNextActorID(_database),GetName(go),false);
-            _database.actors.Add(x);
+            go.name = go.name.Replace(" Variant", "");
+            GetName(go);
+            //Actor x = te.CreateActor(te.GetNextActorID(_database),GetName(go),false);
+            //_database.actors.Add(x);
         }
     }
 
     string GetName(GameObject x)
     {
-        string ActorName;
-        string z = x.name;
-        ActorName = z.Replace("Quest_Recruit_","Morden_");
-        return ActorName;
+        //string ActorName;
+        x.name = x.name.Replace("NPC_Interactable_", "");
+        //string z = ("NPC_Interactable_"+ x.name);
+        //ActorName = z.Replace(" Variant","");
+        return x.name;
     }
 }

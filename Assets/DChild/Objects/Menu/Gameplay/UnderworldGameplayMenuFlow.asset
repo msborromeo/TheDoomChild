@@ -50,71 +50,6 @@ MonoBehaviour:
   ClearGraphHistory: 0
   Position: {x: 2313, y: 699}
   PivotOrientation: 2
---- !u!114 &-8917874788134556638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c01f9a7d07f5c04a9f277379e94a10b, type: 3}
-  m_Name: UI
-  m_EditorClassIdentifier: 
-  FlowGraphId: cc4022c0-bbcf-4ff3-b644-de466cf85d32
-  NodeId: dbcc71c3-98de-4e18-b5f5-3125597535d6
-  NodeType: 0
-  NodeName: Store Closing
-  NodeDescription: 
-  InputPorts:
-  - NodeId: dbcc71c3-98de-4e18-b5f5-3125597535d6
-    PortId: 8bfa3812-3299-496d-90a0-665682cc5493
-    Direction: 0
-    Capacity: 1
-    Connections:
-    - 8008d0ee-6a16-4d67-9e4f-3c2a2b4b35ca
-    Value: '{"CanGoBack":false}'
-    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.GoBackInputPortData,
-      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    CanBeDeleted: 0
-    CanBeReordered: 0
-  OutputPorts:
-  - NodeId: dbcc71c3-98de-4e18-b5f5-3125597535d6
-    PortId: 92abdbae-52d9-4418-8fee-d429c3e12502
-    Direction: 1
-    Capacity: 0
-    Connections:
-    - 81d85f47-b184-411a-8f19-0022c7332c7a
-    Value: '{"Trigger":1,"TimeDelay":3.0,"SignalPayload":{"StreamId":{"Category":"Store","Name":"TransistionDone","Custom":false},"SignalValueType":0,"IntegerValue":0,"BooleanValue":false,"FloatValue":0.0,"StringValue":"","ColorValue":{"r":0.0,"g":0.0,"b":0.0,"a":0.0},"Vector2Value":{"x":0.0,"y":0.0},"Vector3Value":{"x":0.0,"y":0.0,"z":0.0},"Vector4Value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}},"ButtonId":{"Category":"None","Name":"None","Custom":false},"ToggleId":{"Category":"None","Name":"None","Custom":false},"CommandToggle":2,"ViewId":{"Category":"None","Name":"None","Custom":false},"CommandShowHide":0}'
-    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.UIOutputPortData,
-      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    CanBeDeleted: 0
-    CanBeReordered: 0
-  RunUpdate: 0
-  RunFixedUpdate: 0
-  RunLateUpdate: 0
-  NodeState: 0
-  CanBeDeleted: 1
-  Passthrough: 0
-  ClearGraphHistory: 0
-  Position: {x: -323.4702, y: 589}
-  OnEnterShowViews: []
-  OnEnterHideViews:
-  - Id:
-      Category: Gameplay
-      Name: Store
-      Custom: 0
-    Mode: 0
-  - Id:
-      Category: Store
-      Name: VideoTransition
-      Custom: 0
-    Mode: 0
-  OnExitShowViews: []
-  OnExitHideViews: []
-  OnEnterHideAllViews: 0
-  OnExitHideAllViews: 0
 --- !u!114 &-8447523397381462294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,72 +241,6 @@ MonoBehaviour:
     Vector2Value: {x: 0, y: 0}
     Vector3Value: {x: 0, y: 0, z: 0}
     Vector4Value: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &-5778283086635454191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b2479a69f56cf54c96de81c44e8ad1a, type: 3}
-  m_Name: Portal
-  m_EditorClassIdentifier: 
-  FlowGraphId: cc4022c0-bbcf-4ff3-b644-de466cf85d32
-  NodeId: 058d79db-41af-4e87-8c71-78d87c54037f
-  NodeType: 1
-  NodeName: Close Store
-  NodeDescription: 
-  InputPorts: []
-  OutputPorts:
-  - NodeId: 058d79db-41af-4e87-8c71-78d87c54037f
-    PortId: 8008d0ee-6a16-4d67-9e4f-3c2a2b4b35ca
-    Direction: 1
-    Capacity: 0
-    Connections:
-    - 8bfa3812-3299-496d-90a0-665682cc5493
-    Value: 
-    ValueTypeQualifiedName: 
-    CanBeDeleted: 0
-    CanBeReordered: 0
-  RunUpdate: 0
-  RunFixedUpdate: 0
-  RunLateUpdate: 0
-  NodeState: 0
-  CanBeDeleted: 1
-  Passthrough: 1
-  ClearGraphHistory: 0
-  Position: {x: -518.4702, y: 589}
-  Trigger: 0
-  SignalPayload:
-    StreamId:
-      Category: Store
-      Name: Close
-      Custom: 0
-    SignalValueType: 0
-    IntegerValue: 0
-    BooleanValue: 0
-    FloatValue: 0
-    StringValue: 
-    ColorValue: {r: 0, g: 0, b: 0, a: 0}
-    Vector2Value: {x: 0, y: 0}
-    Vector3Value: {x: 0, y: 0, z: 0}
-    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
-  ButtonId:
-    Category: None
-    Name: None
-    Custom: 0
-  ToggleId:
-    Category: None
-    Name: None
-    Custom: 0
-  CommandToggle: 2
-  ViewId:
-    Category: None
-    Name: None
-    Custom: 0
-  CommandShowHide: 0
 --- !u!114 &-5190167544674915414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,7 +342,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 1
   ClearGraphHistory: 0
-  Position: {x: 1343, y: -39.737602}
+  Position: {x: 1418.9998, y: -40.000004}
   PivotOrientation: 1
 --- !u!114 &-5128776055181682025
 MonoBehaviour:
@@ -521,7 +390,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 1
   ClearGraphHistory: 0
-  Position: {x: 1578.6003, y: 221.99998}
+  Position: {x: 1654.9998, y: 221.99997}
   PivotOrientation: 2
 --- !u!114 &-4593966568805981153
 MonoBehaviour:
@@ -1399,8 +1268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02761efe598a45c98fa1baf4d446c6a7, type: 3}
   m_Name: UnderworldGameplayMenuFlow
   m_EditorClassIdentifier: 
-  EditorPosition: {x: -1736, y: -1921, z: 0}
-  EditorScale: {x: 1.3225, y: 1.3225, z: 1}
+  EditorPosition: {x: -305, y: 128, z: 0}
+  EditorScale: {x: 0.49717674, y: 0.49717674, z: 1}
   Id: cc4022c0-bbcf-4ff3-b644-de466cf85d32
   GraphName: Flow Graph
   GraphDescription: 
@@ -1412,8 +1281,6 @@ MonoBehaviour:
   Nodes:
   - {fileID: 6426440333755477475}
   - {fileID: -3186844690176980444}
-  - {fileID: -5778283086635454191}
-  - {fileID: -8917874788134556638}
   - {fileID: 7839318037280799111}
   - {fileID: 1575822920452196179}
   - {fileID: -7275582152678548068}
@@ -1559,7 +1426,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 1122.1003, y: 75.99999}
+  Position: {x: 1197.9998, y: 75.999985}
   OnEnterShowViews: []
   OnEnterHideViews: []
   OnExitShowViews: []
@@ -1976,7 +1843,6 @@ MonoBehaviour:
     Direction: 0
     Capacity: 1
     Connections:
-    - 92abdbae-52d9-4418-8fee-d429c3e12502
     - 370b7b8a-a92c-4650-82f2-35d7fc7ae947
     Value: 
     ValueTypeQualifiedName: 
@@ -2063,7 +1929,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 1
   ClearGraphHistory: 0
-  Position: {x: 1360, y: 100}
+  Position: {x: 1435.9998, y: 99.99998}
   OnEnterShowViews: []
   OnEnterHideViews: []
   OnExitShowViews: []
