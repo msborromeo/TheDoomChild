@@ -12,7 +12,12 @@ namespace DChild.Gameplay.EquipmentSystem
         [SerializeField, ToggleGroup("m_enableEdit")]
         private SoulEquipment m_soulEquipment;
         public SoulEquipment soulEquipment => m_soulEquipment;
-
+        
+        [Button]
+        private void UpdateID()
+        {
+            m_ID = Mathf.Abs(GetInstanceID());
+        }
     }
 }
 
