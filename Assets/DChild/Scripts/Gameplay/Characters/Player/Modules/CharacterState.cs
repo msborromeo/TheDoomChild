@@ -160,5 +160,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         [SerializeField, ReadOnly]
         private bool m_isDoingEarthShaker;
         public bool isDoingEarthShaker { get => m_isDoingEarthShaker; set => m_isDoingEarthShaker = value; }
+        [SerializeField, ReadOnly]
+        private bool m_isDoingWhipCombo;
+        public bool isDoingWhipCombo { get => m_isDoingWhipCombo; set => m_isDoingWhipCombo = value; }
     }
 }
