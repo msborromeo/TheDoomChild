@@ -90,7 +90,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_whipComboInfo[i].ShowCollider(false);
             }
 
-            //Debug.Log("Whip Combo State Reset");
             m_currentWhipState = -1;
             m_currentVisualWhipState = 0;
             m_animator.SetInteger(m_whipStateAnimationParameter, m_currentWhipState);
@@ -99,12 +98,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void Execute()
         {
-            //Debug.Log("Clicked Whip Combo Attack");
             m_currentWhipState += m_currentWhipState >= m_configuration.whipStateAmount - 1 ? 0 : 1;
             m_state.waitForBehaviour = true;
             m_state.isAttacking = true;
             m_state.canAttack = false;
             m_state.isDoingCombo = true;
+            m_state.isDoingWhipCombo = true;
             m_animator.SetBool(m_animationParameter, true);
             m_animator.SetBool(m_whipAttackAnimationParameter, true);
             m_animator.SetInteger(m_whipStateAnimationParameter, m_currentWhipState);
@@ -114,24 +113,23 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_whipComboInfo[m_currentWhipState].critFX);
             m_currentVisualWhipState = m_currentWhipState;
 
-            m_comboResetDelayTimer = m_whipComboInfo[m_currentWhipState].nextAttackDelay;
-            m_whipMovementCooldownTimer = /*m_whipMovementCooldown*/m_configuration.whipMovementCooldown;
-
             switch (m_currentVisualWhipState)
             {
                 case 0:
-                    //m_whipFXAnimator.SetTrigger("WhipCombo1");
                     m_whipComboInfo[m_currentVisualWhipState].PlayFX(true);
                     break;
                 case 1:
-                    //m_whipFXAnimator.SetTrigger("WhipCombo2");
                     m_whipComboInfo[m_currentVisualWhipState].PlayFX(true);
                     break;
                 case 2:
-                    //m_whipFXAnimator.SetTrigger("WhipCombo1");
                     m_whipComboInfo[m_currentVisualWhipState].PlayFX(true);
                     break;
             }
+
+            m_comboResetDelayTimer = m_whipComboInfo[m_currentWhipState].nextAttackDelay;
+            m_whipMovementCooldownTimer = m_configuration.whipMovementCooldown;
+
+
         }
 
         public override void Cancel()
@@ -144,10 +142,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isAttacking)
             {
                 m_comboResetDelayTimer = m_whipComboInfo[m_currentWhipState].nextAttackDelay;
-                m_whipMovementCooldownTimer = /*m_whipMovementCooldown*/m_configuration.whipMovementCooldown;
+                m_whipMovementCooldownTimer = m_configuration.whipMovementCooldown;
             }
-               
-            //m_animator.SetBool(m_whipAttackAnimationParameter, false);
 
             m_state.isDoingCombo = false;
             m_fxAnimator.Play("Buffer");
@@ -162,16 +158,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void EnableCollision(bool value)
         {
-            //Debug.Log("Whip Combo Collision");
             m_rigidBody.WakeUp();
             m_whipComboInfo[m_currentVisualWhipState].ShowCollider(value);
             m_attackFX.transform.position = m_whipComboInfo[m_currentVisualWhipState].fxPosition.position;
 
-            //TEST
-            if (CanAttack())
-            {
-                m_physics.AddForce(m_character.facing == HorizontalDirection.Right ? m_configuration.pushForce[m_currentVisualWhipState] : -m_configuration.pushForce[m_currentVisualWhipState], ForceMode2D.Impulse);
-            }
+            //Commented out movement during whip
+            //if (CanAttack())
+            //{
+            //    m_physics.AddForce(m_character.facing == HorizontalDirection.Right ? m_configuration.pushForce[m_currentVisualWhipState] : -m_configuration.pushForce[m_currentVisualWhipState], ForceMode2D.Impulse);
+            //}
         }
 
         public bool CanAttack()
@@ -192,6 +187,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             base.AttackOver();
             m_state.canAttack = true;
             m_state.isDoingCombo = false;
+            m_state.isDoingWhipCombo = false;
             m_canWhipCombo = false;
             m_canMove = false;
             m_animator.SetBool(m_whipAttackAnimationParameter, false);
@@ -205,59 +201,19 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_animator.SetInteger(m_whipStateAnimationParameter, m_currentWhipState);
             }
 
-            //Debug.Log("Whip Attack Over");
             for (int i = 0; i < m_whipComboInfo.Count; i++)
             {
                 m_whipComboInfo[i].ShowCollider(false);
             }
 
-            //m_currentWhipState = 0;
-            //m_currentVisualWhipState = 0;
-
             m_fxAnimator.Play("Buffer");
-            //base.AttackOver();
-            //m_state.canAttack = true;
-            //m_animator.SetBool(m_whipAttackAnimationParameter, false);
-
-            //Debug.Log("Whip Attack Over");
-            //for (int i = 0; i < m_whipComboInfo.Count; i++)
-            //{
-            //    m_whipComboInfo[i].ShowCollider(false);
-            //}
-
-            //if (m_currentWhipState >= m_whipStateAmount)
-            //{
-            //    m_currentWhipState = 0;
-            //    m_canWhipCombo = false;
-            //}
-
-            //m_fxAnimator.Play("Buffer");
         }
 
         public void ComboEnd()
         {
-            //Debug.Log("Whip Combo End");
-            //base.AttackOver();
             m_state.canAttack = true;
             m_canWhipCombo = true;
-            //m_skeletonAnimation.state.SetEmptyAnimation(0, 0);
             m_animator.SetBool(m_whipAttackAnimationParameter, false);
-            //if (m_state.isAttacking == true)
-            //{
-
-            //}
-            //else
-            //{
-            //    Debug.Log("Whip Combo End");
-            //    //base.AttackOver();
-            //    m_state.canAttack = true;
-            //    //m_skeletonAnimation.state.SetEmptyAnimation(0, 0);
-            //    m_canWhipCombo = false;
-            //    m_currentWhipState = 0;
-            //    m_currentVisualWhipState = 0;
-            //    m_animator.SetInteger(m_whipStateAnimationParameter, m_currentWhipState);
-            //    m_animator.SetBool(m_whipAttackAnimationParameter, false);
-            //}
         }
 
         public void AllowNextAttackDelay()
@@ -267,6 +223,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void HandleComboAttackDelay()
         {
+            //Commenting out due to disconnect with animation and VFX Timing
             if (m_comboAttackDelayTimer >= 0)
             {
                 m_comboAttackDelayTimer -= GameplaySystem.time.deltaTime;
