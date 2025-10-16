@@ -178,12 +178,10 @@ namespace DChild.Gameplay.EquipmentSystem
         {
             var equipment = soulEquipment.soulEquipment;
             m_equippedSoulSlotEquipmentPair.Remove(equipment.Slot);
-            //Logic for setting soul skill as deactivated when unequipped
 
             foreach (SoulSkill soulSkill in equipment.soulSkillList)
             {
-                if (soulSkill.isFullyLearned == false)
-                    m_soulSkillHandle.RemoveAsActivated(soulSkill);
+                m_soulSkillHandle.RemoveAsActivated(soulSkill);
             }
         }
 
