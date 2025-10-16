@@ -686,7 +686,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #region Input Handles
         private void OnVector2PerformedInput(Vector2 vector)
         {
-            if(m_state.isChargingAttack || m_state.isDoingSwordThrust)
+            if(m_state.isChargingAttack || m_state.isDoingSwordThrust || m_state.isDoingWhipCombo)
             {
                 m_vector2Input = Vector2.zero;
                 return;
@@ -1265,6 +1265,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                 if (m_whipCombo.CanWhipCombo())
                 {
+                    m_movement.Cancel();
+                    m_idle.Cancel();
                     m_whipCombo.Execute();
                     return;
                 }

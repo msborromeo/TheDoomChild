@@ -46,6 +46,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
         //[SerializeField]
         //private float m_aerialGravity;
 
+        [SerializeField, BoxGroup("Whip VFX")]
+        private ElementalSwordFX m_overheadWhipVFX;
+        [SerializeField, BoxGroup("Whip VFX")]
+        private ElementalSwordFX m_crouchForwardVFX;
+        [SerializeField, BoxGroup("Whip VFX")]
+        private ElementalSwordFX m_midairOverheadVFX;
+        [SerializeField, BoxGroup("Whip VFX")]
+        private ElementalSwordFX m_midairForwardVFX;
+
         private bool m_canMove;
         private IPlayerModifer m_modifier;
         private int m_whipAttackAnimationParameter;
@@ -165,6 +174,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         m_groundOverhead.critChance, 
                         m_groundOverhead.critModifier, 
                         m_groundOverhead.critFX);
+                    m_overheadWhipVFX.Play();
                     break;
                 case Type.MidAir_Forward:
                     m_animator.SetFloat(m_yInputParameter, 0);
@@ -173,6 +183,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         m_midAirForward.critChance, 
                         m_midAirForward.critModifier,
                         m_midAirForward.critFX);
+                    m_midairForwardVFX.Play();
                     m_canAirWhip = false;
 
                     if (m_adjustGravity == true)
@@ -190,6 +201,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         m_midAirOverhead.critChance, 
                         m_midAirOverhead.critModifier,
                         m_midAirOverhead.critFX);
+                    m_midairOverheadVFX.Play();
                     m_canAirWhip = false;
 
                     if (m_adjustGravity == true)
@@ -207,6 +219,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         m_crouchForward.critChance, 
                         m_crouchForward.critModifier, 
                         m_crouchForward.critFX);
+                    m_crouchForwardVFX.Play();
                     break;
             }
             Record(type);
