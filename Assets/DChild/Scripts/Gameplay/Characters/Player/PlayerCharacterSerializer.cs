@@ -6,6 +6,7 @@ using DChild.Gameplay.SoulSkills;
 using DChild.Menu.Codex;
 using Holysoft.Collections;
 using DChild.Gameplay.Systems;
+using DChild.Gameplay.EquipmentSystem;
 
 namespace DChild.Gameplay.Characters.Players
 {
@@ -21,6 +22,8 @@ namespace DChild.Gameplay.Characters.Players
         private ISerializable<PrimarySkillsData> m_playerSkills;
         [SerializeField, TabGroup("Equipped Soul Skill")]
         private ISerializable<PlayerSoulSkillData> m_soulSkillHandle;
+        [SerializeField, TabGroup("Equipped Soul Equipment")]
+        private ISerializable<PlayerSoulEquipmentData> m_soulEquipmentHandle;
         [SerializeField]
         private ISerializable<CombatArtsSaveData> m_combatArts;
         [SerializeField]
@@ -33,7 +36,8 @@ namespace DChild.Gameplay.Characters.Players
                                         m_playerSkills.SaveData(),
                                         m_soulSkillHandle.SaveData(),
                                         m_combatArts.SaveData(),
-                                        m_playerWeapon.SaveData());
+                                        m_playerWeapon.SaveData(),
+                                        m_soulEquipmentHandle.SaveData());
         }
 
         public void LoadData(PlayerCharacterData data)
@@ -44,6 +48,7 @@ namespace DChild.Gameplay.Characters.Players
             m_soulSkillHandle.LoadData(data.soulSkillData);
             m_combatArts.LoadData(data.combatArtsData);
             m_playerWeapon.LoadData(data.weaponUpgradeSaveData);
+            m_soulEquipmentHandle.LoadData(data.soulEquipmentData);
         }
     }
 }

@@ -10,6 +10,7 @@ using DChild.Gameplay.Inventories;
 using DChild.Gameplay.Characters.Players;
 using DChild.Menu.Codex;
 using DChild.Gameplay.Systems;
+using DChild.Gameplay.EquipmentSystem;
 
 namespace DChild.Serialization
 {
@@ -26,6 +27,8 @@ namespace DChild.Serialization
         private PrimarySkillsData m_skills;
         [SerializeField, TabGroup("Soul Skill")]
         private PlayerSoulSkillData m_soulSkillData;
+        [SerializeField, TabGroup("Soul Equipment")]
+        private PlayerSoulEquipmentData m_soulEquipmentData;
         [SerializeField]
         private CombatArtsSaveData m_combatArtsData;
         [SerializeField]
@@ -35,6 +38,7 @@ namespace DChild.Serialization
         public CodexSaveData codexData { get => m_codexData; }
         public PrimarySkillsData skills { get => m_skills; }
         public PlayerSoulSkillData soulSkillData { get => m_soulSkillData; }
+        public PlayerSoulEquipmentData soulEquipmentData {  get => m_soulEquipmentData; }
         public CombatArtsSaveData combatArtsData { get => m_combatArtsData; }
         public WeaponUpgradeSaveData weaponUpgradeSaveData { get => m_weaponUpgradeSaveData;  }
 
@@ -45,15 +49,17 @@ namespace DChild.Serialization
             m_skills = new PrimarySkillsData();
             m_soulSkillData = new PlayerSoulSkillData();
             m_combatArtsData = new CombatArtsSaveData(new Gameplay.Characters.Player.CombatArt.Leveling.CombatArtLevel.SaveData(),0, new int[0]);
+            m_soulEquipmentData = new PlayerSoulEquipmentData(new List<PlayerSoulEquipmentHandle.LeveledEquipment>(), new Dictionary<SoulSlot, SoulEquipmentItem>());
         }
 
-        public PlayerCharacterData(TradableInventorySerialization m_inventoryData, CodexSaveData m_codexData, PrimarySkillsData m_skills, PlayerSoulSkillData m_soulSkillData, CombatArtsSaveData combatArtsData, WeaponUpgradeSaveData weaponUpgradeSaveData)
+        public PlayerCharacterData(TradableInventorySerialization m_inventoryData, CodexSaveData m_codexData, PrimarySkillsData m_skills, PlayerSoulSkillData m_soulSkillData, CombatArtsSaveData combatArtsData, WeaponUpgradeSaveData weaponUpgradeSaveData, PlayerSoulEquipmentData soulEquipmentData)
         {
             this.m_inventoryData = m_inventoryData;
             this.m_codexData = m_codexData;
             this.m_skills = m_skills;
             this.m_soulSkillData = m_soulSkillData;
             this.m_weaponUpgradeSaveData = weaponUpgradeSaveData;
+            this.m_soulEquipmentData = soulEquipmentData;
             m_combatArtsData = combatArtsData;
         }
 
@@ -63,6 +69,7 @@ namespace DChild.Serialization
             this.m_codexData = new CodexSaveData(data.codexData);
             this.m_skills = data.skills;
             this.m_soulSkillData = data.soulSkillData;
+            this.m_soulEquipmentData = data.soulEquipmentData;
             m_combatArtsData = data.combatArtsData;
         }
 
