@@ -21086,18 +21086,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1319802812914188328}
-        m_TargetAssemblyTypeName: DChild.Gameplay.LevelEndHandle, Assembly-CSharp
-        m_MethodName: DisplayTeleportToOverworldBanner
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &5696201915264001247
 GameObject:
   m_ObjectHideFlags: 0
@@ -46875,7 +46863,7 @@ MonoBehaviour:
     luaWizardIndex: -1
     lastEvaluationValue: 0
   setQuestState: 1
-  questName: Lich Lord
+  questName: Defeat Lich Lord
   questState: 4
   setQuestEntryState: 1
   questEntryNumber: 1
@@ -47351,18 +47339,13 @@ MonoBehaviour:
   condition:
     luaConditions:
     - Variable["LichLord_HasBeenDefeated"] == true
-    questConditions:
-    - questName: Defeat Lich Lord
-      questState: 4
-      checkQuestEntry: 0
-      entryNumber: 0
-      questEntryState: 0
+    questConditions: []
     acceptedTags: []
     acceptedGameObjects: []
     luaWizardIndex: -1
     lastEvaluationValue: 0
   setQuestState: 1
-  questName: Lich Lord
+  questName: Defeat Lich Lord
   questState: 4
   setQuestEntryState: 1
   questEntryNumber: 1
@@ -47461,7 +47444,6 @@ Transform:
   - {fileID: 426036935962278361}
   - {fileID: 3465765090254403838}
   - {fileID: 8558938446965905960}
-  - {fileID: 2589268938323869727}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -48198,93 +48180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &4724624232628241069
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 8558938448529067250}
-    m_Modifications:
-    - target: {fileID: 4895809316764322846, guid: 06a0805fbb2701940bc887bcd4e676ba,
-        type: 3}
-      propertyPath: m_Name
-      value: LevelEndHandle
-      objectReference: {fileID: 0}
-    - target: {fileID: 7097623348346946226, guid: 06a0805fbb2701940bc887bcd4e676ba,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7097623348346946226, guid: 06a0805fbb2701940bc887bcd4e676ba,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7097623348346946226, guid: 06a0805fbb2701940bc887bcd4e676ba,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7097623348346946226, guid: 06a0805fbb2701940bc887bcd4e676ba,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7097623348346946226, guid: 06a0805fbb2701940bc887bcd4e676ba,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7097623348346946226, guid: 06a0805fbb2701940bc887bcd4e676ba,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7097623348346946226, guid: 06a0805fbb2701940bc887bcd4e676ba,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7097623348346946226, guid: 06a0805fbb2701940bc887bcd4e676ba,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7097623348346946226, guid: 06a0805fbb2701940bc887bcd4e676ba,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7097623348346946226, guid: 06a0805fbb2701940bc887bcd4e676ba,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7097623348346946226, guid: 06a0805fbb2701940bc887bcd4e676ba,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 06a0805fbb2701940bc887bcd4e676ba, type: 3}
---- !u!114 &1319802812914188328 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6035348102851691141, guid: 06a0805fbb2701940bc887bcd4e676ba,
-    type: 3}
-  m_PrefabInstance: {fileID: 4724624232628241069}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 493cebab97340ec4fb6d464da6da2e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &2589268938323869727 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7097623348346946226, guid: 06a0805fbb2701940bc887bcd4e676ba,
-    type: 3}
-  m_PrefabInstance: {fileID: 4724624232628241069}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5888949983520186131
 PrefabInstance:
   m_ObjectHideFlags: 0
