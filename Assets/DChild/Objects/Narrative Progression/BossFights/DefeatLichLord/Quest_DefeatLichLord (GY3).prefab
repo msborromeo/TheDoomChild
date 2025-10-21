@@ -46863,7 +46863,7 @@ MonoBehaviour:
     luaWizardIndex: -1
     lastEvaluationValue: 0
   setQuestState: 1
-  questName: Lich Lord
+  questName: Defeat Lich Lord
   questState: 4
   setQuestEntryState: 1
   questEntryNumber: 1
@@ -47273,9 +47273,10 @@ MonoBehaviour:
     m_Events:
     - m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3743359361965326312}
-          m_TargetAssemblyTypeName: DChild.Gameplay.GameplaySignalHandle, Assembly-CSharp
-          m_MethodName: SmartTransferPlayerTo
+        - m_Target: {fileID: 5653060863241252120}
+          m_TargetAssemblyTypeName: DChild.Gameplay.FastTravel.FastTravelHandle,
+            Assembly-CSharp
+          m_MethodName: TransferPlayerTo
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 11400000, guid: 21a018db56c001e409a6945077de9887,
@@ -47338,18 +47339,13 @@ MonoBehaviour:
   condition:
     luaConditions:
     - Variable["LichLord_HasBeenDefeated"] == true
-    questConditions:
-    - questName: Defeat Lich Lord
-      questState: 4
-      checkQuestEntry: 0
-      entryNumber: 0
-      questEntryState: 0
+    questConditions: []
     acceptedTags: []
     acceptedGameObjects: []
     luaWizardIndex: -1
     lastEvaluationValue: 0
   setQuestState: 1
-  questName: Lich Lord
+  questName: Defeat Lich Lord
   questState: 4
   setQuestEntryState: 1
   questEntryNumber: 1
@@ -47463,7 +47459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba2e3066672a3834182d094e4029952d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questName: Lich Lord
+  questName: Defeat Lich Lord
   questStateIndicatorLevels:
   - updateOnStartOnly: 0
     questState: 2
@@ -48596,6 +48592,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5888949983520186131}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5653060863241252120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3252180489879336843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61062ed74815e8e409a5fa692e4140a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3743359361965326312 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7082707898053173499, guid: 56eb428e38177b84e9d06d5b9d5bdd30,
