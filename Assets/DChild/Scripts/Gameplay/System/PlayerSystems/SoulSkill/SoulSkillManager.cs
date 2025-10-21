@@ -175,6 +175,11 @@ namespace DChild.Gameplay.SoulSkills
             for (int i = 0; i < activatedSkillIDs.Count; i++)
             {
                 var soulSkill = m_completeSoulSkillList.GetInfo(activatedSkillIDs.ElementAt(i));
+                if(soulSkill == null)
+                {
+                    Debug.LogError(activatedSkillIDs.ElementAt(i) + "This is null because this soul skill is activated through Equipment and data is not yet added to Soul Skill List");
+                    continue;
+                }
                 activatedSoulSkillList.Add(soulSkill);
                 m_playerHandle.AddAsActivated(soulSkill);
             }
