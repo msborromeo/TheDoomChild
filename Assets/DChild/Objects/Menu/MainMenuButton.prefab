@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3297773408028580534}
   - component: {fileID: 3297773408028580540}
-  - component: {fileID: 3297773408028580539}
   - component: {fileID: 1510797652}
   - component: {fileID: 1510797653}
   - component: {fileID: 3885849412593880005}
+  - component: {fileID: 560647892834716396}
+  - component: {fileID: 6678386580908333526}
   m_Layer: 0
   m_Name: MainMenuButton
   m_TagString: Untagged
@@ -51,36 +52,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3297773408028580533}
   m_CullTransparentMesh: 1
---- !u!114 &3297773408028580539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3297773408028580533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &1510797652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1745,6 +1716,40 @@ MonoBehaviour:
   useUnitySubmitSound: 0
   useUnityCancelSound: 0
   useUnityToggleSound: 0
+--- !u!114 &560647892834716396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297773408028580533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: 112.45
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: 1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &6678386580908333526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297773408028580533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 1
+  m_VerticalFit: 0
 --- !u!1 &3297773408558630374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,6 +1765,7 @@ GameObject:
   - component: {fileID: 3297773408558630377}
   - component: {fileID: 3297773408558630376}
   - component: {fileID: 4971314647620033502}
+  - component: {fileID: 8614272978538786339}
   m_Layer: 0
   m_Name: Label
   m_TagString: Untagged
@@ -1782,10 +1788,10 @@ RectTransform:
   m_Father: {fileID: 3297773408028580534}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1, y: 1}
-  m_SizeDelta: {x: -14.49, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 58}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3297773408558630380
 CanvasRenderer:
@@ -1887,10 +1893,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 42.95
-  m_fontSizeBase: 51.1
+  m_fontSize: 52
+  m_fontSizeBase: 52
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 42.95
   m_fontStyle: 16
@@ -1923,7 +1929,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -1.0915527, y: -7.163147, z: 5.145996, w: -5.7095947}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1968,6 +1974,20 @@ MonoBehaviour:
   mGUI_ShowCallback: 0
   mLocalizeTarget: {fileID: 0}
   mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
+--- !u!114 &8614272978538786339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297773408558630374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &3297773408666661097
 GameObject:
   m_ObjectHideFlags: 0
@@ -1978,11 +1998,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3297773408666661098}
   - component: {fileID: 3297773408666661100}
-  - component: {fileID: 3297773408666661099}
-  - component: {fileID: 362351533}
-  - component: {fileID: 362351534}
-  - component: {fileID: 362351535}
   - component: {fileID: 362351536}
+  - component: {fileID: 7433776795563819671}
+  - component: {fileID: 8433512629166586841}
+  - component: {fileID: 110293619485177579}
+  - component: {fileID: 5876521421746602114}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -1997,18 +2017,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3297773408666661097}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3297773408028580534}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: -0.39103112, y: -1.092063}
-  m_AnchorMax: {x: 1.0818182, y: 2.216659}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -0.000015258789, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -20, y: 0}
+  m_SizeDelta: {x: 40, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3297773408666661100
 CanvasRenderer:
@@ -2018,499 +2038,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3297773408666661097}
   m_CullTransparentMesh: 0
---- !u!114 &3297773408666661099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3297773408666661097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!114 &362351533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3297773408666661097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba37efcd13d0411394e34c93c79fa09c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Target: {fileID: 3297773408666661099}
---- !u!114 &362351534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3297773408666661097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f14dab462424a2db29dd51465501649, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Controller: {fileID: 1510797652}
-  IsOn: 0
-  ToggleCommand: 2
-  SpriteTarget: {fileID: 362351533}
-  NormalAnimation:
-    OnPlayCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    OnStopCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    OnFinishCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    Sprites:
-    - {fileID: 21300000, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300002, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300004, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300006, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300008, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300010, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300012, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300014, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300016, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300018, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300020, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300022, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    Animation:
-      Settings:
-        PlayMode: 0
-        EaseMode: 0
-        Ease: 0
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        StartDelay: 0
-        Duration: 0.5
-        Loops: 0
-        LoopDelay: 0
-        UseRandomStartDelay: 0
-        UseRandomDuration: 0
-        UseRandomLoops: 0
-        UseRandomLoopDelay: 0
-        RandomStartDelay:
-          MIN: 0
-          MAX: 1
-        RandomDuration:
-          MIN: 0
-          MAX: 1
-        RandomLoops:
-          MIN: 0
-          MAX: 1
-        RandomLoopDelay:
-          MIN: 0
-          MAX: 1
-        Strength: 1
-        Vibration: 8
-        Elasticity: 1
-        FadeOutShake: 0
-      FromValue: 0
-      ToValue: 11
-      CurrentValue: 0
-      Enabled: 1
-      StartFrame: 0
-      FromReferenceValue: 0
-      ToReferenceValue: 1
-      FromCustomValue: 0
-      ToCustomValue: 0
-      FromFrameOffset: 0
-      ToFrameOffset: 0
-      FromCustomProgress: 0
-      ToCustomProgress: 1
-  HighlightedAnimation:
-    OnPlayCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    OnStopCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    OnFinishCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    Sprites:
-    - {fileID: 21300000, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300002, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300004, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300006, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300008, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300010, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300012, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300014, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300016, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300018, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300020, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300022, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    Animation:
-      Settings:
-        PlayMode: 0
-        EaseMode: 0
-        Ease: 0
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        StartDelay: 0
-        Duration: 0.5
-        Loops: 0
-        LoopDelay: 0
-        UseRandomStartDelay: 0
-        UseRandomDuration: 0
-        UseRandomLoops: 0
-        UseRandomLoopDelay: 0
-        RandomStartDelay:
-          MIN: 0
-          MAX: 1
-        RandomDuration:
-          MIN: 0
-          MAX: 1
-        RandomLoops:
-          MIN: 0
-          MAX: 1
-        RandomLoopDelay:
-          MIN: 0
-          MAX: 1
-        Strength: 1
-        Vibration: 8
-        Elasticity: 1
-        FadeOutShake: 0
-      FromValue: 0
-      ToValue: 11
-      CurrentValue: 0
-      Enabled: 1
-      StartFrame: 0
-      FromReferenceValue: 0
-      ToReferenceValue: 1
-      FromCustomValue: 0
-      ToCustomValue: 0
-      FromFrameOffset: 0
-      ToFrameOffset: 0
-      FromCustomProgress: 0
-      ToCustomProgress: 1
-  PressedAnimation:
-    OnPlayCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    OnStopCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    OnFinishCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    Sprites: []
-    Animation:
-      Settings:
-        PlayMode: 0
-        EaseMode: 0
-        Ease: 0
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        StartDelay: 0
-        Duration: 0.5
-        Loops: 0
-        LoopDelay: 0
-        UseRandomStartDelay: 0
-        UseRandomDuration: 0
-        UseRandomLoops: 0
-        UseRandomLoopDelay: 0
-        RandomStartDelay:
-          MIN: 0
-          MAX: 1
-        RandomDuration:
-          MIN: 0
-          MAX: 1
-        RandomLoops:
-          MIN: 0
-          MAX: 1
-        RandomLoopDelay:
-          MIN: 0
-          MAX: 1
-        Strength: 1
-        Vibration: 8
-        Elasticity: 1
-        FadeOutShake: 0
-      FromValue: 0
-      ToValue: 0
-      CurrentValue: 0
-      Enabled: 0
-      StartFrame: 0
-      FromReferenceValue: 0
-      ToReferenceValue: 1
-      FromCustomValue: 0
-      ToCustomValue: 0
-      FromFrameOffset: 0
-      ToFrameOffset: 0
-      FromCustomProgress: 0
-      ToCustomProgress: 1
-  SelectedAnimation:
-    OnPlayCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    OnStopCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    OnFinishCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    Sprites:
-    - {fileID: 21300000, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300002, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300004, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300006, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300008, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300010, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300012, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300014, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300016, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300018, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300020, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    - {fileID: 21300022, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
-    Animation:
-      Settings:
-        PlayMode: 0
-        EaseMode: 0
-        Ease: 0
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        StartDelay: 0
-        Duration: 0.5
-        Loops: 0
-        LoopDelay: 0
-        UseRandomStartDelay: 0
-        UseRandomDuration: 0
-        UseRandomLoops: 0
-        UseRandomLoopDelay: 0
-        RandomStartDelay:
-          MIN: 0
-          MAX: 1
-        RandomDuration:
-          MIN: 0
-          MAX: 1
-        RandomLoops:
-          MIN: 0
-          MAX: 1
-        RandomLoopDelay:
-          MIN: 0
-          MAX: 1
-        Strength: 1
-        Vibration: 8
-        Elasticity: 1
-        FadeOutShake: 0
-      FromValue: 0
-      ToValue: 11
-      CurrentValue: 0
-      Enabled: 1
-      StartFrame: 0
-      FromReferenceValue: 0
-      ToReferenceValue: 1
-      FromCustomValue: 0
-      ToCustomValue: 0
-      FromFrameOffset: 0
-      ToFrameOffset: 0
-      FromCustomProgress: 0
-      ToCustomProgress: 1
-  DisabledAnimation:
-    OnPlayCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    OnStopCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    OnFinishCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    Sprites: []
-    Animation:
-      Settings:
-        PlayMode: 0
-        EaseMode: 0
-        Ease: 0
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        StartDelay: 0
-        Duration: 0.5
-        Loops: 0
-        LoopDelay: 0
-        UseRandomStartDelay: 0
-        UseRandomDuration: 0
-        UseRandomLoops: 0
-        UseRandomLoopDelay: 0
-        RandomStartDelay:
-          MIN: 0
-          MAX: 1
-        RandomDuration:
-          MIN: 0
-          MAX: 1
-        RandomLoops:
-          MIN: 0
-          MAX: 1
-        RandomLoopDelay:
-          MIN: 0
-          MAX: 1
-        Strength: 1
-        Vibration: 8
-        Elasticity: 1
-        FadeOutShake: 0
-      FromValue: 0
-      ToValue: 0
-      CurrentValue: 0
-      Enabled: 0
-      StartFrame: 0
-      FromReferenceValue: 0
-      ToReferenceValue: 1
-      FromCustomValue: 0
-      ToCustomValue: 0
-      FromFrameOffset: 0
-      ToFrameOffset: 0
-      FromCustomProgress: 0
-      ToCustomProgress: 1
---- !u!114 &362351535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3297773408666661097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3af1f82fc2e48368b588587f1e87ccf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Target: {fileID: 3297773408666661099}
 --- !u!114 &362351536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2526,7 +2053,7 @@ MonoBehaviour:
   Controller: {fileID: 1510797652}
   IsOn: 0
   ToggleCommand: 2
-  ColorTarget: {fileID: 362351535}
+  ColorTarget: {fileID: 5876521421746602114}
   NormalAnimation:
     OnPlayCallback:
       m_PersistentCalls:
@@ -2590,11 +2117,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0, g: 0, b: 0, a: 0}
+      FromValue: {r: 0, g: 0, b: 0, a: 1}
       ToValue: {r: 0, g: 0, b: 0, a: 0}
-      CurrentValue: {r: 0, g: 0, b: 0, a: 0}
+      CurrentValue: {r: 0, g: 0, b: 0, a: 1}
       Enabled: 1
-      StartColor: {r: 0, g: 0, b: 0, a: 0}
+      StartColor: {r: 0, g: 0, b: 0, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 0
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}
@@ -2606,7 +2133,7 @@ MonoBehaviour:
       FromLightnessOffset: 0
       ToLightnessOffset: 0
       FromAlphaOffset: 0
-      ToAlphaOffset: 0
+      ToAlphaOffset: -1
     UseCustomStartValue: 0
     CustomStartValue: {r: 1, g: 1, b: 1, a: 1}
   HighlightedAnimation:
@@ -2672,11 +2199,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0, g: 0, b: 0, a: 0}
+      FromValue: {r: 0, g: 0, b: 0, a: 1}
       ToValue: {r: 1, g: 1, b: 1, a: 1}
-      CurrentValue: {r: 0, g: 0, b: 0, a: 0}
+      CurrentValue: {r: 0, g: 0, b: 0, a: 1}
       Enabled: 1
-      StartColor: {r: 0, g: 0, b: 0, a: 0}
+      StartColor: {r: 0, g: 0, b: 0, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 2
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}
@@ -2754,11 +2281,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0, g: 0, b: 0, a: 0}
-      ToValue: {r: 0, g: 0, b: 0, a: 0}
+      FromValue: {r: 0, g: 0, b: 0, a: 1}
+      ToValue: {r: 0, g: 0, b: 0, a: 1}
       CurrentValue: {r: 0, g: 0, b: 0, a: 0}
       Enabled: 0
-      StartColor: {r: 0, g: 0, b: 0, a: 0}
+      StartColor: {r: 0, g: 0, b: 0, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 0
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}
@@ -2836,11 +2363,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0, g: 0, b: 0, a: 0}
+      FromValue: {r: 0, g: 0, b: 0, a: 1}
       ToValue: {r: 1, g: 1, b: 1, a: 1}
-      CurrentValue: {r: 0, g: 0, b: 0, a: 0}
+      CurrentValue: {r: 0, g: 0, b: 0, a: 1}
       Enabled: 1
-      StartColor: {r: 0, g: 0, b: 0, a: 0}
+      StartColor: {r: 0, g: 0, b: 0, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 2
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}
@@ -2918,11 +2445,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0, g: 0, b: 0, a: 0}
-      ToValue: {r: 0, g: 0, b: 0, a: 0}
+      FromValue: {r: 0, g: 0, b: 0, a: 1}
+      ToValue: {r: 0, g: 0, b: 0, a: 0.5}
       CurrentValue: {r: 0, g: 0, b: 0, a: 0}
       Enabled: 0
-      StartColor: {r: 0, g: 0, b: 0, a: 0}
+      StartColor: {r: 0, g: 0, b: 0, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 0
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}
@@ -2937,3 +2464,496 @@ MonoBehaviour:
       ToAlphaOffset: -0.5
     UseCustomStartValue: 0
     CustomStartValue: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &7433776795563819671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297773408666661097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300022, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8433512629166586841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297773408666661097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f14dab462424a2db29dd51465501649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 1510797652}
+  IsOn: 0
+  ToggleCommand: 2
+  SpriteTarget: {fileID: 110293619485177579}
+  NormalAnimation:
+    OnPlayCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStopCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    OnFinishCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    Sprites:
+    - {fileID: 21300000, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300002, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300004, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300006, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300008, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300010, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300012, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300014, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300016, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300018, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300020, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300022, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    Animation:
+      Settings:
+        PlayMode: 0
+        EaseMode: 0
+        Ease: 0
+        Curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        StartDelay: 0
+        Duration: 0.5
+        Loops: 0
+        LoopDelay: 0
+        UseRandomStartDelay: 0
+        UseRandomDuration: 0
+        UseRandomLoops: 0
+        UseRandomLoopDelay: 0
+        RandomStartDelay:
+          MIN: 0
+          MAX: 1
+        RandomDuration:
+          MIN: 0
+          MAX: 1
+        RandomLoops:
+          MIN: 0
+          MAX: 1
+        RandomLoopDelay:
+          MIN: 0
+          MAX: 1
+        Strength: 1
+        Vibration: 8
+        Elasticity: 1
+        FadeOutShake: 0
+      FromValue: 0
+      ToValue: 11
+      CurrentValue: 0
+      Enabled: 1
+      StartFrame: 0
+      FromReferenceValue: 0
+      ToReferenceValue: 1
+      FromCustomValue: 0
+      ToCustomValue: 0
+      FromFrameOffset: 0
+      ToFrameOffset: 0
+      FromCustomProgress: 0
+      ToCustomProgress: 1
+  HighlightedAnimation:
+    OnPlayCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStopCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    OnFinishCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    Sprites:
+    - {fileID: 21300000, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300002, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300004, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300006, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300008, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300010, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300012, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300014, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300016, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300018, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300020, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300022, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    Animation:
+      Settings:
+        PlayMode: 0
+        EaseMode: 0
+        Ease: 0
+        Curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        StartDelay: 0
+        Duration: 0.5
+        Loops: 0
+        LoopDelay: 0
+        UseRandomStartDelay: 0
+        UseRandomDuration: 0
+        UseRandomLoops: 0
+        UseRandomLoopDelay: 0
+        RandomStartDelay:
+          MIN: 0
+          MAX: 1
+        RandomDuration:
+          MIN: 0
+          MAX: 1
+        RandomLoops:
+          MIN: 0
+          MAX: 1
+        RandomLoopDelay:
+          MIN: 0
+          MAX: 1
+        Strength: 1
+        Vibration: 8
+        Elasticity: 1
+        FadeOutShake: 0
+      FromValue: 0
+      ToValue: 11
+      CurrentValue: 11
+      Enabled: 1
+      StartFrame: 11
+      FromReferenceValue: 0
+      ToReferenceValue: 1
+      FromCustomValue: 0
+      ToCustomValue: 0
+      FromFrameOffset: 0
+      ToFrameOffset: 0
+      FromCustomProgress: 0
+      ToCustomProgress: 1
+  PressedAnimation:
+    OnPlayCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStopCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    OnFinishCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    Sprites: []
+    Animation:
+      Settings:
+        PlayMode: 0
+        EaseMode: 0
+        Ease: 0
+        Curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        StartDelay: 0
+        Duration: 0.5
+        Loops: 0
+        LoopDelay: 0
+        UseRandomStartDelay: 0
+        UseRandomDuration: 0
+        UseRandomLoops: 0
+        UseRandomLoopDelay: 0
+        RandomStartDelay:
+          MIN: 0
+          MAX: 1
+        RandomDuration:
+          MIN: 0
+          MAX: 1
+        RandomLoops:
+          MIN: 0
+          MAX: 1
+        RandomLoopDelay:
+          MIN: 0
+          MAX: 1
+        Strength: 1
+        Vibration: 8
+        Elasticity: 1
+        FadeOutShake: 0
+      FromValue: 0
+      ToValue: 0
+      CurrentValue: 0
+      Enabled: 0
+      StartFrame: 0
+      FromReferenceValue: 0
+      ToReferenceValue: 1
+      FromCustomValue: 0
+      ToCustomValue: 0
+      FromFrameOffset: 0
+      ToFrameOffset: 0
+      FromCustomProgress: 0
+      ToCustomProgress: 1
+  SelectedAnimation:
+    OnPlayCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStopCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    OnFinishCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    Sprites:
+    - {fileID: 21300000, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300002, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300004, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300006, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300008, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300010, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300012, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300014, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300016, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300018, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300020, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    - {fileID: 21300022, guid: 6fb5349f31fd1c44996217c156911df2, type: 3}
+    Animation:
+      Settings:
+        PlayMode: 0
+        EaseMode: 0
+        Ease: 0
+        Curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        StartDelay: 0
+        Duration: 0.5
+        Loops: 0
+        LoopDelay: 0
+        UseRandomStartDelay: 0
+        UseRandomDuration: 0
+        UseRandomLoops: 0
+        UseRandomLoopDelay: 0
+        RandomStartDelay:
+          MIN: 0
+          MAX: 1
+        RandomDuration:
+          MIN: 0
+          MAX: 1
+        RandomLoops:
+          MIN: 0
+          MAX: 1
+        RandomLoopDelay:
+          MIN: 0
+          MAX: 1
+        Strength: 1
+        Vibration: 8
+        Elasticity: 1
+        FadeOutShake: 0
+      FromValue: 0
+      ToValue: 11
+      CurrentValue: 0
+      Enabled: 1
+      StartFrame: 0
+      FromReferenceValue: 0
+      ToReferenceValue: 1
+      FromCustomValue: 0
+      ToCustomValue: 0
+      FromFrameOffset: 0
+      ToFrameOffset: 0
+      FromCustomProgress: 0
+      ToCustomProgress: 1
+  DisabledAnimation:
+    OnPlayCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStopCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    OnFinishCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    Sprites: []
+    Animation:
+      Settings:
+        PlayMode: 0
+        EaseMode: 0
+        Ease: 0
+        Curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        StartDelay: 0
+        Duration: 0.5
+        Loops: 0
+        LoopDelay: 0
+        UseRandomStartDelay: 0
+        UseRandomDuration: 0
+        UseRandomLoops: 0
+        UseRandomLoopDelay: 0
+        RandomStartDelay:
+          MIN: 0
+          MAX: 1
+        RandomDuration:
+          MIN: 0
+          MAX: 1
+        RandomLoops:
+          MIN: 0
+          MAX: 1
+        RandomLoopDelay:
+          MIN: 0
+          MAX: 1
+        Strength: 1
+        Vibration: 8
+        Elasticity: 1
+        FadeOutShake: 0
+      FromValue: 0
+      ToValue: 0
+      CurrentValue: 0
+      Enabled: 0
+      StartFrame: 0
+      FromReferenceValue: 0
+      ToReferenceValue: 1
+      FromCustomValue: 0
+      ToCustomValue: 0
+      FromFrameOffset: 0
+      ToFrameOffset: 0
+      FromCustomProgress: 0
+      ToCustomProgress: 1
+--- !u!114 &110293619485177579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297773408666661097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba37efcd13d0411394e34c93c79fa09c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 7433776795563819671}
+--- !u!114 &5876521421746602114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297773408666661097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3af1f82fc2e48368b588587f1e87ccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 7433776795563819671}
