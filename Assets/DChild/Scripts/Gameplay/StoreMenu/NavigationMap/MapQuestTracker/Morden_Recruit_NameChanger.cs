@@ -19,7 +19,7 @@ public class Morden_Recruit_NameChanger : MonoBehaviour
     {
         foreach(GameObject pref in _list)
         {
-            pref.name = (String)("NPC_Interactable_"+ pref.name.Replace(" Recruit", ""));
+            pref.name = (String)("NPC_Interactable_"+ pref.name.Replace("Quest_Recruit", ""));
             for (int x = 0;x < pref.transform.childCount ;x++)
             {
                 GameObject child = pref.transform.GetChild(x).gameObject;
