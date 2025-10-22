@@ -9,10 +9,12 @@ namespace DChild.Menu.Equipment.UI
         [SerializeField] private EquipmentSelectionUI m_selectionUI;
         [SerializeField] private SoulSlot m_category;
 
+        [SerializeField] private EquipmentCurrentItemUI m_activeSlot;
+
         public void UpdateItemGrid()
         {
             m_selectionUI.SetFilter(m_category);
-            m_selectionUI.DisplayItems();
+            m_selectionUI.UpdateItems(m_activeSlot);
         }
     }
 }

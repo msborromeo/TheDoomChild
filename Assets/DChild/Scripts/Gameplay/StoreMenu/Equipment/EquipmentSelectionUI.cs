@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.EquipmentSystem;
+using Doozy.Runtime.UIManager.Components;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
@@ -14,20 +15,27 @@ namespace DChild.Menu.Equipment.UI
     public class EquipmentSelectionUI : MonoBehaviour
     {
 
-        [SerializeField] private List<SoulEquipmentItem> m_sampleData;
-        [SerializeField] private List<EquipmentItemUI> m_itemGrid;
+        [SerializeField] private List<EquipmentGridItemUI> m_itemGrid;
         [SerializeField] private TextMeshProUGUI m_noItemsLabel;
+        [SerializeField] private EquipmentEquipButtonUI m_equipButtonUI;
+        public EquipmentEquipButtonUI equipButtonUI => m_equipButtonUI;
 
+        private List<SoulEquipmentItem> m_acquiredItems;
         private SoulSlot m_slotFilter;
+
         public void SetFilter(SoulSlot value) => m_slotFilter = value;
-        
-        public void SetupUI() => m_slotFilter = SoulSlot.Head;
 
-
-        [Button]
-        public void DisplayItems()
+        public void SetupUI(List<SoulEquipmentItem> acquiredItems)
         {
-            var filteredItems = m_sampleData.Where(item => item.soulEquipment.Slot == m_slotFilter).ToList();
+            SetFilter(SoulSlot.Head);
+            m_acquiredItems = acquiredItems;
+        }    
+
+        public void UpdateItems(EquipmentCurrentItemUI currentItem)
+        {
+
+
+            var filteredItems = m_acquiredItems.Where(item => item.soulEquipment.Slot == m_slotFilter).ToList();
             var hasItems = filteredItems != null && filteredItems.Count > 0;
 
             m_noItemsLabel.gameObject.SetActive(!hasItems);
@@ -36,14 +44,26 @@ namespace DChild.Menu.Equipment.UI
             for (; i < filteredItems.Count; i++)
             {
                 var item = filteredItems[i];
+
+                m_itemGrid[i].OnGridItemSelected += currentItem.OnGridItemSelected;
                 m_itemGrid[i].Display(item);
+
             }
 
             for (; i < m_itemGrid.Count; i++)
             {
-                m_itemGrid[i].Display(null);
+                m_itemGrid[i].OnGridItemSelected -= currentItem.OnGridItemSelected;
+                m_itemGrid[i].Display();
             }
+
+            m_equipButtonUI.UpdateButtonLabel(currentItem);
+            Reset();
         }
-  
+
+        public void Reset()
+        {
+            m_itemGrid[0].GetComponent<UIToggle>().Select();
+            m_itemGrid[0].GetComponent<UIToggle>().SetIsOn(true);
+        }
     }
 }
