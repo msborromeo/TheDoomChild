@@ -5,16 +5,16 @@ using DChild.Gameplay.UI;
 using DChild.Menu;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
-using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 namespace DChild.Gameplay.LevelFinish.UI
 {
     public class LevelFinishUI : MonoBehaviour
     {
         [SerializeField]
-        private TextMeshProUGUI m_headerText;
+        private TextMeshProUGUI m_unlockedLocationLabel;
+        [SerializeField]
+        private TextMeshProUGUI m_headerDetailsText;
         [SerializeField]
         private TextMeshProUGUI m_instructionsText;
         [SerializeField]
@@ -33,18 +33,19 @@ namespace DChild.Gameplay.LevelFinish.UI
         [Button]
         public void NotifyAvailableLocation(AvailableLocations location, InputActionConfiguration input)
         {
+            m_unlockedLocationLabel.text = $"{location}";
             switch (location)
             {
                 case AvailableLocations.Overworld:
-                    m_headerText.text = "You can now travel the Overworld";
-                    m_promptSetter.SetText("Hold BUTTONPROMPT to access the Overworld.", input);
+                    m_headerDetailsText.text = "You can now travel to Overworld";
+                    m_promptSetter.SetText("Hold BUTTONPROMPT to warp to the Overworld.", input);
                     break;
                 case AvailableLocations.Throne_Room:
-                    m_headerText.text = "You can now travel back to your Throne Room";
-                    m_promptSetter.SetText("Hold BUTTONPROMPT to Teleport to your Throne Room.", input);
+                    m_headerDetailsText.text = "You can now travel back to your Throne Room";
+                    m_promptSetter.SetText("Hold BUTTONPROMPT to warp to your Throne Room.", input);
                     break;
                 default:
-                    m_headerText.text = "";
+                    m_headerDetailsText.text = "";
                     m_instructionsText.text = "";
                     break;
             }
