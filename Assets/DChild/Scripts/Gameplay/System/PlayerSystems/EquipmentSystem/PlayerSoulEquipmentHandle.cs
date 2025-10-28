@@ -115,6 +115,7 @@ namespace DChild.Gameplay.EquipmentSystem
                                 foreach (SoulSkill skill in m_acquiredSoulEquipment[j].item.soulEquipment.soulSkillList)
                                 {
                                     skill.SetFullyLearned(true);
+                                    m_soulSkillHandle.AddAsAcquired(skill.id);
                                 }
                             }
                         }
