@@ -28,13 +28,16 @@ namespace DChild.Gameplay.SoulSkills
         private int m_currentSoulCapacity;
         private HashSet<int> m_acquiredSkills;
         private HashSet<int> m_activatedSkillsID;
+        [ShowInInspector, ReadOnly]
         private HashSet<SoulSkill> m_activatedSkills;
+        private HashSet<int> m_temporaryAcquiredSkills;
 
         private Dictionary<int, bool> m_canBeActivatedAsPermanent;
 
         public int maxSoulCapacity => m_maxSoulCapacity;
         public int currentSoulCapacity => m_currentSoulCapacity;
         public IReadOnlyCollection<int> acquiredSkills => m_acquiredSkills; 
+        public IReadOnlyCollection<int> temporaryAcquiredSkills => m_temporaryAcquiredSkills;
         public IReadOnlyCollection<int> activatedSkills => m_activatedSkillsID;
 
         public event EventAction<EventActionArgs> SaveDataLoaded;
@@ -140,21 +143,23 @@ namespace DChild.Gameplay.SoulSkills
                 m_activatedSkillsID.Add(soulSkill.id);
                 m_activatedSkills.Add(soulSkill);
                 soulSkill.AttachTo(m_player);
+                SetActivationRestriction(soulSkill.id, asPermanent);
                 //Equipment Skill check to only deduct soul capacity if skill is not equipment skill
-                m_currentSoulCapacity -= soulSkill.capacity;
+                if (asPermanent == true)
+                    m_currentSoulCapacity -= soulSkill.capacity;
             }
         }
 
-        public void RemoveAsActivated(SoulSkill soulSkill)
+        public void RemoveAsActivated(SoulSkill soulSkill, bool asPermanent = true)
         {
-            //logic to prevent unequipping skill if fully learned equipment skill
             if (m_activatedSkillsID.Contains(soulSkill.id))
             {
                 m_activatedSkillsID.Remove(soulSkill.id);
                 m_activatedSkills.Remove(soulSkill);
                 soulSkill.DetachFrom(m_player);
                 //Need to add boolean check if soul skill was activated as temporary, if so do not add soul capacity
-                m_currentSoulCapacity += soulSkill.capacity;
+                if (asPermanent == true)
+                    m_currentSoulCapacity += soulSkill.capacity;
             }
         }
 
