@@ -232,7 +232,7 @@ namespace DChild.Gameplay.EquipmentSystem
 
             foreach (SoulSkill soulSkill in equipment.soulSkillList)
             {
-                m_soulSkillHandle.RemoveAsActivated(soulSkill);
+                m_soulSkillHandle.RemoveAsActivated(soulSkill, false);
             }
         }
 
