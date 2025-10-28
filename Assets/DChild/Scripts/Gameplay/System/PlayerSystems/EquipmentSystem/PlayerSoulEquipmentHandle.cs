@@ -150,7 +150,7 @@ namespace DChild.Gameplay.EquipmentSystem
                     var currentExp = Mathf.FloorToInt(item.soulEquipment.ExpRequired * data.equipmentExpPercent[i]);
                     var leveledEquipment = new LeveledEquipment(item, currentExp);
 
-                    m_acquiredSoulEquipment.Add(leveledEquipment);
+                    AddAcquiredSoulEquipmentItem(leveledEquipment.item);
                     equipmentIDPair.Add(item.id, leveledEquipment);
                 }
 

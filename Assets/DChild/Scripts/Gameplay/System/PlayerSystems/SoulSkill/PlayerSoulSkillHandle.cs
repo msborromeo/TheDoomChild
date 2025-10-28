@@ -28,6 +28,7 @@ namespace DChild.Gameplay.SoulSkills
         private int m_currentSoulCapacity;
         private HashSet<int> m_acquiredSkills;
         private HashSet<int> m_activatedSkillsID;
+        [ShowInInspector, ReadOnly]
         private HashSet<SoulSkill> m_activatedSkills;
         private HashSet<int> m_temporaryAcquiredSkills;
 
