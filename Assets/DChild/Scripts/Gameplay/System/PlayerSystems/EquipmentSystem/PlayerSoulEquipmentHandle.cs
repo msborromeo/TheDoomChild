@@ -62,12 +62,26 @@ namespace DChild.Gameplay.EquipmentSystem
         {
             m_player.inventory.SoulEquipmentAcquired += OnSoulEquipmentAcquired;
             m_player.attackModule.TargetDamaged += OnTargetDamaged;
+            m_player.damageableModule.DamageTaken += OnDamageTaken;
         }
 
         private void OnDisable()
         {
             m_player.inventory.SoulEquipmentAcquired -= OnSoulEquipmentAcquired;
             m_player.attackModule.TargetDamaged -= OnTargetDamaged;
+            m_player.damageableModule.DamageTaken -= OnDamageTaken;
+        }
+
+        private void OnDamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
+        {
+            if(m_player.damageableModule.isAlive == false)
+            {
+                //Unequip all equipment on death
+                for(int i = 0; i < m_eqiuppedItems.Count; i++)
+                {
+                    UnequipSoulEquipment(m_eqiuppedItems[i].item);
+                }
+            }
         }
 
         private void OnSoulEquipmentAcquired(object sender, SoulEquipmentAcquiredEventArgs eventArgs)
@@ -101,6 +115,7 @@ namespace DChild.Gameplay.EquipmentSystem
                                 foreach (SoulSkill skill in m_acquiredSoulEquipment[j].item.soulEquipment.soulSkillList)
                                 {
                                     skill.SetFullyLearned(true);
+                                    m_soulSkillHandle.AddAsAcquired(skill.id);
                                 }
                             }
                         }
@@ -136,7 +151,7 @@ namespace DChild.Gameplay.EquipmentSystem
                     var currentExp = Mathf.FloorToInt(item.soulEquipment.ExpRequired * data.equipmentExpPercent[i]);
                     var leveledEquipment = new LeveledEquipment(item, currentExp);
 
-                    m_acquiredSoulEquipment.Add(leveledEquipment);
+                    AddAcquiredSoulEquipmentItem(leveledEquipment.item);
                     equipmentIDPair.Add(item.id, leveledEquipment);
                 }
 
@@ -147,8 +162,6 @@ namespace DChild.Gameplay.EquipmentSystem
                     {
                         var levelEquipment = equipmentIDPair[id];
                         EquipSoulEquipment(levelEquipment.item);
-                        //m_equippedSoulSlotEquipmentPair.Add((SoulSlot)i, levelEquipment.item);
-                        //m_eqiuppedItems.Add(levelEquipment);
                     }
                 }
             }
@@ -163,6 +176,19 @@ namespace DChild.Gameplay.EquipmentSystem
         public void EquipSoulEquipment(SoulEquipmentItem soulEquipment)
         {
             var equipment = soulEquipment.soulEquipment;
+
+            //Check if soul equipment is acquired already 
+            var isAcquired = false;
+            for(int i = 0; i < m_acquiredSoulEquipment.Count; i++)
+            {
+                if (m_acquiredSoulEquipment[i].item == soulEquipment)
+                {
+                    isAcquired = true;
+                }
+            }
+
+            if (isAcquired == false)
+                return;
 
             if (m_equippedSoulSlotEquipmentPair.ContainsKey(equipment.Slot))
                 return;
@@ -189,11 +215,25 @@ namespace DChild.Gameplay.EquipmentSystem
         public void UnequipSoulEquipment(SoulEquipmentItem soulEquipment)
         {
             var equipment = soulEquipment.soulEquipment;
+
+            //Check if soul equipment is acquired already 
+            var isAcquired = false;
+            for (int i = 0; i < m_acquiredSoulEquipment.Count; i++)
+            {
+                if (m_acquiredSoulEquipment[i].item == soulEquipment)
+                {
+                    isAcquired = true;
+                }
+            }
+
+            if (isAcquired == false)
+                return;
+
             m_equippedSoulSlotEquipmentPair.Remove(equipment.Slot);
 
             foreach (SoulSkill soulSkill in equipment.soulSkillList)
             {
-                m_soulSkillHandle.RemoveAsActivated(soulSkill);
+                m_soulSkillHandle.RemoveAsActivated(soulSkill, false);
             }
         }
 
