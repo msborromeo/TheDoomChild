@@ -20,7 +20,10 @@ namespace DChild.Menu.Equipment.UI
         private SoulEquipmentItem m_currentItem;
         public SoulEquipmentItem currentItem => m_currentItem;
 
-        public void OnGridItemSelected(object sender, EventActionArgs eventArgs) => m_selectionUI.equipButtonUI.UpdateButtonLabel(this);
+        public void OnGridItemSelected(object sender, EventActionArgs eventArgs)
+        {
+            m_selectionUI.equipButtonUI.UpdateButtonLabel(this);
+        }
 
         public void OnItemEquipped(object sender, ItemEquipEventArgs eventArgs)
         {
@@ -30,6 +33,7 @@ namespace DChild.Menu.Equipment.UI
                 return;
 
             m_itemImage.sprite = m_currentItem.icon;
+            m_selectionUI.equipmentHandle.EquipSoulEquipment(m_currentItem);
         }
 
         public void OnItemRemoved(object sender, EventActionArgs eventArgs)
@@ -37,6 +41,8 @@ namespace DChild.Menu.Equipment.UI
             if (m_currentItem.soulEquipment.Slot != m_soulSlot)
                 return;
             m_itemImage.sprite = null;
+            m_selectionUI.equipmentHandle.UnequipSoulEquipment(m_currentItem);
+
         }
 
         private void Start()
