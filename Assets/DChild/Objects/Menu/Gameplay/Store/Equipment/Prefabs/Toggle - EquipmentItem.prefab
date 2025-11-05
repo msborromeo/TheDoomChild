@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2525283207750175052}
   - component: {fileID: 2952814512419208848}
   - component: {fileID: 7600894730710924650}
-  - component: {fileID: 7140061096531062973}
+  - component: {fileID: 427709476388264910}
   m_Layer: 0
   m_Name: Toggle - EquipmentItem
   m_TagString: Untagged
@@ -156,7 +156,20 @@ MonoBehaviour:
     Runners: []
     Event:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 427709476388264910}
+          m_TargetAssemblyTypeName: DChild.Menu.Equipment.UI.EquipmentGridItemUI,
+            Assembly-CSharp
+          m_MethodName: PrepareAttachedItem
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   OnInstantToggleOnCallback:
     EventName: OnInstantToggleOnCallback
     Runners: []
@@ -187,7 +200,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1544664242656438451}
   m_CullTransparentMesh: 1
---- !u!114 &7140061096531062973
+--- !u!114 &427709476388264910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,8 +212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e6e0f3038d13546a20232853c80e76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_item: {fileID: 11400000, guid: b41b1b41cee6e2a4fb8ca9d5e663697a, type: 2}
   m_itemIcon: {fileID: 6011662760351674043}
+  m_equipButton: {fileID: 0}
 --- !u!1 &2340394206496905446
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,11 +386,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
+      FromValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
       ToValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
       CurrentValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
       Enabled: 1
-      StartColor: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
+      StartColor: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 2
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}
@@ -455,11 +468,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
-      ToValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
+      FromValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
+      ToValue: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
       CurrentValue: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 1}
       Enabled: 1
-      StartColor: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
+      StartColor: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 0
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}
@@ -537,11 +550,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
-      ToValue: {r: 0.26862746, g: 0.26862746, b: 0.26862746, a: 1}
+      FromValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
+      ToValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
       CurrentValue: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 1}
       Enabled: 1
-      StartColor: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
+      StartColor: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 0
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}
@@ -619,11 +632,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
-      ToValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
+      FromValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
+      ToValue: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
       CurrentValue: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 1}
       Enabled: 1
-      StartColor: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
+      StartColor: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 0
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}
@@ -701,11 +714,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
-      ToValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 0.5}
+      FromValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
+      ToValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 0.5}
       CurrentValue: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 1}
       Enabled: 1
-      StartColor: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
+      StartColor: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 0
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}
@@ -799,11 +812,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
-      ToValue: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
+      FromValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
+      ToValue: {r: 0.47058827, g: 0.47058827, b: 0.47058827, a: 1}
       CurrentValue: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 1}
       Enabled: 1
-      StartColor: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
+      StartColor: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 2
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}
@@ -881,11 +894,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
-      ToValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
+      FromValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
+      ToValue: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
       CurrentValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
       Enabled: 1
-      StartColor: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
+      StartColor: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 0
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}
@@ -963,11 +976,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
-      ToValue: {r: 0.26862746, g: 0.26862746, b: 0.26862746, a: 1}
+      FromValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
+      ToValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
       CurrentValue: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 1}
       Enabled: 1
-      StartColor: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
+      StartColor: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 0
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}
@@ -1045,11 +1058,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
-      ToValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
+      FromValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
+      ToValue: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
       CurrentValue: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 1}
       Enabled: 1
-      StartColor: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
+      StartColor: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 0
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}
@@ -1127,11 +1140,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
-      ToValue: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 0.5}
+      FromValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
+      ToValue: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 0.5}
       CurrentValue: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 1}
       Enabled: 1
-      StartColor: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
+      StartColor: {r: 0.46862745, g: 0.46862745, b: 0.46862745, a: 1}
       FromReferenceValue: 1
       ToReferenceValue: 0
       FromCustomValue: {r: 1, g: 1, b: 1, a: 1}

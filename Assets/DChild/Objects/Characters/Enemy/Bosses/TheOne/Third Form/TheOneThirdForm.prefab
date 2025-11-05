@@ -793,7 +793,6 @@ MonoBehaviour:
   m_obstacleChecker: {fileID: 236450176631910836}
   m_theOneHitbox: {fileID: 4269384282197895440}
   m_isPlayerBackArena: 0
-  m_cutsceneTriggersForPhaseTwo: 0
   m_theOneMiniBlackHole: {fileID: 0}
   m_theOneMiniBlackHoleVFX: {fileID: 0}
   m_mouthBlastTwo:
@@ -829,6 +828,9 @@ MonoBehaviour:
   m_theOneThirdFormAttacks: {fileID: 352779732458433666}
   m_skipCinematics: 0
   m_cinematicBHPosition: {fileID: 0}
+  m_onFirstDeath:
+    m_PersistentCalls:
+      m_Calls: []
   m_mouthBlastOne: {fileID: 0}
   m_sphereBombAttack: {fileID: 0}
   m_sphereBombAttackSmall: {fileID: 0}
@@ -1699,6 +1701,7 @@ GameObject:
   - component: {fileID: 1291992304504658906}
   - component: {fileID: 3861368186301634702}
   - component: {fileID: 5957908220351474545}
+  - component: {fileID: 1746071265625333719}
   m_Layer: 13
   m_Name: Model
   m_TagString: Untagged
@@ -1812,6 +1815,22 @@ MonoBehaviour:
   loop: 0
   timeScale: 1
   m_alwaysUpdateMesh: 1
+--- !u!114 &1746071265625333719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269384281560032765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce36765c3609a7e438482540600a3b3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_renderer: {fileID: 3861368186301634702}
+  m_color: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 0}
+  m_fadeInDuration: 0.025
+  m_fadeOutDuration: 0.5
 --- !u!1 &4269384281760673516
 GameObject:
   m_ObjectHideFlags: 0
@@ -8563,6 +8582,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_waitForInitializeAnimation
       value: WaitforInitialize
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965918432846982289, guid: 77fc0e7a75474f94a969a47178b4aafc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 5010296631707400612, guid: 77fc0e7a75474f94a969a47178b4aafc,
         type: 3}
