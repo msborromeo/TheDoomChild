@@ -13,6 +13,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using Random = System.Random;
 
 public class SmallAdran : MonoBehaviour
 {
@@ -29,38 +31,79 @@ public class SmallAdran : MonoBehaviour
     [SerializeField]
     private Collider2D[] m_collider;
     [SerializeField]
+    private Collider2D m_AttackCollider;
+    [SerializeField]
     private GameObject m_deathVfx;
     public Vector2 startingPosition;
     [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
     private string m_turnAnimation;
     [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
     private string m_idle;
+    [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
+    private string m_goingDownAnim;
+    [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
+    private string m_attackAnimation;
+    [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
+    private string m_deathAnimation;
     [SerializeField]
     private SpineEventListener m_spineListener;
     [SerializeField, TabGroup("GetEvents"),SpineEvent(dataField = "m_skeletonAnimation")]
     private string m_deathFX;
+    [SerializeField, TabGroup("GetEvents"), SpineEvent(dataField = "m_skeletonAnimation")]
+    private string m_onCollider;
+    [SerializeField, TabGroup("GetEvents"), SpineEvent(dataField = "m_skeletonAnimation")]
+    private string m_offCollider;
+    private bool m_startFaceDetection = false;
     public event EventAction<EventActionArgs> GotDamagedByPlayer;
     public event EventAction<EventActionArgs> SmallAdranGotDestroyed;
     public event EventAction<EventActionArgs> SmallAdranReachedZone;
     public bool isReturningToSummonSpot;
     public bool m_stopHomingMissile;
     public bool m_reachedAreaToActivate;
-
+    public bool isDestroyed;
+    public bool returnedToSpot;
     private void Start()
     {
+        enabled = true;
+        returnedToSpot = false;
+        isDestroyed = false;
         m_reachedAreaToActivate = false;
         m_stopHomingMissile = false;
         m_spineListener.Subscribe(m_deathFX, DeathVFX);
+        m_spineListener.Subscribe(m_onCollider, OnAttackCollider);
+        m_spineListener.Subscribe(m_offCollider, OffAttackCollider);
         m_Damageable.DamageTaken += Damageable_DamageTaken;
         m_Damageable.Destroyed += ObjectOnDestroyed;
-        m_deathVfx.SetActive(false);
+      //  m_deathVfx.SetActive(false);
     }
 
-    
+
+    //private void OnEnable()
+    //{
+    //    Vector2 playerPos = GameplaySystem.playerManager.player.character.transform.position;
+    //    if (isReturningToSummonSpot == false)
+    //    {
+    //        FacingPlayerUpdate(playerPos);
+    //    }
+    //    else
+    //    {
+    //        FacingStartingPointUpdate(startingPosition);
+    //    }
+    //}
+    private void OnAttackCollider()
+    {
+        m_AttackCollider.enabled = true;
+    }
+    private void OffAttackCollider()
+    {
+        m_AttackCollider.enabled = false;
+    }
     public void DeathVFX()
     {
-        Debug.Log("ASD");
-        m_deathVfx.SetActive(true);
+        var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().
+            GetOrCreateItem(m_deathVfx, gameObject.scene);
+        instance1.SpawnAt(new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+        Destroy(gameObject);
     }
     
     public void InitializeField(SpineRootAnimation spineRoot)
@@ -70,14 +113,23 @@ public class SmallAdran : MonoBehaviour
     private void ObjectOnDestroyed(object sender, EventActionArgs eventArgs)
     {
         Debug.Log("Adran is Destroyed");
-        gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+        StopAllCoroutines();
         m_stopHomingMissile = true;
-        //m_deathVfx.Play();
-
-        SmallAdranGotDestroyed?.Invoke(this, EventActionArgs.Empty);
+        isDestroyed = true;
+        m_startFaceDetection = false;
+        ColliderController(false);  
         
-    }
+        SmallAdranGotDestroyed?.Invoke(this, EventActionArgs.Empty);
+        enabled = false;
 
+    }
+    private IEnumerator DeathRoutine()
+    {
+        m_spine.SetAnimation(0, m_deathAnimation, false); 
+        yield return new WaitForAnimationComplete(m_spine.animationState, m_deathAnimation);
+       // yield return new WaitForSeconds(0.3f);
+       // Destroy(this.gameObject);
+    }
     private void Damageable_DamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
     {
         GotDamagedByPlayer?.Invoke(this, EventActionArgs.Empty);
@@ -93,6 +145,9 @@ public class SmallAdran : MonoBehaviour
     private bool hasTurned;
     private void Update()
     {
+        if (!m_startFaceDetection)
+            return;
+
         Vector2 playerPos = GameplaySystem.playerManager.player.character.transform.position;
         if (isReturningToSummonSpot == false)
         {
@@ -101,11 +156,23 @@ public class SmallAdran : MonoBehaviour
         else
         {
             FacingStartingPointUpdate(startingPosition);
-        }
-      
-     
+        } 
+    }
 
-       
+    public void AttackAnimationRoutine()
+    {
+        StartCoroutine(SetAttackAnimation());
+    }
+
+    public IEnumerator SetAttackAnimation()
+    {
+        StopAllCoroutines();
+        m_startFaceDetection = false;
+        m_spine.SetAnimation(0, m_attackAnimation, false);
+        yield return new WaitForAnimationComplete(m_spine.animationState, m_attackAnimation);
+        m_spine.SetAnimation(0, m_idle, true);
+        yield return new WaitForSeconds(.3f);
+        m_startFaceDetection = true;
     }
     public void ColliderController(bool condition)
     {
@@ -155,13 +222,26 @@ public class SmallAdran : MonoBehaviour
         }
     }
 
+    private IEnumerator DelayActivateReachArea()
+    {
+        if (m_reachedAreaToActivate)
+            yield break;
+
+        var randomNumer = UnityEngine.Random.Range(0.2f, 0.3f);
+        yield return new WaitForSeconds(randomNumer);
+        Debug.Log(randomNumer);
+        m_reachedAreaToActivate = true;
+        m_startFaceDetection = true;
+        m_spine.SetAnimation(0, m_idle, true);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.name == "BoxKoNiYaHa")
         {
             SmallAdranReachedZone?.Invoke(this, EventActionArgs.Empty);
             Debug.Log("Reached ZOne");
-            m_reachedAreaToActivate = true;
+            StartCoroutine(DelayActivateReachArea());
         }
     }
 
