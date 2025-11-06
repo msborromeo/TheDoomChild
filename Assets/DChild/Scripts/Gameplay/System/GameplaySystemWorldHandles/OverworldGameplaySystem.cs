@@ -1,4 +1,8 @@
+using Cinemachine;
+using DChild.Gameplay.Cinematics.Cameras;
 using DChild.Gameplay.UI;
+using DChild.Menu;
+using Holysoft.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,6 +28,8 @@ namespace DChild.Gameplay.Systems
         private static bool m_hasBeenRequested;
         private static Vector2 m_requestPosition;
         public static VolumeMixerManager volumeMixerManager => m_volumeMixerManager;
+
+        public static event Action SetupVCam;
 
         public static void RequestForPlayerCharacterTeleport(Vector2 position)
         {
@@ -53,11 +59,9 @@ namespace DChild.Gameplay.Systems
                     initializables[i].Initialize();
                 }
 
-
                 //Just to make sure that underworld system is loaded with Base Gameplay, currently still using old way to initialize first load;
                 GameplaySystem.campaignSerializer.Load(SerializationScope.Gameplay | SerializationScope.Menu, true);
                 Debug.Log("Overworld System Awake Done");
-
                 if (m_hasBeenRequested)
                 {
                     m_playerManager.TeleportPlayer(m_requestPosition);
@@ -73,6 +77,13 @@ namespace DChild.Gameplay.Systems
             m_volumeMixerManager = GameplaySystem.volumeMixerManager;
         }
 
+        private void Start()
+        {
+            SetupVCam?.Invoke();
+        }
+
+
+
         private void OnDestroy()
         {
             if (m_instance == this)
@@ -82,6 +93,16 @@ namespace DChild.Gameplay.Systems
 
                 m_instance = null;
             }
+        }
+
+        public static void ListenToNextSceneLoad()
+        {
+            LoadingHandle.LoadingDone += OnLoadingSceneDone;
+        }
+
+        private static void OnLoadingSceneDone(object sender, EventActionArgs eventArgs)
+        {
+            LoadingHandle.LoadingDone -= OnLoadingSceneDone;
         }
 
 
