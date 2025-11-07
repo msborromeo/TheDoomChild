@@ -325,7 +325,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     {
         base.Awake();
         m_damageable.health.Death += Health_Death;
-        PlayerAreaDetection.OnPlayerEnteredArea += PlayerAreaDetection_OnPlayerEnteredArea;
+        
         m_attackDecider = new RandomAttackDecider<Attack>();
         m_stateHandle = new StateHandle<State>(State.Intro, State.WaitBehaviourEnd);
         m_smallAdrans = new List<Projectile>();
@@ -714,15 +714,15 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     [SerializeField]
     private GameObject[] m_areaDetectionCollider;
     private IEnumerator SlamRollLocatePlayer()
-    { 
-        
+    {
+        PlayerAreaDetection.OnPlayerEnteredArea += PlayerAreaDetection_OnPlayerEnteredArea;
         for (int i = 0; i < m_areaDetectionCollider.Length; i++)
         {
             m_areaDetectionCollider[i].gameObject.SetActive(true);
         }
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
         Vector2 playerPos = GameplaySystem.playerManager.player.character.transform.position;
-        Vector2 locationDrop = Vector2.zero;
+       Vector2 locationDrop = Vector2.zero;
 
         switch (m_currentPlayerArea)
         {
@@ -743,27 +743,30 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
                 break;
  
         }
-        yield return new WaitForSeconds(0.3f);
-        for (int i = 0; i < m_areaDetectionCollider.Length; i++)
-        {
-            m_areaDetectionCollider[i].gameObject.SetActive(false);
-        }
+        
+        
         Debug.Log(locationDrop.ToString());
-
+       
+        yield return new WaitForSeconds(0.5f);
+        PlayerAreaDetection.OnPlayerEnteredArea -= PlayerAreaDetection_OnPlayerEnteredArea;
         while (Vector2.Distance(locationDrop, m_centerMass.transform.position) > 0.1f)
         {
             transform.position = Vector2.MoveTowards(transform.position, locationDrop, m_flightSpeedSlamRoll * Time.deltaTime);
             yield return null;
         }
-            // Check if the object is very close to the target position
-            //if (Vector2.Distance(transform.position, targetPos) <= 0.05f)
-            //{
-            //    Debug.Log("Now floating above player");
-            //    break;
-            //}
+        for (int i = 0; i < m_areaDetectionCollider.Length; i++)
+        {
+            m_areaDetectionCollider[i].gameObject.SetActive(false);
+        }
+        // Check if the object is very close to the target position
+        //if (Vector2.Distance(transform.position, targetPos) <= 0.05f)
+        //{
+        //    Debug.Log("Now floating above player");
+        //    break;
+        //}
 
-          
-        
+
+
 
     }
     [SerializeField,ReadOnly]
@@ -1448,7 +1451,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     }
     private IEnumerator ChangePhaseRoutine()
     {
-        m_stateHandle.Wait(State.Attacking);
+        m_stateHandle.Wait(State.ReevaluateSituation);
         m_hitbox.Disable();
         switch (m_phaseHandle.currentPhase)
         {

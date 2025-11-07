@@ -21,10 +21,11 @@ public class PlayerAreaDetection : MonoBehaviour
 
     private void Start()
     {
-       // Debug.Log(m_areaLocated.ToString());
+      Debug.Log(m_areaLocated.ToString()+ " player location, PlayerAreaDetection Script");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (collision.tag != "Hitbox")
             return;
         var playerObject = collision.gameObject.GetComponentInParent<PlayerControlledObject>();
