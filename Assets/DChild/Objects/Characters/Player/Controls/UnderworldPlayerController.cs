@@ -1145,11 +1145,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashHeldInput()
         {
-            if (m_state.isSliding || m_state.isCrouched)
+            if (m_state.isCrouched)
+                return;
+            if (m_state.isSliding)
                 return;
             if (m_state.isGrounded == false)
                 return;
             if (m_state.isAimingProjectile)
+                return;
+            if (m_state.isDoingSwordThrust)
                 return;
 
             if (m_state.isGrounded)
