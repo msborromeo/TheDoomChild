@@ -686,12 +686,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #region Input Handles
         private void OnVector2PerformedInput(Vector2 vector)
         {
-            if(m_state.isChargingAttack || m_state.isDoingSwordThrust || m_state.isDoingWhipCombo)
-            {
-                m_vector2Input = Vector2.zero;
-                return;
-            }
-
             if ( m_state.isExecutingCombatArt)
                 return;
 
@@ -1999,7 +1993,19 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void MoveAction()
         {
-            if (m_state.isDashing || m_state.isAttacking || m_state.waitForBehaviour || m_state.isLedgeGrabbing)
+            if (m_state.isDashing)
+                return;
+            if (m_state.isAttacking)
+                return;
+            if (m_state.waitForBehaviour)
+                return;
+            if (m_state.isLedgeGrabbing)
+                return;
+            if (m_state.isDoingSwordThrust)
+                return;
+            if (m_state.isChargingAttack)
+                return;
+            if (m_state.isDoingWhipCombo)
                 return;
 
             if (m_vector2Input.x == 0)
