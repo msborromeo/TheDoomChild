@@ -720,10 +720,16 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         {
             m_areaDetectionCollider[i].gameObject.SetActive(true);
         }
+        Vector2 locationDrop = Vector2.zero;
         yield return new WaitForSeconds(0.5f);
+        Debug.Log(locationDrop.ToString());   
+        PlayerAreaDetection.OnPlayerEnteredArea -= PlayerAreaDetection_OnPlayerEnteredArea;
+        for (int i = 0; i < m_areaDetectionCollider.Length; i++)
+        {
+            m_areaDetectionCollider[i].gameObject.SetActive(false);
+        }
         Vector2 playerPos = GameplaySystem.playerManager.player.character.transform.position;
-       Vector2 locationDrop = Vector2.zero;
-
+        yield return new WaitForSeconds(0.5f);
         switch (m_currentPlayerArea)
         {
             case PlayerAreaDetection.Area.Area1NiJan:
@@ -742,22 +748,14 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
                 locationDrop = m_Area4.position;
                 break;
  
-        }
-        
-        
-        Debug.Log(locationDrop.ToString());
+        }   
        
-        yield return new WaitForSeconds(0.5f);
-        PlayerAreaDetection.OnPlayerEnteredArea -= PlayerAreaDetection_OnPlayerEnteredArea;
         while (Vector2.Distance(locationDrop, m_centerMass.transform.position) > 0.1f)
         {
             transform.position = Vector2.MoveTowards(transform.position, locationDrop, m_flightSpeedSlamRoll * Time.deltaTime);
             yield return null;
         }
-        for (int i = 0; i < m_areaDetectionCollider.Length; i++)
-        {
-            m_areaDetectionCollider[i].gameObject.SetActive(false);
-        }
+        
         // Check if the object is very close to the target position
         //if (Vector2.Distance(transform.position, targetPos) <= 0.05f)
         //{
