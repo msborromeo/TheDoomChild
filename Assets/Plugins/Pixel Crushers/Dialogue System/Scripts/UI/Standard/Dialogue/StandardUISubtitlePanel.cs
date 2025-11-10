@@ -518,6 +518,8 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         public virtual void FinishSubtitle()
         {
+            if (DialogueTime.isPaused) return;
+
             HideContinueButton();
             var typewriter = GetTypewriter();
             if (typewriter != null && typewriter.isPlaying) typewriter.Stop();

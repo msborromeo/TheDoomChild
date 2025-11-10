@@ -1,6 +1,7 @@
 ﻿using DChild.Gameplay;
 using DChild.Gameplay.Characters.AI;
 using DChildDebug.Cutscene;
+using Holysoft.Event;
 using PixelCrushers;
 using PixelCrushers.DialogueSystem;
 using PixelCrushers.DialogueSystem.ChatMapper;
@@ -78,10 +79,7 @@ namespace DChild.UI
 
         private void HandleOpenDialogue()
         {
-            //var currentDialogue = DialogueManager.currentConversationState.subtitle.dialogueEntry;
-
-            //Debug.Log($"current dialogue actor: {currentDialogue.ActorID}");
-            //Debug.Log($"current dialogue conversant: {currentDialogue.ConversantID}");
+            DialogueTime.Mode = DialogueTime.TimeMode.Realtime;
 
             if (m_currentDialogueType != DialogueType.Dialogue)
             {
@@ -103,6 +101,8 @@ namespace DChild.UI
 
         private void HandleOpenBanter()
         {
+            DialogueTime.Mode = DialogueTime.TimeMode.Gameplay;
+
             if (m_currentDialogueType != DialogueType.Banter)
             {
                 DialogueManager.displaySettings.subtitleSettings.continueButton = DisplaySettings.SubtitleSettings.ContinueButtonMode.Never;
@@ -135,8 +135,6 @@ namespace DChild.UI
 
         public override void Close()
         {
-
-
             if (isInCutscene == false)
             {
                 // This should be adjusted more as sometimes this can give unneccessary effects to summoned minions
@@ -150,6 +148,9 @@ namespace DChild.UI
                 }
 
             }
+            if (DialogueTime.Mode != DialogueTime.TimeMode.Realtime)
+                DialogueTime.Mode = DialogueTime.TimeMode.Realtime;
+
             base.Close();
             dialogueActive = false;
         }

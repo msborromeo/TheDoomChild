@@ -113,6 +113,8 @@ namespace DChild.Gameplay.Systems
             isGamePaused = false;
             GameSystem.SetCursorVisibility(false);
 
+            DialogueManager.Unpause();
+
             try
             {
                 m_volumeMixerManager.UseSnapshot(AudioSnapshot.Gameplay);
@@ -122,6 +124,7 @@ namespace DChild.Gameplay.Systems
             {
                 Debug.LogError(e.Message);
             }
+
             SkeletonAnimationManager.Instance?.UnpauseAllSpines();
         }
 
@@ -134,6 +137,8 @@ namespace DChild.Gameplay.Systems
             //MasterAudio.PauseEverything();
             
             SkeletonAnimationManager.Instance.PauseAllSpines();
+            DialogueManager.Pause();
+
         }
 
         public static void ClearCaches()
