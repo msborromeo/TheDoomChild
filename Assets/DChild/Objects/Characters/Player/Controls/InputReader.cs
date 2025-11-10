@@ -30,24 +30,24 @@ namespace DChild.Inputs
 
         public void Disable()
         {
-            //var input = GameObject.FindObjectOfType<PlayerInput>();
+            var input = GameObject.FindObjectOfType<PlayerInput>();
 
-            //input?.DeactivateInput();
+            input?.DeactivateInput();
 
-            m_playerControls.Underworld.Disable();
-            m_playerControls.Overworld.Disable();
-            m_playerControls.UI.Enable();
+            //m_playerControls.Underworld.Disable();
+            //m_playerControls.Overworld.Disable();
+            //m_playerControls.UI.Enable();
         }
 
         public void Enable()
         {
-            //var input = GameObject.FindObjectOfType<PlayerInput>();
+            var input = GameObject.FindObjectOfType<PlayerInput>();
 
-            //input?.ActivateInput();
+            input?.ActivateInput();
 
-            m_playerControls.Underworld.Enable();
-            m_playerControls.Overworld.Enable();
-            m_playerControls.UI.Disable();
+            //m_playerControls.Underworld.Enable();
+            //m_playerControls.Overworld.Enable();
+            //m_playerControls.UI.Disable();
 
         }
 
@@ -158,14 +158,14 @@ namespace DChild.Inputs
 
         public void SetInputModeToUnderworldGameplay()
         {
-            //var input = GameObject.FindObjectOfType<PlayerInput>();
+            var input = GameObject.FindObjectOfType<PlayerInput>();
 
-            //input?.ActivateInput();
+            input?.ActivateInput();
 
-            m_playerControls.Underworld.Enable();
-            m_playerControls.Overworld.Disable();
-            m_playerControls.UI.Disable();
-            m_playerControls.ArmyBattle.Disable();
+            //m_playerControls.Underworld.Enable();
+            //m_playerControls.Overworld.Disable();
+            //m_playerControls.UI.Disable();
+            //m_playerControls.ArmyBattle.Disable();
         }
 
         public void SetInputModeTOverworldGameplay()
@@ -178,14 +178,14 @@ namespace DChild.Inputs
          
         public void SetInputModeToUI()
         {
-            //var input = GameObject.FindObjectOfType<PlayerInput>();
+            var input = GameObject.FindObjectOfType<PlayerInput>();
 
-            //input?.DeactivateInput();
+            input?.DeactivateInput();
 
-            m_playerControls.UI.Enable();
-            m_playerControls.Underworld.Disable();
-            m_playerControls.Overworld.Disable();
-            m_playerControls.ArmyBattle.Disable();
+            //m_playerControls.UI.Enable();
+            //m_playerControls.Underworld.Disable();
+            //m_playerControls.Overworld.Disable();
+            //m_playerControls.ArmyBattle.Disable();
         }
 
         public void SetInputModeToArmyBattleGameplay()
