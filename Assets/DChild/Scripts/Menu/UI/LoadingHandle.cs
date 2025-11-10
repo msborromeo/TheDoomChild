@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using DChild.Gameplay.Systems;
 
 namespace DChild.Menu
 {
@@ -48,6 +49,8 @@ namespace DChild.Menu
         private static List<AsyncOperation> m_loadOperations;
         private static List<AsyncOperation> m_unloadOperations;
         private static bool m_isInitialized;
+
+        private event Action UnloadLoading;
         #endregion
 
         #region Addressable Load
@@ -316,10 +319,14 @@ namespace DChild.Menu
 
             Debug.LogError("False Positive: Scene Done Event Sent");
 
+            if(BaseGameplaySystem.GetCurrentWorldType() == WorldType.Overworld)
+            {
+                yield return new WaitForSeconds(1.5f); //Added delay to give time to vcam to initialize on time
+            }
+
             if (loadType == LoadType.Smart)
             {
                 m_loadDoneSignal.SendSignal();
-                yield return new WaitForSeconds(1f);
                 time += 1f;
             }
             else
@@ -333,7 +340,11 @@ namespace DChild.Menu
             time += Time.unscaledDeltaTime;
 
             //Cant Call Unload Here for some reason, so i have to resort to using a flag to trigger the unloading
-            m_unloadThis = true;
+            //m_unloadThis = true;
+
+            yield return new WaitForSeconds(0.75f);  //Added delay to give time for fade out to play
+
+            UnloadLoading?.Invoke();
 
             Debug.Log($"Loading Time: {time}");
 
@@ -357,12 +368,20 @@ namespace DChild.Menu
                 m_animation.AnimationEnd += OnAnimationEnd;
             }
 
+            UnloadLoading += OnUnloadLoading;
+
             GameplaySystem.SetInputActive(false);
+        }
+
+        private void OnUnloadLoading()
+        {
+            GameSystem.sceneManager.UnloadSceneAsync(m_loadingScene.sceneName);
+            m_unloadThis = false;
+            enabled = false;
         }
 
         private IEnumerator Start()
         {
-
             while (m_flow.initialized == false)
                 yield return null;
 
@@ -371,12 +390,6 @@ namespace DChild.Menu
 
         private void Update()
         {
-            if (m_unloadThis)
-            {
-                GameSystem.sceneManager.UnloadSceneAsync(m_loadingScene.sceneName);
-                m_unloadThis = false;
-                enabled = false;
-            }
             GameplaySystem.SetInputActive(false);
         }
 
@@ -384,6 +397,7 @@ namespace DChild.Menu
         {
             GameSystem.SetGamePause(false);
             m_animation.AnimationEnd -= OnAnimationEnd;
+            UnloadLoading -= OnUnloadLoading;
             LoadingDone?.Invoke(this, EventActionArgs.Empty);
             GameplaySystem.SetInputActive(true);
             Debug.Log("Loading Scene Destroyed");
