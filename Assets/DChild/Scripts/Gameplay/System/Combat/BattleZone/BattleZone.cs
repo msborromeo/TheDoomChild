@@ -27,10 +27,6 @@ namespace DChild.Gameplay.Combat
         private bool m_noMoreWaves;
 
 
-        private void WaveSpawnSound(object sender, EventActionArgs eventArgs)
-        {
-            MasterAudio.PlaySound3DAtVector3AndForget(m_waves[m_waveIndex].sound, gameObject.transform.position);
-        }
 
         private void OnSpawn(object sender, EventActionArgs<GameObject> eventArgs)
         {
@@ -96,7 +92,6 @@ namespace DChild.Gameplay.Combat
             m_spawnHandle = new SpawnHandle();
             m_waveIndex = 0;            
             var waveInfo = m_waves[m_waveIndex];
-            m_spawnHandle.PlaySpawnSound += WaveSpawnSound;
             m_spawnHandle.Initialize(waveInfo.spawnInfo, waveInfo.waveStartDelay);
 
             m_spawnHandle.EntitiesFinishSpawning += OnSpawnEnd;

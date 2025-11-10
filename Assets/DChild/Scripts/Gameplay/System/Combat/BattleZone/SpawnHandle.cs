@@ -38,7 +38,6 @@ namespace DChild.Gameplay.Combat.BattleZoneComponents
         private float m_delayTimer;
 
         public EventAction<EventActionArgs> EntitiesFinishSpawning;
-        public EventAction<EventActionArgs> PlaySpawnSound;
         public EventAction<EventActionArgs<GameObject>> EntitySpawned;
 
         private int m_totalEntitiesToSpawn;
@@ -134,8 +133,6 @@ namespace DChild.Gameplay.Combat.BattleZoneComponents
                 yield return new WaitForSeconds(delay);
             }
             m_entitiesSpawned++;
-
-            PlaySpawnSound?.Invoke(this, EventActionArgs.Empty);
 
             var instance = Object.Instantiate(gameObject, position, Quaternion.identity);
             using (Cache<EventActionArgs<GameObject>> cache = Cache<EventActionArgs<GameObject>>.Claim())

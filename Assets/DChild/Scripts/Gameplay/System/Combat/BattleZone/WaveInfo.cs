@@ -14,8 +14,6 @@ namespace DChild.Gameplay.Combat.BattleZoneComponents
         private float m_numberOfEnemiesToNextWave;
         [SerializeField,MinValue(0)]
         private float m_waveStartDelay;
-        [SerializeField, SoundGroup]
-        private string m_sound;
         [SerializeField, ListDrawerSettings(NumberOfItemsPerPage = 1)]
         private SpawnInfo[] m_spawnInfo;
 
@@ -24,6 +22,5 @@ namespace DChild.Gameplay.Combat.BattleZoneComponents
         public float numberOfEnemiesToNextWave => m_numberOfEnemiesToNextWave;
         public float waveStartDelay => m_waveStartDelay;
 
-        public string sound => m_sound;
     }
 }
