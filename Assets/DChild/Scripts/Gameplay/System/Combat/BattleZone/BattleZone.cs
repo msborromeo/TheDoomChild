@@ -26,9 +26,14 @@ namespace DChild.Gameplay.Combat
         private bool m_spawnEnded;
         private bool m_noMoreWaves;
 
-        private void OnSpawn(object sender, EventActionArgs<GameObject> eventArgs)
+
+        private void WaveSpawnSound(object sender, EventActionArgs eventArgs)
         {
             MasterAudio.PlaySound3DAtVector3AndForget(m_waves[m_waveIndex].sound, gameObject.transform.position);
+        }
+
+        private void OnSpawn(object sender, EventActionArgs<GameObject> eventArgs)
+        {
             m_entityCount++;
             var isntance = eventArgs.info;
             isntance.GetComponent<Damageable>().Destroyed += OnEntityDestroyed;
@@ -89,15 +94,18 @@ namespace DChild.Gameplay.Combat
         private void Awake()
         {
             m_spawnHandle = new SpawnHandle();
-            m_waveIndex = 0;
-            MasterAudio.PlaySound3DAtVector3AndForget(m_waves[m_waveIndex].sound, gameObject.transform.position);
-            var waveInfo = m_waves[m_waveIndex];      
+            m_waveIndex = 0;            
+            var waveInfo = m_waves[m_waveIndex];
+            m_spawnHandle.PlaySpawnSound += WaveSpawnSound;
             m_spawnHandle.Initialize(waveInfo.spawnInfo, waveInfo.waveStartDelay);
+
             m_spawnHandle.EntitiesFinishSpawning += OnSpawnEnd;
             m_spawnHandle.EntitySpawned += OnSpawn;
             enabled = false;
             m_noMoreWaves = false;
         }
+
+    
 
         public void Update()
         {
