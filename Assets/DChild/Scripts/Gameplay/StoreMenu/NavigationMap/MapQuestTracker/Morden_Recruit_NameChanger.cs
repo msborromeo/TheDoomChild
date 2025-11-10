@@ -78,9 +78,11 @@ public class Morden_Recruit_NameChanger : MonoBehaviour
         {
             foreach(GameObject reference in _Reference)
             {
-                if(pref.name.Contains(reference.name))
+                var refname = reference.name.Replace("_Base Variant","");
+                if (pref.name.Contains(refname))
                 {
                     pref.transform.position = reference.transform.position;
+                    pref.transform.localScale = reference.transform.localScale;
                     break;
                 }
                 else
