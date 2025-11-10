@@ -175,12 +175,20 @@ namespace DChild.Gameplay
                 {
                     UnderworldGameplaySystem.ListenToNextSceneLoad();
                 }
+                else if(GetCurrentWorldType() == WorldType.Overworld)
+                {
+                    OverworldGameplaySystem.ListenToNextSceneLoad();
+                }
             }
             else
             {
                 if (GameSystem.CurrentGameMode == GameMode.Underworld)
                 {
                     UnderworldGameplaySystem.ListenToNextSceneLoad();
+                }
+                else if (GetCurrentWorldType() == WorldType.Overworld)
+                {
+                    OverworldGameplaySystem.ListenToNextSceneLoad();
                 }
             }
         }

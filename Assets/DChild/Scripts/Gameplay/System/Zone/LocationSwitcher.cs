@@ -112,7 +112,6 @@ namespace DChild.Gameplay.Systems
                 }
                 GameplaySystem.ClearCaches();
                 DialogueManager.SetDialogueSystemInput(false);
-
             }
             else if (type == TransitionType.Exit)
             {
