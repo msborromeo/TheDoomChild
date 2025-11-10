@@ -10,5 +10,6 @@
         bool isDoingSwordThrust { get; set; }
         bool isExecutingCombatArt { get; set; }
         bool isDoingEarthShaker { get; set; }
+        bool isDoingWhipCombo { get; set; }
     }
 }

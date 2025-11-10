@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine;
 using Sirenix.Serialization;
 using System;
+using DChild.Gameplay.Characters.Enemies;
+
 #if UNITY_EDITOR
 using UnityEditor;
 using DChildEditor;
@@ -104,11 +106,14 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
         protected string m_description;
         [NonSerialized, OdinSerialize, ToggleGroup("m_enableEdit")]
         protected ISoulSkillModule[] m_modules = new ISoulSkillModule[1];
+        [SerializeField]
+        private bool m_isFullyLearned = false;
 
         public SoulSkillOrbData orbData => m_orbData;
         public Sprite icon => m_icon;
         public int capacity => m_capacity;
         public string description => m_description;
+        public bool isFullyLearned => m_isFullyLearned;
 
         public void AttachTo(IPlayer player)
         {
@@ -124,6 +129,11 @@ namespace DChild.Gameplay.Characters.Players.SoulSkills
             {
                 m_modules[i].DetachFrom(GetInstanceID(), player);
             }
+        }
+
+        public void SetFullyLearned(bool isFullyLearned)
+        {
+            m_isFullyLearned = isFullyLearned;
         }
 
 #if UNITY_EDITOR

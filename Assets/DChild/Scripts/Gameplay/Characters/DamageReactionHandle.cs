@@ -1,4 +1,6 @@
 ﻿using DarkTonic.MasterAudio;
+using DChild.Gameplay.Combat;
+using System;
 using UnityEngine;
 
 namespace DChild.Gameplay.Characters
@@ -14,10 +16,24 @@ namespace DChild.Gameplay.Characters
 
         public void SetFX(GameObject fx) => m_fx = fx;
 
+        private void OnDamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
+        {
+            MasterAudio.PlaySound3DAtVector3AndForget(m_sound, gameObject.transform.position);
+        }
         public void ReactToDamageAt(Vector2 position, HorizontalDirection direction)
         {
             m_spawnHandle.InstantiateFX(m_fx, position, direction);
             MasterAudio.PlaySound3DAtVector3AndForget(m_sound, position);
         }
+
+        private void Awake()
+        {
+            gameObject.GetComponentInParent<Damageable>().DamageTaken += OnDamageTaken;
+        }
+        private void OnDestroy()
+        {
+            gameObject.GetComponentInParent<Damageable>().DamageTaken -= OnDamageTaken;
+        }
+
     }
 }

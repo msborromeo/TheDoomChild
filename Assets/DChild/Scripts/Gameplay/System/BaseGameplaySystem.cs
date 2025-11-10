@@ -113,24 +113,32 @@ namespace DChild.Gameplay.Systems
             isGamePaused = false;
             GameSystem.SetCursorVisibility(false);
 
+            DialogueManager.Unpause();
+
             try
             {
-                MasterAudio.UnpauseEverything();
+                m_volumeMixerManager.UseSnapshot(AudioSnapshot.Gameplay);
+                //MasterAudio.UnpauseEverything();
             }
             catch (Exception e)
             {
                 Debug.LogError(e.Message);
             }
+
             SkeletonAnimationManager.Instance?.UnpauseAllSpines();
         }
 
         public static void PauseGame()
         {
+            m_volumeMixerManager.UseSnapshot(AudioSnapshot.GamePause);
             GameTime.RegisterValueChange(m_instance, 0, GameTime.Factor.Multiplication);
             isGamePaused = true;
             GameSystem.SetCursorVisibility(true);
-            MasterAudio.PauseEverything();
+            //MasterAudio.PauseEverything();
+            
             SkeletonAnimationManager.Instance.PauseAllSpines();
+            DialogueManager.Pause();
+
         }
 
         public static void ClearCaches()
