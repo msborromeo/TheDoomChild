@@ -395,7 +395,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 1119, y: 220.50002}
+  Position: {x: 1196.0001, y: -24}
   OnEnterShowViews:
   - Id:
       Category: Gameplay
@@ -593,7 +593,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 1
   ClearGraphHistory: 0
-  Position: {x: 1304.6023, y: 272.0001}
+  Position: {x: 1522, y: 190}
   PivotOrientation: 3
 --- !u!114 &-6547510361572051119
 MonoBehaviour:
@@ -867,7 +867,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 1
   ClearGraphHistory: 0
-  Position: {x: 2176.9424, y: 309.5}
+  Position: {x: 2420.5, y: 376.9999}
   Payload:
     StreamId:
       Category: Gameplay
@@ -1033,8 +1033,8 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 1
   ClearGraphHistory: 0
-  Position: {x: 2189.9424, y: 186.5}
-  PivotOrientation: 1
+  Position: {x: 2471, y: 228.00006}
+  PivotOrientation: 3
 --- !u!114 &-3186844690176980444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,6 +1187,17 @@ MonoBehaviour:
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     CanBeDeleted: 1
     CanBeReordered: 1
+  - NodeId: 86772b50-9887-4f43-8ac6-abba1ec63b20
+    PortId: 18a8915f-9180-48a4-a443-36562b223f7a
+    Direction: 1
+    Capacity: 0
+    Connections:
+    - 69717f7c-3bb6-4ee3-9bf9-b2b4d275a1c6
+    Value: '{"Trigger":1,"TimeDelay":3.0,"SignalPayload":{"StreamId":{"Category":"Dialogue","Name":"Toggle","Custom":false},"SignalValueType":2,"IntegerValue":0,"BooleanValue":true,"FloatValue":0.0,"StringValue":"","ColorValue":{"r":0.0,"g":0.0,"b":0.0,"a":0.0},"Vector2Value":{"x":0.0,"y":0.0},"Vector3Value":{"x":0.0,"y":0.0,"z":0.0},"Vector4Value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}},"ButtonId":{"Category":"None","Name":"None","Custom":false},"ToggleId":{"Category":"None","Name":"None","Custom":false},"CommandToggle":2,"ViewId":{"Category":"None","Name":"None","Custom":false},"CommandShowHide":0}'
+    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.UIOutputPortData,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    CanBeDeleted: 1
+    CanBeReordered: 1
   RunUpdate: 0
   RunFixedUpdate: 0
   RunLateUpdate: 0
@@ -1201,72 +1212,6 @@ MonoBehaviour:
   OnExitHideViews: []
   OnEnterHideAllViews: 0
   OnExitHideAllViews: 0
---- !u!114 &-2924722710785448545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b2479a69f56cf54c96de81c44e8ad1a, type: 3}
-  m_Name: Portal
-  m_EditorClassIdentifier: 
-  FlowGraphId: cc4022c0-bbcf-4ff3-b644-de466cf85d32
-  NodeId: b3fd6721-10f3-4159-acb8-7946d5ec12bd
-  NodeType: 1
-  NodeName: Dialogue Start
-  NodeDescription: 
-  InputPorts: []
-  OutputPorts:
-  - NodeId: b3fd6721-10f3-4159-acb8-7946d5ec12bd
-    PortId: 49437db8-255f-4e0a-abbd-55b5abf3d379
-    Direction: 1
-    Capacity: 0
-    Connections:
-    - 69717f7c-3bb6-4ee3-9bf9-b2b4d275a1c6
-    Value: 
-    ValueTypeQualifiedName: 
-    CanBeDeleted: 0
-    CanBeReordered: 0
-  RunUpdate: 0
-  RunFixedUpdate: 0
-  RunLateUpdate: 0
-  NodeState: 0
-  CanBeDeleted: 1
-  Passthrough: 1
-  ClearGraphHistory: 0
-  Position: {x: 1590.9421, y: 349.50003}
-  Trigger: 0
-  SignalPayload:
-    StreamId:
-      Category: Dialogue
-      Name: Toggle
-      Custom: 0
-    SignalValueType: 2
-    IntegerValue: 0
-    BooleanValue: 1
-    FloatValue: 0
-    StringValue: 
-    ColorValue: {r: 0, g: 0, b: 0, a: 0}
-    Vector2Value: {x: 0, y: 0}
-    Vector3Value: {x: 0, y: 0, z: 0}
-    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
-  ButtonId:
-    Category: None
-    Name: None
-    Custom: 0
-  ToggleId:
-    Category: None
-    Name: None
-    Custom: 0
-  CommandToggle: 2
-  ViewId:
-    Category: None
-    Name: None
-    Custom: 0
-  CommandShowHide: 0
 --- !u!114 &-2618883754993034126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1559,8 +1504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02761efe598a45c98fa1baf4d446c6a7, type: 3}
   m_Name: BaseGameplayMenuFlow
   m_EditorClassIdentifier: 
-  EditorPosition: {x: -784, y: -168, z: 0}
-  EditorScale: {x: 0.65751624, y: 0.65751624, z: 1}
+  EditorPosition: {x: 242, y: 158, z: 0}
+  EditorScale: {x: 0.18690714, y: 0.18690714, z: 1}
   Id: cc4022c0-bbcf-4ff3-b644-de466cf85d32
   GraphName: Flow Graph
   GraphDescription: 
@@ -1594,7 +1539,6 @@ MonoBehaviour:
   - {fileID: -7236306993950508336}
   - {fileID: -1108128849002585700}
   - {fileID: 4511398541148501740}
-  - {fileID: -2924722710785448545}
   - {fileID: 3492599630501620914}
   - {fileID: -4003995297349256164}
   - {fileID: -7847237456907647845}
@@ -1671,7 +1615,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 2114.7913, y: 535}
+  Position: {x: 2288, y: 535}
   OnEnterShowViews: []
   OnEnterHideViews: []
   OnExitShowViews: []
@@ -1882,7 +1826,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 1
-  Position: {x: 1072.9999, y: 112}
+  Position: {x: 1102.9602, y: 124.99998}
   OnEnterShowViews:
   - Id:
       Category: Gameplay
@@ -1970,7 +1914,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 1438.9421, y: 111.49998}
+  Position: {x: 1660.9998, y: 76.999985}
   OnEnterShowViews: []
   OnEnterHideViews: []
   OnExitShowViews: []
@@ -2090,7 +2034,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 1861.9423, y: 12.499998}
+  Position: {x: 2202.9998, y: -73}
   OnEnterShowViews: []
   OnEnterHideViews:
   - Id:
@@ -2508,8 +2452,8 @@ MonoBehaviour:
     Direction: 0
     Capacity: 1
     Connections:
-    - 49437db8-255f-4e0a-abbd-55b5abf3d379
     - f85f290b-94d1-4379-8c4d-1b5458fe0a74
+    - 18a8915f-9180-48a4-a443-36562b223f7a
     Value: '{"CanGoBack":false}'
     ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.GoBackInputPortData,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -2567,7 +2511,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 1764, y: 310.0001}
+  Position: {x: 1924.0001, y: 337}
   OnEnterShowViews: []
   OnEnterHideViews:
   - Id:
@@ -2626,7 +2570,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 1490.9421, y: -38.500008}
+  Position: {x: 1846.9998, y: -109.99994}
   OnEnterShowViews: []
   OnEnterHideViews: []
   OnExitShowViews: []
