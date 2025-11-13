@@ -4,6 +4,7 @@ using DChild.Gameplay.Systems.Serialization;
 using DChild.Menu;
 using DChild.Serialization;
 using DChild.UI;
+using Sirenix.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +24,6 @@ namespace DChild.Gameplay.FastTravel
                 zoneData.ForceUpdateZoneData();
             }
 
-
             var playerManager = GameplaySystem.playerManager;
             var character = playerManager.player.character;
             character.transform.position  = new Vector2(50000, 50000);
@@ -40,7 +40,7 @@ namespace DChild.Gameplay.FastTravel
             }
 
             LoadingHandle.SetLoadType(LoadingHandle.LoadType.Smart);
-            GameplaySystem.ResumeGame();
+            Cache<LoadZoneFunctionHandle> cacheLoadZoneHandle = Cache<LoadZoneFunctionHandle>.Claim();
 
             if (WorldTypeVar.CurrentWorldType != WorldTypeVar.GetLocationWorldType(destination.location))
             {
@@ -51,15 +51,20 @@ namespace DChild.Gameplay.FastTravel
             switch (WorldTypeVar.CurrentWorldType)
             {
                 case WorldType.Underworld:
+                    cacheLoadZoneHandle.Value.Initialize(destination, character, cacheLoadZoneHandle);
                     GameSystem.LoadZone(GameMode.Underworld, destination.sceneInfo, true, OnTransferPlayerDone);
                     break;
                 case WorldType.Overworld:
+                    cacheLoadZoneHandle.Value.Initialize(destination, null, cacheLoadZoneHandle);
                     GameSystem.LoadZone(GameMode.Overworld, destination.sceneInfo, true, OnTransferPlayerDone);
                     break;
                 case WorldType.ArmyBattle:
+                    cacheLoadZoneHandle.Value.Initialize(destination, null, cacheLoadZoneHandle);
                     GameSystem.LoadZone(GameMode.ArmyBattle, destination.sceneInfo, true, OnTransferPlayerDone);
                     break;
             }
+
+            GameplaySystem.ClearCaches();
         }
 
         private void OnTransferPlayerDone()

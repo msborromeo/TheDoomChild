@@ -133,10 +133,12 @@ namespace DChild.Gameplay.Combat.BattleZoneComponents
                 yield return new WaitForSeconds(delay);
             }
             m_entitiesSpawned++;
+
             var instance = Object.Instantiate(gameObject, position, Quaternion.identity);
             using (Cache<EventActionArgs<GameObject>> cache = Cache<EventActionArgs<GameObject>>.Claim())
             {
                 cache.Value.Set(instance);
+
                 EntitySpawned?.Invoke(this, cache.Value);
                 cache.Release();
             }
