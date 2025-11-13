@@ -8,12 +8,12 @@ using UnityEngine;
 public class AnimatedPlatformHandle : MonoBehaviour
 {
     [SerializeField]
-    private SkeletonDataAsset skeletonAnimation;
-    [SerializeField]
     private List<GameObject> m_skeletonList = new List<GameObject>();
-    [SerializeField, SpineAnimation]
+    [SerializeField]
+    private List<SkeletonAnimation> m_skeletonAnimationList = new List<SkeletonAnimation>();
+    [SerializeField, Spine.Unity.SpineAnimation]
     private string m_reappearAnimation;
-    [SerializeField, SpineAnimation]
+    [SerializeField, Spine.Unity.SpineAnimation]
     private string m_disappearAnimation;
 
 #if UNITY_EDITOR
@@ -25,31 +25,37 @@ public class AnimatedPlatformHandle : MonoBehaviour
         for(int x = 0; x < platforms.Length; x++)
         {
             m_skeletonList.Add(platforms[x].gameObject);
+            m_skeletonAnimationList.Add(platforms[x].gameObject.GetComponentInChildren<SkeletonAnimation>());
         }
     }
 #endif
 
     public void PlayReappearAnimation()
     {
-        for(int x = 0;x < m_skeletonList.Count; x++)
+        if(m_skeletonAnimationList == null)
         {
-            var platform = m_skeletonList[x].GetComponentInChildren<SkeletonAnimation>();
-            platform.state.SetAnimation(0, m_reappearAnimation, false);
+            return;
+        }
+        for(int x = 0;x < m_skeletonAnimationList.Count; x++)
+        {
+            m_skeletonAnimationList[x].state.SetAnimation(0, m_reappearAnimation, false);
         }
     }
 
     public void PlayDiappearAnimation()
     {
+        if(m_skeletonAnimationList == null)
+        {
+            return;
+        }
         for (int x = 0; x < m_skeletonList.Count; x++)
         {
-            var platform = m_skeletonList[x].GetComponentInChildren<SkeletonAnimation>();
-            platform.state.SetAnimation(0, m_disappearAnimation, false);
+            m_skeletonAnimationList[x].state.SetAnimation(0, m_disappearAnimation, false);
         }
     }
 
     void Start()
     {
-        
     }
 
     void Update()
