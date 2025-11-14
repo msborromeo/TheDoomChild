@@ -20,7 +20,7 @@ namespace DChild.Gameplay.Systems
     public class BaseGameplaySystem : MonoBehaviour
     {
         [SerializeField]
-        private static VolumeMixerManager m_volumeMixerManager;
+        private static VolumeMixerManagerHandle m_volumeMixerManager;
         [SerializeField]
         private bool m_doNotDeserializeOnAwake;
         [SerializeField]
@@ -37,7 +37,7 @@ namespace DChild.Gameplay.Systems
         private static CampaignSerializer m_campaignSerializer;
 
         public static CampaignSerializer campaignSerializer => m_campaignSerializer;
-        public static VolumeMixerManager volumeMixerManager => m_volumeMixerManager;
+        public static VolumeMixerManagerHandle volumeMixerManager => m_volumeMixerManager;
 
         public static AudioListenerPositioner audioListener { get; private set; }
 
@@ -88,6 +88,7 @@ namespace DChild.Gameplay.Systems
             AssignModule(out m_campaignSerializer);
             AssignModule(out m_baseGameplayUIHandle);
             AssignModule(out m_constantsReference);
+            AssignModule(out m_volumeMixerManager);
 
             m_skeletonManager = new SkeletonAnimationManager();
             //these two iffy - Ayan
@@ -217,7 +218,7 @@ namespace DChild.Gameplay.Systems
                 m_activatableModules = GetComponentsInChildren<IGameplayActivatable>();
                 var initializables = GetComponentsInChildren<IGameplayInitializable>();
                 m_worldTypeManager = GetComponentInChildren<WorldTypeManager>();
-                m_volumeMixerManager = GetComponentInChildren<VolumeMixerManager>();
+                //m_volumeMixerManager = GetComponentInChildren<VolumeMixerManagerHandle>();
 
                 for (int i = 0; i < m_gameplayModuleManager.Length; i++)
                 {

@@ -52,7 +52,7 @@ namespace DChild.Gameplay
                     break;
                 }
             }
-
+            GameplaySystem.PauseGame();
             GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(travelData);
         }
 
@@ -64,6 +64,7 @@ namespace DChild.Gameplay
                     return;
             }
 
+            GameplaySystem.PauseGame();
             GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(m_throneRoomTravelData);
         }
 
