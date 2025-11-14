@@ -30,10 +30,16 @@ namespace DChild.Gameplay
         [SerializeField, BoxGroup("Overworld Teleport Variables")]
         private Dictionary<Environment.Location, LevelCompleteVariables> m_overworldTeleportLevelCompleteDictionary = new Dictionary<Environment.Location, LevelCompleteVariables>();
 
+        [SerializeField, Header("TESTING")]
+        private bool m_allowTeleportWithoutConditions = false;
+
         public void TeleportToOverworld()
         {
-            if (CanTeleportToOverworld() == false)
-                return;
+            if(m_allowTeleportWithoutConditions == false)
+            {
+                if (CanTeleportToOverworld() == false)
+                    return;
+            }
 
             var currentSceneName = SceneManager.GetActiveScene().name;
             LocationData travelData = null;
@@ -46,15 +52,19 @@ namespace DChild.Gameplay
                     break;
                 }
             }
-
+            GameplaySystem.PauseGame();
             GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(travelData);
         }
 
         public void TeleportToThroneRoom()
         {
-            if (CanTeleportToThroneRoom() == false)
-                return;
+            if(m_allowTeleportWithoutConditions == false)
+            {
+                if (CanTeleportToThroneRoom() == false)
+                    return;
+            }
 
+            GameplaySystem.PauseGame();
             GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(m_throneRoomTravelData);
         }
 

@@ -27,7 +27,7 @@ namespace DChild.Gameplay
         public static IWorld world { get => BaseGameplaySystem.world; }
         public static ITime time { get => BaseGameplaySystem.time; }
 
-        public  static VolumeMixerManager  volumeMixerManager { get => BaseGameplaySystem.volumeMixerManager; }
+        public  static VolumeMixerManagerHandle  volumeMixerManager { get => BaseGameplaySystem.volumeMixerManager; }
 
         public static IPlayerManager playerManager
         {
@@ -175,12 +175,20 @@ namespace DChild.Gameplay
                 {
                     UnderworldGameplaySystem.ListenToNextSceneLoad();
                 }
+                else if(GetCurrentWorldType() == WorldType.Overworld)
+                {
+                    OverworldGameplaySystem.ListenToNextSceneLoad();
+                }
             }
             else
             {
                 if (GameSystem.CurrentGameMode == GameMode.Underworld)
                 {
                     UnderworldGameplaySystem.ListenToNextSceneLoad();
+                }
+                else if (GetCurrentWorldType() == WorldType.Overworld)
+                {
+                    OverworldGameplaySystem.ListenToNextSceneLoad();
                 }
             }
         }

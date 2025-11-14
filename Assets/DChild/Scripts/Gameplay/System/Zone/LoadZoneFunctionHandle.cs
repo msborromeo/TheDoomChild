@@ -60,7 +60,7 @@ public class LoadZoneFunctionHandle
         //else
         //{
         //}
-            m_locationData?.CallArriveEvent(GameplaySystem.playerManager.player.character);
+        m_locationData?.CallArriveEvent(GameplaySystem.playerManager.player.character);
 
         m_cacheVersion.Release();
         m_cacheVersion = null;
