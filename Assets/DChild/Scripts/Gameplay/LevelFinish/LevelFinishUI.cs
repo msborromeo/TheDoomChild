@@ -59,18 +59,25 @@ namespace DChild.Gameplay.LevelFinish.UI
 
             if (m_underworldLocations.Locations.Contains(data.location))
             {
-                m_confirmationHandler.RequestConfirmation(OnConfirm, $"Teleport to the Throne Room?");
+                m_confirmationHandler.RequestConfirmation(OnConfirm, $"Teleport to the Throne Room?", OnDecline: OnDecline);
             }
             else
             {
-                m_confirmationHandler.RequestConfirmation(OnConfirm, $"Teleport to the Overworld?");
+                m_confirmationHandler.RequestConfirmation(OnConfirm, $"Teleport to the Overworld?", OnDecline: OnDecline);
             }
         }
 
         private void OnConfirm(object sender, EventActionArgs eventArgs)
         {
             m_fastTravelHandle.TransferPlayerTo(m_destinationData);
+            GameplaySystem.ResumeGame();
         }
+
+        private void OnDecline(object sender, EventActionArgs eventArgs)
+        {
+            GameplaySystem.ResumeGame();
+        }
+
         #endregion
     }
 }

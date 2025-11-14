@@ -13,11 +13,15 @@ using Spine.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 using Random = UnityEngine.Random;
+using System.Linq.Expressions;
+#if UNITY_EDITOR
+
+using UnityEditor.Experimental.GraphView;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+#endif
+
 
 public class AdranAI : CombatAIBrain<AdranAI.Info>
 {
