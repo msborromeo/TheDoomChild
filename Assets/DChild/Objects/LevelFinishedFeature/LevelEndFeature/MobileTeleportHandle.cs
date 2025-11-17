@@ -35,9 +35,23 @@ namespace DChild.Gameplay
 
         public void TeleportToOverworld()
         {
+            var currentSceneName = SceneManager.GetActiveScene().name;
+            LocationData travelData = null;
+
 #if UNITY_EDITOR
-            if(m_allowTeleportWithoutConditions)
+            if (m_allowTeleportWithoutConditions)
             {
+                foreach (SceneInfo sceneInfo in m_overworldTravelDictionary.Keys)
+                {
+                    if (sceneInfo.sceneName == currentSceneName)
+                    {
+                        travelData = m_overworldTravelDictionary[sceneInfo];
+                        break;
+                    }
+                }
+                GameplaySystem.PauseGame();
+                GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(travelData);
+
                 return;
             }
 #endif
@@ -45,8 +59,6 @@ namespace DChild.Gameplay
             if (CanTeleportToOverworld() == false)
                 return;
 
-            var currentSceneName = SceneManager.GetActiveScene().name;
-            LocationData travelData = null;
 
             foreach (SceneInfo sceneInfo in m_overworldTravelDictionary.Keys)
             {
@@ -65,6 +77,8 @@ namespace DChild.Gameplay
 #if UNITY_EDITOR
             if (m_allowTeleportWithoutConditions)
             {
+                GameplaySystem.PauseGame();
+                GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(m_throneRoomTravelData);
                 return;
             }
 #endif
