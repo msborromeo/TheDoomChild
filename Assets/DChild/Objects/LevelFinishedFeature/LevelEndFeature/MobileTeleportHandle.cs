@@ -35,11 +35,15 @@ namespace DChild.Gameplay
 
         public void TeleportToOverworld()
         {
-            if(m_allowTeleportWithoutConditions == false)
+#if UNITY_EDITOR
+            if(m_allowTeleportWithoutConditions)
             {
-                if (CanTeleportToOverworld() == false)
-                    return;
+                return;
             }
+#endif
+
+            if (CanTeleportToOverworld() == false)
+                return;
 
             var currentSceneName = SceneManager.GetActiveScene().name;
             LocationData travelData = null;
@@ -58,11 +62,15 @@ namespace DChild.Gameplay
 
         public void TeleportToThroneRoom()
         {
-            if(m_allowTeleportWithoutConditions == false)
+#if UNITY_EDITOR
+            if (m_allowTeleportWithoutConditions)
             {
-                if (CanTeleportToThroneRoom() == false)
-                    return;
+                return;
             }
+#endif
+
+            if (CanTeleportToThroneRoom() == false)
+                return;
 
             GameplaySystem.PauseGame();
             GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(m_throneRoomTravelData);
