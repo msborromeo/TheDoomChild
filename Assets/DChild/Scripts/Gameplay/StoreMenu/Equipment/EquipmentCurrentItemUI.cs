@@ -1,6 +1,7 @@
 ﻿using DChild.Gameplay.EquipmentSystem;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,8 +11,9 @@ namespace DChild.Menu.Equipment.UI
     {
 
         [SerializeField] private EquipmentSelectionUI m_selectionUI;
-
-        [SerializeField] private Image m_itemImage;
+        
+        [BoxGroup("ITEM PROPERTIES"), SerializeField] private TextMeshProUGUI m_itemName;
+        [BoxGroup("ITEM PROPERTIES"), SerializeField] private Image m_itemImage;
         public Image itemImage => m_itemImage;
 
         [SerializeField] private SoulSlot m_soulSlot;
@@ -32,6 +34,7 @@ namespace DChild.Menu.Equipment.UI
             if (m_currentItem.soulEquipment.Slot != m_soulSlot)
                 return;
 
+            m_itemName.text = $"{m_currentItem.itemName}";
             m_itemImage.sprite = m_currentItem.icon;
             m_selectionUI.equipmentHandle.EquipSoulEquipment(m_currentItem);
         }
@@ -42,7 +45,6 @@ namespace DChild.Menu.Equipment.UI
                 return;
             m_itemImage.sprite = null;
             m_selectionUI.equipmentHandle.UnequipSoulEquipment(m_currentItem);
-
         }
 
         private void Start()

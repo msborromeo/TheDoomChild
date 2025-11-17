@@ -94,7 +94,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_hasExecuted = true;
                 m_hitbox.Disable();
                 m_spineRootAnimation.EnableRootMotion(true, true);
-                m_materialReplacement.replacementEnabled = true;
+                //m_materialReplacement.replacementEnabled = true;
                 m_teleportingSkullInfo.PlayFX(true);
                 //m_cacheGravity = m_physics.gravityScale;
                 m_physics.gravityScale = 0;
@@ -119,7 +119,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_teleportingSkullRoutine = null;
             }
             m_spineRootAnimation.DisableRootMotion();
-            m_materialReplacement.replacementEnabled = false;
+            //m_materialReplacement.replacementEnabled = false;
             m_canTeleport = false;
             m_state.waitForBehaviour = false;
             m_physics.gravityScale = m_cacheGravity;
@@ -154,7 +154,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                     m_teleportingSkullRoutine = null;
                 }
                 m_spineRootAnimation.DisableRootMotion();
-                m_materialReplacement.replacementEnabled = false;
+                //m_materialReplacement.replacementEnabled = false;
                 m_physics.gravityScale = m_cacheGravity;
                 //m_physics.velocity = Vector2.zero;
                 m_canTeleport = false;

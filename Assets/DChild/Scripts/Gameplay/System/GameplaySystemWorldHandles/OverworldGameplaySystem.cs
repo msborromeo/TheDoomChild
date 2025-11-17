@@ -15,7 +15,7 @@ namespace DChild.Gameplay.Systems
         private static OverworldGameplaySystem m_instance;
 
         [SerializeField]
-        private static VolumeMixerManager m_volumeMixerManager;
+        private static VolumeMixerManagerHandle m_volumeMixerManager;
 
         #region Modules
         private static OverworldPlayerManager m_playerManager;
@@ -27,7 +27,7 @@ namespace DChild.Gameplay.Systems
 
         private static bool m_hasBeenRequested;
         private static Vector2 m_requestPosition;
-        public static VolumeMixerManager volumeMixerManager => m_volumeMixerManager;
+        public static VolumeMixerManagerHandle volumeMixerManager => m_volumeMixerManager;
 
         public static event Action SetupVCam;
 

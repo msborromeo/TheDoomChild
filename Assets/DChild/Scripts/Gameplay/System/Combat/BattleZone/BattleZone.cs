@@ -32,7 +32,13 @@ namespace DChild.Gameplay.Combat
         {
             m_entityCount++;
             var isntance = eventArgs.info;
-            isntance.GetComponent<Damageable>().Destroyed += OnEntityDestroyed;
+			if(isntance.GetComponent<Damageable>()){
+				isntance.GetComponent<Damageable>().Destroyed += OnEntityDestroyed;
+			}
+			else{
+				isntance.GetComponentInChildren<Damageable>().Destroyed += OnEntityDestroyed;
+			}
+            
             if (isntance.TryGetComponent(out ICombatAIBrain brain))
             {
                 var player = GameplaySystem.playerManager.player;
