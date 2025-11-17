@@ -767,6 +767,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 if (m_platformDrop?.IsThereADroppablePlatform() == true && m_vector2Input.y < 0)
                 {
+                    m_activeDash?.Cancel();
+                    m_activeSlide?.Cancel();
                     m_platformDrop.Execute();
 
                     return;
@@ -784,6 +786,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         }
 
                         m_activeSlide?.Cancel();
+                        m_whipCombo?.Cancel();
+                        m_slashCombo?.Cancel();
                         m_groundJump?.Execute();
                         m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Midair);
                         m_movement?.SwitchConfigTo(Movement.Type.MidAir);
@@ -2139,13 +2143,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_movement?.SwitchConfigTo(Movement.Type.Jog);
                     m_movement?.ResetGravity();
 
-                    if (m_state.isAttacking)
-                    {
-                        m_basicSlashes.Cancel();
-                        m_slashCombo.Cancel();
-                        m_whip.Cancel();
-                        m_whipCombo.Cancel();
-                    }
+                    m_basicSlashes.Cancel();
+                    m_slashCombo.Cancel();
+                    m_whip.Cancel();
+                    m_whipCombo.Cancel();
                 }
                 else
                 {
