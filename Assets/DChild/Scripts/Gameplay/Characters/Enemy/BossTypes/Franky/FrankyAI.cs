@@ -809,7 +809,11 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_movement.MoveTowards(Vector2.one * transform.localScale.x, m_info.shoulderBashReelSpeed);
                 yield return null;
             }
-            Destroy(loopFX.gameObject);
+            if(loopFX.gameObject != null)
+            {
+                //Destroy(loopFX.gameObject);
+            }
+            
             m_wallPosPoint.gameObject.SetActive(false);
             m_chainBashBB[0].enabled = false;
             m_chainBashBB[1].enabled = false;
