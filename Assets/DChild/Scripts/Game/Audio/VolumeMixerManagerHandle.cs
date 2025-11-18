@@ -9,10 +9,8 @@ namespace DChild.Gameplay.Systems
 {
 
 
-    public class VolumeMixerManager : SerializedMonoBehaviour
+    public class VolumeMixerManagerHandle : SerializedMonoBehaviour, IGameplaySystemModule, IGameplayInitializable
     {
-
-
         [OdinSerialize, HideReferenceObjectPicker]
         private AudioSnapshotHandle m_snapshotHandle;
 
@@ -42,22 +40,11 @@ namespace DChild.Gameplay.Systems
             m_audioMixer.SetFloat(audioName, volume);
         }
 
-        private void Awake()
+        public void Initialize()
         {
             m_snapshotHandle.Initialize(m_audioMixer);
+            Debug.Log($"VolumeMixerManager was Initialized {m_snapshotHandle != null} && {m_audioMixer != null}");
         }
-        void Start()
-        {
-
-        }
-
-
-        void Update()
-        {
-
-        }
-
-
     }
 }
 

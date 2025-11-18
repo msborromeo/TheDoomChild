@@ -113,8 +113,8 @@ MonoBehaviour:
   FlowGraphId: cc4022c0-bbcf-4ff3-b644-de466cf85d32
   NodeId: 47c7c9b3-3fb6-4fc4-a34f-5c2bce13a026
   NodeType: 0
-  NodeName: Merchant Dialogue
-  NodeDescription: 
+  NodeName: Dialogue
+  NodeDescription: This connects to General Shop node if Albin's dialogue is played
   InputPorts:
   - NodeId: 47c7c9b3-3fb6-4fc4-a34f-5c2bce13a026
     PortId: 4bd0d192-5c34-4bd9-b724-dc0d15d149d0
@@ -146,7 +146,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 1139.2903, y: 493}
+  Position: {x: 1163.5, y: 470.00006}
   OnEnterShowViews: []
   OnEnterHideViews: []
   OnExitShowViews: []
@@ -213,7 +213,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 1583, y: 435}
+  Position: {x: 1583, y: 469.0001}
   OnEnterShowViews:
   - Id:
       Category: Merchant
@@ -560,7 +560,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 1893.6497, y: 370.49994}
+  Position: {x: 1934, y: 406.5}
   OnEnterShowViews:
   - Id:
       Category: Merchant
@@ -1233,6 +1233,7 @@ MonoBehaviour:
     Connections:
     - 1a9b7be0-fdd3-4a7d-a60c-783761d0bc5a
     - 0606fc6c-00e0-4a17-ac93-948cc02c1040
+    - dbf83e44-7cbb-4cc8-ba68-79995e43fd9d
     Value: 
     ValueTypeQualifiedName: 
     CanBeDeleted: 0
@@ -1390,8 +1391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02761efe598a45c98fa1baf4d446c6a7, type: 3}
   m_Name: UnderworldGameplayMenuFlow
   m_EditorClassIdentifier: 
-  EditorPosition: {x: 56, y: -25, z: 0}
-  EditorScale: {x: 0.2842624, y: 0.2842624, z: 1}
+  EditorPosition: {x: -1061, y: -171, z: 0}
+  EditorScale: {x: 0.7561437, y: 0.7561437, z: 1}
   Id: cc4022c0-bbcf-4ff3-b644-de466cf85d32
   GraphName: Flow Graph
   GraphDescription: 
@@ -1515,7 +1516,7 @@ MonoBehaviour:
     - cc58cec8-2a74-40f3-8e5f-c0ce7c114a3d
     - 19cbf661-e2f3-41cd-9485-fd6bff2757d8
     - df7cfcf9-d216-4c44-bdac-6097e8dd9d09
-    Value: '{"CanGoBack":true}'
+    Value: '{"CanGoBack":false}'
     ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.GoBackInputPortData,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     CanBeDeleted: 0
@@ -1543,6 +1544,17 @@ MonoBehaviour:
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     CanBeDeleted: 1
     CanBeReordered: 1
+  - NodeId: 12d0b359-104a-4a8e-8cb5-026c575a2194
+    PortId: dbf83e44-7cbb-4cc8-ba68-79995e43fd9d
+    Direction: 1
+    Capacity: 0
+    Connections:
+    - c817d879-1f6e-4c6e-9c6e-75a5855bd7f9
+    Value: '{"Trigger":2,"TimeDelay":3.0,"SignalPayload":{"StreamId":{"Category":"None","Name":"None","Custom":false},"SignalValueType":0,"IntegerValue":0,"BooleanValue":false,"FloatValue":0.0,"StringValue":"","ColorValue":{"r":0.0,"g":0.0,"b":0.0,"a":0.0},"Vector2Value":{"x":0.0,"y":0.0},"Vector3Value":{"x":0.0,"y":0.0,"z":0.0},"Vector4Value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}},"ButtonId":{"Category":"General","Name":"Back","Custom":false},"ToggleId":{"Category":"None","Name":"None","Custom":false},"CommandToggle":2,"ViewId":{"Category":"None","Name":"None","Custom":false},"CommandShowHide":0}'
+    ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.UIOutputPortData,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    CanBeDeleted: 1
+    CanBeReordered: 1
   RunUpdate: 0
   RunFixedUpdate: 0
   RunLateUpdate: 0
@@ -1550,7 +1562,7 @@ MonoBehaviour:
   CanBeDeleted: 1
   Passthrough: 0
   ClearGraphHistory: 0
-  Position: {x: 1160, y: 138}
+  Position: {x: 1168, y: 114}
   OnEnterShowViews: []
   OnEnterHideViews: []
   OnExitShowViews: []
