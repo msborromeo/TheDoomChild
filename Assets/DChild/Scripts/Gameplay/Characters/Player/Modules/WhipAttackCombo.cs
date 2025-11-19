@@ -146,6 +146,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
 
             m_state.isDoingCombo = false;
+            m_state.isDoingWhipCombo = false;
             m_fxAnimator.Play("Buffer");
             Reset();
             base.Cancel();
