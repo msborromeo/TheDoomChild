@@ -35,14 +35,30 @@ namespace DChild.Gameplay
 
         public void TeleportToOverworld()
         {
-            if(m_allowTeleportWithoutConditions == false)
-            {
-                if (CanTeleportToOverworld() == false)
-                    return;
-            }
-
             var currentSceneName = SceneManager.GetActiveScene().name;
             LocationData travelData = null;
+
+#if UNITY_EDITOR
+            if (m_allowTeleportWithoutConditions)
+            {
+                foreach (SceneInfo sceneInfo in m_overworldTravelDictionary.Keys)
+                {
+                    if (sceneInfo.sceneName == currentSceneName)
+                    {
+                        travelData = m_overworldTravelDictionary[sceneInfo];
+                        break;
+                    }
+                }
+                GameplaySystem.PauseGame();
+                GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(travelData);
+
+                return;
+            }
+#endif
+
+            if (CanTeleportToOverworld() == false)
+                return;
+
 
             foreach (SceneInfo sceneInfo in m_overworldTravelDictionary.Keys)
             {
@@ -52,18 +68,25 @@ namespace DChild.Gameplay
                     break;
                 }
             }
-
+            GameplaySystem.PauseGame();
             GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(travelData);
         }
 
         public void TeleportToThroneRoom()
         {
-            if(m_allowTeleportWithoutConditions == false)
+#if UNITY_EDITOR
+            if (m_allowTeleportWithoutConditions)
             {
-                if (CanTeleportToThroneRoom() == false)
-                    return;
+                GameplaySystem.PauseGame();
+                GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(m_throneRoomTravelData);
+                return;
             }
+#endif
 
+            if (CanTeleportToThroneRoom() == false)
+                return;
+
+            GameplaySystem.PauseGame();
             GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(m_throneRoomTravelData);
         }
 
