@@ -64,6 +64,7 @@ namespace DChild.UI
 
         public override void SetContent(Subtitle subtitle)
         {
+
             base.SetContent(subtitle);
 
             if (!m_isBanter || currentSubtitle == null)
@@ -75,14 +76,6 @@ namespace DChild.UI
                 actor.Name == "Doomed Knight" ||
                 actor.Name == "Crazy Knight" ||
                 actor.Name == "Necro";
-            //if (actor.Name != "Player" ||
-            //    actor.Name != "Doomed Knight" ||
-            //    actor.Name != "Crazy Knight" ||
-            //    actor.Name != "Necro")
-            //    return;
-
-            //var portraits = actor.spritePortraits;
-            //portraitImage.sprite = actor.spritePortraits.Last();
 
             portraitName.text = $"{portraitActorName}: ";
             var actorColor = actor.LookupValue("BanterColor");
@@ -100,6 +93,9 @@ namespace DChild.UI
         {
             if (isOpen)
             {
+                if (DialogueTime.isPaused)
+                    return;
+
                 PopFromPanelStack();
                 CancelInvoke();
                 if (panelState == PanelState.Closed || panelState == PanelState.Closing) return;
@@ -112,6 +108,8 @@ namespace DChild.UI
                     UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
                 }
             }
+
+            
             ClearText();
             hasFocus = false;
         }

@@ -9,14 +9,17 @@ namespace DChild.Menu
         [SerializeField]
         private ConfirmationWindow m_confirmationWindow;
         private EventAction<EventActionArgs> m_listener;
+        private EventAction<EventActionArgs> m_declineListener;
         private bool m_isListenerSubscribed;
 
         public ConfirmationWindow window => m_confirmationWindow;
 
-        public void RequestConfirmation(EventAction<EventActionArgs> listener, string message, bool noMessage = false)
+        public void RequestConfirmation(EventAction<EventActionArgs> listener, string message, bool noMessage = false, EventAction<EventActionArgs> OnDecline = null)
         {
             m_listener = listener;
-           // m_confirmationWindow.RequestAffirmed += m_listener;
+            m_declineListener = OnDecline;
+            
+            // m_confirmationWindow.RequestAffirmed += m_listener;
             m_isListenerSubscribed = true;
             if(noMessage)
             {
@@ -34,12 +37,22 @@ namespace DChild.Menu
             UnsubcribeListener();
         }
 
+        private void OnDecline(object sender, EventActionArgs eventArgs)
+        {
+            if (m_declineListener == null)
+                return;
+
+            m_declineListener?.Invoke(this, EventActionArgs.Empty);
+            UnsubcribeListener();
+        }
+
         public void UnsubcribeListener()
         {
             if (m_isListenerSubscribed && m_listener != null)
             {
                 //m_confirmationWindow.RequestAffirmed -= m_listener;
                 m_listener = null;
+                m_declineListener = null;
                 m_isListenerSubscribed = false;
             }
         }
@@ -55,6 +68,7 @@ namespace DChild.Menu
         private void Awake()
         {
             m_confirmationWindow.RequestAffirmed += OnAffirm;
+            m_confirmationWindow.RequestDeclined += OnDecline;
         }
     }
 

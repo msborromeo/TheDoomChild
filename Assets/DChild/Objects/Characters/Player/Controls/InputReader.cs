@@ -35,7 +35,7 @@ namespace DChild.Inputs
             //input?.DeactivateInput();
 
             m_playerControls.Underworld.Disable();
-            m_playerControls.Overworld.Disable();
+           m_playerControls.Overworld.Disable();
             m_playerControls.UI.Enable();
         }
 

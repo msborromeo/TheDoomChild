@@ -1,4 +1,5 @@
-﻿using DChild.Gameplay.Characters.AI;
+﻿using DarkTonic.MasterAudio;
+using DChild.Gameplay.Characters.AI;
 using DChild.Gameplay.Combat.BattleZoneComponents;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
@@ -25,11 +26,19 @@ namespace DChild.Gameplay.Combat
         private bool m_spawnEnded;
         private bool m_noMoreWaves;
 
+
+
         private void OnSpawn(object sender, EventActionArgs<GameObject> eventArgs)
         {
             m_entityCount++;
             var isntance = eventArgs.info;
-            isntance.GetComponent<Damageable>().Destroyed += OnEntityDestroyed;
+			if(isntance.GetComponent<Damageable>()){
+				isntance.GetComponent<Damageable>().Destroyed += OnEntityDestroyed;
+			}
+			else{
+				isntance.GetComponentInChildren<Damageable>().Destroyed += OnEntityDestroyed;
+			}
+            
             if (isntance.TryGetComponent(out ICombatAIBrain brain))
             {
                 var player = GameplaySystem.playerManager.player;
@@ -73,6 +82,7 @@ namespace DChild.Gameplay.Combat
             {
                 m_waveIndex++;
                 var waveInfo = m_waves[m_waveIndex];
+                
                 m_spawnHandle.Initialize(waveInfo.spawnInfo, waveInfo.waveStartDelay);
                 m_spawnEnded = false;
             }
@@ -86,14 +96,17 @@ namespace DChild.Gameplay.Combat
         private void Awake()
         {
             m_spawnHandle = new SpawnHandle();
-            m_waveIndex = 0;
+            m_waveIndex = 0;            
             var waveInfo = m_waves[m_waveIndex];
             m_spawnHandle.Initialize(waveInfo.spawnInfo, waveInfo.waveStartDelay);
+
             m_spawnHandle.EntitiesFinishSpawning += OnSpawnEnd;
             m_spawnHandle.EntitySpawned += OnSpawn;
             enabled = false;
             m_noMoreWaves = false;
         }
+
+    
 
         public void Update()
         {
