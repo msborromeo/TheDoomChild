@@ -209,6 +209,11 @@ namespace DChild.Gameplay.EquipmentSystem
             {
                 m_soulSkillHandle.AddAsActivated(soulSkill, false);
             }
+
+            foreach(IEquipmentStatBoostModule statBoost in equipment.statBoostList)
+            {
+                statBoost.AttachTo(m_player);
+            }
         }
 
         [Button]
@@ -234,6 +239,12 @@ namespace DChild.Gameplay.EquipmentSystem
             foreach (SoulSkill soulSkill in equipment.soulSkillList)
             {
                 m_soulSkillHandle.RemoveAsActivated(soulSkill, false);
+            }
+
+
+            foreach (IEquipmentStatBoostModule statBoost in equipment.statBoostList)
+            {
+                statBoost.DetachFrom(m_player);
             }
         }
 
