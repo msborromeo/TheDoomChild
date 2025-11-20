@@ -9,7 +9,6 @@ using UnityEngine;
 
 namespace DChild.Gameplay.EquipmentSystem
 {
-    [ShowOdinSerializedPropertiesInInspector]
     [System.Serializable]
     public class SoulEquipment
     {
@@ -19,8 +18,8 @@ namespace DChild.Gameplay.EquipmentSystem
         private SoulSlot m_slot;
         [SerializeField]
         private int m_expRequired = 200;
-        [NonSerialized, OdinSerialize, ShowInInspector]
-        private List<IEquipmentStatBoostModule> m_statBoostList = new List<IEquipmentStatBoostModule>();
+        [OdinSerialize]
+        private List<IEquipmentStatBoostModule> m_statBoostList;
         [SerializeField]
         private List<SoulSkill> m_soulSkillList;
 
