@@ -179,7 +179,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private RaySensor m_edgeSensor;
 
         [SerializeField]
-        private bool m_willPatrol = true;
+        private bool m_willPatrol;
         [SerializeField, TabGroup("FX")]
         private ParticleSystem m_muzzleFX;
 
@@ -1093,7 +1093,10 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     else
                     {
-                        m_stateHandle.SetState(State.Patrol);
+						if(m_willPatrol)
+							m_stateHandle.SetState(State.Patrol);
+						else
+							m_stateHandle.SetState(State.Idle);
                         Debug.Log("ReevaluationState");
                     }
                     break;
