@@ -6,7 +6,7 @@ using System;
 
 namespace DChild.Gameplay.EquipmentSystem
 {
-    public class HPModifier : IEquipmentStatBoostModule
+    public class MaxHPModifier : IEquipmentStatBoostModule
     {
         [SerializeField]
         private int m_HPModifierValue;
