@@ -16,9 +16,9 @@ namespace DChild.ArmyBattle.Recruitment
         [SerializeField]
         GameObject m_RecruitableNPC;
         [SerializeField]
-        GameObject m_RecruitmentEssentials;
-        [SerializeField]
         private bool m_ShowSetup;
+        [SerializeField, ShowIf("m_ShowSetup")]
+        GameObject m_RecruitmentEssentials;
         [SerializeField, TabGroup("DialogueSystemTriggers"), ShowIf("m_ShowSetup")]
         private DialogueSystemTrigger m_FirstTimeTalk;
         [SerializeField, TabGroup("DialogueSystemTriggers"), ShowIf("m_ShowSetup")]
@@ -55,14 +55,14 @@ namespace DChild.ArmyBattle.Recruitment
             GameObject x = Instantiate(m_RecruitmentEssentials, m_RecruitableNPC.transform.GetChild(0).transform.GetChild(0));
             x.name = x.name.Replace("(Clone)", "");
         }
-
+        [Button, ShowIf("m_ShowSetup")]
         private void SelfSetup()
         {
             string NPCname = database.name.Replace("DialogueDatabase_", "");
             string FirstTalkVariableName = (String)NPCname + "_FirstTimeTalk";
             m_FirstTimeTalk.selectedDatabase = database;
             m_FirstTimeTalk.luaCode = "Variable[\""+FirstTalkVariableName+"\"] = false";
-            m_FirstTimeTalk.conversation = "Recruit/"+ NPCname;
+            m_FirstTimeTalk.conversation = "Recruit/"+ NPCname.Replace("Recruit", "");
 
             m_FirstTimeTalkAfterConversation.selectedDatabase = database;
 
