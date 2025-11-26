@@ -12,6 +12,9 @@ namespace DChild.Gameplay.EquipmentSystem
         private int m_HPModifierValue;
 
         private int m_oldMaxHealth;
+
+        public StatBoostType GetBoostType() => StatBoostType.HP;
+
         public void AttachTo(IPlayer player)
         {
             m_oldMaxHealth = player.health.maxValue;
@@ -30,6 +33,7 @@ namespace DChild.Gameplay.EquipmentSystem
             //need to reset to max value?
             player.health.ResetValueToMax();
         }
+
     }
 }
 

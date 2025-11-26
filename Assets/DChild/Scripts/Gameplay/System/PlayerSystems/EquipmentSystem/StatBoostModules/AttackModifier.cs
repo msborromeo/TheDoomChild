@@ -9,8 +9,14 @@ namespace DChild.Gameplay.EquipmentSystem
 {
     public class AttackModifier : IEquipmentStatBoostModule
     {
+        [SerializeField] private StatBoostType m_boostType;
+        public StatBoostType boostType => m_boostType;
+
         [SerializeField]
-        private int m_attackModifierValue; 
+        private int m_attackModifierValue;
+
+        public StatBoostType GetBoostType() => StatBoostType.Attack;
+
         public void AttachTo(IPlayer player)
         {
             var curdamage = player.stats.GetTotalStat(PlayerStat.Attack);
