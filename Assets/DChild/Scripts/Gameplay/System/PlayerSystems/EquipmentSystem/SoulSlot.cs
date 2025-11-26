@@ -14,6 +14,7 @@ namespace DChild.Gameplay.EquipmentSystem
         Boots,
         Cape,
         Amulet,
+        [HideInInspector]
         _COUNT
     }
 }

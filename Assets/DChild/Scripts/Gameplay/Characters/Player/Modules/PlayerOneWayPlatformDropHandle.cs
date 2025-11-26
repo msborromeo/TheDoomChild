@@ -35,11 +35,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_timer > 0)
             {
                 m_timer -= GameplaySystem.time.deltaTime;
-                if (m_timer <= 0)
-                {
-                    m_playerCollider.ClearIgnoredCollider(m_cacheCollider);
-                    m_groundedHandle.Enabled = true;
-                }
+            }
+
+            if (m_timer <= 0)
+            {
+                m_playerCollider.ClearIgnoredCollider(m_cacheCollider);
+                m_groundedHandle.Enabled = true;
             }
         }
 

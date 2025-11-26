@@ -744,6 +744,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_crouch.IsThereNoCeiling() == false)
                 return;
+            if (m_state.isSliding && m_slide.IsThereACeiling())
+                return;
 
             //moved wall jump out of groundedness check to prevent triggering extra jump so you can jump then double jump 
             if (m_state.isStickingToWall)
@@ -767,6 +769,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 if (m_platformDrop?.IsThereADroppablePlatform() == true && m_vector2Input.y < 0)
                 {
+                    m_activeDash?.Cancel();
+                    m_activeSlide?.Cancel();
                     m_platformDrop.Execute();
 
                     return;
@@ -784,6 +788,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         }
 
                         m_activeSlide?.Cancel();
+                        m_whipCombo?.Cancel();
+                        m_slashCombo?.Cancel();
                         m_groundJump?.Execute();
                         m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Midair);
                         m_movement?.SwitchConfigTo(Movement.Type.MidAir);
@@ -2139,13 +2145,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_movement?.SwitchConfigTo(Movement.Type.Jog);
                     m_movement?.ResetGravity();
 
-                    if (m_state.isAttacking)
-                    {
-                        m_basicSlashes.Cancel();
-                        m_slashCombo.Cancel();
-                        m_whip.Cancel();
-                        m_whipCombo.Cancel();
-                    }
+                    m_basicSlashes.Cancel();
+                    m_slashCombo.Cancel();
+                    m_whip.Cancel();
+                    m_whipCombo.Cancel();
                 }
                 else
                 {
@@ -2502,22 +2505,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             if (m_activeSlide?.IsSlideDurationOver() ?? true)
             {
-                if (m_crouch.IsThereNoCeiling() || !m_slide.HasGroundToSlideOn() || !m_shadowSlide.HasGroundToSlideOn())
+                if (m_slide.IsThereACeiling() == false)
                 {
                     m_activeSlide?.Cancel();
                     m_activeSlide?.ResetCooldownTimer();
-                }
-                else
-                {
-                    if (m_slide.IsThereACeiling())
-                    {
-                        m_activeSlide?.ContinueSlide();
-                        return;
-                    }
+
                     if (m_crouch.IsCrouchingPossible() || !m_slide.HasGroundToSlideOn() || !m_shadowSlide.HasGroundToSlideOn())
                     {
-                        m_activeSlide?.Cancel();
-                        m_activeSlide?.ResetCooldownTimer();
 
                         if (m_state.isCrouched == false)
                         {
@@ -2525,6 +2519,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             m_idle?.Cancel();
                             m_movement?.SwitchConfigTo(Movement.Type.Crouch);
                         }
+                    }
+                }
+                else
+                {
+                    if (m_slide.IsThereACeiling())
+                    {
+                        m_activeSlide?.ContinueSlide();
+                        return;
                     }
                 }
 
