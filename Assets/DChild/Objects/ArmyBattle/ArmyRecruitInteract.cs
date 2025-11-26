@@ -17,7 +17,8 @@ namespace DChild.ArmyBattle.Recruitment
         DialogueDatabase database;
         [SerializeField, TabGroup("Main/Reference", "Actions")]
         private UnityEvent m_FirstTimeTalk, m_SubsequentUse;
-
+        private Collider2D m_interactCollider;
+        private bool m_HasAfterRecruitDialogue;
 
         private IEnumerable GetVariables()
         {
@@ -30,7 +31,10 @@ namespace DChild.ArmyBattle.Recruitment
 
             return list;
         }
-
+        private void Start()
+        {
+            m_interactCollider = GetComponentInParent<Collider2D>();
+        }
         public void SetDatabase(DialogueDatabase data)
         {
             database = data;
@@ -41,6 +45,24 @@ namespace DChild.ArmyBattle.Recruitment
             Variable = vari;
         }
 
+        public void SetCollider(Collider2D col)
+        {
+            Debug.Log(col);
+            m_interactCollider = col;
+        }
+
+        public void HasAfterRecruitDialogue(bool hasDialogue)
+        {
+            m_HasAfterRecruitDialogue = hasDialogue;
+        }
+
+        public void TurnOffCollider()
+        {
+            if(!m_HasAfterRecruitDialogue)
+            {
+                m_interactCollider.enabled = false;
+            }
+        }
         public void CheckFirstTimeTalk()
         {
             Debug.LogError("AAAAAA");

@@ -16,9 +16,13 @@ namespace DChild.ArmyBattle.Recruitment
         [SerializeField]
         GameObject m_RecruitableNPC;
         [SerializeField]
+        bool m_hasAfterRecruitDialogue = false;
+        [SerializeField]
         private bool m_ShowSetup;
         [SerializeField, ShowIf("m_ShowSetup")]
         GameObject m_RecruitmentEssentials;
+        [SerializeField, ShowIf("m_ShowSetup")]
+        ArmyRecruitInteract m_RecruitInteract;
         [SerializeField, TabGroup("DialogueSystemTriggers"), ShowIf("m_ShowSetup")]
         private DialogueSystemTrigger m_FirstTimeTalk;
         [SerializeField, TabGroup("DialogueSystemTriggers"), ShowIf("m_ShowSetup")]
@@ -34,51 +38,62 @@ namespace DChild.ArmyBattle.Recruitment
         [SerializeField, TabGroup("DialogueSystemTriggers"), ShowIf("m_ShowSetup")]
         private ArmyRecruitInteract m_interact;
 
+        private string NPCname;
+
         [Button]
         private void InitializeDatabase()
         {
+            NPCname = database.name.Replace("DialogueDatabase_", "");
+            NPCname = NPCname.Replace("Recruit", "");
             Template temp = new Template();
-            Variable FirsttimeTalk = temp.CreateVariable(temp.GetNextVariableID(database), (database.name.Replace("DialogueDatabase_", "") + "_FirstTimeTalk"),"");
+            Variable FirsttimeTalk = temp.CreateVariable(temp.GetNextVariableID(database), (NPCname + "_FirstTimeTalk"),"");
             FirsttimeTalk.InitialBoolValue = true;
             if(!database.variables.Contains(FirsttimeTalk))
             {
                 database.variables.Add(FirsttimeTalk);
             }
             
-            var RequirementsMet = temp.CreateConversation(temp.GetNextConversationID(database),"Requirement/Met");
+            var RequirementsMet = temp.CreateConversation(temp.GetNextConversationID(database),"Recruit/Requirement " + NPCname + "/Met");
             database.AddConversation(RequirementsMet);
-            var RequirementsUnMet = temp.CreateConversation(temp.GetNextConversationID(database), "Requirement/UnMet");
+            var RequirementsUnMet = temp.CreateConversation(temp.GetNextConversationID(database), "Recruit/Requirement " + NPCname + "/UnMet");
             database.AddConversation(RequirementsUnMet);
             
             SelfSetup();
 
             GameObject x = Instantiate(m_RecruitmentEssentials, m_RecruitableNPC.transform.GetChild(0).transform.GetChild(0));
             x.name = x.name.Replace("(Clone)", "");
+
+
+            m_RecruitInteract = x.GetComponent<ArmyRecruitInteract>();
+            m_RecruitInteract.SetCollider(m_RecruitableNPC.GetComponentInChildren<Collider2D>());
+            m_RecruitInteract.HasAfterRecruitDialogue(m_hasAfterRecruitDialogue);
         }
         [Button, ShowIf("m_ShowSetup")]
         private void SelfSetup()
         {
-            string NPCname = database.name.Replace("DialogueDatabase_", "");
+            
             string FirstTalkVariableName = (String)NPCname + "_FirstTimeTalk";
             m_FirstTimeTalk.selectedDatabase = database;
             m_FirstTimeTalk.luaCode = "Variable[\""+FirstTalkVariableName+"\"] = false";
-            m_FirstTimeTalk.conversation = "Recruit/"+ NPCname.Replace("Recruit", "");
+            m_FirstTimeTalk.conversation = "Recruit/"+ NPCname;
 
             m_FirstTimeTalkAfterConversation.selectedDatabase = database;
 
             m_RequirementsMet.selectedDatabase = database;
-            m_RequirementsMet.luaCode = "Variable[\"HasRecruited_"+ NPCname.Replace("Recruit","") + "\"]=true";
-            m_RequirementsMet.conversation = "Requirement/Met";
+            m_RequirementsMet.luaCode = "Variable[\"HasRecruited_"+ NPCname + "\"]=true";
+            m_RequirementsMet.conversation = "Recruit/Requirement " + NPCname + "/Met";
 
             m_RequirementsMetAfter.selectedDatabase = database;
 
             m_RequirementsUnMet.selectedDatabase= database;
-            m_RequirementsUnMet.conversation = "Requirement/UnMet";
+            m_RequirementsUnMet.conversation = "Recruit/Requirement " + NPCname + "/UnMet";
 
             m_Recruited.selectedDatabase = database;
 
             m_interact.SetDatabase(database);
             m_interact.SetVariable(FirstTalkVariableName);
+
+            
         }
 
     }
