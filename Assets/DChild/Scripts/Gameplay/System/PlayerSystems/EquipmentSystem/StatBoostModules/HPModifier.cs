@@ -14,6 +14,7 @@ namespace DChild.Gameplay.EquipmentSystem
         private int m_oldMaxHealth;
 
         public StatBoostType GetBoostType() => StatBoostType.HP;
+        public int GetModifierValue() => m_HPModifierValue;
 
         public void AttachTo(IPlayer player)
         {

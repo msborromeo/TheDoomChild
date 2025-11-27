@@ -9,13 +9,11 @@ namespace DChild.Gameplay.EquipmentSystem
 {
     public class AttackModifier : IEquipmentStatBoostModule
     {
-        [SerializeField] private StatBoostType m_boostType;
-        public StatBoostType boostType => m_boostType;
-
         [SerializeField]
         private int m_attackModifierValue;
 
         public StatBoostType GetBoostType() => StatBoostType.Attack;
+        public int GetModifierValue() => m_attackModifierValue;
 
         public void AttachTo(IPlayer player)
         {
@@ -32,6 +30,7 @@ namespace DChild.Gameplay.EquipmentSystem
             int Calculateddamage = (int)Math.Ceiling(damage);
             player.stats.AddStat(PlayerStat.Attack, -Calculateddamage);
         }
+
     }
 }
 

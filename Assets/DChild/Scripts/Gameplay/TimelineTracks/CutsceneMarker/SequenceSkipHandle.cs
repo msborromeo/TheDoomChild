@@ -87,7 +87,7 @@ namespace DChildDebug.Cutscene
 
         private void Awake()
         {
-            SetDelayDuration(0);
+            SetDelayDuration(0.5f);
             m_view = GetComponent<UIContainer>();
             m_view.Hide();
         }
