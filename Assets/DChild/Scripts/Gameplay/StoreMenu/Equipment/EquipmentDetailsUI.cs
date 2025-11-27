@@ -12,31 +12,42 @@ namespace DChild.Menu.Equipment.UI
 {
     public class EquipmentDetailsUI : MonoBehaviour
     {
+        [BoxGroup("MAIN UI"), SerializeField] private EquipmentUI m_equipmentUI;
+
         [BoxGroup("INFO"), SerializeField] private Image m_equipmentIcon;
         [BoxGroup("INFO"), SerializeField] private TextMeshProUGUI m_itemNameLabel;
 
         [BoxGroup("STATS"), SerializeField] private GameObject m_statRow;
-        [BoxGroup("SKILL BONUS"),SerializeField] private TextMeshProUGUI m_bonusLabel;
+        [BoxGroup("SKILL BONUS"), SerializeField] private TextMeshProUGUI m_bonusLabel;
 
         private List<GameObject> m_instantiatedRows = new List<GameObject>();
-        private LeveledEquipment m_highlightedEquipment;
+        private SoulEquipment m_highlightedEquipment;
 
-        private void SetHighlightedEquipment(LeveledEquipment value)
+        [BoxGroup("TEST DATA"), HideInPlayMode,SerializeField] private SoulEquipmentItem m_sampleItem;
+
+        public void SetHighlightedEquipment(SoulEquipment value)
         {
             m_highlightedEquipment = value;
         }
 
         [Button]
-        public void UpdateUI(SoulEquipment equipmentItem)
+        public void UpdateUI()
         {
-            m_statRow.SetActive(false);
-            ShowStatBuffs(equipmentItem.statBoostList);
+            Reset();
+
+            var equipment = m_sampleItem.soulEquipment;
+
+            var boostList = equipment.statBoostList;
+            
+            if (boostList != null)
+                ShowStatBuffs(boostList);
         }
 
         private void ShowStatBuffs(List<IEquipmentStatBoostModule> statBuffs)
         {
+            m_statRow.SetActive(false);
             Transform parentTransform = m_statRow.transform.parent;
-            for(int i = 0; i < statBuffs.Count; i++)
+            for (int i = 0; i < statBuffs.Count; i++)
             {
                 var gameobject = Instantiate(m_statRow, parentTransform);
                 gameobject.name = $"Row - StatBuff ({i + 1})";
@@ -46,7 +57,7 @@ namespace DChild.Menu.Equipment.UI
             }
         }
 
-       
+
         private void SetSkillBonusLabel(SoulSkill soulSkill)
         {
             m_bonusLabel.text = soulSkill.description;
@@ -54,7 +65,8 @@ namespace DChild.Menu.Equipment.UI
 
         private void Reset()
         {
-            foreach (GameObject row  in m_instantiatedRows)
+            m_statRow.SetActive(true);
+            foreach (GameObject row in m_instantiatedRows)
             {
                 Destroy(row);
             }

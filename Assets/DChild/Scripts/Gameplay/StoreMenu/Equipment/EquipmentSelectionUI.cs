@@ -14,17 +14,12 @@ namespace DChild.Menu.Equipment.UI
 {
     public class EquipmentSelectionUI : MonoBehaviour
     {
-        [SerializeField] private List<EquipmentGridItemUI> m_itemGrid;
-        [SerializeField] private TextMeshProUGUI m_noItemsLabel;
-        [SerializeField] private EquipmentEquipButtonUI m_equipButtonUI;
-        public EquipmentEquipButtonUI equipButtonUI => m_equipButtonUI;
+        [BoxGroup("MAIN UI"), SerializeField] private EquipmentUI m_equipmentUI;
 
-        private PlayerSoulEquipmentHandle m_equipmentHandle;
-        public PlayerSoulEquipmentHandle equipmentHandle => m_equipmentHandle;
-        public void SetEquipmentHandle(PlayerSoulEquipmentHandle value)
-        {
-            m_equipmentHandle = value;
-        }
+        [BoxGroup("ITEM GRID"), SerializeField] private List<EquipmentGridItemUI> m_itemGrid;
+        [BoxGroup("ITEM GRID"), SerializeField] private TextMeshProUGUI m_noItemsLabel;
+        [BoxGroup("ITEM GRID"), SerializeField] private EquipmentEquipButtonUI m_equipButtonUI;
+        public EquipmentEquipButtonUI equipButtonUI => m_equipButtonUI;
 
         private List<SoulEquipmentItem> m_acquiredItems;
         private SoulSlot m_slotFilter;
