@@ -53,9 +53,9 @@ namespace DChild.ArmyBattle.Recruitment
                 database.variables.Add(FirsttimeTalk);
             }
             
-            var RequirementsMet = temp.CreateConversation(temp.GetNextConversationID(database),"Recruit/Requirement " + NPCname + "/Met");
+            var RequirementsMet = temp.CreateConversation(temp.GetNextConversationID(database),"Recruit/Requirement" + NPCname + "/Met");
             database.AddConversation(RequirementsMet);
-            var RequirementsUnMet = temp.CreateConversation(temp.GetNextConversationID(database), "Recruit/Requirement " + NPCname + "/UnMet");
+            var RequirementsUnMet = temp.CreateConversation(temp.GetNextConversationID(database), "Recruit/Requirement" + NPCname + "/UnMet");
             database.AddConversation(RequirementsUnMet);
             
             SelfSetup();
@@ -81,12 +81,12 @@ namespace DChild.ArmyBattle.Recruitment
 
             m_RequirementsMet.selectedDatabase = database;
             m_RequirementsMet.luaCode = "Variable[\"HasRecruited_"+ NPCname + "\"]=true";
-            m_RequirementsMet.conversation = "Recruit/Requirement " + NPCname + "/Met";
+            m_RequirementsMet.conversation = "Recruit/Requirement" + NPCname + "/Met";
 
             m_RequirementsMetAfter.selectedDatabase = database;
 
             m_RequirementsUnMet.selectedDatabase= database;
-            m_RequirementsUnMet.conversation = "Recruit/Requirement " + NPCname + "/UnMet";
+            m_RequirementsUnMet.conversation = "Recruit/Requirement" + NPCname + "/UnMet";
 
             m_Recruited.selectedDatabase = database;
 
