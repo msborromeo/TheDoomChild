@@ -11,9 +11,12 @@ namespace DChild.Menu.Equipment.UI
 
         public void Display(IEquipmentStatBoostModule buff)
         {
+            if (buff == null)
+                return;
+
             var value = buff.GetModifierValue();
             
-            m_buffPanel.text = $"{buff.GetBoostType()}".Replace("_", " ");
+            m_buffPanel.text = $"{buff.GetBoostType()}:".Replace("_", " ");
             m_modifierValuePanel.text = $"{value}".Insert(0, value > -1 ? "+" : "-");
         }
     }

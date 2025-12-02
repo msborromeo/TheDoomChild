@@ -2,6 +2,7 @@
 using DChild.Gameplay.EquipmentSystem;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -17,7 +18,9 @@ namespace DChild.Menu.Equipment.UI
         [BoxGroup("INFO"), SerializeField] private Image m_equipmentIcon;
         [BoxGroup("INFO"), SerializeField] private TextMeshProUGUI m_itemNameLabel;
 
+        [BoxGroup("STATS"), SerializeField] private GameObject m_parentTransform;
         [BoxGroup("STATS"), SerializeField] private GameObject m_statRow;
+
         [BoxGroup("SKILL BONUS"), SerializeField] private TextMeshProUGUI m_bonusLabel;
 
         private List<GameObject> m_instantiatedRows = new();
@@ -47,16 +50,18 @@ namespace DChild.Menu.Equipment.UI
 
         private void ShowStatBuffs(List<IEquipmentStatBoostModule> statBuffs)
         {
-            Transform parentTransform = m_statRow.transform.parent;
+
+            //Transform parentTransform = m_statRow.transform.parent;
             for (int i = 0; i < statBuffs.Count; i++)
             {
-                var gameobject = Instantiate(m_statRow, parentTransform);
+                var gameobject = Instantiate(m_statRow, m_parentTransform.transform);
+                gameobject.gameObject.SetActive(true);
                 gameobject.name = $"Row - StatBuff ({i + 1})";
                 m_instantiatedRows.Add(gameobject);
 
                 gameobject.GetComponent<EquipmentStatBuffUI>().Display(statBuffs[i]);
             }
-            m_statRow.SetActive(false);
+
         }
 
 
@@ -67,12 +72,9 @@ namespace DChild.Menu.Equipment.UI
 
         private void Reset()
         {
-            m_statRow.SetActive(true);
-
             foreach (GameObject row in m_instantiatedRows)
-            {
                 Destroy(row);
-            }
+
             m_instantiatedRows.Clear();
         }
     }

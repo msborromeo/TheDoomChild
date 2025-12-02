@@ -45,7 +45,7 @@ namespace DChild.Menu.Equipment.UI
                 var item = filteredItems[i];
 
                 m_itemGrid[i].OnGridItemSelected += currentItem.OnGridItemSelected;
-                m_equipmentUI.detailsUI.DisconnectGridItem(m_itemGrid[i]);
+                m_equipmentUI.detailsUI.ConnectGridItem(m_itemGrid[i]);
                 m_itemGrid[i].Display(item);
             }
 
