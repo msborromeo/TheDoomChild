@@ -33,7 +33,7 @@ namespace DChild.Menu.Equipment.UI
         }    
 
         public void UpdateItems(EquipmentCurrentItemUI currentItem)
-        {
+        { 
             var filteredItems = m_acquiredItems.Where(item => item.soulEquipment.Slot == m_slotFilter).ToList();
             var hasItems = filteredItems != null && filteredItems.Count > 0;
 
@@ -45,17 +45,25 @@ namespace DChild.Menu.Equipment.UI
                 var item = filteredItems[i];
 
                 m_itemGrid[i].OnGridItemSelected += currentItem.OnGridItemSelected;
+                m_equipmentUI.detailsUI.DisconnectGridItem(m_itemGrid[i]);
                 m_itemGrid[i].Display(item);
             }
 
             for (; i < m_itemGrid.Count; i++)
             {
                 m_itemGrid[i].OnGridItemSelected -= currentItem.OnGridItemSelected;
+                m_equipmentUI.detailsUI.DisconnectGridItem(m_itemGrid[i]);
+
                 m_itemGrid[i].Display();
             }
 
             m_equipButtonUI.UpdateButtonLabel(currentItem);
             Reset();
+        }
+
+        public void SetItemDetails(SoulEquipment equipment)
+        {
+            m_equipmentUI.detailsUI.SetHighlightedEquipment(equipment);
         }
 
         public void Reset()

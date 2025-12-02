@@ -20,32 +20,33 @@ namespace DChild.Menu.Equipment.UI
         [BoxGroup("STATS"), SerializeField] private GameObject m_statRow;
         [BoxGroup("SKILL BONUS"), SerializeField] private TextMeshProUGUI m_bonusLabel;
 
-        private List<GameObject> m_instantiatedRows = new List<GameObject>();
+        private List<GameObject> m_instantiatedRows = new();
         private SoulEquipment m_highlightedEquipment;
 
-        [BoxGroup("TEST DATA"), HideInPlayMode,SerializeField] private SoulEquipmentItem m_sampleItem;
+        [BoxGroup("TEST DATA"), HideInPlayMode, SerializeField] private SoulEquipmentItem m_sampleItem;
 
-        public void SetHighlightedEquipment(SoulEquipment value)
-        {
-            m_highlightedEquipment = value;
-        }
+        public void ConnectGridItem(EquipmentGridItemUI gridItem) => gridItem.OnGridItemSelected += OnGridItemSelected;
+        public void DisconnectGridItem(EquipmentGridItemUI gridItem) => gridItem.OnGridItemSelected -= OnGridItemSelected;
+        public void OnGridItemSelected(object sender, EventActionArgs eventArgs) => UpdateUI();
+        public void SetHighlightedEquipment(SoulEquipment value) => m_highlightedEquipment = value;
 
         [Button]
         public void UpdateUI()
         {
-            Reset();
+            if (m_instantiatedRows.Count > 0)
+                Reset();
 
-            var equipment = m_sampleItem.soulEquipment;
+            var equipment = m_highlightedEquipment;
+            //var equipment = m_sampleItem.soulEquipment;
 
             var boostList = equipment.statBoostList;
-            
+
             if (boostList != null)
                 ShowStatBuffs(boostList);
         }
 
         private void ShowStatBuffs(List<IEquipmentStatBoostModule> statBuffs)
         {
-            m_statRow.SetActive(false);
             Transform parentTransform = m_statRow.transform.parent;
             for (int i = 0; i < statBuffs.Count; i++)
             {
@@ -55,6 +56,7 @@ namespace DChild.Menu.Equipment.UI
 
                 gameobject.GetComponent<EquipmentStatBuffUI>().Display(statBuffs[i]);
             }
+            m_statRow.SetActive(false);
         }
 
 
@@ -66,6 +68,7 @@ namespace DChild.Menu.Equipment.UI
         private void Reset()
         {
             m_statRow.SetActive(true);
+
             foreach (GameObject row in m_instantiatedRows)
             {
                 Destroy(row);

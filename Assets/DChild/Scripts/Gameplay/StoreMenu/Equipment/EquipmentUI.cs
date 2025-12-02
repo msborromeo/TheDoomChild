@@ -2,6 +2,7 @@ using DChild.Gameplay.EquipmentSystem;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,9 @@ namespace DChild.Menu.Equipment.UI
         public void Initialize()
         {
             m_selectionUI.SetupUI(m_sampleData);
+
+            m_detailsUI.SetHighlightedEquipment(m_sampleData.First().soulEquipment);
+            m_detailsUI.UpdateUI();
         }
     }
 }
