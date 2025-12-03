@@ -1,5 +1,7 @@
-﻿using PixelCrushers.DialogueSystem;
+﻿using Doozy.Runtime.UIManager.Components;
+using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -19,26 +21,36 @@ namespace DChild.Gameplay.FastTravel
         private Image m_locationBackground;
         [SerializeField]
         private Image m_showcaseImage;
+        
+        private List<FastTravelOptionButton> m_activatedButtons = new();
 
         public void ShowPage(FastTravelPageData locationList)
         {
             m_locationLabel.text = locationList.location.ToString().Replace('_', ' ');
             m_locationBackground.sprite = locationList.locationBackground;
             ResetButtons(locationList);
+            
             for (int i = 0; i < locationList.count; i++)
             {
                 var button = m_townGateButtons[i];
                 Show(button);
                 var data = locationList.GetUnderworldTravelData(i);
                 button.SetData(data);
+                button.SetButtonLabel($"Town Gate #{i + 1}");
 
                 var isActivated = DialogueLua.GetVariable(FastTravelUtility.GenerateActivationVariableName(data)).asBool;
                 button.SetInteractability(isActivated);
+             
+                if(button.isActiveAndEnabled)
+                    m_activatedButtons.Add(button);
             }
 
             var isOverworldActivated = DialogueLua.GetVariable(FastTravelUtility.GenerateActivationVariableName(locationList.overworldTravelData)).asBool;
             m_overworldTownGateButtons.SetData(locationList.overworldTravelData);
+            m_overworldTownGateButtons.SetButtonLabel("Overworld");
             m_overworldTownGateButtons.SetInteractability(isOverworldActivated);
+
+            m_activatedButtons[0].GetComponent<UIButton>().Select();
         }
 
         public void ShowCase(FastTravelOptionButton button)
@@ -56,6 +68,8 @@ namespace DChild.Gameplay.FastTravel
                 Hide(m_townGateButtons[i]);
                 m_townGateButtons[i].SetData(null);
             }
+
+            m_activatedButtons.Clear();
         }
 
         private void Show(FastTravelOptionButton button)
