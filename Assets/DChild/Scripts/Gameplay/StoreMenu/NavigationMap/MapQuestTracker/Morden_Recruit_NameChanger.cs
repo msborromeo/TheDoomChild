@@ -5,6 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace DChild.ArmyBattle.Recruitment
+{
+
 public class Morden_Recruit_NameChanger : MonoBehaviour
 {
     public List<GameObject> _list;
@@ -140,4 +143,6 @@ public class Morden_Recruit_NameChanger : MonoBehaviour
             }
         }
     }
+}
+
 }
