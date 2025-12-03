@@ -39,18 +39,25 @@ namespace DChild.Gameplay.Systems
         // for testing
         public LocationData locationData => m_destination;
 
+        private bool m_AntiMashBarrier = false;
         public void Interact(Character character)
         {
             if (GameSystem.gamePaused == true)
                 return;
             GameplaySystem.gamplayUIHandle.TogglePause(false);
 
+            if (m_AntiMashBarrier)
+            {
+                return;
+            }
             if (m_handle.isDebugSwitchHandle)
             {
+                m_AntiMashBarrier = true;
                 m_handle.DoSceneTransition(character, TransitionType.Enter);
             }
             else
             {
+                m_AntiMashBarrier = true;
                 StartCoroutine(DoTransition(character, TransitionType.Enter));
             }
         }
