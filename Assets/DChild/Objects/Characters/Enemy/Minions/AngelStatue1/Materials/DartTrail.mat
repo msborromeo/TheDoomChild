@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!28 &-1307939243497056592
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: _TrailWidthGradientTex{"mode":0,"colorKeys":[{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.0},{"color":{"r":0.7489619255065918,"g":0.7489619255065918,"b":0.7489619255065918,"a":1.0},"time":0.23529411852359773},{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}]}
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 2
+  m_Width: 64
+  m_Height: 1
+  m_CompleteImageSize: 256
+  m_MipsStripped: 0
+  m_TextureFormat: 4
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMasterTextureLimit: 0
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_LightmapFormat: 0
+  m_ColorSpace: 0
+  m_PlatformBlob: 
+  image data: 256
+  _typelessdata: 000000ff0d0d0dff1a1a1aff272727ff343434ff404040ff4d4d4dff5a5a5aff676767ff747474ff818181ff8e8e8eff9b9b9bffa7a7a7ffb4b4b4ffbebebeffbababaffb6b6b6ffb2b2b2ffaeaeaeffaaaaaaffa7a7a7ffa3a3a3ff9f9f9fff9b9b9bff979797ff939393ff8f8f8fff8b8b8bff878787ff838383ff7f7f7fff7b7b7bff777777ff737373ff6f6f6fff6b6b6bff676767ff636363ff5f5f5fff5b5b5bff575757ff535353ff4f4f4fff4b4b4bff474747ff434343ff3f3f3fff3b3b3bff373737ff343434ff303030ff2c2c2cff282828ff242424ff202020ff1c1c1cff181818ff141414ff101010ff0c0c0cff080808ff040404ff000000ff
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -10,10 +57,13 @@ Material:
   m_Name: DartTrail
   m_Shader: {fileID: 4800000, guid: b430983578466934c944e7171b4c372c, type: 3}
   m_ValidKeywords:
+  - ADDITIVECONFIG_ON
   - COLORRAMP_ON
-  - DISTORT_ON
   - GLOW_ON
   - MASK_ON
+  - PREMULTIPLYCOLOR_ON
+  - SHAPE2_ON
+  - TRAILWIDTH_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -66,11 +116,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 774c75be54483ed40a144cb021a9e2fd, type: 3}
+        m_Texture: {fileID: 2800000, guid: eb19832496c11f24ea4468fe2a4f2577, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
-        m_Texture: {fileID: 2800000, guid: ad5da642b28ff2d4d913e410c5dcc0f4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 782a901dc4e48924a87ddd7a4553439a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -90,7 +140,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Shape2Tex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 3c29a2f9100cdb24c8a0f43cf94e5669, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Shape3DistortTex:
@@ -110,7 +160,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TrailWidthGradient:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: -1307939243497056592}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _VertOffsetTex:
@@ -174,7 +224,7 @@ Material:
     - _HsvShift: 0
     - _InvFade: 1
     - _LightAmount: 0
-    - _MaskPow: 1.05
+    - _MaskPow: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _OffsetSh1: 1
@@ -187,7 +237,7 @@ Material:
     - _RandomSh2Mult: 1
     - _RandomSh3Mult: 1
     - _ReceiveShadows: 1
-    - _RenderingMode: 0
+    - _RenderingMode: 3
     - _RimAddAmount: 1
     - _RimBias: 0
     - _RimErodesAlpha: 0
@@ -218,7 +268,7 @@ Material:
     - _Shape2DistortYSpeed: 0.1
     - _Shape2RotationOffset: 0
     - _Shape2RotationSpeed: 0
-    - _Shape2XSpeed: 0
+    - _Shape2XSpeed: -2
     - _Shape2YSpeed: 0
     - _Shape3AlphaWeight: 2
     - _Shape3Brightness: 0
@@ -247,7 +297,7 @@ Material:
     - _SoftFactor: 0.5
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _SrcMode: 5
+    - _SrcMode: 1
     - _Surface: 0
     - _TextureScrollXSpeed: 1
     - _TextureScrollYSpeed: 0
