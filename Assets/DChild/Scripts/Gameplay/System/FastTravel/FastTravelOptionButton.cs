@@ -31,5 +31,7 @@ namespace DChild.Gameplay.FastTravel
         {
             m_button.interactable = interactability;
         }
+
+        public bool IsInteractable() => m_button.interactable;
     }
 }

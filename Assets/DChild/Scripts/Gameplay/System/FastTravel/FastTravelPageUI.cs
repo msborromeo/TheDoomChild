@@ -21,15 +21,17 @@ namespace DChild.Gameplay.FastTravel
         private Image m_locationBackground;
         [SerializeField]
         private Image m_showcaseImage;
-        
+
         private List<FastTravelOptionButton> m_activatedButtons = new();
 
+
+        private void SetShowCaseImageVisibility(bool value) => m_showcaseImage.gameObject.transform.parent.gameObject.SetActive(value);
         public void ShowPage(FastTravelPageData locationList)
         {
             m_locationLabel.text = locationList.location.ToString().Replace('_', ' ');
             m_locationBackground.sprite = locationList.locationBackground;
             ResetButtons(locationList);
-            
+
             for (int i = 0; i < locationList.count; i++)
             {
                 var button = m_townGateButtons[i];
@@ -40,8 +42,8 @@ namespace DChild.Gameplay.FastTravel
 
                 var isActivated = DialogueLua.GetVariable(FastTravelUtility.GenerateActivationVariableName(data)).asBool;
                 button.SetInteractability(isActivated);
-             
-                if(button.isActiveAndEnabled)
+
+                if (button.IsInteractable())
                     m_activatedButtons.Add(button);
             }
 
@@ -50,14 +52,21 @@ namespace DChild.Gameplay.FastTravel
             m_overworldTownGateButtons.SetButtonLabel("Overworld");
             m_overworldTownGateButtons.SetInteractability(isOverworldActivated);
 
-            m_activatedButtons[0].GetComponent<UIButton>().Select();
+            var hasAvailableTownGates = m_activatedButtons.Count > 0;
+
+            SetShowCaseImageVisibility(hasAvailableTownGates);
+
+            if (hasAvailableTownGates)
+                ShowCase(m_activatedButtons[0]);
         }
 
         public void ShowCase(FastTravelOptionButton button)
         {
-            if (button == null)
+            if (button == null && !button.IsInteractable())
+            {
+                SetShowCaseImageVisibility(false);
                 return;
-
+            }
             m_showcaseImage.sprite = button.data.image;
         }
 
