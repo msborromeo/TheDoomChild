@@ -34,20 +34,20 @@ namespace DChild.Gameplay.UI
                     m_individualLootUIs[index].Hide();
                 }
             }
-
+            /*
             if (availableUIIndex < m_individualLootUIs.Length)
             {
                 var soulUi = m_individualLootUIs[availableUIIndex];
                 if (lootList.soulEssenceAmount > 0)
                 {
-                    soulUi.SetDetails(null, lootList.soulEssenceAmount);
-                    soulUi.Show();
+                    //soulUi.SetDetails(null, lootList.soulEssenceAmount);
+                    //soulUi.Show();
                 }
                 else
                 {
                     soulUi.Hide();
                 }
-            }
+            }*/
         }
 
     }
