@@ -28,6 +28,10 @@ namespace DChild.Gameplay.EquipmentSystem
             player.stats.AddStat(PlayerStat.Magic, -currentSPValue);
             player.magic.ResetValueToMax();
         }
+
+        public StatBoostType GetBoostType() => StatBoostType.SP;
+
+        public float GetModifierValue() => m_SPModifierValue;
     }
 }
 

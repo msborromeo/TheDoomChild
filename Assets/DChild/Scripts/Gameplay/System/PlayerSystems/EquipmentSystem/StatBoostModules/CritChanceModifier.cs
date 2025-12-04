@@ -10,16 +10,19 @@ namespace DChild.Gameplay.EquipmentSystem
     {
         [SerializeField, SuffixLabel("%", Overlay = true)]
         private float m_critChanceValue;
+        public StatBoostType GetBoostType() => StatBoostType.Crit_Rate;
+        public float GetModifierValue() => m_critChanceValue;
 
         public void AttachTo(IPlayer player)
         {
-            
+            player.criticalHitHandle.ModifyCritChance(m_critChanceValue);
         }
 
         public void DetachFrom(IPlayer player)
         {
-            
+            player.criticalHitHandle.ModifyCritChance(-m_critChanceValue);
         }
+
     }
 }
 

@@ -25,6 +25,10 @@ namespace DChild.Gameplay.EquipmentSystem
         {
             player.modifiers.Add(PlayerModifier.ShadowMagicRegeneration, -m_bonusApplied);
         }
+
+        public StatBoostType GetBoostType() => StatBoostType.SP_Rate;
+
+        public float GetModifierValue() => m_shadowRegenerationRateValue;
     }
 }
 

@@ -27,6 +27,10 @@ namespace DChild.Gameplay.EquipmentSystem
                 player.attackResistance.ReduceResistance(damageType, -m_resistanceValue);
             }
         }
+
+        public StatBoostType GetBoostType() => StatBoostType.Defense;
+
+        public float GetModifierValue() => m_resistanceValue;
     }
 }
 
