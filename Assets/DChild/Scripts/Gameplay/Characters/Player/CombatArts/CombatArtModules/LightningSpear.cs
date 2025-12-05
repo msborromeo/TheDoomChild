@@ -274,5 +274,15 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         public void SetCritConfiguration(PlayerCritStatsInfo forwardInfo, PlayerCritStatsInfo overheadInfo, PlayerCritStatsInfo midairForwardInfo, PlayerCritStatsInfo midairOverheadInfo, PlayerCritStatsInfo crouchInfo)
         {
         }
+
+        public override void IncreaseCritChance(float critChance)
+        {
+            m_lightningSpearInfo.IncreaseCritChance(critChance);
+        }
+
+        public override void IncreaseCritDamage(float critDamage)
+        {
+            m_lightningSpearInfo.IncreaseCritDamage(critDamage);
+        }
     }
 }

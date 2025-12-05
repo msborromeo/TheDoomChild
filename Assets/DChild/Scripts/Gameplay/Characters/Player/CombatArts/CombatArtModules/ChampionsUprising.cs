@@ -215,5 +215,15 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_animator.SetBool(m_championsUprisingStateAnimationParameter, false);
             yield return null;
         }
+
+        public override void IncreaseCritChance(float critChance)
+        {
+            m_championsUprisingInfo.IncreaseCritChance(critChance);
+        }
+
+        public override void IncreaseCritDamage(float critDamage)
+        {
+            m_championsUprisingInfo.IncreaseCritDamage(critDamage);
+        }
     }
 }
