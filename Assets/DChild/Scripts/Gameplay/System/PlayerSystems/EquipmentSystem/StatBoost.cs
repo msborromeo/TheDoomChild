@@ -8,6 +8,7 @@
         Defense,
         Crit_Rate,
         Crit_DMG,
+        SP_Rate
     }
 }
 

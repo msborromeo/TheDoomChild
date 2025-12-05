@@ -199,5 +199,15 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         {
             
         }
+
+        public override void IncreaseCritChance(float critChance)
+        {
+            m_soulFireBlastInfo.IncreaseCritChance(critChance);
+        }
+
+        public override void IncreaseCritDamage(float critDamage)
+        {
+            m_soulFireBlastInfo.IncreaseCritDamage(critDamage);
+        }
     }
 }
