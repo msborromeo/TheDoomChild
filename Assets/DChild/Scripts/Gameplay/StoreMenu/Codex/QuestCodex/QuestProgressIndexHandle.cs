@@ -19,5 +19,18 @@ namespace DChild.Codex.Quests.UI
                     m_progressUIs[i].Display(quest.GetEntry(i), i);
             }
         }
+
+        private void OnDisable()
+        {
+            ResetButtons();
+        }
+
+        public void ResetButtons()
+        {
+            foreach (QuestProgressUI obj in m_progressUIs)
+            {
+                obj.gameObject.SetActive(false);
+            }
+        }
     }
 }
