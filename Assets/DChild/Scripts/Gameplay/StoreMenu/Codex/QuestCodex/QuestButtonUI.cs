@@ -38,6 +38,13 @@ namespace DChild.Codex.Quests.UI
                 m_lockedBackground.SetActive(true);
                 return;
             }
+
+            if(questData.state == QuestState.Unassigned)
+            {
+                m_background.gameObject.SetActive(false);
+                m_lockedBackground.SetActive(true);
+                return;
+            }
             m_lockedBackground.SetActive(false);
             m_background.gameObject.SetActive(true);
 
