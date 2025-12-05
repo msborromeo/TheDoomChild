@@ -13,7 +13,7 @@ namespace DChild.Codex.Quests.UI
             int count = quest.entryCount;
             for (int i = 0; i < m_progressUIs.Length; i++)
             {
-                bool isActive = i < count;
+                bool isActive = quest.GetEntry(i).state != QuestState.Unassigned;
                 m_progressUIs[i].gameObject.SetActive(isActive);
                 if (isActive)
                     m_progressUIs[i].Display(quest.GetEntry(i), i);
