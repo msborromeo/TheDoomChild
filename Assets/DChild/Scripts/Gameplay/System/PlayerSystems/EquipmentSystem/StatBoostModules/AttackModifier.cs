@@ -13,7 +13,7 @@ namespace DChild.Gameplay.EquipmentSystem
         private int m_attackModifierValue;
 
         public StatBoostType GetBoostType() => StatBoostType.Attack;
-        public int GetModifierValue() => m_attackModifierValue;
+        public float GetModifierValue() => m_attackModifierValue;
 
         public void AttachTo(IPlayer player)
         {

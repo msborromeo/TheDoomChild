@@ -351,5 +351,21 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
 
         }
+
+        public override void IncreaseCritChance(float critChance)
+        {
+            m_groundOverhead?.IncreaseCritChance(critChance);
+            m_midAirForward?.IncreaseCritChance(critChance);
+            m_midAirOverhead?.IncreaseCritChance(critChance);
+            m_crouch?.IncreaseCritChance(critChance);
+        }
+
+        public override void IncreaseCritDamage(float critDamage)
+        {
+            m_groundOverhead?.IncreaseCritDamage(critDamage);
+            m_midAirForward?.IncreaseCritDamage(critDamage);
+            m_midAirOverhead?.IncreaseCritDamage(critDamage);
+            m_crouch?.IncreaseCritDamage(critDamage);
+        }
     }
 }

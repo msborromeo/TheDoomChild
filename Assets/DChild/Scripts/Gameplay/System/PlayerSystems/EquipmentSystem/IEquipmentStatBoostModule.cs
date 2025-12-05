@@ -8,7 +8,7 @@ namespace DChild.Gameplay.EquipmentSystem
     public interface IEquipmentStatBoostModule
     {
         StatBoostType GetBoostType();
-        int GetModifierValue();
+        float GetModifierValue();
 
         void AttachTo(IPlayer player);
         void DetachFrom(IPlayer player);

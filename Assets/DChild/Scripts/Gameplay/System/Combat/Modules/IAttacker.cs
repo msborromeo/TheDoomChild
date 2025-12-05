@@ -13,6 +13,5 @@ namespace DChild.Gameplay.Combat
 
         void SetParentAttacker(IAttacker damageDealer);
         void SetRootParentAttacker(IAttacker damageDealer);
-
     } 
 }
