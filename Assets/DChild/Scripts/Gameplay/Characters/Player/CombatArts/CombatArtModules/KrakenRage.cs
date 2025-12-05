@@ -134,6 +134,16 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             //}
         }
 
+        public override void IncreaseCritChance(float critChance)
+        {
+            m_krakenRageInfo.IncreaseCritChance(critChance);
+        }
+
+        public override void IncreaseCritDamage(float critDamage)
+        {
+            m_krakenRageInfo.IncreaseCritDamage(critDamage);
+        }
+
         //public void HandleAttackTimer()
         //{
         //    if (m_krakenRageCooldownTimer > 0)

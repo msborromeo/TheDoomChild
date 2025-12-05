@@ -188,6 +188,16 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         {
         }
 
+        public override void IncreaseCritChance(float critChance)
+        {
+            m_edgedFuryInfo.IncreaseCritChance(critChance);
+        }
+
+        public override void IncreaseCritDamage(float critDamage)
+        {
+            m_edgedFuryInfo.IncreaseCritDamage(critDamage);
+        }
+
         //public void HandleMovementTimer()
         //{
         //    if (m_edgedFuryMovementCooldownTimer > 0)

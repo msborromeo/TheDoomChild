@@ -62,6 +62,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_critChance = info.critChance;
                 m_critModifier = info.critModifier;
             }
+
+            public void IncreaseCritChance(float value)
+            {
+                m_critChance += value;
+            }
+
+            public void IncreaseCritDamage(float value)
+            {
+                m_critModifier += value;
+            }
         }
 
         protected float m_timer;
@@ -105,6 +115,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_timer = 0;
             m_state.canAttack = true;
+        }
+
+        public virtual void IncreaseCritChance(float critChance)
+        {
+            //Left empty because need to override in each AttackBehaviour due to possibly having multiple Info depending on Attacker
+        }
+
+        public virtual void IncreaseCritDamage(float critDamage)
+        {
+            //Left empty because need to override in each AttackBehaviour due to possibly having multiple Info depending on Attacker
         }
     }
 }
