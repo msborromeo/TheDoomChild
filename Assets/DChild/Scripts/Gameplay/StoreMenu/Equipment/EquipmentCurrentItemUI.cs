@@ -10,8 +10,8 @@ namespace DChild.Menu.Equipment.UI
     public class EquipmentCurrentItemUI : MonoBehaviour
     {
 
-        [SerializeField] private EquipmentSelectionUI m_selectionUI;
-        
+        [BoxGroup("MAIN UI"), SerializeField] private EquipmentUI m_equipmentUI;
+
         [BoxGroup("ITEM PROPERTIES"), SerializeField] private TextMeshProUGUI m_itemName;
         [BoxGroup("ITEM PROPERTIES"), SerializeField] private Image m_itemImage;
         public Image itemImage => m_itemImage;
@@ -24,7 +24,7 @@ namespace DChild.Menu.Equipment.UI
 
         public void OnGridItemSelected(object sender, EventActionArgs eventArgs)
         {
-            m_selectionUI.equipButtonUI.UpdateButtonLabel(this);
+            m_equipmentUI.selectionUI.equipButtonUI.UpdateButtonLabel(this);
         }
 
         public void OnItemEquipped(object sender, ItemEquipEventArgs eventArgs)
@@ -36,7 +36,7 @@ namespace DChild.Menu.Equipment.UI
 
             m_itemName.text = $"{m_currentItem.itemName}";
             m_itemImage.sprite = m_currentItem.icon;
-            m_selectionUI.equipmentHandle.EquipSoulEquipment(m_currentItem);
+            m_equipmentUI.equipmentHandle.EquipSoulEquipment(m_currentItem);
         }
 
         public void OnItemRemoved(object sender, EventActionArgs eventArgs)
@@ -44,19 +44,19 @@ namespace DChild.Menu.Equipment.UI
             if (m_currentItem.soulEquipment.Slot != m_soulSlot)
                 return;
             m_itemImage.sprite = null;
-            m_selectionUI.equipmentHandle.UnequipSoulEquipment(m_currentItem);
+            m_equipmentUI.equipmentHandle.UnequipSoulEquipment(m_currentItem);
         }
 
         private void Start()
         {
-            m_selectionUI.equipButtonUI.OnItemEquipped += OnItemEquipped;
-            m_selectionUI.equipButtonUI.OnItemRemoved += OnItemRemoved;
+            m_equipmentUI.selectionUI.equipButtonUI.OnItemEquipped += OnItemEquipped;
+            m_equipmentUI.selectionUI.equipButtonUI.OnItemRemoved += OnItemRemoved;
         }
 
         private void OnDestroy()
         {
-            m_selectionUI.equipButtonUI.OnItemEquipped -= OnItemEquipped;
-            m_selectionUI.equipButtonUI.OnItemRemoved -= OnItemRemoved;
+            m_equipmentUI.selectionUI.equipButtonUI.OnItemEquipped -= OnItemEquipped;
+            m_equipmentUI.selectionUI.equipButtonUI.OnItemRemoved -= OnItemRemoved;
         }
     }
 }

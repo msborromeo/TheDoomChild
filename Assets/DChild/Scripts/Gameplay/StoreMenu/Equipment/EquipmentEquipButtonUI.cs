@@ -7,16 +7,6 @@ using UnityEngine;
 
 namespace DChild.Menu.Equipment.UI
 {
-    public class ItemEquipEventArgs : IEventActionArgs
-    {
-        private SoulEquipmentItem m_equipmentItem;
-        public SoulEquipmentItem equipmentItem => m_equipmentItem;
-
-        public ItemEquipEventArgs(SoulEquipmentItem item)
-        {
-            this.m_equipmentItem = item;
-        }
-    }
     public class EquipmentEquipButtonUI : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI m_labelText;
