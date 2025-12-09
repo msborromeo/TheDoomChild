@@ -24,5 +24,10 @@ namespace DChild.Codex.Quests.UI
         {
             m_progressContent.Display(button.entry);
         }
+
+        public void ResetDisplay()
+        {
+            m_progressIndexHandle.ResetButtons();
+        }
     }
 }

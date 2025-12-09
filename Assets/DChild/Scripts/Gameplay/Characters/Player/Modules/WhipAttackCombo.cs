@@ -303,5 +303,21 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
 
         }
+
+        public override void IncreaseCritChance(float critChance)
+        {
+            for (int i = 0; i < m_whipComboInfo.Count; i++)
+            {
+                m_whipComboInfo[i].IncreaseCritChance(critChance);
+            }
+        }
+
+        public override void IncreaseCritDamage(float critDamage)
+        {
+            for (int i = 0; i < m_whipComboInfo.Count; i++)
+            {
+                m_whipComboInfo[i].IncreaseCritChance(critDamage);
+            }
+        }
     }
 }

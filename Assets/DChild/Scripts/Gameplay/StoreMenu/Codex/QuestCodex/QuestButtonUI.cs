@@ -3,6 +3,7 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 using DChild.Localization;
+using Doozy.Runtime.UIManager.Components;
 
 namespace DChild.Codex.Quests.UI
 {
@@ -31,8 +32,15 @@ namespace DChild.Codex.Quests.UI
 
         public void Display(Quest questData)
         {
-
+            gameObject.GetComponent<UIButton>().interactable = questData != null;
             if (questData == null)
+            {
+                m_background.gameObject.SetActive(false);
+                m_lockedBackground.SetActive(true);
+                return;
+            }
+
+            if(questData.state == QuestState.Unassigned)
             {
                 m_background.gameObject.SetActive(false);
                 m_lockedBackground.SetActive(true);

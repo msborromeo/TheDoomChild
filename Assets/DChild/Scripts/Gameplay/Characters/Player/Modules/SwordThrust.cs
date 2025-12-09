@@ -178,5 +178,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
 
         }
+
+        public override void IncreaseCritChance(float critChance)
+        {
+            m_thrust.IncreaseCritChance(critChance);
+        }
+
+        public override void IncreaseCritDamage(float critDamage)
+        {
+            m_thrust.IncreaseCritDamage(critDamage);
+        }
     }
 }
