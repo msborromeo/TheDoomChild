@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5688943922649535272}
+  - component: {fileID: 6471341561040524689}
+  - component: {fileID: 457566437920980068}
   m_Layer: 5
   m_Name: Navigation Instructions
   m_TagString: Untagged
@@ -29,7 +31,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8638918552621670128}
+  - {fileID: 1049551455118583893}
   - {fileID: 8638918552474356350}
+  - {fileID: 6945842237693488327}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -37,7 +41,47 @@ RectTransform:
   m_AnchorMax: {x: 0.98654425, y: 0.058054153}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0.000030517578}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &6471341561040524689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284785842264719011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 5
+  m_Spacing: 40
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &457566437920980068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284785842264719011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!1 &724304216180364094
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,14 +205,14 @@ RectTransform:
   m_Children:
   - {fileID: 5735307148774594449}
   - {fileID: 3653165682807459187}
-  m_Father: {fileID: 8638918552474356350}
-  m_RootOrder: 2
+  m_Father: {fileID: 5688943922649535272}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: -0.0000036735644, y: 0.0050407546}
-  m_AnchorMax: {x: 0.99999744, y: 1.0000627}
-  m_AnchoredPosition: {x: -45.83726, y: 0}
-  m_SizeDelta: {x: 91.6758, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &2217248630436484243
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -225,18 +269,18 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.2
+  m_fontSize: 24
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 4
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 1.55
-  m_wordSpacing: 60
+  m_characterSpacing: 0
+  m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
@@ -279,32 +323,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81413ba0e41c54249bc0996e528f687a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_message: BUTTONPROMPT /<font="BACKCOUNTRY-Regular SDF">B</font>ack
+  m_message: BUTTONPROMPT<font="BACKCOUNTRY-Regular SDF">B</font>ack
   m_spriteButtonList: {fileID: 11400000, guid: c3c0ad3f40972da4c81d32b5f158ae38, type: 2}
   m_deviceType: 0
-  m_inputManager: {fileID: 11400000, guid: 27c922adea859804db50b57a9104dd2c, type: 2}
-  m_promptFontSize: 10
+  m_promptFontSize: 12
   m_numberOfActions: 1
   m_actionConfiguration1:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: -108556998993583569, guid: 2e0d81e8951c3384cba5207fae67c9a4,
       type: 3}
   m_actionConfiguration2:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: 0}
   m_actionConfiguration3:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: 0}
   m_actionConfiguration4:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: 0}
 --- !u!1 &6730264800180517711
 GameObject:
@@ -384,14 +431,14 @@ RectTransform:
   m_Children:
   - {fileID: 7628077118581212777}
   - {fileID: 7910421570413892211}
-  m_Father: {fileID: 8638918552621670128}
-  m_RootOrder: 2
+  m_Father: {fileID: 5688943922649535272}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.00000049343834, y: 0.0000012020945}
-  m_AnchorMax: {x: 0.9999996, y: 1.0002028}
-  m_AnchoredPosition: {x: -31.7999, y: 0}
-  m_SizeDelta: {x: 63.6007, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &2042094652030430029
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -448,18 +495,18 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.05
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 4
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 4.7
-  m_wordSpacing: 60
+  m_characterSpacing: 0
+  m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
@@ -502,32 +549,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81413ba0e41c54249bc0996e528f687a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_message: 'BUTTONPROMPT/<font="BACKCOUNTRY-Regular SDF">S</font>elect '
+  m_message: 'BUTTONPROMPT<font="BACKCOUNTRY-Regular SDF">S</font>elect '
   m_spriteButtonList: {fileID: 11400000, guid: c3c0ad3f40972da4c81d32b5f158ae38, type: 2}
   m_deviceType: 0
-  m_inputManager: {fileID: 11400000, guid: 27c922adea859804db50b57a9104dd2c, type: 2}
-  m_promptFontSize: 10
+  m_promptFontSize: 12
   m_numberOfActions: 1
   m_actionConfiguration1:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: -1571661761861548043, guid: 2e0d81e8951c3384cba5207fae67c9a4,
       type: 3}
   m_actionConfiguration2:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: 0}
   m_actionConfiguration3:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: 0}
   m_actionConfiguration4:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: 0}
 --- !u!1 &8638918552469163394
 GameObject:
@@ -683,28 +733,31 @@ MonoBehaviour:
   m_message: BUTTONPROMPT
   m_spriteButtonList: {fileID: 11400000, guid: c3c0ad3f40972da4c81d32b5f158ae38, type: 2}
   m_deviceType: 0
-  m_inputManager: {fileID: 11400000, guid: 27c922adea859804db50b57a9104dd2c, type: 2}
   m_promptFontSize: 10
   m_numberOfActions: 1
   m_actionConfiguration1:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: 0}
   m_actionConfiguration2:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: 0}
   m_actionConfiguration3:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: 0}
   m_actionConfiguration4:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: 0}
 --- !u!1 &8638918552474356345
 GameObject:
@@ -721,7 +774,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8638918552474356350
 RectTransform:
   m_ObjectHideFlags: 0
@@ -736,14 +789,13 @@ RectTransform:
   m_Children:
   - {fileID: 8638918553593838526}
   - {fileID: 8638918552751082396}
-  - {fileID: 6945842237693488327}
   m_Father: {fileID: 5688943922649535272}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.93292457, y: 0.037064966}
-  m_AnchorMax: {x: 0.9865444, y: 0.05905882}
-  m_AnchoredPosition: {x: -41.207397, y: 11.024261}
-  m_SizeDelta: {x: 89.277435, y: 23.856981}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 254.98987, y: -12.19849}
+  m_SizeDelta: {x: 0, y: 24.39698}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8638918552621670131
 GameObject:
@@ -760,7 +812,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8638918552621670128
 RectTransform:
   m_ObjectHideFlags: 0
@@ -775,14 +827,13 @@ RectTransform:
   m_Children:
   - {fileID: 8638918553828728739}
   - {fileID: 8638918552469163395}
-  - {fileID: 1049551455118583893}
   m_Father: {fileID: 5688943922649535272}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.85373956, y: 0.035462942}
-  m_AnchorMax: {x: 0.921875, y: 0.058050986}
-  m_AnchoredPosition: {x: -160.96692, y: 11.055298}
-  m_SizeDelta: {x: 113.44621, y: 23.844}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 63.747467, y: -12.19849}
+  m_SizeDelta: {x: 127.494934, y: 24.39698}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8638918552696409496
 GameObject:
@@ -983,28 +1034,31 @@ MonoBehaviour:
   m_message: BUTTONPROMPT
   m_spriteButtonList: {fileID: 11400000, guid: c3c0ad3f40972da4c81d32b5f158ae38, type: 2}
   m_deviceType: 0
-  m_inputManager: {fileID: 11400000, guid: 27c922adea859804db50b57a9104dd2c, type: 2}
   m_promptFontSize: 10
   m_numberOfActions: 1
   m_actionConfiguration1:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: 0}
   m_actionConfiguration2:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: 0}
   m_actionConfiguration3:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: 0}
   m_actionConfiguration4:
     m_actionType: 0
     m_directionPart: 0
     m_cycleActionPart: 0
+    m_modifierPart: 0
     m_inputAction: {fileID: 0}
 --- !u!1 &8638918552928439381
 GameObject:
