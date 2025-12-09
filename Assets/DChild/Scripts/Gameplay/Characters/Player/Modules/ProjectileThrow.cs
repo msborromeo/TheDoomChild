@@ -429,5 +429,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
 
         }
+
+        public override void IncreaseCritChance(float critChance)
+        {
+            m_critChance += critChance;
+        }
+
+        public override void IncreaseCritDamage(float critDamage)
+        {
+            m_critModifier += critDamage;
+        }
     }
 }

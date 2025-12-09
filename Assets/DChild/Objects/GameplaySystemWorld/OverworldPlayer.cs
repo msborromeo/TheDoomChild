@@ -63,6 +63,8 @@ namespace DChild.Gameplay.Characters.Players
 
         public Character character => m_controlledCharacter;
 
+        public ICriticalHitHandle criticalHitHandle => throw new System.NotImplementedException();
+
         public event EventAction<EventActionArgs> OnDeath;
 
         public void SetPosition(Vector2 position)

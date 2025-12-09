@@ -68,10 +68,12 @@ namespace DChild.Gameplay.Items
             if (m_pickedBy.inventory.HasSpaceFor(m_data))
             {
                 m_pickedBy.inventory.AddItem(m_data);
+                SendNotification();
             }
             else if (m_data is UsableItemData)
             {
                 m_pickedBy.inventory.AddItem(m_data);
+                SendNotification();
                 //((UsableItemData)m_data).Use(m_pickedBy);
             }
             if(m_pickupVfx!=null)
@@ -79,6 +81,14 @@ namespace DChild.Gameplay.Items
                 m_pickupVfx.Spawn();
             }
             DisableEnvironmentCollider();
+        }
+
+        private void SendNotification()
+        {
+            LootList item = new LootList();
+            item.Add(m_data, 1);
+            //Notify UI of loot chest content
+            GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(item);
         }
     }
 }

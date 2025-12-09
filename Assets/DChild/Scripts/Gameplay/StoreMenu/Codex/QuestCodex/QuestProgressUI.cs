@@ -28,7 +28,10 @@ namespace DChild.Codex.Quests.UI
         public QuestEntry entry => m_entry;
 
         public event Action<QuestEntry, int> LocalizeEntry;
-
+        void OnDisable()
+        {
+            ResetButton();
+        }
         private void SetQuestDescription(string description)
         {
             m_currentQuestDescription = description;
@@ -58,6 +61,14 @@ namespace DChild.Codex.Quests.UI
             //}
         }
 
+        void ResetButton()
+        {
+            m_questOrder.text = null;
+            m_questName.text = null;
+            m_questStatus.text = null;
+            m_currentQuestDescription = null;
+            m_descriptionPanel.text = null;
+        }
 
 
         private static string toRomanNumeral(int number)
