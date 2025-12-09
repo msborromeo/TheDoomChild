@@ -17,6 +17,7 @@ namespace DChild.Codex.Quests.UI
             m_quests = isMain ? m_uiManager.questList.mainQuests : m_uiManager.questList.sideQuests;
             
             m_uiManager.indexHandle.SetSectionType(isMain);
+            m_uiManager.ResetDisplay();
             m_uiManager.indexHandle.Initialize(m_quests);
         }
     }
