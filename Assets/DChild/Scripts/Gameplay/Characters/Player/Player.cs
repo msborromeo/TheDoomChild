@@ -45,6 +45,8 @@ namespace DChild.Gameplay.Characters.Players
         StatusEffectReciever statusEffectReciever { get; }
         Character character { get; }
 
+        ICriticalHitHandle criticalHitHandle { get; }
+
         int GetInstanceID();
     }
 
@@ -102,6 +104,8 @@ namespace DChild.Gameplay.Characters.Players
         private StatusEffectReciever m_statusEffectReciever;
         [SerializeField]
         private LootPicker m_lootPicker;
+        [SerializeField]
+        private CriticalHitHandle m_criticalHitHandle;
 
         public event EventAction<EventActionArgs> OnDeath;
 
@@ -133,6 +137,7 @@ namespace DChild.Gameplay.Characters.Players
 
         public Character character => m_controlledCharacter;
 
+        public ICriticalHitHandle criticalHitHandle => m_criticalHitHandle;
 
         public PlayerCharacterData SaveData()
         {
