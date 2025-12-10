@@ -10,6 +10,7 @@ namespace DChild.Codex.Quests.UI
 
         public void Display(Quest quest)
         {
+            if(quest == null) return;
             int count = quest.entryCount;
             for (int i = 0; i < m_progressUIs.Length; i++)
             {
