@@ -16,7 +16,6 @@ namespace DChild.Menu.Equipment.UI
 
         private SoulEquipmentItem m_attachedItem;
         public SoulEquipmentItem attachedItem => m_attachedItem;
-
         public event EventAction<EventActionArgs> OnGridItemSelected;
 
         public void Display(SoulEquipmentItem item = null)
@@ -34,7 +33,10 @@ namespace DChild.Menu.Equipment.UI
 
         public void PrepareAttachedItem()
         {
+            if (m_attachedItem == null)
+                return;
             m_selectionUI.equipButtonUI.SetSelectedItem(m_attachedItem);
+            m_selectionUI.SetItemDetails(m_attachedItem.soulEquipment);
             OnGridItemSelected?.Invoke(this, EventActionArgs.Empty);
         }
     }

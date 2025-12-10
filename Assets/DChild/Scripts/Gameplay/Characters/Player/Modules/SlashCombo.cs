@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.Characters.Players.Behaviour;
 using Holysoft.Event;
+using PlayerNew;
 using Sirenix.OdinInspector;
 using Spine.Unity;
 using System.Collections.Generic;
@@ -296,6 +297,22 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void SetCritConfiguration(PlayerCritStatsInfo infoOne, PlayerCritStatsInfo infoTwo, PlayerCritStatsInfo infoThree, PlayerCritStatsInfo infoFour, PlayerCritStatsInfo infoFive)
         {
 
+        }
+
+        public override void IncreaseCritChance(float critChance)
+        {
+            for (int i = 0; i < m_slashComboInfo.Count; i++)
+            {
+                m_slashComboInfo[i].IncreaseCritChance(critChance);
+            }
+        }
+
+        public override void IncreaseCritDamage(float critDamage)
+        {
+            for (int i = 0; i < m_slashComboInfo.Count; i++)
+            {
+                m_slashComboInfo[i].IncreaseCritDamage(critDamage);
+            }
         }
     }
 }
