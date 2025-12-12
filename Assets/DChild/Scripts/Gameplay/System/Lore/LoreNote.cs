@@ -3,10 +3,11 @@ using DChild.Serialization;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace DChild.Gameplay.Systems.Lore
 {
-    public class LoreNote : MonoBehaviour, IButtonToInteract, ISerializableComponent
+    public class LoreNote : MonoBehaviour, IButtonToInteract
     {
         [SerializeField]
         private Vector3 m_promptOffset;
@@ -16,6 +17,7 @@ namespace DChild.Gameplay.Systems.Lore
         private bool m_isPickedUp;
 
         public event EventAction<EventActionArgs> InteractionOptionChange;
+        public UnityEvent onInteract;
 
         public bool showPrompt => true;
 
@@ -23,36 +25,30 @@ namespace DChild.Gameplay.Systems.Lore
 
         public Vector3 promptPosition => transform.position + m_promptOffset;
 
-        [System.Serializable]
-        public struct SaveData : ISaveData
-        {
-            public SaveData(bool isPickedUp) : this()
-            {
-                this.m_isPickedUp = isPickedUp;
-            }
-
-            [SerializeField]
-            private bool m_isPickedUp;
-
-            public bool isPickedUp => m_isPickedUp;
-
-            ISaveData ISaveData.ProduceCopy() => new SaveData(m_isPickedUp);
-        }
 
         private void Start()
         {
-            if (m_isPickedUp)
-            {
-                gameObject.SetActive(false);
-            }
+
         }
 
         public void Interact(Character character)
         {
             GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(UI.StoreNotificationType.Lore,m_data.GetInstanceID());
             gameObject.SetActive(false);
-            m_isPickedUp = true;
+            onInteract?.Invoke();
+
         }
+
+        public void SetAsPickedUp()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public void SetAsNotPickedUp()
+        {
+            gameObject.SetActive(true);
+        }
+
 
         [Button]
         private void Pickup()
@@ -65,24 +61,6 @@ namespace DChild.Gameplay.Systems.Lore
             var position = promptPosition;
             Gizmos.color = Color.cyan;
             Gizmos.DrawSphere(position, 1f);
-        }
-
-        public ISaveData Save() => new SaveData(m_isPickedUp);
-
-        public void Load(ISaveData data)
-        {
-            var saveData = (SaveData)data;
-            m_isPickedUp = saveData.isPickedUp;
-
-            if (m_isPickedUp)
-            {
-                gameObject.SetActive(false);
-            }
-
-        }
-        public void Initialize()
-        {
-            
         }
     }
 }
