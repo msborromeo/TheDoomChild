@@ -122,7 +122,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void ConsumeSource()
         {
-            m_stackedConsumptionRate += m_configuration.sourceConsumptionRate * GameplaySystem.time.deltaTime;
+
+            m_stackedConsumptionRate += m_configuration.sourceConsumptionRate * m_modifier.Get(PlayerModifier.ShadowMagic_Requirement) * GameplaySystem.time.deltaTime;
             //Debug.Log(m_stackedConsumptionRate);
             if (m_stackedConsumptionRate >= 1)
             {
