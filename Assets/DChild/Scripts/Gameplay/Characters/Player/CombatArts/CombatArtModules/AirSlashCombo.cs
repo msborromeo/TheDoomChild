@@ -334,5 +334,21 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //m_physics.gravityScale = m_cacheGravity;
             m_physics.velocity = Vector2.zero;
         }
+
+        public override void IncreaseCritChance(float critChance)
+        {
+            for(int i = 0; i < m_airSlashComboInfo.Count; i++)
+            {
+                m_airSlashComboInfo[i].IncreaseCritChance(critChance);
+            }
+        }
+
+        public override void IncreaseCritDamage(float critDamage)
+        {
+            for (int i = 0; i < m_airSlashComboInfo.Count; i++)
+            {
+                m_airSlashComboInfo[i].IncreaseCritDamage(critDamage);
+            }
+        }
     }
 }

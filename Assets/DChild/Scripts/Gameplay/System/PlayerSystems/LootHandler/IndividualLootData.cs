@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using Sirenix.OdinInspector;
 using DChild.Gameplay.Essence;
+using DChild.Gameplay.Items;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -26,13 +28,21 @@ namespace DChild.Gameplay.Systems
 
         public void GenerateLootInfo(ref LootList recordList)
         {
-            if (m_reference.data == null)
+            if (m_reference.data != null && m_reference.data.category != ItemCategory.SoulEssence)
             {
-                if(m_reference.loot.GetComponent<SoulEssenceLoot>() != null)
+                recordList.Add(m_reference.data, m_count);
+            }
+            else
+            {
+                if (m_reference.loot.GetComponent<SoulEssenceLoot>() != null)
                 {
                     var soulEssenceValue = m_reference.loot.GetComponent<SoulEssenceLoot>().value;
                     soulEssenceValue *= m_count;
                     recordList.AddSoulEssence(soulEssenceValue);
+                    if(m_reference.data!=null)
+                    {
+                        recordList.Add(m_reference.data, soulEssenceValue);
+                    }
                 }
                 else
                 {
@@ -40,11 +50,6 @@ namespace DChild.Gameplay.Systems
                     aetherValue *= m_count;
                     recordList.AddDarkAetherPoints(aetherValue);
                 }
-                
-            }
-            else
-            {
-                recordList.Add(m_reference.data, m_count);
             }
         }
 
