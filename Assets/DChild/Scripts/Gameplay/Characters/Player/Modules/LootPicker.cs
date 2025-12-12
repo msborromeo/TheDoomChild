@@ -5,6 +5,7 @@ using DChild.Gameplay.Characters.Players;
 using UnityEngine;
 using System.Collections;
 using Spine.Unity.Examples;
+using DChild.Gameplay.Essence;
 
 namespace DChild.Gameplay.Characters.Players.Behaviour
 {
@@ -16,6 +17,11 @@ namespace DChild.Gameplay.Characters.Players.Behaviour
         private SkeletonGhost m_auraGhost;
         [SerializeField]
         private float m_auraDuration;
+
+        [SerializeField]
+        private Color m_soulEssenceAuraColor;
+        [SerializeField]
+        private Color m_otherItemsAuraColor;
 
         private IPlayer m_owner;
 
@@ -47,6 +53,10 @@ namespace DChild.Gameplay.Characters.Players.Behaviour
             if (loot)
             {
                 loot.PickUp(m_owner);
+                if (loot.GetComponent<EssenceLoot>() != null)
+                    m_auraGhost.color = m_soulEssenceAuraColor;
+                else
+                    m_auraGhost.color = m_otherItemsAuraColor;
                 OnLootPickup?.Invoke(this,EventActionArgs.Empty);
             }
         }
