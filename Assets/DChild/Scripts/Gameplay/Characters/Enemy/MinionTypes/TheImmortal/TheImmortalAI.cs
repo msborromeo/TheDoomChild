@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using DChild;
 using DChild.Gameplay.Characters.Enemies;
 using DChild.Gameplay.Environment;
+using Doozy.Runtime.Common.Extensions;
+using DChild.Gameplay.Pooling;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
@@ -161,7 +163,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private RaySensor m_ceilingSensor;
         [SerializeField]
         private Collider2D m_bodyCollider;
-
+        [SerializeField]
+        private float m_movementSpeed;
         [ShowInInspector]
         private StateHandle<State> m_stateHandle;
         [ShowInInspector]
@@ -174,7 +177,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private Coroutine m_patienceRoutine;
         private Coroutine m_randomIdleRoutine;
         private Coroutine m_randomTurnRoutine;
-
+        
         private void OnAttackDone(object sender, EventActionArgs eventArgs)
         {
             //m_animation.DisableRootMotion();
@@ -298,7 +301,16 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             m_stateHandle.SetState(State.Patrol);
         }
+        
+        
+        [SerializeField]
+        private int m_maxRevive;
 
+        private int m_reviveCount;
+        [SerializeField]
+        private GameObject m_DeathFX;
+        [SerializeField]
+        private GameObject m_DeatHandle;
         protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
         {
             //m_Audiosource.clip = m_DeadClip;
@@ -325,7 +337,25 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetEmptyAnimation(0, 0);
             m_animation.SetEmptyAnimation(1, 0);
             m_animation.SetEmptyAnimation(2, 0);
-            StartCoroutine(ResurrectRoutine());
+            if(m_maxRevive != m_reviveCount)
+            {
+                m_reviveCount++;
+                StartCoroutine(ResurrectRoutine());
+                if(m_maxRevive == m_reviveCount)
+                {
+                    m_DeatHandle.SetActive(true);
+                }
+            }
+            else
+            {
+                var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_DeathFX, gameObject.scene);
+                instance1.SpawnAt(new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.identity);
+                Debug.Log("death fx spawn");
+                m_reviveCount = 0;
+            }
+            
+
+
         }
 
         private IEnumerator ResurrectRoutine()
@@ -475,7 +505,8 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void Start()
         {
             base.Start();
-            m_currentTimeScale = UnityEngine.Random.Range(1.0f, 2.0f);
+           // m_DeatHandle.SetActive(false);
+            m_currentTimeScale = UnityEngine.Random.Range(10.0f, 20.0f);
             m_currentFullCD = UnityEngine.Random.Range(m_info.attackCD * .5f, m_info.attackCD * 2f);
 
             m_hitbox.Disable();
@@ -486,7 +517,7 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void Awake()
         {
             base.Awake();
-            
+           // m_DeatHandle.SetActive(true);
             m_patrolHandle.TurnRequest += OnTurnRequest;
             m_attackHandle.AttackDone += OnAttackDone;
             m_attackHandle.AttackDone += ResetAttackBB;
@@ -624,7 +655,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                 if (!m_wallSensor.isDetecting && m_groundSensor.isDetecting && m_edgeSensor.isDetecting)
                                 {
                                     //m_selfCollider.enabled = false;
-                                    m_animation.SetAnimation(0, m_info.run.animation, true).TimeScale = m_currentTimeScale;
+                                    m_animation.SetAnimation(0, m_info.run.animation, true).TimeScale = m_movementSpeed;
                                     //m_movement.MoveTowards(Vector2.one * transform.localScale.x, m_info.move.speed);
                                 }
                                 else
