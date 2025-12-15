@@ -2577,11 +2577,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     m_activeSlide = m_shadowSlide;
                     m_shadowSlide.ConsumeSource();
-
+                    m_activeSlide?.ResetDurationTimer();
+                    m_activeSlide?.Execute();
                 }
             }
-            m_activeSlide?.ResetDurationTimer();
-            m_activeSlide?.Execute();
+
         }
 
         private void MoveCharacter(bool isGrabbing, float horizontalInput)
