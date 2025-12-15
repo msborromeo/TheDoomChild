@@ -75,7 +75,7 @@ namespace DChild
             m_cursor?.SetLockState(CursorLockMode.None);
         }
 
-        public static bool RequestConfirmation(EventAction<EventActionArgs> listener, string message)
+        public static bool RequestConfirmation(EventAction<EventActionArgs> listener, string header, string message)
         {
             if (m_confirmationHander == null)
             {
@@ -83,7 +83,7 @@ namespace DChild
             }
             else
             {
-                m_confirmationHander.RequestConfirmation(listener, message);
+                m_confirmationHander.RequestConfirmation(listener, header, message);
                 return true;
             }
         }
