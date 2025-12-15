@@ -14,6 +14,8 @@ namespace DChild.Menu.MainMenu
         MainMenuNavigationHandle m_savedHandle;
         ConfirmationRequestHandle m_requestHandle = new ConfirmationRequestHandle();
         [TermsPopup]
+        public string _MyLocalizedHeader;
+        [TermsPopup]
         public string _MyLocalizedString;
 
 
@@ -26,7 +28,7 @@ namespace DChild.Menu.MainMenu
             }
             m_savedHandle = GetComponent<MainMenuNavigationHandle>();
             m_requestHandle.ChangeHandler(m_Handler);
-            m_requestHandle.ChangeMessage(LocalizationManager.GetTranslation(_MyLocalizedString));
+            m_requestHandle.ChangeMessage(LocalizationManager.GetTranslation(_MyLocalizedString), LocalizationManager.GetTranslation(_MyLocalizedHeader));
             //Debug.LogError(LocalizationManager.GetTranslation(_MyLocalizedString));
             m_savedHandle.QuitConfirmationLocalization(m_requestHandle);
         }

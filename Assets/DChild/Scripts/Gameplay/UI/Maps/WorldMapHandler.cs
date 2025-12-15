@@ -36,7 +36,7 @@ namespace DChild.Gameplay.UI
         public void RequestTransfer(MapLocationButton button)
         {
             m_transferingTo = button.locationData;
-            m_confirmation.RequestConfirmation(OnAccept, button.GetTransferMessage());
+            m_confirmation.RequestConfirmation(OnAccept, null, button.GetTransferMessage());
         }
 
         private void OnAccept(object sender, EventActionArgs eventArgs)

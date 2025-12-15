@@ -14,7 +14,7 @@ namespace DChild.Menu
 
         public ConfirmationWindow window => m_confirmationWindow;
 
-        public void RequestConfirmation(EventAction<EventActionArgs> listener, string message, bool noMessage = false, EventAction<EventActionArgs> OnDecline = null)
+        public void RequestConfirmation(EventAction<EventActionArgs> listener, string messageHeader, string message, bool noMessage = false, EventAction<EventActionArgs> OnDecline = null)
         {
             m_listener = listener;
             m_declineListener = OnDecline;
@@ -25,7 +25,7 @@ namespace DChild.Menu
             {
                 return;
             }
-            m_confirmationWindow.SetMessage(message);
+            m_confirmationWindow.SetMessage(messageHeader, message);
         }
 
         private void OnAffirm(object sender, EventActionArgs eventArgs)

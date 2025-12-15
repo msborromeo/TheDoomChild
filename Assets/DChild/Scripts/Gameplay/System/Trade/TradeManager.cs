@@ -114,11 +114,11 @@ namespace DChild.Gameplay.Trade
             if (Localize)
             {
                 m_termLocalizer.TradeValueLocalize(transaction.count.ToString(), transaction.item, pluralization, currencyTypeMsg, transaction.totalCost.ToString());
-                m_tradeConfirmation.RequestConfirmation(OnTradeConfirmed, null, true);
+                m_tradeConfirmation.RequestConfirmation(OnTradeConfirmed, null, null, true);
                 return;
             }
             var message = $"Would you like to Trade {transaction.count} {transaction.item.itemName}{pluralization} for {currencyTypeMsg} {transaction.totalCost}";
-            m_tradeConfirmation.RequestConfirmation(OnTradeConfirmed, message);
+            m_tradeConfirmation.RequestConfirmation(OnTradeConfirmed, "Purchase", message);
         }
 
         private void OnTradeConfirmed(object sender, EventActionArgs eventArgs)
