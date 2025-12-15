@@ -43,8 +43,8 @@ namespace DChild.Gameplay.ArmyBattle
             [ShowIfGroup("Main/Requirements/ItemToggle", MemberName = "m_requiresItem")]
             [SerializeField, BoxGroup("Main/Requirements/ItemToggle/ItemRequirement")]
             private ItemData m_hasItem;
-            [SerializeField, BoxGroup("Main/Requirements/ItemToggle/ItemRequirement")]
-            private int m_ItemAmount;
+            [SerializeField, BoxGroup("Main/Requirements/ItemToggle/ItemRequirement"),Min(1)]
+            private int m_ItemAmount = 1;
 
         [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
         private bool m_requiresCombatArt;
@@ -69,6 +69,9 @@ namespace DChild.Gameplay.ArmyBattle
             [ShowIfGroup("Main/Requirements/NPCsAmountToggle", MemberName = "m_requiresMinimumNPCsRecruited")]
             [SerializeField, BoxGroup("Main/Requirements/NPCsAmountToggle/NPCsAmount")]
             private int neededNPCsRecruited;
+
+        [SerializeField, TabGroup("Main", "Requirements"),Tooltip("Takes the item from the player's invintory if possible")]
+        private bool m_TakeRequiredItemFromInvintory;
 
         private bool m_OtherConditions;
 
@@ -108,7 +111,11 @@ namespace DChild.Gameplay.ArmyBattle
                     {
                         RequirementFailed();
                         return;
+                    }else if(m_TakeRequiredItemFromInvintory)
+                    {
+                        GameplaySystem.playerManager.player.inventory.AddSoulEssence(-m_requiredSoulEssence);
                     }
+
                 }
 
                 if(m_requiresItem)
@@ -118,6 +125,9 @@ namespace DChild.Gameplay.ArmyBattle
                     {
                         RequirementFailed();
                         return;
+                    }else if (m_TakeRequiredItemFromInvintory)
+                    {
+                        GameplaySystem.playerManager.player.inventory.RemoveItem(m_hasItem,m_ItemAmount);
                     }
                 }
                 

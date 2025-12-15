@@ -9,7 +9,9 @@ namespace DChild.Gameplay.Systems
         Gameplay,
         Dialogue,
         GamePause,
-        Cinematic
+        Cinematic,
+        FullScreenNotif,
+        BossFight
     }
     [System.Serializable]
     public class AudioSnapshotHandle

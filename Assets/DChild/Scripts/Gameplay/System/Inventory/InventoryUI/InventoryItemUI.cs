@@ -21,7 +21,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         protected override void ShowDetailsOf(IStoredItem reference)
         {
-            if (reference == null)
+            if (reference == null || reference.data.category == Items.ItemCategory.SoulEssence)
             {
                 Hide();
             }
