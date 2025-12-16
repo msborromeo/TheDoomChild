@@ -460,7 +460,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             if (m_state.isInShadowMode)
             {
-                if (m_shadowMorph.HaveEnoughSourceForExecution())
+                if (m_shadowMorph.HaveEnoughSourceToMaintainShadowForm())
                 {
                     m_shadowMorph.ConsumeSource();
                 }
@@ -967,6 +967,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isAimingProjectile)
                 return;
             if (m_state.isDashing || m_state.isSliding || m_state.isAttacking || m_state.isLedgeGrabbing || m_state.isExecutingCombatArt || m_state.isHighJumping)
+                return;
+            if ((m_shadowMorph?.HaveEnoughSourceForExecution() ?? false) == false)
                 return;
 
             m_idle?.Cancel();
@@ -2577,11 +2579,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     m_activeSlide = m_shadowSlide;
                     m_shadowSlide.ConsumeSource();
-
+                    m_activeSlide?.ResetDurationTimer();
+                    m_activeSlide?.Execute();
                 }
             }
-            m_activeSlide?.ResetDurationTimer();
-            m_activeSlide?.Execute();
+
         }
 
         private void MoveCharacter(bool isGrabbing, float horizontalInput)
