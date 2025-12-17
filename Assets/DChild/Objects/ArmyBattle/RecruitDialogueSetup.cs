@@ -17,7 +17,7 @@ namespace DChild.ArmyBattle.Recruitment
         GameObject m_RecruitableNPC;
         [SerializeField]
         bool m_hasAfterRecruitDialogue = false;
-        [SerializeField]
+        [SerializeField, Tooltip("DONT TOUCH")]
         private bool m_ShowSetup;
         [SerializeField, ShowIf("m_ShowSetup")]
         GameObject m_RecruitmentEssentials;

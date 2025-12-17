@@ -1695,7 +1695,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Version 0.69.0.14A
+  m_text: Version 0.70.3.14A
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a576fbe1b6faba498194776bfd96bc4, type: 2}
   m_sharedMaterial: {fileID: 21892830720195836, guid: 6a576fbe1b6faba498194776bfd96bc4,
@@ -1932,6 +1932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Handler: {fileID: 0}
+  _MyLocalizedHeader: MainMenu/Confirmation/Header
   _MyLocalizedString: Confirmation/Messages/"Would you like to quit the game?"
 --- !u!114 &6222103836364605169
 MonoBehaviour:
@@ -1949,6 +1950,7 @@ MonoBehaviour:
   m_hideNavigationMenuSignal: {fileID: 6222103836364605170}
   m_applicationQuitRequest:
     m_confirmation: {fileID: 0}
+    m_confirmationHeader: Quit
     m_confirmationMessage: '"Would you like to quit the game?"'
 --- !u!114 &6222103836364605170
 MonoBehaviour:
@@ -7003,7 +7005,7 @@ PrefabInstance:
     - target: {fileID: 7438626721620959761, guid: baf60fa3e129e6c4eb5847beb83a4130,
         type: 3}
       propertyPath: mSource.mTerms.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7438626721620959761, guid: baf60fa3e129e6c4eb5847beb83a4130,
         type: 3}
@@ -7037,6 +7039,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7438626721620959761, guid: baf60fa3e129e6c4eb5847beb83a4130,
         type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Term
+      value: MainMenu/Confirmation/Header
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438626721620959761, guid: baf60fa3e129e6c4eb5847beb83a4130,
+        type: 3}
       propertyPath: mSource.mLanguages.Array.data[2].Name
       value: Gibberish
       objectReference: {fileID: 0}
@@ -7067,6 +7074,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7438626721620959761, guid: baf60fa3e129e6c4eb5847beb83a4130,
         type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Flags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438626721620959761, guid: baf60fa3e129e6c4eb5847beb83a4130,
+        type: 3}
       propertyPath: mSource.mTerms.Array.data[0].Languages.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -7088,6 +7100,11 @@ PrefabInstance:
     - target: {fileID: 7438626721620959761, guid: baf60fa3e129e6c4eb5847beb83a4130,
         type: 3}
       propertyPath: mSource.mTerms.Array.data[4].Languages.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438626721620959761, guid: baf60fa3e129e6c4eb5847beb83a4130,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Languages.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7438626721620959761, guid: baf60fa3e129e6c4eb5847beb83a4130,
@@ -7164,6 +7181,16 @@ PrefabInstance:
         type: 3}
       propertyPath: mSource.mTerms.Array.data[4].Languages.Array.data[2]
       value: I was told there would be more to this
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438626721620959761, guid: baf60fa3e129e6c4eb5847beb83a4130,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Languages.Array.data[0]
+      value: Quit
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438626721620959761, guid: baf60fa3e129e6c4eb5847beb83a4130,
+        type: 3}
+      propertyPath: mSource.mTerms.Array.data[5].Languages.Array.data[1]
+      value: "Aufh\xF6ren"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baf60fa3e129e6c4eb5847beb83a4130, type: 3}
@@ -7514,7 +7541,7 @@ PrefabInstance:
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
       propertyPath: m_text
-      value: K<size=80%>redits
+      value: C<size=80%>redits
       objectReference: {fileID: 0}
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
@@ -7947,7 +7974,7 @@ PrefabInstance:
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
       propertyPath: m_text
-      value: E<size=80%>instellungen
+      value: S<size=80%>ETTINGS
       objectReference: {fileID: 0}
     - target: {fileID: 3297773408666661099, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
@@ -8469,7 +8496,7 @@ PrefabInstance:
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
       propertyPath: m_text
-      value: "A<size=80%>ufh\xF6ren"
+      value: Q<size=80%>uit
       objectReference: {fileID: 0}
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
@@ -9371,7 +9398,7 @@ PrefabInstance:
     - target: {fileID: 3297773408558630375, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0.93735504
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3297773408558630375, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
@@ -9401,7 +9428,7 @@ PrefabInstance:
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
       propertyPath: m_text
-      value: S<size=80%>PIELEN
+      value: P<size=80%>LAY
       objectReference: {fileID: 0}
     - target: {fileID: 3297773408558630376, guid: a38bd721f37cadc40a96c6797a60b4d8,
         type: 3}
