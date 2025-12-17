@@ -2184,6 +2184,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DeleteSave"",
+                    ""type"": ""Button"",
+                    ""id"": ""c24c7fbe-0511-44a5-9d24-1f67d35463a2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -2470,6 +2479,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Resume"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1aa7a8c9-3bd4-4eeb-8bf1-28a4f94f4f2c"",
+                    ""path"": ""<Keyboard>/delete"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""DeleteSave"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b7c9f0d6-90cf-4484-8842-e75fb0f11e4d"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DeleteSave"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -3133,6 +3164,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
         m_UI_Resume = m_UI.FindAction("Resume", throwIfNotFound: true);
+        m_UI_DeleteSave = m_UI.FindAction("DeleteSave", throwIfNotFound: true);
         // Army Battle
         m_ArmyBattle = asset.FindActionMap("Army Battle", throwIfNotFound: true);
         m_ArmyBattle_SelectCommand = m_ArmyBattle.FindAction("SelectCommand", throwIfNotFound: true);
@@ -3523,6 +3555,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Click;
     private readonly InputAction m_UI_ScrollWheel;
     private readonly InputAction m_UI_Resume;
+    private readonly InputAction m_UI_DeleteSave;
     public struct UIActions
     {
         private @PlayerControls m_Wrapper;
@@ -3534,6 +3567,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Click => m_Wrapper.m_UI_Click;
         public InputAction @ScrollWheel => m_Wrapper.m_UI_ScrollWheel;
         public InputAction @Resume => m_Wrapper.m_UI_Resume;
+        public InputAction @DeleteSave => m_Wrapper.m_UI_DeleteSave;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -3564,6 +3598,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Resume.started -= m_Wrapper.m_UIActionsCallbackInterface.OnResume;
                 @Resume.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnResume;
                 @Resume.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnResume;
+                @DeleteSave.started -= m_Wrapper.m_UIActionsCallbackInterface.OnDeleteSave;
+                @DeleteSave.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnDeleteSave;
+                @DeleteSave.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnDeleteSave;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -3589,6 +3626,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Resume.started += instance.OnResume;
                 @Resume.performed += instance.OnResume;
                 @Resume.canceled += instance.OnResume;
+                @DeleteSave.started += instance.OnDeleteSave;
+                @DeleteSave.performed += instance.OnDeleteSave;
+                @DeleteSave.canceled += instance.OnDeleteSave;
             }
         }
     }
@@ -3766,6 +3806,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnClick(InputAction.CallbackContext context);
         void OnScrollWheel(InputAction.CallbackContext context);
         void OnResume(InputAction.CallbackContext context);
+        void OnDeleteSave(InputAction.CallbackContext context);
     }
     public interface IArmyBattleActions
     {
