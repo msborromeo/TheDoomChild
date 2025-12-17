@@ -33,8 +33,8 @@ namespace DChild.Menu
 
         public void ChangeMessage(string message, string header = "")
         {
-            if (!header.IsNullOrEmpty())
-                m_confirmationHeader = header;
+            //if (!header.IsNullOrEmpty())
+            //    m_confirmationHeader = header;
 
             m_confirmationMessage = message;
         }
