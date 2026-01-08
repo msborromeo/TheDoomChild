@@ -30,8 +30,10 @@ namespace DChild.Gameplay
         [SerializeField, BoxGroup("Overworld Teleport Variables")]
         private Dictionary<Environment.Location, LevelCompleteVariables> m_overworldTeleportLevelCompleteDictionary = new Dictionary<Environment.Location, LevelCompleteVariables>();
 
+
         [SerializeField, Header("TESTING")]
         private bool m_allowTeleportWithoutConditions = false;
+        public bool allowTeleport => m_allowTeleportWithoutConditions;
 
         public void TeleportToOverworld()
         {
@@ -90,7 +92,7 @@ namespace DChild.Gameplay
             GameplaySystem.gamplayUIHandle.RequestTeleportConfirmation(m_throneRoomTravelData);
         }
 
-        private bool CanTeleportToOverworld()
+        public bool CanTeleportToOverworld()
         {
             bool canTeleport = false;
             var currentLocation = m_currentLocationChecker.GetCurrentLocation();
@@ -112,7 +114,7 @@ namespace DChild.Gameplay
             return canTeleport;
         }
 
-        private bool CanTeleportToThroneRoom()
+        public bool CanTeleportToThroneRoom()
         {
             bool canTeleport = false;
             var currentLocation = m_currentLocationChecker.GetCurrentLocation();
