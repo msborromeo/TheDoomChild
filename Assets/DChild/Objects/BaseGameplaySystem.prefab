@@ -866,6 +866,7 @@ Transform:
   - {fileID: 1550281842700579856}
   - {fileID: 5301228604802302412}
   - {fileID: 3713909868673508032}
+  - {fileID: 3458109580543191416}
   m_Father: {fileID: 6478014794679475506}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -886,6 +887,7 @@ MonoBehaviour:
   m_gameOverSignal: {fileID: 1131147808}
   m_confirmationWindowSignal: {fileID: 1906314718}
   m_requestTeleportSignal: {fileID: 8274653363868059396}
+  m_confirmRecruitmentSignal: {fileID: 756597024041440925}
   m_cinematicBarsSignal: {fileID: 3245858311185027369}
   m_levelFinishedSignal: {fileID: 6029624676166457006}
   m_gamePauseSignal: {fileID: 4478558027050700039}
@@ -898,6 +900,7 @@ MonoBehaviour:
   m_cinematicVideoHandle: {fileID: 1812084480293302985}
   m_cinematicBars: {fileID: 0}
   m_levelFinish: {fileID: 0}
+  m_skipHandle: {fileID: 0}
 --- !u!114 &6828250404446119209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -969,6 +972,68 @@ MonoBehaviour:
     StreamId:
       Category: Gameplay
       Name: LevelFinished
+      Custom: 0
+    SignalValueType: 0
+    IntegerValue: 0
+    BooleanValue: 0
+    FloatValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  SendOnStart: 0
+  SendOnEnable: 0
+  SendOnDisable: 0
+  SendOnDestroy: 0
+--- !u!1 &5725880981080748455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3458109580543191416}
+  - component: {fileID: 756597024041440925}
+  m_Layer: 0
+  m_Name: RecruitConfirmationWindowSignal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3458109580543191416
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5725880981080748455}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7169248552564290885}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &756597024041440925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5725880981080748455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f003aa0ad0a4c469338c205df004d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Payload:
+    StreamId:
+      Category: ConfirmationWindow
+      Name: Recruitment
       Custom: 0
     SignalValueType: 0
     IntegerValue: 0
@@ -1239,7 +1304,19 @@ MonoBehaviour:
       Entry: 5
       Data: true
     - Name: m_sceneToLoad
+      Entry: 7
+      Data: 1|Holysoft.Collections.SceneInfo, HolysoftEditor
+    - Name: m_sceneName
       Entry: 6
+      Data: 
+    - Name: m_scenePath
+      Entry: 6
+      Data: 
+    - Name: m_isAddressables
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
       Data: 
     - Name: m_location
       Entry: 3
@@ -1264,16 +1341,16 @@ MonoBehaviour:
       Data: 0
     - Name: m_characterData
       Entry: 7
-      Data: 1|DChild.Serialization.PlayerCharacterData, Assembly-CSharp
+      Data: 2|DChild.Serialization.PlayerCharacterData, Assembly-CSharp
     - Name: m_inventoryData
       Entry: 7
-      Data: 2|DChild.Gameplay.Inventories.TradableInventorySerialization, Assembly-CSharp
+      Data: 3|DChild.Gameplay.Inventories.TradableInventorySerialization, Assembly-CSharp
     - Name: m_soulEssence
       Entry: 3
       Data: 0
     - Name: m_serializedItems
       Entry: 7
-      Data: 3|DChild.Gameplay.Inventories.TradableInventorySerialization+ItemSerialization[],
+      Data: 4|DChild.Gameplay.Inventories.TradableInventorySerialization+ItemSerialization[],
         Assembly-CSharp
     - Name: 
       Entry: 12
@@ -1289,10 +1366,10 @@ MonoBehaviour:
       Data: 
     - Name: m_codexData
       Entry: 7
-      Data: 4|DChild.Menu.Codex.CodexSaveData, Assembly-CSharp
+      Data: 5|DChild.Menu.Codex.CodexSaveData, Assembly-CSharp
     - Name: m_codexDatas
       Entry: 7
-      Data: 5|DChild.Serialization.AcquisitionData[], Assembly-CSharp
+      Data: 6|DChild.Serialization.AcquisitionData[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 6
@@ -1337,23 +1414,11 @@ MonoBehaviour:
       Data: 
     - Name: m_soulSkillData
       Entry: 7
-      Data: 6|DChild.Gameplay.SoulSkills.PlayerSoulSkillData, Assembly-CSharp
+      Data: 7|DChild.Gameplay.SoulSkills.PlayerSoulSkillData, Assembly-CSharp
     - Name: m_currentSoulCapacity
       Entry: 3
       Data: 1
     - Name: m_acquiredSoulSkills
-      Entry: 7
-      Data: 7|System.Int32[], mscorlib
-    - Name: 
-      Entry: 14
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: m_activatedSoulSkills
       Entry: 7
       Data: 8|System.Int32[], mscorlib
     - Name: 
@@ -1365,12 +1430,39 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: m_activatedSoulSkills
+      Entry: 7
+      Data: 9|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: m_soulEquipmentData
+      Entry: 7
+      Data: 10|DChild.Gameplay.EquipmentSystem.PlayerSoulEquipmentData, Assembly-CSharp
+    - Name: m_acquiredEquipmentID
+      Entry: 6
+      Data: 
+    - Name: m_equipmentExpPercent
+      Entry: 6
+      Data: 
+    - Name: m_equippedSoulEquipmentID
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: m_combatArtsData
       Entry: 7
-      Data: 9|DChild.Gameplay.Characters.Players.CombatArtsSaveData, Assembly-CSharp
+      Data: 11|DChild.Gameplay.Characters.Players.CombatArtsSaveData, Assembly-CSharp
     - Name: m_level
       Entry: 7
       Data: DChild.Gameplay.Characters.Player.CombatArt.Leveling.CombatArtLevel+SaveData,
@@ -1383,7 +1475,7 @@ MonoBehaviour:
       Data: 0
     - Name: m_artLevels
       Entry: 7
-      Data: 10|System.Int32[], mscorlib
+      Data: 12|System.Int32[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -1410,14 +1502,14 @@ MonoBehaviour:
       Data: 
     - Name: m_campaignProgress
       Entry: 7
-      Data: 11|DChild.Serialization.SerializeDataList, Assembly-CSharp
+      Data: 13|DChild.Serialization.SerializeDataList, Assembly-CSharp
     - Name: m_saveDatas
       Entry: 7
-      Data: 12|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
+      Data: 14|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
         Assembly-CSharp],[DChild.Serialization.ISaveData, Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 13|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
+      Data: 15|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -1434,18 +1526,33 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: m_armyCharacterSaveData
-      Entry: 6
+      Entry: 7
+      Data: 16|DChild.Gameplay.ArmyBattle.ArmyCharactersSaveData, Assembly-CSharp
+    - Name: m_recruitedCharacterIds
+      Entry: 7
+      Data: 17|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: m_zoneDatas
       Entry: 7
-      Data: 14|DChild.Serialization.SerializeDataList, Assembly-CSharp
+      Data: 18|DChild.Serialization.SerializeDataList, Assembly-CSharp
     - Name: m_saveDatas
       Entry: 7
-      Data: 15|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
+      Data: 19|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
         Assembly-CSharp],[DChild.Serialization.ISaveData, Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 16|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
+      Data: 20|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -1462,21 +1569,48 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: m_uiAlertSaveData
+      Entry: 7
+      Data: 21|DChild.Gameplay.UI.Alerts.UIAlertManager+SaveData, Assembly-CSharp
+    - Name: primarySkillAlerts
+      Entry: 3
+      Data: 0
+    - Name: inventoryRecordedItems
       Entry: 6
+      Data: 
+    - Name: inventoryAlerts
+      Entry: 6
+      Data: 
+    - Name: soulSkillAlerts
+      Entry: 6
+      Data: 
+    - Name: bestiaryAlerts
+      Entry: 6
+      Data: 
+    - Name: charactersAlerts
+      Entry: 6
+      Data: 
+    - Name: questsRecordedAlerts
+      Entry: 6
+      Data: 
+    - Name: questsAlerts
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: m_importable
       Entry: 6
       Data: 
     - Name: m_miscDatas
       Entry: 7
-      Data: 17|DChild.Serialization.SerializeDataList, Assembly-CSharp
+      Data: 22|DChild.Serialization.SerializeDataList, Assembly-CSharp
     - Name: m_saveDatas
       Entry: 7
-      Data: 18|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
+      Data: 23|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
         Assembly-CSharp],[DChild.Serialization.ISaveData, Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 19|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
+      Data: 24|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -1675,7 +1809,16 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes:
     - Name: m_snapshotHandle
+      Entry: 7
+      Data: 0|DChild.Gameplay.Systems.AudioSnapshotHandle, Assembly-CSharp
+    - Name: m_snapshot
       Entry: 6
+      Data: 
+    - Name: m_currentSnapshot
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
   m_mixerGroup: {fileID: 0}
   m_audioMixer: {fileID: 0}
