@@ -8,6 +8,7 @@ using Holysoft.Event;
 using DChild.Gameplay.Items;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.Characters.Players;
+using DChild.Gameplay.Systems;
 
 namespace DChild.Gameplay.ArmyBattle
 {
@@ -83,12 +84,14 @@ namespace DChild.Gameplay.ArmyBattle
         [Button]
         public void GiveReward()
         {
-            m_CharacterGiver?.RecruitCharacter(m_CharacterReward);
+            
+            GameplaySystem.gamplayUIHandle.ConfirmationRequest(AcceptOffer, "Recruiting " + m_CharacterReward[0].name, ConstructRequirement(), OnDecline: OnDecline);
 
+            //m_CharacterGiver?.RecruitCharacter(m_CharacterReward);
+            //GameplaySystem.PauseGame();
 
-            //Because Characters are usually recieved at isolated maps where save points do not exists
-            //and Underworld data is lost upon existing due to changing into Overworld Data 
-            GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Quest);  
+            
+            
         }
 
         public void RequirementMet(bool isAchieved)
@@ -103,37 +106,46 @@ namespace DChild.Gameplay.ArmyBattle
 
         public void AttemptGiveReward()
         {
-            if(!m_isFree)
+            GameplaySystem.PauseGame();
+            GiveReward();
+            //m_GiveReward?.Invoke();
+        }
+
+        private void AcceptOffer(object sender, EventActionArgs eventActionArgs)
+        {
+            if (!m_isFree)
             {
-                if(m_requiresSoulEssence)
+                if (m_requiresSoulEssence)
                 {
                     if (GameplaySystem.playerManager.player.inventory.GetCurrencyAmount(CurrencyType.SoulEssence) < m_requiredSoulEssence && m_requiredSoulEssence != 0)
                     {
                         RequirementFailed();
                         return;
-                    }else if(m_TakeRequiredItemFromInvintory)
+                    }
+                    else if (m_TakeRequiredItemFromInvintory)
                     {
                         GameplaySystem.playerManager.player.inventory.AddSoulEssence(-m_requiredSoulEssence);
                     }
 
                 }
 
-                if(m_requiresItem)
+                if (m_requiresItem)
                 {
                     int x = GameplaySystem.playerManager.player.inventory.GetCurrentAmount(m_hasItem);
-                    if (x == 0||x < m_ItemAmount)
+                    if (x == 0 || x < m_ItemAmount)
                     {
                         RequirementFailed();
                         return;
-                    }else if (m_TakeRequiredItemFromInvintory)
+                    }
+                    else if (m_TakeRequiredItemFromInvintory)
                     {
-                        GameplaySystem.playerManager.player.inventory.RemoveItem(m_hasItem,m_ItemAmount);
+                        GameplaySystem.playerManager.player.inventory.RemoveItem(m_hasItem, m_ItemAmount);
                     }
                 }
-                
-                if(m_requiresPrimarySkill)
+
+                if (m_requiresPrimarySkill)
                 {
-                    if(!GameplaySystem.playerManager.player.skills.IsSkillUnlocked(m_PrimarySkill))
+                    if (!GameplaySystem.playerManager.player.skills.IsSkillUnlocked(m_PrimarySkill))
                     {
                         RequirementFailed();
                         return;
@@ -149,7 +161,7 @@ namespace DChild.Gameplay.ArmyBattle
                     }
                 }
 
-                if(m_requiresSpecificNPC)
+                if (m_requiresSpecificNPC)
                 {
                     if (!GameplaySystem.playerManager.armyBattleCharacterRecruiter.HasRecruitedCharacter(armyCharacterData))
                     {
@@ -158,9 +170,9 @@ namespace DChild.Gameplay.ArmyBattle
                     }
                 }
 
-                if(m_requiresMinimumNPCsRecruited)
+                if (m_requiresMinimumNPCsRecruited)
                 {
-                    if(GameplaySystem.playerManager.armyBattleCharacterRecruiter.ArmySize()<neededNPCsRecruited)
+                    if (GameplaySystem.playerManager.armyBattleCharacterRecruiter.ArmySize() < neededNPCsRecruited)
                     {
                         RequirementFailed();
                         return;
@@ -169,22 +181,54 @@ namespace DChild.Gameplay.ArmyBattle
 
                 if (m_OtherConditions)
                 {
-                    if(!m_RequirementAchieved)
+                    if (!m_RequirementAchieved)
                     {
                         RequirementFailed();
                         return;
                     }
                 }
             }
+            
+            GameplaySystem.ResumeGame();
+            m_GiveReward.Invoke();
 
-            GiveReward();
-            m_GiveReward?.Invoke();
+            //Because Characters are usually recieved at isolated maps where save points do not exists
+            //and Underworld data is lost upon exiting due to changing into Overworld Data 
+            GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Quest);
+
+
         }
-
         private void RequirementFailed()
         {
             m_RequirementFailed?.Invoke();
+            GameplaySystem.ResumeGame();
         }
+
+        private string ConstructRequirement()
+        {
+            string m_RequirementsText = m_CharacterReward[0].name + " would like to join you";
+            if (!m_isFree&&m_TakeRequiredItemFromInvintory)
+            {
+                m_RequirementsText += "\nGive:";
+                if(m_requiresSoulEssence)
+                {
+                    m_RequirementsText += "\n•" + m_requiredSoulEssence + " Soul Essence";
+                }
+                if(m_requiresItem)
+                {
+                    m_RequirementsText += "\n•" +m_ItemAmount.ToString()+ " " + m_hasItem.itemName;
+                }
+                m_RequirementsText += "\n Accept the offer?";
+            }
+
+            return m_RequirementsText;
+        }
+
+        private void OnDecline(object sender, EventActionArgs eventActionArgs)
+        {
+            GameplaySystem.ResumeGame();
+        }
+
     }
 }
 
