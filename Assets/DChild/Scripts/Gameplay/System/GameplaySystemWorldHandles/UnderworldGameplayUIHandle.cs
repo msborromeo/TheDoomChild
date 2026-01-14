@@ -16,6 +16,7 @@ using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
 using System.Drawing.Text;
 using UnityEngine;
+using static UnityEngine.InputSystem.InputAction;
 
 namespace DChild.Gameplay.Systems
 {
@@ -46,6 +47,9 @@ namespace DChild.Gameplay.Systems
         private RegenerationEffectsHandler m_regen;
         [SerializeField]
         private ElevatorLevelSelectionUI m_elevator;
+
+        [SerializeField]
+        private MobileTeleportPromptHandle m_teleportHandle;
 
 
         [SerializeField, FoldoutGroup("Side Notification")]
@@ -138,11 +142,24 @@ namespace DChild.Gameplay.Systems
             }
         }
 
+        public void ShowHoldToTeleportSequence(CallbackContext context, bool isCanceled)
+        {
+            if (isCanceled)
+            {
+                m_teleportHandle.HidePrompt();
+                return;
+            }
+
+            m_teleportHandle.SetCurrentInput(context.action);
+            m_teleportHandle.SetupLocationPrompt(context.action);
+        }
+
         public void ResetGameplayUI()
         {
             GameEventMessage.SendEvent("UI Reset");
             ToggleBossCombatUI(false);
         }
+
 
         public void PromptKeystoneFragmentNotification()
         {
