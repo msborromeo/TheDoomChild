@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DChild.Gameplay.UI;
+using UnityEngine.Video;
+
 
 
 #if UNITY_EDITOR
@@ -26,6 +28,8 @@ namespace DChild.Gameplay.Characters.Players
         private Sprite m_border;
         [SerializeField, PreviewField]
         private Sprite m_icon;
+        [SerializeField, PreviewField]
+        private VideoClip m_demoClip;
         [SerializeField, MinValue(1), MaxValue(4)]
         private int m_numberOfActions = 1;
 
@@ -44,6 +48,7 @@ namespace DChild.Gameplay.Characters.Players
         public PrimarySkill skill => m_skill;
         public Sprite border => m_border;
         public Sprite icon => m_icon;
+        public VideoClip demoClip => m_demoClip;
         public int numberOfActions => m_numberOfActions;
         public InputActionConfiguration action => m_actionConfiguration1;
         public InputActionConfiguration action2 => m_actionConfiguration2;
