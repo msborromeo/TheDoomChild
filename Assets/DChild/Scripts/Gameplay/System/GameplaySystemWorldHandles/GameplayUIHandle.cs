@@ -7,12 +7,14 @@ using DChild.Gameplay.Systems.Serialization;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
 using DChild.Gameplay.UI.Alerts;
+using DChild.Inputs;
 using DChild.Menu.Trade;
 using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
 using Holysoft.Event;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Video;
 
 namespace DChild.Gameplay.Systems
@@ -74,7 +76,7 @@ namespace DChild.Gameplay.Systems
             if (GameSystem.CurrentGameMode == GameMode.Underworld)
             {
                 UnderworldGameplayUIHandle.Instance.OpenStore();
- 
+
             }
             else if (GameSystem.CurrentGameMode == GameMode.Overworld)
             {
@@ -86,7 +88,7 @@ namespace DChild.Gameplay.Systems
         {
             if (GameSystem.CurrentGameMode == GameMode.Underworld)
             {
-                UnderworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage); 
+                UnderworldGameplayUIHandle.Instance.OpenStoreAtPage(storePage);
 
             }
             else if (GameSystem.CurrentGameMode == GameMode.Overworld)
@@ -141,10 +143,10 @@ namespace DChild.Gameplay.Systems
             BaseGameplayUIHandle.Instance.ShowCinematicVideo(clip, behindTheSceneRoutine, OnVideoDone);
         }
 
-	public void ForceStopCinematicVideo()
-	{
-		BaseGameplayUIHandle.Instance.ForceStopCinematicVideo();
-	}
+        public void ForceStopCinematicVideo()
+        {
+            BaseGameplayUIHandle.Instance.ForceStopCinematicVideo();
+        }
 
         public void ShowGameOverScreen()
         {
@@ -189,6 +191,11 @@ namespace DChild.Gameplay.Systems
         public void ToggleSequenceSkip(bool willShow)
         {
             BaseGameplayUIHandle.Instance.ToggleSequenceSkip(willShow);
+        }
+
+        public void ShowHoldToTeleportSequence(InputAction.CallbackContext context, bool isCanceled)
+        {
+            UnderworldGameplayUIHandle.Instance.ShowHoldToTeleportSequence(context, isCanceled);
         }
 
         public void ToggleBossCombatUI(bool willshow)

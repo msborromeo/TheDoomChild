@@ -12,6 +12,7 @@ using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Video;
 
 namespace DChild.Gameplay.Systems
@@ -58,6 +59,7 @@ namespace DChild.Gameplay.Systems
         void ShowGameOverScreen();
         void ShowGameplayUI(bool willshow);
         void ToggleSequenceSkip(bool willShow);
+        void ShowHoldToTeleportSequence(InputAction.CallbackContext context, bool isCanceled);
         void ActivateHealthRegenEffect(PassiveRegeneration.Handle regenHandle);
         void DeactivateHealthRegenEffect();
         void ActivateShadowRegenEffect();
