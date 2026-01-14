@@ -44,7 +44,7 @@ namespace DChild.Gameplay.Systems
 
         public static IPlayerManager playerManager => m_playerManager;
         public static MobileTeleportHandle overworldTeleportHandle => m_overworldTeleportHandle;
-        private static UnderworldGameplayUIHandle gameplayUIHandle => m_gameplayUIHandle;
+        public static UnderworldGameplayUIHandle gameplayUIHandle => m_gameplayUIHandle;
 
         #endregion
         public static void ResumeGame()
