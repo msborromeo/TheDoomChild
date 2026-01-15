@@ -33,6 +33,8 @@ namespace DChild.Gameplay.Systems
         private SignalSender m_confirmationWindowSignal;
         [SerializeField, FoldoutGroup("Signals/Confirmation")]
         private SignalSender m_requestTeleportSignal;
+        [SerializeField, FoldoutGroup("Signals/Confirmation")]
+        private SignalSender m_confirmRecruitmentSignal;
         [SerializeField, FoldoutGroup("Signals")]
         private SignalSender m_cinematicBarsSignal;
         [SerializeField, FoldoutGroup("Signals")]
@@ -131,6 +133,11 @@ namespace DChild.Gameplay.Systems
             }
         }
 
+        public void ConfirmationRequest(EventAction<EventActionArgs> listener, string messageHeader, string message, bool noMessage = false, EventAction<EventActionArgs> OnDecline = null)
+        {
+            m_confirmationWindow.RequestConfirmation(listener,messageHeader,message,OnDecline:OnDecline);
+            m_confirmRecruitmentSignal.SendSignal();
+        }
 
         public void ToggleSequenceSkip(bool willShow)
         {
