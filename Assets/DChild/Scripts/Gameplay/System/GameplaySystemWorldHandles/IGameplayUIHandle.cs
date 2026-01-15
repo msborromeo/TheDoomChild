@@ -9,6 +9,7 @@ using DChild.Gameplay.UI;
 using DChild.Gameplay.UI.Alerts;
 using DChild.Menu.Trade;
 using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
+using Holysoft.Event;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -73,5 +74,6 @@ namespace DChild.Gameplay.Systems
         public void NotifyUnlockedLocation(AvailableLocations location, InputActionConfiguration input);
 
         UIHandlerExtraReference GetReference();
+        void ConfirmationRequest(EventAction<EventActionArgs> listener, string messageHeader, string message, bool noMessage = false, EventAction<EventActionArgs> OnDecline = null);
     }
 }
