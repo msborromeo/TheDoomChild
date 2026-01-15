@@ -269,7 +269,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportingSkullPerformedEvent += OnTeleportingSkullPerformedInput;
             m_inputReader.TeleportingSkullCancelledEvent += OnTeleportingSkullCancelledInput;
             m_inputReader.TeleportToOverworld += OnTeleportToOverworld;
+            m_inputReader.TeleportToOverworldStarted += OnTeleportToOverworldStarted;
             m_inputReader.TeleportToMordenThroneRoom += OnTeleportToMordenThroneRoom;
+            m_inputReader.TeleportToMordenThroneRoomStarted += OnTeleportToMordenThroneRoomStarted;
         }
 
         private void OnDisable()
@@ -349,8 +351,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportingSkullPerformedEvent -= OnTeleportingSkullPerformedInput;
             m_inputReader.TeleportingSkullCancelledEvent -= OnTeleportingSkullCancelledInput;
             m_inputReader.TeleportToOverworld -= OnTeleportToOverworld;
+            m_inputReader.TeleportToOverworldStarted -= OnTeleportToOverworldStarted;
             m_inputReader.TeleportToMordenThroneRoom -= OnTeleportToMordenThroneRoom;
+            m_inputReader.TeleportToMordenThroneRoomStarted -= OnTeleportToMordenThroneRoomStarted;
         }
+
+       
 
         private void FixedUpdate()
         {
@@ -460,7 +466,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             if (m_state.isInShadowMode)
             {
-                if (m_shadowMorph.HaveEnoughSourceForExecution())
+                if (m_shadowMorph.HaveEnoughSourceToMaintainShadowForm())
                 {
                     m_shadowMorph.ConsumeSource();
                 }
@@ -968,6 +974,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isDashing || m_state.isSliding || m_state.isAttacking || m_state.isLedgeGrabbing || m_state.isExecutingCombatArt || m_state.isHighJumping)
                 return;
+            if ((m_shadowMorph?.HaveEnoughSourceForExecution() ?? false) == false)
+                return;
 
             m_idle?.Cancel();
             m_movement?.Cancel();
@@ -1035,10 +1043,20 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         }
 
+        private void OnTeleportToOverworldStarted(InputAction.CallbackContext context, bool isCanceled)
+        {
+            GameplaySystem.gamplayUIHandle.ShowHoldToTeleportSequence(context, isCanceled);
+        }
+
         private void OnTeleportToOverworld()
         {
             //Note: May need to change with gameplayUIHandle check to do it through confirmation window
             UnderworldGameplaySystem.overworldTeleportHandle.TeleportToOverworld();
+        }
+
+        private void OnTeleportToMordenThroneRoomStarted(InputAction.CallbackContext context, bool isCanceled)
+        {
+            GameplaySystem.gamplayUIHandle.ShowHoldToTeleportSequence(context, isCanceled);
         }
 
         private void OnTeleportToMordenThroneRoom()
@@ -2577,11 +2595,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     m_activeSlide = m_shadowSlide;
                     m_shadowSlide.ConsumeSource();
-
+                    m_activeSlide?.ResetDurationTimer();
+                    m_activeSlide?.Execute();
                 }
             }
-            m_activeSlide?.ResetDurationTimer();
-            m_activeSlide?.Execute();
+
         }
 
         private void MoveCharacter(bool isGrabbing, float horizontalInput)

@@ -65,11 +65,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public bool IsAttackAllowed() => m_attackAllowed;
         public bool HaveEnoughSourceForExecution() => m_configuration.sourceRequiredAmount <= m_source.currentValue;
 
+        public bool HaveEnoughSourceToMaintainShadowForm() => m_source.currentValue > 0;
+
         //public bool IsAttackAllowed
 
         public void ConsumeSource()
         {
-            m_stackedConsumptionRate += (m_configuration.sourceConsumptionRate * GameplaySystem.time.deltaTime) * m_modifier.Get(PlayerModifier.ShadowMagic_Requirement);
+            m_stackedConsumptionRate += m_configuration.sourceConsumptionRate * m_modifier.Get(PlayerModifier.ShadowMagic_Requirement) * GameplaySystem.time.deltaTime;
 
             if (m_stackedConsumptionRate >= 1)
             {

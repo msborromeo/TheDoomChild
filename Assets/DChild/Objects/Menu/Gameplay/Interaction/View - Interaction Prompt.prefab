@@ -520,7 +520,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7404225585569964567
 RectTransform:
   m_ObjectHideFlags: 0
@@ -599,8 +599,8 @@ RectTransform:
   m_Father: {fileID: 7404225585447960593}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: -0.00003223757, y: 0.0000024414062}
-  m_AnchorMax: {x: 0.32202896, y: 1.0000024}
+  m_AnchorMin: {x: 0.06844593, y: 0.1363502}
+  m_AnchorMax: {x: 0.3220213, y: 0.9997524}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -673,6 +673,7 @@ GameObject:
   - component: {fileID: 7404225585750928183}
   - component: {fileID: 7404225585750928176}
   - component: {fileID: 9160319927086522492}
+  - component: {fileID: 1549782706563467307}
   m_Layer: 5
   m_Name: View - Interaction Prompt
   m_TagString: Untagged
@@ -731,7 +732,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7404225585750928184}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -898,7 +899,7 @@ MonoBehaviour:
       CurrentValue: {x: 0, y: 0, z: 0}
       Enabled: 1
       AnimationType: 0
-      StartPosition: {x: 8.080017, y: -9.280029, z: 0}
+      StartPosition: {x: 0, y: 0, z: 0}
       FromReferenceValue: 0
       ToReferenceValue: 2
       FromCustomValue: {x: 0, y: 0, z: 0}
@@ -1088,11 +1089,11 @@ MonoBehaviour:
         Vibration: 8
         Elasticity: 1
         FadeOutShake: 0
-      FromValue: 1
+      FromValue: 0
       ToValue: 1
       CurrentValue: 1
       Enabled: 1
-      StartAlpha: 1
+      StartAlpha: 0
       FromReferenceValue: 2
       ToReferenceValue: 2
       FromCustomValue: 0
@@ -1168,7 +1169,7 @@ MonoBehaviour:
       CurrentValue: {x: 0, y: 0, z: 0}
       Enabled: 0
       AnimationType: 1
-      StartPosition: {x: 8.080017, y: -9.280029, z: 0}
+      StartPosition: {x: 0, y: 0, z: 0}
       FromReferenceValue: 2
       ToReferenceValue: 0
       FromCustomValue: {x: 0, y: 0, z: 0}
@@ -1362,7 +1363,7 @@ MonoBehaviour:
       ToValue: 0
       CurrentValue: 0
       Enabled: 1
-      StartAlpha: 1
+      StartAlpha: 0
       FromReferenceValue: 2
       ToReferenceValue: 2
       FromCustomValue: 1
@@ -1383,6 +1384,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ValidPrompt: {fileID: 8295717192767614187}
   InvalidPrompt: {fileID: 1184214592425263572}
+--- !u!114 &1549782706563467307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7404225585750928184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e23c9277c4467844fbccfa613649d506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_scaleRatio: 0.025
+  m_baseCameraDistance: 55
+  m_sliceInterval: 0
 --- !u!1 &7404225585793533032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1478,7 +1494,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.2
+  m_fontSize: 0.1
   m_fontSizeBase: 36.3
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1514,7 +1530,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0.55, y: 0.3, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1535,7 +1551,7 @@ MonoBehaviour:
   m_message: BUTTONPROMPT
   m_spriteButtonList: {fileID: 11400000, guid: c3c0ad3f40972da4c81d32b5f158ae38, type: 2}
   m_deviceType: 0
-  m_promptFontSize: 0.25
+  m_promptFontSize: 0.3
   m_numberOfActions: 1
   m_actionConfiguration1:
     m_actionType: 0
@@ -1569,6 +1585,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7404225585661154066}
     m_Modifications:
+    - target: {fileID: 626875969, guid: 59b4e0ead755a0849b1095dce2ea8cc7, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 626875970, guid: 59b4e0ead755a0849b1095dce2ea8cc7, type: 3}
       propertyPath: playOnAwake
       value: 0
@@ -1668,6 +1688,11 @@ PrefabInstance:
       propertyPath: m_MaxParticleSize
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1422845591663978781, guid: 59b4e0ead755a0849b1095dce2ea8cc7,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1422845591663978782, guid: 59b4e0ead755a0849b1095dce2ea8cc7,
         type: 3}
       propertyPath: playOnAwake
@@ -1707,6 +1732,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_MaxParticleSize
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8796468308387311665, guid: 59b4e0ead755a0849b1095dce2ea8cc7,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59b4e0ead755a0849b1095dce2ea8cc7, type: 3}

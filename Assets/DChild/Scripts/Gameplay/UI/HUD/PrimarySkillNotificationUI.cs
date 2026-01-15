@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DChild.Localization;
 using DChild.Gameplay.UI;
+using UnityEngine.Video;
 
 namespace DChild.Gameplay
 {
@@ -18,6 +19,8 @@ namespace DChild.Gameplay
         private PrimarySkillIcon m_icon;
         [SerializeField]
         private TextMeshProUGUI m_skillName;
+        [SerializeField]
+        private VideoPlayer m_demoPlayer;
         [SerializeField]
         private TextMeshProUGUI m_description;
         [SerializeField]
@@ -31,10 +34,12 @@ namespace DChild.Gameplay
 
         public event Action<PrimarySkillData> localizePrimarySkill;
 
+        [Button]
         public void SetNotifiedSkill(PrimarySkillData skill)
         {
             m_icon.DisplayAs(skill);
             m_skillName.text = skill.skillName;
+            m_demoPlayer.clip = skill.demoClip;
             m_description.text = skill.description;
             m_instruction.text = INSTRUCTION_HEADER + skill.instruction;
 
@@ -56,6 +61,7 @@ namespace DChild.Gameplay
                     break;
             }
 
+            m_demoPlayer.Play();
             localizePrimarySkill?.Invoke(skill);
         }
 

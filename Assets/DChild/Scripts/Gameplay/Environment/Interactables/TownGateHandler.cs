@@ -90,7 +90,7 @@ namespace DChild.Gameplay.Environment.Interractables
             yield return new WaitForAnimationComplete(m_animation.animationState, m_openTransition);
             //m_animation.AddAnimation(0, m_openIdle, true, 0);
             InteractionOptionChange?.Invoke(this, EventActionArgs.Empty);
-            GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location);
+            //GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location);
             m_animationFinished = true;
             yield return null;
         }

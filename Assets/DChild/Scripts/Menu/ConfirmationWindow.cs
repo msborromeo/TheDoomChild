@@ -10,13 +10,16 @@ namespace DChild.Menu
     public class ConfirmationWindow : MonoBehaviour
     {
         [SerializeField]
+        private TextMeshProUGUI m_header;
+        [SerializeField]
         private TextMeshProUGUI m_message;
 
         public event EventAction<EventActionArgs> RequestAffirmed;
         public event EventAction<EventActionArgs> RequestDeclined;
 
-        public void SetMessage(string message)
+        public void SetMessage(string header, string message)
         {
+            m_header.text = header;
             m_message.text = message;
         }
 
