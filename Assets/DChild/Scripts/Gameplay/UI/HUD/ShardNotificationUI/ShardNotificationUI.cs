@@ -54,8 +54,8 @@ namespace DChild.Gameplay.UI
                     }
                 }
 
-                UpdateMessage(eventArgs.currentCount, m_amountToComplete);
                 LocalizeItemView?.Invoke(m_shardToMonitor);
+                UpdateMessage(eventArgs.currentCount, m_amountToComplete);
             }
         }
 
