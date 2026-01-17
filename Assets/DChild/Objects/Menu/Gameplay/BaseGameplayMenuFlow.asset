@@ -1184,7 +1184,8 @@ MonoBehaviour:
     Capacity: 1
     Connections:
     - 5b373933-375d-466b-8b72-08c039da895b
-    Value: '{"CanGoBack":true}'
+    - 4a7a09f6-acd3-4f04-8f6e-f94285cf810b
+    Value: '{"CanGoBack":false}'
     ValueTypeQualifiedName: Doozy.Runtime.UIManager.Nodes.PortData.GoBackInputPortData,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     CanBeDeleted: 0
@@ -1451,7 +1452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02761efe598a45c98fa1baf4d446c6a7, type: 3}
   m_Name: BaseGameplayMenuFlow
   m_EditorClassIdentifier: 
-  EditorPosition: {x: -548, y: -218, z: 0}
+  EditorPosition: {x: -364, y: -834, z: 0}
   EditorScale: {x: 0.7561437, y: 0.7561437, z: 1}
   Id: cc4022c0-bbcf-4ff3-b644-de466cf85d32
   GraphName: Flow Graph
@@ -1501,6 +1502,7 @@ MonoBehaviour:
   - {fileID: -8825425004501786382}
   - {fileID: 353187587240675302}
   - {fileID: 8767767929323567219}
+  - {fileID: 2438768256609325562}
   RootNode: {fileID: 6426440333755477475}
   ActiveNode: {fileID: 0}
 --- !u!114 &316184425975587657
@@ -1725,6 +1727,72 @@ MonoBehaviour:
   ClearGraphHistory: 0
   Position: {x: 2150.569, y: 947.9999}
   PivotOrientation: 0
+--- !u!114 &2438768256609325562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b2479a69f56cf54c96de81c44e8ad1a, type: 3}
+  m_Name: Portal
+  m_EditorClassIdentifier: 
+  FlowGraphId: cc4022c0-bbcf-4ff3-b644-de466cf85d32
+  NodeId: 64b2dc54-ed7e-453c-b790-498563daeae2
+  NodeType: 1
+  NodeName: On Confirmation
+  NodeDescription: 
+  InputPorts: []
+  OutputPorts:
+  - NodeId: 64b2dc54-ed7e-453c-b790-498563daeae2
+    PortId: 4a7a09f6-acd3-4f04-8f6e-f94285cf810b
+    Direction: 1
+    Capacity: 0
+    Connections:
+    - 3ccc6484-d6f3-434c-9c0e-2d8719e9ca2c
+    Value: 
+    ValueTypeQualifiedName: 
+    CanBeDeleted: 0
+    CanBeReordered: 0
+  RunUpdate: 0
+  RunFixedUpdate: 0
+  RunLateUpdate: 0
+  NodeState: 0
+  CanBeDeleted: 1
+  Passthrough: 1
+  ClearGraphHistory: 0
+  Position: {x: 811.0751, y: 1484}
+  Trigger: 0
+  SignalPayload:
+    StreamId:
+      Category: ConfirmationWindow
+      Name: Recruitment
+      Custom: 0
+    SignalValueType: 0
+    IntegerValue: 0
+    BooleanValue: 0
+    FloatValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  ButtonId:
+    Category: None
+    Name: None
+    Custom: 0
+  ToggleId:
+    Category: None
+    Name: None
+    Custom: 0
+  CommandToggle: 2
+  ViewId:
+    Category: None
+    Name: None
+    Custom: 0
+  CommandShowHide: 0
 --- !u!114 &2720191594736244274
 MonoBehaviour:
   m_ObjectHideFlags: 0
