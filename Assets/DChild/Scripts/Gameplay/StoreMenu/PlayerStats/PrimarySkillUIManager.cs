@@ -54,7 +54,7 @@ namespace DChild.Gameplay.UI.PrimarySkills
                 return;
             }
             m_descriptionLabel.text = selectable.reference.description;
-            m_controlsLabel.text = selectable.reference.instruction;
+            m_controlsLabel.text = selectable.reference.inputCommand;
             m_skillNameLabel.text = selectable.reference.skillName;       
         }
 
