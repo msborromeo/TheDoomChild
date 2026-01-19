@@ -15,7 +15,8 @@ namespace DChild.Gameplay.Dialogues
 
         public void OnLampDestroyed()
         {
-            m_soulLampBanterCooldownHandle.TriggerBanterCooldown();
+            if(m_soulLampBanterCooldownHandle != null)
+                m_soulLampBanterCooldownHandle.TriggerBanterCooldown();
         }
     }
 }

@@ -41,6 +41,9 @@ namespace DChild.Gameplay.Characters.Enemies
             private float m_patience;
             public float patience => m_patience;
 
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_attackVFXEvent;
+            public string attackVFXEvent => m_attackVFXEvent;
             [SerializeField]
             private float m_targetDistanceTolerance;
             public float targetDistanceTolerance => m_targetDistanceTolerance;
@@ -173,7 +176,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private RandomAttackDecider<Attack> m_attackDecider;
 
         private State m_turnState;
-
+        [SerializeField]
+        private SpineEventListener m_spineListener;
         private void OnAttackDone(object sender, EventActionArgs eventArgs)
         {
             //m_animation.DisableRootMotion();
@@ -333,11 +337,11 @@ namespace DChild.Gameplay.Characters.Enemies
             //yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleAnimation);
             //m_hitbox.Disable();
             m_animation.SetAnimation(0, m_info.attack1, false);
-            yield return new WaitForSeconds(m_info.attackHitboxDelay);
+            //yield return new WaitForSeconds(m_info.attackHitboxDelay);
             m_slashFX.GetComponent<ParticleSystemRenderer>().flip = m_character.facing == HorizontalDirection.Right ? Vector3.zero : Vector3.right;
             //m_hitbox.Enable();
-            yield return new WaitForSeconds(1.6f);
-            m_slashFX.Play();
+            ////yield return new WaitForSeconds(1.6f);
+            ////m_slashFX.Play();
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack1.animation);
             m_attackBB.SetActive(false);
             m_selfCollider.SetActive(true);
@@ -404,6 +408,7 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void Start()
         {
             base.Start();
+            m_spineListener.Subscribe(m_info.attackVFXEvent, m_slashFX.Play);
             m_currentTimeScale = UnityEngine.Random.Range(1.0f, 2.0f);
             m_currentFullCD = UnityEngine.Random.Range(m_info.attackCD * .5f, m_info.attackCD * 2f);
             m_hitbox.Disable();
