@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using DChild.Gameplay.Systems;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
@@ -22,8 +24,8 @@ namespace DChild.Gameplay.Cinematics
 
         [SerializeField]
         private VideoClip m_clip;
-	[SerializeField]
-	private bool m_doNotWaitForVideoCleanup;
+        [SerializeField]
+        private bool m_doNotWaitForVideoCleanup;
         [SerializeField, TabGroup("During")]
         private DelayEvent[] m_duringCinematicEvents;
         [SerializeField, TabGroup("After")]
@@ -37,6 +39,7 @@ namespace DChild.Gameplay.Cinematics
 
         private IEnumerator DuringCinematicRoutine()
         {
+            BaseGameplaySystem.MuteAllSounds();
             if (m_duringCinematicEvents.Length == 0)
             {
                 yield return null;
@@ -54,13 +57,16 @@ namespace DChild.Gameplay.Cinematics
 
         private void OnVideoDone()
         {
-		if(m_doNotWaitForVideoCleanup)
-		{
-			GameplaySystem.gamplayUIHandle.ForceStopCinematicVideo();
+            if (m_doNotWaitForVideoCleanup)
+            {
+                GameplaySystem.gamplayUIHandle.ForceStopCinematicVideo();
 
-		}
+            }
 
             m_afterCinematicEvent.Invoke();
+
+            BaseGameplaySystem.UnMuteAllSounds();
         }
+
     }
 }
