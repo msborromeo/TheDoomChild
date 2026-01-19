@@ -50,7 +50,7 @@ namespace DChild.Gameplay.Characters.Player.Skins
 
         private void ApplyAtlasOverride(AtlasMaterialOverride atlas)
         {
-            m_skeletonRenderer.CustomMaterialOverride[m_currentSkin.atlasOverrides.material] = atlas.material;
+            m_skeletonRenderer.CustomMaterialOverride[m_defaultSkin.atlasOverrides.material] = atlas.material;
         }
     }
 }
