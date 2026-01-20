@@ -3,6 +3,7 @@ using UnityEngine;
 using DChild.Localization;
 using System;
 using DChild.Gameplay.Characters.Players;
+using UnityEngine.Video;
 
 namespace DChild.Gameplay.UI.PrimarySkills
 {
@@ -20,12 +21,15 @@ namespace DChild.Gameplay.UI.PrimarySkills
         private SetTextToTextBox m_skillDescriptionSetTextToTextBox;
         [SerializeField]
         private PrimarySkillUILocalizer m_primarySkillUILocalizer;
+        [SerializeField]
+        private VideoPlayer m_demoClipPlayer;
 
         public event Action<PrimarySkillData> localizePrimarySkill;
 
         public void UpdateSelectables()
         {
             m_skillList.UpdateListAvailability();
+            Select(m_skillList.GetFirstAvailable());
         }
 
         public void Select(PrimarySkillSelectable selectable)
@@ -55,7 +59,10 @@ namespace DChild.Gameplay.UI.PrimarySkills
             }
             m_descriptionLabel.text = selectable.reference.description;
             m_controlsLabel.text = selectable.reference.inputCommand;
-            m_skillNameLabel.text = selectable.reference.skillName;       
+            m_skillNameLabel.text = selectable.reference.skillName;
+
+            m_demoClipPlayer.clip = selectable.reference.demoClip;
+            m_demoClipPlayer.Play();
         }
 
         private void OnPrimarySkillInstructionsLocalized()
