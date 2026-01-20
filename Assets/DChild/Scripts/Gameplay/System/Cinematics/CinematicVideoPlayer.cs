@@ -34,6 +34,7 @@ namespace DChild.Gameplay.Cinematics
         [Button, HideInEditorMode]
         public void Play()
         {
+            
             GameplaySystem.gamplayUIHandle.ShowCinematicVideo(m_clip, DuringCinematicRoutine, OnVideoDone);
         }
 
