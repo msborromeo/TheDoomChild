@@ -7,15 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SOUL SKILL ACQUISITION VFX ADDITIONAL FLAVORING
+  m_Name: PlayerMovementFeedback_JogDustVFX
   m_Shader: {fileID: 4800000, guid: b430983578466934c944e7171b4c372c, type: 3}
   m_ValidKeywords:
+  - ADDITIVECONFIG_ON
   - COLORRAMP_ON
-  - GLOW_ON
-  - MASK_ON
-  - POLARUVDISTORT_ON
-  - POLARUV_ON
-  - SHAPE2_ON
+  - HSV_ON
+  - PREMULTIPLYCOLOR_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -27,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _ColorRampTex:
-        m_Texture: {fileID: 28828065244276170, guid: 9afe3a3ddb0db2642accad446fc2a398,
+        m_Texture: {fileID: -6196184613464321539, guid: bd8922736cfe57241be8b5ee80e31cad,
           type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -40,7 +38,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortTex:
-        m_Texture: {fileID: 2800000, guid: 40a1f25ed30b9ec4bae4bdeac053ec07, type: 3}
+        m_Texture: {fileID: 2800000, guid: fcb027caad6963b4a80539bbce0d10e9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeBurnTex:
@@ -56,7 +54,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 50025fea2bdca9b4ebeeb0c5f86869dc, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8a672e5c95af6a34c8fc019d35b38a70, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -72,9 +70,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Shape2Tex:
-        m_Texture: {fileID: 2800000, guid: 50025fea2bdca9b4ebeeb0c5f86869dc, type: 3}
-        m_Scale: {x: 2, y: 2}
-        m_Offset: {x: 1, y: 3}
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Shape3DistortTex:
         m_Texture: {fileID: 2800000, guid: fcb027caad6963b4a80539bbce0d10e9, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -97,7 +95,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.5
+    - _Alpha: 0.156
     - _AlphaCutoffValue: 0.25
     - _AlphaFadeAmount: -0.1
     - _AlphaFadePow: 1
@@ -110,14 +108,14 @@ Material:
     - _ColorGradingMidPoint: 0.5
     - _ColorMask: 15
     - _ColorRampBlend: 1
-    - _ColorRampLuminosity: 0.801
+    - _ColorRampLuminosity: 0
     - _CullingOption: 0
     - _DebugShape: 1
     - _DepthGlow: 1
     - _DepthGlowDist: 0.5
     - _DepthGlowGlobal: 1
     - _DepthGlowPow: 1
-    - _DistortAmount: 0.75
+    - _DistortAmount: 0.5
     - _DistortTexXSpeed: 5
     - _DistortTexYSpeed: 5
     - _DistortionBlend: 1
@@ -138,8 +136,8 @@ Material:
     - _HandDrawnAmount: 10
     - _HandDrawnSpeed: 5
     - _HsvBright: 1
-    - _HsvSaturation: 1
-    - _HsvShift: 180
+    - _HsvSaturation: 0.178
+    - _HsvShift: 0
     - _LightAmount: 0
     - _MaskPow: 1
     - _OffsetSh1: 1
@@ -150,7 +148,7 @@ Material:
     - _RandomSh1Mult: 1
     - _RandomSh2Mult: 1
     - _RandomSh3Mult: 1
-    - _RenderingMode: 0
+    - _RenderingMode: 3
     - _RimAddAmount: 1
     - _RimBias: 0
     - _RimErodesAlpha: 0
@@ -181,8 +179,8 @@ Material:
     - _Shape2DistortYSpeed: 0.1
     - _Shape2RotationOffset: 0
     - _Shape2RotationSpeed: 0
-    - _Shape2XSpeed: 0.2
-    - _Shape2YSpeed: 0.2
+    - _Shape2XSpeed: 0
+    - _Shape2YSpeed: 0
     - _Shape3AlphaWeight: 2
     - _Shape3Brightness: 0
     - _Shape3ColorWeight: 2
@@ -203,10 +201,10 @@ Material:
     - _ShapeDistortYSpeed: 0.1
     - _ShapeRotationOffset: 0
     - _ShapeRotationSpeed: 0
-    - _ShapeXSpeed: 0.04
-    - _ShapeYSpeed: -0.24
+    - _ShapeXSpeed: 0
+    - _ShapeYSpeed: 0
     - _SoftFactor: 0.5
-    - _SrcMode: 5
+    - _SrcMode: 1
     - _TextureScrollXSpeed: 1
     - _TextureScrollYSpeed: 0
     - _TimingSeed: 0
