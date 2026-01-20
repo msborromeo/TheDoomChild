@@ -34,13 +34,13 @@ namespace DChild.Gameplay.Cinematics
         [Button, HideInEditorMode]
         public void Play()
         {
-            
+            BaseGameplaySystem.MuteAllSounds();
             GameplaySystem.gamplayUIHandle.ShowCinematicVideo(m_clip, DuringCinematicRoutine, OnVideoDone);
         }
 
         private IEnumerator DuringCinematicRoutine()
         {
-            BaseGameplaySystem.MuteAllSounds();
+            
             if (m_duringCinematicEvents.Length == 0)
             {
                 yield return null;
