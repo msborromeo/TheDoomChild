@@ -562,7 +562,7 @@ namespace DChild.Gameplay.Characters.Enemies
                                     {
                                         m_isSubmerged = false;
                                         m_hitbox.Enable();
-                                        m_animation.SetAnimation(0, m_info.idleAnimation, false);
+                                        m_animation.SetAnimation(0, m_info.idleAnimation, true); // if false, causes stuck animation 
                                     }
                                     else
                                     {
