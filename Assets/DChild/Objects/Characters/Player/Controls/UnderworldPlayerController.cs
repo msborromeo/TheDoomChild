@@ -1056,13 +1056,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnTeleportToMordenThroneRoomStarted(InputAction.CallbackContext context, bool isCanceled)
         {
-            GameplaySystem.gamplayUIHandle.ShowHoldToTeleportSequence(context, isCanceled);
+            //GameplaySystem.gamplayUIHandle.ShowHoldToTeleportSequence(context, isCanceled);
         }
 
         private void OnTeleportToMordenThroneRoom()
         {
             //Note: May need to change with gameplayUIHandle check to do it through confirmation window
-            UnderworldGameplaySystem.overworldTeleportHandle.TeleportToThroneRoom();
+            //UnderworldGameplaySystem.overworldTeleportHandle.TeleportToThroneRoom();
         }
 
         private void OnSlashStartedInput()
