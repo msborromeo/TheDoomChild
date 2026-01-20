@@ -22,15 +22,29 @@ namespace DChild.Gameplay.Characters.Players.Behaviour
         private Color m_soulEssenceAuraColor;
         [SerializeField]
         private Color m_otherItemsAuraColor;
+        [SerializeField]
+        private ParticleSystem m_soulEssenceLootVFX;
+        [SerializeField]
+        private ParticleSystem m_otherItemsLootVFX;
 
         private IPlayer m_owner;
 
         public event EventAction<EventActionArgs> OnLootPickup;
         public event EventAction<EventActionArgs> OnLootPickupEnd;
 
-        public void Glow()
+        public void Glow(bool isSoulEssence)
         {
             //m_animator.SetTrigger("Glow");
+            if (isSoulEssence)
+            {
+                m_auraGhost.color = m_soulEssenceAuraColor;
+                m_soulEssenceLootVFX.Play();
+            }
+            else
+            {
+                m_auraGhost.color = m_otherItemsAuraColor;
+                m_otherItemsLootVFX.Play();
+            }
             StartCoroutine(AuraRoutine());
             OnLootPickupEnd?.Invoke(this, EventActionArgs.Empty);
         }
@@ -50,15 +64,12 @@ namespace DChild.Gameplay.Characters.Players.Behaviour
         private void OnTriggerEnter2D(Collider2D collision)
         {
             var loot = collision.GetComponentInParent<Loot>();
-            if (loot)
-            {
-                loot.PickUp(m_owner);
-                if (loot.GetComponent<EssenceLoot>() != null)
-                    m_auraGhost.color = m_soulEssenceAuraColor;
-                else
-                    m_auraGhost.color = m_otherItemsAuraColor;
-                OnLootPickup?.Invoke(this,EventActionArgs.Empty);
-            }
+            if (loot == false)
+                return;
+
+            loot.PickUp(m_owner);
+
+            OnLootPickup?.Invoke(this, EventActionArgs.Empty);
         }
     }
 }
