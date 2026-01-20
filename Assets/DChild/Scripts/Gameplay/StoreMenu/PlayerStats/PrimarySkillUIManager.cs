@@ -7,7 +7,7 @@ using UnityEngine.Video;
 
 namespace DChild.Gameplay.UI.PrimarySkills
 {
-    public class PrimarySkillUIManager : MonoBehaviour , IPrimarySkillLocalizer
+    public class PrimarySkillUIManager : MonoBehaviour, IPrimarySkillLocalizer
     {
         [SerializeField]
         private PrimarySkillSelectableList m_skillList;
@@ -51,18 +51,16 @@ namespace DChild.Gameplay.UI.PrimarySkills
                     m_skillDescriptionSetTextToTextBox.SetText(selectable.reference.instruction, selectable.reference.action);
                     break;
             }
+            m_demoClipPlayer.clip = selectable.reference.demoClip;
+            m_demoClipPlayer.Play();
 
-            if (localizePrimarySkill != null)
-            {
-                localizePrimarySkill?.Invoke(selectable.reference);
-                return;
-            }
             m_descriptionLabel.text = selectable.reference.description;
             m_controlsLabel.text = selectable.reference.inputCommand;
             m_skillNameLabel.text = selectable.reference.skillName;
 
-            m_demoClipPlayer.clip = selectable.reference.demoClip;
-            m_demoClipPlayer.Play();
+            if (localizePrimarySkill != null)
+                localizePrimarySkill?.Invoke(selectable.reference);
+
         }
 
         private void OnPrimarySkillInstructionsLocalized()
