@@ -8,7 +8,7 @@ using UnityEngine;
 namespace DChild.Gameplay.Characters.Player.Skins
 {
     [RequireComponent(typeof(SkeletonRenderer))]
-    public class PlayerSkinConfiguration : MonoBehaviour
+    public class PlayerSkinHandle : MonoBehaviour
     {
         private SkeletonRenderer m_skeletonRenderer;
 
