@@ -269,7 +269,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportingSkullPerformedEvent += OnTeleportingSkullPerformedInput;
             m_inputReader.TeleportingSkullCancelledEvent += OnTeleportingSkullCancelledInput;
             m_inputReader.TeleportToOverworld += OnTeleportToOverworld;
+            m_inputReader.TeleportToOverworldStarted += OnTeleportToOverworldStarted;
             m_inputReader.TeleportToMordenThroneRoom += OnTeleportToMordenThroneRoom;
+            m_inputReader.TeleportToMordenThroneRoomStarted += OnTeleportToMordenThroneRoomStarted;
         }
 
         private void OnDisable()
@@ -349,8 +351,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportingSkullPerformedEvent -= OnTeleportingSkullPerformedInput;
             m_inputReader.TeleportingSkullCancelledEvent -= OnTeleportingSkullCancelledInput;
             m_inputReader.TeleportToOverworld -= OnTeleportToOverworld;
+            m_inputReader.TeleportToOverworldStarted -= OnTeleportToOverworldStarted;
             m_inputReader.TeleportToMordenThroneRoom -= OnTeleportToMordenThroneRoom;
+            m_inputReader.TeleportToMordenThroneRoomStarted -= OnTeleportToMordenThroneRoomStarted;
         }
+
+       
 
         private void FixedUpdate()
         {
@@ -1037,16 +1043,26 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         }
 
+        private void OnTeleportToOverworldStarted(InputAction.CallbackContext context, bool isCanceled)
+        {
+            GameplaySystem.gamplayUIHandle.ShowHoldToTeleportSequence(context, isCanceled);
+        }
+
         private void OnTeleportToOverworld()
         {
             //Note: May need to change with gameplayUIHandle check to do it through confirmation window
             UnderworldGameplaySystem.overworldTeleportHandle.TeleportToOverworld();
         }
 
+        private void OnTeleportToMordenThroneRoomStarted(InputAction.CallbackContext context, bool isCanceled)
+        {
+            //GameplaySystem.gamplayUIHandle.ShowHoldToTeleportSequence(context, isCanceled);
+        }
+
         private void OnTeleportToMordenThroneRoom()
         {
             //Note: May need to change with gameplayUIHandle check to do it through confirmation window
-            UnderworldGameplaySystem.overworldTeleportHandle.TeleportToThroneRoom();
+            //UnderworldGameplaySystem.overworldTeleportHandle.TeleportToThroneRoom();
         }
 
         private void OnSlashStartedInput()

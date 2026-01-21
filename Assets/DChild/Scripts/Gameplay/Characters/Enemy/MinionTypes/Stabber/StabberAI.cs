@@ -428,10 +428,11 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator AttackRoutine()
         {
-            m_animation.SetAnimation(0, m_info.attack.animation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack.animation);
-            m_animation.SetAnimation(0, m_info.attackChargeLoopAnimation, true);
-            yield return new WaitForSeconds(m_info.chargeDuration);
+           /* m_animation.SetAnimation(0, m_info.attack.animation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack.animation);*/
+            m_animation.SetAnimation(0, m_info.attackChargeLoopAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attackChargeLoopAnimation);
+            //yield return new WaitForSeconds(m_info.chargeDuration);
             m_stabFX.Play();
             //for (int i = 0; i < m_info.attackRepeats; i++)
             //{

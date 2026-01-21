@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using static UnityEngine.InputSystem.InputAction;
 
 namespace DChild.Inputs
 {
@@ -35,7 +36,7 @@ namespace DChild.Inputs
             //input?.DeactivateInput();
 
             m_playerControls.Underworld.Disable();
-           m_playerControls.Overworld.Disable();
+            m_playerControls.Overworld.Disable();
             m_playerControls.UI.Enable();
         }
 
@@ -84,7 +85,9 @@ namespace DChild.Inputs
         public event Action SwordThrustPerformedEvent;
         public event Action SwordThrustCancelledEvent;
         public event Action TeleportToOverworld;
+        public event Action<CallbackContext, bool> TeleportToOverworldStarted;
         public event Action TeleportToMordenThroneRoom;
+        public event Action<CallbackContext, bool> TeleportToMordenThroneRoomStarted;
         #endregion
         #region Combat Arts Input
         public event Action BarrierStartedEvent;
@@ -175,7 +178,7 @@ namespace DChild.Inputs
             m_playerControls.UI.Disable();
             m_playerControls.ArmyBattle.Disable();
         }
-         
+
         public void SetInputModeToUI()
         {
             //var input = GameObject.FindObjectOfType<PlayerInput>();
@@ -281,17 +284,33 @@ namespace DChild.Inputs
 
         public void OnTeleportToOverworld(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Performed)
+            switch (context.phase)
             {
-                TeleportToOverworld?.Invoke();
+                case InputActionPhase.Started:
+                    TeleportToOverworldStarted?.Invoke(context, false);
+                    break;
+                case InputActionPhase.Canceled:
+                    TeleportToOverworldStarted?.Invoke(context, true);
+                    break;
+                case InputActionPhase.Performed:
+                    TeleportToOverworld?.Invoke();
+                    break;
             }
-        }    
-        
+        }
+
         public void OnTeleportToMordenThroneRoom(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Performed)
+            switch (context.phase)
             {
-                TeleportToMordenThroneRoom?.Invoke();
+                case InputActionPhase.Started:
+                    TeleportToMordenThroneRoomStarted?.Invoke(context, false);
+                    break;
+                case InputActionPhase.Canceled:
+                    TeleportToMordenThroneRoomStarted?.Invoke(context, true);
+                    break;
+                case InputActionPhase.Performed:
+                    TeleportToMordenThroneRoom?.Invoke();
+                    break;
             }
         }
 
