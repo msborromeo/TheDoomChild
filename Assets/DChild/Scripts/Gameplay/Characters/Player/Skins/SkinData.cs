@@ -8,12 +8,8 @@ namespace DChild.Gameplay.Characters.Player.Skins
     public class SkinData : ItemData
     {
         [SerializeField]
-        private string m_skinName;
-        [SerializeField]
-        private string skinName => m_skinName;
-        [SerializeField]
-        private Sprite m_icon;
-        public Sprite icon => m_icon;
+        private Sprite m_skinIcon;
+        public Sprite skinIcon => m_skinIcon;
 
         [Header("Atlas Override")]
         [SerializeField]

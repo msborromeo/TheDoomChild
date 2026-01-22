@@ -1,3 +1,4 @@
+using Holysoft.Collections;
 using Sirenix.OdinInspector;
 using Spine;
 using Spine.Unity;
@@ -7,20 +8,25 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Player.Skins
 {
-    [RequireComponent(typeof(SkeletonRenderer))]
-    public class PlayerSkinHandle : MonoBehaviour
+    public class PlayerSkinHandle : SerializedMonoBehaviour, ISerializable<SkinSaveData>
     {
-        private SkeletonRenderer m_skeletonRenderer;
+
+        [SerializeField]
+        private FullSkinList m_fullSkinList;
 
         [SerializeField]
         private SkinData m_defaultSkin;
 
         private SkinData m_currentSkin;
 
+        [SerializeField]
+        private SkeletonRenderer m_skeletonRenderer;
+        
+        [SerializeField]
+        private List<SkinData> m_acquiredSkins;
+
         private void OnEnable()
         {
-            m_skeletonRenderer = GetComponent<SkeletonRenderer>();
-
             if (m_currentSkin == null)
                 m_currentSkin = m_defaultSkin;
         }
@@ -43,6 +49,12 @@ namespace DChild.Gameplay.Characters.Player.Skins
             m_currentSkin = m_defaultSkin;
         }
 
+        [Button]
+        public void AddAcquiredSkin(SkinData skinData)
+        {
+            m_acquiredSkins.Add(skinData);
+        }
+
         private void ClearCurrentSkin()
         {
             m_skeletonRenderer.CustomMaterialOverride.Clear();
@@ -51,6 +63,35 @@ namespace DChild.Gameplay.Characters.Player.Skins
         private void ApplyAtlasOverride(AtlasMaterialOverride atlas)
         {
             m_skeletonRenderer.CustomMaterialOverride[m_defaultSkin.atlasOverrides.material] = atlas.material;
+        }
+
+        public SkinSaveData SaveData()
+        {
+            return new SkinSaveData(new PlayerSkinConfiguration(m_acquiredSkins, m_currentSkin));
+        }
+
+        public void LoadData(SkinSaveData data)
+        {
+            Debug.Log("Skins Loaded");
+            if(data != null)
+            {
+                m_acquiredSkins.Clear();
+
+                for (int i = 0; i < data.acquiredSkinsIDs.Length; i++)
+                {
+                    SkinData skin = m_fullSkinList.GetInfo(data.acquiredSkinsIDs[i]);
+                    AddAcquiredSkin(skin);
+                }
+
+                if(m_acquiredSkins.Contains(m_defaultSkin) == false)
+                {
+                    AddAcquiredSkin(m_defaultSkin);
+                }
+
+                m_currentSkin = m_fullSkinList.GetInfo(data.equippedSkin);
+            }
+
+            ApplySkin(m_currentSkin);
         }
     }
 }
