@@ -22,6 +22,8 @@ namespace DChild.Gameplay.Characters.Players
         private string m_description;
         [SerializeField]
         private string m_instruction;
+        [SerializeField, Tooltip("Keybind(s) only")]
+        private string m_inputCommand;
         [SerializeField, OnValueChanged("SkillChanged")]
         private PrimarySkill m_skill;
         [SerializeField, PreviewField]
@@ -45,6 +47,7 @@ namespace DChild.Gameplay.Characters.Players
         public string skillName => m_name;
         public string description => m_description;
         public string instruction => m_instruction;
+        public string inputCommand => m_inputCommand;
         public PrimarySkill skill => m_skill;
         public Sprite border => m_border;
         public Sprite icon => m_icon;

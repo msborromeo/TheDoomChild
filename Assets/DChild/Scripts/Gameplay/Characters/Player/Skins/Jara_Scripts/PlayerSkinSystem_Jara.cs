@@ -3,12 +3,12 @@
 #endif
 #define SPINE_OPTIONAL_MATERIALOVERRIDE
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Spine;
+using Spine.Unity;
 
-namespace Spine.Unity
+namespace DChild.Gameplay.Characters.Player.Skins
 {
 
 #if NEW_PREFAB_SYSTEM
@@ -16,7 +16,7 @@ namespace Spine.Unity
 #else
     [ExecuteInEditMode]
 #endif
-    public class PlayerSkinSystem_Jara : MonoBehaviour
+    public partial class PlayerSkinSystem_Jara : MonoBehaviour
     {
 
         [Header("References")]
@@ -115,65 +115,32 @@ namespace Spine.Unity
         void ApplyAtlasOverrides(SkinMaterialSet skin)
         {
 #if SPINE_OPTIONAL_MATERIALOVERRIDE
-            foreach (var atlas in skin.atlasOverrides)
-            {
-                if (atlas.overrideDisabled || atlas.originalMaterial == null)
-                    continue;
+            //foreach (var atlas in skin.atlasOverrides)
+            //{
+            //    if (atlas.overrideDisabled || atlas.originalMaterial == null)
+            //        continue;
 
-                skeletonRenderer.CustomMaterialOverride[atlas.originalMaterial] =
-                    atlas.replacementMaterial;
-            }
+            //    skeletonRenderer.CustomMaterialOverride[atlas.originalMaterial] =
+            //        atlas.replacementMaterial;
+            //}
 #endif
         }
 
         void ApplySlotOverrides(SkinMaterialSet skin)
         {
-            foreach (var slot in skin.slotOverrides)
-            {
-                if (slot.overrideDisabled || string.IsNullOrEmpty(slot.slotName))
-                    continue;
+            //foreach (var slot in skin.slotOverrides)
+            //{
+            //    if (slot.overrideDisabled || string.IsNullOrEmpty(slot.slotName))
+            //        continue;
 
-                Slot slotObj = skeletonRenderer.skeleton.FindSlot(slot.slotName);
-                if (slotObj == null)
-                    continue;
+            //    Slot slotObj = skeletonRenderer.skeleton.FindSlot(slot.slotName);
+            //    if (slotObj == null)
+            //        continue;
 
-                skeletonRenderer.CustomSlotMaterials[slotObj] = slot.material;
-            }
+            //    skeletonRenderer.CustomSlotMaterials[slotObj] = slot.material;
+            //}
         }
-
-        #endregion
-
-        #region Data Structures
-
-        [Serializable]
-        public class SkinMaterialSet
-        {
-            [Tooltip("Unique ID used to apply this skin")]
-            public string skinId;
-
-            public List<SlotMaterialOverride> slotOverrides = new List<SlotMaterialOverride>();
-            public List<AtlasMaterialOverride> atlasOverrides = new List<AtlasMaterialOverride>();
-        }
-
-        [Serializable]
-        public struct SlotMaterialOverride
-        {
-            public bool overrideDisabled;
-
-            [SpineSlot]
-            public string slotName;
-
-            public Material material;
-        }
-
-        [Serializable]
-        public struct AtlasMaterialOverride
-        {
-            public bool overrideDisabled;
-            public Material originalMaterial;
-            public Material replacementMaterial;
-        }
-
-        #endregion
     }
+
+#endregion
 }
