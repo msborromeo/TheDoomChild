@@ -1,9 +1,11 @@
+using DChild.Gameplay.Items;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Player.Skins
 {
     [CreateAssetMenu(fileName = "Player Skin Data", menuName = "DChild/Gameplay/Character/Player Skin Data")]
-    public class SkinData : ScriptableObject
+    public class SkinData : ItemData
     {
         [SerializeField]
         private string m_skinName;
