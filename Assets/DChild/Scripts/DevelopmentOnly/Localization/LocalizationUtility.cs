@@ -45,7 +45,8 @@ namespace DChild.Localization
         {
             Name,
             Description,
-            Instruction
+            Instruction,
+            Command
         }
 
         public enum CombatArtField
@@ -70,6 +71,8 @@ namespace DChild.Localization
                     return prefix + "Description";
                 case PrimarySkillField.Instruction:
                     return prefix + "Instruction";
+                case PrimarySkillField.Command:
+                    return prefix + "Command";
                 default:
                     return string.Empty;
             }

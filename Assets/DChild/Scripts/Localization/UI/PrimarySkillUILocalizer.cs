@@ -38,7 +38,7 @@ namespace DChild.Localization
         private void onUpdate(PrimarySkillData soulSkill)
         {
             m_localizeDescriptionLabel.SetTerm(LocalizationUtility.GetTermKey(soulSkill,LocalizationUtility.PrimarySkillField.Description));
-            m_localizeControlLabel.SetTerm(LocalizationUtility.GetTermKey(soulSkill, LocalizationUtility.PrimarySkillField.Instruction));
+            m_localizeControlLabel.SetTerm(LocalizationUtility.GetTermKey(soulSkill, LocalizationUtility.PrimarySkillField.Command));
             m_localizeSkillNameLabel.SetTerm(LocalizationUtility.GetTermKey(soulSkill, LocalizationUtility.PrimarySkillField.Name));
             PrimarySkillInstructionsLocalized?.Invoke();
         }
