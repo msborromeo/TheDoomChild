@@ -52,6 +52,9 @@ namespace DChild.Gameplay.Characters.Player.Skins
         [Button]
         public void AddAcquiredSkin(SkinData skinData)
         {
+            if (m_acquiredSkins.Contains(skinData))
+                return;
+
             m_acquiredSkins.Add(skinData);
         }
 
