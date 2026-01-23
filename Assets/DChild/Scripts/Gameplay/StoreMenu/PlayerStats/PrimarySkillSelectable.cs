@@ -1,12 +1,16 @@
 ﻿using DChild.Gameplay.Characters.Players;
 using Doozy.Runtime.UIManager.Components;
+using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DChild.Gameplay.UI.PrimarySkills
 {
     public class PrimarySkillSelectable : MonoBehaviour
     {
+        [SerializeField, BoxGroup("Undiscovered Slot")] private GameObject m_undiscoveredSlot;
+
         [SerializeField]
         private PrimarySkillIcon m_icon;
 
@@ -19,6 +23,7 @@ namespace DChild.Gameplay.UI.PrimarySkills
         
         public void SetAsUnlocked(bool isUnlocked)
         {
+            m_undiscoveredSlot.SetActive(!isUnlocked);
             m_toggle.interactable = isUnlocked;
         }
 
