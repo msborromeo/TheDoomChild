@@ -1,5 +1,6 @@
 ﻿using System;
 using DChild.Gameplay.Characters.Players;
+using DChild.Gameplay.Essence;
 using DChild.Gameplay.Pooling;
 using Holysoft.Collections;
 using Holysoft.Event;
@@ -41,7 +42,14 @@ namespace DChild.Gameplay.Systems
         protected virtual void ApplyPickUp()
         {
             m_animator?.SetTrigger("Apply");
-            m_pickedBy.lootPicker.Glow();
+            if(GetComponent<EssenceLoot>() != null)
+            {
+                m_pickedBy.lootPicker.Glow(true);
+            }
+            else
+            {
+                m_pickedBy.lootPicker.Glow(false);
+            }
             m_rigidbody.velocity = Vector2.zero;
         }
 
