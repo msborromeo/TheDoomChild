@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!28 &-7748463725201826763
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: _TrailWidthGradientTex{"mode":0,"colorKeys":[{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.0},{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":0.10467688739299774},{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}]}
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 2
+  m_Width: 64
+  m_Height: 1
+  m_CompleteImageSize: 256
+  m_MipsStripped: 0
+  m_TextureFormat: 4
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMasterTextureLimit: 0
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_LightmapFormat: 0
+  m_ColorSpace: 0
+  m_PlatformBlob: 
+  image data: 256
+  _typelessdata: 000000ff272727ff4d4d4dff747474ff9b9b9bffc1c1c1ffe8e8e8fffdfdfdfff9f9f9fff4f4f4fff0f0f0ffebebebffe7e7e7ffe2e2e2ffdededeffd9d9d9ffd4d4d4ffd0d0d0ffcbcbcbffc7c7c7ffc2c2c2ffbebebeffb9b9b9ffb5b5b5ffb0b0b0ffacacacffa7a7a7ffa3a3a3ff9e9e9eff9a9a9aff959595ff919191ff8c8c8cff888888ff838383ff7f7f7fff7a7a7aff767676ff717171ff6d6d6dff686868ff636363ff5f5f5fff5a5a5aff565656ff515151ff4d4d4dff484848ff444444ff3f3f3fff3b3b3bff363636ff323232ff2d2d2dff292929ff242424ff202020ff1b1b1bff171717ff121212ff0e0e0eff090909ff050505ff000000ff
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -7,14 +54,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SkeletonArcher_Projectile2026
+  m_Name: SkeletonArcher_Projectile2026_Trail_1
   m_Shader: {fileID: 4800000, guid: b430983578466934c944e7171b4c372c, type: 3}
   m_ValidKeywords:
-  - ADDITIVECONFIG_ON
+  - ALPHACUTOFF_ON
   - COLORRAMP_ON
-  - GLOW_ON
   - HSV_ON
-  - PREMULTIPLYCOLOR_ON
+  - TRAILWIDTH_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -31,7 +77,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorRampTexGradient:
-        m_Texture: {fileID: 985864689771413360}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistNormalMap:
@@ -55,7 +101,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1d4fa53589d9bfe41931116d8217a509, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -87,7 +133,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TrailWidthGradient:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: -7748463725201826763}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _VertOffsetTex:
@@ -106,10 +152,10 @@ Material:
     - _CamDistFadeStepMax: 100
     - _CamDistFadeStepMin: 0
     - _CamDistProximityFade: 0
-    - _ColorGradingMidPoint: 0.143
+    - _ColorGradingMidPoint: 0.5
     - _ColorMask: 15
     - _ColorRampBlend: 1
-    - _ColorRampLuminosity: -0.637
+    - _ColorRampLuminosity: -0.65
     - _CullingOption: 0
     - _DebugShape: 1
     - _DepthGlow: 1
@@ -136,8 +182,8 @@ Material:
     - _GlowGlobal: 1
     - _HandDrawnAmount: 10
     - _HandDrawnSpeed: 5
-    - _HsvBright: 2
-    - _HsvSaturation: 0.486
+    - _HsvBright: 1
+    - _HsvSaturation: 0.21
     - _HsvShift: 0
     - _LightAmount: 0
     - _MaskPow: 1
@@ -149,7 +195,7 @@ Material:
     - _RandomSh1Mult: 1
     - _RandomSh2Mult: 1
     - _RandomSh3Mult: 1
-    - _RenderingMode: 5
+    - _RenderingMode: 0
     - _RimAddAmount: 1
     - _RimBias: 0
     - _RimErodesAlpha: 0
@@ -202,14 +248,14 @@ Material:
     - _ShapeDistortYSpeed: 0.1
     - _ShapeRotationOffset: 0
     - _ShapeRotationSpeed: 0
-    - _ShapeXSpeed: 0
+    - _ShapeXSpeed: -2.4
     - _ShapeYSpeed: 0
     - _SoftFactor: 0.5
-    - _SrcMode: 1
+    - _SrcMode: 5
     - _TextureScrollXSpeed: 1
     - _TextureScrollYSpeed: 0
     - _TimingSeed: 0
-    - _TrailWidthPower: 1
+    - _TrailWidthPower: 1.03
     - _TwistUvAmount: 1
     - _TwistUvPosX: 0.5
     - _TwistUvPosY: 0.5
@@ -228,8 +274,8 @@ Material:
     m_Colors:
     - _BackFaceTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorGradingDark: {r: 0.4481132, g: 0.48057717, b: 1, a: 1}
-    - _ColorGradingLight: {r: 1, g: 0.8326152, b: 0.6745283, a: 1}
+    - _ColorGradingDark: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorGradingLight: {r: 1, g: 1, b: 1, a: 1}
     - _ColorGradingMiddle: {r: 1, g: 1, b: 1, a: 1}
     - _DepthGlowColor: {r: 1, g: 1, b: 1, a: 1}
     - _FadeBurnColor: {r: 1, g: 1, b: 0, a: 1}
@@ -241,50 +287,3 @@ Material:
     - _Shape3Color: {r: 1, g: 1, b: 1, a: 1}
     - _ShapeColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
---- !u!28 &985864689771413360
-Texture2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: _ColorRampTexGradientTex{"mode":0,"colorKeys":[{"color":{"r":1.0,"g":0.3381293714046478,"b":0.0,"a":1.0},"time":0.0},{"color":{"r":1.0,"g":0.27433955669403078,"b":0.0,"a":1.0},"time":0.23511101305484773},{"color":{"r":1.0,"g":0.2723467946052551,"b":0.0,"a":1.0},"time":0.2544289231300354},{"color":{"r":1.0,"g":0.36509785056114199,"b":0.0,"a":1.0},"time":0.3172350525856018},{"color":{"r":1.0,"g":0.5416441559791565,"b":0.0,"a":1.0},"time":0.4283359944820404},{"color":{"r":0.6603773832321167,"g":0.5330432057380676,"b":0.38314348459243777,"a":1.0},"time":0.7536278367042542},{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":0.990341067314148}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}]}
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 2
-  m_Width: 64
-  m_Height: 1
-  m_CompleteImageSize: 256
-  m_MipsStripped: 0
-  m_TextureFormat: 4
-  m_MipCount: 1
-  m_IsReadable: 1
-  m_IsPreProcessed: 0
-  m_IgnoreMasterTextureLimit: 0
-  m_StreamingMipmaps: 0
-  m_StreamingMipmapsPriority: 0
-  m_VTOnly: 0
-  m_AlphaIsTransparency: 0
-  m_ImageCount: 1
-  m_TextureDimension: 2
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_LightmapFormat: 0
-  m_ColorSpace: 0
-  m_PlatformBlob: 
-  image data: 256
-  _typelessdata: ff5600ffff5500ffff5400ffff5300ffff5200ffff5100ffff5000ffff4f00ffff4d00ffff4c00ffff4b00ffff4a00ffff4900ffff4800ffff4700ffff4600ffff4500ffff4b00ffff5100ffff5700ffff5d00ffff6400ffff6a00ffff7000ffff7700ffff7d00ffff8400ffff8a00fffb8a05fff68a0afff28a0effee8a13ffea8a18ffe6891dffe18921ffdd8926ffd9892bffd58930ffd08935ffcc8939ffc8893effc48943ffc08948ffbb884cffb78851ffb38856ffaf885bffaa885fffab8c67ffb19472ffb79c7cffbda487ffc3ac91ffc8b49cffcebca6ffd4c4b1ffdaccbcffe0d4c6ffe5dcd1ffebe4dbfff1ece6fff7f4f0fffdfcfbffffffffff
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
