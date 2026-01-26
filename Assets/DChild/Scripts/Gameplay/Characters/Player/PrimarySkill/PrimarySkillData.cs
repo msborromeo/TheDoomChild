@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DChild.Gameplay.UI;
+using UnityEngine.Video;
+
 
 
 #if UNITY_EDITOR
@@ -20,12 +22,16 @@ namespace DChild.Gameplay.Characters.Players
         private string m_description;
         [SerializeField]
         private string m_instruction;
+        [SerializeField, Tooltip("Keybind(s) only")]
+        private string m_inputCommand;
         [SerializeField, OnValueChanged("SkillChanged")]
         private PrimarySkill m_skill;
         [SerializeField, PreviewField]
         private Sprite m_border;
         [SerializeField, PreviewField]
         private Sprite m_icon;
+        [SerializeField, PreviewField]
+        private VideoClip m_demoClip;
         [SerializeField, MinValue(1), MaxValue(4)]
         private int m_numberOfActions = 1;
 
@@ -41,9 +47,11 @@ namespace DChild.Gameplay.Characters.Players
         public string skillName => m_name;
         public string description => m_description;
         public string instruction => m_instruction;
+        public string inputCommand => m_inputCommand;
         public PrimarySkill skill => m_skill;
         public Sprite border => m_border;
         public Sprite icon => m_icon;
+        public VideoClip demoClip => m_demoClip;
         public int numberOfActions => m_numberOfActions;
         public InputActionConfiguration action => m_actionConfiguration1;
         public InputActionConfiguration action2 => m_actionConfiguration2;

@@ -56,14 +56,14 @@ namespace DChild.Gameplay.LevelFinish.UI
         public void SetupTeleportableLocation(LocationData data)
         {
             m_destinationData = data;
-
+            var header = "Teleport";
             if (m_underworldLocations.Locations.Contains(data.location))
             {
-                m_confirmationHandler.RequestConfirmation(OnConfirm, $"Teleport to the Throne Room?", OnDecline: OnDecline);
+                m_confirmationHandler.RequestConfirmation(OnConfirm, header, $"Teleport to the Throne Room?", OnDecline: OnDecline);
             }
             else
             {
-                m_confirmationHandler.RequestConfirmation(OnConfirm, $"Teleport to the Overworld?", OnDecline: OnDecline);
+                m_confirmationHandler.RequestConfirmation(OnConfirm, header, $"Teleport to the Overworld?", OnDecline: OnDecline);
             }
         }
 

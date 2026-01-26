@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace PixelCrushers.DialogueSystem
 {
@@ -11,6 +14,8 @@ namespace PixelCrushers.DialogueSystem
         private string m_associatedQuest;
         [SerializeField]
         private int m_entryNumber;
+        [SerializeField, ValueDropdown("GetConversations", IsUniqueList = true, SortDropdownItems = true)]
+        private string m_Conversation;
 
         public QuestEntry(DialogueDatabase associatedDatabase, string assiciatedQuest, int entryNumber)
         {
@@ -18,6 +23,28 @@ namespace PixelCrushers.DialogueSystem
             m_associatedQuest = assiciatedQuest;
             m_entryNumber = entryNumber;
         }
+
+        public QuestEntry(DialogueDatabase associatedDatabase, string assiciatedQuest, int entryNumber,string conversation)
+        {
+            m_associatedDatabase = associatedDatabase;
+            m_associatedQuest = assiciatedQuest;
+            m_entryNumber = entryNumber;
+            m_Conversation = conversation;
+        }
+
+        private IEnumerable GetConversations()
+        {
+            ValueDropdownList<string> list = new ValueDropdownList<string>();
+
+            foreach (var variable in m_associatedDatabase.conversations)
+            {
+                list.Add(variable.Title);
+            }
+
+            return list;
+        }
+
+        public Conversation conversation => m_associatedDatabase.GetConversation(m_Conversation); 
 
         public string name
         {

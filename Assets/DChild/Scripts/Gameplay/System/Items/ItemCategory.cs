@@ -15,5 +15,7 @@ namespace DChild.Gameplay.Items
 
         QuickItem = Throwable | Consumable,
         All = Throwable | Consumable | Quest| Key| SoulSkill,
+        SoulEssence = 1<< 7,
+        PlayerSkin = 1<< 8,
     }
 }

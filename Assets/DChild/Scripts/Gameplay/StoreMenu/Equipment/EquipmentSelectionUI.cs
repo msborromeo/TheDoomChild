@@ -14,17 +14,12 @@ namespace DChild.Menu.Equipment.UI
 {
     public class EquipmentSelectionUI : MonoBehaviour
     {
-        [SerializeField] private List<EquipmentGridItemUI> m_itemGrid;
-        [SerializeField] private TextMeshProUGUI m_noItemsLabel;
-        [SerializeField] private EquipmentEquipButtonUI m_equipButtonUI;
-        public EquipmentEquipButtonUI equipButtonUI => m_equipButtonUI;
+        [BoxGroup("MAIN UI"), SerializeField] private EquipmentUI m_equipmentUI;
 
-        private PlayerSoulEquipmentHandle m_equipmentHandle;
-        public PlayerSoulEquipmentHandle equipmentHandle => m_equipmentHandle;
-        public void SetEquipmentHandle(PlayerSoulEquipmentHandle value)
-        {
-            m_equipmentHandle = value;
-        }
+        [BoxGroup("ITEM GRID"), SerializeField] private List<EquipmentGridItemUI> m_itemGrid;
+        [BoxGroup("ITEM GRID"), SerializeField] private TextMeshProUGUI m_noItemsLabel;
+        [BoxGroup("ITEM GRID"), SerializeField] private EquipmentEquipButtonUI m_equipButtonUI;
+        public EquipmentEquipButtonUI equipButtonUI => m_equipButtonUI;
 
         private List<SoulEquipmentItem> m_acquiredItems;
         private SoulSlot m_slotFilter;
@@ -38,7 +33,7 @@ namespace DChild.Menu.Equipment.UI
         }    
 
         public void UpdateItems(EquipmentCurrentItemUI currentItem)
-        {
+        { 
             var filteredItems = m_acquiredItems.Where(item => item.soulEquipment.Slot == m_slotFilter).ToList();
             var hasItems = filteredItems != null && filteredItems.Count > 0;
 
@@ -50,17 +45,25 @@ namespace DChild.Menu.Equipment.UI
                 var item = filteredItems[i];
 
                 m_itemGrid[i].OnGridItemSelected += currentItem.OnGridItemSelected;
+                m_equipmentUI.detailsUI.ConnectGridItem(m_itemGrid[i]);
                 m_itemGrid[i].Display(item);
             }
 
             for (; i < m_itemGrid.Count; i++)
             {
                 m_itemGrid[i].OnGridItemSelected -= currentItem.OnGridItemSelected;
+                m_equipmentUI.detailsUI.DisconnectGridItem(m_itemGrid[i]);
+
                 m_itemGrid[i].Display();
             }
 
             m_equipButtonUI.UpdateButtonLabel(currentItem);
             Reset();
+        }
+
+        public void SetItemDetails(SoulEquipment equipment)
+        {
+            m_equipmentUI.detailsUI.SetHighlightedEquipment(equipment);
         }
 
         public void Reset()

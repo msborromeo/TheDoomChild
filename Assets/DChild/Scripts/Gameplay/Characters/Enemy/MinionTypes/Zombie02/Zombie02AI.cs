@@ -219,7 +219,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_targetPointIK.overridePosition = false;
             m_targetPointIK.localPosition = Vector2.zero;
-            m_flinchHandle.m_autoFlinch = true;
+            //m_flinchHandle.m_autoFlinch = true;
             m_character.physics.UseStepClimb(true);
             m_stateHandle.ApplyQueuedState();
         }
@@ -278,7 +278,7 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 m_selfCollider.enabled = false;
                 m_targetInfo.Set(null, null);
-                m_flinchHandle.m_autoFlinch = true;
+                //m_flinchHandle.m_autoFlinch = true;
                 m_isDetecting = false;
                 m_enablePatience = false;
                 m_stateHandle.SetState(State.Patrol);
@@ -334,7 +334,7 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 StopAllCoroutines();
                 m_selfCollider.enabled = false;
-                m_currentCD += m_currentCD + 0.5f;
+                //m_currentCD += m_currentCD + 0.5f;
                 //m_animation.SetAnimation(0, m_info.flinchAnimation, false);
                 m_stateHandle.Wait(m_targetInfo.isValid ? State.Cooldown : State.ReevaluateSituation);
             }
@@ -522,7 +522,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
                 case State.Detect:
-                    m_flinchHandle.m_autoFlinch = false;
+                    //m_flinchHandle.m_autoFlinch = false;
                     m_movement.Stop();
                     if (IsFacingTarget())
                     {
@@ -618,7 +618,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
                 case State.Chasing:
                     {
-                        m_flinchHandle.m_autoFlinch = false;
+                        //m_flinchHandle.m_autoFlinch = false;
                         var toTarget = m_targetInfo.position - (Vector2)m_character.centerMass.position;
                         if (IsFacingTarget())
                         {
@@ -704,7 +704,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_targetInfo.Set(null, null);
             m_legCollider.enabled = true;
             m_bodyCollider.enabled = true;
-            m_flinchHandle.m_autoFlinch = true;
+            //m_flinchHandle.m_autoFlinch = true;
             m_isDetecting = false;
             m_enablePatience = false;
             m_stateHandle.OverrideState(State.ReevaluateSituation);

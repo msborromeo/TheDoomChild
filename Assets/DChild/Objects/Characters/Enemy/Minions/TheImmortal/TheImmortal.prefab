@@ -179,6 +179,57 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.286804, y: 13.8602295}
   m_EdgeRadius: 0
+--- !u!1 &5014201094411978219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3668099109385336353}
+  - component: {fileID: 7683136747612229327}
+  m_Layer: 13
+  m_Name: Death
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &3668099109385336353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5014201094411978219}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5262323748464384582}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7683136747612229327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5014201094411978219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5830f2bbb3b8ac149905b0850dbf3c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_source: {fileID: 5672068498208223771}
+  m_animator: {fileID: 7532055194097375741}
+  m_animation: Death
+  m_bodyDuration:
+    m_startTime: 2
+  m_fx: []
+  m_destroySource: 1
 --- !u!1 &5259655943210290572
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,6 +323,7 @@ Transform:
   m_Children:
   - {fileID: 6507275392417459961}
   - {fileID: 7383078634676130005}
+  - {fileID: 3668099109385336353}
   m_Father: {fileID: 2527055514839828119}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -604,6 +656,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2873164169710923624, guid: 8f35637acea1c5c49953a3d258d67068,
+        type: 3}
+      propertyPath: m_renderer
+      value: 
+      objectReference: {fileID: 4060171845741466494}
+    - target: {fileID: 2873164169710923624, guid: 8f35637acea1c5c49953a3d258d67068,
+        type: 3}
+      propertyPath: m_animation
+      value: 
+      objectReference: {fileID: 7532055194097375741}
     - target: {fileID: 3366023257331690587, guid: 8f35637acea1c5c49953a3d258d67068,
         type: 3}
       propertyPath: m_Size.x
@@ -628,6 +690,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3366023259123114113, guid: 8f35637acea1c5c49953a3d258d67068,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: -0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 3366023259123114113, guid: 8f35637acea1c5c49953a3d258d67068,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.54
       objectReference: {fileID: 0}
     - target: {fileID: 3366023259123114113, guid: 8f35637acea1c5c49953a3d258d67068,
         type: 3}
@@ -1173,6 +1245,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &4060171845741466494 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3366023259123114127, guid: 8f35637acea1c5c49953a3d258d67068,
+    type: 3}
+  m_PrefabInstance: {fileID: 1652298356225618929}
+  m_PrefabAsset: {fileID: 0}
 --- !u!70 &4060171846123741098 stripped
 CapsuleCollider2D:
   m_CorrespondingSourceObject: {fileID: 3366023257331690587, guid: 8f35637acea1c5c49953a3d258d67068,
@@ -1470,6 +1548,11 @@ MonoBehaviour:
   m_edgeSensor: {fileID: 6396332851797973051}
   m_ceilingSensor: {fileID: 3936843162140012390}
   m_bodyCollider: {fileID: 91081736815470269}
+  m_movementSpeed: 1.5
+  m_maxRevive: 1
+  m_DeathFX: {fileID: 5799471193463752616, guid: 88443fdde13b09a488ab7319bcbef94a,
+    type: 3}
+  m_DeatHandle: {fileID: 5014201094411978219}
 --- !u!114 &554462414755903217
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,8 +22,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         [SerializeField]
         private ParticleSystem m_wingsFX;
 
-        [SerializeField]
-        public ParticleSystem m_devilWingTriggerFX;
+        //[SerializeField]
+        //public ParticleSystem m_devilWingTriggerFX;
 
         [SerializeField, BoxGroup("Sensors")]
         private RaySensor m_wallSensor;
@@ -80,7 +80,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             //m_source.ReduceCurrentValue(m_configuration.sourceRequiredAmount);
             m_wingsFX.Play();
-            m_devilWingTriggerFX.Play();
+           // m_devilWingTriggerFX.Play();
             m_state.isLevitating = true;
             //m_cacheGravity = m_rigidbody.gravityScale;
             m_rigidbody.gravityScale = 0;
@@ -122,7 +122,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void ConsumeSource()
         {
-            m_stackedConsumptionRate += m_configuration.sourceConsumptionRate * GameplaySystem.time.deltaTime;
+
+            m_stackedConsumptionRate += m_configuration.sourceConsumptionRate * m_modifier.Get(PlayerModifier.ShadowMagic_Requirement) * GameplaySystem.time.deltaTime;
             //Debug.Log(m_stackedConsumptionRate);
             if (m_stackedConsumptionRate >= 1)
             {

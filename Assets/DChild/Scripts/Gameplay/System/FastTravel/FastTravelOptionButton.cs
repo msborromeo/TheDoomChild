@@ -18,15 +18,20 @@ namespace DChild.Gameplay.FastTravel
         public void SetData(FastTravelData data)
         {
             m_data = data;
+
+        }
+        public void SetButtonLabel(string value)
+        {
             if (m_data)
-            {
-                m_buttonLabel.text = m_data.pointName;
-            }
+                m_buttonLabel.text = value;
+
         }
 
         public void SetInteractability(bool interactability)
         {
             m_button.interactable = interactability;
         }
+
+        public bool IsInteractable() => m_button.interactable;
     }
 }
