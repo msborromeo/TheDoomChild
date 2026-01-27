@@ -9,6 +9,7 @@ namespace DChild.Gameplay.Items
     {
         private IDurationItemEffect[] m_durationItemEffects;
         private IUpdatableItemEffect[] m_updatableItemEffects;
+        private IUsableItemModule[] m_endItemEffects;
         private bool m_hasDurationEffects;
         private bool m_hasUpdateableItemEffects;
         private float m_duration;
@@ -24,7 +25,7 @@ namespace DChild.Gameplay.Items
         public bool isDone => m_isActive == true && m_timer <= 0;
         public float durationPercent => m_timer / m_duration;
 
-        public DurationItemHandle(IPlayer player, ItemData itemData, float duration, IDurationItemEffect[] durationItemEffects, IUpdatableItemEffect[] updatableItemEffects)
+        public DurationItemHandle(IPlayer player, ItemData itemData, float duration, IDurationItemEffect[] durationItemEffects, IUpdatableItemEffect[] updatableItemEffects, IUsableItemModule[] endItemEffects)
         {
             this.player = player;
             m_source = itemData;
@@ -41,6 +42,7 @@ namespace DChild.Gameplay.Items
                 m_hasUpdateableItemEffects = true;
             }
             m_hasUpdateableItemEffects = false;
+            m_endItemEffects = endItemEffects;
         }
 
         public void StartEffect()
@@ -74,6 +76,14 @@ namespace DChild.Gameplay.Items
                     for (int i = 0; i < m_durationItemEffects.Length; i++)
                     {
                         m_durationItemEffects[i].StopEffect(player);
+                    }
+                }
+
+                if(m_endItemEffects.Length > 0)
+                {
+                    for(int i = 0; i < m_endItemEffects.Length; i++)
+                    {
+                        m_endItemEffects[i].Use(player);
                     }
                 }
 
