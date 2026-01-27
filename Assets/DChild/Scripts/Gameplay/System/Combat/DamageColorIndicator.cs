@@ -19,11 +19,15 @@ namespace DChild.Gameplay.Combat
         private MaterialPropertyBlock m_propertyBlock;
         private int m_colorValueID;
         private int m_colorTriggerValueID;
+        public Animator animator;
+        public string triggerName;
 
         [Button]
         public void Execute()
         {
             StopAllCoroutines();
+
+            animator.SetTrigger(triggerName);
             StartCoroutine(ColorChangeRoutine());
         }
 
