@@ -23,6 +23,11 @@ namespace DChild.Gameplay.Cinematics
         }
 
         [SerializeField]
+        private bool m_hasEventBeforeVideoEnd;
+        [SerializeField, ShowIf("m_hasEventBeforeVideoEnd")]
+        private float m_secondsBeforeVideoEnd;
+
+        [SerializeField]
         private VideoClip m_clip;
         [SerializeField]
         private bool m_doNotWaitForVideoCleanup;
@@ -31,11 +36,11 @@ namespace DChild.Gameplay.Cinematics
         [SerializeField, TabGroup("After")]
         private UnityEvent m_afterCinematicEvent;
 
+
         [Button, HideInEditorMode]
         public void Play()
         {
-            BaseGameplaySystem.MuteAllSounds();
-            GameplaySystem.gamplayUIHandle.ShowCinematicVideo(m_clip, DuringCinematicRoutine, OnVideoDone);
+            GameplaySystem.gamplayUIHandle.ShowCinematicVideo(m_clip, DuringCinematicRoutine, OnVideoDone,m_hasEventBeforeVideoEnd,m_secondsBeforeVideoEnd);
         }
 
         private IEnumerator DuringCinematicRoutine()

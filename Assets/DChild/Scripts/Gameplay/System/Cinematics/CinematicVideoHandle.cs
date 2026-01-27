@@ -1,5 +1,6 @@
 ﻿using DChildDebug.Cutscene;
 using Doozy.Runtime.Signals;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -18,12 +19,23 @@ namespace DChild.Gameplay.Systems
         [SerializeField, Min(0)]
         private float m_fadeBufferTime = 1;
 
+
+        //used to ease in of in game sounds before cinematic ends
+        [SerializeField]
+        private bool m_hasEventOnVideoEnd;
+        [SerializeField,ShowIf("m_hasEventOnVideoEnd")]
+        private float m_secondsBeforeVideoEnd;
+       
+
         private bool m_isPlaying;
         private bool m_videoClipPlaying;
         private Func<IEnumerator> m_behindTheSceneRoutine;
         private Action OnVideoDone;
 
         private Coroutine m_videoPlayingRoutine;
+
+        public bool hasEventOnVideoEnd { get { return m_hasEventOnVideoEnd; } set { m_hasEventOnVideoEnd = value; } }
+        public float secondsBeforeVideoEnd { get { return m_secondsBeforeVideoEnd; } set { m_secondsBeforeVideoEnd = value; } }
 
 
         public void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null)
@@ -84,6 +96,7 @@ namespace DChild.Gameplay.Systems
         private IEnumerator VideoPlayingRoutine()
         {
             var waitForFade = new WaitForSeconds(m_fadeBufferTime);
+            MuteAllSounds();
             GameplaySystem.playerManager.OverrideCharacterControls();
             m_isPlaying = true;
             GameplaySystem.gamplayUIHandle.ToggleFadeUI(true);
@@ -91,13 +104,31 @@ namespace DChild.Gameplay.Systems
             m_videoCinemaStartSignal?.SendSignal();
             m_videoClipPlaying = true;
             m_videoPlayer.Play();
+            var vidLength = m_videoPlayer.clip.length;
+            var currentTime = m_videoPlayer.time;
+            var remainingTime = vidLength - currentTime;
+            
 
             if (m_behindTheSceneRoutine != null)
             {
+                
+                if (m_hasEventOnVideoEnd)
+                {
+                    
+                    
+                    if (remainingTime <= m_secondsBeforeVideoEnd)
+                    {
+                        BaseGameplaySystem.UnMuteAllSounds(1.5f);
+                    }
+                }
+
                 yield return m_behindTheSceneRoutine();
+           
+
             }
             while (m_videoClipPlaying)
-                yield return null;
+                Debug.Log("Remaining Time :" + remainingTime);
+            yield return null;
 
             m_videoPlayer.Stop();
             m_videoCinemaEndSignal?.SendSignal();
@@ -113,6 +144,7 @@ namespace DChild.Gameplay.Systems
         {
             // this function should handle the mute logic of sounds except the video.
             //for future reference, put this function to the VideoPlayingRoutine()
+            BaseGameplaySystem.MuteAllSounds();
 
         }
     }

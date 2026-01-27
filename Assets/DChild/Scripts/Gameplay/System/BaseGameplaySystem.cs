@@ -150,6 +150,10 @@ namespace DChild.Gameplay.Systems
         {
             m_volumeMixerManager.UseSnapshot(AudioSnapshot.Gameplay);
         }
+        public static void UnMuteAllSounds(float duration)
+        {
+            m_volumeMixerManager.UseSnapshot(AudioSnapshot.Gameplay,duration);
+        }
 
         public static void ClearCaches()
         {

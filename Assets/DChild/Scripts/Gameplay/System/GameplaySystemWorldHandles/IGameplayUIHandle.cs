@@ -26,7 +26,7 @@ namespace DChild.Gameplay.Systems
         UIAlertManager alertManager { get; }
         IUINotificationManager notificationManager { get; }
 
-        void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null);
+        void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null, bool hasEventOnVideoEnd = false, float secondsBeforeVideoEnds = 0f);
 
 	void ForceStopCinematicVideo();
 
