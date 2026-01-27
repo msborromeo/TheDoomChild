@@ -934,7 +934,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.0865936, y: 5.4944983}
+  m_Offset: {x: 2.2548666, y: 5.4944983}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -945,7 +945,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.1731873, y: 11.988995}
+  m_Size: {x: 1.1081029, y: 11.988995}
   m_EdgeRadius: 0
 --- !u!114 &7812589513519174502
 MonoBehaviour:
@@ -3256,11 +3256,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7812589514554589602}
   - component: {fileID: 7812589514554589603}
-  - component: {fileID: 7812589514554589604}
   - component: {fileID: 955367477242892729}
   - component: {fileID: 7812589514554589605}
   m_Layer: 0
-  m_Name: Quest_RescueAlbin (COD2)
+  m_Name: Quest_OpenTheSilverDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3296,10 +3295,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba2e3066672a3834182d094e4029952d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questName: Rescue The Old Man
+  questName: Open The Silver Door
   questStateIndicatorLevels:
-  - updateOnStartOnly: 0
-    questState: 3
+  - updateOnStartOnly: 1
+    questState: 1
     condition:
       luaConditions: []
       questConditions: []
@@ -3307,7 +3306,7 @@ MonoBehaviour:
       acceptedGameObjects: []
       luaWizardIndex: -1
       lastEvaluationValue: 0
-    indicatorLevel: 1
+    indicatorLevel: 0
     onEnterState:
       m_PersistentCalls:
         m_Calls:
@@ -3336,24 +3335,10 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-  - updateOnStartOnly: 1
-    questState: 3
-    condition:
-      luaConditions:
-      - Variable["CathedralDoor_Open"] == false
-      questConditions: []
-      acceptedTags: []
-      acceptedGameObjects: []
-      luaWizardIndex: -1
-      lastEvaluationValue: 0
-    indicatorLevel: 1
-    onEnterState:
-      m_PersistentCalls:
-        m_Calls:
         - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: OnUse
-          m_Mode: 1
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3361,68 +3346,6 @@ MonoBehaviour:
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 7812589514758807063}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-        - m_Target: {fileID: 7812589514408433832}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-  - updateOnStartOnly: 1
-    questState: 3
-    condition:
-      luaConditions:
-      - Variable["CathedralDoor_Open"] == true
-      questConditions: []
-      acceptedTags: []
-      acceptedGameObjects: []
-      luaWizardIndex: -1
-      lastEvaluationValue: 0
-    indicatorLevel: 1
-    onEnterState:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-        - m_Target: {fileID: 7812589514554589605}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: OnUse
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
           m_CallState: 2
         - m_Target: {fileID: 7812589514758807063}
           m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
@@ -3434,34 +3357,9 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
-        - m_Target: {fileID: 7812589514408433832}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - updateOnStartOnly: 1
-    questState: 4
-    condition:
-      luaConditions: []
-      questConditions: []
-      acceptedTags: []
-      acceptedGameObjects: []
-      luaWizardIndex: -1
-      lastEvaluationValue: 0
-    indicatorLevel: 0
-    onEnterState:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2088828136004434487}
+        - m_Target: {fileID: 7812589514408433834}
           m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
           m_MethodName: set_enabled
           m_Mode: 6
@@ -3473,10 +3371,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 632929161363033415}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Environment.Interractables.Door,
-            Assembly-CSharp
-          m_MethodName: SetAsOpen
+        - m_Target: {fileID: 7812589513519174500}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -3484,37 +3381,9 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 1
+            m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 7776581049074895236}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-  questEntryStateIndicatorLevels:
   - updateOnStartOnly: 0
-    entryNumber: 1
-    questState: 4
-    condition:
-      luaConditions: []
-      questConditions: []
-      acceptedTags: []
-      acceptedGameObjects: []
-      luaWizardIndex: -1
-      lastEvaluationValue: 0
-    indicatorLevel: 2
-    onEnterState:
-      m_PersistentCalls:
-        m_Calls: []
-  - updateOnStartOnly: 1
-    entryNumber: 2
     questState: 4
     condition:
       luaConditions: []
@@ -3527,43 +3396,6 @@ MonoBehaviour:
     onEnterState:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 2088828136004434487}
-          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-          m_MethodName: set_enabled
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 632929161363033415}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Environment.Interractables.Door,
-            Assembly-CSharp
-          m_MethodName: SetAsOpen
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-        - m_Target: {fileID: 7776581049074895236}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 4101265807229081839}
           m_TargetAssemblyTypeName: DChild.Gameplay.Cinematics.Cameras.VirtualCameraSwitcher,
             Assembly-CSharp
@@ -3577,23 +3409,118 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 632929161363033415}
+          m_TargetAssemblyTypeName: DChild.Gameplay.Environment.Interractables.Door,
+            Assembly-CSharp
+          m_MethodName: SetAsOpen
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 2088828136004434487}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7812589514408433832}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7776581049074895236}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - updateOnStartOnly: 0
+    questState: 2
+    condition:
+      luaConditions: []
+      questConditions: []
+      acceptedTags: []
+      acceptedGameObjects: []
+      luaWizardIndex: -1
+      lastEvaluationValue: 0
+    indicatorLevel: 0
+    onEnterState:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7776581049074895236}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7812589513519174501}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7812589513519174500}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  questEntryStateIndicatorLevels: []
   suppressOnEnterStateEventsOnStart: 0
---- !u!114 &7812589514554589604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7812589514554589601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9788c61928f1bb24a8559f5d6aaed894, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  indicators:
-  - {fileID: 0}
-  - {fileID: 7812589514704753890}
-  - {fileID: 7812589514497339281}
 --- !u!114 &955367477242892729
 MonoBehaviour:
   m_ObjectHideFlags: 0

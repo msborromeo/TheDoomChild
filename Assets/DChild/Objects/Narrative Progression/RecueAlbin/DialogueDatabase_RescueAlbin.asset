@@ -220,8 +220,7 @@ MonoBehaviour:
       type: 3
       typeString: CustomFieldType_Files
     - title: Description
-      value: Albin is trapped somewhere in the Cathedral and is being surrounded
-        by zombies.
+      value: Find a way to reach the old man and kill the zombies
       type: 0
       typeString: CustomFieldType_Text
     - title: Success Description
@@ -289,6 +288,36 @@ MonoBehaviour:
       value: Return to the old man to say about the gladiator after opening the door
       type: 0
       typeString: CustomFieldType_Text
+  - id: 32
+    fields:
+    - title: Name
+      value: Open The Silver Door
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: Find the Silver Key to open the Silver Door
+      type: 0
+      typeString: 
+    - title: Success Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Failure Description
+      value: 
+      type: 0
+      typeString: 
+    - title: State
+      value: unassigned
+      type: 0
+      typeString: 
+    - title: Is Item
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
   locations: []
   variables:
   - id: 96
@@ -2762,8 +2791,8 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: CurrentQuestState("Rescue Albin") == "unassigned" or (CurrentQuestState("Rescue
-        Albin") ~= "active")
+      conditionsString: (CurrentQuestState("Open The Silver Door") == "unassigned")
+        or (CurrentQuestState("Open The Silver Door") == "active")
       userScript: 
       onExecute:
         m_PersistentCalls:
