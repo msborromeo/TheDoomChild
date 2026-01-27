@@ -1,3 +1,4 @@
+using DChild.Gameplay.Characters.Player.Skins;
 using DChild.Gameplay.Characters.Players.Behaviour;
 using DChild.Gameplay.Characters.Players.Modules;
 using DChild.Gameplay.Combat;
@@ -64,6 +65,8 @@ namespace DChild.Gameplay.Characters.Players
         public Character character => m_controlledCharacter;
 
         public ICriticalHitHandle criticalHitHandle => throw new System.NotImplementedException();
+
+        public PlayerSkinHandle skinHandle => throw new System.NotImplementedException();
 
         public event EventAction<EventActionArgs> OnDeath;
 
