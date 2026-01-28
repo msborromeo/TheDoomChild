@@ -13,17 +13,20 @@ namespace DChild.Gameplay.UI.PlayerStats
 
         public event EventAction<PlayerSkinArgs> OnToggleSelected;
 
-        public void SetSkinData(SkinData value) => m_attachedSkin = value;
+        public void AttachSkinData(SkinData value) => m_attachedSkin = value;
 
-        public void Display()
+        public void Display(SkinData data)
         {
+            m_iconSlot.gameObject.SetActive(data != null);
+            
+            if(data == null || data.icon == null)
+                return;
+
+            AttachSkinData(data);
             m_iconSlot.sprite = m_attachedSkin.icon;
         }
 
-        public void Select()
-        {
-            OnToggleSelected?.Invoke(this, new PlayerSkinArgs(m_attachedSkin));
-        }
+        public void Select() => OnToggleSelected?.Invoke(this, new PlayerSkinArgs(m_attachedSkin));
 
     }
 }
