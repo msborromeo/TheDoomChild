@@ -50,5 +50,10 @@ namespace DChild.Gameplay.Cinematics
             GetComponent<PlayableDirector>().stopped += OnCutsceneDone;
         }
 
+        private void OnDestroy()
+        {
+            GetComponent<PlayableDirector>().stopped -= OnCutsceneDone;
+        }
+
     }
 }
