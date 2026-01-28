@@ -66,6 +66,8 @@ namespace DChild.Gameplay.Systems
         private LevelFinishUI m_levelFinish;
         [SerializeField]
         private SequenceSkipHandle m_skipHandle;
+        [SerializeField]
+        private CharacterRecruitmentUI m_characterRecruitmentUI;
 
         public UIAlertManager uiAlertManager => m_uiAlertManager;
 
@@ -133,9 +135,13 @@ namespace DChild.Gameplay.Systems
             }
         }
 
-        public void ConfirmationRequest(EventAction<EventActionArgs> listener, string messageHeader, string message, bool noMessage = false, EventAction<EventActionArgs> OnDecline = null)
+        public CharacterRecruitmentUI GetRecruitmentConfirmation()
         {
-            m_confirmationWindow.RequestConfirmation(listener,messageHeader,message,OnDecline:OnDecline);
+            return m_characterRecruitmentUI;
+            
+        }
+        public void SendconfirmationSignal()
+        {
             m_confirmRecruitmentSignal.SendSignal();
         }
 

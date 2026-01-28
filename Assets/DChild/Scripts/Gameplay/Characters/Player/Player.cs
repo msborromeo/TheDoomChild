@@ -14,6 +14,7 @@ using DChild.Gameplay.Characters.Players.Behaviour;
 using PlayerNew;
 using DChild.Gameplay.SoulSkills;
 using DChild.Gameplay.Items;
+using DChild.Gameplay.Characters.Player.Skins;
 
 namespace DChild.Gameplay.Characters.Players
 {
@@ -44,6 +45,8 @@ namespace DChild.Gameplay.Characters.Players
         LootPicker lootPicker { get; }
         StatusEffectReciever statusEffectReciever { get; }
         Character character { get; }
+
+        PlayerSkinHandle skinHandle { get; }
 
         ICriticalHitHandle criticalHitHandle { get; }
 
@@ -81,6 +84,8 @@ namespace DChild.Gameplay.Characters.Players
         private ItemEffectHandle m_itemEffectHandle;
         [SerializeField]
         private PlayerCharacterModuleConfigurator m_moduleConfigurator;
+        [SerializeField]
+        private PlayerSkinHandle m_skinHandle;
 
 
         [Title("Serialzables")]
@@ -138,6 +143,8 @@ namespace DChild.Gameplay.Characters.Players
         public Character character => m_controlledCharacter;
 
         public ICriticalHitHandle criticalHitHandle => m_criticalHitHandle;
+
+        public PlayerSkinHandle skinHandle => m_skinHandle;
 
         public PlayerCharacterData SaveData()
         {
