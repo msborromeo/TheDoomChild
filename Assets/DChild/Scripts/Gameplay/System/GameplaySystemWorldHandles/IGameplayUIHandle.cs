@@ -74,6 +74,6 @@ namespace DChild.Gameplay.Systems
         public void NotifyUnlockedLocation(AvailableLocations location, InputActionConfiguration input);
 
         UIHandlerExtraReference GetReference();
-        void ConfirmationRequest(EventAction<EventActionArgs> listener, string messageHeader, string message, bool noMessage = false, EventAction<EventActionArgs> OnDecline = null);
+        CharacterRecruitmentUI ConfirmationRequest();
     }
 }
