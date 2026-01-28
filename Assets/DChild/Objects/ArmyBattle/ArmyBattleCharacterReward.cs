@@ -1,20 +1,31 @@
+using DChild.Gameplay.Characters.Players;
+using DChild.Gameplay.Environment.Interractables;
+using DChild.Gameplay.Items;
+using DChild.Gameplay.Systems;
+using DChild.Gameplay.Trade;
+using Holysoft.Event;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
 using UnityEngine.Events;
-using DChild.Gameplay.Environment.Interractables;
-using Holysoft.Event;
-using DChild.Gameplay.Items;
-using DChild.Gameplay.Trade;
-using DChild.Gameplay.Characters.Players;
-using DChild.Gameplay.Systems;
+using static DChild.Gameplay.UnlockableEvent;
 
 namespace DChild.Gameplay.ArmyBattle
 {
+    public enum RequirementType
+    {
+        SoulEssence,
+        Item,
+        CombatArt,
+        PrimarySkill,
+        SpecificRecruit,
+        ArmySize,
+        Other
+    }
     public class ArmyBattleCharacterReward : MonoBehaviour
     {
-
+       
         [TabGroup("Main","Reference")]
         //[SerializeField, TabGroup("Main/Reference", "General References")]
         //private SpriteRenderer m_Graphics;
@@ -32,47 +43,31 @@ namespace DChild.Gameplay.ArmyBattle
 
         [SerializeField, TabGroup("Main","Requirements")]
         private bool m_isFree;
-        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
-        private bool m_requiresSoulEssence;
-            [ShowIfGroup("Main/Requirements/SoulEssenceToggle", MemberName = "m_requiresSoulEssence")]
-            [SerializeField, BoxGroup("Main/Requirements/SoulEssenceToggle/SoulEssenceRequirement")]
+        [SerializeField, TabGroup("Main", "Requirements"),HideIf("m_isFree")]
+        private RequirementType m_Requirement;
+        [SerializeField, TabGroup("Main", "Requirements"), Tooltip("Takes the item from the player's invintory if possible"), HideIf("m_isFree"),ShowIf("m_Requirement", RequirementType.SoulEssence),ShowIf("m_Requirement", RequirementType.Item)]
+        private bool m_TakeRequiredItemFromInvintory;
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"),ShowIf("m_Requirement",RequirementType.SoulEssence)]
             private int m_requiredSoulEssence;
 
-
-        [SerializeField, TabGroup("Main","Requirements"), HideIf("m_isFree")]
-        private bool m_requiresItem;
-            [ShowIfGroup("Main/Requirements/ItemToggle", MemberName = "m_requiresItem")]
-            [SerializeField, BoxGroup("Main/Requirements/ItemToggle/ItemRequirement")]
+        [SerializeField, TabGroup("Main","Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.Item)]
             private ItemData m_hasItem;
-            [SerializeField, BoxGroup("Main/Requirements/ItemToggle/ItemRequirement"),Min(1)]
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.Item), Min(1)]
             private int m_ItemAmount = 1;
 
-        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
-        private bool m_requiresCombatArt;
-            [ShowIfGroup("Main/Requirements/CombatArtToggle", MemberName = "m_requiresCombatArt")]
-            [SerializeField, BoxGroup("Main/Requirements/CombatArtToggle/CombatArtRequirement")]
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.CombatArt)]
             private CombatArt m_CombatArt;
 
-        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
-        private bool m_requiresPrimarySkill;
-            [ShowIfGroup("Main/Requirements/PrimarySkillToggle", MemberName = "m_requiresPrimarySkill")]
-            [SerializeField, BoxGroup("Main/Requirements/PrimarySkillToggle/PrimarySkillRequirement")]
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.PrimarySkill)]
             private PrimarySkill m_PrimarySkill;
 
-        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
-        private bool m_requiresSpecificNPC;
-            [ShowIfGroup("Main/Requirements/SpecificNPCToggle", MemberName = "m_requiresSpecificNPC")]
-            [SerializeField, BoxGroup("Main/Requirements/SpecificNPCToggle/RequiredNPC")]
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.SpecificRecruit)]
             private ArmyCharacterData armyCharacterData;
 
-        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree")]
-        private bool m_requiresMinimumNPCsRecruited;
-            [ShowIfGroup("Main/Requirements/NPCsAmountToggle", MemberName = "m_requiresMinimumNPCsRecruited")]
-            [SerializeField, BoxGroup("Main/Requirements/NPCsAmountToggle/NPCsAmount")]
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.ArmySize)]
             private int neededNPCsRecruited;
 
-        [SerializeField, TabGroup("Main", "Requirements"),Tooltip("Takes the item from the player's invintory if possible")]
-        private bool m_TakeRequiredItemFromInvintory;
+        
 
         private bool m_OtherConditions;
 
@@ -84,14 +79,16 @@ namespace DChild.Gameplay.ArmyBattle
         [Button]
         public void GiveReward()
         {
-            
-            GameplaySystem.gamplayUIHandle.ConfirmationRequest(AcceptOffer, "Recruiting " + m_CharacterReward[0].name, ConstructRequirement(), OnDecline: OnDecline);
-
+            CharacterRecruitmentUI ui = GameplaySystem.gamplayUIHandle.ConfirmationRequest();
+            ui.SetAcceptOffer(AcceptOffer);
+            ui.SetDeclineOffer(OnDecline);
+            ui.SetupUI(m_CharacterReward[0].name);
+            BaseGameplaySystem.gamplayUIHandle.SendconfirmationSignal();
             //m_CharacterGiver?.RecruitCharacter(m_CharacterReward);
             //GameplaySystem.PauseGame();
 
-            
-            
+
+
         }
 
         public void RequirementMet(bool isAchieved)
@@ -104,9 +101,73 @@ namespace DChild.Gameplay.ArmyBattle
             m_OtherConditions = x;
         }
 
+        public void SetupConfirmationUI()
+        {
+            CharacterRecruitmentUI ui = GameplaySystem.gamplayUIHandle.ConfirmationRequest();
+            if(!m_isFree)
+            {
+                /*
+                if(m_requiresSoulEssence)
+                {
+                    ui.AddSoulessenceReq(m_requiredSoulEssence);
+                }
+                if(m_requiresItem)
+                {
+                    ui.AddItemReq(m_hasItem,m_ItemAmount);
+                }
+                if(m_requiresPrimarySkill)
+                {
+                    ui.AddPrimarySkillReq(m_PrimarySkill);
+                }
+                if(m_requiresCombatArt)
+                {
+                    ui.AddCombatArtReq(m_CombatArt);
+                }
+                if(m_requiresSpecificNPC)
+                {
+                    ui.AddNPCRecruitedReq(armyCharacterData);
+                }
+                if(m_requiresMinimumNPCsRecruited)
+                {
+                    ui.AddArmySizeReq(neededNPCsRecruited);
+                }*/
+                switch(m_Requirement)
+                {
+                    case RequirementType.SoulEssence:
+                        ui.AddSoulessenceReq(m_requiredSoulEssence);
+                        break;
+
+                    case RequirementType.Item:
+                        ui.AddItemReq(m_hasItem, m_ItemAmount);
+                        break;
+
+                    case RequirementType.PrimarySkill:
+                        ui.AddPrimarySkillReq(m_PrimarySkill);
+                        break;
+
+                    case RequirementType.CombatArt:
+                        ui.AddCombatArtReq(m_CombatArt);
+                        break;
+
+                    case RequirementType.SpecificRecruit:
+                        ui.AddNPCRecruitedReq(armyCharacterData);
+                        break;
+
+                    case RequirementType.ArmySize:
+                        ui.AddArmySizeReq(neededNPCsRecruited);
+                        break;
+                }
+                
+                if(m_OtherConditions)
+                {
+                    //reserverd for special cases
+                }
+            }
+        }
         public void AttemptGiveReward()
         {
             GameplaySystem.PauseGame();
+            SetupConfirmationUI();
             GiveReward();
             //m_GiveReward?.Invoke();
         }
@@ -115,6 +176,7 @@ namespace DChild.Gameplay.ArmyBattle
         {
             if (!m_isFree)
             {
+                /*
                 if (m_requiresSoulEssence)
                 {
                     if (GameplaySystem.playerManager.player.inventory.GetCurrencyAmount(CurrencyType.SoulEssence) < m_requiredSoulEssence && m_requiredSoulEssence != 0)
@@ -178,7 +240,60 @@ namespace DChild.Gameplay.ArmyBattle
                         return;
                     }
                 }
+                */
+                switch (m_Requirement)
+                {
+                    case RequirementType.SoulEssence:
+                        if (GameplaySystem.playerManager.player.inventory.GetCurrencyAmount(CurrencyType.SoulEssence) < m_requiredSoulEssence && m_requiredSoulEssence != 0)
+                        {
+                            RequirementFailed();
+                        }
+                        else if (m_TakeRequiredItemFromInvintory)
+                        {
+                            GameplaySystem.playerManager.player.inventory.AddSoulEssence(-m_requiredSoulEssence);
+                        }
+                        break;
 
+                    case RequirementType.Item:
+                        int x = GameplaySystem.playerManager.player.inventory.GetCurrentAmount(m_hasItem);
+                        if (x == 0 || x < m_ItemAmount)
+                        {
+                            RequirementFailed();
+                        }
+                        else if (m_TakeRequiredItemFromInvintory)
+                        {
+                            GameplaySystem.playerManager.player.inventory.RemoveItem(m_hasItem, m_ItemAmount);
+                        }
+                        break;
+
+                    case RequirementType.CombatArt:
+                        if (!GameplaySystem.playerManager.player.combatArts.IsAbilityActivated(m_CombatArt))
+                        {
+                            RequirementFailed();
+                        }
+                        break;
+
+                    case RequirementType.PrimarySkill:
+                        if (!GameplaySystem.playerManager.player.skills.IsSkillUnlocked(m_PrimarySkill))
+                        {
+                            RequirementFailed();
+                        }
+                        break;
+
+                    case RequirementType.SpecificRecruit:
+                        if (!GameplaySystem.playerManager.armyBattleCharacterRecruiter.HasRecruitedCharacter(armyCharacterData))
+                        {
+                            RequirementFailed();
+                        }
+                        break;
+
+                    case RequirementType.ArmySize:
+                        if (GameplaySystem.playerManager.armyBattleCharacterRecruiter.ArmySize() < neededNPCsRecruited)
+                        {
+                            RequirementFailed();
+                        }
+                        break;
+                }
                 if (m_OtherConditions)
                 {
                     if (!m_RequirementAchieved)
@@ -188,9 +303,9 @@ namespace DChild.Gameplay.ArmyBattle
                     }
                 }
             }
-            
+
             GameplaySystem.ResumeGame();
-            m_GiveReward.Invoke();
+            m_GiveReward?.Invoke();
 
             //Because Characters are usually recieved at isolated maps where save points do not exists
             //and Underworld data is lost upon exiting due to changing into Overworld Data 
@@ -200,29 +315,44 @@ namespace DChild.Gameplay.ArmyBattle
         }
         private void RequirementFailed()
         {
-            m_RequirementFailed?.Invoke();
             GameplaySystem.ResumeGame();
+            m_RequirementFailed?.Invoke();
         }
-
+        /*
         private string ConstructRequirement()
         {
-            string m_RequirementsText = m_CharacterReward[0].name + " would like to join you";
+            string m_RequirementsText = m_CharacterReward[0].name;
             if (!m_isFree&&m_TakeRequiredItemFromInvintory)
             {
-                m_RequirementsText += "\nGive:";
+                m_RequirementsText += "\nRequirements:";
                 if(m_requiresSoulEssence)
                 {
-                    m_RequirementsText += "\n•" + m_requiredSoulEssence + " Soul Essence";
+                    m_RequirementsText += "\n•<color=yellow>" + m_requiredSoulEssence + "</color> Soul Essence";
                 }
                 if(m_requiresItem)
                 {
-                    m_RequirementsText += "\n•" +m_ItemAmount.ToString()+ " " + m_hasItem.itemName;
+                    m_RequirementsText += "\n•" + m_ItemAmount.ToString()+ " <color=yellow>" + m_hasItem.itemName+ "</color>";
                 }
-                m_RequirementsText += "\n Accept the offer?";
+                if(m_requiresPrimarySkill)
+                {
+                    m_RequirementsText += "\n•Aquired:"+ m_PrimarySkill.ToString();
+                }
+                if(m_requiresCombatArt)
+                {
+                    m_RequirementsText += "\n•Learned:" + m_CombatArt.ToString();
+                }
+                if(m_requiresSpecificNPC)
+                {
+                    m_RequirementsText += "\n•Recruited:" + armyCharacterData.name;
+                }
+                if(m_requiresMinimumNPCsRecruited)
+                {
+                    m_RequirementsText += "\n•Has " + neededNPCsRecruited + " recruited";
+                }
             }
-
+            m_RequirementsText += "\n Accept?";
             return m_RequirementsText;
-        }
+        }*/
 
         private void OnDecline(object sender, EventActionArgs eventActionArgs)
         {
