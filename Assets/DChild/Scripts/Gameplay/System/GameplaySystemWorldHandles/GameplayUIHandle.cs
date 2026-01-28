@@ -246,9 +246,9 @@ namespace DChild.Gameplay.Systems
             return UnderworldGameplayUIHandle.Instance.getReference();
         }
 
-        public void ConfirmationRequest(EventAction<EventActionArgs> listener, string messageHeader, string message, bool noMessage = false, EventAction<EventActionArgs> OnDecline = null)
+        public CharacterRecruitmentUI ConfirmationRequest()
         {
-            BaseGameplayUIHandle.Instance.ConfirmationRequest(listener, messageHeader, message, OnDecline: OnDecline);
+            return BaseGameplayUIHandle.Instance.GetRecruitmentConfirmation();
         }
     }
 }
