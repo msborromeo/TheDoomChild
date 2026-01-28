@@ -45,7 +45,6 @@ namespace DChild.Gameplay.Systems
                 if (clip == null)
                 {
                     Debug.LogWarning("There was an attempt to play a null video cinematic");
-
                     return;
                 }
 
@@ -107,15 +106,15 @@ namespace DChild.Gameplay.Systems
             var vidLength = m_videoPlayer.clip.length;
             var currentTime = m_videoPlayer.time;
             var remainingTime = vidLength - currentTime;
-            
+
 
             if (m_behindTheSceneRoutine != null)
             {
-                
+
                 if (m_hasEventOnVideoEnd)
                 {
-                    
-                    
+
+
                     if (remainingTime <= m_secondsBeforeVideoEnd)
                     {
                         BaseGameplaySystem.UnMuteAllSounds(1.5f);
@@ -124,10 +123,8 @@ namespace DChild.Gameplay.Systems
 
                 yield return m_behindTheSceneRoutine();
            
-
             }
             while (m_videoClipPlaying)
-                Debug.Log("Remaining Time :" + remainingTime);
             yield return null;
 
             m_videoPlayer.Stop();
