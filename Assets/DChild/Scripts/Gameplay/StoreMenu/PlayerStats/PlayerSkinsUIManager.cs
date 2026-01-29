@@ -25,8 +25,17 @@ namespace DChild.Gameplay.UI.PlayerStats
             SyncPlayerDataToUI();
 
             ApplySkinGraphic(m_skinHandle.currentSkin);
+            SetupNavigationUI();        
+        }
+
+        private void SetupNavigationUI()
+        {
             m_navigationUI.SetFullSkinList(m_skinHandle.fullSkinList);
-            m_navigationUI.UpdateVisibleSkinSlots(m_skinHandle.acquiredSkins);
+            m_navigationUI.SetCurrentSkin(m_skinHandle.currentSkin);
+
+            var acquiredSkinList = m_skinHandle.acquiredSkins;
+            m_navigationUI.SetAcquiredSkins(acquiredSkinList);
+            m_navigationUI.InitializeMenu(acquiredSkinList);
         }
 
         public void OnCurrentSkinUpdated(object sender, PlayerSkinArgs eventArgs)
@@ -35,12 +44,7 @@ namespace DChild.Gameplay.UI.PlayerStats
 
             ApplySkinGraphic(skinData);
             m_skinHandle.ApplySkin(skinData);
-        }
-
-        private void UpdateUI(SkinData data)
-        {
-            m_skinNameLabel.text = data.name;
-
+            m_skinNameLabel.text = skinData.name;
         }
 
         private void SyncPlayerDataToUI() => m_skinHandle = GameplaySystem.playerManager.player.skinHandle;

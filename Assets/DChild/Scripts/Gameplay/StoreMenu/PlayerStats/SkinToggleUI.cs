@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.Characters.Player.Skins;
+using Doozy.Runtime.UIManager.Components;
 using Holysoft.Event;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,11 +16,19 @@ namespace DChild.Gameplay.UI.PlayerStats
 
         public void AttachSkinData(SkinData value) => m_attachedSkin = value;
 
+        private void SetInteractablity(bool value)
+        {
+            gameObject.GetComponent<UIToggle>().interactable = value;
+        }
+
         public void Display(SkinData data)
         {
-            m_iconSlot.gameObject.SetActive(data != null);
+            var hasData = data != null;
             
-            if(data == null || data.icon == null)
+            m_iconSlot.gameObject.SetActive(hasData);
+            SetInteractablity(hasData);
+
+            if(!hasData || data.icon == null)
                 return;
 
             AttachSkinData(data);
