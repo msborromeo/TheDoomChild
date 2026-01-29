@@ -27,7 +27,9 @@ namespace DChild.Gameplay.Combat
         {
             StopAllCoroutines();
 
-            animator.SetTrigger(triggerName);
+            if (animator != null && triggerName != null)
+                animator.SetTrigger(triggerName);
+
             StartCoroutine(ColorChangeRoutine());
         }
 
