@@ -32,7 +32,7 @@ namespace DChild.QuestHints.ChestMapTracker
 
         private void OnEnable()
         {
-            Debug.LogError("AAAAAA");
+            //Debug.LogError("AAAAAA");
             if (DialogueLua.GetVariable(Variable).asBool)
             {
                 image.sprite = spriteInteracted;
