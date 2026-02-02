@@ -435,6 +435,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator AttackRoutine()
         {
+            m_stateHandle.Wait(State.ReevaluateSituation);
             for (int i = 0; i < 3; i++)
             {
                 m_animation.SetAnimation(0, m_info.attack.animation, false);
@@ -553,7 +554,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
                 case State.Attacking:
                     m_stateHandle.Wait(State.Cooldown);
-
+                    StopAllCoroutines();
                     m_selfCollider.enabled = true;
                     m_animation.EnableRootMotion(true, false);
                     switch (m_attackDecider.chosenAttack.attack)
@@ -620,8 +621,11 @@ namespace DChild.Gameplay.Characters.Enemies
                                     m_selfCollider.enabled = false;
                                     if (m_animation.animationState.GetCurrent(0).IsComplete)
                                     {
-                                        m_animation.SetAnimation(0, m_currentMoveAnim, true);
+                                        StartCoroutine(WalkingRoutine());
                                     }
+                                         m_animation.SetAnimation(0, m_currentMoveAnim, true);
+                                    Debug.Log("WALKING???");
+                                    m_movement.Stop();
                                     m_movement.MoveTowards(Vector2.one * transform.localScale.x, m_currentMoveSpeed);
                                 }
                                 else
@@ -684,6 +688,11 @@ namespace DChild.Gameplay.Characters.Enemies
             }
         }
 
+        private IEnumerator WalkingRoutine()
+        {
+            m_animation.SetAnimation(0, m_currentMoveAnim, true);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_currentMoveAnim);
+        }
         protected override void OnTargetDisappeared()
         {
             if (m_sneerRoutine != null)
