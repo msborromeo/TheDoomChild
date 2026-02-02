@@ -94,7 +94,8 @@ namespace DChild.Gameplay.Systems
 
         private IEnumerator VideoPlayingRoutine()
         {
-            var waitForFade = new WaitForSeconds(m_fadeBufferTime);
+            var waitForFade = new WaitForSeconds(m_fadeBufferTime); 
+        
             MuteAllSounds();
             GameplaySystem.playerManager.OverrideCharacterControls();
             m_isPlaying = true;
@@ -103,28 +104,32 @@ namespace DChild.Gameplay.Systems
             m_videoCinemaStartSignal?.SendSignal();
             m_videoClipPlaying = true;
             m_videoPlayer.Play();
-            var vidLength = m_videoPlayer.clip.length;
-            var currentTime = m_videoPlayer.time;
-            var remainingTime = vidLength - currentTime;
+           
 
 
             if (m_behindTheSceneRoutine != null)
             {
 
-                if (m_hasEventOnVideoEnd)
-                {
-
-
-                    if (remainingTime <= m_secondsBeforeVideoEnd)
-                    {
-                        BaseGameplaySystem.UnMuteAllSounds(1.5f);
-                    }
-                }
+              
 
                 yield return m_behindTheSceneRoutine();
            
             }
             while (m_videoClipPlaying)
+            {
+                var vidLength = m_videoPlayer.clip.length;
+                var currentTime = m_videoPlayer.time;
+                var remainingTime = vidLength - currentTime;
+
+                if (m_hasEventOnVideoEnd)
+                {
+                    if (remainingTime <= m_secondsBeforeVideoEnd)
+                    {
+                        BaseGameplaySystem.UnMuteAllSounds(0.5f);
+                    }
+                }
+                yield return null;
+            }
             yield return null;
 
             m_videoPlayer.Stop();
