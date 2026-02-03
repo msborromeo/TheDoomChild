@@ -5,6 +5,7 @@ using System;
 using DChild.Gameplay.Characters.Players;
 using UnityEngine.Video;
 using System.Collections;
+using UnityEngine.UI;
 
 namespace DChild.Gameplay.UI.PrimarySkills
 {
@@ -52,30 +53,32 @@ namespace DChild.Gameplay.UI.PrimarySkills
                     m_skillDescriptionSetTextToTextBox.SetText(selectable.reference.instruction, selectable.reference.action);
                     break;
             }
-            StopAllCoroutines();
-            StartCoroutine(DisplayPreview(selectable.reference.demoClip));
-            m_descriptionLabel.text = selectable.reference.description;
-            m_controlsLabel.text = selectable.reference.inputCommand;
-            m_skillNameLabel.text = selectable.reference.skillName;
+            Display(selectable.reference);
 
             if (localizePrimarySkill != null)
                 localizePrimarySkill?.Invoke(selectable.reference);
 
         }
-          private IEnumerator DisplayPreview(VideoClip clip)
+        private void Display(PrimarySkillData data)
+        {
+            StopAllCoroutines();
+            StartCoroutine(DisplayPreview(data.demoClip));
+            m_descriptionLabel.text = data.description;
+            m_controlsLabel.text = data.inputCommand;
+            m_skillNameLabel.text = data.skillName;
+        }
+
+        private IEnumerator DisplayPreview(VideoClip clip)
         {
             m_demoClipPlayer.Stop();
             yield return null;
             m_demoClipPlayer.clip = clip;
             m_demoClipPlayer.Play();
         }
-
-
         private void OnPrimarySkillInstructionsLocalized()
         {
             m_skillDescriptionSetTextToTextBox?.SetText(m_controlsLabel.text);
         }
-
         private void Awake()
         {
             m_skillList.InitializeList();

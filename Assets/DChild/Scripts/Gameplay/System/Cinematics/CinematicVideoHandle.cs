@@ -49,6 +49,7 @@ namespace DChild.Gameplay.Systems
                 }
 
                 m_videoPlayer.clip = clip;
+                CalculateVideoLength(m_videoPlayer.clip);
                 m_behindTheSceneRoutine = behindTheSceneRoutine;
                 this.OnVideoDone = OnVideoDone;
 
@@ -87,9 +88,9 @@ namespace DChild.Gameplay.Systems
 
         private void OnVideoClipDone(VideoPlayer source)
         {
-            m_videoClipPlaying = false;
             OnVideoDone?.Invoke();
             SequenceSkipHandle.SkipExecute -= SequenceSkipHandle_SkipExecute;
+            m_videoClipPlaying = false;
         }
 
         private IEnumerator VideoPlayingRoutine()
@@ -120,7 +121,7 @@ namespace DChild.Gameplay.Systems
                 var vidLength = m_videoPlayer.clip.length;
                 var currentTime = m_videoPlayer.time;
                 var remainingTime = vidLength - currentTime;
-
+                Debug.Log("Seconds: " + remainingTime);
                 if (m_hasEventOnVideoEnd)
                 {
                     if (remainingTime <= m_secondsBeforeVideoEnd)
@@ -141,7 +142,15 @@ namespace DChild.Gameplay.Systems
             m_isPlaying = false;
             m_videoPlayingRoutine = null;
         }
+        void CalculateVideoLength(VideoClip clip)
+        {
+            // Get frame count and frame rate from the VideoPlayer. 
+            ulong frameCount = m_videoPlayer.frameCount;
+            double frameRate = m_videoPlayer.frameRate;
 
+            // Calculate the length in seconds. 
+            double lengthInSeconds = frameCount / frameRate;
+        }
         private void MuteAllSounds()
         {
             // this function should handle the mute logic of sounds except the video.
