@@ -29,7 +29,10 @@ namespace DChild.Gameplay.UI.PrimarySkills
         public void UpdateSelectables()
         {
             m_skillList.UpdateListAvailability();
-            Select(m_skillList.GetFirstAvailable());
+            var firstUnlocked = m_skillList.GetFirstAvailable();
+
+            if (firstUnlocked != null)
+                Select(firstUnlocked);
         }
 
         public void Select(PrimarySkillSelectable selectable)
@@ -52,7 +55,7 @@ namespace DChild.Gameplay.UI.PrimarySkills
                     break;
             }
             m_demoClipPlayer.clip = selectable.reference.demoClip;
-            m_demoClipPlayer.Play();
+            //m_demoClipPlayer.Play();
 
             m_descriptionLabel.text = selectable.reference.description;
             m_controlsLabel.text = selectable.reference.inputCommand;
