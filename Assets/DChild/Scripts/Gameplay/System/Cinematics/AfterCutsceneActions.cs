@@ -23,7 +23,17 @@ namespace DChild.Gameplay.Cinematics
 
         private void Start()
         {
+            
+        }
+
+        private void OnEnable()
+        {
             GetComponent<PlayableDirector>().stopped += OnCutsceneDone;
+        }
+
+        private void OnDisable()
+        {
+            GetComponent<PlayableDirector>().stopped -= OnCutsceneDone;
         }
 
     }
