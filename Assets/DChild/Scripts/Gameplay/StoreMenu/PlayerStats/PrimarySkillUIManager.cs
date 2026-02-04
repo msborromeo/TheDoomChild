@@ -29,13 +29,12 @@ namespace DChild.Gameplay.UI.PrimarySkills
 
         public void UpdateSelectables()
         {
+            m_skillList.InitializeList();
+
             m_skillList.UpdateListAvailability();
             var firstUnlocked = m_skillList.GetFirstAvailable();
-
-            if (firstUnlocked == null) return;
-
-            firstUnlocked.GetComponent<UIToggle>().isOn = true;
             Select(firstUnlocked);
+            firstUnlocked.GetComponent<UIToggle>().isOn = true;
         }
 
         public void Select(PrimarySkillSelectable selectable)
@@ -74,9 +73,8 @@ namespace DChild.Gameplay.UI.PrimarySkills
             m_skillDescriptionSetTextToTextBox?.SetText(m_controlsLabel.text);
         }
 
-        private void Start()
+        private void Awake()
         {
-            m_skillList.InitializeList();
             m_primarySkillUILocalizer.PrimarySkillInstructionsLocalized += OnPrimarySkillInstructionsLocalized;
         }
 

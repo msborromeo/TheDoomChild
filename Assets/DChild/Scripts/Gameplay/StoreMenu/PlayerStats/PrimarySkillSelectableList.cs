@@ -12,12 +12,7 @@ namespace DChild.Gameplay.UI.PrimarySkills
 
         private int m_firstUnlocked = -1;
 
-        public PrimarySkillSelectable GetFirstAvailable()
-        {
-            if (m_firstUnlocked == -1) return null;
-
-            return m_selectables[m_firstUnlocked];
-        }
+        public PrimarySkillSelectable GetFirstAvailable() => m_firstUnlocked != -1 ? m_selectables[m_firstUnlocked] : null;
 
         public void UpdateListAvailability()
         {
