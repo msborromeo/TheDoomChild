@@ -71,9 +71,17 @@ namespace DChild
         private void Start()
         {
             m_callback = GetComponent<CallBackSounds>();
+            m_data.SetSkeletonDataAsset(m_skeletonAnimation.SkeletonDataAsset);
             m_skeletonAnimation.state.Event += OnEvents;
             m_skeletonAnimation.state.Start += OnAnimationStart;
             m_skeletonAnimation.state.Interrupt += OnAnimationStop;
+        }
+
+        private void OnDestroy()
+        {
+            m_skeletonAnimation.state.Event -= OnEvents;
+            m_skeletonAnimation.state.Start -= OnAnimationStart;
+            m_skeletonAnimation.state.Interrupt -= OnAnimationStop;
         }
 
         private void OnDisable()
