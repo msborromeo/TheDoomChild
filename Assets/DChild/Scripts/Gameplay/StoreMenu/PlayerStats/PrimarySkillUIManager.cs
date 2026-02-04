@@ -4,6 +4,7 @@ using DChild.Localization;
 using System;
 using DChild.Gameplay.Characters.Players;
 using UnityEngine.Video;
+using Doozy.Runtime.UIManager.Components;
 
 namespace DChild.Gameplay.UI.PrimarySkills
 {
@@ -31,8 +32,10 @@ namespace DChild.Gameplay.UI.PrimarySkills
             m_skillList.UpdateListAvailability();
             var firstUnlocked = m_skillList.GetFirstAvailable();
 
-            if (firstUnlocked != null)
-                Select(firstUnlocked);
+            if (firstUnlocked == null) return;
+
+            firstUnlocked.GetComponent<UIToggle>().isOn = true;
+            Select(firstUnlocked);
         }
 
         public void Select(PrimarySkillSelectable selectable)
