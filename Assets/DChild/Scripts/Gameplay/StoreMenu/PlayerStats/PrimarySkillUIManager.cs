@@ -4,7 +4,7 @@ using DChild.Localization;
 using System;
 using DChild.Gameplay.Characters.Players;
 using UnityEngine.Video;
-using System.Collections;
+using Doozy.Runtime.UIManager.Components;
 
 namespace DChild.Gameplay.UI.PrimarySkills
 {
@@ -29,8 +29,12 @@ namespace DChild.Gameplay.UI.PrimarySkills
 
         public void UpdateSelectables()
         {
+            m_skillList.InitializeList();
+
             m_skillList.UpdateListAvailability();
-            Select(m_skillList.GetFirstAvailable());
+            var firstUnlocked = m_skillList.GetFirstAvailable();
+            Select(firstUnlocked);
+            firstUnlocked.GetComponent<UIToggle>().isOn = true;
         }
 
         public void Select(PrimarySkillSelectable selectable)
@@ -52,8 +56,9 @@ namespace DChild.Gameplay.UI.PrimarySkills
                     m_skillDescriptionSetTextToTextBox.SetText(selectable.reference.instruction, selectable.reference.action);
                     break;
             }
-            StopAllCoroutines();
-            StartCoroutine(DisplayPreview(selectable.reference.demoClip));
+            m_demoClipPlayer.clip = selectable.reference.demoClip;
+            //m_demoClipPlayer.Play();
+
             m_descriptionLabel.text = selectable.reference.description;
             m_controlsLabel.text = selectable.reference.inputCommand;
             m_skillNameLabel.text = selectable.reference.skillName;
@@ -62,14 +67,6 @@ namespace DChild.Gameplay.UI.PrimarySkills
                 localizePrimarySkill?.Invoke(selectable.reference);
 
         }
-          private IEnumerator DisplayPreview(VideoClip clip)
-        {
-            m_demoClipPlayer.Stop();
-            yield return null;
-            m_demoClipPlayer.clip = clip;
-            m_demoClipPlayer.Play();
-        }
-
 
         private void OnPrimarySkillInstructionsLocalized()
         {
@@ -78,7 +75,6 @@ namespace DChild.Gameplay.UI.PrimarySkills
 
         private void Awake()
         {
-            m_skillList.InitializeList();
             m_primarySkillUILocalizer.PrimarySkillInstructionsLocalized += OnPrimarySkillInstructionsLocalized;
         }
 
