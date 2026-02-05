@@ -3046,6 +3046,24 @@ namespace DChild.Gameplay.Characters.Enemies
             m_attackUsed = new bool[m_currentAttackCache.Count];
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_damageable.DamageTaken -= OnDamageTaken;
+            m_flinchRighthHandle.FlinchStart -= OnFlinchStart;
+            m_flinchLeftHandle.FlinchStart -= OnFlinchStart;
+            m_flinchRighthHandle.FlinchEnd -= OnFlinchEnd;
+            m_flinchLeftHandle.FlinchEnd -= OnFlinchEnd;
+            m_statusEffectReciever.StatusRecieved -= OnStatusRecieved;
+            m_statusEffectReciever.StatusEnd -= OnStatusEnd;
+            m_kingPusDamageable.PhaseChangeTime -= OnChangePhaseTime;
+            m_pusBlobDropper.PusBlobsDown -= OnPusBlobDropped;
+            for (int i = 0; i < m_pusBlobs.Count; i++)
+            {
+                m_pusBlobs[i].OnNearToMaster -= OnBlobNearKingPus;
+            }
+        }
+
         private void OnStatusEnd(object sender, StatusEffectRecieverEventArgs eventArgs)
         {
             if (eventArgs.type == StatusEffectType.Burning)

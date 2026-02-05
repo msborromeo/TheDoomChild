@@ -30,7 +30,7 @@ namespace DChild.Gameplay.Characters
         {
             gameObject.GetComponentInParent<Damageable>().DamageTaken += OnDamageTaken;
         }
-        private void OnDestroy()
+        private void OnDisable()
         {
             gameObject.GetComponentInParent<Damageable>().DamageTaken -= OnDamageTaken;
         }

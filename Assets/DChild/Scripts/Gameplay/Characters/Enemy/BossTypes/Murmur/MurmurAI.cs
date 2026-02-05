@@ -721,6 +721,14 @@ namespace DChild.Gameplay.Characters.Enemies
             m_frontalScreamIndicatorOffset = m_frontalScreamIndicator.transform.localPosition;
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_attackIntervalTimer.CountdownEnd -= OnAttackCooldownEnd;
+            m_damageable.Destroyed -= OnDeath;
+            m_animation.animationState.Event -= OnEvent;
+        }
+
 
 
         protected override void Start()

@@ -86,6 +86,13 @@ namespace DChild.Gameplay.Characters.Enemies
             m_kingPus.PhaseChangeDone += KingPusHasChangedPhase;
         }
 
+        private void OnDisable()
+        {
+            m_kingPus.BodySlamDone -= KingPusHasBodyslam;
+            m_kingPus.WreckingBallDone -= KingPusHasDoneWreackingBall;
+            m_kingPus.PhaseChangeDone -= KingPusHasChangedPhase;
+        }
+
         private void KingPusHasDoneWreackingBall(object sender, EventActionArgs eventArgs)
         {
             DropPusBlob();

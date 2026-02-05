@@ -551,6 +551,7 @@ namespace DChild.Gameplay.Characters.Enemies
             void OnPhaseChangeAttackStopped(PlayableDirector obj)
             {
                 isTimelineDone = true;
+                m_phaseChangeAttackTimeline.stopped -= OnPhaseChangeAttackStopped;
             }
         }
 
@@ -569,6 +570,7 @@ namespace DChild.Gameplay.Characters.Enemies
             void OnPhaseChangeAttackStopped(PlayableDirector obj)
             {
                 isTimelineDone = true;
+                m_phaseChangeFloorBreakTimeline.stopped -= OnPhaseChangeAttackStopped;
             }
         }
 
@@ -2049,7 +2051,16 @@ namespace DChild.Gameplay.Characters.Enemies
             UpdateAttackDeciderList();
             m_clones = new List<GameObject>();
             m_clones.Add(null);
+        }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_hitDetector[0].PlayerHit -= AddHitCount;
+            m_hitDetector[1].PlayerHit -= AddHitCount;
+            m_hitDetector[2].PlayerHit -= AddHitCount;
+            m_damageable.DamageTaken -= OnDamageTaken;
         }
         private int m_damageCount;
         private void OnDamageTaken(object sender, Damageable.DamageEventArgs eventArgs)

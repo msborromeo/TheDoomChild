@@ -746,6 +746,7 @@ namespace DChild.Gameplay.Characters.Enemies
             void OnReturnToStart(object sender, EventActionArgs eventArgs)
             {
                 isReturning = true;
+                m_scytheThrowProjectile.ReturnToStart -= OnReturnToStart;
             }
         }     
 
@@ -849,6 +850,7 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 Debug.Log("Scythe Smash DeathStench Done ");
                 deathStenchDone = true;
+                m_scytheSmashDeathStench.Done -= OnDeathStenchDone;
             }
         }
 
@@ -1405,6 +1407,14 @@ namespace DChild.Gameplay.Characters.Enemies
             m_idleAnimationNames[0] = m_info.idle1Animation.animation;
             m_idleAnimationNames[1] = m_info.idle2Animation.animation;
 
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_damageable.DamageTaken -= OnDamageTaken;
+            m_royalGuardianShield.Destroyed -= OnRoyalGuardianShieldDestroyed;
         }
 
         private void OnRoyalGuardianShieldDestroyed(object sender, EventActionArgs eventArgs)

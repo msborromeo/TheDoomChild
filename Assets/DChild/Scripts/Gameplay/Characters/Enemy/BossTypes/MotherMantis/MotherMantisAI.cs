@@ -1368,6 +1368,12 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle = new StateHandle<State>(State.Idle, State.WaitBehaviourEnd);
             UpdateAttackDeciderList();
         }
+
+        protected override void OnDisable()
+        {
+            m_turnHandle.TurnDone -= OnTurnDone;
+        }
+
         private bool m_isPlayerDamaged;
         private void PlayerDamaged(object sender, Damageable.DamageEventArgs eventArgs)
         {

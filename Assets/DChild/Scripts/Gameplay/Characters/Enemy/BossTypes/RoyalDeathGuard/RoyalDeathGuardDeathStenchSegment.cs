@@ -55,6 +55,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             //Particle System Disables GameObject
             StopAllCoroutines();
+            GetComponent<PoolableObject>().PoolRequest -= OnPoolRequest;
         }
     }
 }

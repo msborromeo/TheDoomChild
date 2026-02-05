@@ -384,6 +384,13 @@ namespace DChild.Gameplay.Characters.Enemies
             m_skeletons = new List<SkeletonSpawnAI>();
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_turnHandle.TurnDone -= OnTurnDone;
+        }
+
         protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
         {
             GameEventMessage.SendEvent("Boss Gone");

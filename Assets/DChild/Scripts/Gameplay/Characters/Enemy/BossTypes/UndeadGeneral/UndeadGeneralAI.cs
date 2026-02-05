@@ -1079,6 +1079,14 @@ namespace DChild.Gameplay.Characters.Enemies
             m_currentFullCD = new List<float>();
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_damageable.DamageTaken -= OnDamageTaken;
+            m_damageable.DamageTaken -= OnDamageBlocked;
+        }
+
         private void SwordThrustRootMoveEnd()
         {
             m_movement.Stop();

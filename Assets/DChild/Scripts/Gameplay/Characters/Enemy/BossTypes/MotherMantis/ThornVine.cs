@@ -149,6 +149,12 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle = new StateHandle<State>(State.Grow, State.WaitBehaviourEnd);
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+        }
+
 
         private void Update()
         {

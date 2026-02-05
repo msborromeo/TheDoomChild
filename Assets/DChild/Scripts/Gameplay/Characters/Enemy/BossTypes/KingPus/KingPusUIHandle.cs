@@ -28,6 +28,12 @@ namespace DChild.Gameplay.UI
             m_bossCombatUI = FindObjectOfType<BossCombatUI>();
         }
 
+        private void OnDisable()
+        {
+            m_kingPusAI.PhaseChangeStart -= OnPhaseChangeStart;
+            m_kingPusAI.PhaseChangeDone -= OnPhaseChangeDone;
+        }
+
         private void OnPhaseChangeStart(object sender, EventActionArgs eventArgs)
         {
             m_bossCombatUI.HideBossHealth();

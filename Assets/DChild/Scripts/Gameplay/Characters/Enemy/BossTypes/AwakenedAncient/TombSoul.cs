@@ -47,6 +47,11 @@ public class TombSoul : AttackProjectile
         StartCoroutine(SoulRoutine());
     }
 
+    private void OnDisable()
+    {
+        m_damageable.Destroyed -= Destroyed;
+    }
+
     protected override void Awake()
     {
         base.Awake();

@@ -170,6 +170,12 @@ namespace DChild.Gameplay.Characters.Enemies
 
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_turnHandle.TurnDone -= OnTurnDone;
+        }
+
         private void Update()
         {
             switch (m_stateHandle.currentState)

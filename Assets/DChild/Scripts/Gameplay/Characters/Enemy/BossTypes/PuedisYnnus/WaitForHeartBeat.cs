@@ -19,6 +19,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             if (m_beatIndex == 0 || m_beatIndex == obj)
                 m_wasFired = true;
+            m_source.OnBeat -= OnHeartBeat;
         }
 
         private void SafeSubscribe(HeartBeatHandle source)

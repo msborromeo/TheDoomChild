@@ -68,7 +68,10 @@ namespace DChild.Gameplay.Characters.Enemies
             void OnLightingDone(object sender, EventActionArgs eventArgs)
             {
                 areLightningDoneExecuting = true;
-                
+                for(int i = 0; i < m_spawnCount;i++)
+                {
+                    m_pool[m_poolIndex].IsDone -= OnLightingDone;
+                }
             }
             IsDone?.Invoke(this, EventActionArgs.Empty);
         }

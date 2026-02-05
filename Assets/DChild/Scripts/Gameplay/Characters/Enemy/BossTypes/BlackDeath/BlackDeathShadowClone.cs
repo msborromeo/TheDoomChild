@@ -92,6 +92,11 @@ namespace DChild.Gameplay.Characters.Enemies
             m_damageable.Destroyed += OnDeath;
         }
 
+        private void OnDisable()
+        {
+            m_damageable.Destroyed -= OnDeath;
+        }
+
         private void Update()
         {
             if (m_canAttack)

@@ -36,6 +36,12 @@ namespace DChild.Gameplay.Combat
             m_currentPhase = Phase.PhaseOne;
         }
 
+        private void OnDisable()
+        {
+            PhaseChangeTime -= OnChangePhase;
+            m_kingPusUIHandle.HideHealthUI -= OnHealthHide;
+        }
+
         private void OnHealthHide(object sender, EventActionArgs eventArgs)
         {
             if (m_currentPhase != Phase.PhaseFour)

@@ -75,6 +75,13 @@ namespace DChild.Gameplay.Characters.Enemies
             m_franky.ElectricPushRight += PushRight;
         }
 
+        private void OnDisable()
+        {
+            m_franky.PhaseDischargeAction -= PhaseDischargeReaction;
+            m_franky.ElectricPushLeft -= PushLeft;
+            m_franky.ElectricPushRight -= PushRight;
+        }
+
     }
 
 }

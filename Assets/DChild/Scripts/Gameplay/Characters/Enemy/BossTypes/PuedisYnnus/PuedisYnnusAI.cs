@@ -839,6 +839,12 @@ namespace DChild.Gameplay.Characters.Enemies
             m_rainProjectileHandle = new PuedisYnnusRainProjectileHandle(m_info.minimumDistancePerRainProjectileInstance);
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_damageable.DamageTaken -= OnDamageTaken;
+        }
+
         protected override void Start()
         {
             base.Start();

@@ -1366,6 +1366,13 @@ namespace DChild.Gameplay.Characters.Enemies
             m_patternCooldown = new List<float>();
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_damageable.DamageTaken -= OnDamageTaken;
+        }
+
         protected override void Start()
         {
 

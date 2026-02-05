@@ -61,6 +61,12 @@ public class TombAttack : MonoBehaviour
         m_skeletonAnimation.state.Complete += SoulSummon;
     }
 
+    private void OnDisable()
+    {
+        m_skeletonAnimation.state.Complete -= SoulSummon;
+        m_skeletonAnimation.state.Complete -= TombBurrow;
+    }
+
     private void SoulSummon(TrackEntry trackEntry)
     {
         StartCoroutine(SummonSoul());

@@ -1945,6 +1945,14 @@ namespace DChild.Gameplay.Characters.Enemies
             UpdateAttackDeciderList();
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_heatGauge.HeatFull -= HeatGauge_HeatFull;
+            GetComponent<Damageable>().DamageTaken -= CinderBoltAI_DamageTaken;
+        }
+
         private void HeatGauge_HeatFull(object sender, EventActionArgs eventArgs)
         {
             m_isRaging = true;

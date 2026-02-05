@@ -1259,6 +1259,17 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stingerChargeCollider.enabled = false;
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_damageable.DamageTaken -= HitOnBee;
+            m_patrolHandle.TurnRequest -= OnTurnRequest;
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_animation.skeletonAnimation.UpdateLocal -= SkeletonAnimation_UpdateLocal;
+        }
+
         private void Update()
         {
             if (m_stateHandle.currentState != State.Phasing)

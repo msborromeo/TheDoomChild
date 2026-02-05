@@ -77,6 +77,12 @@ namespace DChild.Gameplay.Characters.Enemies
             m_originalParent = transform.parent;
         }
 
+        private void OnDisable()
+        {
+            m_refrence.HeatChanged -= OnHeatChanged;
+            m_refrence.HeatFull -= OnHeatFull;
+        }
+
     }
 
 

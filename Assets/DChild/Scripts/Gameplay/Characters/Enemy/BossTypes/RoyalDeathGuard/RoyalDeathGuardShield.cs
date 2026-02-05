@@ -67,5 +67,11 @@ namespace DChild.Gameplay.Characters.Enemies
             m_damageable.Destroyed += OnDestroyed;
             m_isSpawned = false;
         }
+
+        private void OnDisable()
+        {
+            m_damageable.DamageTaken -= OnDamageTaken;
+            m_damageable.Destroyed -= OnDestroyed;
+        }
     }
 }

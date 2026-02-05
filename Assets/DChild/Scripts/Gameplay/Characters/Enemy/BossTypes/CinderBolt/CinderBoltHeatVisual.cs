@@ -25,5 +25,10 @@ namespace DChild.Gameplay.Characters.Enemies
             m_reactions = GetComponentsInChildren<CinderBoltHeatReaction>();
         }
 
+        private void OnDisable()
+        {
+            m_heatGauge.HeatChanged -= OnHeatChange;
+        }
+
     }
 }

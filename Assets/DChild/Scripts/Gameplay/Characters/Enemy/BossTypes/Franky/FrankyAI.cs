@@ -1209,6 +1209,12 @@ namespace DChild.Gameplay.Characters.Enemies
             m_phaseHandle.Initialize(Phase.PhaseOne, m_info.phaseInfo, m_character, ChangeState, ApplyPhaseData);
             m_phaseHandle.ApplyChange();
         }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_targetInfo.GetTargetDamagable().DamageTaken -= PlayerDamagedPunchCombo;
+        }
         [SerializeField]
         private Material m_tommi;
         [SerializeField]

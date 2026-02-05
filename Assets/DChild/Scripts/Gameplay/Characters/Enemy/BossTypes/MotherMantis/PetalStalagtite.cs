@@ -131,6 +131,7 @@ namespace DChild.Gameplay.Characters.Enemies
             StopAllCoroutines();
             //m_motherMantisAI.OnPetalRain -= OnPetalRain;
             m_checker = true;
+            this.GetComponent<Damageable>().Destroyed -= OnDestroyed;
             StartCoroutine(DeathFxRoutine());
         }
         private IEnumerator SproutRoutine()
@@ -236,6 +237,13 @@ namespace DChild.Gameplay.Characters.Enemies
             transform.localScale = new Vector2(transform.localScale.x * sizeMult, transform.localScale.y * sizeMult);
             m_stateHandle = new StateHandle<State>(State.Sprout, State.WaitBehaviourEnd);
 
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_motherMantisAI.GetComponent<MotherMantisAI>().OnMantisLand -= OnMantisLand;
+            m_motherMantisAI.GetComponent<MotherMantisAI>().OnPetalRain -= OnPetalRain;
         }
 
         /*private void Start()

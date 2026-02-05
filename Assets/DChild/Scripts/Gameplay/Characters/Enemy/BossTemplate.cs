@@ -71,5 +71,13 @@ namespace DChild.Gameplay.Characters.Enemies
                 animation.animationState.Complete += OnAnimationComplete;
             }
         }
+
+        protected virtual void OnDisable()
+        {
+            if (animation)
+            {
+                animation.animationState.Complete -= OnAnimationComplete;
+            }
+        }
     }
 }
