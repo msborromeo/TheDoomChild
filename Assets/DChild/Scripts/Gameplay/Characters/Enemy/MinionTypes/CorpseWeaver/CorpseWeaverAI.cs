@@ -245,6 +245,19 @@ namespace DChild.Gameplay.Characters.Enemies
             m_startPoint = transform.position;
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_cobWebTrigger.CobWebEnterEvent -= CobwebEvent;
+            m_cobWebTrigger.Onhit -= HitCobWeb;
+            bodyHitTrigger.OnhitEvent -= BodyhitEvent;
+            m_patrolHandle.TurnRequest -= OnTurnRequest;
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_flinchHandle.FlinchEnd -= OnFlinchEnd;
+        }
+
         private void BodyhitEvent(object sender, EventActionArgs eventArgs)
         {
             isPlayerDetected = true;

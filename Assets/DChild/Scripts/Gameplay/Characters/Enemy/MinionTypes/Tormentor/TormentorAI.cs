@@ -680,6 +680,16 @@ namespace DChild.Gameplay.Characters.Enemies
             #endregion
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_patrolHandle.TurnRequest -= OnTurnRequest;
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_helmetDamageable.DamageTaken -= OnHelmetDamageTaken;
+        }
+
         private void Update()
         {
             //Debug.Log("Wall Sensor is " + m_wallSensor.isDetecting);

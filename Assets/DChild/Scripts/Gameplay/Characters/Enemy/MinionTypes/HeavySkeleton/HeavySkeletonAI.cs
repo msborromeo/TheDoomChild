@@ -582,6 +582,17 @@ namespace DChild.Gameplay.Characters.Enemies
             UpdateAttackDeciderList();
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_patrolHandle.TurnRequest -= OnTurnRequest;
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_damageable.DamageTaken -= CounterFlinch;
+            m_damageable.DamageTaken -= SpawnHitFX;
+        }
+
         private void Update()
         {
             //Debug.Log("Wall Sensor is " + m_wallSensor.isDetecting);

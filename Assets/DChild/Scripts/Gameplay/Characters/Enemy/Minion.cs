@@ -69,6 +69,14 @@ namespace DChild.Gameplay.Characters.Enemies
             }
         }
 
+        protected virtual void OnDisable()
+        {
+            if (animation)
+            {
+                animation.animationState.Complete -= OnAnimationComplete;
+            }
+        }
+
         public void Flinch(Vector2 directionToSource, RelativeDirection damageSource, AttackSummaryInfo attackInfo)
         {
             throw new System.NotImplementedException();

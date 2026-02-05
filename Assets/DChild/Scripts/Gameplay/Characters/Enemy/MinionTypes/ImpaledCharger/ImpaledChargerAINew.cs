@@ -161,6 +161,13 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle = new StateHandle<State>(State.Idle, State.WaitForBehaviour);
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_impaledOne.GetComponent<Damageable>().Destroyed -= OnImpaledOneDeath;
+            m_pusher.GetComponent<Damageable>().Destroyed -= OnPusherDeath;
+        }
+
         protected override void Start()
         {
             StartCoroutine(DelayedStartRoutine());//Ensure that the other members are initialized first;

@@ -374,6 +374,16 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle = new StateHandle<State>(State.Patrol, State.WaitBehaviourEnd);
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            if (m_iceBlobType != IceBlobType.Wall)
+            {
+                m_patrolHandle.TurnRequest -= OnTurnRequest;
+                m_turnHandle.TurnDone -= OnTurnDone;
+            }
+        }
+
         private void Update()
         {
             if (m_willDropCoolDrip)

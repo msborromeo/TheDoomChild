@@ -575,6 +575,15 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle = new StateHandle<State>(State.Idle, State.WaitBehaviourEnd);
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_patrolHandle.TurnRequest -= OnTurnRequest;
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_flinchHandle.FlinchEnd -= OnFlinchEnd;
+            m_cartAI.IsDead -= CartIsDead;
+        }
+
         private void Update()
         {
             switch (m_stateHandle.currentState)

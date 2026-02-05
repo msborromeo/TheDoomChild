@@ -306,6 +306,7 @@ namespace DChild.Gameplay.Characters.Enemies
             void OnTurnDone(object sender, FacingEventArgs eventArgs)
             {
                 isTurnDone = true;
+                m_turnHandle.TurnDone -= OnTurnDone;
             }
         }
 
@@ -370,6 +371,13 @@ namespace DChild.Gameplay.Characters.Enemies
             base.Start();
             m_bodyEntity.Destroyed += OnBodyDead;
             m_patrolHandle.TurnRequest += OnTurnRequest;
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_bodyEntity.Destroyed -= OnBodyDead;
+            m_patrolHandle.TurnRequest -= OnTurnRequest;
         }
 
         private void Update()

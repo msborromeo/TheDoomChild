@@ -604,6 +604,15 @@ namespace DChild.Gameplay.Characters.Enemies
             m_attackUsed = new bool[m_attackCache.Count];
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_patrolHandle.TurnRequest -= OnTurnRequest;
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_turnHandle.TurnDone -= OnTurnDone;
+        }
+
         private void Update()
         {
 

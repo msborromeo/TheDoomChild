@@ -308,6 +308,15 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle = new StateHandle<State>(State.Burrowed, State.WaitBehaviourEnd);
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_flinchHandle.FlinchEnd -= OnFlinchEnd;
+        }
+
 
         private void Update()
         {

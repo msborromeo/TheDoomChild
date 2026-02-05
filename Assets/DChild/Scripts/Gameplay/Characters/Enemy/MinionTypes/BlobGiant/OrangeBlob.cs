@@ -53,6 +53,11 @@ namespace DChild.Gameplay.Characters.Enemies
             SetRandomIdleAnimation();
         }
 
+        private void OnDisable()
+        {
+            m_damageable.Destroyed -= OnBlobDie;
+        }
+
         private void SetRandomIdleAnimation()
         {
             int randomNumber = UnityEngine.Random.Range(1, 3);

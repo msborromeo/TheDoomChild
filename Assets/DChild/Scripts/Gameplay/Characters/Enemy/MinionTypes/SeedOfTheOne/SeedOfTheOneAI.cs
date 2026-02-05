@@ -247,6 +247,16 @@ namespace DChild.Gameplay.Characters.Enemies
             //m_deathHandle?.SetAnimation(m_info.deathStartAnimation);
             m_stateHandle = new StateHandle<State>(State.Idle, State.WaitBehaviourEnd);
         }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_patrolHandle.TurnRequest -= OnTurnRequest;
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_flinchHandle.FlinchEnd -= OnFlinchEnd;
+            m_turnHandle.TurnDone -= OnTurnDone;
+        }
+
         public void ExplosionEvent()
         {
             m_explosionFX.SetActive(true);

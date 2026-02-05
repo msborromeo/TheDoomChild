@@ -167,6 +167,13 @@ namespace DChild.Gameplay.Characters.Enemies
             m_attackDecider = new RandomAttackDecider<Attack>();
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_flinchHandle.FlinchEnd -= OnFlinchEnd;
+        }
+
 
         private void Update()
         {

@@ -63,6 +63,11 @@ namespace DChild.Gameplay.Characters.Enemies
             GetComponentInParent<Character>().CharacterTurn += OnCharacterTurn;
         }
 
+        private void OnDisable()
+        {
+            GetComponentInParent<Character>().CharacterTurn -= OnCharacterTurn;
+        }
+
         private void Update()
         {
             m_edgeColliderPoints.Clear();

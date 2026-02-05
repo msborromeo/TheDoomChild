@@ -359,6 +359,14 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.skeletonAnimation.UpdateLocal += SkeletonAnimation_UpdateLocal;
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_flinchHandle.FlinchEnd -= OnFlinchEnd;
+            m_animation.skeletonAnimation.UpdateLocal -= SkeletonAnimation_UpdateLocal;
+        }
 
         private void Update()
         {

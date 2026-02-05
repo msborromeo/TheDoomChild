@@ -173,6 +173,13 @@ namespace DChild.Gameplay.Characters.Enemies
             m_flinch.FlinchEnd += OnFlinchEnd;
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_flinch.FlinchStart -= OnFlinchStart;
+            m_flinch.FlinchEnd -= OnFlinchEnd;
+        }
+
         private void Update()
         {
             switch (m_stateHandle.currentState)

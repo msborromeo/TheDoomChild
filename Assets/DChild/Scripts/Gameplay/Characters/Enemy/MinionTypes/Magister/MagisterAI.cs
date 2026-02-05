@@ -836,6 +836,16 @@ namespace DChild.Gameplay.Characters.Enemies
             UpdateAttackDeciderList();
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_patrolHandle.TurnRequest -= OnTurnRequest;
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_flinchHandleWithoutBook.FlinchStart -= OnFlinchStart;
+            m_flinchHandleWithBook.FlinchStart -= OnFlinchStart;
+        }
+
 
         private void Update()
         {

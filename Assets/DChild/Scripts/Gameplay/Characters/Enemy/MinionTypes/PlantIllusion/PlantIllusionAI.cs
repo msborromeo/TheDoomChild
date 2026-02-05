@@ -352,8 +352,17 @@ namespace DChild.Gameplay.Characters.Enemies
             UpdateAttackDeciderList();
             m_projectileLauncher = new ProjectileLauncher(m_info.projectile.projectileInfo, m_projectileStart);
         }
-		
-		protected override void Start()
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_flinchHandle.FlinchEnd -= OnFlinchEnd;
+        }
+
+        protected override void Start()
         {
             base.Start();
 

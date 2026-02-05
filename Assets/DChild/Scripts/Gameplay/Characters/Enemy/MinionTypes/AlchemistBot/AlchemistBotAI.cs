@@ -709,6 +709,16 @@ namespace DChild.Gameplay.Characters.Enemies
             m_canAttack2 = true;
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_patrolHandle.TurnRequest -= OnTurnRequest;
+            m_damageable.DamageTaken -= OnDamageTaken;
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_animation.skeletonAnimation.UpdateLocal -= SkeletonAnimation_UpdateLocal;
+        }
+
         private void Update()
         {
 

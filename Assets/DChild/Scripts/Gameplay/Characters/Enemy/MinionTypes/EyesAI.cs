@@ -64,6 +64,11 @@ namespace DChild.Gameplay.Characters.Enemies
             enabled = m_canPatrol;
         }
 
+        private void OnDisable()
+        {
+            m_patrolHandle.TurnRequest -= OnTurnRequest;
+            m_turnHandle.TurnDone -= OnTurnDone;
+        }
 
 
         private void Update()

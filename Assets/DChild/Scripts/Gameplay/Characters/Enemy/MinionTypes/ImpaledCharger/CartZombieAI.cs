@@ -619,6 +619,20 @@ namespace DChild.Gameplay.Characters.Enemies
             m_randomTurnRoutine = StartCoroutine(RandomTurnRoutine());
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_patrolHandle.TurnRequest -= OnTurnRequest;
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_chargerCharacter.CharacterTurn -= OnCharacterTurn;
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_flinchHandle.FlinchEnd -= OnFlinchEnd;
+            if (m_chargerAI != null)
+            {
+                m_chargerAI.IsDead -= ChargerIsDead;
+            }
+        }
+
         private void Update()
         {
             //Debug.Log("Wall Sensor is " + m_wallSensor.isDetecting);

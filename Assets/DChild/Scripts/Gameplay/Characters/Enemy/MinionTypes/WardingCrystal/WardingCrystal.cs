@@ -51,6 +51,12 @@ public class WardingCrystal : MonoBehaviour
         m_animation.AddAnimation(2, m_idleAnimation, true,0f);
     }
 
+    private void OnDisable()
+    {
+        m_damageable.DamageTaken -= OnDamageTaken;
+        m_damageable.Destroyed -= Ondeath;
+    }
+
     private void Ondeath(object sender, EventActionArgs eventArgs)
     {
         Debug.Log("Something hit me, im dead");

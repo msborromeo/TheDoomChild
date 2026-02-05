@@ -432,6 +432,17 @@ namespace DChild.Gameplay.Characters.Enemies
             UpdateAttackDeciderList();
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_flinchHandle.FlinchEnd -= OnFlinchEnd;
+            m_platformPatrol.TurnRequest -= OnTurnRequest;
+            m_platformPatrol.RotateToEdge -= OnRotateToEdge;
+        }
+
 
         private void Update()
         {

@@ -654,11 +654,22 @@ namespace DChild.Gameplay.Characters.Enemies
             AddToRangeCache(m_info.attack1.range, m_info.attack2.range);
             m_attackUsed = new bool[m_attackCache.Count];
         }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_patrolHandle.TurnRequest -= OnTurnRequest;
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_turnHandle.TurnDone -= OnTurnDone;
+        }
+
         private bool m_willStopRunningAway = true;
         private void OnFireballDissipate(object sender, EventActionArgs eventArgs)
         {
             m_willStopRunningAway = true;
             m_canUseAttack = true;
+            m_spectreFireball.GetComponent<SpectreFireFireballFollow>().OnFireballDissipate -= OnFireballDissipate;
             //throw new NotImplementedException();
         }
 

@@ -415,6 +415,14 @@ namespace DChild.Gameplay.Characters.Enemies
             UpdateAttackDeciderList();
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_flinchHandle.FlinchStart -= OnFlinchStart;
+            m_flinchHandle.FlinchEnd -= OnFlinchEnd;
+        }
+
         private void OnBodyDestroyed(object sender, DeathHandle.DisposingEventArgs eventArgs)
         {
             var targetground = new Vector2(GroundPosition().x, GroundPosition().y);

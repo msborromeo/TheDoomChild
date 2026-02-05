@@ -432,6 +432,20 @@ namespace DChild.Gameplay.Characters.Enemies
             UpdateAttackDeciderList();
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_patrolHandle.TurnRequest -= OnTurnRequest;
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_turnHandle.TurnDone -= OnTurnDone;
+            m_damageable.DamageTaken -= OnDamageTaken;
+            m_patrolHandle.DestinationReached -= OnDestinationReached;
+            for (int i = 0; i < m_flinchHandles.Count; i++)
+            {
+                m_flinchHandles[i].FlinchEnd -= OnFlinchEnd;
+            }
+        }
+
         private void OnDestinationReached(object sender, EventActionArgs eventArgs)
         {
             m_moveCount++;
