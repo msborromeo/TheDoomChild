@@ -35,7 +35,7 @@ namespace DChild.Localization
             m_nameLocalizer.nameUpdate += LocalizeName;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             m_nameLocalizer.nameUpdate -= LocalizeName;
         }

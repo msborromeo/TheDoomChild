@@ -34,6 +34,7 @@ namespace DChild
             {
                 m_wasFired = true;
             }
+            m_state.Complete -= HandleComplete;
         }
 
         private void SafeSubscribe(Spine.AnimationState state)

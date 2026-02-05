@@ -27,5 +27,14 @@ namespace DChild.Gameplay.Characters
                 m_rotators[i].AlignRotationToFacing(eventArgs.currentFacingDirection);
             }
         }
+
+        private void OnDisable()
+        {
+            var turningCharacter = GetComponentInParent<ITurningCharacter>();
+            if (turningCharacter != null)
+            {
+                turningCharacter.CharacterTurn -= OnCharacterTurn;
+            }
+        }
     }
 }

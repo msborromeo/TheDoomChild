@@ -315,6 +315,7 @@ namespace DChild.Gameplay.Characters.AI
         {
             //Incase the ai is dead before scene change since OnDestroy is
             //not being called if object is disabled
+            m_damageable.Destroyed -= OnDestroyed;
             if (m_damageable.isAlive == false)
             {
                 GameplaySystem.minionManager.Unregister(this);

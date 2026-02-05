@@ -36,6 +36,9 @@ namespace DChild.Gameplay.Characters
             {
                 AttackDone?.Invoke(this, EventActionArgs.Empty);
             }
+
+            m_cacheTrack.Complete -= OnTrackDone;
+            m_cacheTrack.Interrupt -= OnTrackDone;
         }
     }
 }

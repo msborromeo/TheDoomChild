@@ -143,10 +143,16 @@ namespace DChild.Gameplay.Characters.AI
             {
                 m_leadGroundSensor.SensorCast += OnGroundSensorCast;
             }
-            if (m_wallSensor.isDetecting != null)
+            if (m_wallSensor != null)
             {
                 m_wallSensor.SensorCast += OnWallensorCast;
             }
+        }
+
+        private void OnDisable()
+        {
+            m_leadGroundSensor.SensorCast -= OnGroundSensorCast;
+            m_wallSensor.SensorCast -= OnWallensorCast;
         }
     }
 }

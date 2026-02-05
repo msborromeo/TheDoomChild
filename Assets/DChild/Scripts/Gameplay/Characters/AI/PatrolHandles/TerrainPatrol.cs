@@ -83,7 +83,7 @@ namespace DChild.Gameplay.Characters.AI
             }
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             for (int i = 0; i < m_sensors.Length; i++)
             {

@@ -9,6 +9,7 @@ namespace DChild
     {
         bool m_wasFired = false;
         private string m_animationName;
+        private Spine.AnimationState m_state;
 
         public WaitForAnimationStart(Spine.AnimationState state, string animationName)
         {
@@ -22,6 +23,7 @@ namespace DChild
             {
                 m_wasFired = true;
             }
+            m_state.Start -= HandleStart;
         }
 
         private void SafeSubscribe(Spine.AnimationState state)
@@ -34,7 +36,8 @@ namespace DChild
             }
             else
             {
-                state.Start += HandleStart;
+                m_state = state;
+                m_state.Start += HandleStart;
             }
         }
 

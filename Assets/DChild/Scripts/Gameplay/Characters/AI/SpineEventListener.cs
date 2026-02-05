@@ -70,6 +70,11 @@ namespace DChild.Gameplay.Characters
             Activate();
         }
 
+        private void OnDisable()
+        {
+            m_animation.AnimationState.Event -= OnEvent;
+        }
+
 #if UNITY_EDITOR
         public void InitializeFields(SkeletonAnimation animation)
         {

@@ -63,4 +63,12 @@ public class MySpineEventHandler : MonoBehaviour
             //fireballFX.GetComponent<Rigidbody2D>().AddForce(new Vector2(m_projectileSpeed, 0f), ForceMode2D.Impulse);
         }
     }
+
+    private void OnDisable()
+    {
+        var skeletonAnimation = GetComponent<SkeletonAnimation>();
+        if (skeletonAnimation == null) return;
+
+        skeletonAnimation.AnimationState.Event -= HandleEvent;
+    }
 }

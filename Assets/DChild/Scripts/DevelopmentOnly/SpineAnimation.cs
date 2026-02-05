@@ -205,6 +205,8 @@ namespace DChild.Gameplay
 
         private void OnDisable()
         {
+            m_skeletonAnimation.AnimationState.Start -= OnStart;
+            m_skeletonAnimation.AnimationState.Complete -= OnComplete;
             if (SkeletonAnimationManager.hasInstance)
             {
                 SkeletonAnimationManager.Unregister(this);

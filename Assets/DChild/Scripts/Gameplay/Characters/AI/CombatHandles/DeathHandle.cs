@@ -98,6 +98,8 @@ namespace DChild.Gameplay.Characters
         {
             m_bodyDuration.Reset();
             enabled = false;
+            m_source.Destroyed -= OnDestroyed;
+            m_bodyDuration.CountdownEnd -= OnCountdownEnd;
         }
 
         private void Update()

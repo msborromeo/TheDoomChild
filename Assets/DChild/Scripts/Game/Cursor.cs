@@ -121,6 +121,11 @@ namespace DChild
 #endif
         }
 
+        private void OnDisable()
+        {
+            GameSystem.CameraChange -= OnCameraChange;
+        }
+
         private void LateUpdate()
         {
             if (m_cacheCamera)
@@ -131,11 +136,6 @@ namespace DChild
             {
                 enabled = false;
             }
-        }
-
-        private void OnDestroy()
-        {
-            GameSystem.CameraChange -= OnCameraChange;
         }
     }
 }

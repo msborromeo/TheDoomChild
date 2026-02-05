@@ -8,6 +8,7 @@ namespace DChild
     {
         bool m_wasFired = false;
         private string m_eventName;
+        private Spine.AnimationState m_state;
 
         public WaitForAnimationEvent(Spine.AnimationState state, string eventName)
         {
@@ -25,7 +26,8 @@ namespace DChild
             }
             else
             {
-                state.Event += HandleEvent;
+                m_state = state;
+                m_state.Event += HandleEvent;
             }
         }
 
@@ -35,6 +37,7 @@ namespace DChild
             {
                 m_wasFired = true;
             }
+            m_state.Event -= HandleEvent;
         }
 
         #region Reuse

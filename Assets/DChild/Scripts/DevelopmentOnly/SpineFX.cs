@@ -70,6 +70,7 @@ namespace DChild.Gameplay
         private void OnDisable()
         {
             m_shouldReplay = true;
+            m_spine.AnimationState.Complete -= OnComplete;
         }
 
 

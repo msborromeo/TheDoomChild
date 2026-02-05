@@ -73,6 +73,11 @@ namespace DChild.Gameplay
             }
         }
 
+        private void OnDisable()
+        {
+            GameSystem.CameraChange -= OnCameraChange;
+        }
+
         private void Update()
         {
             if (m_toFollowType == ToFollow.Camera && m_camera == null)
