@@ -73,7 +73,7 @@ namespace DChild.Gameplay.Cinematics
 
             m_afterCinematicEvent.Invoke();
 
-            BaseGameplaySystem.UnMuteAllSounds();
+           // BaseGameplaySystem.UnMuteAllSounds();
         }
 
     }
