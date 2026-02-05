@@ -26,6 +26,8 @@ namespace DChild.Gameplay.Cinematics
         private bool m_hasEventBeforeVideoEnd;
         [SerializeField, ShowIf("m_hasEventBeforeVideoEnd")]
         private float m_secondsBeforeVideoEnd;
+        [SerializeField]
+        private float m_audioTransistionDuration;
 
         [SerializeField]
         private VideoClip m_clip;
@@ -40,7 +42,7 @@ namespace DChild.Gameplay.Cinematics
         [Button, HideInEditorMode]
         public void Play()
         {
-            GameplaySystem.gamplayUIHandle.ShowCinematicVideo(m_clip, DuringCinematicRoutine, OnVideoDone,m_hasEventBeforeVideoEnd,m_secondsBeforeVideoEnd);
+            GameplaySystem.gamplayUIHandle.ShowCinematicVideo(m_clip, DuringCinematicRoutine, OnVideoDone,m_hasEventBeforeVideoEnd,m_secondsBeforeVideoEnd,m_audioTransistionDuration);
         }
 
         private IEnumerator DuringCinematicRoutine()

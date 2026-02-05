@@ -25,7 +25,8 @@ namespace DChild.Gameplay.Systems
         private bool m_hasEventOnVideoEnd;
         [SerializeField,ShowIf("m_hasEventOnVideoEnd")]
         private float m_secondsBeforeVideoEnd;
-       
+        [SerializeField]
+        private float m_audioVolumeTransistion;
 
         private bool m_isPlaying;
         private bool m_videoClipPlaying;
@@ -36,6 +37,8 @@ namespace DChild.Gameplay.Systems
 
         public bool hasEventOnVideoEnd { get { return m_hasEventOnVideoEnd; } set { m_hasEventOnVideoEnd = value; } }
         public float secondsBeforeVideoEnd { get { return m_secondsBeforeVideoEnd; } set { m_secondsBeforeVideoEnd = value; } }
+
+        public float audioVolumeTransistionDuration { get { return m_audioVolumeTransistion; } set { m_audioVolumeTransistion = value; } }
 
 
         public void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null)
@@ -126,7 +129,7 @@ namespace DChild.Gameplay.Systems
                 {
                     if (remainingTime <= m_secondsBeforeVideoEnd)
                     {
-                        BaseGameplaySystem.UnMuteAllSounds(0.5f);
+                        BaseGameplaySystem.UnMuteAllSounds(audioVolumeTransistionDuration);
                     }
                 }
                 yield return null;

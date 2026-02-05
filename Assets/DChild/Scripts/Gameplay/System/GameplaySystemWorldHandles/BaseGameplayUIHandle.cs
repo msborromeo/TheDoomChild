@@ -165,10 +165,11 @@ namespace DChild.Gameplay.Systems
             m_cinematicVideoHandle.Initialize();
         }
 
-        public void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null, bool hasEventOnVideoEnd = false, float secondsBeforeVideoEnds = 0f)
+        public void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null, bool hasEventOnVideoEnd = false, float secondsBeforeVideoEnds = 0f, float audiTansistionDuration = 0f)
         {
             m_cinematicVideoHandle.hasEventOnVideoEnd = hasEventOnVideoEnd;
             m_cinematicVideoHandle.secondsBeforeVideoEnd = secondsBeforeVideoEnds;
+            m_cinematicVideoHandle.audioVolumeTransistionDuration = audiTansistionDuration;
             m_cinematicVideoHandle.ShowCinematicVideo(clip, behindTheSceneRoutine, OnVideoDone);
         }
 
