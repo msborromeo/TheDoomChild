@@ -84,7 +84,6 @@ namespace DChild.Gameplay.ArmyBattle
             ui.SetDeclineOffer(OnDecline);
             ui.SetupUI(m_CharacterReward[0].name);
             BaseGameplaySystem.gamplayUIHandle.SendconfirmationSignal();
-            //m_CharacterGiver?.RecruitCharacter(m_CharacterReward);
             //GameplaySystem.PauseGame();
 
 
@@ -306,7 +305,7 @@ namespace DChild.Gameplay.ArmyBattle
 
             GameplaySystem.ResumeGame();
             m_GiveReward?.Invoke();
-
+            m_CharacterGiver?.RecruitCharacter(m_CharacterReward);
             //Because Characters are usually recieved at isolated maps where save points do not exists
             //and Underworld data is lost upon exiting due to changing into Overworld Data 
             GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Quest);
