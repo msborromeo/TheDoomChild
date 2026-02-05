@@ -49,7 +49,7 @@ namespace DChild.Menu.Equipment.UI
             if (m_attachedItem == null)
                 return;
             m_selectionUI.equipButtonUI.SetSelectedItem(m_attachedItem);
-            m_selectionUI.SetItemDetails(m_attachedItem.soulEquipment);
+            m_selectionUI.SetItemDetails(m_attachedItem);
             OnGridItemSelected?.Invoke(this, EventActionArgs.Empty);
         }
     }

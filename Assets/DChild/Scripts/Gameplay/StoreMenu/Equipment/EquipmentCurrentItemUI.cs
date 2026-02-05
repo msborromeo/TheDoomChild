@@ -14,6 +14,7 @@ namespace DChild.Menu.Equipment.UI
 
         [BoxGroup("ITEM PROPERTIES"), SerializeField] private TextMeshProUGUI m_itemName;
         [BoxGroup("ITEM PROPERTIES"), SerializeField] private Image m_itemImage;
+        [BoxGroup("ITEM PROPERTIES"), SerializeField] private CanvasGroup m_undiscoveredIcon;
         public Image itemImage => m_itemImage;
 
         [SerializeField] private SoulSlot m_soulSlot;
@@ -34,6 +35,7 @@ namespace DChild.Menu.Equipment.UI
             if (m_currentItem.soulEquipment.Slot != m_soulSlot)
                 return;
 
+            m_undiscoveredIcon.alpha = 1;
             m_itemName.text = $"{m_currentItem.itemName}";
             m_itemImage.sprite = m_currentItem.icon;
             m_equipmentUI.equipmentHandle.EquipSoulEquipment(m_currentItem);
@@ -44,10 +46,11 @@ namespace DChild.Menu.Equipment.UI
             if (m_currentItem.soulEquipment.Slot != m_soulSlot)
                 return;
             m_itemImage.sprite = null;
+            m_undiscoveredIcon.alpha = 0;
             m_equipmentUI.equipmentHandle.UnequipSoulEquipment(m_currentItem);
         }
 
-        private void Start()
+        private void Awake()
         {
             m_equipmentUI.selectionUI.equipButtonUI.OnItemEquipped += OnItemEquipped;
             m_equipmentUI.selectionUI.equipButtonUI.OnItemRemoved += OnItemRemoved;
