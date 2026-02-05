@@ -28,11 +28,13 @@ namespace DChild.Gameplay.Characters
 
         private void Awake()
         {
-            gameObject.GetComponentInParent<Damageable>().DamageTaken += OnDamageTaken;
+            if(gameObject.GetComponentInParent<Damageable>() != null)
+                gameObject.GetComponentInParent<Damageable>().DamageTaken += OnDamageTaken;
         }
         private void OnDisable()
         {
-            gameObject.GetComponentInParent<Damageable>().DamageTaken -= OnDamageTaken;
+            if (gameObject.GetComponentInParent<Damageable>() != null)
+                gameObject.GetComponentInParent<Damageable>().DamageTaken -= OnDamageTaken;
         }
 
     }

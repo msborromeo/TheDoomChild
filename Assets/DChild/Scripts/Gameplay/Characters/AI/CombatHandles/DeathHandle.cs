@@ -47,6 +47,7 @@ namespace DChild.Gameplay.Characters
 
         private void OnCountdownEnd(object sender, EventActionArgs eventArgs)
         {
+            m_bodyDuration.CountdownEnd -= OnCountdownEnd;
             if (m_destroySource)
             {
                 BodyDestroyed?.Invoke(this, new DisposingEventArgs(true));
@@ -78,6 +79,7 @@ namespace DChild.Gameplay.Characters
             {
                 m_fx[i].Stop();
             }
+            m_source.Destroyed -= OnDestroyed;
         }
 
         private void OnDeathAnimationComplete(TrackEntry trackEntry)
@@ -98,8 +100,6 @@ namespace DChild.Gameplay.Characters
         {
             m_bodyDuration.Reset();
             enabled = false;
-            m_source.Destroyed -= OnDestroyed;
-            m_bodyDuration.CountdownEnd -= OnCountdownEnd;
         }
 
         private void Update()
