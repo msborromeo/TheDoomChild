@@ -26,5 +26,10 @@ namespace DChild.Gameplay.Characters.Players
             m_reference.OnPointsChange += OnPointsChange;
             SyncWithReference();
         }
+
+        private void OnDisable()
+        {
+            m_reference.OnPointsChange -= OnPointsChange;
+        }
     }
 }

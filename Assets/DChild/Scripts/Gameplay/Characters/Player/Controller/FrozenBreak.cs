@@ -28,6 +28,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_statusEffectReciever.StatusEnd += OnStatusEnd;
         }
 
+        private void OnDisable()
+        {
+            m_statusEffectReciever.StatusEnd -= OnStatusEnd;
+        }
+
         private void OnStatusEnd(object sender, StatusEffectRecieverEventArgs eventArgs)
         {
             m_spamValue = 0;

@@ -32,5 +32,10 @@ namespace DChild.Gameplay.Characters.Players
             m_attacker = GetComponentInParent<Attacker>();
             m_attacker.TargetDamaged += OnTargetDamage;
         }
+
+        private void OnDisable()
+        {
+            m_attacker.TargetDamaged -= OnTargetDamage;
+        }
     }
 }

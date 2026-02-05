@@ -39,6 +39,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         }
 
+        private void OnDisable()
+        {
+            m_statusEffectReciever.StatusRecieved -= OnStatusEffectRecieved;
+
+        }
+
         private void OnStatusEffectRecieved(object sender, StatusEffectRecieverEventArgs eventArgs)
         {
             if (m_isActive)

@@ -46,5 +46,10 @@ namespace DChild.Gameplay.Characters.Players
                 }
             }
         }
+
+        private void OnDisable()
+        {
+            m_sensor.SensorCast -= OnSensorCast;
+        }
     }
 }

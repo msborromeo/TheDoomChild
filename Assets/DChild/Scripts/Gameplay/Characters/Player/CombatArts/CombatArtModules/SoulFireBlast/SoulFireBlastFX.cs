@@ -18,6 +18,11 @@ public class SoulFireBlastFX : MonoBehaviour
         m_projectile.PoolRequest += PoolRequest;
     }
 
+    private void OnDisable()
+    {
+        m_projectile.PoolRequest -= PoolRequest;
+    }
+
     private void PoolRequest(object sender, PoolItemEventArgs eventArgs)
     {
         for (int i = 0; i < m_effects.Count; i++)

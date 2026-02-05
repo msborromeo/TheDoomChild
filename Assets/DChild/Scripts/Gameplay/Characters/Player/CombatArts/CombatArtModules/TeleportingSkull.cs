@@ -73,6 +73,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         private void TeleportToImpactPoint(object sender, EventActionArgs eventArgs)
         {
             TeleportToProjectile();
+            m_spawnedProjectile.Impacted -= TeleportToImpactPoint;
         }
 
         public void GetSpawnedProjectile(Projectile spawnedProjectile)

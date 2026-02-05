@@ -38,6 +38,11 @@ public class PlayerFootsteps : MonoBehaviour
         skeletonAnimation.AnimationState.Event += HandleAnimationStateEvent;
     }
 
+    private void OnDisable()
+    {
+        skeletonAnimation.AnimationState.Event -= HandleAnimationStateEvent;
+    }
+
     private void HandleAnimationStateEvent(TrackEntry trackEntry, Spine.Event e)
     {
        

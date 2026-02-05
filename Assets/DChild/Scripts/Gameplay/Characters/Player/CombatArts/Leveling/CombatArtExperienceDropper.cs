@@ -31,6 +31,11 @@ namespace DChild.Gameplay.Characters.Player.CombatArt.Leveling
                 m_damageable.Destroyed += OnDestroyed;
             }
         }
+
+        private void OnDisable()
+        {
+            m_damageable.Destroyed -= OnDestroyed;
+        }
     }
 
 }

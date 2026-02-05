@@ -42,6 +42,12 @@ namespace DChild.Gameplay.Characters.Players
             
         }
 
+        private void OnDisable()
+        {
+            m_owner.controller.ControllerDisabled -= OnOwnerControllerDisabled;
+            m_owner.controller.ControllerEnabled -= OnOwnerControllerEnabled;
+        }
+
         private void OnOwnerControllerEnabled(object sender, EventActionArgs eventArgs)
         {
             var eventCache = new EventActionArgs<bool>();

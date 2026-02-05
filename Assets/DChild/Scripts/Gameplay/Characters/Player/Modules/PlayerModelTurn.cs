@@ -54,6 +54,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_character.CharacterTurn += OnCharacterTurn;
         }
 
+        private void OnDisable()
+        {
+            m_character.CharacterTurn -= OnCharacterTurn;
+        }
+
         private void OnCharacterTurn(object sender, FacingEventArgs eventArgs)
         {
             UpdateAttachments();

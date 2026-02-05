@@ -33,6 +33,11 @@ namespace DChild.Gameplay.Characters.Players
             m_attacker.TargetDamaged += OnTargetDamaged;
         }
 
+        private void OnDisable()
+        {
+            m_attacker.TargetDamaged -= OnTargetDamaged;
+        }
+
         private void OnTargetDamaged(object sender, CombatConclusionEventArgs eventArgs)
         {
             if (eventArgs.target.instance.isAlive == false && eventArgs.target.hasBestiaryData)

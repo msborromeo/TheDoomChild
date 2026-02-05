@@ -10,10 +10,13 @@ namespace DChild.Gameplay.Characters.Players.Behaviour
         [SerializeField]
         private Transform[] m_scaleFlips;
 
+        private ComplexCharacterInfo m_info;
+
         public void Initialize(ComplexCharacterInfo info)
         {
-            info.character.CharacterTurn += OnCharacterTurn;
-            var facing = info.character.facing;
+            m_info = info;
+            m_info.character.CharacterTurn += OnCharacterTurn;
+            var facing = m_info.character.facing;
             CallUpdate(facing);
         }
 
@@ -59,6 +62,11 @@ namespace DChild.Gameplay.Characters.Players.Behaviour
         private void Start()
         {
 
+        }
+
+        private void OnDisable()
+        {
+            m_info.character.CharacterTurn -= OnCharacterTurn;
         }
     }
 

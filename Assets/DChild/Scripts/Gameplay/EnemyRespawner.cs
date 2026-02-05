@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace DChild.Gameplay
 {
@@ -77,6 +78,25 @@ namespace DChild.Gameplay
                 else
                 {
                     damageable.Destroyed += OnEnemyDestroyed;
+                }
+            }
+        }
+
+        private void OnDisable()
+        {
+            var length = m_damageableList.Length;
+            Damageable damageable = null;
+            for (int i = 0; i < length; i++)
+            {
+                damageable = m_damageableList[i];
+
+                if (damageable.TryGetComponentInChildren(out DeathHandle deathHandle))
+                {
+                    deathHandle.BodyDestroyed -= OnEnemyBodyDisposed;
+                }
+                else
+                {
+                    damageable.Destroyed -= OnEnemyDestroyed;
                 }
             }
         }

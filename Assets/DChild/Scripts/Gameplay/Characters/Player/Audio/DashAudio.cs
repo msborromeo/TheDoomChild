@@ -32,6 +32,14 @@ public class DashAudio : MonoBehaviour
         animation.AnimationState.Event += HandleAnimationStateEvent;
     }
 
+    private void OnDisable()
+    {
+        var animation = GetComponent<SkeletonAnimation>();
+
+
+        animation.AnimationState.Event -= HandleAnimationStateEvent;
+    }
+
     private void HandleAnimationStateEvent(TrackEntry trackEntry, Spine.Event e)
     {
 

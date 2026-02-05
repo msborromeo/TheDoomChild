@@ -39,5 +39,10 @@ namespace DChild.Gameplay.Characters.Player.CombatArt.Leveling
         {
             m_level.OnLevelUp += OnLevelUp;
         }
+
+        private void OnDisable()
+        {
+            m_level.OnLevelUp -= OnLevelUp;
+        }
     }
 }

@@ -31,5 +31,10 @@ namespace DChild.Gameplay.Characters.Players
         {
             GetComponent<PlayerSkills>().SkillUpdate += OnSkillUpdate;
         }
+
+        private void OnDisable()
+        {
+            GetComponent<PlayerSkills>().SkillUpdate -= OnSkillUpdate;
+        }
     }
 }

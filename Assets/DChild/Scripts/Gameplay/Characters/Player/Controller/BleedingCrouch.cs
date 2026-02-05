@@ -24,6 +24,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //m_state = info.state;
         }
 
+        private void OnDisable()
+        {
+            m_statusEffectReciever.StatusEnd -= OnStatusEnd;
+            m_holdTimer.CountdownEnd -= OnTimerEnd;
+        }
+
         private void OnStatusEnd(object sender, StatusEffectRecieverEventArgs eventArgs)
         {
             m_holdTimer.Reset();

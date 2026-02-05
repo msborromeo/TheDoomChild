@@ -189,6 +189,11 @@ namespace DChild.Gameplay.Characters.Players
             }
         }
 
+        private void OnDisable()
+        {
+            m_damageable.Destroyed -= OnDestroyed;
+        }
+
         private void OnDestroyed(object sender, EventActionArgs eventArgs)
         {
             OnDeath?.Invoke(this, eventArgs);

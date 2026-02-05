@@ -150,6 +150,15 @@ namespace DChild.Gameplay.Characters.Players
             m_statusResistance.ResistanceChange += OnStatusResistanceChange;
         }
 
+        private void OnDisable()
+        {
+            m_stats.StatsChanged -= OnStatsChange;
+            m_weapon.DamageChange -= OnDamageChange;
+            m_weapon.StatusInflictionUpdate -= OnStatusInflictionUpdate;
+            m_attackResistance.ResistanceChange -= OnAttackResistanceChange;
+            m_statusResistance.ResistanceChange -= OnStatusResistanceChange;
+        }
+
 #if UNITY_EDITOR
         public void Initialize(GameObject character)
         {

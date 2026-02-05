@@ -94,7 +94,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.NewGameIntroPromptPressed += OnWakeUpPressed;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             NewGameIntroEvent.NewGameIntroStarted += OnNewGameIntroStarted;
             NewGameIntroEvent.NewGameIntroPromptPressed += OnWakeUpPressed;

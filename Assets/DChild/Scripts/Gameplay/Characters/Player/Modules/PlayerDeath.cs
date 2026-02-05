@@ -27,6 +27,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_deathParameter = info.animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.IsDead);
         }
 
+        private void OnDisable()
+        {
+            m_source.Destroyed -= OnDeath;
+            m_source.Healed -= OnHealed;
+        }
+
         private void OnDeath(object sender, EventActionArgs eventArgs)
         {
             OnExecute?.Invoke(this, EventActionArgs.Empty);

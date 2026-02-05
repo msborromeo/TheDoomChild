@@ -55,5 +55,10 @@ namespace DChild.Gameplay.Characters.Player.CombatArt.Leveling
             m_currentLevel++;
             OnLevelUp?.Invoke(this, EventActionArgs.Empty);
         }
+
+        private void OnDisable()
+        {
+            m_exp.MaxValueReached -= OnMaxValueReached;
+        }
     }
 }
