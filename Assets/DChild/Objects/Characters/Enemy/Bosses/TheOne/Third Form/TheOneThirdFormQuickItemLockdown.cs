@@ -84,5 +84,9 @@ public class TheOneThirdFormQuickItemLockdown : MonoBehaviour
         m_originalParent = transform.parent;
     }
 
+    private void OnDisable()
+    {
+        m_reference.LockPlayerQuickItem -= OnLockdownTriggered;
+    }
 
 }

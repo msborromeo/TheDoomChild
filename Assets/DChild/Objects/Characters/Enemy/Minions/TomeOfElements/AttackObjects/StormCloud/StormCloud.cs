@@ -38,6 +38,11 @@ namespace DChild.Gameplay.Projectiles
             //CallPoolRequest();
         }
 
+        private void OnDisable()
+        {
+            m_tomeOfSpellsStorm.GetComponent<Damageable>().Destroyed -= OnTomeDeath;
+        }
+
         private void OnTomeDeath(object sender, EventActionArgs eventArgs)
         {
             StopAllCoroutines();

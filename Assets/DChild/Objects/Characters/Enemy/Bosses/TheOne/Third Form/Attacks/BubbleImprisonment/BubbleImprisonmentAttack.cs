@@ -71,6 +71,11 @@ namespace DChild.Gameplay.Characters.Enemies
             instance.SpawnAt(spawnPosition, Quaternion.identity);
             instance.GetComponent<BubbleImprisonment>().timeBetweenAnimations = m_timeBetweenAnimations;
         }
+
+        private void OnDestroy()
+        {
+            AttackDone -= OnAttackDone;
+        }
     }
 }
 

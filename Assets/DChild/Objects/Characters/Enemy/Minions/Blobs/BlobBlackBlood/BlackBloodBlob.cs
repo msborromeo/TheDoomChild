@@ -166,6 +166,11 @@ public class BlackBloodBlob : MonoBehaviour
         m_damageable.health.Death += Health_Death;
     }
 
+    private void OnDisable()
+    {
+        m_damageable.health.Death -= Health_Death;
+    }
+
     private void Health_Death(object sender, Holysoft.Event.EventActionArgs eventArgs)
     {
         

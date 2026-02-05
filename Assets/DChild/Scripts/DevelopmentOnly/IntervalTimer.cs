@@ -112,6 +112,12 @@ namespace DChild.Gameplay
             m_inactiveTime.CountdownEnd += OnInactiveEnd;
         }
 
+        private void OnDisable()
+        {
+            m_activeTime.CountdownEnd -= OnActiveEnd;
+            m_inactiveTime.CountdownEnd -= OnInactiveEnd;
+        }
+
         private void Update()
         {
             UpdateTimers(GameplaySystem.time.deltaTime);

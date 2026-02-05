@@ -277,7 +277,10 @@ namespace DChild.Serialization
         private void OnDestroy()
         {
             var slot = GameplaySystem.campaignSerializer.slot;
+        }
 
+        private void OnDisable()
+        {
             GameplaySystem.campaignSerializer.PreSerialization -= OnPreSerialization;
             GameplaySystem.campaignSerializer.PostDeserialization -= OnPostDeserialization;
         }

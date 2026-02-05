@@ -33,6 +33,11 @@ namespace DChildDebug.Window
             GameplaySystem.playerManager.player.modifiers.ModifierChange += OnChange;
         }
 
+        private void OnDisable()
+        {
+            GameplaySystem.playerManager.player.modifiers.ModifierChange -= OnChange;
+        }
+
         private void Start()
         {
             m_originalValue = GameplaySystem.playerManager.player.modifiers.Get(PlayerModifier.ShadowMagic_Requirement);

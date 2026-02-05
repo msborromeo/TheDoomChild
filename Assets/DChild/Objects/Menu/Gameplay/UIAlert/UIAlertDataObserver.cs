@@ -53,5 +53,13 @@ namespace DChild.Gameplay.UI.Alerts
             }
         }
 
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_toObserve.Length; i++)
+            {
+                m_toObserve[i].RenderedUseless -= OnAlertRenderedUseless;
+            }
+        }
+
     }
 }

@@ -29,6 +29,12 @@ namespace DChild.Gameplay.Characters.Enemies
             m_rightTentacle.AttackDone += OnRightTentacleCeilingDone;
         }
 
+        private void OnDisable()
+        {
+            m_leftTentacle.AttackDone -= OnLeftTentacleCeilingDone;
+            m_rightTentacle.AttackDone -= OnRightTentacleCeilingDone;
+        }
+
         private void OnRightTentacleCeilingDone(object sender, EventActionArgs eventArgs)
         {
             AttackDone?.Invoke(this, EventActionArgs.Empty);

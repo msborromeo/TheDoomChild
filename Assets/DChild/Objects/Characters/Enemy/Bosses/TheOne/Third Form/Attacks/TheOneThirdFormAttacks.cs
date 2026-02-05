@@ -79,6 +79,26 @@ public class TheOneThirdFormAttacks : MonoBehaviour
         m_mouthBlastOneAttack.AttackDone += OnMouthBlastOneDone;
     }
 
+    private void OnDisable()
+    {
+        AttackDone -= OnAttackDone;
+        m_tentacleGrabScriptedAttack.AttackDone -= OnGrabAttackDone;
+        m_tentacleGroundStabAttack.AttackDone -= OnGroundStabDone;
+        for (int i = 0; i < m_mouthBlastIIAttack.Length; i++)
+        {
+            m_mouthBlastIIAttack[i].AttackDone -= OnMouthBlastWallDone;
+        }
+        m_movingTentacleGroundAttack.AttackDone -= OnMovingTentacleGroundDone;
+        m_monolithSlamAttack.AttackDone -= OnMonolithSlamDone;
+        m_chasingGroundTentacleAttack.AttackDone -= OnChasingGroundTentacleDone;
+        m_slidingWallAttack.AttackDone -= OnSlidingWallDone;
+        m_tentacleBlastAttack.AttackDone -= OnTentacleBlastDone;
+        m_tentacleCeilingAttack.AttackDone -= OnTentacleCeilingDone;
+
+        m_bubbleImprisonmentAttack.AttackDone -= OnBubbleImprisonmentDone;
+        m_mouthBlastOneAttack.AttackDone -= OnMouthBlastOneDone;
+    }
+
     private void OnAttackDone(object sender, EventActionArgs eventArgs)
     {
         Debug.Log("Attack Done from Third Form Attacks");

@@ -35,7 +35,7 @@ namespace DChild.Gameplay.Combat
             m_attacker.CharacterTargetDamaged += OnCharacterDamaged;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             m_attacker.CharacterTargetDamaged -= OnCharacterDamaged;
         }

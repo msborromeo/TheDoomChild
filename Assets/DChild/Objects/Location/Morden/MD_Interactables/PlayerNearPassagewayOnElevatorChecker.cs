@@ -18,16 +18,22 @@ public class PlayerNearPassagewayOnElevatorChecker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_elevator.DestinationReached += destination;
-        m_elevator.DestinationChanged += change;
+        m_elevator.DestinationReached += Destination;
+        m_elevator.DestinationChanged += Change;
     }
-    private void change(object sender, MovingPlatform.UpdateEventArgs eventArgs)
+
+    private void OnDisable()
+    {
+        m_elevator.DestinationReached -= Destination;
+        m_elevator.DestinationChanged -= Change;
+    }
+    private void Change(object sender, MovingPlatform.UpdateEventArgs eventArgs)
     {
 
         m_isdetecting = true;
     }
 
-    private void destination(object sender, MovingPlatform.UpdateEventArgs eventArgs)
+    private void Destination(object sender, MovingPlatform.UpdateEventArgs eventArgs)
     {
         m_isdetecting = false;
     }

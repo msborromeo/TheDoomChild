@@ -62,6 +62,13 @@ public class SpectreIceShield : MonoBehaviour
         m_damageable.DamageTaken += OnDamageTaken;
     }
 
+    private void OnDisable()
+    {
+        m_spectreIceAI.GetComponent<SpectreIceAI>().OnDetection -= OnDetection;
+        m_spectreIceAI.GetComponent<SpectreIceAI>().OnPlayerDisappeared -= OnPlayerDisappeared;
+        m_damageable.DamageTaken -= OnDamageTaken;
+    }
+
     private void OnDamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
     {
         //throw new NotImplementedException();

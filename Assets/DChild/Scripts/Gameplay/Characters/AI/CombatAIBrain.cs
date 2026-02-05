@@ -321,7 +321,7 @@ namespace DChild.Gameplay.Characters.AI
             }
         }
 
-        protected void OnDestroy()
+        protected virtual void OnDestroy()
         {
             //Incase the ai is still alive when scene changes
             GameplaySystem.minionManager.Unregister(this);

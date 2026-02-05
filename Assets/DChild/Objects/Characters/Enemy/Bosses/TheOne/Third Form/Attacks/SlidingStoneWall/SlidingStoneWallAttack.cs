@@ -54,6 +54,12 @@ namespace DChild.Gameplay.Characters.Enemies
 
             yield return null;
         }
+
+        private void OnDisable()
+        {
+            m_monolithWallLeft.AttackDone -= OnAttackDone;
+            m_monolithWallRight.AttackDone -= OnAttackDone;
+        }
     }
 
 }

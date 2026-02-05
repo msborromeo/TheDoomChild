@@ -53,7 +53,7 @@ namespace DChildDebug.Window
             UpdateZoneObjectInstanceState();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
 
             ToggleZoneObject.objectToggleInstance.OnToggle -= Toggle;

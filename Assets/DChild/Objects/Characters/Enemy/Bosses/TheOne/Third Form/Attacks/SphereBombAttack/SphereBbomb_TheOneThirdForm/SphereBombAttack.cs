@@ -103,5 +103,11 @@ public class SphereBombAttack : MonoBehaviour
         
     }
 
-   
+    private void OnDisable()
+    {
+        instance.GetComponent<SphereBomb>().SpawnSmallSphereBomb -= SphereBombAttack_SpawnSmallSphereBomb;
+        instance.GetComponent<Attacker>().TargetDamaged -= SphereBombAttack_TargetDamaged;
+    }
+
+
 }

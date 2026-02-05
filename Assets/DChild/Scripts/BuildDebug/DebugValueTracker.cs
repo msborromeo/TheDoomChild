@@ -27,6 +27,11 @@ namespace DChildDebug.Window
             m_reference.ValueChange += OnValueChange;
         }
 
+        private void OnDisable()
+        {
+            m_reference.ValueChange -= OnValueChange;
+        }
+
         private void Start()
         {
             DisplayTrackedValue();

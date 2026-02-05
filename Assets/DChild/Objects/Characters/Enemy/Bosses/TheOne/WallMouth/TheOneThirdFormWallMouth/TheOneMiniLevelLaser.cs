@@ -71,6 +71,8 @@ public class TheOneMiniLevelLaser : MonoBehaviour
         {
             StopCoroutine(laserCoroutine);
         }
+
+        m_wallMouth.GetComponent<WallMouth>().OnActivate -= OnActivate;
     }
     [SerializeField, ShowIf("m_dynamicRay"), CustomValueDrawer("PenetrationPower")]
     private float m_penetrationPower;

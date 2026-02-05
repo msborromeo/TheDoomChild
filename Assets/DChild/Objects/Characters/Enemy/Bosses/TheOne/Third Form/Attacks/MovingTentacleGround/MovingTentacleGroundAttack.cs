@@ -66,6 +66,12 @@ namespace DChild.Gameplay.Characters.Enemies
             m_rightTentacle.attackDuration = m_tentacleAttackDuration;
             m_rightTentacle.moveSpeed = m_tentacleMoveSpeed;
         }
+
+        private void OnDisable()
+        {
+            m_leftTentacle.AttackDone -= OnAttackDone;
+            m_rightTentacle.AttackDone -= OnAttackDone;
+        }
     }
 }
 

@@ -27,5 +27,10 @@ namespace DChildDebug.Window
         {
             m_level.exp.ValueChanged += OnValueChange;
         }
+
+        private void OnDisable()
+        {
+            m_level.exp.ValueChanged -= OnValueChange;
+        }
     }
 }

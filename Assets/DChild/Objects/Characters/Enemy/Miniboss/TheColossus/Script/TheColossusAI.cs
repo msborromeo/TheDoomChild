@@ -766,6 +766,12 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle = new StateHandle<State>(State.Idle, State.WaitBehaviourEnd);
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_damageable.DamageTaken -= OnDamageTaken;
+        }
+
         protected override void Start()
         {
             base.Start();

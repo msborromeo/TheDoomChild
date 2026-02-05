@@ -115,6 +115,13 @@ public class MiniThirdFormAI : CombatAIBrain<MiniThirdFormAI.Info>
        }
     }
 
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        m_damageable.DamageTaken -= OnDamageTaken;
+        m_health.Death -= OnDeathEvent;
+    }
+
     public override void ReturnToSpawnPoint()
     {
         

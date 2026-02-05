@@ -120,6 +120,12 @@ namespace DChild.Gameplay.Systems
             // m_respawnDelay.CountdownEnd += OnRespawnPlayer;
         }
 
+        private void OnDisable()
+        {
+            GameplaySystem.campaignSerializer.PostDeserialization -= OnPostDeserialization;
+            GameplaySystem.campaignSerializer.PreSerialization -= OnPreSerialization;
+        }
+
         private void OnPostDeserialization(object sender, CampaignSlotUpdateEventArgs eventArgs)
         {
             if (eventArgs.IsPartOfTheUpdate(SerializationScope.Player) && m_player)

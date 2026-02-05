@@ -63,6 +63,11 @@ namespace DChildDebug.Window
             GameplaySystem.playerManager.player.modifiers.ModifierChange += OnChange;
         }
 
-       
+        private void OnDisable()
+        {
+            GameplaySystem.playerManager.player.modifiers.ModifierChange -= OnChange;
+        }
+
+
     }
 }

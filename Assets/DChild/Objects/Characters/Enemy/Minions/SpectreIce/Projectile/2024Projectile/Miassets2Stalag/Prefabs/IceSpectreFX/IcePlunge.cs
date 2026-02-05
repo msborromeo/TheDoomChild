@@ -108,6 +108,11 @@ public class IcePlunge : MonoBehaviour
         StartCoroutine(StartFall());
     }
 
+    private void OnDisable()
+    {
+        m_playerDamageable.GetComponent<Damageable>().DamageTaken -= M_playerDamageable_DamageTaken;
+    }
+
     private void M_playerDamageable_DamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
     {
         m_isPlayerDamaged = true;

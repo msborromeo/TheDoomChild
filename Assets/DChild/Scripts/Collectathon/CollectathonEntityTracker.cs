@@ -198,6 +198,42 @@ public class CollectathonEntityTracker : MonoBehaviour
 
     }
 
+    private void OnDisable()
+    {
+        if (m_chestList != null)
+        {
+
+            for (int x = 0; x < m_chestList.Count; x++)
+            {
+                m_chestList[x].InteractionOptionChange -= OnLootChestInteraction;
+            }
+        }
+
+        if (m_seedList != null)
+        {
+            for (int x = 0; x < m_seedList.Count; x++)
+            {
+                m_seedList[x].Destroyed -= OnSeedInteraction;
+            }
+        }
+
+        if (m_soulSkillList != null)
+        {
+            for (int x = 0; x < m_soulSkillList.Count; x++)
+            {
+                m_soulSkillList[x].InteractionOptionChange -= OnSoulSkillChestInteraction;
+            }
+        }
+
+        if (m_shardList != null)
+        {
+            for (int x = 0; x < m_shardList.Count; x++)
+            {
+                m_shardList[x].InteractionOptionChange -= OnShardChestInteraction;
+            }
+        }
+    }
+
 
 
     void LateUpdate()

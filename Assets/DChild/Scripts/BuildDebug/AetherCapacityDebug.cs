@@ -44,6 +44,12 @@ namespace DChildDebug.Window
             m_maxValue.text = soulSkills.maxSoulCapacity.ToString();
         }
 
+        private void OnDisable()
+        {
+            var soulSkills = GameplaySystem.playerManager.player.soulSkills;
+            soulSkills.MaxCapacityChanged -= OnCapacityChange;
+        }
+
 
     }
 }

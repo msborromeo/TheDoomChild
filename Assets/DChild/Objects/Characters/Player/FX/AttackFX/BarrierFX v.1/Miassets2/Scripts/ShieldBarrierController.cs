@@ -24,6 +24,12 @@ public class ShieldBarrierController : MonoBehaviour
         m_damageable.DamageBlock += DamageTaken;
     }
 
+    private void OnDisable()
+    {
+        m_damageable.DamageTaken -= DamageTaken;
+        m_damageable.DamageBlock -= DamageTaken;
+    }
+
     private void DamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
     {
         Debug.Log("Barrier taken Damage");

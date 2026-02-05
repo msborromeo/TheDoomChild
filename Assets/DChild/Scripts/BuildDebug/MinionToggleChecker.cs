@@ -36,7 +36,7 @@ namespace DChildDebug.Window
             UpdateEnemyInstanceState();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             MinionToggle.minionToggleInstance.OnToggle -= Toggle;
         }

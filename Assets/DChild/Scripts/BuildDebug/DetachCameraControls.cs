@@ -68,6 +68,14 @@ public class DetachCameraControls : MonoBehaviour
         m_mouseMovement.action.performed += onMouseZoom;
     }
 
+    private void OnDisable()
+    {
+        m_HorizontalMovement.action.performed -= onCameraMoveHorizontal;
+        m_VerticalMovement.action.performed -= onCameraMoveVertical;
+        m_mouseMovement.action.performed -= onMouseZoom;
+
+    }
+
     //Update is called once per frame
     void Update()
     {

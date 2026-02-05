@@ -19,6 +19,11 @@ public class TentacleGrabAttack : MonoBehaviour, IEyeBossAttacks
         tentacleGrab.AttackDone += OnGrabAttackDone;
     }
 
+    private void OnDisable()
+    {
+        tentacleGrab.AttackDone -= OnGrabAttackDone;
+    }
+
     private void OnGrabAttackDone(object sender, EventActionArgs eventArgs)
     {
         Debug.Log("Grab Attack Done from TentacleGrabAttack");

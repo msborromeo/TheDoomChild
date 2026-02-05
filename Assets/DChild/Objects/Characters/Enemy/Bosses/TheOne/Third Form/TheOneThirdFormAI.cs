@@ -935,6 +935,21 @@ namespace DChild.Gameplay.Characters.Enemies
         //    ReviveForPhaseTwo();
         //}
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            m_damageable.DamageTaken -= DamageTakenPhaseOne;
+            m_theOneThirdFormAttacks.AttackDone -= OnAttackDone;
+            AttackDone -= OnAttackDone;
+            ObstaclesAdded -= OnObstaclesAdded;
+            ObstaclesCleared -= OnObstaclesEmptied;
+            m_obstacleChecker.ObstacleAdded -= OnObstaclesAdded;
+            m_obstacleChecker.ObstaclesCleared -= OnObstaclesEmptied;
+            m_obstacleChecker.MonolithAdded -= OnMonolithAdded;
+            m_obstacleChecker.MonolithEmptied -= OnMonolithEmptied;
+            m_damageable.DamageTaken -= M_damageable_DamageTaken;
+        }
+
         private void DamageTakenPhaseOne(object sender, Damageable.DamageEventArgs eventArgs)
         {
             ReviveForPhaseTwo();

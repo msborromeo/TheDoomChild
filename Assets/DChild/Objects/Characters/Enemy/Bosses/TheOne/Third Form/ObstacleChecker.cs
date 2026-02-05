@@ -33,6 +33,12 @@ namespace DChild.Gameplay.Characters.Enemies
             blackBloodFlood.FloodStarted += BlackBloodFloodStarted;
         }
 
+        private void OnDisable()
+        {
+            blackBloodFlood.FloodDone -= BlackBloodFloodDone;
+            blackBloodFlood.FloodStarted -= BlackBloodFloodStarted;
+        }
+
         private void BlackBloodFloodStarted(object sender, EventActionArgs eventArgs)
         {
             blackBloodFlood.isFlooding = true;

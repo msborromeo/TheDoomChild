@@ -66,5 +66,12 @@ namespace DChild.Gameplay
             m_model.Death += OnBlobDeath;
         }
 
+        private void OnDisable()
+        {
+            m_movement.DestinationReached -= OnDestinationReached;
+            m_model.Ressurected -= OnBlobRessurected;
+            m_model.Death -= OnBlobDeath;
+        }
+
     }
 }

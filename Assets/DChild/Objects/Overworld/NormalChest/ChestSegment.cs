@@ -83,6 +83,11 @@ public class ChestSegment : MonoBehaviour
         }*/
     }
 
+    private void OnDisable()
+    {
+        m_chestTrigger.GetComponent<ChestTrigger>().OnChestOpened -= OnChestOpened;
+    }
+
     private void OnChestOpened(object sender, EventActionArgs eventArgs)
     {
         Save();
