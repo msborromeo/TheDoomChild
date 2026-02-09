@@ -165,6 +165,13 @@ namespace DChild.Gameplay.Environment.Obstacles
             m_resetDelayTime.Tick(deltaTime);
         }
 
+        private void OnDisable()
+        {
+            m_animation.animationState.Complete -= OnEmisionComplete;
+            m_emmisionDelayTime.CountdownEnd -= OnDelayEnd;
+            m_resetDelayTime.CountdownEnd -= OnResetDelayEnd;
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Sensor") == false)

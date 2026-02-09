@@ -99,6 +99,19 @@ namespace DChild.Gameplay.Environment
             Reset();
         }
 
+        private void OnDisable()
+        {
+            m_sequence[0].GetComponentInChildren<PlayerCollisionSensor>().CollisionDetected -= BeginGauntlet;
+            m_sequence[0].GetComponentInChildren<PlayerTriggerSensor>().CollisionDetected -= BeginGauntlet;
+            for (int i = 0; i < m_sequence.Length; i++)
+            {
+                m_sequence[i].GetComponentInChildren<PlayerTriggerSensor>().CollisionDetected -= RevealNextPlatform;
+            }
+            var character = GameplaySystem.playerManager.player.character;
+            character.GetComponentInChildren<WallJump>().ExecuteModule -= OnPlayerJumpExecution;
+            character.GetComponentInChildren<GroundJump>().ExecuteModule -= OnPlayerJumpExecution;
+        }
+
         private void OnPlayerJumpExecution(object sender, EventActionArgs eventArgs)
         {
             var newIndex = (int)Mathf.Repeat(m_currentSequenceIndex + 1, m_sequence.Length);

@@ -47,7 +47,7 @@ namespace DChild.Gameplay.Environment
             Reset();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             var character = GameplaySystem.playerManager.player.character;
             character.GetComponentInChildren<WallJump>().ExecuteModule -= OnPlayerJumpExecution;

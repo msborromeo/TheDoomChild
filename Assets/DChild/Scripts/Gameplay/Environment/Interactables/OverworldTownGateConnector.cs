@@ -19,7 +19,6 @@ namespace DChild.Gameplay.Environment.Interractables
             var isActivated = DialogueLua.GetVariable(m_serializationReference).asBool;
             if (isActivated == false)
             {
-
                 m_townGate.InteractionOptionChange += OnFirstInteraction;
             }
         }
@@ -27,7 +26,12 @@ namespace DChild.Gameplay.Environment.Interractables
         private void OnFirstInteraction(object sender, EventActionArgs eventArgs)
         {
             DialogueLua.SetVariable(m_serializationReference, true);
-            m_townGate.InteractionOptionChange += OnFirstInteraction;
+            m_townGate.InteractionOptionChange -= OnFirstInteraction;
+        }
+
+        private void OnDisable()
+        {
+            m_townGate.InteractionOptionChange -= OnFirstInteraction;
         }
     }
 

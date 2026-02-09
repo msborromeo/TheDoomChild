@@ -16,6 +16,11 @@ namespace DChild.Gameplay.Environment.Interractables
         {
             m_reference.OnLockChange += OnLockChange;
         }
+
+        private void OnDisable()
+        {
+            m_reference.OnLockChange -= OnLockChange;
+        }
     }
 
 }

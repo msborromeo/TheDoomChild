@@ -60,5 +60,13 @@ namespace DChild.Gameplay.Environment
                 m_toTrack[i].Destroyed += OnObjectDestroyed;
             }
         }
+
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_toTrack.Length; i++)
+            {
+                m_toTrack[i].Destroyed -= OnObjectDestroyed;
+            }
+        }
     }
 }

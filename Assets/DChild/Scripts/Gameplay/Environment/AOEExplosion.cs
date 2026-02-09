@@ -96,5 +96,11 @@ namespace DChild.Gameplay
             if (m_fx != null)
                 m_fx.Done += OnFXDone;
         }
+
+        private void OnDisable()
+        {
+            if (m_fx != null)
+                m_fx.Done -= OnFXDone;
+        }
     }
 }

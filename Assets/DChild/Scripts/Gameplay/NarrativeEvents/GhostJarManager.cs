@@ -35,5 +35,8 @@ public class GhostJarManager : MonoBehaviour
         m_destroyedCounter = DialogueLua.GetVariable(m_jarCounterDatabaseVariable).asInt;
     }
 
-   
+    private void OnDisable()
+    {
+        m_entity.Destroyed -= OnEntityDestroyed;
+    }
 }

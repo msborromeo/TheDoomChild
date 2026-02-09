@@ -22,14 +22,15 @@ namespace DChild.Gameplay.Environment
 
             if (m_isActive != isEnable)
             {
+                    //Removed subscriptions because set up of repeated subscriptions and unsubscriptions did not make sense and did not seem to break black blood immunity skill
                 if (isEnable)
                 {
                     m_resistance.SetResistance(StatusEffectType.Cursed, 100);
-                    m_resistance.ResistanceChange += OnResistanceChange;
+                    //m_resistance.ResistanceChange += OnResistanceChange;
                 }
                 else
                 {
-                    m_resistance.ResistanceChange -= OnResistanceChange;
+                    //m_resistance.ResistanceChange -= OnResistanceChange;
                     //Set it to 0 since there might not be a chance for Black Blood Immunity to be disable after obtaining it
                     m_resistance.SetResistance(StatusEffectType.Cursed, 0);
                 }
@@ -40,9 +41,9 @@ namespace DChild.Gameplay.Environment
         private void OnResistanceChange(object sender, StatusEffectResistance.ResistanceEventArgs eventArgs)
         {
             // unsubscribe to event so that this function will not be called everytime this forces the resistance value;
-            m_resistance.ResistanceChange -= OnResistanceChange;
-            m_resistance.SetResistance(StatusEffectType.Cursed, 100);
-            m_resistance.ResistanceChange += OnResistanceChange;
+            //m_resistance.ResistanceChange -= OnResistanceChange;
+            //m_resistance.SetResistance(StatusEffectType.Cursed, 100);
+            //m_resistance.ResistanceChange += OnResistanceChange;
         }
 
         private void Awake()

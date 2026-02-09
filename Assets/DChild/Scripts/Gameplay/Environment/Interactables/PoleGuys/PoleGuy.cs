@@ -27,6 +27,13 @@ namespace DChild.Gameplay.Environment.Interractables
             m_animation = GetComponentInChildren<SpineAnimation>();
         }
 
+        private void OnDisable()
+        {
+            var damageable = GetComponent<Damageable>();
+            damageable.DamageTaken -= OnDamageTaken;
+            damageable.Destroyed -= OnDestroyed;
+        }
+
         private void OnDestroyed(object sender, EventActionArgs eventArgs)
         {
             m_animation.SetAnimation(0, ANIMATION_DEATH, false);

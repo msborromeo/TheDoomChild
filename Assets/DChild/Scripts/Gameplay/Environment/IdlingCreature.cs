@@ -27,7 +27,6 @@ namespace DChild.Gameplay.Environment
 
         private void Start()
         {
-            m_animation.state.Complete += CallSelectRandomAnimationFromList;
             m_isListening = true;
             SelectRandomAnimationFromList(UnityEngine.Random.Range(0f, 2f));
             m_isAnimationStateReady = true;
@@ -63,6 +62,7 @@ namespace DChild.Gameplay.Environment
 
         private void OnEnable()
         {
+            m_animation.state.Complete += CallSelectRandomAnimationFromList;
             if (m_isAnimationStateReady)
             {
                 SelectRandomAnimationFromList(UnityEngine.Random.Range(0f, 1f));
@@ -75,6 +75,7 @@ namespace DChild.Gameplay.Environment
 
         private void OnDisable()
         {
+            m_animation.state.Complete -= CallSelectRandomAnimationFromList;
             if (m_animation.state != null)
             {
                 m_animation.state.Complete -= CallSelectRandomAnimationFromList;

@@ -25,6 +25,12 @@ namespace DChild.Gameplay.Environment.Interractables
             damageable.DamageTaken += OnDamageTaken;
         }
 
+        private void OnDisable()
+        {
+            var damageable = GetComponent<Damageable>();
+            damageable.DamageTaken -= OnDamageTaken;
+        }
+
         private void OnDamageTaken(object sender, Damageable.DamageEventArgs eventArgs)
         {
             m_animation.SetAnimation(0, m_flinchAnimation, false);

@@ -56,6 +56,11 @@ namespace DChild.Gameplay.Environment
             lerpValue = 0;
         }
 
+        private void OnDisable()
+        {
+            m_weightSensor.MassChange -= OnMassChange;
+        }
+
         private void FixedUpdate()
         {
             if (m_allowMovement)

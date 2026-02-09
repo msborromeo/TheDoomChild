@@ -74,7 +74,13 @@ public class GhostHauntingInstanceManager : MonoBehaviour
         }
     }
 
-
+    private void OnDisable()
+    {
+        for (int i = 0; i < m_objectDamageable.Count; i++)
+        {
+            m_objectDamageable[i].Destroyed -= OnObjectKilled;
+        }
+    }
 
     void Start()
     {

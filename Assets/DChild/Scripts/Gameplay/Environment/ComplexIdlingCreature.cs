@@ -459,6 +459,14 @@ namespace DChild.Gameplay.Environment
             m_currentBehaviour?.Initialize(gameObject, m_spineAnimation, m_instruction, ref m_timer, true);
         }
 
+        private void OnDisable()
+        {
+            if (m_damageable != null)
+            {
+                m_damageable.Destroyed -= OnDeath;
+            }
+        }
+
         private void LateUpdate()
         {
             if (m_currentBehaviour.isDone)

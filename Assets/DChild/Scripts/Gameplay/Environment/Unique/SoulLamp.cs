@@ -44,6 +44,11 @@ namespace DChild.Gameplay.Environment.Interractables.Unique
             enabled = false;
         }
 
+        private void OnDisable()
+        {
+            m_damageable.Destroyed -= OnLampDestroyed;
+        }
+
         private void OnBecameInvisible()
         {
             m_isOnScreen = false;

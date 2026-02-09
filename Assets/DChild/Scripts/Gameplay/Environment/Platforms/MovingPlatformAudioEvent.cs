@@ -24,6 +24,13 @@ namespace DChild.Gameplay.Environment
             platform.DestinationReached += OnStop;
             platform.DestinationChanged += OnStart;
         }
+
+        private void OnDisable()
+        {
+            var platform = GetComponent<MovingPlatform>();
+            platform.DestinationReached -= OnStop;
+            platform.DestinationChanged -= OnStart;
+        }
     }
 }
 

@@ -52,6 +52,12 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
             m_elevator.DestinationReached += OnDestinationReached;
         }
 
+        private void OnDisable()
+        {
+            m_elevator.DestinationChanged -= OnDestinationChanged;
+            m_elevator.DestinationReached -= OnDestinationReached;
+        }
+
         private void OnDestinationChanged(object sender, UpdateEventArgs eventArgs) => m_boxCollider.enabled = false;
 
         private void OnDestinationReached(object sender, UpdateEventArgs eventArgs) => m_boxCollider.enabled = true;//m_levelChanged = false;

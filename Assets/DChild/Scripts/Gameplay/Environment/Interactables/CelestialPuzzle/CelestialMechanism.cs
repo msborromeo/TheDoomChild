@@ -164,5 +164,13 @@ namespace DChild.Gameplay.Environment
                 m_slots[i].StateChange += OnSlotStateChange;
             }
         }
+
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_slots.Count; i++)
+            {
+                m_slots[i].StateChange -= OnSlotStateChange;
+            }
+        }
     }
 }

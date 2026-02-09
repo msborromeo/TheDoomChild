@@ -40,11 +40,17 @@ namespace DChild.Gameplay.Environment.VisualConfigurators
 
         private void Start()
         {
-            m_elevator.DestinationReached += destination;
-            m_elevator.DestinationChanged += change;
+            m_elevator.DestinationReached += OnDestinationReached;
+            m_elevator.DestinationChanged += OnDestinationChanged;
         }
 
-        private void change(object sender, MovingPlatform.UpdateEventArgs eventArgs)
+        private void OnDisable()
+        {
+            m_elevator.DestinationReached -= OnDestinationReached;
+            m_elevator.DestinationChanged -= OnDestinationChanged;
+        }
+
+        private void OnDestinationChanged(object sender, MovingPlatform.UpdateEventArgs eventArgs)
         {
             Vector2 waypoint = m_elevator.GetWayPoint(eventArgs.currentWaypointIndex);
             float currentposition = this.transform.position.y;
@@ -60,7 +66,7 @@ namespace DChild.Gameplay.Environment.VisualConfigurators
 
         }
 
-        private void destination(object sender, MovingPlatform.UpdateEventArgs eventArgs)
+        private void OnDestinationReached(object sender, MovingPlatform.UpdateEventArgs eventArgs)
         {
             pauseanimation();
         }

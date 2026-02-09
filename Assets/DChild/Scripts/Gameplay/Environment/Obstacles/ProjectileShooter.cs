@@ -154,6 +154,9 @@ namespace DChild.Gameplay.Environment.Obstacles
                     Physics2D.IgnoreCollision(colliders[i], m_ignoreColliders[j], false);
                 }
             }
+
+            ((Projectile)sender).PoolRequest -= OnPool;
+
         }
 
         private void Awake()
@@ -163,6 +166,11 @@ namespace DChild.Gameplay.Environment.Obstacles
                 m_animation = GetComponentInChildren<SpineAnimation>();
                 m_fireDelay = m_animation.skeletonAnimation.Skeleton.Data.FindAnimation(m_animationInfo.fireAnimation).Duration;
             }
+        }
+
+        private void OnDisable()
+        {
+            
         }
 
         private void OnDrawGizmosSelected()

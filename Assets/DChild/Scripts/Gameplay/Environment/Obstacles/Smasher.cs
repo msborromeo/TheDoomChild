@@ -194,6 +194,11 @@ namespace DChild.Gameplay.Environment.Obstacles
             m_fixedUpdateWait = null;
         }
 
+        private void OnDisable()
+        {
+            m_smasherCollisionEvent.OnEnter -= OnCollision;
+        }
+
 #if UNITY_EDITOR
         [SerializeField,BoxGroup("Naming Config")]
         private GameObject m_smasher;

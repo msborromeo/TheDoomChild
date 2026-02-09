@@ -75,6 +75,16 @@ namespace DChild.Gameplay.Environment
             }
         }
 
+        private void OnDisable()
+        {
+            var hasReactivePlatform = TryGetComponent(out ReactivePlatform platform);
+            if (m_hasReactivePlatform)
+            {
+                platform.OnReaction -= OnPlatformReaction;
+            }
+            m_animation.state.Interrupt -= EnableCollider;
+        }
+
         void Start()
         {
             m_audioSource = GetComponent<CallBackSounds>();

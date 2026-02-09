@@ -242,6 +242,7 @@ m_spawner?.Spawn();
             {
                 Addressables.ReleaseInstance(m_instantiatedDebris.gameObject);
             }
+            Addressables.InstantiateAsync(m_instantiatedDebris).Completed -= OnDebrisSpawn;   
         }
 
         private void OnDestroyObject(object sender, EventActionArgs eventArgs)
@@ -263,9 +264,10 @@ m_spawner?.Spawn();
                 m_sortingID = sortingGroup.sortingOrder;
             }
 
-if(m_hasVFXSpawner){
-m_spawner = GetComponent<VFXSpawner>();
-}
+            if (m_hasVFXSpawner)
+            {
+                m_spawner = GetComponent<VFXSpawner>();
+            }
         }
 
         private void Update()
@@ -283,6 +285,11 @@ m_spawner = GetComponent<VFXSpawner>();
                     }
                 }
             }
+        }
+
+        private void OnDisable()
+        {
+            m_object.Destroyed -= OnDestroyObject;
         }
 
 

@@ -111,6 +111,12 @@ namespace DChild.Gameplay.Environment.Interractables
             m_dissolveControlID = Shader.PropertyToID("_DissolveControl");
         }
 
+        private void OnDisable()
+        {
+            m_damageable.DamageTaken -= OnDamageTaken;
+            m_damageable.Destroyed -= OnDeath;
+        }
+
         private void Start()
         {
             //Need to do this since the first Dissolve apparently return 0 as starting even if it was set as 1

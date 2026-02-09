@@ -20,16 +20,23 @@ namespace DChild.Gameplay.Environment
         
         private void Start()
         {
-            m_elevator.DestinationReached += destination;
-            m_elevator.DestinationChanged += change;
+            m_elevator.DestinationReached += OnDestinationReached;
+            m_elevator.DestinationChanged += OnDestinationChanged;
         }
-        private void change(object sender, MovingPlatform.UpdateEventArgs eventArgs)
+
+        private void OnDisable()
+        {
+            m_elevator.DestinationReached -= OnDestinationReached;
+            m_elevator.DestinationChanged -= OnDestinationChanged;
+        }
+
+        private void OnDestinationChanged(object sender, MovingPlatform.UpdateEventArgs eventArgs)
         {
 
             m_isdetecting = true;
         }
 
-        private void destination(object sender, MovingPlatform.UpdateEventArgs eventArgs)
+        private void OnDestinationReached(object sender, MovingPlatform.UpdateEventArgs eventArgs)
         {
             m_isdetecting = false;
         }

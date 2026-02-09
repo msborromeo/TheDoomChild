@@ -75,6 +75,11 @@ namespace DChild.Gameplay.Environment.Obstacles
             m_animation = GetComponentInChildren<SpineAnimation>();
         }
 
+        private void OnDisable()
+        {
+            m_damageable.Destroyed -= OnDestroyed;
+        }
+
     }
 
 }

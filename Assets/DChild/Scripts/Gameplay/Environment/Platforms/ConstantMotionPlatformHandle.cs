@@ -177,6 +177,14 @@ namespace DChild.Gameplay.Environment
             }
         }
 
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_platforms.Length; i++)
+            {
+                m_cacheHandleInfo.instance.DestinationReached -= OnDestinationReached;
+            }
+        }
+
     }
 }
 

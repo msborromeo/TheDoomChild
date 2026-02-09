@@ -115,6 +115,11 @@ namespace DChild.Gameplay.Environment.Obstacles
             }
         }
 
+        private void OnDisable()
+        {
+            m_spawnNewBoulderDelay.CountdownEnd -= SpawnNewBoulder;
+        }
+
         private void LateUpdate()
         {
             m_spawnNewBoulderDelay.Tick(GameplaySystem.time.deltaTime);

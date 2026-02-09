@@ -88,6 +88,12 @@ namespace DChild.Gameplay.Environment
             }
         }
 
+        private void OnDisable()
+        {
+            var hasPlatform = TryGetComponent(out ReactivePlatform platform);
+            platform.OnReaction -= OnPlatformReaction;
+        }
+
         void Start()
         {
             m_disappearDelayTimer = m_disappearingPlatformData.disappearDelay;
