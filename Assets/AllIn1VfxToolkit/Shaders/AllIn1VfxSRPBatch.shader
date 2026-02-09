@@ -226,6 +226,7 @@
 			#pragma multi_compile_instancing
             #pragma multi_compile_fog
 
+
 			#include_with_pragmas "ShaderLibrary/AllIn1VfxSRPBatch_ShaderFeatures.hlsl"
 
 
@@ -239,7 +240,7 @@
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_CommonFunctions.hlsl" 
 
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_Structs.hlsl"
-			#include "ShaderLibrary/AllIn1VfxSRPBatch_Properties.hlsl"
+			#include "ShaderLibrary/AllIn1VfxSRPBatch_BuffersConfig.hlsl"
 
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_VertexPass.hlsl"
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_FragmentPass.hlsl"
@@ -270,8 +271,7 @@
         Pass
         {
             HLSLPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+			#pragma target 3.0
 			#pragma multi_compile_instancing
             #pragma multi_compile_fog
 
@@ -287,10 +287,13 @@
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_CommonFunctions.hlsl" 
 
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_Structs.hlsl"
-			#include "ShaderLibrary/AllIn1VfxSRPBatch_Properties.hlsl"
+			#include "ShaderLibrary/AllIn1VfxSRPBatch_BuffersConfig.hlsl"
 
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_VertexPass.hlsl"
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_FragmentPass.hlsl"
+
+			#pragma vertex vert
+            #pragma fragment frag
 
             ENDHLSL
         }

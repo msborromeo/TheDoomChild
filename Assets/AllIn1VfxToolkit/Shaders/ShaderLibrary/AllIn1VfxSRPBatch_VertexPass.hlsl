@@ -10,6 +10,8 @@ v2f vert(appdata v)
 	o.uvSeed = v.uv;
 	o.color = v.color;
 
+	
+	float3 worldPosition = GetPositionWS(v.vertex);
 #if VERTOFFSET_ON
 	#if TIMEISCUSTOM_ON
 		const half time = v.uv.z + globalCustomTime.y;
@@ -18,17 +20,17 @@ v2f vert(appdata v)
 	#endif
 	
     half4 offsetUv = half4(TRANSFORM_TEX(v.uv.xy, _VertOffsetTex), 0, 0);
-    offsetUv.x += (time * _VertOffsetTexXSpeed) % 1;
-    offsetUv.y += (time * _VertOffsetTexYSpeed) % 1;
+    offsetUv.x += (time * ACCESS_PROP_FLOAT(_VertOffsetTexXSpeed)) % 1;
+    offsetUv.y += (time * ACCESS_PROP_FLOAT(_VertOffsetTexYSpeed)) % 1;
 	
-    half offsetAmount = pow(saturate(tex2Dlod(_VertOffsetTex, offsetUv).r), _VertOffsetPower);
-    v.vertex.xyz += v.normal * _VertOffsetAmount * offsetAmount;
+    half offsetAmount = pow(saturate(tex2Dlod(_VertOffsetTex, offsetUv).r), ACCESS_PROP_FLOAT(_VertOffsetPower));
+    v.vertex.xyz += v.normal * ACCESS_PROP_FLOAT(_VertOffsetAmount) * offsetAmount;
 #endif
 
 	o.vertex = TransformObjectToHClip(v.vertex.xyz);
 
 #if CAMDISTFADE_ON || SHAPE1SCREENUV_ON || SHAPE2SCREENUV_ON || SHAPE3SCREENUV_ON
-	o.worldPos = mul(unity_ObjectToWorld, v.vertex);
+	o.worldPos = float4(worldPosition.x, worldPosition.y, worldPosition.z, 1.0);
 #endif
             	
 #if OFFSETSTREAM_ON || SHAPEWEIGHTS_ON
@@ -73,7 +75,7 @@ v2f vert(appdata v)
 #endif
 
 #if RIM_ON || BACKFACETINT_ON || LIGHTANDSHADOW_ON
-	o.viewDir = normalize(GetWorldSpaceViewDir(mul(unity_ObjectToWorld, v.vertex).xyz));
+	o.viewDir = normalize(GetWorldSpaceViewDir(worldPosition));
 	o.normal = TransformObjectToWorldNormal(v.normal);
 #endif
 

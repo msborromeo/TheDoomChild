@@ -17,4 +17,9 @@ float3 CustomSampleSceneColor(float2 uv)
 	return res;
 }
 
+float3 GetPositionWS(float4 positionOS)
+{
+	return TransformObjectToWorld(positionOS.xyz);
+}
+
 #endif

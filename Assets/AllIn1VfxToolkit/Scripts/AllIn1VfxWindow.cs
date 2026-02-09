@@ -12,7 +12,7 @@ namespace AllIn1VfxToolkit
 {
     public class AllIn1VfxWindow : EditorWindow
     {
-        private const string Version = "2.22";
+        private const string Version = "2.3";
         
         [MenuItem("Tools/AllIn1/VfxToolkitWindow")]
         public static void ShowAllIn1VfxToolkitWindowWindow() => GetWindow<AllIn1VfxWindow>("All In 1 VFX Toolkit Window");
