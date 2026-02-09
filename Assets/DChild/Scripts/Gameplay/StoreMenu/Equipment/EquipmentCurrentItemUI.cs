@@ -1,6 +1,7 @@
 ﻿using DChild.Gameplay.EquipmentSystem;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,10 +13,11 @@ namespace DChild.Menu.Equipment.UI
 
         [BoxGroup("MAIN UI"), SerializeField] private EquipmentUI m_equipmentUI;
 
-        [BoxGroup("ITEM PROPERTIES"), SerializeField] private TextMeshProUGUI m_itemName;
         [BoxGroup("ITEM PROPERTIES"), SerializeField] private Image m_itemImage;
-        [BoxGroup("ITEM PROPERTIES"), SerializeField] private CanvasGroup m_undiscoveredIcon;
         public Image itemImage => m_itemImage;
+
+        [BoxGroup("ITEM PROPERTIES/Canvas Groups"), SerializeField] private CanvasGroup m_itemCG;
+        [BoxGroup("ITEM PROPERTIES/Canvas Groups"), SerializeField] private CanvasGroup m_undiscoveredCG;
 
         [SerializeField] private SoulSlot m_soulSlot;
         public SoulSlot soulSlot => m_soulSlot;
@@ -35,9 +37,9 @@ namespace DChild.Menu.Equipment.UI
             if (m_currentItem.soulEquipment.Slot != m_soulSlot)
                 return;
 
-            m_undiscoveredIcon.alpha = 1;
-            m_itemName.text = $"{m_currentItem.itemName}";
             m_itemImage.sprite = m_currentItem.icon;
+            ToggleItemVisibility(true);
+
             m_equipmentUI.equipmentHandle.EquipSoulEquipment(m_currentItem);
         }
 
@@ -45,9 +47,17 @@ namespace DChild.Menu.Equipment.UI
         {
             if (m_currentItem.soulEquipment.Slot != m_soulSlot)
                 return;
+
             m_itemImage.sprite = null;
-            m_undiscoveredIcon.alpha = 0;
+            ToggleItemVisibility(false);
+
             m_equipmentUI.equipmentHandle.UnequipSoulEquipment(m_currentItem);
+        }
+
+        private void ToggleItemVisibility(bool value)
+        {
+            m_itemCG.alpha = Convert.ToSingle(value);
+            m_undiscoveredCG.alpha = Convert.ToSingle(!value);
         }
 
         private void Awake()
