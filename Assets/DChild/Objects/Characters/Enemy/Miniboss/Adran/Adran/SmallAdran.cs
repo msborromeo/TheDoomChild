@@ -76,7 +76,12 @@ public class SmallAdran : MonoBehaviour
         m_Damageable.Destroyed += ObjectOnDestroyed;
       //  m_deathVfx.SetActive(false);
     }
-
+    //private void OnDisable()
+    //{
+    //    GotDamagedByPlayer = null;
+    //    SmallAdranGotDestroyed = null;
+    //    SmallAdranReachedZone = null;
+    //}
 
     //private void OnEnable()
     //{

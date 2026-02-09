@@ -53,6 +53,8 @@ namespace Spine.Unity.Examples {
 		}
 
 		void LateUpdate () {
+			if (skeletonGraphic == null) return;
+
 			skeletonGraphic.UpdateMesh();
 		}
 

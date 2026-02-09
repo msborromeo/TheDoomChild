@@ -4,6 +4,7 @@ using DChild.Localization;
 using System;
 using DChild.Gameplay.Characters.Players;
 using UnityEngine.Video;
+using Doozy.Runtime.UIManager.Components;
 
 namespace DChild.Gameplay.UI.PrimarySkills
 {
@@ -28,8 +29,12 @@ namespace DChild.Gameplay.UI.PrimarySkills
 
         public void UpdateSelectables()
         {
+            m_skillList.InitializeList();
+
             m_skillList.UpdateListAvailability();
-            Select(m_skillList.GetFirstAvailable());
+            var firstUnlocked = m_skillList.GetFirstAvailable();
+            Select(firstUnlocked);
+            firstUnlocked.GetComponent<UIToggle>().isOn = true;
         }
 
         public void Select(PrimarySkillSelectable selectable)
@@ -52,7 +57,7 @@ namespace DChild.Gameplay.UI.PrimarySkills
                     break;
             }
             m_demoClipPlayer.clip = selectable.reference.demoClip;
-            m_demoClipPlayer.Play();
+            //m_demoClipPlayer.Play();
 
             m_descriptionLabel.text = selectable.reference.description;
             m_controlsLabel.text = selectable.reference.inputCommand;
@@ -68,9 +73,8 @@ namespace DChild.Gameplay.UI.PrimarySkills
             m_skillDescriptionSetTextToTextBox?.SetText(m_controlsLabel.text);
         }
 
-        private void Start()
+        private void Awake()
         {
-            m_skillList.InitializeList();
             m_primarySkillUILocalizer.PrimarySkillInstructionsLocalized += OnPrimarySkillInstructionsLocalized;
         }
 
