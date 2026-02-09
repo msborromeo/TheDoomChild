@@ -1,6 +1,7 @@
 ﻿using DChild.Gameplay;
 using DChild.Gameplay.Environment;
 using DChild.Gameplay.EquipmentSystem;
+using DChild.Gameplay.UI;
 using Holysoft.Event;
 using TMPro;
 using UnityEngine;
@@ -9,12 +10,15 @@ namespace DChild.Menu.Equipment.UI
 {
     public class EquipmentEquipButtonUI : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI m_labelText;
+        [SerializeField] private SetTextToTextBox m_labelText;
 
         private SoulEquipmentItem m_selectedItem;
+        private SoulEquipmentItem m_currentEquipped;
 
         public event EventAction<ItemEquipEventArgs> OnItemEquipped;
         public event EventAction<EventActionArgs> OnItemRemoved;
+
+        private EquipButtonLabel m_currentLabel;
 
         private enum EquipButtonLabel
         {
@@ -25,19 +29,20 @@ namespace DChild.Menu.Equipment.UI
 
         private void SetLabel(EquipButtonLabel label)
         {
-            m_labelText.text = label.ToString();
+            m_currentLabel = label;
+            m_labelText.SetText($"BUTTONPROMPT{label}");
         }
 
         public void UpdateButtonLabel(EquipmentCurrentItemUI itemSlot)
         {
-            var currentItem = itemSlot.currentItem;
+            m_currentEquipped = itemSlot.currentItem;
 
-            var label = currentItem == null || itemSlot.itemImage.sprite == null
+            var label = m_currentEquipped == null || itemSlot.itemImage.sprite == null
                 ? EquipButtonLabel.Equip
-                : currentItem != m_selectedItem
+                : m_currentEquipped != m_selectedItem
                     ? EquipButtonLabel.Replace
                     : EquipButtonLabel.Remove;
-         
+
             SetLabel(label);
         }
 
@@ -45,7 +50,7 @@ namespace DChild.Menu.Equipment.UI
 
         public void EquipItem()
         {
-            if (m_labelText.text != $"{EquipButtonLabel.Remove}")
+            if (m_currentLabel != EquipButtonLabel.Remove)
             {
                 //TODO: equipItem based on current value of m_selectedItem
                 OnItemEquipped?.Invoke(this, new ItemEquipEventArgs(m_selectedItem));

@@ -223,76 +223,77 @@
             #pragma fragment frag
             #pragma multi_compile_instancing
 
-            #pragma shader_feature ADDITIVECONFIG_ON
-            #pragma shader_feature PREMULTIPLYALPHA_ON
-            #pragma shader_feature PREMULTIPLYCOLOR_ON
-            #pragma shader_feature SPLITRGBA_ON
-            #pragma shader_feature SHAPEADD_ON
+            #pragma shader_feature_local TIMEISCUSTOM_ON
+            #pragma shader_feature_local ADDITIVECONFIG_ON
+            #pragma shader_feature_local PREMULTIPLYALPHA_ON
+            #pragma shader_feature_local PREMULTIPLYCOLOR_ON
+            #pragma shader_feature_local SPLITRGBA_ON
+            #pragma shader_feature_local SHAPEADD_ON
 
-            #pragma shader_feature FOG_ON /////////////////Pipeline specific implementation
-            #pragma shader_feature SCREENDISTORTION_ON /////////////////Pipeline specific implementation
-            #pragma shader_feature DISTORTUSECOL_ON /////////////////Pipeline specific implementation, inside SCREENDISTORTION_ON
-            #pragma shader_feature DISTORTONLYBACK_ON /////////////////Pipeline specific implementation, inside SCREENDISTORTION_ON
-            #pragma shader_feature SHAPE1SCREENUV_ON /////////////////Pipeline specific implementation
-            #pragma shader_feature SHAPE2SCREENUV_ON /////////////////Pipeline specific implementation
-            #pragma shader_feature SHAPE3SCREENUV_ON /////////////////Pipeline specific implementation
+            #pragma shader_feature_local FOG_ON /////////////////Pipeline specific implementation
+            #pragma shader_feature_local SCREENDISTORTION_ON /////////////////Pipeline specific implementation
+            #pragma shader_feature_local DISTORTUSECOL_ON /////////////////Pipeline specific implementation, inside SCREENDISTORTION_ON
+            #pragma shader_feature_local DISTORTONLYBACK_ON /////////////////Pipeline specific implementation, inside SCREENDISTORTION_ON
+            #pragma shader_feature_local SHAPE1SCREENUV_ON /////////////////Pipeline specific implementation
+            #pragma shader_feature_local SHAPE2SCREENUV_ON /////////////////Pipeline specific implementation
+            #pragma shader_feature_local SHAPE3SCREENUV_ON /////////////////Pipeline specific implementation
 
-            #pragma shader_feature SHAPEDEBUG_ON
+            #pragma shader_feature_local SHAPEDEBUG_ON
             
-            #pragma shader_feature SHAPE1CONTRAST_ON
-            #pragma shader_feature SHAPE1DISTORT_ON
-            #pragma shader_feature SHAPE1ROTATE_ON
-            #pragma shader_feature SHAPE1SHAPECOLOR_ON
+            #pragma shader_feature_local SHAPE1CONTRAST_ON
+            #pragma shader_feature_local SHAPE1DISTORT_ON
+            #pragma shader_feature_local SHAPE1ROTATE_ON
+            #pragma shader_feature_local SHAPE1SHAPECOLOR_ON
 
-            #pragma shader_feature SHAPE2_ON
-            #pragma shader_feature SHAPE2CONTRAST_ON
-            #pragma shader_feature SHAPE2DISTORT_ON
-            #pragma shader_feature SHAPE2ROTATE_ON
-            #pragma shader_feature SHAPE2SHAPECOLOR_ON
+            #pragma shader_feature_local SHAPE2_ON
+            #pragma shader_feature_local SHAPE2CONTRAST_ON
+            #pragma shader_feature_local SHAPE2DISTORT_ON
+            #pragma shader_feature_local SHAPE2ROTATE_ON
+            #pragma shader_feature_local SHAPE2SHAPECOLOR_ON
 
-            #pragma shader_feature SHAPE3_ON
-            #pragma shader_feature SHAPE3CONTRAST_ON
-            #pragma shader_feature SHAPE3DISTORT_ON
-            #pragma shader_feature SHAPE3ROTATE_ON
-            #pragma shader_feature SHAPE3SHAPECOLOR_ON
+            #pragma shader_feature_local SHAPE3_ON
+            #pragma shader_feature_local SHAPE3CONTRAST_ON
+            #pragma shader_feature_local SHAPE3DISTORT_ON
+            #pragma shader_feature_local SHAPE3ROTATE_ON
+            #pragma shader_feature_local SHAPE3SHAPECOLOR_ON
 
-            #pragma shader_feature GLOW_ON
-            #pragma shader_feature GLOWTEX_ON
-            #pragma shader_feature SOFTPART_ON /////////////////Pipeline specific implementation
-            #pragma shader_feature DEPTHGLOW_ON /////////////////Pipeline specific implementation
-            #pragma shader_feature MASK_ON
-            #pragma shader_feature COLORRAMP_ON
-            #pragma shader_feature COLORRAMPGRAD_ON
-            #pragma shader_feature COLORGRADING_ON
-            #pragma shader_feature HSV_ON
-            #pragma shader_feature POSTERIZE_ON
-            #pragma shader_feature PIXELATE_ON
-            #pragma shader_feature DISTORT_ON
-			#pragma shader_feature SHAKEUV_ON
-            #pragma shader_feature WAVEUV_ON
-			#pragma shader_feature ROUNDWAVEUV_ON
-            #pragma shader_feature TWISTUV_ON
-            #pragma shader_feature DOODLE_ON
-            #pragma shader_feature OFFSETSTREAM_ON
-            #pragma shader_feature TEXTURESCROLL_ON
-            #pragma shader_feature VERTOFFSET_ON
-            #pragma shader_feature RIM_ON /////////////////Pipeline specific implementation
-            #pragma shader_feature BACKFACETINT_ON /////////////////Pipeline specific implementation
-            #pragma shader_feature POLARUV_ON
-            #pragma shader_feature POLARUVDISTORT_ON
-            #pragma shader_feature SHAPE1MASK_ON
-            #pragma shader_feature TRAILWIDTH_ON
-            #pragma shader_feature LIGHTANDSHADOW_ON
-            #pragma shader_feature SHAPETEXOFFSET_ON
-            #pragma shader_feature SHAPEWEIGHTS_ON
+            #pragma shader_feature_local GLOW_ON
+            #pragma shader_feature_local GLOWTEX_ON
+            #pragma shader_feature_local SOFTPART_ON /////////////////Pipeline specific implementation
+            #pragma shader_feature_local DEPTHGLOW_ON /////////////////Pipeline specific implementation
+            #pragma shader_feature_local MASK_ON
+            #pragma shader_feature_local COLORRAMP_ON
+            #pragma shader_feature_local COLORRAMPGRAD_ON
+            #pragma shader_feature_local COLORGRADING_ON
+            #pragma shader_feature_local HSV_ON
+            #pragma shader_feature_local POSTERIZE_ON
+            #pragma shader_feature_local PIXELATE_ON
+            #pragma shader_feature_local DISTORT_ON
+			#pragma shader_feature_local SHAKEUV_ON
+            #pragma shader_feature_local WAVEUV_ON
+			#pragma shader_feature_local ROUNDWAVEUV_ON
+            #pragma shader_feature_local TWISTUV_ON
+            #pragma shader_feature_local DOODLE_ON
+            #pragma shader_feature_local OFFSETSTREAM_ON
+            #pragma shader_feature_local TEXTURESCROLL_ON
+            #pragma shader_feature_local VERTOFFSET_ON
+            #pragma shader_feature_local RIM_ON /////////////////Pipeline specific implementation
+            #pragma shader_feature_local BACKFACETINT_ON /////////////////Pipeline specific implementation
+            #pragma shader_feature_local POLARUV_ON
+            #pragma shader_feature_local POLARUVDISTORT_ON
+            #pragma shader_feature_local SHAPE1MASK_ON
+            #pragma shader_feature_local TRAILWIDTH_ON
+            #pragma shader_feature_local LIGHTANDSHADOW_ON
+            #pragma shader_feature_local SHAPETEXOFFSET_ON
+            #pragma shader_feature_local SHAPEWEIGHTS_ON
             
-            #pragma shader_feature ALPHACUTOFF_ON
-            #pragma shader_feature ALPHASMOOTHSTEP_ON
-            #pragma shader_feature FADE_ON
-            #pragma shader_feature FADEBURN_ON
-            #pragma shader_feature ALPHAFADE_ON
-            #pragma shader_feature ALPHAFADEUSESHAPE1_ON
-            #pragma shader_feature ALPHAFADEUSEREDCHANNEL_ON
+            #pragma shader_feature_local ALPHACUTOFF_ON
+            #pragma shader_feature_local ALPHASMOOTHSTEP_ON
+            #pragma shader_feature_local FADE_ON
+            #pragma shader_feature_local FADEBURN_ON
+            #pragma shader_feature_local ALPHAFADE_ON
+            #pragma shader_feature_local ALPHAFADEUSESHAPE1_ON
+            #pragma shader_feature_local ALPHAFADEUSEREDCHANNEL_ON
             #pragma shader_feature ALPHAFADETRANSPARENCYTOO_ON
             #pragma shader_feature ALPHAFADEINPUTSTREAM_ON
             #pragma shader_feature CAMDISTFADE_ON
@@ -384,6 +385,10 @@
             
             half4 _Color;
             half _Alpha;
+
+            #if TIMEISCUSTOM_ON
+			float4 globalCustomTime;
+            #endif
 
             sampler2D _MainTex;
             half4 _MainTex_ST, _ShapeColor;
@@ -545,7 +550,7 @@
 			half _DistortionPower, _DistortionBlend, _DistortionScrollXSpeed, _DistortionScrollYSpeed;
             #endif
 
-            #if ROUNDWAVEUV_ON || SCREENDISTORTION_ON
+            #if ROUNDWAVEUV_ON || SCREENDISTORTION_ON || PIXELATE_ON
             half4 _MainTex_TexelSize;
             #endif
 
@@ -623,12 +628,15 @@
                 UNITY_SETUP_INSTANCE_ID(v);
             	UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
                 UNITY_TRANSFER_INSTANCE_ID(v, o);
-                o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uvSeed = v.uv;
                 o.color = v.color;
 
             	#if VERTOFFSET_ON
+                #if TIMEISCUSTOM_ON
+                const half time = v.uv.z + globalCustomTime.y;
+            	#else
                 const half time = v.uv.z + _Time.y;
+            	#endif
             	half4 offsetUv = half4(TRANSFORM_TEX(v.uv.xy, _VertOffsetTex), 0, 0);
             	offsetUv.x += (time * _VertOffsetTexXSpeed) % 1;
 				offsetUv.y += (time * _VertOffsetTexYSpeed) % 1;
@@ -640,6 +648,10 @@
             	#if CAMDISTFADE_ON || SHAPE1SCREENUV_ON || SHAPE2SCREENUV_ON || SHAPE3SCREENUV_ON
 				o.worldPos = mul(unity_ObjectToWorld, v.vertex);
 				#endif
+
+            	#if OFFSETSTREAM_ON || SHAPEWEIGHTS_ON
+                o.offsetCustomData = half3(0, 0, 0);
+                #endif
 
             	#if OFFSETSTREAM_ON
 				o.offsetCustomData.x = v.customData1.x;
@@ -696,14 +708,21 @@
                 UNITY_SETUP_INSTANCE_ID(i);
             	UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
                 float seed = i.uvSeed.z + UNITY_ACCESS_INSTANCED_PROP(Seeds, _TimingSeed);
-                float time = _Time.y + seed;
+                #if TIMEISCUSTOM_ON
+                const float4 shaderTime = globalCustomTime;
+            	#else
+                const float4 shaderTime = _Time;
+            	#endif
+                float time = shaderTime.y + seed;
 
             	#if SHAPE1SCREENUV_ON || SHAPE2SCREENUV_ON || SHAPE3SCREENUV_ON
 				half2 originalUvs = i.uvSeed.xy;
             	#endif
 
             	#if PIXELATE_ON
-				i.uvSeed.xy = floor(i.uvSeed.xy * _PixelateSize) / _PixelateSize;
+				half aspectRatio = _MainTex_TexelSize.x / _MainTex_TexelSize.y;
+				half2 pixelSize = float2(_PixelateSize, _PixelateSize * aspectRatio);
+				i.uvSeed.xy = floor(i.uvSeed.xy * pixelSize) / pixelSize;
 				#endif
 
             	#if TWISTUV_ON
@@ -721,15 +740,15 @@
 
 				#if DOODLE_ON
 				half2 uvCopy = i.uvSeed.xy;
-				_HandDrawnSpeed = (floor((_Time + seed) * 20 * _HandDrawnSpeed) / _HandDrawnSpeed) * _HandDrawnSpeed;
+				_HandDrawnSpeed = (floor((shaderTime.x + seed) * 20 * _HandDrawnSpeed) / _HandDrawnSpeed) * _HandDrawnSpeed;
 				uvCopy.x = sin((uvCopy.x * _HandDrawnAmount + _HandDrawnSpeed) * 4);
 				uvCopy.y = cos((uvCopy.y * _HandDrawnAmount + _HandDrawnSpeed) * 4);
 				i.uvSeed.xy = lerp(i.uvSeed.xy, i.uvSeed.xy + uvCopy, 0.0005 * _HandDrawnAmount);
 				#endif
 
 				#if SHAKEUV_ON
-				half xShake = sin((_Time + seed) * _ShakeUvSpeed * 50) * _ShakeUvX;
-				half yShake = cos((_Time + seed) * _ShakeUvSpeed * 50) * _ShakeUvY;
+				half xShake = sin((shaderTime.x + seed) * _ShakeUvSpeed * 50) * _ShakeUvX;
+				half yShake = cos((shaderTime.x + seed) * _ShakeUvSpeed * 50) * _ShakeUvY;
 				i.uvSeed.xy += half2(xShake * 0.012, yShake * 0.01);
 				#endif
 
@@ -739,7 +758,7 @@
 				uvWave = half2(_WaveX, _WaveY) - uvRect;
 				#endif
 				uvWave.x *= _ScreenParams.x / _ScreenParams.y;
-				half angWave = (sqrt(dot(uvWave, uvWave)) * _WaveAmount) - ((time *  _WaveSpeed) % 360.0);
+				half angWave = (sqrt(dot(uvWave, uvWave)) * _WaveAmount) - ((time * _WaveSpeed) % 360.0);
 				i.uvSeed.xy = i.uvSeed.xy + normalize(uvWave) * sin(angWave) * (_WaveStrength / 1000.0);
 				#endif
 
@@ -763,8 +782,8 @@
             	#else
             	half2 distortUvs = i.uvDistTex.xy;
             	#endif
-				distortUvs.x += ((_Time + seed) * _DistortTexXSpeed) % 1;
-				distortUvs.y += ((_Time + seed) * _DistortTexYSpeed) % 1;
+				distortUvs.x += ((shaderTime.x + seed) * _DistortTexXSpeed) % 1;
+				distortUvs.y += ((shaderTime.x + seed) * _DistortTexYSpeed) % 1;
 				#if ATLAS_ON
 				i.uvDistTex = half2((i.uvDistTex.x - _MinXUV) / (_MaxXUV - _MinXUV), (i.uvDistTex.y - _MinYUV) / (_MaxYUV - _MinYUV));
 				#endif
@@ -1008,11 +1027,12 @@
 
             	#if PREMULTIPLYCOLOR_ON
             	half luminance = 0;
-            	luminance = 0.3 * col.r + 0.59 * col.g + 0.11 * col.b;
+                luminance = 0.3 * col.r + 0.59 * col.g + 0.11 * col.b;
+                luminance *= col.a;
                 col.a = min(luminance, col.a);
                 #endif
 
-                col.rgb *= _Color * i.color.rgb;
+                col.rgb *= _Color.rgb * i.color.rgb;
                 #if PREMULTIPLYALPHA_ON
                 col.rgb *= col.a;
                 #endif
@@ -1020,7 +1040,8 @@
 
             	#if !PREMULTIPLYCOLOR_ON && (COLORRAMP_ON || ALPHAFADE_ON || COLORGRADING_ON || FADE_ON || (ADDITIVECONFIG_ON && (GLOW_ON || DEPTHGLOW_ON)))
                 half luminance = 0;
-            	luminance = 0.3 * col.r + 0.59 * col.g + 0.11 * col.b;
+                luminance = 0.3 * col.r + 0.59 * col.g + 0.11 * col.b;
+                luminance *= col.a;
             	#endif
 
             	#if (FADE_ON || ALPHAFADE_ON) && ALPHAFADEINPUTSTREAM_ON
@@ -1242,6 +1263,6 @@
             ENDCG
         }
     }
-    CustomEditor "AllIn1VfxCustomMaterialEditor"
+    CustomEditor "AllIn1VfxToolkit.AllIn1VfxCustomMaterialEditor"
 	Fallback "Hidden/InternalErrorShader"
 }

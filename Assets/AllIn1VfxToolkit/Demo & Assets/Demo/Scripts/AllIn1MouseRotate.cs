@@ -48,18 +48,18 @@ namespace AllIn1VfxToolkit.Demo.Scripts
 
             CamZoom();
             
-            if(Input.GetKeyDown(lockCursorKeyCode)) ToggleCursorLocked();
+            if(AllIn1InputSystem.GetKeyDown(lockCursorKeyCode)) ToggleCursorLocked();
         }
         
         private void CamRotateAroundYAxis()
         {
-            float mouseInputX = Input.GetAxis("Mouse X") * dt * 10f * rotationSpeedHorizontal;
+            float mouseInputX = AllIn1InputSystem.GetMouseXAxis() * dt * 10f * rotationSpeedHorizontal;
             objectToRotate.RotateAround(transform.position, Vector3.up, mouseInputX);
         }
 
         private void CamHeightTranslate()
         {
-            float mouseInputY = Input.GetAxis("Mouse Y") * dt * translateVerticalSpeed;
+            float mouseInputY = AllIn1InputSystem.GetMouseYAxis() * dt * translateVerticalSpeed;
             currPosition.y = Mathf.Clamp(currPosition.y + mouseInputY, 0.25f, maxHeight);
             objectToRotate.position = currPosition;
             objectToRotate.LookAt(transform);
@@ -67,7 +67,7 @@ namespace AllIn1VfxToolkit.Demo.Scripts
 
         private void CamZoom()
         {
-            float mouseInputWheel = Input.GetAxis("Mouse ScrollWheel") * dt * 100f * translateScrollSpeed;
+            float mouseInputWheel = AllIn1InputSystem.GetMouseScroll() * dt * 100f * translateScrollSpeed;
             Vector3 currZoomVector = objectToRotate.forward * mouseInputWheel;
             if(mouseInputWheel > 0 && Vector3.Distance(transform.position, objectToRotate.position) <= maxZoom) currZoomVector = Vector3.zero;
             else if(mouseInputWheel < 0 && Vector3.Distance(transform.position, objectToRotate.position) >= minZoom) currZoomVector = Vector3.zero;

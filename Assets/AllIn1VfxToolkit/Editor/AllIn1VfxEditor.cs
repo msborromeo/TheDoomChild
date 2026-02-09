@@ -8,46 +8,72 @@ namespace AllIn1VfxToolkit
     public class AllIn1VfxEditor : UnityEditor.Editor
     {
         private GUIStyle smallBoldLabel;
+        private Texture2D imageInspector;
 
         public override void OnInspectorGUI()
         {
-            Texture2D imageInspector = Resources.Load<Texture2D>("CustomEditorTransparent");
+            if(imageInspector == null) imageInspector = AllIn1VfxWindow.GetInspectorImage();
             if(imageInspector)
             {
                 Rect rect = EditorGUILayout.GetControlRect(GUILayout.Height(32));
                 GUI.DrawTexture(rect, imageInspector, ScaleMode.ScaleToFit, true);
             }
 
-            AllIn1VfxComponent myScript = (AllIn1VfxComponent) target;
-
             if(GUILayout.Button("Deactivate All Effects"))
             {
                 for(int i = 0; i < targets.Length; i++) ((AllIn1VfxComponent) targets[i]).ClearAllKeywords();
+                AllIn1VfxWindow.ShowSceneViewNotification("AllIn1Vfx: Deactivated All Effects");
             }
 
             if(GUILayout.Button("New Clean Material"))
             {
-                for(int i = 0; i < targets.Length; i++) ((AllIn1VfxComponent) targets[i]).TryCreateNew();
+                bool successOperation = true;
+                for(int i = 0; i < targets.Length; i++)
+                {
+                    successOperation &= ((AllIn1VfxComponent) targets[i]).TryCreateNew();
+                }
+                if(successOperation) AllIn1VfxWindow.ShowSceneViewNotification("AllIn1Vfx: Clean Material");
             }
 
             if(GUILayout.Button("Create New Material With Same Properties (SEE DOC)"))
             {
-                for(int i = 0; i < targets.Length; i++) ((AllIn1VfxComponent) targets[i]).MakeCopy();
+                bool successOperation = true;
+                for(int i = 0; i < targets.Length; i++)
+                {
+                    successOperation &= ((AllIn1VfxComponent) targets[i]).MakeCopy();
+                }
+                if(successOperation) AllIn1VfxWindow.ShowSceneViewNotification("AllIn1Vfx: Copy Created");
             }
 
             if(GUILayout.Button("Save Material To Folder (SEE DOC)"))
             {
-                for(int i = 0; i < targets.Length; i++) ((AllIn1VfxComponent) targets[i]).SaveMaterial();
+                bool successOperation = true;
+                for(int i = 0; i < targets.Length; i++)
+                {
+                    successOperation &= ((AllIn1VfxComponent) targets[i]).SaveMaterial();
+                }
+                if(successOperation) AllIn1VfxWindow.ShowSceneViewNotification("AllIn1Vfx: Material Saved");
             }
 
             if(GUILayout.Button("Apply Material To All Children"))
             {
-                for(int i = 0; i < targets.Length; i++) ((AllIn1VfxComponent) targets[i]).ApplyMaterialToHierarchy();
+                bool successOperation = true;
+                for(int i = 0; i < targets.Length; i++)
+                {
+                    successOperation &= ((AllIn1VfxComponent) targets[i]).ApplyMaterialToHierarchy();
+                }
+                if(successOperation) AllIn1VfxWindow.ShowSceneViewNotification("AllIn1Vfx: Material Applied To Children");
             }
 
             if(GUILayout.Button("Render Material To Image"))
             {
-                for(int i = 0; i < targets.Length; i++) ((AllIn1VfxComponent) targets[i]).RenderToImage();
+                
+                bool successOperation = true;
+                for(int i = 0; i < targets.Length; i++)
+                {
+                    successOperation &= ((AllIn1VfxComponent) targets[i]).RenderToImage();
+                }
+                if(successOperation) AllIn1VfxWindow.ShowSceneViewNotification("AllIn1Vfx: Material Rendered To Image");
             }
 
             CheckIfShowParticleSystemHelperUI();
@@ -60,8 +86,9 @@ namespace AllIn1VfxToolkit
                 for(int i = targets.Length - 1; i >= 0; i--)
                 {
                     DestroyImmediate(targets[i] as AllIn1VfxComponent);
-                    (targets[i] as AllIn1VfxComponent).SetSceneDirty();
+                    (targets[i] as AllIn1VfxComponent)?.SetSceneDirty();
                 }
+                AllIn1VfxWindow.ShowSceneViewNotification("AllIn1Vfx: Component Removed");
             }
 
             if(GUILayout.Button("REMOVE COMPONENT AND MATERIAL"))
@@ -70,8 +97,9 @@ namespace AllIn1VfxToolkit
                 for(int i = targets.Length - 1; i >= 0; i--)
                 {
                     DestroyImmediate(targets[i] as AllIn1VfxComponent);
-                    (targets[i] as AllIn1VfxComponent).SetSceneDirty();
+                    (targets[i] as AllIn1VfxComponent)?.SetSceneDirty();
                 }
+                AllIn1VfxWindow.ShowSceneViewNotification("AllIn1Vfx: Component And Material Removed");
             }
         }
 
@@ -85,6 +113,7 @@ namespace AllIn1VfxToolkit
             if(GUILayout.Button("Add Particle System Helper"))
             {
                 for(int i = 0; i < targets.Length; i++) ((AllIn1VfxComponent) targets[i]).AddHelperAndPlaceUnderAll1VfxMainComponent();
+                AllIn1VfxWindow.ShowSceneViewNotification("AllIn1Vfx: Particle System Helper Added");
             }
         }
 
@@ -92,7 +121,7 @@ namespace AllIn1VfxToolkit
         {
             Rect r = EditorGUILayout.GetControlRect(GUILayout.Height(padding + thickness));
             r.height = thickness;
-            r.y += (padding / 2);
+            r.y += (padding / 2f);
             r.x -= 2;
             r.width += 6;
             EditorGUI.DrawRect(r, color);
