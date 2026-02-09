@@ -67,6 +67,7 @@ namespace DChild.Gameplay.Narrative
         private void OnInputPerformed(InputAction.CallbackContext context)
         {
             hasPressedPrompt = true;
+            m_wakeUpInput.action.performed -= OnInputPerformed;
         }
 
         public ISaveData Save()
@@ -91,7 +92,6 @@ namespace DChild.Gameplay.Narrative
             WorldTypeThigy.SetCurrentWorldType(Environment.Location.City_Of_The_Dead);
            // GameplaySystem.playerManager.player.GetComponentInChildren<PlayerInput>().actions.FindActionMap("Gameplay").Disable();
             m_introStartEvent?.Invoke();
-            NewGameIntroStarted?.Invoke();
         }
 
         public void TransferPlayerToStartPosition()
@@ -106,6 +106,7 @@ namespace DChild.Gameplay.Narrative
         public void PromptPlayerToStand()
         {
             StopAllCoroutines();
+            NewGameIntroStarted?.Invoke();
             StartCoroutine(PromptPlayerToStandRoutine());
         }
 
@@ -119,6 +120,11 @@ namespace DChild.Gameplay.Narrative
             PickedUpBook?.Invoke();
         }
 
+        public void InvokePlayerWokeUp()
+        {
+            NewGamePlayerWokeUp?.Invoke();
+        }
+
         public void EndEvent()
         {
             m_isDone = true;
@@ -129,7 +135,7 @@ namespace DChild.Gameplay.Narrative
             GameplaySystem.playerManager.OverrideCharacterControls();
             var skeleton = GameplaySystem.playerManager.player.character.GetComponentInChildren<SkeletonAnimation>();
             yield return null;
-            yield return GameplaySystem.playerManager.PlayerActionChange(PlayerInputFindActionMap);
+            yield return hasPressedPrompt;
             //GameplaySystem.playerManager.player.GetComponentInChildren<PlayerInput>().actions.FindActionMap("Gameplay").Enable();
             m_wakeUpPrompt.Show();
 
@@ -155,7 +161,6 @@ namespace DChild.Gameplay.Narrative
             {
                 yield return null;
             }
-            m_wakeUpInput.action.performed -= OnInputPerformed;
             m_wakeUpPrompt.Hide();
             m_cameraToDisable.enabled = false;
         }
@@ -165,6 +170,16 @@ namespace DChild.Gameplay.Narrative
             var action = playerInput.actions.FindAction(m_wakeUpInput.action.name);
             action.Enable();
             action.performed += OnInputPerformed;
+        }
+
+        private void OnEnable()
+        {
+            m_wakeUpInput.action.performed += OnInputPerformed;
+        }
+
+        private void OnDisable()
+        {
+            m_wakeUpInput.action.performed -= OnInputPerformed;
         }
 
         private void Start()

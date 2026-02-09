@@ -114,6 +114,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #endregion
 
         private bool m_storeHasBeenPickedUp = true;
+        private bool m_playerHasWokenUp = true;
 
         public event EventAction<EventActionArgs> ControllerDisabled;
         public event EventAction<EventActionArgs> ControllerEnabled;
@@ -203,6 +204,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             SceneManager.activeSceneChanged += OnActiveSceneChanged;
             NewGameIntroEvent.PickedUpBook += OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted += OnNewGameIntroStarted;
+            NewGameIntroEvent.NewGamePlayerWokeUp += OnNewGamePlayerWokeUp;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent += OnVector2PerformedInput;
@@ -285,6 +287,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             SceneManager.activeSceneChanged -= OnActiveSceneChanged;
             NewGameIntroEvent.PickedUpBook -= OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted -= OnNewGameIntroStarted;
+            NewGameIntroEvent.NewGamePlayerWokeUp -= OnNewGamePlayerWokeUp;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent -= OnVector2PerformedInput;
@@ -355,8 +358,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportToMordenThroneRoom -= OnTeleportToMordenThroneRoom;
             m_inputReader.TeleportToMordenThroneRoomStarted -= OnTeleportToMordenThroneRoomStarted;
         }
-
-       
 
         private void FixedUpdate()
         {
@@ -692,6 +693,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #region Input Handles
         private void OnVector2PerformedInput(Vector2 vector)
         {
+            if (m_playerHasWokenUp == false)
+                return;
             if ( m_state.isExecutingCombatArt)
                 return;
 
@@ -741,6 +744,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnJumpPerformedInput()
         {
+            if (m_playerHasWokenUp == false)
+                return;
             if (m_state.isLedgeGrabbing || m_state.waitForBehaviour || m_state.isInShadowMode
                 || m_state.isChargingAttack || m_state.isAimingProjectile || m_state.isDoingSwordThrust || m_state.isExecutingCombatArt)
                 return;
@@ -1067,6 +1072,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashStartedInput()
         {
+            if (m_playerHasWokenUp == false)
+                return;
             if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
                 m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
                 return;
@@ -2049,7 +2056,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnNewGameIntroStarted()
         {
             m_storeHasBeenPickedUp = false;
+            m_playerHasWokenUp = false;
             NewGameIntroEvent.NewGameIntroStarted -= OnNewGameIntroStarted;
+        }
+
+
+        private void OnNewGamePlayerWokeUp()
+        {
+            m_playerHasWokenUp = true;
+            NewGameIntroEvent.NewGamePlayerWokeUp -= OnNewGamePlayerWokeUp;
         }
 
         private void OnPickedUpBook()
