@@ -37,7 +37,7 @@ namespace DChild.Gameplay.NavigationMap
                 m_zoomHandler.SetupZoom(m_currentMap);
                 m_mapNeedsCompleteUpdate = true;
                 m_mapInstance = m_currentMap.GetComponentInChildren<NavigationMapInstance>();
-                m_iconManager= m_currentMap.GetComponentInChildren<NavigationMapIconManager>();
+                m_iconManager = m_currentMap.GetComponentInChildren<NavigationMapIconManager>();
                 m_collectathonManager.SetCollectathonDetails(location);
                 m_zoomHandler.SetZoomConstraints(m_mapInstance.minZoom, m_mapInstance.maxZoom);
             }
@@ -52,7 +52,7 @@ namespace DChild.Gameplay.NavigationMap
             m_mapNeedsCompleteUpdate = true;
         }
 
-       
+
         public void OpenMap()
         {
             if (m_mapNeedsCompleteUpdate)
@@ -104,4 +104,5 @@ namespace DChild.Gameplay.NavigationMap
         {
             m_zoomHandler.OnMapZoom -= m_iconManager.OnMapZoom;
         }
+    }
 }
