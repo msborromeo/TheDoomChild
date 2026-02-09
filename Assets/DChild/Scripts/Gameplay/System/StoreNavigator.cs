@@ -1,5 +1,4 @@
-﻿using DChild.Temp;
-using Doozy.Runtime.Signals;
+﻿using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Components;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
