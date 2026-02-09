@@ -4,6 +4,7 @@ using NSubstitute.Exceptions;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,10 @@ namespace DChild.Menu.Equipment.UI
     {
         [SerializeField] private EquipmentSelectionUI m_selectionUI;
         [SerializeField] private Image m_itemIcon;
+        [SerializeField] private TextMeshProUGUI m_questionMark;
+        [SerializeField] private Image m_equippedIcon;
+
+
 
         private SoulEquipmentItem m_attachedItem;
         public SoulEquipmentItem attachedItem => m_attachedItem;
@@ -23,12 +28,20 @@ namespace DChild.Menu.Equipment.UI
             m_attachedItem = item;
 
             bool hasItem = m_attachedItem != null;
-            gameObject.SetActive(hasItem);
+            
+            m_questionMark.gameObject.SetActive(!hasItem);
+            m_itemIcon.gameObject.SetActive(hasItem);
 
             if (!hasItem)
                 return;
 
             m_itemIcon.sprite = m_attachedItem.icon;
+        }
+
+        [Button]
+        public void GetEquippedStatus(EquipmentCurrentItemUI currentItem)
+        {
+            m_equippedIcon.gameObject.SetActive(currentItem.currentItem == m_attachedItem);
         }
 
         public void PrepareAttachedItem()
