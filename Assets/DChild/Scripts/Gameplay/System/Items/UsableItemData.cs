@@ -25,6 +25,8 @@ namespace DChild.Gameplay.Items
         private IDurationItemEffect[] m_durationEffectList = new IDurationItemEffect[0];
         [SerializeField, HideReferenceObjectPicker, ShowIf("m_durationEffect"), TabGroup("m_enableEdit/Effect/Tab/Duration", "Updatable")]
         private IUpdatableItemEffect[] m_updatableEffectList = new IUpdatableItemEffect[0];
+        [SerializeField, HideReferenceObjectPicker, TabGroup("m_enableEdit/Effect/Tab", "OnEnd"), ShowIf("m_durationEffect")]
+        private IUsableItemModule[] m_onEndEffectList = new IUsableItemModule[0];
 
         public override bool CanBeUse(IPlayer player)
         {
@@ -39,7 +41,7 @@ namespace DChild.Gameplay.Items
             return true;
         }
 
-        public DurationItemHandle GenerateEffectHandle(IPlayer reference) => new DurationItemHandle(reference, this, m_duration, m_durationEffectList, m_updatableEffectList);
+        public DurationItemHandle GenerateEffectHandle(IPlayer reference) => new DurationItemHandle(reference, this, m_duration, m_durationEffectList, m_updatableEffectList, m_onEndEffectList);
 
         public override void Use(IPlayer player)
         {

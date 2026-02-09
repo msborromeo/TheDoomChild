@@ -47,6 +47,7 @@ namespace DChild.Menu.Equipment.UI
                 m_itemGrid[i].OnGridItemSelected += currentItem.OnGridItemSelected;
                 m_equipmentUI.detailsUI.ConnectGridItem(m_itemGrid[i]);
                 m_itemGrid[i].Display(item);
+                m_itemGrid[i].GetEquippedStatus(currentItem);
             }
 
             for (; i < m_itemGrid.Count; i++)

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &903650234329845442
+--- !u!1 &276590016426614432
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,142 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7054920549653303996}
-  - component: {fileID: 6858174168813993963}
-  - component: {fileID: 2505423843588480736}
-  - component: {fileID: 1617089545645371101}
+  - component: {fileID: 8162131391220880612}
+  - component: {fileID: 5836799978588544057}
   m_Layer: 0
-  m_Name: Sequence_GiveAppraiserToPlayer
+  m_Name: Requirements Met
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7054920549653303996
+--- !u!4 &8162131391220880612
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903650234329845442}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 276590016426614432}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2266374742474912890}
-  m_RootOrder: 2
+  m_Children:
+  - {fileID: 4981694232333415115}
+  m_Father: {fileID: 7579669413349309793}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6858174168813993963
+--- !u!114 &5836799978588544057
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903650234329845442}
+  m_GameObject: {fileID: 276590016426614432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 32
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 1
+  questName: 
+  questState: 4
+  setQuestEntryState: 1
+  questEntryNumber: 1
+  questEntryState: 4
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: Variable["HasRecruited_Appraiser"]=true
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: Recruit/RequirementAppraiser/Met
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 1
+  replace: 0
+  skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: ad04bc8496a83224fbdb6febca5ff096, type: 2}
+--- !u!1 &639611378733794998
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8834300400421859431}
+  - component: {fileID: 8975494372245289410}
+  m_Layer: 11
+  m_Name: FirstTimeTalk_Conversation End
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8834300400421859431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639611378733794998}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6055893521628373536}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8975494372245289410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639611378733794998}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
@@ -55,15 +158,15 @@ MonoBehaviour:
     luaWizardIndex: -1
     lastEvaluationValue: 0
   setQuestState: 1
-  questName: Recruit Appraiser
-  questState: 4
-  setQuestEntryState: 1
+  questName: 
+  questState: 0
+  setQuestEntryState: 0
   questEntryNumber: 1
-  questEntryState: 4
+  questEntryState: 0
   setAnotherQuestEntryState: 0
   anotherQuestEntryNumber: 1
   anotherQuestEntryState: 0
-  luaCode: Variable["HasRecruited_Appraiser"] = true
+  luaCode: 
   sequence: 
   sequenceSpeaker: {fileID: 0}
   sequenceListener: {fileID: 0}
@@ -102,7 +205,7 @@ MonoBehaviour:
   onExecute:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2505423843588480736}
+      - m_Target: {fileID: 8277356655927081993}
         m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.ArmyBattleCharacterReward,
           Assembly-CSharp
         m_MethodName: AttemptGiveReward
@@ -119,26 +222,63 @@ MonoBehaviour:
   useBarkTitlePicker: 1
   useQuestNamePicker: 1
   selectedDatabase: {fileID: 11400000, guid: ad04bc8496a83224fbdb6febca5ff096, type: 2}
---- !u!114 &2505423843588480736
+--- !u!1 &1598794368336812570
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5993572363353152358}
+  - component: {fileID: 3719147320754487339}
+  m_Layer: 11
+  m_Name: Recruitment
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5993572363353152358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598794368336812570}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 90.30237, y: -3.665619, z: 1.8771212}
+  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6055893521628373536}
+  - {fileID: 7579669413349309793}
+  - {fileID: 5975573766585624809}
+  m_Father: {fileID: 2266374742474912890}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3719147320754487339
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903650234329845442}
+  m_GameObject: {fileID: 1598794368336812570}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ed0afc9281a6ae44911db13f4c2155d, type: 3}
+  m_Script: {fileID: 11500000, guid: 229ed3f846edaa54fb8429375d64c10c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CharacterGiver: {fileID: 1617089545645371101}
-  m_GiveReward:
+  Variable: Appraiser_FirstTimeTalk
+  database: {fileID: 11400000, guid: ad04bc8496a83224fbdb6febca5ff096, type: 2}
+  m_FirstTimeTalk:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 34159879605058728}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
+      - m_Target: {fileID: 5884658698863825719}
+        m_TargetAssemblyTypeName: PixelCrushers.DialogueSystem.DialogueSystemTrigger,
+          Assembly-CSharp-firstpass
+        m_MethodName: OnUse
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -147,37 +287,231 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_RequirementFailed:
+  m_SubsequentUse:
     m_PersistentCalls:
-      m_Calls: []
-  m_CharacterReward:
-  - {fileID: 11400000, guid: 9679297f7a6e4c04d97d3051ad7395fc, type: 2}
-  m_isFree: 1
-  m_requiresSoulEssence: 0
-  m_requiredSoulEssence: 0
-  m_requiresItem: 0
-  m_hasItem: {fileID: 0}
-  m_ItemAmount: 0
-  m_requiresCombatArt: 0
-  m_CombatArt: 0
-  m_requiresPrimarySkill: 0
-  m_PrimarySkill: 0
-  m_requiresSpecificNPC: 0
-  armyCharacterData: {fileID: 0}
-  m_requiresMinimumNPCsRecruited: 0
-  neededNPCsRecruited: 0
---- !u!114 &1617089545645371101
+      m_Calls:
+      - m_Target: {fileID: 8277356655927081993}
+        m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.ArmyBattleCharacterReward,
+          Assembly-CSharp
+        m_MethodName: AttemptGiveReward
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &3161392845107494478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5975573766585624809}
+  - component: {fileID: 1279754544596709378}
+  m_Layer: 11
+  m_Name: Sequence_Recruited
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5975573766585624809
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161392845107494478}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5993572363353152358}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1279754544596709378
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903650234329845442}
+  m_GameObject: {fileID: 3161392845107494478}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8df5f1d697e6e347a51d015abbe6e15, type: 3}
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trigger: 2
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 1
+  questName: 
+  questState: 0
+  setQuestEntryState: 0
+  questEntryNumber: 1
+  questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: 
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: 
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 1
+  replace: 0
+  skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: ad04bc8496a83224fbdb6febca5ff096, type: 2}
+--- !u!1 &3525584528641528163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6055893521628373536}
+  - component: {fileID: 5884658698863825719}
+  m_Layer: 11
+  m_Name: Sequence_FirstTimeTalk
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6055893521628373536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3525584528641528163}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8834300400421859431}
+  m_Father: {fileID: 5993572363353152358}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5884658698863825719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3525584528641528163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 32
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 1
+  questName: 
+  questState: 0
+  setQuestEntryState: 0
+  questEntryNumber: 1
+  questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: Variable["Appraiser_FirstTimeTalk"] = false
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: IntroDialogueAppraiser
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 0
+  replace: 1
+  skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: ad04bc8496a83224fbdb6febca5ff096, type: 2}
 --- !u!1 &3774015785994049461
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,6 +544,147 @@ Transform:
   m_Father: {fileID: 4919301180182122051}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4099472337976761747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4981694232333415115}
+  - component: {fileID: 226375252451713893}
+  m_Layer: 0
+  m_Name: Requirements Met_Conversation End
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4981694232333415115
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4099472337976761747}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8162131391220880612}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &226375252451713893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4099472337976761747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 2
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 1
+  questName: Recruit Appraiser
+  questState: 4
+  setQuestEntryState: 1
+  questEntryNumber: 1
+  questEntryState: 4
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: 
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: 
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 0
+  replace: 0
+  skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8860603508032657280}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3161392845107494478}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 3719147320754487339}
+        m_TargetAssemblyTypeName: DChild.ArmyBattle.Recruitment.ArmyRecruitInteract,
+          Assembly-CSharp
+        m_MethodName: TurnOffCollider
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: ad04bc8496a83224fbdb6febca5ff096, type: 2}
 --- !u!1 &5717024792226583947
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,6 +802,219 @@ MonoBehaviour:
     lastEvaluationValue: 0
   once: 0
   onePerFrame: 0
+--- !u!1 &7882718773242852280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1517500620618972873}
+  - component: {fileID: 8906476652881144107}
+  m_Layer: 0
+  m_Name: Requirements UnMet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1517500620618972873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7882718773242852280}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7579669413349309793}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8906476652881144107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7882718773242852280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 32
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 1
+  questName: 
+  questState: 0
+  setQuestEntryState: 0
+  questEntryNumber: 1
+  questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: 
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: Recruit/RequirementAppraiser/UnMet
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 0
+  replace: 1
+  skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: ad04bc8496a83224fbdb6febca5ff096, type: 2}
+--- !u!1 &8860603508032657280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7579669413349309793}
+  - component: {fileID: 8277356655927081993}
+  - component: {fileID: 1823041232358864682}
+  m_Layer: 0
+  m_Name: Sequence_GiveNPCToPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7579669413349309793
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8860603508032657280}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8162131391220880612}
+  - {fileID: 1517500620618972873}
+  m_Father: {fileID: 5993572363353152358}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8277356655927081993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8860603508032657280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed0afc9281a6ae44911db13f4c2155d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CharacterGiver: {fileID: 1823041232358864682}
+  m_GiveReward:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5836799978588544057}
+        m_TargetAssemblyTypeName: PixelCrushers.DialogueSystem.DialogueSystemTrigger,
+          Assembly-CSharp-firstpass
+        m_MethodName: OnUse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_RequirementFailed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8906476652881144107}
+        m_TargetAssemblyTypeName: PixelCrushers.DialogueSystem.DialogueSystemTrigger,
+          Assembly-CSharp-firstpass
+        m_MethodName: OnUse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_CharacterReward:
+  - {fileID: 11400000, guid: 9679297f7a6e4c04d97d3051ad7395fc, type: 2}
+  m_isFree: 0
+  m_requiresSoulEssence: 1
+  m_requiredSoulEssence: 200
+  m_requiresItem: 0
+  m_hasItem: {fileID: 0}
+  m_ItemAmount: 0
+  m_requiresCombatArt: 0
+  m_CombatArt: 0
+  m_requiresPrimarySkill: 0
+  m_PrimarySkill: 0
+  m_requiresSpecificNPC: 0
+  armyCharacterData: {fileID: 0}
+  m_requiresMinimumNPCsRecruited: 0
+  neededNPCsRecruited: 0
+  m_TakeRequiredItemFromInvintory: 0
+--- !u!114 &1823041232358864682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8860603508032657280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8df5f1d697e6e347a51d015abbe6e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &17321899645897070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -417,7 +1105,7 @@ PrefabInstance:
     - target: {fileID: 7738121640281731556, guid: ee406dcf2a581404eae2236e9b4e8eb2,
         type: 3}
       propertyPath: conversation
-      value: Recruit/Appraiser
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7738121640281731556, guid: ee406dcf2a581404eae2236e9b4e8eb2,
         type: 3}
@@ -425,14 +1113,43 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: ad04bc8496a83224fbdb6febca5ff096,
         type: 2}
+    - target: {fileID: 7738121640281731556, guid: ee406dcf2a581404eae2236e9b4e8eb2,
+        type: 3}
+      propertyPath: onExecute.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7738121640281731556, guid: ee406dcf2a581404eae2236e9b4e8eb2,
+        type: 3}
+      propertyPath: onExecute.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7738121640281731556, guid: ee406dcf2a581404eae2236e9b4e8eb2,
+        type: 3}
+      propertyPath: onExecute.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3719147320754487339}
+    - target: {fileID: 7738121640281731556, guid: ee406dcf2a581404eae2236e9b4e8eb2,
+        type: 3}
+      propertyPath: onExecute.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7738121640281731556, guid: ee406dcf2a581404eae2236e9b4e8eb2,
+        type: 3}
+      propertyPath: onExecute.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CheckFirstTimeTalk
+      objectReference: {fileID: 0}
+    - target: {fileID: 7738121640281731556, guid: ee406dcf2a581404eae2236e9b4e8eb2,
+        type: 3}
+      propertyPath: onExecute.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DChild.ArmyBattle.Recruitment.ArmyRecruitInteract, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7738121640281731556, guid: ee406dcf2a581404eae2236e9b4e8eb2,
+        type: 3}
+      propertyPath: onExecute.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee406dcf2a581404eae2236e9b4e8eb2, type: 3}
---- !u!61 &34159879605058728 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 19375696083645894, guid: ee406dcf2a581404eae2236e9b4e8eb2,
-    type: 3}
-  m_PrefabInstance: {fileID: 17321899645897070}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2266374742474912890 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2255826221073497364, guid: ee406dcf2a581404eae2236e9b4e8eb2,

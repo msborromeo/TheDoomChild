@@ -13,17 +13,20 @@ namespace DChild.Gameplay.Characters.Player.Skins
 
         [SerializeField]
         private FullSkinList m_fullSkinList;
+        public FullSkinList fullSkinList => m_fullSkinList;
 
         [SerializeField]
         private SkinData m_defaultSkin;
 
         private SkinData m_currentSkin;
+        public SkinData currentSkin => m_currentSkin;
 
         [SerializeField]
         private SkeletonRenderer m_skeletonRenderer;
         
         [SerializeField]
         private List<SkinData> m_acquiredSkins;
+        public List<SkinData> acquiredSkins => m_acquiredSkins;
 
         private void OnEnable()
         {
