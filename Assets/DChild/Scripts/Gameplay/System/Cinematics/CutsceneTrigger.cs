@@ -154,6 +154,11 @@ namespace DChild.Gameplay.Cinematics
             }
         }
 
+        private void OnDisable()
+        {
+            m_cutscene.stopped -= OnCutsceneDone;
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Sensor") == false && collision.CompareTag("DamageCollider") == false)

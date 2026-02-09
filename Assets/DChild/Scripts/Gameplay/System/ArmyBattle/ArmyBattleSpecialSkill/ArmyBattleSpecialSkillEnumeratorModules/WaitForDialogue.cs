@@ -32,6 +32,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
         private void OnConversationEnd(Transform t)
         {
             m_activedialogue = false;
+            DialogueManager.instance.conversationEnded -= OnConversationEnd;
         }
 
 

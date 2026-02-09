@@ -76,5 +76,10 @@ namespace DChild.Gameplay.Cinematics.Cameras
             AttemptInitialize();
         }
 
+        private void OnDisable()
+        {
+            m_skeleton.AnimationState.Start -= OnAnimationStart;
+        }
+
     }
 }

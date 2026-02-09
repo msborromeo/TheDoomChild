@@ -26,5 +26,10 @@ namespace DChild.Menu.Codex.Bestiary.Alerts
         {
             UpdateState();
         }
+
+        private void OnDisable()
+        {
+            m_reference.OnBestiaryDataChanged -= OnDataChanged;
+        }
     }
 }

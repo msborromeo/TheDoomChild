@@ -55,5 +55,13 @@ namespace DChild.Gameplay.Quests
             m_aliveCount = m_toDestroy.Length;
         }
 
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_toDestroy.Length; i++)
+            {
+                m_toDestroy[i].Destroyed -= OnObjectDestroyed;
+            }
+        }
+
     }
 }

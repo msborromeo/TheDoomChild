@@ -98,6 +98,15 @@ namespace DChild.Gameplay.NavigationMap
             }
         }
 
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_list.Length; i++)
+            {
+                var trigger = m_list[i];
+                trigger.SetIndex(i);
+                trigger.RevealValueChange -= OnStateChange;
+            }
+        }
 
     }
 }

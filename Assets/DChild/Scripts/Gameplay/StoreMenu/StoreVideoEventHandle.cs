@@ -22,10 +22,16 @@ namespace DChild.Gameplay.Systems
             Graphics.Blit(m_blank, m_texture);
         }
 
-        private void Awake()
+        private void OnEnable()
         {
             m_openVideo.loopPointReached += OnVideoDone;
             m_closeVideo.loopPointReached += OnVideoDone;
+        }
+
+        private void OnDisable()
+        {
+            m_openVideo.loopPointReached -= OnVideoDone;
+            m_closeVideo.loopPointReached -= OnVideoDone;
         }
 
         private void OnVideoDone(VideoPlayer source)

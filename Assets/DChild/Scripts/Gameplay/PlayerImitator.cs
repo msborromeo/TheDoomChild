@@ -497,6 +497,12 @@ namespace DChild.Gameplay.Environment
             LoadingHandle.LoadingDone += OnSceneLoadDone;
         }
 
+        private void OnDisable()
+        {
+            LoadingHandle.SceneDone -= OnSceneDone;
+            LoadingHandle.LoadingDone -= OnSceneLoadDone;
+        }
+
         private void OnSceneDone(object sender, EventActionArgs eventArgs)
         {
             ResetImitation();

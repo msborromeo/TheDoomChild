@@ -16,4 +16,9 @@ public class SoulSkillNotifier : MonoBehaviour
     {
         GameplaySystem.playerManager.player.inventory.SoulSkillItemAcquired += UpdateNotification;
     }
+
+    private void OnDisable()
+    {
+        GameplaySystem.playerManager.player.inventory.SoulSkillItemAcquired -= UpdateNotification;
+    }
 }

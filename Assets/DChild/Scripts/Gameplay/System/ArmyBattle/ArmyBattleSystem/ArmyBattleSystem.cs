@@ -236,6 +236,14 @@ namespace DChild.Gameplay.ArmyBattle
             }
         }
 
+        private void OnDisable()
+        {
+            m_turnHandle.OnTurnEnd -= OnTurnEnd;
+            m_turnHandle.OnExecuteAttack -= m_uiManager.participantDetails.OnExecuteAttack;
+            m_specialSkillHandle.SkillEffectApplied -= OnSkillEffectApplied;
+            m_specialSkillHandle.SkillEffectActivated -= OnSkillEffectActivated;
+        }
+
         private void Start()
         {
             if (BattleScenario == null)

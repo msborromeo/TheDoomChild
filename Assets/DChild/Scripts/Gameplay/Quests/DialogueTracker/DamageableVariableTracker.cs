@@ -17,6 +17,14 @@ namespace DChild.Gameplay.Narrative
             }
         }
 
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_toTrack.Length; i++)
+            {
+                m_toTrack[i].Destroyed -= OnDamageableDestroyed;
+            }
+        }
+
         private void OnDamageableDestroyed(object sender, EventActionArgs eventArgs)
         {
             RunLua();

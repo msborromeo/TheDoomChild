@@ -101,6 +101,11 @@ namespace DChild.Gameplay.Cinematics
             m_brain = null;
         }
 
+        private void OnDisable()
+        {
+            m_character.CharacterTurn -= OnTurn;
+        }
+
 #if UNITY_EDITOR
         private void OnOffsetChanged()
         {

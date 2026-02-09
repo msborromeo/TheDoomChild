@@ -41,6 +41,11 @@ namespace DChild.Gameplay.Optimizers
             ForceUnloadRooms += OnForceUnloadRooms;
         }
 
+        private void OnDisable()
+        {
+            ForceUnloadRooms -= OnForceUnloadRooms;
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Sensor"))

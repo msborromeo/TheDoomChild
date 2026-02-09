@@ -42,6 +42,11 @@ namespace DChild.Gameplay.Optimization.Lights
             GameplaySystem.cinema.OnMainCameraChange += OnMainCameraChange;
         }
 
+        private void OnDisable()
+        {
+            GameplaySystem.cinema.OnMainCameraChange -= OnMainCameraChange;
+        }
+
         private void Update()
         {
             if (m_currentCamerBounds == null)

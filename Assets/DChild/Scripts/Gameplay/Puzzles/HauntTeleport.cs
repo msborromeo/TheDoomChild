@@ -109,7 +109,7 @@ namespace DChild.Gameplay.Puzzles
             UpdateEntityPosition();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             m_entity.Destroyed -= OnEntityDestroyed;
         }

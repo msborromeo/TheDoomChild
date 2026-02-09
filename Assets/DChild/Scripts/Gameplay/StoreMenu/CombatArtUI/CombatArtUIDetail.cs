@@ -87,7 +87,7 @@ namespace DChild.Gameplay.UI.CombatArts
             m_combatArtLocalizer.CombatArtsInstructionsLocalized += OnCombatArtsLocalized;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             m_combatArtLocalizer.CombatArtsInstructionsLocalized -= OnCombatArtsLocalized;
         }

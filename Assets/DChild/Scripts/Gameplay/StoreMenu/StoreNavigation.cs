@@ -63,11 +63,19 @@ namespace DChild.Gameplay.Systems
             Open(eventArgs.buttonID);
         }
 
-        private void Awake()
+        private void OnEnable()
         {
             for (int i = 0; i < m_pages.Length; i++)
             {
                 m_pages[i].button.ButtonClick += OnButtonClick;
+            }
+        }
+
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_pages.Length; i++)
+            {
+                m_pages[i].button.ButtonClick -= OnButtonClick;
             }
         }
 

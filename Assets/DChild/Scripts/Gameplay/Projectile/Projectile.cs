@@ -177,5 +177,13 @@ namespace DChild.Gameplay.Projectiles
                 m_particleCallback.CallBack += OnCallback;
             }
         }
+
+        protected virtual void OnDisable()
+        {
+            if (m_particleCallback)
+            {
+                m_particleCallback.CallBack -= OnCallback;
+            }
+        }
     }
 }

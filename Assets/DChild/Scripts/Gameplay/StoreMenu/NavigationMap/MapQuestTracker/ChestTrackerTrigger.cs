@@ -21,6 +21,11 @@ namespace DChild.QuestHints.ChestMapTracker
             _Button.InteractionOptionChange += OnUse;
         }
 
+        private void OnDisable()
+        {
+            _Button.InteractionOptionChange -= OnUse;
+        }
+
         private void OnUse(object sender, EventActionArgs eventArgs)
         {
             _Trigger.OnUse();

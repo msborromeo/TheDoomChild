@@ -45,12 +45,12 @@ namespace DChild.Gameplay.Cinematics
             brain.m_DefaultBlend.m_Time = originalTime;
         }
 
-        private void Start()
+        private void OnEnable()
         {
             GetComponent<PlayableDirector>().stopped += OnCutsceneDone;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             GetComponent<PlayableDirector>().stopped -= OnCutsceneDone;
         }

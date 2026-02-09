@@ -20,9 +20,7 @@ public class OverworldvCamInitializer : MonoBehaviour
         OverworldGameplaySystem.SetupVCam += OnSetUpVCam;
     }
 
-
-
-    private void OnDestroy()
+    private void OnDisable()
     {
         //LoadingHandle.LoadingDone -= OnLoadingDone;
         OverworldGameplaySystem.SetupVCam -= OnSetUpVCam;

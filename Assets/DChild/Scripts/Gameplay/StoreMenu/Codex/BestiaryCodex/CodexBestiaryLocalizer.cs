@@ -39,7 +39,7 @@ namespace Dchild.Localization
             m_injector.localizeBestiaryData += OnUpdate;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             m_injector.localizeBestiaryData -= OnUpdate;
         }

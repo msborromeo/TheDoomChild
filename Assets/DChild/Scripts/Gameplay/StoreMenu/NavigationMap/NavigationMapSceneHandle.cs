@@ -81,5 +81,10 @@ namespace DChild.Gameplay.NavigationMap
 
             GameplaySystem.gamplayUIHandle.UpdateNavMapConfiguration(m_sceneLocation, m_sceneIndex - 1, m_configurator.inGameReferencePoint, m_configurator.mapReferencePoint, m_configurator.offset);
         }
+
+        private void OnDisable()
+        {
+            m_fogOfWarHandle.TriggerValueChanged -= OnFogOfWarChange;
+        }
     }
 }

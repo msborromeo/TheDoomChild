@@ -85,6 +85,11 @@ namespace DChild.Gameplay.Overworld
             m_remover.GridIndexRemoved += OnGridRemoved;
         }
 
+        private void OnDisable()
+        {
+            m_remover.GridIndexRemoved -= OnGridRemoved;
+        }
+
         private void LateUpdate()
         {
             var currentIndex = m_gridData.GetIndex(m_referencePoint.position);

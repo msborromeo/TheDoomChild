@@ -98,8 +98,12 @@ namespace DChild.Gameplay.Cinematics
 
 
             }
+        }
 
-
+        private void OnDisable()
+        {
+            m_cutscene.played -= OnCutscenePlay;
+            m_cutscene.stopped -= OnCutsceneDone;
         }
     }
 }

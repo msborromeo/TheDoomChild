@@ -166,6 +166,11 @@ namespace DChild.Gameplay
             m_cinematic.stopped += OnCutsceneDone;
         }
 
+        private void OnDisable()
+        {
+            m_cinematic.stopped -= OnCutsceneDone;
+        }
+
         private void OnDrawGizmosSelected()
         {
             var position = promptPosition;

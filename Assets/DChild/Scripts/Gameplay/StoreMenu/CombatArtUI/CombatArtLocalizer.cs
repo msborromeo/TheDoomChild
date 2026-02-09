@@ -29,7 +29,7 @@ namespace DChild.Localization
             m_Injector.localizeCombatArt += onUpdate;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             m_Injector.localizeCombatArt -= onUpdate;
         }

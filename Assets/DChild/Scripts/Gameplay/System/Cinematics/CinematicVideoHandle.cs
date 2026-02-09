@@ -109,6 +109,11 @@ namespace DChild.Gameplay.Systems
             m_videoPlayingRoutine = null;
         }
 
+        private void OnDisable()
+        {
+            m_videoPlayer.loopPointReached -= OnVideoClipDone;
+        }
+
         private void MuteAllSounds()
         {
             // this function should handle the mute logic of sounds except the video.

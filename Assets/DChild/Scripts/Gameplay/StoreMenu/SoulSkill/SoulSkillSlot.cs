@@ -72,5 +72,10 @@ namespace DChild.Menu.SoulSkills
         {
             SendInsertionAttempEvent();
         }
+
+        private void OnDisable()
+        {
+            m_containedUI.ReplacementAttempt -= OnReplacementAttempt;
+        }
     }
 }

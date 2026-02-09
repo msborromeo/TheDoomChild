@@ -93,5 +93,9 @@ namespace DChild.Menu.Bestiary
             m_indexHandle.PageChange += OnPageChange;
         }
 
+        private void OnDisable()
+        {
+            m_indexHandle.PageChange -= OnPageChange;
+        }
     }
 }

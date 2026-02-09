@@ -60,6 +60,12 @@ namespace DChild.Gameplay.Projectiles
             }
         }
 
+        private void OnDisable()
+        {
+            var attacker = GetComponent<Attacker>();
+            attacker.TargetDamaged -= OnProjectileDealDamage;
+        }
+
         protected virtual void FixedUpdate()
         {
             if (m_data.willFaceVelocity)

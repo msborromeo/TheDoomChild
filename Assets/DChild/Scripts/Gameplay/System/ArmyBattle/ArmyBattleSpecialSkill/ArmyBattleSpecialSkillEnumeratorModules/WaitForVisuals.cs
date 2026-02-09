@@ -63,6 +63,7 @@ namespace DChild.Gameplay.ArmyBattle.SpecialSkills.Modules
             void OnAnimationEnd(TrackEntry trackEntry)
             {
                 isAnimationOver = true;
+                fx.GetComponent<SkeletonAnimation>().AnimationState.Complete -= OnAnimationEnd;
             }
         }
 

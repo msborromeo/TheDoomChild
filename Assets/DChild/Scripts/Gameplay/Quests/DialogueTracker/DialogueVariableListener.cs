@@ -88,7 +88,7 @@ namespace DChild.Gameplay.Narrative
 
         private void OnDisable()
         {
-            DialogueVariableUtility.OnVariableChange += OnVariableChange;
+            DialogueVariableUtility.OnVariableChange -= OnVariableChange;
         }
     }
 }

@@ -41,6 +41,17 @@ namespace DChild.Gameplay.UI.CombatArts
             SetupUIData();
         }
 
+        private void OnDisable()
+        {
+            var buttons = GetComponentsInChildren<CombatArtSelectButton>();
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                var button = buttons[i];
+                button.Selected -= OnCombatArtSelected;
+            }
+            m_unlockArtHandler.UnlockSuccessful -= OnUnlockSuccessFull;
+        }
+
         private void SetupUIData()
         {
             var combatArtData = m_referenceList.GetCombatArtData(m_firstSelected.skillUnlock);

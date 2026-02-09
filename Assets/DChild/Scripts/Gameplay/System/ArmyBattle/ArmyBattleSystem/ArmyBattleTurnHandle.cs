@@ -206,5 +206,10 @@ namespace DChild.Gameplay.ArmyBattle
 
             m_fightManager.OnFightEnd += OnFightEnd;
         }
+
+        private void OnDisable()
+        {
+            m_fightManager.OnFightEnd -= OnFightEnd;
+        }
     }
 }

@@ -39,5 +39,10 @@ namespace DChild.Menu.Bestiary
             m_pageHandle.PageChange += OnPageChange;
             m_sliderValueToPageIndexModifier = 1f / m_pageHandle.GetTotalPages();
         }
+
+        private void OnDisable()
+        {
+            m_pageHandle.PageChange -= OnPageChange;
+        }
     }
 }

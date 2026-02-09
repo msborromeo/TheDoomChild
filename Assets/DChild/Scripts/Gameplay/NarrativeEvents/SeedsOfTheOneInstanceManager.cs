@@ -32,6 +32,14 @@ public class SeedsOfTheOneInstanceManager : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        for (int i = 0; i < m_SeedsOfTheOne.Count; i++)
+        {
+            m_SeedsOfTheOne[i].Destroyed -= OnSeedDies;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

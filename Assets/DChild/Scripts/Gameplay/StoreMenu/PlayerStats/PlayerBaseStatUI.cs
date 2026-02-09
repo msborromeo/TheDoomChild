@@ -30,5 +30,11 @@ namespace DChild.Gameplay.UI.PlayerStats
 
             m_valueLabel.text = stats.GetBaseStat(m_stat).ToString();
         }
+
+        private void OnDisable()
+        {
+            var stats = GameplaySystem.playerManager.player.stats;
+            stats.StatsChanged -= OnStatChange;
+        }
     }
 }

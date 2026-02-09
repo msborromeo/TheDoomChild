@@ -32,5 +32,11 @@ namespace DChild.Gameplay.Quests
             QuestStateChangeDispatcher.QuestStateChange += OnQuestStateChange;
             QuestStateChangeDispatcher.QuestEntryStateChange += OnQuestEntryStateChange;
         }
+
+        private void OnDisable()
+        {
+            QuestStateChangeDispatcher.QuestStateChange -= OnQuestStateChange;
+            QuestStateChangeDispatcher.QuestEntryStateChange -= OnQuestEntryStateChange;
+        }
     }
 }

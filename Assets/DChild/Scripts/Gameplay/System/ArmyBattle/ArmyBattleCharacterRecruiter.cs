@@ -56,6 +56,12 @@ namespace DChild.Gameplay.ArmyBattle
             GameplaySystem.campaignSerializer.PostDeserialization += OnPostDeserialization;
         }
 
+        private void OnDisable()
+        {
+            GameplaySystem.campaignSerializer.PreSerialization -= OnPreSerialization;
+            GameplaySystem.campaignSerializer.PostDeserialization -= OnPostDeserialization;
+        }
+
         private void OnPostDeserialization(object sender, CampaignSlotUpdateEventArgs eventArgs)
         {
             if (eventArgs.IsPartOfTheUpdate(SerializationScope.Quest))

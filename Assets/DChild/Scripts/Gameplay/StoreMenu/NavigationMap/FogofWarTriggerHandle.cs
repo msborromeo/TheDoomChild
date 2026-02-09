@@ -38,6 +38,7 @@ namespace DChild.Gameplay.NavigationMap
         private void OnSegmentUpdate(object sender, FogOfWarSegmentChangeEvent eventArgs)
         {
             DialogueLua.SetVariable(eventArgs.varName, (int)eventArgs.revealState);
+            ((FogOfWarSegment)sender).SegmentUpdate -= OnSegmentUpdate;
             TriggerValueChanged?.Invoke(this, eventArgs);
         }
     }

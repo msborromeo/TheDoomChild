@@ -43,5 +43,11 @@ namespace DChild.Gameplay.UI.PlayerStats
 
             DisplayStat(stats.GetAddedStat(m_stat));
         }
+
+        private void OnDisable()
+        {
+            var stats = GameplaySystem.playerManager.player.stats;
+            stats.StatsChanged -= OnStatChange;
+        }
     }
 }

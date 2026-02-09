@@ -145,6 +145,10 @@ namespace DChild.Gameplay.Items
             Initialize();
         }
 
-       
+        private void OnDisable()
+        {
+            GameplaySystem.playerManager.player.inventory.InventoryItemUpdate -= ItemUpdated;
+            GameplaySystem.campaignSerializer.PostDeserialization -= OnCampaignLoaded;
+        }
     }
 }

@@ -70,6 +70,11 @@ namespace DChild.Menu.Codex
         {
             m_indexHandle.PageChange += OnPageChange;
         }
+
+        private void OnDisable()
+        {
+            m_indexHandle.PageChange -= OnPageChange;
+        }
     }
 
 
