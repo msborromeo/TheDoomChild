@@ -1,4 +1,5 @@
 using DChild.Gameplay.EquipmentSystem;
+using Doozy.Runtime.UIManager.Components;
 using Holysoft.Event;
 using NSubstitute.Exceptions;
 using Sirenix.OdinInspector;
@@ -17,25 +18,30 @@ namespace DChild.Menu.Equipment.UI
         [SerializeField] private TextMeshProUGUI m_questionMark;
         [SerializeField] private Image m_equippedIcon;
 
+        private UIToggle m_toggle;
 
 
         private SoulEquipmentItem m_attachedItem;
         public SoulEquipmentItem attachedItem => m_attachedItem;
         public event EventAction<EventActionArgs> OnGridItemSelected;
 
-        public void Display(SoulEquipmentItem item = null)
+        private void SetGridItemUIState(bool hasItem)
         {
-            m_attachedItem = item;
-
-            bool hasItem = m_attachedItem != null;
-            
             m_questionMark.gameObject.SetActive(!hasItem);
             m_itemIcon.gameObject.SetActive(hasItem);
 
-            if (!hasItem)
-                return;
+            m_toggle.interactable = hasItem;
+        }
 
-            m_itemIcon.sprite = m_attachedItem.icon;
+        public void Display(SoulEquipmentItem item = null)
+        {
+            m_attachedItem = item;
+            bool hasItem = item != null;
+
+            SetGridItemUIState(hasItem);
+
+            if (hasItem)
+                m_itemIcon.sprite = item.icon;
         }
 
         [Button]
@@ -49,8 +55,12 @@ namespace DChild.Menu.Equipment.UI
             if (m_attachedItem == null)
                 return;
             m_selectionUI.equipButtonUI.SetSelectedItem(m_attachedItem);
-            m_selectionUI.SetItemDetails(m_attachedItem.soulEquipment);
+            m_selectionUI.SetItemDetails(m_attachedItem);
             OnGridItemSelected?.Invoke(this, EventActionArgs.Empty);
+        }
+        private void Awake()
+        {
+            m_toggle = GetComponent<UIToggle>();
         }
     }
 
