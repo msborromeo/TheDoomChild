@@ -305,7 +305,10 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private bool m_isReturning;
     private PlayerAreaDetection.Area m_currentPlayerArea;
     private bool hasReachedDropZone = false;
-    
+    private void OnDisable()
+    {
+       
+    }
     protected override void Start()
     {
         m_phaseHandle = new PhaseHandle<Phase, PhaseInfo>();
@@ -777,6 +780,17 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private int m_adranReturned;
     [SerializeField]
     private float m_delayAdranSpawn;
+
+    private void UnsubscribeEvents(PoolableObject instance)
+    {
+        if (instance == null)
+            return;
+
+
+        instance.GetComponent<SmallAdran>().GotDamagedByPlayer -= AdranAI_GotDamagedByPlayer;
+        instance.GetComponent<SmallAdran>().SmallAdranGotDestroyed -= SmallAdranGotDestroyed;
+        instance.GetComponent<SmallAdran>().SmallAdranReachedZone -= SmallAdranReachedZoneEvent;
+    }
     private IEnumerator HomingMissileProjectile()
     {
         hasReachedDropZone = false;
@@ -804,16 +818,17 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
             if (m_killedAdran == 1)
             {
                 DamageCheck();
+                UnsubscribeEvents(instance1);
                 yield return new WaitForSeconds(1f);
                 m_adranReturned = 0;
                 m_killedAdran = 0;
                 yield break;
 
             }
-            
-           
+                
             yield return HomingMissileReturnAnimation();
-
+            
+            
 
         }
         else if (m_healthLevel == HealthLevel.LevelTwo || m_healthLevel == HealthLevel.LevelFour)
@@ -850,6 +865,8 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
             if (m_killedAdran == 2)
             {
                 DamageCheck();
+                UnsubscribeEvents(instance1);
+                UnsubscribeEvents(instance2);
                 yield return new WaitForSeconds(0.5f);
                 m_adranReturned = 0;
                 m_killedAdran = 0;
@@ -857,7 +874,8 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
 
             }         
             yield return HomingMissileReturnAnimation();
-
+            
+            
 
         }
         else if (m_healthLevel == HealthLevel.LevelThree)
@@ -907,6 +925,9 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
             if (m_killedAdran == 3)
             {
                 DamageCheck();
+                UnsubscribeEvents(instance1);
+                UnsubscribeEvents(instance2);
+                UnsubscribeEvents(instance3);
                 yield return new WaitForSeconds(1f);
                 m_adranReturned = 0;
                 m_killedAdran = 0;
@@ -915,6 +936,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
             }
 
             yield return HomingMissileReturnAnimation();
+           
         }
         else if (m_healthLevel == HealthLevel.LevelFour) 
         {
@@ -951,6 +973,8 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
             if (m_killedAdran == 2)
             {
                 DamageCheck();
+                UnsubscribeEvents(instance1);
+                UnsubscribeEvents(instance2);
                 yield return new WaitForSeconds(1f);
                 m_adranReturned = 0;
                 m_killedAdran = 0;
@@ -958,6 +982,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
 
             }
             yield return HomingMissileReturnAnimation();
+           
         }
 
 
@@ -1150,6 +1175,8 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
             // If close enough
             Debug.Log("Done?");
             m_adranReturned++;
+            UnsubscribeEvents(instance);
+            
             Destroy(instance.gameObject);
             yield break;
         }
@@ -1486,7 +1513,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         m_attackDecider.hasDecidedOnAttack = false;
         m_stateHandle.ApplyQueuedState();
     }
-
+    
     private void Update()
     {
         HealthTracker();      
