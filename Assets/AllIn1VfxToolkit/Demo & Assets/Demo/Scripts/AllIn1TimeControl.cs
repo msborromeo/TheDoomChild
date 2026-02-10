@@ -30,22 +30,27 @@ namespace AllIn1VfxToolkit.Demo.Scripts
 
         private void Update()
         {
-            if(Input.GetKeyDown(increaseTimeScale) || Input.GetKeyDown(increaseTimeScaleAlt)) ChangeTimeScale(timeScaleInterval);
-            if(Input.GetKeyDown(decreaseTimeScale) || Input.GetKeyDown(decreaseTimeScaleAlt)) ChangeTimeScale(-timeScaleInterval);
-            if(Input.GetKeyDown(pauseKey))
-            {
-                if(Time.timeScale < 0.01f) ChangeTimeScale(1f - Time.timeScale);
-                else ChangeTimeScale(-Time.timeScale);
-                pausedButtonTween.ScaleUpTween();
-            }
-
-            float timeScaleChangeInterval = 0.1f;
-            if(!(Time.unscaledTime - lastChangeTime > timeScaleChangeInterval)) return;
-            if(Input.GetKey(increaseTimeScale) || Input.GetKey(increaseTimeScaleAlt)) ChangeTimeScale(timeScaleInterval);
-            if(Input.GetKey(decreaseTimeScale) || Input.GetKey(decreaseTimeScaleAlt)) ChangeTimeScale(-timeScaleInterval);
+			ProcessInput();
         }
 
-        private void ChangeTimeScale(float changeAmount)
+		private void ProcessInput()
+		{
+			if (AllIn1InputSystem.GetKeyDown(increaseTimeScale) || AllIn1InputSystem.GetKeyDown(increaseTimeScaleAlt)) ChangeTimeScale(timeScaleInterval);
+			if (AllIn1InputSystem.GetKeyDown(decreaseTimeScale) || AllIn1InputSystem.GetKeyDown(decreaseTimeScaleAlt)) ChangeTimeScale(-timeScaleInterval);
+			if (AllIn1InputSystem.GetKeyDown(pauseKey))
+			{
+				if (Time.timeScale < 0.01f) ChangeTimeScale(1f - Time.timeScale);
+				else ChangeTimeScale(-Time.timeScale);
+				pausedButtonTween.ScaleUpTween();
+			}
+
+			float timeScaleChangeInterval = 0.1f;
+			if (!(Time.unscaledTime - lastChangeTime > timeScaleChangeInterval)) return;
+			if (AllIn1InputSystem.GetKey(increaseTimeScale) || AllIn1InputSystem.GetKey(increaseTimeScaleAlt)) ChangeTimeScale(timeScaleInterval);
+			if (AllIn1InputSystem.GetKey(decreaseTimeScale) || AllIn1InputSystem.GetKey(decreaseTimeScaleAlt)) ChangeTimeScale(-timeScaleInterval);
+		}
+
+		private void ChangeTimeScale(float changeAmount)
         {
             Time.timeScale = Mathf.Clamp(Time.timeScale + changeAmount, 0.0f, 1f);
             lastChangeTime = Time.unscaledTime;

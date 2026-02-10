@@ -77,7 +77,7 @@ namespace AllIn1VfxToolkit
             CacheParticleSystem();
             if(ps == null)
             {
-                Debug.LogError("This GameObject: " + gameObject.name + " doesn't have a Particle System and it should, please double check what you are doing");
+                NoParticleSystemLogError();
                 return;
             }
 
@@ -261,7 +261,7 @@ namespace AllIn1VfxToolkit
             CacheParticleSystem();
             if(ps == null)
             {
-                Debug.LogError("This GameObject: " + gameObject.name + " doesn't have a Particle System and it should, please double check what you are doing");
+                NoParticleSystemLogError();
                 return;
             }
 
@@ -518,9 +518,7 @@ namespace AllIn1VfxToolkit
             psHelperPresetAsset.colorLifetime = colorLifetime;
             psHelperPresetAsset.sizeLifetime = sizeLifetime;
 
-            string path = "Assets/AllIn1VfxToolkit/ParticlePresets/Resources";
-            if(PlayerPrefs.HasKey("All1VfxParticlePresets")) path = PlayerPrefs.GetString("All1VfxParticlePresets") + "/";
-            else PlayerPrefs.SetString("All1VfxParticlePresets", "Assets/AllIn1VfxToolkit/ParticlePresets/Resources");
+            string path = AllIn1VfxWindow.GetParticlePresetsPath();
             if(!System.IO.Directory.Exists(path))
             {
                 EditorUtility.DisplayDialog("The desired Particle Presets Save Path doesn't exist",
@@ -548,7 +546,7 @@ namespace AllIn1VfxToolkit
             CacheParticleSystem();
             if(ps == null)
             {
-                Debug.LogError("This GameObject: " + gameObject.name + " doesn't have a Particle System and it should, please double check what you are doing");
+                NoParticleSystemLogError();
                 return;
             }
             
@@ -562,15 +560,13 @@ namespace AllIn1VfxToolkit
             CacheParticleSystem();
             if(ps == null)
             {
-                Debug.LogError("This GameObject: " + gameObject.name + " doesn't have a Particle System and it should, please double check what you are doing");
+                NoParticleSystemLogError();
                 return;
             }
 
             Preset psPreset = new Preset(ps);
             
-            string path = "Assets/AllIn1VfxToolkit/ParticlePresets/Resources";
-            if(PlayerPrefs.HasKey("All1VfxParticlePresets")) path = PlayerPrefs.GetString("All1VfxParticlePresets") + "/";
-            else PlayerPrefs.SetString("All1VfxParticlePresets", "Assets/AllIn1VfxToolkit/ParticlePresets/Resources");
+            string path = AllIn1VfxWindow.GetParticlePresetsPath();
             if(!System.IO.Directory.Exists(path))
             {
                 EditorUtility.DisplayDialog("The desired Particle Presets Save Path doesn't exist",
@@ -639,7 +635,7 @@ namespace AllIn1VfxToolkit
             CacheParticleSystem();
             if(ps == null)
             {
-                Debug.LogError("This GameObject: " + gameObject.name + " doesn't have a Particle System and it should, please double check what you are doing");
+                NoParticleSystemLogError();
                 return;
             }
 
@@ -654,7 +650,11 @@ namespace AllIn1VfxToolkit
             Material targetMaterial = targetRenderer.sharedMaterial;
             if(targetMaterial == null)
             {
-                Debug.LogError("The Particle System in the object: " + gameObject.name + " has no valid target material");
+                string logErrorString = "The Particle System in the object: " + gameObject.name + " has no valid target material";
+                Debug.LogError(logErrorString);
+                #if UNITY_EDITOR
+                AllIn1VfxWindow.ShowSceneViewNotification(logErrorString);
+                #endif
                 return;
             } 
             
@@ -708,15 +708,29 @@ namespace AllIn1VfxToolkit
             else if(texOffsetEnable) rendererStreams.Add(ParticleSystemVertexStream.Custom2XY);
             psRenderer.SetActiveVertexStreams(rendererStreams);
         }
+
+        private void NoParticleSystemLogError()
+        {
+            string logErrorString = "This GameObject: " + gameObject.name + " doesn't have a Particle System and it should, please double check what you are doing";
+            Debug.LogError(logErrorString);
+            #if UNITY_EDITOR
+            AllIn1VfxWindow.ShowSceneViewNotification(logErrorString);
+            #endif
+        }
 #endif
         private void SetSceneDirty()
         {
 #if UNITY_EDITOR
             if(!Application.isPlaying) EditorSceneManager.MarkAllScenesDirty();
-
-            //If you get an error here please delete the 2 lines below
+            
+            //If you get an error here please delete the code block below
+            #if UNITY_2021_2_OR_NEWER
             var prefabStage = UnityEditor.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
-            if(prefabStage != null) EditorSceneManager.MarkSceneDirty(prefabStage.scene);
+            #else
+            var prefabStage = UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
+            #endif
+            if (prefabStage != null) EditorSceneManager.MarkSceneDirty(prefabStage.scene);
+            //Until here
 #endif
         }
     }
