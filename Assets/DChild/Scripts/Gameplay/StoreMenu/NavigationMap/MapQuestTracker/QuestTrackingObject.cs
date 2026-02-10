@@ -16,14 +16,21 @@ namespace DChild.Tracker.QuestTrackingObject
         DialogueDatabase database;
         [SerializeField,Tooltip("If on, WILL ONLY CHECK THE ENTRY QUEST OF THE FIRST QUEST")]
         bool IsAQuestEntry;
+        [SerializeField]
+        bool TrackVariableVariableOnly;
+
         [SerializeField, ValueDropdown("GetQuests", IsUniqueList = true, SortDropdownItems = true)]
         private string Quest;
         [SerializeField, ValueDropdown("GetQuestEntry", IsUniqueList = true, SortDropdownItems = true),ShowIf("IsAQuestEntry")]
         private string QuestEntry;
-        [SerializeField]
+
+        
+        [SerializeField, ValueDropdown("GetVariables", IsUniqueList = true, SortDropdownItems = true),ShowIf("TrackVariableVariableOnly")]
+        private string Variable;
+
         private QuestState ExpectedQuestState = QuestState.Success;
         [SerializeField]
-        private UnityEvent IfExpectedQuestState, IfNotExpectedQuestState;
+        private UnityEvent IfExpectedQuestState;
         QuestState m_queststate;
         
         private IEnumerable GetQuests()
@@ -58,15 +65,35 @@ namespace DChild.Tracker.QuestTrackingObject
             return list;
         }
 
+        private IEnumerable GetVariables()
+        {
+            ValueDropdownList<string> list = new ValueDropdownList<string>();
+
+            foreach (var variable in database.variables)
+            {
+                list.Add(variable.Name.ToString());
+            }
+
+            return list;
+        }
+
 
 
         private void Start()
         {
+            if(TrackVariableVariableOnly)
+            {
+                if(DialogueLua.GetVariable(Variable).asBool)
+                {
+                    IfExpectedQuestState?.Invoke();
+                }
+                return;
+            }
             if(IsAQuestEntry)
             {
                 foreach (var Q in database.items)
                 {
-                    if (Q.LookupInt("Entry Count") < 1) return;
+                    if (Q.LookupInt("Entry Count") < 1) break;
 
                     if (Q.Name == Quest)
                     {
@@ -82,10 +109,6 @@ namespace DChild.Tracker.QuestTrackingObject
             if(m_queststate == ExpectedQuestState)
             {
                 IfExpectedQuestState?.Invoke();
-            }else 
-            if(m_queststate!=ExpectedQuestState)
-            {
-                IfNotExpectedQuestState?.Invoke();
             }
            
         }
