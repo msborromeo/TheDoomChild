@@ -20327,6 +20327,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LP_MordenRevised5P8
       objectReference: {fileID: 0}
+    - target: {fileID: 1925397955107680892, guid: e086031014fedf24f925a380f58b1a86,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4306853994634475253, guid: e086031014fedf24f925a380f58b1a86,
         type: 3}
       propertyPath: m_data
@@ -48978,6 +48983,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &354299171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 354299172}
+  m_Layer: 0
+  m_Name: Morden Progression
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &354299172
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354299171}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 517450651}
+  m_Father: {fileID: 1325172399}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &354364728
 GameObject:
   m_ObjectHideFlags: 0
@@ -70216,6 +70253,91 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &517450650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 517450651}
+  - component: {fileID: 517450652}
+  m_Layer: 0
+  m_Name: Adran Defeat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &517450651
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517450650}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 354299172}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &517450652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517450650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba2e3066672a3834182d094e4029952d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questName: Defeat_Adran
+  questStateIndicatorLevels:
+  - updateOnStartOnly: 0
+    questState: 1
+    condition:
+      luaConditions: []
+      questConditions: []
+      acceptedTags: []
+      acceptedGameObjects: []
+      luaWizardIndex: -1
+      lastEvaluationValue: 0
+    indicatorLevel: 0
+    onEnterState:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1637110947}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1694432910}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  questEntryStateIndicatorLevels: []
+  suppressOnEnterStateEventsOnStart: 0
 --- !u!1001 &518574920
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -91525,6 +91647,12 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.6798054
       objectReference: {fileID: 0}
+    - target: {fileID: 2385007341442966239, guid: 7e9ace828767c6d4ab3ab03c8862f417,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 2385007341442966239, guid: 7e9ace828767c6d4ab3ab03c8862f417,
+        type: 3}
     - target: {fileID: 2393841676455751499, guid: 7e9ace828767c6d4ab3ab03c8862f417,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -92668,6 +92796,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5712838271748399186, guid: 7e9ace828767c6d4ab3ab03c8862f417,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.011329651
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712838271748399186, guid: 7e9ace828767c6d4ab3ab03c8862f417,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.939575
+      objectReference: {fileID: 0}
     - target: {fileID: 5787150381408660367, guid: 7e9ace828767c6d4ab3ab03c8862f417,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -93535,7 +93673,7 @@ PrefabInstance:
     - target: {fileID: 8652483986478675918, guid: 7e9ace828767c6d4ab3ab03c8862f417,
         type: 3}
       propertyPath: m_fXObjects.m_particleSystems.Array.size
-      value: 725
+      value: 731
       objectReference: {fileID: 0}
     - target: {fileID: 8652483986478675918, guid: 7e9ace828767c6d4ab3ab03c8862f417,
         type: 3}
@@ -93585,7 +93723,7 @@ PrefabInstance:
     - target: {fileID: 8652483986478675918, guid: 7e9ace828767c6d4ab3ab03c8862f417,
         type: 3}
       propertyPath: m_fXObjects.m_originalSimulationSpeed.Array.size
-      value: 725
+      value: 731
       objectReference: {fileID: 0}
     - target: {fileID: 8652483986478675918, guid: 7e9ace828767c6d4ab3ab03c8862f417,
         type: 3}
@@ -161950,6 +162088,7 @@ Transform:
   m_Children:
   - {fileID: 1416464242}
   - {fileID: 1199749301}
+  - {fileID: 354299172}
   m_Father: {fileID: 58447361}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -161969,6 +162108,7 @@ MonoBehaviour:
   removeTrigger: 1024
   databases:
   - {fileID: 11400000, guid: 3d5ddfe372769bc4d8141cdd5d9afb7a, type: 2}
+  - {fileID: 11400000, guid: 91c440c0606e3d140be8d9b359394211, type: 2}
   condition:
     luaConditions: []
     questConditions: []
@@ -211503,10 +211643,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1921144515}
     m_Modifications:
+    - target: {fileID: 2145458535564941302, guid: e6d3770b2f89be54f95542ef239b482c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2229995738157650164, guid: e6d3770b2f89be54f95542ef239b482c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565795026015515593, guid: e6d3770b2f89be54f95542ef239b482c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565795026501750207, guid: e6d3770b2f89be54f95542ef239b482c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4448807110031761003, guid: e6d3770b2f89be54f95542ef239b482c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4964948076825101554, guid: e6d3770b2f89be54f95542ef239b482c,
         type: 3}
       propertyPath: m_Name
       value: Revised Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4964948076825101554, guid: e6d3770b2f89be54f95542ef239b482c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928492058577828844, guid: e6d3770b2f89be54f95542ef239b482c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7084565261304070907, guid: e6d3770b2f89be54f95542ef239b482c,
         type: 3}
@@ -211578,6 +211753,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8470066403116416805, guid: e6d3770b2f89be54f95542ef239b482c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6d3770b2f89be54f95542ef239b482c, type: 3}
 --- !u!4 &1637110946 stripped
@@ -211586,6 +211766,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1637110945}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1637110947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4964948076825101554, guid: e6d3770b2f89be54f95542ef239b482c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1637110945}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1637110948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637110947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba2e3066672a3834182d094e4029952d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questName: Defeat_Adran
+  questStateIndicatorLevels:
+  - updateOnStartOnly: 0
+    questState: 4
+    condition:
+      luaConditions: []
+      questConditions: []
+      acceptedTags: []
+      acceptedGameObjects: []
+      luaWizardIndex: -1
+      lastEvaluationValue: 0
+    indicatorLevel: 0
+    onEnterState:
+      m_PersistentCalls:
+        m_Calls: []
+  questEntryStateIndicatorLevels: []
+  suppressOnEnterStateEventsOnStart: 0
 --- !u!1 &1637198204
 GameObject:
   m_ObjectHideFlags: 0
@@ -216563,6 +216778,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LP_MordenRevised5P10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925397955107680892, guid: e086031014fedf24f925a380f58b1a86,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4306853994634475253, guid: e086031014fedf24f925a380f58b1a86,
         type: 3}
