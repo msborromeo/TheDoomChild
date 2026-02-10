@@ -25,7 +25,7 @@ namespace DChild.Menu.Equipment.UI
         {
             m_selectionUI.SetupUI(m_sampleData);
 
-            m_detailsUI.SetHighlightedEquipment(m_sampleData.First().soulEquipment);
+            m_detailsUI.SetHighlightedEquipment(m_sampleData.First());
             m_detailsUI.UpdateUI();
         }
     }

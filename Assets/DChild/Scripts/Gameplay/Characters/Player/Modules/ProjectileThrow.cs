@@ -343,15 +343,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.canAttack = false;
             m_state.isAttacking = true;
             m_animator.SetBool(m_skullThrowAnimationParameter, true);
-
-            //m_spawnedProjectile = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(m_projectile.projectile);
-            //m_spawnedProjectile.transform.position = m_spawnPoint.position;
-            //m_spawnedProjectile.transform.parent = transform;
-            //m_spawnedProjectile.GetComponent<Attacker>().SetParentAttacker(m_attacker);
-            //if (m_spawnedProjectile.TryGetComponent(out IsolatedObjectPhysics2D physics))
-            //{
-            //    physics.Disable();
-            //}
         }
 
         public void StartThrow()
