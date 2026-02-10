@@ -19,6 +19,15 @@ namespace DChild.Menu.Extras
             }
         }
 
+        private void OnDisable()
+        {
+            var items = GetComponentsInChildren<ExtrasItem>();
+            for (int i = 0; i < items.Length; i++)
+            {
+                items[i].Selected -= OnItemSelected;
+            }
+        }
+
         private void OnItemSelected(object sender, ItemSelectedEventArgs eventArgs)
         {
             m_showcase.Showcase(m_list, eventArgs.itemIndex);

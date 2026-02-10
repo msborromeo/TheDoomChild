@@ -130,5 +130,30 @@ namespace DChild.Gameplay.UI
             m_avatar.ExecuteIdle();
             m_fx.HideAll();
         }
+
+        private void OnDisable()
+        {
+            var player = GameplaySystem.playerManager.player;
+            m_state = player.state;
+            player.damageableModule.DamageTaken -= OnPlayerDamaged;
+
+            var shadowMorph = player.character.GetComponentInChildren<ShadowMorph>();
+            shadowMorph.ExecuteModule -= OnShadowMorphExecuted;
+            shadowMorph.End -= OnShadowMorphEnd;
+
+            var shadowDash = player.character.GetComponentInChildren<ShadowDash>();
+            shadowDash.ExecuteModule -= OnShadowMorphExecuted;
+            shadowDash.End -= OnShadowMorphEnd;
+
+            var shadowSlide = player.character.GetComponentInChildren<ShadowSlide>();
+            shadowSlide.ExecuteModule -= OnShadowMorphExecuted;
+            shadowSlide.End -= OnShadowMorphEnd;
+
+            var devilWings = player.character.GetComponentInChildren<DevilWings>();
+            devilWings.ExecuteModule -= OnShadowMorphExecuted;
+            devilWings.End -= OnShadowMorphEnd;
+
+            player.state.EnrageChange -= OnEnrageChange;
+        }
     }
 }

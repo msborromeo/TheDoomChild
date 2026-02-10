@@ -82,5 +82,12 @@ namespace DChild.Gameplay.UI
             m_shadowGaugeStat.ValueChanged += ShadowStatChange;
             m_prevShadowStatValue = m_shadowGaugeStat.currentValue;
         }
+
+        private void OnDisable()
+        {
+            m_healthStat.MaxValueChanged -= HealthStatChange;
+            m_healthStat.ValueChanged -= HealthStatChange;
+            m_shadowGaugeStat.ValueChanged -= ShadowStatChange;
+        }
     }
 }

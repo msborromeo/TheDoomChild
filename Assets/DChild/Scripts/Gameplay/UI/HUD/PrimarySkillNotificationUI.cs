@@ -78,12 +78,12 @@ namespace DChild.Gameplay
             }
         }
 
-        private void Start()
+        private void OnEnable()
         {
             m_primarySkillUILocalizer.PrimarySkillInstructionsLocalized += OnPrimarySkillInstructionsLocalized;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             m_primarySkillUILocalizer.PrimarySkillInstructionsLocalized -= OnPrimarySkillInstructionsLocalized;
         }

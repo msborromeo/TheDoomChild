@@ -44,5 +44,10 @@ namespace DChild.Gameplay.UI
                 enabled = false;
             }
         }
+
+        private void OnDisable()
+        {
+            m_damaeable.DamageTaken -= OnDamageTaken;
+        }
     }
 }

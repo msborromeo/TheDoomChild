@@ -80,5 +80,10 @@ namespace DChild.Gameplay.UI
             m_animator = m_prompt?.GetComponent<UIContainerUIAnimator>();
             m_showStartPosition = m_animator.showAnimation.Move.fromCustomValue;
         }
+
+        private void OnDisable()
+        {
+            m_detector.InteractableDetected -= OnInteractableDetected;
+        }
     }
 }

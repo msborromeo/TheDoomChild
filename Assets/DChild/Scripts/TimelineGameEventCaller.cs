@@ -20,6 +20,14 @@ namespace DChild
             }
         }
 
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_timelines.Length; i++)
+            {
+                m_timelines[i].stopped -= OnStopped;
+            }
+        }
+
         private void OnStopped(PlayableDirector obj)
         {
             GameEventMessage.SendEvent(m_event);

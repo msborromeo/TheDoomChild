@@ -41,5 +41,10 @@ namespace DChild.Gameplay.UI
                 m_prompt.position =  m_promptFor.promptPosition;
             }
         }
+
+        private void OnDisable()
+        {
+            m_detector.MovableObjectDetected -= OnMovableObjectDetected;
+        }
     }
 }

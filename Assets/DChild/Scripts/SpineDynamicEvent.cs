@@ -51,5 +51,10 @@ namespace DChild
             m_skeletonAnimation.state.Event += OnEvent;
         }
 
+
+        private void OnDisable()
+        {
+            m_skeletonAnimation.state.Event -= OnEvent;
+        }
     }
 }

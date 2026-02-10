@@ -27,14 +27,14 @@ namespace DChild.Menu.Inputs
             }
         }
 
-        private void Start()
+        private void OnEnable()
         {
             InputIconHandle.UpdateInputIcons += UpdateInputIcons;
             UpdateInputIcons(InputIconHandle.GetCurrentInputIcon());
         }
 
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             InputIconHandle.UpdateInputIcons -= UpdateInputIcons;
         }

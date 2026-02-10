@@ -103,6 +103,11 @@ namespace DChild.Menu.MainMenu
             m_frameSpeed.CountdownEnd += OnFrameEnd;
         }
 
+        private void OnDisable()
+        {
+            m_frameSpeed.CountdownEnd -= OnFrameEnd;
+        }
+
         private void Update()
         {
             m_frameSpeed.Tick(Time.unscaledDeltaTime);

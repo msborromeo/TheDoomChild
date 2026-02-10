@@ -70,6 +70,12 @@ namespace DChild.Menu
             m_confirmationWindow.RequestAffirmed += OnAffirm;
             m_confirmationWindow.RequestDeclined += OnDecline;
         }
+
+        private void OnDisable()
+        {
+            m_confirmationWindow.RequestAffirmed -= OnAffirm;
+            m_confirmationWindow.RequestDeclined -= OnDecline;
+        }
     }
 
 }

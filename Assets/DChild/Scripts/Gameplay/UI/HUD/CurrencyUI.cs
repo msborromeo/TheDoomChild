@@ -185,5 +185,11 @@ namespace DChild.Gameplay.UI
                 }
             }
         }
+
+        private void OnDisable()
+        {
+            m_currency.OnAmountAdded -= OnAmountAdded;
+            m_currency.OnAmountSet -= OnAmountSet;
+        }
     }
 }

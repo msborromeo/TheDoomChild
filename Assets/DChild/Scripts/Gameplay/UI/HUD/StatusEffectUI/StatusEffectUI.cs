@@ -34,5 +34,11 @@ namespace DChild.Gameplay.Combat.StatusAilment.UI
             m_screenFilter.HideFilter(StatusEffectType._COUNT);
             m_iconManager?.HideAllIcons();
         }
+
+        private void OnDisable()
+        {
+            m_reciever.StatusRecieved -= OnStatusRecieved;
+            m_reciever.StatusEnd -= OnStatusEnd;
+        }
     }
 }

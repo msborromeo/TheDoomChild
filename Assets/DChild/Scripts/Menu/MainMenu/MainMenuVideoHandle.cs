@@ -74,6 +74,9 @@ namespace DChild.Menu.MainMenu
             m_videoPlayer.loopPointReached += OnLoopReach;
         }
 
-
+        private void OnDisable()
+        {
+            m_videoPlayer.loopPointReached -= OnLoopReach;
+        }
     }
 }

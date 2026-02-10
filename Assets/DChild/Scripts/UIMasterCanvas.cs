@@ -11,10 +11,14 @@ namespace DChild
         {
             m_canvas = GetComponent<Canvas>();
             m_canvas.worldCamera = GameSystem.mainCamera;
+        }
+
+        private void OnEnable()
+        {
             GameSystem.CameraChange += OnCameraChange;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             GameSystem.CameraChange -= OnCameraChange;
         }

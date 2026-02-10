@@ -16,7 +16,7 @@ public class PromptLocalizer : MonoBehaviour
     [SerializeField]
     private Localize InvalidPrompt;
 
-    private void Awake()
+    private void OnEnable()
     {
         m_Injector = GetComponent<IPromptLocalizer>();
         m_Injector.LocalizeText += onUpdate;
@@ -28,7 +28,7 @@ public class PromptLocalizer : MonoBehaviour
         InvalidPrompt?.SetTerm("ActionPrompts/" + text);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         m_Injector.LocalizeText -= onUpdate;
     }

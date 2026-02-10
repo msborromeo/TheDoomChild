@@ -69,6 +69,13 @@ namespace DChild.Menu
             m_eventSender.CreditsStop += OnStop;
         }
 
+        private void OnDisable()
+        {
+            m_eventSender.CreditsPause -= OnPause;
+            m_eventSender.CreditsPlay -= OnPlay;
+            m_eventSender.CreditsStop -= OnStop;
+        }
+
         private void Start()
         {
             for (int i = 0; i < m_contents.Length; i++)

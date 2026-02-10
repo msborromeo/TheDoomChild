@@ -8,6 +8,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 
 using System.Collections;
+using static Doozy.Runtime.UIManager.UIViewId;
 
 namespace DChild
 {
@@ -70,6 +71,11 @@ namespace DChild
         private void Awake()
         {
             m_intro.loopPointReached += OnIntroEnd;
+        }
+
+        private void OnDisable()
+        {
+            m_intro.loopPointReached -= OnIntroEnd;
         }
 
         private void OnIntroEnd(VideoPlayer source)

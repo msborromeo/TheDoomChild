@@ -45,5 +45,13 @@ namespace DChild.Gameplay.UI.Alerts
                 m_toObserve[i].StateChange += OnStateChange;
             }
         }
+
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_toObserve.Length; i++)
+            {
+                m_toObserve[i].StateChange -= OnStateChange;
+            }
+        }
     }
 }

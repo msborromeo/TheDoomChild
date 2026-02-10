@@ -186,6 +186,14 @@ namespace DChild.Gameplay
             UpdateState();
         }
 
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_requirements.Length; i++)
+            {
+                m_requirements[i].CompletionChange -= OnRequirementComplete;
+            }
+        }
+
 #if UNITY_EDITOR
         private void OnStateChange()
         {

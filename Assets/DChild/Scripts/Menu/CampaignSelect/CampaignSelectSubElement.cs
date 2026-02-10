@@ -22,7 +22,7 @@ namespace DChild.Menu.Campaign
 
         protected virtual void OnDisable()
         {
-            m_campaignSelect.CampaignSelected += OnCampaignSelected;
+            m_campaignSelect.CampaignSelected -= OnCampaignSelected;
         }
     }
 }

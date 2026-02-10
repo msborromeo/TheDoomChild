@@ -26,6 +26,14 @@ namespace DChild.Menu.UI
             }
         }
 
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_parentCanvases.Length; i++)
+            {
+                m_parentCanvases[i].CanvasHide -= OnCanvasHide;
+            }
+        }
+
         private void Start()
         {
             m_canvas = GetComponent<Canvas>();
