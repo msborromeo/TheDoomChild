@@ -3046,9 +3046,8 @@ namespace DChild.Gameplay.Characters.Enemies
             m_attackUsed = new bool[m_currentAttackCache.Count];
         }
 
-        protected override void OnDisable()
+        protected override void OnDestroy()
         {
-            base.OnDisable();
             m_damageable.DamageTaken -= OnDamageTaken;
             m_flinchRighthHandle.FlinchStart -= OnFlinchStart;
             m_flinchLeftHandle.FlinchStart -= OnFlinchStart;
@@ -3062,6 +3061,7 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 m_pusBlobs[i].OnNearToMaster -= OnBlobNearKingPus;
             }
+            base.OnDestroy();
         }
 
         private void OnStatusEnd(object sender, StatusEffectRecieverEventArgs eventArgs)

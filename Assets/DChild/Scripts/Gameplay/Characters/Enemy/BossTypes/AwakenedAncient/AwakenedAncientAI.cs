@@ -387,12 +387,13 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void OnDisable()
         {
             base.OnDisable();
-            m_attackHandle.AttackDone -= OnAttackDone;
-            m_turnHandle.TurnDone -= OnTurnDone;
+
         }
 
         protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
         {
+            m_attackHandle.AttackDone -= OnAttackDone;
+            m_turnHandle.TurnDone -= OnTurnDone;
             GameEventMessage.SendEvent("Boss Gone");
             base.OnDestroyed(sender, eventArgs);
         }

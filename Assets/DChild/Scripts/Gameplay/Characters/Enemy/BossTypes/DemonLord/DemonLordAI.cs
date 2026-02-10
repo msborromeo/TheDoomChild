@@ -1920,12 +1920,12 @@ namespace DChild.Gameplay.Characters.Enemies
 
         }
 
-        protected override void OnDisable()
+        protected override void OnDestroy()
         {
-            base.OnDisable();
             m_damageable.health.Death -= Health_Death;
             m_damageable.DamageTaken -= DemonLordAI_DamageTaken;
             m_demonLordSummonDragon.SpellEnd -= SpellEndEventSummonDragon;
+            base.OnDestroy();
         }
 
         private void Health_Death(object sender, EventActionArgs eventArgs)

@@ -37,7 +37,6 @@ namespace DChild
             {
                 m_wasFired = true;
             }
-            m_state.Event -= HandleEvent;
         }
 
         #region Reuse

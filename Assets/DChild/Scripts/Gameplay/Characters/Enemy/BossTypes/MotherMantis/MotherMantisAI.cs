@@ -1369,9 +1369,10 @@ namespace DChild.Gameplay.Characters.Enemies
             UpdateAttackDeciderList();
         }
 
-        protected override void OnDisable()
+        protected override void OnDestroy()
         {
             m_turnHandle.TurnDone -= OnTurnDone;
+            base.OnDestroy();
         }
 
         private bool m_isPlayerDamaged;

@@ -2053,14 +2053,14 @@ namespace DChild.Gameplay.Characters.Enemies
             m_clones.Add(null);
         }
 
-        protected override void OnDisable()
+        protected override void OnDestroy()
         {
-            base.OnDisable();
             m_turnHandle.TurnDone -= OnTurnDone;
             m_hitDetector[0].PlayerHit -= AddHitCount;
             m_hitDetector[1].PlayerHit -= AddHitCount;
             m_hitDetector[2].PlayerHit -= AddHitCount;
             m_damageable.DamageTaken -= OnDamageTaken;
+            base.OnDestroy();
         }
         private int m_damageCount;
         private void OnDamageTaken(object sender, Damageable.DamageEventArgs eventArgs)

@@ -23,7 +23,6 @@ namespace DChild
             {
                 m_wasFired = true;
             }
-            m_state.Start -= HandleStart;
         }
 
         private void SafeSubscribe(Spine.AnimationState state)

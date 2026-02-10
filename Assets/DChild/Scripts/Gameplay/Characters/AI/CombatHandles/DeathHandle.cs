@@ -47,7 +47,6 @@ namespace DChild.Gameplay.Characters
 
         private void OnCountdownEnd(object sender, EventActionArgs eventArgs)
         {
-            m_bodyDuration.CountdownEnd -= OnCountdownEnd;
             if (m_destroySource)
             {
                 BodyDestroyed?.Invoke(this, new DisposingEventArgs(true));
@@ -59,6 +58,7 @@ namespace DChild.Gameplay.Characters
                 m_source.gameObject.SetActive(false);
                 enabled = false;
             }
+            m_bodyDuration.CountdownEnd -= OnCountdownEnd;
         }
 
         private void OnDestroyed(object sender, EventActionArgs eventArgs)

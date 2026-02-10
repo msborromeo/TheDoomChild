@@ -1409,12 +1409,12 @@ namespace DChild.Gameplay.Characters.Enemies
 
         }
 
-        protected override void OnDisable()
+        protected override void OnDestroy()
         {
-            base.OnDisable();
             m_turnHandle.TurnDone -= OnTurnDone;
             m_damageable.DamageTaken -= OnDamageTaken;
             m_royalGuardianShield.Destroyed -= OnRoyalGuardianShieldDestroyed;
+            base.OnDestroy();
         }
 
         private void OnRoyalGuardianShieldDestroyed(object sender, EventActionArgs eventArgs)

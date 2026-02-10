@@ -99,10 +99,5 @@ namespace DChild.Gameplay.NavigationMap
             var showMap = m_currentMap.GetComponent<UIContainer>();
             showMap.Show();
         }
-
-        private void OnDisable()
-        {
-            m_zoomHandler.OnMapZoom -= m_iconManager.OnMapZoom;
-        }
     }
 }
