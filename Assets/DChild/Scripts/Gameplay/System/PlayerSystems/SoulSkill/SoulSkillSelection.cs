@@ -100,6 +100,25 @@ namespace DChild.Gameplay.SoulSkills
             enabled = false;
         }
 
+        private void OnDisable()
+        {
+            var m_acquiredSoulSkillUIList = m_acquiredListUI.GetComponentsInChildren<SoulSkillButton>(true);
+            for (int i = 0; i < m_acquiredSoulSkillUIList.Length; i++)
+            {
+                var soulSkillUI = m_acquiredSoulSkillUIList[i];
+                soulSkillUI.OnSelected -= OnSkillSelected;
+                soulSkillUI.OnClick -= OnSkillClicked;
+            }
+
+            var m_activatedSoulSkillUIList = m_activatedListUI.GetComponentsInChildren<SoulSkillButton>(true);
+            for (int i = 0; i < m_activatedSoulSkillUIList.Length; i++)
+            {
+                var soulSkillUI = m_activatedSoulSkillUIList[i];
+                soulSkillUI.OnSelected -= OnSkillSelected;
+                soulSkillUI.OnClick -= OnSkillClicked;
+            }
+        }
+
         private void Update()
         {
             if (m_doNotAcceptClickOnMouseRelease)

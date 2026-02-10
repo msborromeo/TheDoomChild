@@ -97,6 +97,10 @@ namespace DChild.Gameplay.Trohpies
                     }
                     m_isComplete = true;
                 }
+                for (int i = 0; i < m_modules.Length; i++)
+                {
+                    m_modules[i].Complete -= OnComplete;
+                }
             }
         }
 

@@ -34,6 +34,12 @@ namespace DChild.Gameplay.Combat
             m_attacker.TargetDamaged += OnTargetDamage;
         }
 
+        private void OnDisable()
+        {
+            m_colliderDamage.DamageableDetected -= OnTargetDetected;
+            m_attacker.TargetDamaged -=  OnTargetDamage;
+        }
+
         private void OnTargetDetected(TargetInfo arg1, Collider2D arg2)
         {
             m_cacheDamageable = arg1.instance;

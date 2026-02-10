@@ -66,6 +66,8 @@ namespace DChild.Gameplay.Items
         private void Desummoning(object sender, EventActionArgs eventArgs)
         {
             RestoreShadow();
+            ShadowPetHandler listener = m_instance.GetComponent<ShadowPetHandler>();
+            listener.Desummoning -= Desummoning;
         }
 
         public void RestoreShadow()

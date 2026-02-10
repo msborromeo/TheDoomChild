@@ -33,5 +33,10 @@ namespace DChild.Gameplay.Combat
         {
             m_stat.ValueChanged += OnStatValueChanged;
         }
+
+        private void OnDisable()
+        {
+            m_stat.ValueChanged -= OnStatValueChanged;
+        }
     }
 }

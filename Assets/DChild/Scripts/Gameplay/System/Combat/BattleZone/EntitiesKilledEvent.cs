@@ -34,5 +34,13 @@ namespace DChild.Gameplay.Combat
                 m_event?.Invoke();
             }
         }
+
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_entities.Length; i++)
+            {
+                m_entities[i].Destroyed -= OnEntityDestroyed;
+            }
+        }
     }
 }

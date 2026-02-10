@@ -290,6 +290,14 @@ namespace DChild.Gameplay.Systems
             }
         }
 
+        private void OnDisable()
+        {
+            GameplaySystem.campaignSerializer.PostDeserialization -= OnPostDeserialization;
+            GameplaySystem.campaignSerializer.PreSerialization -= OnPreSerialization;
+            m_respawnDelay.CountdownEnd -= OnRespawnPlayer;
+            m_player.OnDeath -= OnPlayerDeath;
+        }
+
         public void OnDestroy()
         {
             GameplaySystem.campaignSerializer.PostDeserialization -= OnPostDeserialization;

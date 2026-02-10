@@ -62,6 +62,7 @@ namespace DChild.Gameplay
                     enabled = true;
                 }
             }
+            ((Damageable)sender).Destroyed -= OnInstanceDestroyed;
         }
 
         private void Start()

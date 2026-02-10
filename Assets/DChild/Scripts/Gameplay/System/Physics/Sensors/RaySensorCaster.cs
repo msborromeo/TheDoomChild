@@ -84,6 +84,11 @@ namespace DChild.Gameplay
             }
         }
 
+        private void OnDisable()
+        {
+            m_castPerSecond.CountdownEnd -= OnTimerEnd;
+        }
+
 #if UNITY_EDITOR
         public void Initialize(params RaySensor[] sensors)
         {

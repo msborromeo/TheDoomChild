@@ -68,6 +68,11 @@ namespace DChild.Gameplay.Combat
             //m_animation.animationState.Complete += OnAnimationStart; // For Testing Only
         }
 
+        private void OnDisable()
+        {
+            m_animation.animationState.Event -= OnAnimationEvent;
+        }
+
         //// For Testing Only
         //private void OnAnimationStart(TrackEntry trackEntry)
         //{

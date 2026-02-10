@@ -199,5 +199,10 @@ namespace DChild.Gameplay.Combat
                 m_uiHandler.Update();
             }
         }
+
+        private void OnDisable()
+        {
+            GameplaySystem.playerManager.player.attackModule.TargetDamaged -= OnPlayerAttackSuccessfully;
+        }
     }
 }

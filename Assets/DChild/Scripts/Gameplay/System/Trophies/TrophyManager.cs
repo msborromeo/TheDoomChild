@@ -27,6 +27,7 @@ namespace DChild.Gameplay.Trohpies
             {
                 m_serializableTrophyHandles.Remove(instance);
             }
+            instance.Complete -= OnComplete;
             //Show Notification;
         }
 

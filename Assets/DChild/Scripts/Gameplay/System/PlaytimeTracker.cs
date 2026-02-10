@@ -28,6 +28,12 @@ namespace DChild.Gameplay.Systems
             GameplaySystem.campaignSerializer.PreSerialization += OnSave;
         }
 
+        private void OnDisable()
+        {
+            GameplaySystem.campaignSerializer.PostDeserialization -= OnLoad;
+            GameplaySystem.campaignSerializer.PreSerialization -= OnSave;
+        }
+
         void LateUpdate()
         {
             m_currentTime += Time.unscaledDeltaTime;

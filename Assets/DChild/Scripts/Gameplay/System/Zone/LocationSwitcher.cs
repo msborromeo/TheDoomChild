@@ -172,6 +172,11 @@ namespace DChild.Gameplay.Systems
             m_handle.SetLocationDataReference(m_destination);
         }
 
+        private void OnDisable()
+        {
+            m_poster.data.OnArrival -= OnArrival;
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (m_handle.needsButtonInteraction)

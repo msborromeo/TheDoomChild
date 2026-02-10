@@ -128,6 +128,11 @@ namespace DChild.Gameplay.Combat
             GetComponent<ColliderDamage>().DamageableDetected += OnDamageableDetected;
         }
 
+        private void OnDisable()
+        {
+            GetComponent<ColliderDamage>().DamageableDetected -= OnDamageableDetected;
+        }
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.yellow;

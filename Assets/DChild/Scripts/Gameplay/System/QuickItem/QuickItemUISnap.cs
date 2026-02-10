@@ -62,5 +62,10 @@ namespace DChild.Gameplay.Inventories.QuickItem
             m_handle.SelectedItem += OnItemSelect;
             UpdateUI(m_handle.currentIndex);
         }
+
+        private void OnDisable()
+        {
+            m_handle.SelectedItem -= OnItemSelect;
+        }
     }
 }

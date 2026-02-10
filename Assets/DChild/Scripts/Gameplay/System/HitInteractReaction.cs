@@ -23,6 +23,11 @@ namespace DChild.Gameplay.Environment.Interractables
             m_interractable.OnHit += OnHit;
         }
 
+        private void OnDisable()
+        {
+            m_interractable.OnHit -= OnHit;
+        }
+
         private void OnHit(object sender, HitDirectionEventArgs eventArgs)
         {
             if (eventArgs.direction == HorizontalDirection.Left)

@@ -25,6 +25,13 @@ public class SoulGathererEffectsHandler : MonoBehaviour
         lootPicker.OnLootPickupEnd += OnLootPickUpEnd;
     }
 
+    private void OnDisable()
+    {
+        var lootPicker = FindObjectOfType<LootPicker>();
+        lootPicker.OnLootPickup -= OnLootPickUp;
+        lootPicker.OnLootPickupEnd -= OnLootPickUpEnd;
+    }
+
     private void OnLootPickUpEnd(object sender, EventActionArgs eventArgs)
     {
         m_effects.Stop();

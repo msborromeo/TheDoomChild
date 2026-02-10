@@ -68,5 +68,10 @@ namespace DChild.Gameplay.Combat
             m_colorTriggerValueID = Shader.PropertyToID("_DamageTriggerValue");
 
         }
+
+        private void OnDisable()
+        {
+            GetComponentInParent<Damageable>().DamageTaken -= OnDamageTaken;
+        }
     }
 }

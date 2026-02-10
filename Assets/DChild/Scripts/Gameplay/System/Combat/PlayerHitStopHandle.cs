@@ -50,6 +50,11 @@ namespace DChild.Gameplay.Combat
             enabled = false;
         }
 
+        private void OnDisable()
+        {
+            m_duration.CountdownEnd -= ResumeTime;
+        }
+
         private void Update()
         {
             if (GameplaySystem.isGamePaused == false)

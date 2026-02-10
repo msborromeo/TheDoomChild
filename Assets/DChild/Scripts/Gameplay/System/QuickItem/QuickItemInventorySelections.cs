@@ -86,5 +86,11 @@ namespace DChild.Gameplay.Inventories
             InvokeSelectionUpdate();
         }
 
+
+        private void OnDisable()
+        {
+            m_inventory.MassInventoryItemUpdate -= OnMassInventoryUpdate;
+            m_inventory.InventoryItemUpdate -= OnInventoryItemUpdate;
+        }
     }
 }

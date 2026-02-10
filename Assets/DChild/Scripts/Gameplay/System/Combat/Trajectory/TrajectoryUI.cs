@@ -36,5 +36,10 @@ namespace DChild.Gameplay.Combat
                 m_simulator.SimulationEnd += SimulationEnd;
             }
         }
+
+        protected virtual void OnDisable()
+        {
+            m_simulator.SimulationEnd -= SimulationEnd;
+        }
     }
 }

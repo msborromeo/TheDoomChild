@@ -1,4 +1,5 @@
-﻿using DChild.Gameplay.Systems.WorldComponents;
+﻿using DChild.Gameplay.Combat.StatusAilment.UI;
+using DChild.Gameplay.Systems.WorldComponents;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System;
@@ -151,6 +152,7 @@ namespace DChild.Gameplay.Combat.StatusAilment
             eventArgs.statusEffect.StopEffect();
             m_inflictedStatusEffects.Remove(eventArgs.statusEffect);
             StatusEnd?.Invoke(this, new StatusEffectRecieverEventArgs(eventArgs.statusEffect.type));
+            eventArgs.statusEffect.DurationExpired -= OnEffectEnd;
         }
 
         private void Awake()

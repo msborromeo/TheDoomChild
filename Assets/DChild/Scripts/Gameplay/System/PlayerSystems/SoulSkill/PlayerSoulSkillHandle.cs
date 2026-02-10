@@ -191,6 +191,11 @@ namespace DChild.Gameplay.SoulSkills
             m_player.inventory.SoulSkillItemAcquired += OnSoulSkillItemAcquired;
         }
 
+        private void OnDisable()
+        {
+            m_player.inventory.SoulSkillItemAcquired -= OnSoulSkillItemAcquired;
+        }
+
         public bool HasActivatedSkill(SoulSkill skill)
         {
             return m_activatedSkills.Contains(skill);

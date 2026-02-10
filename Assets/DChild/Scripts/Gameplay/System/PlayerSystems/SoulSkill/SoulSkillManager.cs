@@ -197,5 +197,14 @@ namespace DChild.Gameplay.SoulSkills
             m_availableListUI.InitializeListAvailability(m_playerHandle.acquiredSkills);
         }
 
+
+        private void OnDisable()
+        {
+            m_playerHandle.SaveDataLoaded -= OnSoulSkillSaveDataLoaded;
+            m_playerHandle.AvailableSoulSkillChanged -= OnAvailableSkillsChanged;
+            m_playerHandle.MaxCapacityChanged -= OnMaxCapacityChanged;
+            m_skillSelection.OnSelected -= OnSoulSkillSelected;
+            m_skillSelection.OnActionRequired -= OnSoulSkillActionRequired;
+        }
     }
 }

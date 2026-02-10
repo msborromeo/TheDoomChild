@@ -36,5 +36,10 @@ namespace DChild.Gameplay.Trade.UI
                 m_button.interactable = false;
             }
         }
+
+        private void OnDisable()
+        {
+            m_transactionInfo.TransactionModified -= OnTransactionModified;
+        }
     }
 }

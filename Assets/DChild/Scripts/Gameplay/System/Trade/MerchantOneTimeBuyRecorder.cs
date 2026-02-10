@@ -57,5 +57,9 @@ namespace DChild.Gameplay.Trade
             GetComponent<IMerchantStore>().InventoryItemUpdate += OnItemUpdate;
         }
 
+        private void OnDisable()
+        {
+            GetComponent<IMerchantStore>().InventoryItemUpdate -= OnItemUpdate;
+        }
     }
 }

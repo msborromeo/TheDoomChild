@@ -206,6 +206,11 @@ namespace DChild.Gameplay.Pathfinding
             TrackPath();
         }
 
+        private void OnDisable()
+        {
+            m_seeker.pathCallback -= OnSetPathReturn;
+        }
+
         private void OnValidate()
         {
             enabled = false;

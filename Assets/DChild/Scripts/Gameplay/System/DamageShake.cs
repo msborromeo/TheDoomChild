@@ -57,6 +57,11 @@ namespace DChild.Gameplay.Combat
                 m_affectedTransforms[i].position = m_startingPositionList[i] + offset * m_radiusOffset;
             }
         }
+
+        private void OnDisable()
+        {
+            m_interractable.OnHit -= OnHit;
+        }
     }
 
 }

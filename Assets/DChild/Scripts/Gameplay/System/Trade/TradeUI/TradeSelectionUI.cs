@@ -103,6 +103,14 @@ namespace DChild.Gameplay.Trade.UI
             }
         }
 
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_selection.Count; i++)
+            {
+                m_selection[i].ItemSelected -= OnItemSelected;
+            }
+        }
+
 
 
 #if UNITY_EDITOR

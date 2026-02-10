@@ -21,7 +21,7 @@ public class ItemViewLocalizer : MonoBehaviour
         m_Injector.LocalizeItemView += onUpdate;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         m_Injector.LocalizeItemView -= onUpdate;
     }

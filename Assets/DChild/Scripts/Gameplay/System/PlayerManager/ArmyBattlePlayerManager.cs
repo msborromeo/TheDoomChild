@@ -120,5 +120,14 @@ namespace DChild.Gameplay.Systems
         {
             Debug.Log("Theres no Player visuals to modify");
         }
+
+        private void OnDestroy()
+        {
+            if (GameplaySystem.campaignSerializer != null)
+            {
+                GameplaySystem.campaignSerializer.PostDeserialization -= OnPostDeserialization;
+                GameplaySystem.campaignSerializer.PreSerialization -= OnPreSerialization;
+            }
+        }
     }
 }

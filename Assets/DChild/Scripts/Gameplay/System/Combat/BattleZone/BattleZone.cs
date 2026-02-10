@@ -65,6 +65,7 @@ namespace DChild.Gameplay.Combat
                     m_onBattleOver?.Invoke();
                 }
             }
+            ((Damageable)sender).Destroyed -= OnEntityDestroyed;
         }
 
         private void OnSpawnEnd(object sender, EventActionArgs eventArgs)
@@ -106,7 +107,13 @@ namespace DChild.Gameplay.Combat
             m_noMoreWaves = false;
         }
 
-    
+        private void OnDisable()
+        {
+            m_spawnHandle.EntitiesFinishSpawning -= OnSpawnEnd;
+            m_spawnHandle.EntitySpawned -= OnSpawn;
+        }
+
+
 
         public void Update()
         {

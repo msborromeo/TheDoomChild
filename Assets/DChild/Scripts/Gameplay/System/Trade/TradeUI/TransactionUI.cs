@@ -24,7 +24,7 @@ namespace DChild.Gameplay.Trade.UI
             }
             m_transaction = tradeTransaction;
             UpdateDisplay();
-            tradeTransaction.TransactionModified += OnTransactionModified;
+            m_transaction.TransactionModified += OnTransactionModified;
         }
 
         private void OnTransactionModified(object sender, EventActionArgs eventArgs)
@@ -39,6 +39,11 @@ namespace DChild.Gameplay.Trade.UI
             //    m_currentItemDisplayed = m_transaction.item;
             //    m_itemDetailsUI.DisplayItem(m_currentItemDisplayed);
             //}
+        }
+
+        private void OnDisable()
+        {
+            m_transaction.TransactionModified -= OnTransactionModified;
         }
     } 
 }

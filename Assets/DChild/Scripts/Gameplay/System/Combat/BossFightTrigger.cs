@@ -165,5 +165,11 @@ namespace DChild.Gameplay.Combat
         {
             GameplaySystem.campaignSerializer.UpdateDialogueSaveData();
         }
+
+        private void OnDisable()
+        {
+            m_director.stopped -= OnCinematicStop;
+            m_boss.GetComponent<Damageable>().Destroyed -= OnBossKilled;
+        }
     }
 }

@@ -132,5 +132,10 @@ namespace DChild.Gameplay
         {
             LoadingHandle.LoadingDone += OnSceneDone;
         }
+
+        private void OnDisable()
+        {
+            LoadingHandle.LoadingDone -= OnSceneDone;
+        }
     }
 }

@@ -34,6 +34,11 @@ namespace DChild.Gameplay.Combat
             m_boss.PhaseChange += OnPhaseChange;
         }
 
+        private void OnDisable()
+        {
+            m_boss.PhaseChange -= OnPhaseChange;
+        }
+
         private void OnPhaseChange(object sender, Boss.PhaseEventArgs eventArgs)
         {
             for (int i = 0; i < m_transistions.Length; i++)

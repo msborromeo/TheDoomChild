@@ -154,6 +154,11 @@ namespace DChild.Gameplay
             ExtraDatabases.addedDatabases += OnDialogueDatabaseAdded;
         }
 
+        private void OnDisable()
+        {
+            ExtraDatabases.addedDatabases -= OnDialogueDatabaseAdded;
+        }
+
         public void UpdateDialogueSaveData()
         {
             m_slot.UpdateDialogueSaveData();

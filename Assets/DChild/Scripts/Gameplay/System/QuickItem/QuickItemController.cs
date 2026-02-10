@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.Combat;
+using DChild.Gameplay.Inventories.UI;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -75,6 +76,15 @@ namespace DChild.Gameplay.Inventories.QuickItem
             m_isEnabled = true;
 
             m_playerDamageable = GameplaySystem.playerManager.player.damageableModule;
+        }
+
+        private void OnDisable()
+        {
+            var actionMap = m_input.actions.FindActionMap("Underworld");
+            var itemUse = m_itemUse.action;
+            var itemCycle = m_itemCycle.action;
+            actionMap.FindAction(itemUse.id).performed -= OnUseAction;
+            actionMap.FindAction(itemCycle.id).performed -= OnCycleAction;
         }
 
     }

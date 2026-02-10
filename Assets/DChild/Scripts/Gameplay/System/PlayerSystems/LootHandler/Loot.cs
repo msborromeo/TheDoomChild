@@ -114,6 +114,11 @@ namespace DChild.Gameplay.Systems
             }
         }
 
+        private void OnDisable()
+        {
+            m_popTimer.CountdownEnd -= OnPopDurationEnd;
+        }
+
         private void OnTriggerStay2D(Collider2D collision)
         {
             if (m_hasBeenApplied == false && m_isPopping == false)

@@ -94,6 +94,7 @@ namespace DChild
             GameplaySystem.ListenToNextSceneLoad();
             m_zoneLoader.LoadZone(scene, withLoadingScene);
             GameplaySystem.ClearCaches();
+            Resources.UnloadUnusedAssets();
         }
 
         public static void LoadZone(GameMode gameMode, SceneInfo scene, bool withLoadingScene, Action CallAfterSceneDone)
@@ -102,6 +103,7 @@ namespace DChild
             GameplaySystem.ListenToNextSceneLoad();
             m_zoneLoader.LoadZone(scene, withLoadingScene, CallAfterSceneDone);
             GameplaySystem.ClearCaches();
+            Resources.UnloadUnusedAssets();
         }
 
         public static bool IsCurrentZone(string sceneName) => m_zoneLoader.activeZone == sceneName;

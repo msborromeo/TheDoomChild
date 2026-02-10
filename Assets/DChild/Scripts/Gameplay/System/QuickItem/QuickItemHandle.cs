@@ -272,5 +272,11 @@ namespace DChild.Gameplay.Inventories
             m_itemCountRemover = new QuickItemCountRemover(m_player, m_inventory);
             m_cooldown.ResetCooldown();
         }
+
+        private void OnDisable()
+        {
+            m_selections.SelectionUpdate -= OnSelectionUpdate;
+            m_selections.SelectionDetailsUpdate -= OnSelectionDetailsUpdate;
+        }
     }
 }

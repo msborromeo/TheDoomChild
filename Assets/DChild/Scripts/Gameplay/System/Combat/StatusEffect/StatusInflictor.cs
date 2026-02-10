@@ -109,5 +109,10 @@ namespace DChild.Gameplay.Combat.StatusAilment
             }
             GetComponent<IAttacker>().TargetDamaged += OnTargetDamage;
         }
+
+        private void OnDisable()
+        {
+            GetComponent<IAttacker>().TargetDamaged -= OnTargetDamage;
+        }
     }
 }

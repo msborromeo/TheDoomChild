@@ -50,6 +50,11 @@ public class ItemConversionHandler : SerializedMonoBehaviour
         }
     }
 
+    protected virtual void OnDisable()
+    {
+        m_player.inventory.InventoryItemUpdate -= onPickup;
+    }
+
     private void onPickup(object sender, ItemEventArgs eventArgs)
     {
         if (eventArgs.data.itemName == m_item.itemName)

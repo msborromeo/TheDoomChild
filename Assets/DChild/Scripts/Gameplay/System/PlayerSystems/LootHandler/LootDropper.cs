@@ -44,6 +44,11 @@ namespace DChild.Gameplay.Systems
             }
         }
 
+        private void OnDisable()
+        {
+            m_damageable.Destroyed -= OnDestroyed;
+        }
+
         private void OnDestroyed(object sender, EventActionArgs eventArgs)
         {
             DropLoot();

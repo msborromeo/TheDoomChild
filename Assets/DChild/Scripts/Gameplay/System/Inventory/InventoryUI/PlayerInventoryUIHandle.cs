@@ -63,6 +63,12 @@ namespace DChild.Gameplay.Inventories.UI
             m_listUI.ListOverallChange += OnListOverallChange;
             m_usableInventoryItemHandle.AllItemCountConsumed += OnItemUsedConsumed;
         }
-        
+
+        private void OnDisable()
+        {
+            m_listUI.ListOverallChange -= OnListOverallChange;
+            m_usableInventoryItemHandle.AllItemCountConsumed -= OnItemUsedConsumed;
+        }
+
     }
 }

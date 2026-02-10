@@ -141,6 +141,12 @@ namespace DChild.Gameplay
             }
         }
 
-
+        private void OnDisable()
+        {
+            for (int i = 0; i < m_entities.Length; i++)
+            {
+                m_entities[i].entity.Destroyed -= OnEntityDeath;
+            }
+        }
     }
 }
