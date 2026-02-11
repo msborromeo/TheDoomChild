@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.Presets;
 using UnityEngine;
@@ -18,19 +19,18 @@ namespace AllIn1VfxToolkit
         private int gradientColorKeyIndex = 0;
         private int helperNum;
         private SerializedProperty startColorProperty;
+        private float timeSinceLastFetch = -1f;
+        private float TIME_BETWEEN_FETCHES = 4f;
 
         private void OnEnable()
         {
             startColorProperty = serializedObject.FindProperty("startColor");
+            LoadParticleHelpersAndPresets();
         }
 
         public override void OnInspectorGUI()
         {
-            smallRedBoldLabel = new GUIStyle(EditorStyles.boldLabel) { normal = { textColor = new Color(0.58f, 0f, 0f) } };
-            smallBoldLabel = new GUIStyle(EditorStyles.boldLabel);
-            headerBoldLabel = new GUIStyle(EditorStyles.boldLabel) { fontSize = 13, alignment = TextAnchor.MiddleCenter };
-            propertiesStyle = new GUIStyle(EditorStyles.helpBox) { margin = new RectOffset(0, 0, 0, 0) };
-            helperNum = 1;
+            InitializeStyles();
 
             if(Selection.activeGameObject != null) ps = Selection.activeGameObject.GetComponent<ParticleSystem>();
             if(ps == null)
@@ -55,6 +55,7 @@ namespace AllIn1VfxToolkit
 
             mainModule = ps.main;
 
+            helperNum = 1;
             EditorGUILayout.LabelField("Generic Helpers", headerBoldLabel, GUILayout.Height(20));
             HierarchyHelpers();
             ColorChangeUI();
@@ -109,6 +110,17 @@ namespace AllIn1VfxToolkit
             {
                 for(int i = 0; i < targets.Length; i++)
                     ((AllIn1ParticleHelperComponent)targets[i]).ApplyCurrentSettings();
+            }
+        }
+        
+        private void InitializeStyles()
+        {
+            if(smallRedBoldLabel == null)
+            {
+                smallRedBoldLabel = new GUIStyle(EditorStyles.boldLabel) { normal = { textColor = new Color(0.86f, 0.31f, 0.3f) } };
+                smallBoldLabel = new GUIStyle(EditorStyles.boldLabel);
+                headerBoldLabel = new GUIStyle(EditorStyles.boldLabel) { fontSize = 13, alignment = TextAnchor.MiddleCenter };
+                propertiesStyle = new GUIStyle(EditorStyles.helpBox) { margin = new RectOffset(0, 0, 0, 0) };
             }
         }
 
@@ -367,9 +379,7 @@ namespace AllIn1VfxToolkit
 
         private void ParticleHelperPresets()
         {
-            if(particleHelpersPresets == null)
-                for(int i = 0; i < targets.Length; i++)
-                    ((AllIn1ParticleHelperComponent)targets[i]).particleHelperPresets = false;
+            Color iniBackgroundColor = GUI.backgroundColor;
 
             bool toggle = ((AllIn1ParticleHelperComponent)target).particleHelperPresets;
             toggle = EditorGUILayout.BeginToggleGroup(helperNum + ".Particle Helper Presets", toggle);
@@ -379,45 +389,72 @@ namespace AllIn1VfxToolkit
             if(toggle)
             {
                 EditorGUILayout.BeginVertical(propertiesStyle);
+                
+                GUI.backgroundColor = Color.cyan;
+                if(GUILayout.Button("Fetch Particle Helper Presets")) LoadParticleHelpersAndPresets();
+                GUI.backgroundColor = iniBackgroundColor;
 
+                GUI.backgroundColor = Color.green;
                 GUILayout.Label("Save Particle Helper Presets", smallBoldLabel);
                 if(GUILayout.Button("Save Particle Helper Preset"))
                 {
                     for(int i = 0; i < targets.Length; i++) ((AllIn1ParticleHelperComponent)targets[i]).SaveParticleHelperPreset();
                     particleHelpersPresets = null;
+                    LoadParticleHelpersAndPresets();
                 }
+                GUI.backgroundColor = iniBackgroundColor;
 
                 DrawLine(Color.grey, 1, 3);
 
                 GUILayout.Label("Load Particle Helper Presets", smallBoldLabel);
-                if(particleHelpersPresets == null) particleHelpersPresets = Resources.LoadAll<AllIn1ParticleHelperSO>("");
-                bool particleHelpersPresetsAvailable = particleHelpersPresets.Length > 0;
-                if(!particleHelpersPresetsAvailable) GUILayout.Label("No Particle Helper Presets found, \nthey should be placed in a Resource folder", smallRedBoldLabel);
+                bool particleHelpersPresetsAvailable = particleHelpersPresets != null && particleHelpersPresets.Length > 0;
+                if(!particleHelpersPresetsAvailable)
+                {
+                    GUILayout.Label("No Particle Helper Presets found", smallRedBoldLabel);
+                    if(Time.realtimeSinceStartup - timeSinceLastFetch > TIME_BETWEEN_FETCHES) LoadParticleHelpersAndPresets();
+                }
                 else
                 {
                     string[] presetNames = new string[particleHelpersPresets.Length];
                     for(int i = 0; i < particleHelpersPresets.Length; i++) presetNames[i] = particleHelpersPresets[i].name;
 
+                    GUI.backgroundColor = Color.cyan;
                     selectedIndex = EditorGUILayout.Popup("Particle Helper Presets", selectedIndex, presetNames);
+                    GUI.backgroundColor = iniBackgroundColor;
+
+                    GUI.backgroundColor = Color.yellow;
                     if(GUILayout.Button("Apply Particle Helper Preset"))
                         for(int i = 0; i < targets.Length; i++)
                             ((AllIn1ParticleHelperComponent)targets[i]).ApplyParticleHelperPreset(particleHelpersPresets[selectedIndex], true);
+                    GUI.backgroundColor = iniBackgroundColor;
                 }
-
+                
                 EditorGUILayout.EndVertical();
             }
 
             EditorGUILayout.EndToggleGroup();
             helperNum++;
+            GUI.backgroundColor = iniBackgroundColor;
+        }
+        
+        private void LoadParticleHelpersAndPresets()
+        {
+            timeSinceLastFetch = Time.realtimeSinceStartup;
+            string[] guids = AssetDatabase.FindAssets("t:AllIn1ParticleHelperSO");
+            particleHelpersPresets = guids.Select(guid => AssetDatabase.LoadAssetAtPath<AllIn1ParticleHelperSO>(AssetDatabase.GUIDToAssetPath(guid))).ToArray();
+            
+            guids = AssetDatabase.FindAssets("t:Preset");
+            particleSystemPresets = guids
+                .Select(guid => AssetDatabase.LoadAssetAtPath<Preset>(AssetDatabase.GUIDToAssetPath(guid)))
+                .Where(preset => preset != null && preset.GetTargetFullTypeName().Contains("ParticleSystem"))
+                .ToArray();
         }
 
         private Preset[] particleSystemPresets = null;
 
         private void ParticleSystemPresets()
         {
-            if(particleSystemPresets == null)
-                for(int i = 0; i < targets.Length; i++)
-                    ((AllIn1ParticleHelperComponent)targets[i]).particleSystemPresets = false;
+            Color iniBackgroundColor = GUI.backgroundColor;
 
             bool toggle = ((AllIn1ParticleHelperComponent)target).particleSystemPresets;
             toggle = EditorGUILayout.BeginToggleGroup(helperNum + ".Particle System Presets", toggle);
@@ -428,43 +465,55 @@ namespace AllIn1VfxToolkit
             {
                 EditorGUILayout.BeginVertical(propertiesStyle);
 
+                GUI.backgroundColor = Color.cyan;
+                if(GUILayout.Button("Fetch Particle System Presets")) LoadParticleHelpersAndPresets();
+                GUI.backgroundColor = iniBackgroundColor;
+                
+                GUI.backgroundColor = Color.green;
                 GUILayout.Label("Save Particle System Presets", smallBoldLabel);
                 if(GUILayout.Button("Save Particle System Preset"))
                 {
                     for(int i = 0; i < targets.Length; i++) ((AllIn1ParticleHelperComponent)targets[i]).SaveParticleSystemPreset();
                     particleSystemPresets = null;
+                    LoadParticleHelpersAndPresets();
                 }
 
                 DrawLine(Color.grey, 1, 3);
 
                 GUILayout.Label("Load Particle System Presets", smallBoldLabel);
-                if(particleSystemPresets == null) particleSystemPresets = Resources.LoadAll<Preset>("");
-                bool particleSystemPresetsAvailable = particleSystemPresets.Length > 0;
-                if(!particleSystemPresetsAvailable) GUILayout.Label("No Particle System Presets found, \nthey should be placed in a Resource folder", smallRedBoldLabel);
+                bool particleSystemPresetsAvailable = particleSystemPresets != null && particleSystemPresets.Length > 0;
+                if(!particleSystemPresetsAvailable)
+                {
+                    GUILayout.Label("No Particle System Presets found", smallRedBoldLabel);
+                    if(Time.realtimeSinceStartup - timeSinceLastFetch > TIME_BETWEEN_FETCHES) LoadParticleHelpersAndPresets();
+                }
                 else
                 {
                     string[] presetNames = new string[particleSystemPresets.Length];
                     for(int i = 0; i < particleSystemPresets.Length; i++) presetNames[i] = particleSystemPresets[i].name;
 
+                    GUI.backgroundColor = Color.cyan;
                     selectedIndex = EditorGUILayout.Popup("Particle System Presets", selectedIndex, presetNames);
 
+                    GUI.backgroundColor = Color.yellow;
                     if(GUILayout.Button("Apply Particle System Preset"))
                         for(int i = 0; i < targets.Length; i++)
                             ((AllIn1ParticleHelperComponent)targets[i]).ApplyParticleSystemPreset(particleSystemPresets[selectedIndex]);
                 }
-
+                
                 EditorGUILayout.EndVertical();
             }
 
             EditorGUILayout.EndToggleGroup();
             helperNum++;
+            GUI.backgroundColor = iniBackgroundColor;
         }
 
         private void DrawLine(Color color, int thickness = 2, int padding = 10)
         {
             Rect r = EditorGUILayout.GetControlRect(GUILayout.Height(padding + thickness));
             r.height = thickness;
-            r.y += (padding / 2);
+            r.y += (padding / 2f);
             r.x -= 2;
             r.width += 6;
             EditorGUI.DrawRect(r, color);

@@ -24,14 +24,14 @@ namespace DChild.Menu.Equipment.UI
         [BoxGroup("SKILL BONUS"), SerializeField] private TextMeshProUGUI m_bonusLabel;
 
         private List<GameObject> m_instantiatedRows = new();
-        private SoulEquipment m_highlightedEquipment;
+        private SoulEquipmentItem m_highlightedEquipment;
 
         [BoxGroup("TEST DATA"), HideInPlayMode, SerializeField] private SoulEquipmentItem m_sampleItem;
 
         public void ConnectGridItem(EquipmentGridItemUI gridItem) => gridItem.OnGridItemSelected += OnGridItemSelected;
         public void DisconnectGridItem(EquipmentGridItemUI gridItem) => gridItem.OnGridItemSelected -= OnGridItemSelected;
         public void OnGridItemSelected(object sender, EventActionArgs eventArgs) => UpdateUI();
-        public void SetHighlightedEquipment(SoulEquipment value) => m_highlightedEquipment = value;
+        public void SetHighlightedEquipment(SoulEquipmentItem value) => m_highlightedEquipment = value;
 
         [Button]
         public void UpdateUI()
@@ -39,11 +39,10 @@ namespace DChild.Menu.Equipment.UI
             if (m_instantiatedRows.Count > 0)
                 Reset();
 
-            var equipment = m_highlightedEquipment;
-            //var equipment = m_sampleItem.soulEquipment;
+            m_equipmentIcon.sprite = m_highlightedEquipment.icon;
+            m_itemNameLabel.text = m_highlightedEquipment.itemName;
 
-            var boostList = equipment.statBoostList;
-
+            var boostList = m_highlightedEquipment.soulEquipment.statBoostList;
             if (boostList != null)
                 ShowStatBuffs(boostList);
         }
@@ -63,8 +62,7 @@ namespace DChild.Menu.Equipment.UI
             }
 
         }
-
-
+        
         private void SetSkillBonusLabel(SoulSkill soulSkill)
         {
             m_bonusLabel.text = soulSkill.description;
