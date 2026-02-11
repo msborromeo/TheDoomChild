@@ -54,7 +54,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_character.CharacterTurn += OnCharacterTurn;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             m_character.CharacterTurn -= OnCharacterTurn;
         }

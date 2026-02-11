@@ -42,6 +42,8 @@ namespace DChild.Menu.Bestiary
 
         private void OnDisable()
         {
+            if (m_pageHandle == null)
+                return;
             m_pageHandle.PageChange -= OnPageChange;
         }
     }

@@ -64,7 +64,7 @@ namespace DChild.Gameplay.Characters.Players.Behaviour
 
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             m_info.character.CharacterTurn -= OnCharacterTurn;
         }

@@ -39,13 +39,6 @@ namespace DChild.Gameplay.Characters.Players
             {
                 Debug.LogWarning("NO CONTROLLER");
             }
-            
-        }
-
-        private void OnDisable()
-        {
-            m_owner.controller.ControllerDisabled -= OnOwnerControllerDisabled;
-            m_owner.controller.ControllerEnabled -= OnOwnerControllerEnabled;
         }
 
         private void OnOwnerControllerEnabled(object sender, EventActionArgs eventArgs)

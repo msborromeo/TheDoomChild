@@ -161,5 +161,10 @@ namespace DChild.Gameplay.Systems
             BaseGameplaySystem.MuteAllSounds();
 
         }
+
+        private void OnDisable()
+        {
+            m_videoPlayer.loopPointReached -= OnVideoClipDone;
+        }
     }
 }

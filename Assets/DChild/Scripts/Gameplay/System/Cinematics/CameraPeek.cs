@@ -86,11 +86,17 @@ namespace DChild.Gameplay.Cinematics
 
         private void OnEnable()
         {
+            if (m_verticalInput == null)
+                return;
+
             m_verticalInput.action.performed += OnActionPerformed;
         }
 
         private void OnDisable()
         {
+            if (m_verticalInput == null)
+                return;
+
             m_verticalInput.action.performed -= OnActionPerformed;
         }
 

@@ -19,6 +19,7 @@ namespace DChild.Gameplay.Combat
         private MaterialPropertyBlock m_propertyBlock;
         private int m_colorValueID;
         private int m_colorTriggerValueID;
+        private Damageable m_damageable;
         public Animator animator;
         public string triggerName;
 
@@ -61,17 +62,28 @@ namespace DChild.Gameplay.Combat
 
         private void Awake()
         {
-            GetComponentInParent<Damageable>().DamageTaken += OnDamageTaken;
-
             m_propertyBlock = new MaterialPropertyBlock();
             m_colorValueID = Shader.PropertyToID("_Damage_Color");
             m_colorTriggerValueID = Shader.PropertyToID("_DamageTriggerValue");
 
         }
 
+        private void Start()
+        {
+            m_damageable = GetComponentInParent<Damageable>();
+
+            if (m_damageable == null)
+                return;
+            
+            m_damageable.DamageTaken += OnDamageTaken;
+        }
+
         private void OnDestroy()
         {
-            GetComponentInParent<Damageable>().DamageTaken -= OnDamageTaken;
+            if (m_damageable == null)
+                return;
+
+            m_damageable.DamageTaken -= OnDamageTaken;
         }
     }
 }
