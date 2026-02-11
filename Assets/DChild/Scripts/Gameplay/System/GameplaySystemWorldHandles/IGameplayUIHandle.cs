@@ -26,7 +26,7 @@ namespace DChild.Gameplay.Systems
         UIAlertManager alertManager { get; }
         IUINotificationManager notificationManager { get; }
 
-        void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null);
+        void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null, bool hasEventOnVideoEnd = false, float secondsBeforeVideoEnds = 0f, float audiTansistionDuration = 0f);
 
 	void ForceStopCinematicVideo();
 
@@ -74,6 +74,6 @@ namespace DChild.Gameplay.Systems
         public void NotifyUnlockedLocation(AvailableLocations location, InputActionConfiguration input);
 
         UIHandlerExtraReference GetReference();
-        void ConfirmationRequest(EventAction<EventActionArgs> listener, string messageHeader, string message, bool noMessage = false, EventAction<EventActionArgs> OnDecline = null);
+        CharacterRecruitmentUI ConfirmationRequest();
     }
 }

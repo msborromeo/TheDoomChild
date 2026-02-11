@@ -99,6 +99,11 @@ namespace DChild
 
         public EventInfo GetEventInfo(int index) => m_eventInfo[index];
 
+        public void SetSkeletonDataAsset(SkeletonDataAsset skeletonDataAsset)
+        {
+            m_skeletonDataAsset = skeletonDataAsset;
+        }
+
 #if UNITY_EDITOR
         [Button,PropertyOrder(0)]
         private void ReinitializeInfo()

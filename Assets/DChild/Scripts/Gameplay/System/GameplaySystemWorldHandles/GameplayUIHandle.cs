@@ -13,6 +13,7 @@ using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
 using Holysoft.Event;
 using System;
 using System.Collections;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Video;
@@ -138,9 +139,9 @@ namespace DChild.Gameplay.Systems
             UnderworldGameplayUIHandle.Instance.RevealBossName();
         }
 
-        public void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null)
+        public void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null , bool hasEventOnVideoEnd = false, float secondsBeforeVideoEnds = 0f, float audiTansistionDuration = 0f)
         {
-            BaseGameplayUIHandle.Instance.ShowCinematicVideo(clip, behindTheSceneRoutine, OnVideoDone);
+            BaseGameplayUIHandle.Instance.ShowCinematicVideo(clip, behindTheSceneRoutine, OnVideoDone,hasEventOnVideoEnd,secondsBeforeVideoEnds,audiTansistionDuration);
         }
 
         public void ForceStopCinematicVideo()
@@ -246,9 +247,9 @@ namespace DChild.Gameplay.Systems
             return UnderworldGameplayUIHandle.Instance.getReference();
         }
 
-        public void ConfirmationRequest(EventAction<EventActionArgs> listener, string messageHeader, string message, bool noMessage = false, EventAction<EventActionArgs> OnDecline = null)
+        public CharacterRecruitmentUI ConfirmationRequest()
         {
-            BaseGameplayUIHandle.Instance.ConfirmationRequest(listener, messageHeader, message, OnDecline: OnDecline);
+            return BaseGameplayUIHandle.Instance.GetRecruitmentConfirmation();
         }
     }
 }

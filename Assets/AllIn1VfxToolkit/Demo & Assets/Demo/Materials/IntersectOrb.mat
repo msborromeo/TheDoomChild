@@ -2,32 +2,22 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 8
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: IntersectOrb
-  m_Shader: {fileID: 4800000, guid: c61cfc7a63c42a84eb3f60ee441287f4, type: 3}
-  m_ValidKeywords:
-  - CAMDISTFADE_ON
-  - COLORRAMPGRAD_ON
-  - COLORRAMP_ON
-  - DEPTHGLOW_ON
-  - GLOW_ON
-  - HSV_ON
-  - RIM_ON
-  - SHAPE1CONTRAST_ON
-  - SHAPE1DISTORT_ON
-  - SHAPE2CONTRAST_ON
-  - SHAPE2DISTORT_ON
-  - SHAPE2_ON
-  m_InvalidKeywords: []
+  m_Shader: {fileID: 4800000, guid: d0d1fd1e0a8a302438a8dfaa0601857a, type: 3}
+  m_ShaderKeywords: CAMDISTFADE_ON COLORRAMPGRAD_ON COLORRAMP_ON DEPTHGLOW_ON GLOW_ON
+    HSV_ON RIM_ON SHAPE1CONTRAST_ON SHAPE1DISTORT_ON SHAPE2CONTRAST_ON SHAPE2DISTORT_ON
+    SHAPE2_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -100,7 +90,6 @@ Material:
         m_Texture: {fileID: 2800000, guid: ead4bb59fa3716842879d18a0d632106, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - _Alpha: 1
     - _AlphaBrightness: 0
@@ -254,33 +243,27 @@ Material:
     - _Shape2Color: {r: 1, g: 1, b: 1, a: 1}
     - _Shape3Color: {r: 1, g: 1, b: 1, a: 1}
     - _ShapeColor: {r: 0, g: 1.0001854, b: 1.216786, a: 0.36862746}
-  m_BuildTextureStacks: []
 --- !u!28 &28048054286760324
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: _ColorRampTexGradientTex{"mode":0,"colorKeys":[{"color":{"r":0.0,"g":0.1258895844221115,"b":0.17924529314041139,"a":1.0},"time":0.024170290678739549},{"color":{"r":0.0,"g":1.0,"b":0.8194985389709473,"a":1.0},"time":0.2574959993362427},{"color":{"r":0.5176470875740051,"g":1.0,"b":0.8972690105438232,"a":1.0},"time":0.49745938181877139},{"color":{"r":0.5188679099082947,"g":0.9850240349769592,"b":1.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}]}
+  m_Name: z_ColorRampTexGradientTex{"mode":0,"colorKeys":[{"color":{"r":0.0,"g":0.1258895844221115,"b":0.17924529314041139,"a":1.0},"time":0.024170290678739549},{"color":{"r":0.0,"g":1.0,"b":0.8194985389709473,"a":1.0},"time":0.2574959993362427},{"color":{"r":0.5176470875740051,"g":1.0,"b":0.8972690105438232,"a":1.0},"time":0.49745938181877139},{"color":{"r":0.5188679099082947,"g":0.9850240349769592,"b":1.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}]}
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
   m_ForcedFallbackFormat: 4
   m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
   serializedVersion: 2
   m_Width: 64
   m_Height: 1
   m_CompleteImageSize: 256
-  m_MipsStripped: 0
   m_TextureFormat: 4
   m_MipCount: 1
   m_IsReadable: 1
-  m_IsPreProcessed: 0
-  m_IgnoreMasterTextureLimit: 0
   m_StreamingMipmaps: 0
   m_StreamingMipmapsPriority: 0
-  m_VTOnly: 0
   m_AlphaIsTransparency: 0
   m_ImageCount: 1
   m_TextureDimension: 2
@@ -294,11 +277,9 @@ Texture2D:
     m_WrapW: 1
   m_LightmapFormat: 0
   m_ColorSpace: 1
-  m_PlatformBlob: 
   image data: 256
   _typelessdata: 00202eff00202eff002733ff00373eff004649ff005554ff00645fff00736bff008276ff009181ff00a18cff00b097ff00bfa2ff00ceadff00ddb8ff00ecc3ff00fccfff07ffd2ff10ffd3ff18ffd5ff21ffd6ff2affd7ff32ffd9ff3bffdaff44ffdbff4dffdcff55ffdeff5effdfff67ffe0ff70ffe2ff78ffe3ff81ffe4ff84ffe5ff84ffe6ff84ffe7ff84ffe8ff84fee9ff84fee9ff84feeaff84feebff84feecff84feedff84feeeff84feeeff84fdefff84fdf0ff84fdf1ff84fdf2ff84fdf3ff84fdf3ff84fdf4ff84fdf5ff84fdf6ff84fcf7ff84fcf8ff84fcf8ff84fcf9ff84fcfaff84fcfbff84fcfcff84fcfdff84fbfdff84fbfeff84fbffff
   m_StreamData:
-    serializedVersion: 2
     offset: 0
     size: 0
     path: 

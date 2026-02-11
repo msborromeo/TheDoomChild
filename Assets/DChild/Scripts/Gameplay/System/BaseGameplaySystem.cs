@@ -142,6 +142,19 @@ namespace DChild.Gameplay.Systems
 
         }
 
+        public static void MuteAllSounds()
+        {
+            m_volumeMixerManager.UseSnapshot(AudioSnapshot.Cinematic);
+        }
+        public static void UnMuteAllSounds()
+        {
+            m_volumeMixerManager.UseSnapshot(AudioSnapshot.Gameplay);
+        }
+        public static void UnMuteAllSounds(float duration)
+        {
+            m_volumeMixerManager.UseSnapshot(AudioSnapshot.Gameplay,duration);
+        }
+
         public static void ClearCaches()
         {
             MasterAudio.StopMixer();

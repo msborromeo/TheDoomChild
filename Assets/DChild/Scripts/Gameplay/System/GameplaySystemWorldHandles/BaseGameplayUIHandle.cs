@@ -66,6 +66,8 @@ namespace DChild.Gameplay.Systems
         private LevelFinishUI m_levelFinish;
         [SerializeField]
         private SequenceSkipHandle m_skipHandle;
+        [SerializeField]
+        private CharacterRecruitmentUI m_characterRecruitmentUI;
 
         public UIAlertManager uiAlertManager => m_uiAlertManager;
 
@@ -133,9 +135,13 @@ namespace DChild.Gameplay.Systems
             }
         }
 
-        public void ConfirmationRequest(EventAction<EventActionArgs> listener, string messageHeader, string message, bool noMessage = false, EventAction<EventActionArgs> OnDecline = null)
+        public CharacterRecruitmentUI GetRecruitmentConfirmation()
         {
-            m_confirmationWindow.RequestConfirmation(listener,messageHeader,message,OnDecline:OnDecline);
+            return m_characterRecruitmentUI;
+            
+        }
+        public void SendconfirmationSignal()
+        {
             m_confirmRecruitmentSignal.SendSignal();
         }
 
@@ -159,8 +165,11 @@ namespace DChild.Gameplay.Systems
             m_cinematicVideoHandle.Initialize();
         }
 
-        public void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null)
+        public void ShowCinematicVideo(VideoClip clip, Func<IEnumerator> behindTheSceneRoutine = null, Action OnVideoDone = null, bool hasEventOnVideoEnd = false, float secondsBeforeVideoEnds = 0f, float audiTansistionDuration = 0f)
         {
+            m_cinematicVideoHandle.hasEventOnVideoEnd = hasEventOnVideoEnd;
+            m_cinematicVideoHandle.secondsBeforeVideoEnd = secondsBeforeVideoEnds;
+            m_cinematicVideoHandle.audioVolumeTransistionDuration = audiTansistionDuration;
             m_cinematicVideoHandle.ShowCinematicVideo(clip, behindTheSceneRoutine, OnVideoDone);
         }
 
