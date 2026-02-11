@@ -200,7 +200,7 @@ namespace DChild.Gameplay.Combat
             }
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             GameplaySystem.playerManager.player.attackModule.TargetDamaged -= OnPlayerAttackSuccessfully;
         }

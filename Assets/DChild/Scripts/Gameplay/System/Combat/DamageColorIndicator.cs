@@ -69,7 +69,7 @@ namespace DChild.Gameplay.Combat
 
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             GetComponentInParent<Damageable>().DamageTaken -= OnDamageTaken;
         }

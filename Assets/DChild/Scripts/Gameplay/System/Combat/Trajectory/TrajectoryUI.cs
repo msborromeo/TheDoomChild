@@ -39,7 +39,10 @@ namespace DChild.Gameplay.Combat
 
         protected virtual void OnDisable()
         {
-            m_simulator.SimulationEnd -= SimulationEnd;
+            if(m_simulator != null)
+            {
+                m_simulator.SimulationEnd -= SimulationEnd;
+            }
         }
     }
 }
