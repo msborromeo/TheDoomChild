@@ -29,7 +29,7 @@ namespace DChild.Gameplay.UI.PrimarySkills
 
         public void UpdateSelectables()
         {
-            m_skillList.InitializeList();
+            //m_skillList.InitializeList();
 
             m_skillList.UpdateListAvailability();
             var firstUnlocked = m_skillList.GetFirstAvailable();
@@ -75,6 +75,7 @@ namespace DChild.Gameplay.UI.PrimarySkills
 
         private void Awake()
         {
+            m_skillList.InitializeList();
             m_primarySkillUILocalizer.PrimarySkillInstructionsLocalized += OnPrimarySkillInstructionsLocalized;
         }
 
