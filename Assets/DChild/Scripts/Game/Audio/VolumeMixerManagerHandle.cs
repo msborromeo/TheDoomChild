@@ -34,6 +34,18 @@ namespace DChild.Gameplay.Systems
             }
         }
 
+        public void UseSnapshot(AudioSnapshot snapshot, float duration)
+        {
+            if (m_snapshotHandle.HasCurrentSnapshot)
+            {
+                m_snapshotHandle.TransistionTo(snapshot,duration);
+            }
+            else
+            {
+                m_snapshotHandle.ForceSnapshot(snapshot);
+            }
+        }
+
         public void AdjustVolume(WorldType worldType, AudioType audioType,float volume)
         {
             var audioName = $"{worldType}_{audioType}";

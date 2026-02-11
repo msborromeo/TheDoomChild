@@ -19,7 +19,8 @@ namespace AllIn1VfxToolkit.Demo.Scripts
 
         public void DoShake()
         {
-            AllIn1Shaker.i.DoCameraShake(shakeAmount);
+            if(AllIn1Shaker.i != null) AllIn1Shaker.i.DoCameraShake(shakeAmount);
+            else Debug.LogError($"No AllIn1Shaker found. Please add one to the scene");
         }
     }
 }

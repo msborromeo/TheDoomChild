@@ -18,7 +18,7 @@ namespace AllIn1VfxToolkit.Demo.Scripts
 
         private void Update()
         {
-            if(Input.GetKeyDown(nextDropdownElementKey)) NextDropdownElements();
+            if(AllIn1InputSystem.GetKeyDown(nextDropdownElementKey)) NextDropdownElements();
         }
 
         private void NextDropdownElements()
