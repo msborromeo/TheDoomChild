@@ -70,7 +70,7 @@ namespace DChild.Gameplay.Characters
             Activate();
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             m_animation.AnimationState.Event -= OnEvent;
         }
