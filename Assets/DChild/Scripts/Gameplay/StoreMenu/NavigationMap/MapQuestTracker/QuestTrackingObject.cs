@@ -30,7 +30,7 @@ namespace DChild.Tracker.QuestTrackingObject
 
         private QuestState ExpectedQuestState = QuestState.Success;
         [SerializeField]
-        private UnityEvent IfExpectedQuestState;
+        private UnityEvent EventsToInvoke;
         QuestState m_queststate;
         
         private IEnumerable GetQuests()
@@ -85,7 +85,7 @@ namespace DChild.Tracker.QuestTrackingObject
             {
                 if(DialogueLua.GetVariable(Variable).asBool)
                 {
-                    IfExpectedQuestState?.Invoke();
+                    EventsToInvoke?.Invoke();
                 }
                 return;
             }
@@ -108,7 +108,7 @@ namespace DChild.Tracker.QuestTrackingObject
 
             if(m_queststate == ExpectedQuestState)
             {
-                IfExpectedQuestState?.Invoke();
+                EventsToInvoke?.Invoke();
             }
            
         }
