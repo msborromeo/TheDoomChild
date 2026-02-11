@@ -829,6 +829,8 @@ MonoBehaviour:
   m_videoCinemaEndSignal: {fileID: 3172469766641378227}
   m_videoPlayer: {fileID: 0}
   m_fadeBufferTime: 1
+  m_hasEventOnVideoEnd: 0
+  m_secondsBeforeVideoEnd: 0
 --- !u!1 &5195194276054363823
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,6 +903,7 @@ MonoBehaviour:
   m_cinematicBars: {fileID: 0}
   m_levelFinish: {fileID: 0}
   m_skipHandle: {fileID: 0}
+  m_characterRecruitmentUI: {fileID: 0}
 --- !u!114 &6828250404446119209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1497,6 +1500,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: m_skinSaveData
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -1802,7 +1808,10 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 24500006, guid: 8ea4d87d36b90654d9b8d7c9f518ad7a, type: 2}
+    - {fileID: -7654392548116403704, guid: 8ea4d87d36b90654d9b8d7c9f518ad7a, type: 2}
+    - {fileID: 1777281506696924240, guid: 8ea4d87d36b90654d9b8d7c9f518ad7a, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -1812,7 +1821,67 @@ MonoBehaviour:
       Entry: 7
       Data: 0|DChild.Gameplay.Systems.AudioSnapshotHandle, Assembly-CSharp
     - Name: m_snapshot
-      Entry: 6
+      Entry: 7
+      Data: 1|UnityEngine.Rendering.SerializedDictionary`2[[DChild.Gameplay.Systems.AudioSnapshot,
+        Assembly-CSharp],[UnityEngine.Audio.AudioMixerSnapshot, UnityEngine.AudioModule]],
+        Unity.RenderPipelines.Core.Runtime
+    - Name: comparer
+      Entry: 7
+      Data: 2|System.Collections.Generic.EnumEqualityComparer`1[[DChild.Gameplay.Systems.AudioSnapshot,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: m_currentSnapshot
       Entry: 6
@@ -1820,8 +1889,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  m_mixerGroup: {fileID: 0}
-  m_audioMixer: {fileID: 0}
+  m_mixerGroup: {fileID: 24300002, guid: cd1b48cd6aefabe4eac07ec6abc1c5b4, type: 2}
+  m_audioMixer: {fileID: 24100000, guid: 8ea4d87d36b90654d9b8d7c9f518ad7a, type: 2}
 --- !u!1 &8555509944426212268
 GameObject:
   m_ObjectHideFlags: 0

@@ -62,9 +62,9 @@ namespace DChild.Menu.Equipment.UI
             Reset();
         }
 
-        public void SetItemDetails(SoulEquipment equipment)
+        public void SetItemDetails(SoulEquipmentItem equipmentItem)
         {
-            m_equipmentUI.detailsUI.SetHighlightedEquipment(equipment);
+            m_equipmentUI.detailsUI.SetHighlightedEquipment(equipmentItem);
         }
 
         public void Reset()

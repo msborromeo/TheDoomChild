@@ -24,10 +24,15 @@ namespace AllIn1VfxToolkit.Demo.Scripts
 
         private void Update()
         {
-            if(Input.GetKeyDown(mouseLockerKey)) DoMouseLockToggle();
-        }
+			ProcessInput();
+		}
 
-        public void DoMouseLockToggle()
+		private void ProcessInput()
+		{
+			if (AllIn1InputSystem.GetKeyDown(mouseLockerKey)) DoMouseLockToggle();
+		}
+
+		public void DoMouseLockToggle()
         {
             currentlyLocked = !currentlyLocked;
             allIn1MouseRotate.enabled = !currentlyLocked;

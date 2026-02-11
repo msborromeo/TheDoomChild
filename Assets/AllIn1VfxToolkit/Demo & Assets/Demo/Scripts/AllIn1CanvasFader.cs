@@ -23,15 +23,21 @@ namespace AllIn1VfxToolkit.Demo.Scripts
 
         private void Update()
         {
-            if(Input.GetKeyDown(fadeToggleKey)) HideUiButtonPressed();
-            
-            if(!isTweening) return;
+			ProcessInput();
+
+			if (!isTweening) return;
             currentAlpha = Mathf.MoveTowards(currentAlpha, targetAlpha, Time.unscaledDeltaTime * tweenSpeed);
             canvasGroup.alpha = currentAlpha;
             if(targetAlpha == currentAlpha) isTweening = false;
         }
 
-        public void HideUiButtonPressed()
+		private void ProcessInput()
+		{
+			if (AllIn1InputSystem.GetKeyDown(fadeToggleKey)) HideUiButtonPressed();
+		}
+
+
+		public void HideUiButtonPressed()
         {
             if(currentAlpha < 0.01f) MakeCanvasVisibleTween();
             else MakeCanvasInvisibleTween();
