@@ -114,6 +114,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #endregion
 
         private bool m_storeHasBeenPickedUp = true;
+        private bool m_playerWokeUp = true;
 
         public event EventAction<EventActionArgs> ControllerDisabled;
         public event EventAction<EventActionArgs> ControllerEnabled;
@@ -203,6 +204,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             SceneManager.activeSceneChanged += OnActiveSceneChanged;
             NewGameIntroEvent.PickedUpBook += OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted += OnNewGameIntroStarted;
+            NewGameIntroEvent.NewGamePlayerWokeUp += OnPlayerWokeUp;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent += OnVector2PerformedInput;
@@ -232,6 +234,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.UseQuickItemCancelledEvent += OnUseQuickItemsCancelledInput;
             m_inputReader.ProjectileThrowStartedEvent += OnProjectileThrowStartedInput;
             m_inputReader.ProjectileThrowCancelledEvent += OnProjectileThrowCancelledInput;
+            m_inputReader.ProjectileThrowTappedEvent += OnProjectileThrowTappedInput;
+            m_inputReader.ProjectileThrowHeldEvent += OnProjectileThrowHeldInput;
             m_inputReader.MouseDeltaPerformedEvent += OnMouseDeltaPerformedInput;
             m_inputReader.GrabStartedEvent += OnGrabStartedInput;
             m_inputReader.GrabCancelledEvent += OnGrabCancelledInput;
@@ -285,6 +289,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             SceneManager.activeSceneChanged -= OnActiveSceneChanged;
             NewGameIntroEvent.PickedUpBook -= OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted -= OnNewGameIntroStarted;
+            NewGameIntroEvent.NewGamePlayerWokeUp -= OnPlayerWokeUp;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent -= OnVector2PerformedInput;
@@ -314,6 +319,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.UseQuickItemCancelledEvent -= OnUseQuickItemsCancelledInput;
             m_inputReader.ProjectileThrowStartedEvent -= OnProjectileThrowStartedInput;
             m_inputReader.ProjectileThrowCancelledEvent -= OnProjectileThrowCancelledInput;
+            m_inputReader.ProjectileThrowTappedEvent -= OnProjectileThrowTappedInput;
+            m_inputReader.ProjectileThrowHeldEvent -= OnProjectileThrowHeldInput;
             m_inputReader.MouseDeltaPerformedEvent -= OnMouseDeltaPerformedInput;
             m_inputReader.GrabStartedEvent -= OnGrabStartedInput;
             m_inputReader.GrabCancelledEvent -= OnGrabCancelledInput;
@@ -355,8 +362,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportToMordenThroneRoom -= OnTeleportToMordenThroneRoom;
             m_inputReader.TeleportToMordenThroneRoomStarted -= OnTeleportToMordenThroneRoomStarted;
         }
-
-       
 
         private void FixedUpdate()
         {
@@ -692,6 +697,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #region Input Handles
         private void OnVector2PerformedInput(Vector2 vector)
         {
+            if (m_playerWokeUp == false)
+                return;
             if ( m_state.isExecutingCombatArt)
                 return;
 
@@ -741,6 +748,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnJumpPerformedInput()
         {
+            if (m_playerWokeUp == false)
+                return;
             if (m_state.isLedgeGrabbing || m_state.waitForBehaviour || m_state.isInShadowMode
                 || m_state.isChargingAttack || m_state.isAimingProjectile || m_state.isDoingSwordThrust || m_state.isExecutingCombatArt)
                 return;
@@ -1067,6 +1076,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashStartedInput()
         {
+            if (m_playerWokeUp == false)
+                return;
             if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
                 m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
                 return;
@@ -1340,19 +1351,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnProjectileThrowStartedInput()
         {
-            if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
-                return;
-            if (m_state.isGrounded == false)
-                return;
-            if (m_state.waitForBehaviour)
-                return;
-            if (m_state.isDashing || m_state.isStickingToWall || m_state.isAttacking || m_state.isLedgeGrabbing || 
-                m_state.isCrouched)
-                return;
-            if (m_state.isChargingAttack)
-                return;
 
-            ProjectileThrowStart();
         }
 
         private void ProjectileThrowStart()
@@ -1376,6 +1375,44 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.isAimingProjectile = false;
             GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.None);
         }
+
+
+        private void OnProjectileThrowHeldInput()
+        {
+            if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
+                return;
+            if (m_state.isGrounded == false)
+                return;
+            if (m_state.waitForBehaviour)
+                return;
+            if (m_state.isDashing || m_state.isStickingToWall || m_state.isAttacking || m_state.isLedgeGrabbing ||
+                m_state.isCrouched)
+                return;
+            if (m_state.isChargingAttack)
+                return;
+
+            ProjectileThrowStart();
+        }
+
+        private void OnProjectileThrowTappedInput()
+        {
+            if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
+                return;
+            if (m_state.isGrounded == false)
+                return;
+            if (m_state.waitForBehaviour)
+                return;
+            if (m_state.isDashing || m_state.isStickingToWall || m_state.isAttacking || m_state.isLedgeGrabbing ||
+                m_state.isCrouched)
+                return;
+            if (m_state.isChargingAttack)
+                return;
+
+            m_projectileThrow.StartThrow();
+            m_state.isAimingProjectile = false;
+            GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.None);
+        }
+
 
         private void OnProjectileThrowCancelledInput()
         {
@@ -2049,7 +2086,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnNewGameIntroStarted()
         {
             m_storeHasBeenPickedUp = false;
+            m_playerWokeUp = false;
             NewGameIntroEvent.NewGameIntroStarted -= OnNewGameIntroStarted;
+        }
+
+        private void OnPlayerWokeUp()
+        {
+            m_playerWokeUp = true;
+            NewGameIntroEvent.NewGamePlayerWokeUp -= OnPlayerWokeUp;
         }
 
         private void OnPickedUpBook()
