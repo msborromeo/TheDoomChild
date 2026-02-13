@@ -9,6 +9,8 @@ using DChild.Gameplay.Pooling;
 using DChild.Gameplay.Combat;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System.Collections;
+using System;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -292,6 +294,68 @@ namespace DChild.Gameplay.Characters.Players.Modules
             ProjectileThrown?.Invoke(this, EventActionArgs.Empty);
         }
 
+        public void ThrowProjectileStraight()
+        {
+            m_skeletonAnimation.state.Complete += State_Complete;
+            var direction = Vector2.right;
+            direction.x *= (int)m_character.facing; 
+
+            if (m_spawnedProjectile != null)
+            {
+                m_spawnedProjectile.transform.parent = null;
+
+                if (m_spawnedProjectile.TryGetComponentInChildren(out Animator animator))
+                {
+                    animator.SetTrigger("Shoot");
+                }
+                if (m_spawnedProjectile.TryGetComponent(out Collider2D collider))
+                {
+                    collider.enabled = true;
+                }
+                if (m_spawnedProjectile.TryGetComponent(out IsolatedObjectPhysics2D physics))
+                {
+                    physics.Enable();
+                }
+
+                m_launcher.LaunchProjectile(direction, m_spawnedProjectile.gameObject);
+                //m_spawnedProjectile.GetComponent<Attacker>().SetDamageModifier(m_modifier.Get(PlayerModifier.AttackDamage));
+                var scale = m_spawnedProjectile.transform.localScale;
+                scale.x = 1;
+                m_spawnedProjectile.transform.localScale = scale;
+                m_spawnedProjectile = null;
+            }
+            else
+            {
+                var instance = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(m_projectile.projectile, m_spawnPoint.position, Quaternion.identity);
+                //instance.transform.position = m_spawnPoint.position;
+
+                if (instance.TryGetComponentInChildren(out Animator animator))
+                {
+                    animator.SetTrigger("Shoot");
+                }
+
+                m_launcher.LaunchProjectile(direction, instance.gameObject);
+            }
+            ProjectileThrown?.Invoke(this, EventActionArgs.Empty);
+        }
+
+        public void ThrowStraightStartVisuals()
+        {
+            m_throwState.isAimingProjectile = true;
+            m_timer = m_configuration.skullThrowCooldown;
+            m_state.canAttack = false;
+            m_state.isAttacking = true;
+            m_animator.SetBool(m_aimingProjectileAnimationParameter, true);
+            m_animator.SetBool(m_skullThrowAnimationParameter, true);
+        }
+
+        public void ThrowStraightEndVisuals()
+        {
+            m_animator.SetBool(m_aimingProjectileAnimationParameter, false);
+            m_animator.SetBool(m_skullThrowAnimationParameter, true);
+            m_throwState.isAimingProjectile = false;
+        }
+
         private void State_Complete(Spine.TrackEntry trackEntry)
         {
             m_state.waitForBehaviour = false;
@@ -393,7 +457,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_cacheProjectile = m_projectile;
             m_modifier = info.modifier;
         }
-
 
         public void SetConfiguration(ProjectileThrowStatsInfo info)
         {

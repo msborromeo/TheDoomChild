@@ -14,6 +14,7 @@ using System.Runtime.Remoting.Messaging;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using DChild.Gameplay.Narrative;
+using System.Collections;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -1390,6 +1391,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isChargingAttack)
                 return;
+            if (m_state.isAimingProjectile)
+                return;
 
             ProjectileThrowStart();
         }
@@ -1407,10 +1410,22 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isChargingAttack)
                 return;
+            if(m_state.isAimingProjectile) 
+                return;
 
-            m_projectileThrow.StartThrow();
+            StartCoroutine(StraightThrowRoutine());
+        }
+
+        private IEnumerator StraightThrowRoutine()
+        {
+            PrepareForGroundAttack();
+            m_state.isAimingProjectile = true;
+            m_projectileThrow.ThrowStraightStartVisuals();
+            yield return new WaitForSeconds(0.3f); //hack way to make sure there's time for animation to play
+            m_projectileThrow.ThrowStraightEndVisuals();
+            yield return new WaitForSeconds(0.2f);
+            m_projectileThrow.ThrowProjectileStraight();
             m_state.isAimingProjectile = false;
-            GameplaySystem.cinema.ApplyCameraPeekMode(Cinematics.CameraPeekMode.None);
         }
 
 
