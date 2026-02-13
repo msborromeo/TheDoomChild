@@ -33,7 +33,8 @@ namespace DChild.Menu.Equipment.UI
         }    
 
         public void UpdateItems(EquipmentCurrentItemUI currentItem)
-        { 
+        {
+            Reset();
             var filteredItems = m_acquiredItems.Where(item => item.soulEquipment.Slot == m_slotFilter).ToList();
             var hasItems = filteredItems != null && filteredItems.Count > 0;
 
@@ -59,7 +60,6 @@ namespace DChild.Menu.Equipment.UI
             }
 
             m_equipButtonUI.UpdateButtonLabel(currentItem);
-            Reset();
         }
 
         public void SetItemDetails(SoulEquipmentItem equipmentItem)
@@ -69,7 +69,7 @@ namespace DChild.Menu.Equipment.UI
 
         public void Reset()
         {
-            m_itemGrid[0].GetComponent<UIToggle>().Select();
+            //m_itemGrid[0].GetComponent<UIToggle>().Select();
             m_itemGrid[0].GetComponent<UIToggle>().SetIsOn(true);
         }
     }
