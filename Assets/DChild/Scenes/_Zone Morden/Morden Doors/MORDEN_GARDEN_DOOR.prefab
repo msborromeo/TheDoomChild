@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3415129074700532706}
+  - component: {fileID: 4999766692557530350}
   m_Layer: 11
   m_Name: MORDEN_GARDEN_DOOR
   m_TagString: Untagged
@@ -32,6 +33,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4999766692557530350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3415129074700532707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0cd582c06023e48b3d54f46a92b952, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: 73c76c43ff21eb745a4e9e8f47983b04, type: 2}
+  IsAQuestEntry: 0
+  TrackVariableVariableOnly: 1
+  Quest: 
+  QuestEntry: 
+  Variable: SkullThrow_Acquired
+  EventsToInvoke:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3860915010214333098}
+        m_TargetAssemblyTypeName: DChild.Gameplay.Environment.Interractables.Door,
+          Assembly-CSharp
+        m_MethodName: Open
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &3415129076048069143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -297,3 +332,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3415129076048069143}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3860915010214333098 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1941122297837947069, guid: 4a32da1be17c457459dbcd6a7059eae6,
+    type: 3}
+  m_PrefabInstance: {fileID: 3415129076048069143}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66f47260e511d864bb1408879494b157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
