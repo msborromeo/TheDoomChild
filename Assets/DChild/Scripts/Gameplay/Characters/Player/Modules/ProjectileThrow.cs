@@ -140,6 +140,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private Vector2 GetProjectilesCalculatedThrowDirection(Projectile projectile)
         {
             var direction = CalculateThrowDirection();
+            
             if(projectile.hasConstantSpeed)
             {
                 direction = direction.normalized;
@@ -297,6 +298,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void ThrowProjectileStraight()
         {
             m_skeletonAnimation.state.Complete += State_Complete;
+
             var direction = Vector2.right;
             direction.x *= (int)m_character.facing; 
 
@@ -347,6 +349,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.isAttacking = true;
             m_animator.SetBool(m_aimingProjectileAnimationParameter, true);
             m_animator.SetBool(m_skullThrowAnimationParameter, true);
+            m_currentAim = Vector2.right;
         }
 
         public void ThrowStraightEndVisuals()

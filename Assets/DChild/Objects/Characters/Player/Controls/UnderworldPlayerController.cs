@@ -1424,7 +1424,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             yield return new WaitForSeconds(0.3f); //hack way to make sure there's time for animation to play
             m_projectileThrow.ThrowStraightEndVisuals();
             yield return new WaitForSeconds(0.2f);
-            m_projectileThrow.ThrowProjectileStraight();
+            //m_projectileThrow.ThrowProjectileStraight();
             m_state.isAimingProjectile = false;
         }
 
