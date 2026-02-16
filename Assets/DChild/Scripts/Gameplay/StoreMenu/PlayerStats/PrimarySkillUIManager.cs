@@ -26,7 +26,7 @@ namespace DChild.Gameplay.UI.PrimarySkills
         [SerializeField]
         private VideoPlayer m_demoClipPlayer;
 
-        
+
         public event Action<PrimarySkillData> localizePrimarySkill;
 
         public void UpdateSelectables()
@@ -38,9 +38,10 @@ namespace DChild.Gameplay.UI.PrimarySkills
 
         private void SelectFirstUnlocked()
         {
+            Reset();
+
             var firstUnlocked = m_skillList.GetFirstAvailable();
-            
-            if (firstUnlocked == null) return;
+            if (firstUnlocked == null) return; 
 
             Select(firstUnlocked);
             firstUnlocked.GetComponent<UIToggle>().SetIsOn(true);
@@ -80,6 +81,13 @@ namespace DChild.Gameplay.UI.PrimarySkills
         private void OnPrimarySkillInstructionsLocalized()
         {
             m_skillDescriptionSetTextToTextBox?.SetText(m_controlsLabel.text);
+        }
+
+        private void Reset()
+        {
+            m_descriptionLabel.text = "";
+            m_controlsLabel.text = "";
+            m_skillNameLabel.text = "";
         }
 
         private void OnEnable()
