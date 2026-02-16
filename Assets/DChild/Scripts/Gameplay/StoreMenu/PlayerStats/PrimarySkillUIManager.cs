@@ -5,6 +5,7 @@ using System;
 using DChild.Gameplay.Characters.Players;
 using UnityEngine.Video;
 using Doozy.Runtime.UIManager.Components;
+using System.Collections;
 
 namespace DChild.Gameplay.UI.PrimarySkills
 {
@@ -25,16 +26,24 @@ namespace DChild.Gameplay.UI.PrimarySkills
         [SerializeField]
         private VideoPlayer m_demoClipPlayer;
 
+        
         public event Action<PrimarySkillData> localizePrimarySkill;
 
         public void UpdateSelectables()
         {
             //m_skillList.InitializeList();
-
             m_skillList.UpdateListAvailability();
+            SelectFirstUnlocked();
+        }
+
+        private void SelectFirstUnlocked()
+        {
             var firstUnlocked = m_skillList.GetFirstAvailable();
+            
+            if (firstUnlocked == null) return;
+
             Select(firstUnlocked);
-            firstUnlocked.GetComponent<UIToggle>().isOn = true;
+            firstUnlocked.GetComponent<UIToggle>().SetIsOn(true);
         }
 
         public void Select(PrimarySkillSelectable selectable)
@@ -56,6 +65,7 @@ namespace DChild.Gameplay.UI.PrimarySkills
                     m_skillDescriptionSetTextToTextBox.SetText(selectable.reference.instruction, selectable.reference.action);
                     break;
             }
+
             m_demoClipPlayer.clip = selectable.reference.demoClip;
             //m_demoClipPlayer.Play();
 
@@ -65,7 +75,6 @@ namespace DChild.Gameplay.UI.PrimarySkills
 
             if (localizePrimarySkill != null)
                 localizePrimarySkill?.Invoke(selectable.reference);
-
         }
 
         private void OnPrimarySkillInstructionsLocalized()
@@ -73,13 +82,13 @@ namespace DChild.Gameplay.UI.PrimarySkills
             m_skillDescriptionSetTextToTextBox?.SetText(m_controlsLabel.text);
         }
 
-        private void Awake()
+        private void OnEnable()
         {
             m_skillList.InitializeList();
             m_primarySkillUILocalizer.PrimarySkillInstructionsLocalized += OnPrimarySkillInstructionsLocalized;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             m_primarySkillUILocalizer.PrimarySkillInstructionsLocalized -= OnPrimarySkillInstructionsLocalized;
         }
