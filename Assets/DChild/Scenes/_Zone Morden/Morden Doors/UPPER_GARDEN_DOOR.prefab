@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7294681251105100884}
+  - component: {fileID: 554976184963971046}
+  - component: {fileID: 1204005956772473985}
   m_Layer: 11
   m_Name: UPPER_GARDEN_DOOR
   m_TagString: Untagged
@@ -32,6 +34,74 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &554976184963971046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294681251105100885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6546d1f34e0077748a93d4c356aa9411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addTrigger: 16
+  removeTrigger: 1024
+  databases:
+  - {fileID: 11400000, guid: 9b87b5385da1c804dadd6c0943501309, type: 2}
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  once: 1
+  onePerFrame: 0
+--- !u!114 &1204005956772473985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294681251105100885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba2e3066672a3834182d094e4029952d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questName: Cieranna
+  questStateIndicatorLevels: []
+  questEntryStateIndicatorLevels:
+  - updateOnStartOnly: 0
+    entryNumber: 1
+    questState: 4
+    condition:
+      luaConditions: []
+      questConditions: []
+      acceptedTags: []
+      acceptedGameObjects: []
+      luaWizardIndex: -1
+      lastEvaluationValue: 0
+    indicatorLevel: 0
+    onEnterState:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9208640233570930458}
+          m_TargetAssemblyTypeName: DChild.Gameplay.Environment.Interractables.Door,
+            Assembly-CSharp
+          m_MethodName: Open
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  suppressOnEnterStateEventsOnStart: 0
 --- !u!1001 &7294681250376517543
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -292,3 +362,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7294681250376517543}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9208640233570930458 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1941122297837947069, guid: 4a32da1be17c457459dbcd6a7059eae6,
+    type: 3}
+  m_PrefabInstance: {fileID: 7294681250376517543}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66f47260e511d864bb1408879494b157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
