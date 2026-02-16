@@ -11,7 +11,8 @@ namespace DChild.Menu.Equipment.UI
 {
     public class EquipmentUI : MonoBehaviour
     {
-        [BoxGroup("SAMPLE DATA"), SerializeField] private List<SoulEquipmentItem> m_sampleData;
+        [BoxGroup("SAMPLE DATA"), SerializeField] private SoulEquipmentList m_equipmentList;
+
         [SerializeField] private PlayerSoulEquipmentHandle m_equipmentHandle;
         public PlayerSoulEquipmentHandle equipmentHandle => m_equipmentHandle;
 
@@ -21,11 +22,27 @@ namespace DChild.Menu.Equipment.UI
         [BoxGroup("DETAILS"), SerializeField] private EquipmentDetailsUI m_detailsUI;
         public EquipmentDetailsUI detailsUI => m_detailsUI;
 
+        private List<SoulEquipmentItem> m_acquiredItems = new();
+
+        private void GetEquipmentData(SoulEquipmentList equipmentList)
+        {
+            int[] IDs = equipmentList.GetIDs();
+
+            for (int i = 0; i < IDs.Length; i++)
+            {
+                m_acquiredItems.Add(equipmentList.GetInfo(IDs[i]));
+            }
+        }
+
         public void Initialize()
         {
-            m_selectionUI.SetupUI(m_sampleData);
+            //get acquired items list from player data
+            //m_equipmentList = m_equipmentHandle.GetFullSoulEquipmentList();
+            GetEquipmentData(m_equipmentList);
 
-            m_detailsUI.SetHighlightedEquipment(m_sampleData.First());
+            m_selectionUI.SetupUI(m_acquiredItems);
+
+            m_detailsUI.SetHighlightedEquipment(m_acquiredItems.First());
             m_detailsUI.UpdateUI();
         }
     }
