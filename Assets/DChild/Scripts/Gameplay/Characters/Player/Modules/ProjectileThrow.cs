@@ -45,6 +45,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private bool m_reachedVerticalThreshold = false;
 
         private bool m_willResetProjectile;
+        private bool m_isStraightThrow = false;
 
         public bool willResetProjectile => m_willResetProjectile;
 
@@ -89,6 +90,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void MoveAim(Vector2 delta, Vector2 mousePosition)
         {
+            if(m_isStraightThrow) 
+                return;
             var relativeDelta = delta.normalized * m_configuration.aimSensitivity;
             relativeDelta.x *= (int)m_character.facing;
             var newAim = m_currentAim += relativeDelta;
@@ -176,6 +179,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             normalizedAim.x = CalculateNormalizedValue(normalizedAim.x, m_configuration.horizontalThreshold.min, m_configuration.horizontalThreshold.max);
             var ySign = Mathf.Sign(normalizedAim.y);
             normalizedAim.y = Mathf.Abs(normalizedAim.y) / m_configuration.verticalThreshold * ySign;
+
             return normalizedAim;
 
             float CalculateNormalizedValue(float value, float min, float max)
@@ -252,7 +256,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_skeletonAnimation.state.Complete += State_Complete;
 
             //var direction = CalculateThrowDirection();
-            var direction = GetProjectilesCalculatedThrowDirection(m_spawnedProjectile);
+            var direction = Vector2.right;
+            direction = GetProjectilesCalculatedThrowDirection(m_spawnedProjectile);
             direction.x *= (int)m_character.facing;
 
             if (m_spawnedProjectile != null)
@@ -295,55 +300,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             ProjectileThrown?.Invoke(this, EventActionArgs.Empty);
         }
 
-        public void ThrowProjectileStraight()
-        {
-            m_skeletonAnimation.state.Complete += State_Complete;
-
-            var direction = Vector2.right;
-            direction.x *= (int)m_character.facing; 
-
-            if (m_spawnedProjectile != null)
-            {
-                m_spawnedProjectile.transform.parent = null;
-
-                if (m_spawnedProjectile.TryGetComponentInChildren(out Animator animator))
-                {
-                    animator.SetTrigger("Shoot");
-                }
-                if (m_spawnedProjectile.TryGetComponent(out Collider2D collider))
-                {
-                    collider.enabled = true;
-                }
-                if (m_spawnedProjectile.TryGetComponent(out IsolatedObjectPhysics2D physics))
-                {
-                    physics.Enable();
-                }
-
-                m_launcher.LaunchProjectile(direction, m_spawnedProjectile.gameObject);
-                //m_spawnedProjectile.GetComponent<Attacker>().SetDamageModifier(m_modifier.Get(PlayerModifier.AttackDamage));
-                var scale = m_spawnedProjectile.transform.localScale;
-                scale.x = 1;
-                m_spawnedProjectile.transform.localScale = scale;
-                m_spawnedProjectile = null;
-            }
-            else
-            {
-                var instance = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(m_projectile.projectile, m_spawnPoint.position, Quaternion.identity);
-                //instance.transform.position = m_spawnPoint.position;
-
-                if (instance.TryGetComponentInChildren(out Animator animator))
-                {
-                    animator.SetTrigger("Shoot");
-                }
-
-                m_launcher.LaunchProjectile(direction, instance.gameObject);
-            }
-            ProjectileThrown?.Invoke(this, EventActionArgs.Empty);
-        }
-
         public void ThrowStraightStartVisuals()
         {
             m_throwState.isAimingProjectile = true;
+            m_isStraightThrow = true;
             m_timer = m_configuration.skullThrowCooldown;
             m_state.canAttack = false;
             m_state.isAttacking = true;
@@ -357,6 +317,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_animator.SetBool(m_aimingProjectileAnimationParameter, false);
             m_animator.SetBool(m_skullThrowAnimationParameter, true);
             m_throwState.isAimingProjectile = false;
+            m_isStraightThrow = false;
         }
 
         private void State_Complete(Spine.TrackEntry trackEntry)
