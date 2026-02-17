@@ -20,9 +20,7 @@ namespace DChild.Menu.Equipment.UI
 
         private UIToggle m_toggle;
 
-
         private SoulEquipmentItem m_attachedItem;
-        public SoulEquipmentItem attachedItem => m_attachedItem;
         public event EventAction<EventActionArgs> OnGridItemSelected;
 
         private void SetGridItemUIState(bool hasItem)
@@ -32,6 +30,9 @@ namespace DChild.Menu.Equipment.UI
 
             m_toggle.interactable = hasItem;
         }
+
+        private void OnItemEquipped(object sender, ItemEquipEventArgs eventArgs) => m_equippedIcon.gameObject.SetActive(eventArgs.equipmentItem == m_attachedItem);
+        private void OnItemRemoved(object sender, EventActionArgs eventArgs) => m_equippedIcon.gameObject.SetActive(false);
 
         public void Display(SoulEquipmentItem item = null)
         {
@@ -61,6 +62,16 @@ namespace DChild.Menu.Equipment.UI
         private void Awake()
         {
             m_toggle = GetComponent<UIToggle>();
+            m_selectionUI.equipButtonUI.OnItemEquipped += OnItemEquipped;
+            m_selectionUI.equipButtonUI.OnItemRemoved += OnItemRemoved;
+        }
+
+
+        private void OnDisable()
+        {
+            m_selectionUI.equipButtonUI.OnItemEquipped -= OnItemEquipped;
+            m_selectionUI.equipButtonUI.OnItemRemoved -= OnItemRemoved;
+
         }
     }
 
