@@ -95,6 +95,12 @@ namespace DChild.Gameplay.Characters.Player.Skins
                 }
 
                 m_currentSkin = m_fullSkinList.GetInfo(data.equippedSkin);
+
+                //Failsafe for old save files because acquired skins are empty in old save files
+                if (data.acquiredSkinsIDs.Length < 1) //checking if saved data is empty
+                {
+                    m_currentSkin = m_defaultSkin;
+                }
             }
 
             ApplySkin(m_currentSkin);
