@@ -119,6 +119,11 @@ namespace DChild.Gameplay.Narrative
             PickedUpBook?.Invoke();
         }
 
+        public void InvokePlayerWokeUp()
+        {
+            NewGamePlayerWokeUp?.Invoke();
+        }
+
         public void EndEvent()
         {
             m_isDone = true;
