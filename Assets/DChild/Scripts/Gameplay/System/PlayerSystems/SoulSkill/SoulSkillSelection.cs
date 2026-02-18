@@ -56,62 +56,62 @@ namespace DChild.Gameplay.SoulSkills
 
         private void SetHighlightTo(SoulSkillButton soulskillUI)
         {
-            m_highlight.SetParent(soulskillUI.transform);
-            m_highlight.offsetMin = Vector2.zero;
-            m_highlight.offsetMax = Vector2.zero;
+            //m_highlight.SetParent(soulskillUI.transform);
+            //m_highlight.offsetMin = Vector2.zero;
+            //m_highlight.offsetMax = Vector2.zero;
 
-            m_highlightContainer.InstantHide();
-            m_highlightContainer.Show();
+            //m_highlightContainer.InstantHide();
+            //m_highlightContainer.Show();
         }
 
         private void OnSkillClicked(object sender, SoulSkillSelected eventArgs)
         {
-            if (m_doNotAcceptClickOnMouseRelease)
-                return;
+            //if (m_doNotAcceptClickOnMouseRelease)
+            //    return;
 
-            var skillUI = eventArgs.soulskillUI;
-            if (m_skillWasSelectedThisFrame == false && m_currentSelectedSoulSkill == skillUI)
-            {
-                OnActionRequired?.Invoke(this, eventArgs);
-            }
+            //var skillUI = eventArgs.soulskillUI;
+            //if (m_skillWasSelectedThisFrame == false && m_currentSelectedSoulSkill == skillUI)
+            //{
+            //    OnActionRequired?.Invoke(this, eventArgs);
+            //}
 
         }
 
         private void Awake()
         {
-            var m_acquiredSoulSkillUIList = m_acquiredListUI.GetComponentsInChildren<SoulSkillButton>(true);
-            for (int i = 0; i < m_acquiredSoulSkillUIList.Length; i++)
-            {
-                var soulSkillUI = m_acquiredSoulSkillUIList[i];
-                soulSkillUI.OnSelected += OnSkillSelected;
-                soulSkillUI.OnClick += OnSkillClicked;
-            }
+            //var m_acquiredSoulSkillUIList = m_acquiredListUI.GetComponentsInChildren<SoulSkillButton>(true);
+            //for (int i = 0; i < m_acquiredSoulSkillUIList.Length; i++)
+            //{
+            //    var soulSkillUI = m_acquiredSoulSkillUIList[i];
+            //    soulSkillUI.OnSelected += OnSkillSelected;
+            //    soulSkillUI.OnClick += OnSkillClicked;
+            //}
 
-            var m_activatedSoulSkillUIList = m_activatedListUI.GetComponentsInChildren<SoulSkillButton>(true);
-            for (int i = 0; i < m_activatedSoulSkillUIList.Length; i++)
-            {
-                var soulSkillUI = m_activatedSoulSkillUIList[i];
-                soulSkillUI.OnSelected += OnSkillSelected;
-                soulSkillUI.OnClick += OnSkillClicked;
-            }
+            //var m_activatedSoulSkillUIList = m_activatedListUI.GetComponentsInChildren<SoulSkillButton>(true);
+            //for (int i = 0; i < m_activatedSoulSkillUIList.Length; i++)
+            //{
+            //    var soulSkillUI = m_activatedSoulSkillUIList[i];
+            //    soulSkillUI.OnSelected += OnSkillSelected;
+            //    soulSkillUI.OnClick += OnSkillClicked;
+            //}
 
-            m_highlightContainer = m_highlight.GetComponent<UIContainer>();
+            //m_highlightContainer = m_highlight.GetComponent<UIContainer>();
 
-            enabled = false;
+            //enabled = false;
         }
 
         private void Update()
         {
-            if (m_doNotAcceptClickOnMouseRelease)
-            {
-                if (Mouse.current.leftButton.wasReleasedThisFrame)
-                {
-                    m_doNotAcceptClickOnMouseRelease = false;
-                    enabled = false;
-                    EventSystem.current.SetSelectedGameObject(m_currentSelectedSoulSkill.gameObject); //Force Event System to recognize last GameObject
-                }
-            }
-            m_skillWasSelectedThisFrame = false;
+            //if (m_doNotAcceptClickOnMouseRelease)
+            //{
+            //    if (Mouse.current.leftButton.wasReleasedThisFrame)
+            //    {
+            //        m_doNotAcceptClickOnMouseRelease = false;
+            //        enabled = false;
+            //        EventSystem.current.SetSelectedGameObject(m_currentSelectedSoulSkill.gameObject); //Force Event System to recognize last GameObject
+            //    }
+            //}
+            //m_skillWasSelectedThisFrame = false;
         }
     }
 }
