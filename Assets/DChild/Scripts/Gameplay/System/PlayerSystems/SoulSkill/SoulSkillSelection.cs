@@ -21,10 +21,10 @@ namespace DChild.Gameplay.SoulSkills
         private RectTransform m_highlight;
         private UIContainer m_highlightContainer;
 
-        private SoulSkillButton m_currentSelectedSoulSkill;
+        private SoulSkillUI m_currentSelectedSoulSkill;
 
-        public event EventAction<SoulSkillSelected> OnSelected;
-        public event EventAction<SoulSkillSelected> OnActionRequired;
+        public event EventAction<SoulSkillUIEventArgs> OnSelected;
+        public event EventAction<SoulSkillUIEventArgs> OnActionRequired;
 
         private bool m_doNotAcceptClickOnMouseRelease;
         private bool m_skillWasSelectedThisFrame;
@@ -35,7 +35,7 @@ namespace DChild.Gameplay.SoulSkills
             m_currentSelectedSoulSkill = null;
         }
 
-        private void OnSkillSelected(object sender, SoulSkillSelected eventArgs)
+        private void OnSkillSelected(object sender, SoulSkillUIEventArgs eventArgs)
         {
             var skillUI = eventArgs.soulskillUI;
             if (m_currentSelectedSoulSkill != skillUI)
@@ -54,7 +54,7 @@ namespace DChild.Gameplay.SoulSkills
             }
         }
 
-        private void SetHighlightTo(SoulSkillButton soulskillUI)
+        private void SetHighlightTo(SoulSkillUI soulskillUI)
         {
             //m_highlight.SetParent(soulskillUI.transform);
             //m_highlight.offsetMin = Vector2.zero;
@@ -64,7 +64,7 @@ namespace DChild.Gameplay.SoulSkills
             //m_highlightContainer.Show();
         }
 
-        private void OnSkillClicked(object sender, SoulSkillSelected eventArgs)
+        private void OnSkillClicked(object sender, SoulSkillUIEventArgs eventArgs)
         {
             //if (m_doNotAcceptClickOnMouseRelease)
             //    return;
@@ -82,8 +82,8 @@ namespace DChild.Gameplay.SoulSkills
             //var m_acquiredSoulSkillUIList = m_acquiredListUI.GetComponentsInChildren<SoulSkillButton>(true);
             //for (int i = 0; i < m_acquiredSoulSkillUIList.Length; i++)
             //{
-            //    var soulSkillUI = m_acquiredSoulSkillUIList[i];
-            //    soulSkillUI.OnSelected += OnSkillSelected;
+                //var soulSkillUI = m_acquiredSoulSkillUIList[i];
+            //soulSkillUI.OnSelected += OnSkillSelected;
             //    soulSkillUI.OnClick += OnSkillClicked;
             //}
 

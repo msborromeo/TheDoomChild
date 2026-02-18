@@ -11,9 +11,9 @@ namespace DChild.Gameplay.SoulSkills.UI
         [SerializeField]
         private TextMeshProUGUI m_capacityText;
 
-        private SoulSkillButton[] m_buttons;
+        private SoulSkillUI[] m_buttons;
         private int m_activatedSkillCount;
-        public SoulSkillButton GetButton(int index) => m_buttons[index];
+        public SoulSkillUI GetButton(int index) => m_buttons[index];
 
         public void ActivateSoulSkill(SoulSkill soulSkill)
         {
@@ -102,7 +102,7 @@ namespace DChild.Gameplay.SoulSkills.UI
         {
             if (m_buttons == null)
             {
-                m_buttons = GetComponentsInChildren<SoulSkillButton>(true);
+                m_buttons = GetComponentsInChildren<SoulSkillUI>(true);
             }
 
             SetAsActivedSoulSkills(null);

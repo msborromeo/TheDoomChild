@@ -11,19 +11,18 @@ namespace DChild.Gameplay.SoulSkills.UI
         private GameObject m_uiListParent;
         [SerializeField]
         private bool m_considerAllAsAvailable;
-        private Dictionary<int, SoulSkillButton> m_uiPair;
+        private Dictionary<int, SoulSkillUI> m_uiPair;
 
-        public SoulSkillButton GetButton(int index) => m_uiPair.Values.ElementAt(index);
+        public SoulSkillUI GetButton(int index) => m_uiPair.Values.ElementAt(index);
 
         public void MakeAvailable(int soulSkillID)
         {
             //m_uiPair[soulSkillID].Show(false);
         }
 
-        public SoulSkillButton MakeAvailableAndGetUI(int soulSkillID)
+        public SoulSkillUI MakeAvailableAndGetUI(int soulSkillID)
         {
             var button = m_uiPair[soulSkillID];
-            button.Show(false);
             return button;
         }
 
