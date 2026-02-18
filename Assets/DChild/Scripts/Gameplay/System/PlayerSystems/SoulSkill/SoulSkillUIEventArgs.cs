@@ -7,12 +7,12 @@ using UnityEngine.UI;
 
 namespace DChild.Gameplay.SoulSkills.UI
 {
-    public class SoulSkillUIEventArgs: IEventActionArgs
+    public class SoulSkillUIEventArgs : IEventActionArgs
     {
         public SoulSkillUI soulskillUI { get; private set; }
-        public void Initialize(SoulSkillUI soulSkill)
+        public SoulSkillUIEventArgs(SoulSkillUI soulskillUI)
         {
-            this.soulskillUI = soulSkill;
+            this.soulskillUI = soulskillUI;
         }
     }
 }

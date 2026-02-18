@@ -77,21 +77,21 @@ namespace DChild.Gameplay.SoulSkills.UI
 
         public void InitializeList(SoulSkillList m_completeSoulSkillList)
         {
-            //if (m_uiPair == null)
-            //{
-            //    m_uiPair = new Dictionary<int, SoulSkillButton>();
-            //}
-            //m_uiPair.Clear();
-            //var uiList = m_uiListParent.GetComponentsInChildren<SoulSkillButton>(true);
-            //var idList = m_completeSoulSkillList.GetIDs();
+            if (m_uiPair == null)
+            {
+                m_uiPair = new Dictionary<int, SoulSkillUI>();
+            }
+            m_uiPair.Clear();
+            var uiList = m_uiListParent.GetComponentsInChildren<SoulSkillUI>(true);
+            var idList = m_completeSoulSkillList.GetIDs();
 
-            //for (int i = 0; i < m_completeSoulSkillList.Count; i++)
-            //{
-            //    var id = idList[i];
-            //    var ui = uiList[i];
-            //    ui.DisplayAs(m_completeSoulSkillList.GetInfo(id));
-            //    m_uiPair.Add(id, ui);
-            //}
+            for (int i = 0; i < m_completeSoulSkillList.Count; i++)
+            {
+                var id = idList[i];
+                var ui = uiList[i];
+                ui.Display(m_completeSoulSkillList.GetInfo(id));
+                m_uiPair.Add(id, ui);
+            }
         }
     }
 }

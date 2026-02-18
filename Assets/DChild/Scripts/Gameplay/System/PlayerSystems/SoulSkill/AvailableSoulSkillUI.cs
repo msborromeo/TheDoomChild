@@ -4,24 +4,12 @@ using UnityEngine.UI;
 
 namespace DChild.Gameplay.SoulSkills.UI
 {
-    public sealed class AvailableSoulSkillUI : SoulSkillUI
+    public sealed class AvailableSoulSkillUI : MonoBehaviour
     {
         [SerializeField]
         private GameObject m_shownVersion;
         [SerializeField]
         private GameObject m_hiddenVersion;
-
-        public override void SetIsAnActivatedUIState(bool isAnEquippedUI)
-        {
-            if (m_button == null)
-            {
-                Awake();
-            }
-
-            m_hiddenVersion.SetActive(false);
-            m_button.interactable = !isAnEquippedUI;
-            base.SetIsAnActivatedUIState(isAnEquippedUI);
-        }
 
  
     }

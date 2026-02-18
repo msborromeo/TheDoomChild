@@ -142,19 +142,19 @@ namespace DChild.Gameplay.SoulSkills
         private void OnSoulSkillSelected(object sender, SoulSkillUIEventArgs eventArgs)
         {
             var soulSkill = m_completeSoulSkillList.GetInfo(eventArgs.soulskillUI.soulSkillID);
-            m_infoUI.DisplayInfoOf(soulSkill);
+            m_infoUI.DisplayInfo(soulSkill);
         }
         private void OnSoulSkillActionRequired(object sender, SoulSkillUIEventArgs eventArgs)
         {
-            //var soulSkillUI = eventArgs.soulskillUI;
-            //if (soulSkillUI.isAnActivatedSoulSkill)
-            //{
-            //    DeactivateSoulSkill(soulSkillUI.soulSkillID);
-            //}
-            //else
-            //{
-            //    ActivateSoulSkill(soulSkillUI.soulSkillID);
-            //}
+            var soulSkillUI = eventArgs.soulskillUI;
+            if (soulSkillUI.isActivated)
+            {
+                DeactivateSoulSkill(soulSkillUI.soulSkillID);
+            }
+            else
+            {
+                ActivateSoulSkill(soulSkillUI.soulSkillID);
+            }
         }
 
         private void OnSoulSkillSaveDataLoaded(object sender, EventActionArgs eventArgs)

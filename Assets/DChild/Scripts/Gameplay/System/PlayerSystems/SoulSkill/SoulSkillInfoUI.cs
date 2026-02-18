@@ -21,16 +21,17 @@ namespace DChild.Gameplay.SoulSkills.UI
 
         public event System.Action<TextMeshProUGUI, TextMeshProUGUI, SoulSkill> soulSkillLocalize;
 
-        public void DisplayInfoOf(SoulSkill soulSkill)
+        public void DisplayInfo(SoulSkill soulSkill)
         {
             m_parentCanvas.enabled = soulSkill != null;
             m_capcity.text = soulSkill.capacity.ToString();
+
             if (soulSkillLocalize!=null)
             {
                 soulSkillLocalize?.Invoke(m_name,m_description,soulSkill);
                 return;
             }
-                m_skillUI.DisplayAs(soulSkill);
+                m_skillUI.Display(soulSkill);
                 m_name.text = soulSkill.name;
                 
                 m_description.text = soulSkill.description;  

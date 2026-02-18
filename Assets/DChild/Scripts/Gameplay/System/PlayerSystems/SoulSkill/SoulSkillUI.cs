@@ -1,61 +1,78 @@
 ﻿using DChild.Gameplay.Characters.Players.SoulSkills;
 using Doozy.Runtime.UIManager.Components;
 using Holysoft.Event;
+using Sirenix.OdinInspector;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace DChild.Gameplay.SoulSkills.UI
 {
-    public class SoulSkillUI : MonoBehaviour
+    public sealed class SoulSkillUI : MonoBehaviour
     {
-        [SerializeField] protected Image m_icon;
-        [SerializeField] protected TextMeshProUGUI m_soulName;
-        [SerializeField] protected TextMeshProUGUI m_soulDescription;
+        [SerializeField, BoxGroup("Soul Skill Info")] private TextMeshProUGUI m_soulName;
+        [SerializeField, BoxGroup("Soul Skill Info")] private TextMeshProUGUI m_soulDescription;
+        [SerializeField, BoxGroup("Soul Skill Info")] private TextMeshProUGUI m_soulCapacity;
 
-        public Sprite soulSkillIcon => m_icon.sprite;
+        [SerializeField, BoxGroup("Soul Skill Visuals")] private Image m_icon;
+        [SerializeField, BoxGroup("Soul Skill Visuals")] private CanvasGroup m_isSelectedCG;
+        [SerializeField, BoxGroup("Soul Skill Visuals")] private CanvasGroup m_equippedCG;
+        [SerializeField, BoxGroup("Soul Skill Visuals/Current Progress")] private Image[] m_progressBars;
 
-        public int soulSkillID { get; private set; }
+        [SerializeField, BoxGroup("Soul Skill Visuals/Learned Panel")] private Image m_soulFrame;
+        [SerializeField, BoxGroup("Soul Skill Visuals/Learned Panel/Assets")] private Sprite m_undiscoveredPanel;
+        [SerializeField, BoxGroup("Soul Skill Visuals/Learned Panel/Assets")] private Sprite m_inProgressPanel;
+        [SerializeField, BoxGroup("Soul Skill Visuals/Learned Panel/Assets")] private Sprite m_learnedPanel;
 
-        protected UIButton m_button;
-        protected bool m_isAnActivatedSoulSkill;
+        private bool m_isActivated;
+        public bool isActivated => m_isActivated;
 
-        public bool isAnActivatedSoulSkill => m_isAnActivatedSoulSkill;
+        private int m_soulSkillID;
+        public int soulSkillID => m_soulSkillID;
 
-        public event EventAction<SoulSkillUIEventArgs> OnSelected;
-        public event EventAction<SoulSkillUIEventArgs> OnClick;
+        public event EventAction<SoulSkillUIEventArgs> OnSkillSelected;
+        public event EventAction<SoulSkillUIEventArgs> OnSkillEquipped;
 
-        public void DisplayAs(SoulSkill soulSkill)
+        [Button]
+        public void Display(SoulSkill soulSkill)
         {
             if (soulSkill == null)
             {
-                soulSkillID = -1;
+                m_soulSkillID = -1;
+                return;
             }
-            else
-            {
-                soulSkillID = soulSkill.id;
-                m_icon.sprite = soulSkill.icon;
-            }
+            m_soulSkillID = soulSkill.id;
+            SetUIVisuals(soulSkill);
+
+        }
+        private void SetUIVisuals(SoulSkill soulSkill)
+        {
+            m_icon.sprite = soulSkill.icon;
+            m_soulName.text = soulSkill.name;
+            m_soulDescription.text = soulSkill.description;
+            m_soulCapacity.text = $"{soulSkill.capacity}";
+            m_soulFrame.sprite = GetCurrentPanel(soulSkill);
         }
 
-
-        public void CopyUI(SoulSkillUI reference)
+        private Sprite GetCurrentPanel(SoulSkill soulSkill)
         {
-            m_isAnActivatedSoulSkill = reference.isAnActivatedSoulSkill;
-            soulSkillID = reference.soulSkillID;
-            m_icon.sprite = reference.soulSkillIcon;
+            return soulSkill == null
+                ? m_undiscoveredPanel
+                : !soulSkill.isFullyLearned
+                    ? m_inProgressPanel
+                    : m_learnedPanel;
         }
 
-
-
-        public virtual void SetIsAnActivatedUIState(bool isAnEquippedUI)
+        public void ShowDetails()
         {
-            m_isAnActivatedSoulSkill = isAnEquippedUI;
+            OnSkillSelected?.Invoke(this, new SoulSkillUIEventArgs(this));
         }
 
-        protected virtual void Awake()
+        public void EquipSkill()
         {
-            m_button = GetComponent<UIButton>();
+            m_equippedCG.alpha = Convert.ToSingle(m_isActivated);
+            OnSkillEquipped?.Invoke(this, new SoulSkillUIEventArgs(this));
         }
     }
 }
