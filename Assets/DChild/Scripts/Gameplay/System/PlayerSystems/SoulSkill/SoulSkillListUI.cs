@@ -17,7 +17,7 @@ namespace DChild.Gameplay.SoulSkills.UI
 
         public void MakeAvailable(int soulSkillID)
         {
-            m_uiPair[soulSkillID].Show(false);
+            //m_uiPair[soulSkillID].Show(false);
         }
 
         public SoulSkillButton MakeAvailableAndGetUI(int soulSkillID)
@@ -29,70 +29,70 @@ namespace DChild.Gameplay.SoulSkills.UI
 
         public void MakeUnavailable(int soulSkillID)
         {
-            m_uiPair[soulSkillID].Hide(false);
+            //m_uiPair[soulSkillID].Hide(false);
         }
 
         public void MakeAllAvailable()
         {
-            foreach (var ui in m_uiPair.Values)
-            {
-                ui.Show(false);
-            }
+            //foreach (var ui in m_uiPair.Values)
+            //{
+            //    ui.Show(false);
+            //}
         }
 
         public void MakeAllUnavailable()
         {
-            foreach (var ui in m_uiPair.Values)
-            {
-                ui.Hide(false);
-            }
+            //foreach (var ui in m_uiPair.Values)
+            //{
+            //    ui.Hide(false);
+            //}
         }
 
         public void SetActivatedUIState(int soulSkillID, bool isActivated)
         {
-            m_uiPair[soulSkillID].SetIsAnActivatedUIState(isActivated);
+            //m_uiPair[soulSkillID].SetIsAnActivatedUIState(isActivated);
         }
 
         public void InitializeListAvailability(IReadOnlyCollection<int> availableSoulSkillIDs)
         {
-            foreach (var ui in m_uiPair.Values)
-            {
-                if (m_considerAllAsAvailable || availableSoulSkillIDs.Contains(ui.soulSkillID))
-                {
-                    ui.Show(true);
-                }
-                else
-                {
-                    ui.Hide(true);
-                }
-            }
+            //foreach (var ui in m_uiPair.Values)
+            //{
+            //    if (m_considerAllAsAvailable || availableSoulSkillIDs.Contains(ui.soulSkillID))
+            //    {
+            //        ui.Show(true);
+            //    }
+            //    else
+            //    {
+            //        ui.Hide(true);
+            //    }
+            //}
         }
 
         public void InitializeListActivatedState(IReadOnlyCollection<int> activatedoulSkillIDs)
         {
-            foreach (var ui in m_uiPair.Values)
-            {
-                ui.SetIsAnActivatedUIState(activatedoulSkillIDs.Contains(ui.soulSkillID));
-            }
+            //foreach (var ui in m_uiPair.Values)
+            //{
+            //    ui.SetIsAnActivatedUIState(activatedoulSkillIDs.Contains(ui.soulSkillID));
+            //}
         }
 
         public void InitializeList(SoulSkillList m_completeSoulSkillList)
         {
-            if (m_uiPair == null)
-            {
-                m_uiPair = new Dictionary<int, SoulSkillButton>();
-            }
-            m_uiPair.Clear();
-            var uiList = m_uiListParent.GetComponentsInChildren<SoulSkillButton>(true);
-            var idList = m_completeSoulSkillList.GetIDs();
+            //if (m_uiPair == null)
+            //{
+            //    m_uiPair = new Dictionary<int, SoulSkillButton>();
+            //}
+            //m_uiPair.Clear();
+            //var uiList = m_uiListParent.GetComponentsInChildren<SoulSkillButton>(true);
+            //var idList = m_completeSoulSkillList.GetIDs();
 
-            for (int i = 0; i < m_completeSoulSkillList.Count; i++)
-            {
-                var id = idList[i];
-                var ui = uiList[i];
-                ui.DisplayAs(m_completeSoulSkillList.GetInfo(id));
-                m_uiPair.Add(id, ui);
-            }
+            //for (int i = 0; i < m_completeSoulSkillList.Count; i++)
+            //{
+            //    var id = idList[i];
+            //    var ui = uiList[i];
+            //    ui.DisplayAs(m_completeSoulSkillList.GetInfo(id));
+            //    m_uiPair.Add(id, ui);
+            //}
         }
     }
 }
