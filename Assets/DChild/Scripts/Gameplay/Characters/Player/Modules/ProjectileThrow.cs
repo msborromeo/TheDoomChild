@@ -9,6 +9,8 @@ using DChild.Gameplay.Pooling;
 using DChild.Gameplay.Combat;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System.Collections;
+using System;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -43,6 +45,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private bool m_reachedVerticalThreshold = false;
 
         private bool m_willResetProjectile;
+        private bool m_isStraightThrow = false;
 
         public bool willResetProjectile => m_willResetProjectile;
 
@@ -87,6 +90,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void MoveAim(Vector2 delta, Vector2 mousePosition)
         {
+            if(m_isStraightThrow) 
+                return;
             var relativeDelta = delta.normalized * m_configuration.aimSensitivity;
             relativeDelta.x *= (int)m_character.facing;
             var newAim = m_currentAim += relativeDelta;
@@ -138,6 +143,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private Vector2 GetProjectilesCalculatedThrowDirection(Projectile projectile)
         {
             var direction = CalculateThrowDirection();
+            
             if(projectile.hasConstantSpeed)
             {
                 direction = direction.normalized;
@@ -173,6 +179,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             normalizedAim.x = CalculateNormalizedValue(normalizedAim.x, m_configuration.horizontalThreshold.min, m_configuration.horizontalThreshold.max);
             var ySign = Mathf.Sign(normalizedAim.y);
             normalizedAim.y = Mathf.Abs(normalizedAim.y) / m_configuration.verticalThreshold * ySign;
+
             return normalizedAim;
 
             float CalculateNormalizedValue(float value, float min, float max)
@@ -249,7 +256,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_skeletonAnimation.state.Complete += State_Complete;
 
             //var direction = CalculateThrowDirection();
-            var direction = GetProjectilesCalculatedThrowDirection(m_spawnedProjectile);
+            var direction = Vector2.right;
+            direction = GetProjectilesCalculatedThrowDirection(m_spawnedProjectile);
             direction.x *= (int)m_character.facing;
 
             if (m_spawnedProjectile != null)
@@ -290,6 +298,26 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
 
             ProjectileThrown?.Invoke(this, EventActionArgs.Empty);
+        }
+
+        public void ThrowStraightStartVisuals()
+        {
+            m_throwState.isAimingProjectile = true;
+            m_isStraightThrow = true;
+            m_timer = m_configuration.skullThrowCooldown;
+            m_state.canAttack = false;
+            m_state.isAttacking = true;
+            m_animator.SetBool(m_aimingProjectileAnimationParameter, true);
+            m_animator.SetBool(m_skullThrowAnimationParameter, true);
+            m_currentAim = Vector2.right;
+        }
+
+        public void ThrowStraightEndVisuals()
+        {
+            m_animator.SetBool(m_aimingProjectileAnimationParameter, false);
+            m_animator.SetBool(m_skullThrowAnimationParameter, true);
+            m_throwState.isAimingProjectile = false;
+            m_isStraightThrow = false;
         }
 
         private void State_Complete(Spine.TrackEntry trackEntry)
@@ -393,7 +421,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_cacheProjectile = m_projectile;
             m_modifier = info.modifier;
         }
-
 
         public void SetConfiguration(ProjectileThrowStatsInfo info)
         {
