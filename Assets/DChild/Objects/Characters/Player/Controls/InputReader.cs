@@ -79,6 +79,8 @@ namespace DChild.Inputs
         public event Action UseQuickItemCancelledEvent;
         public event Action ProjectileThrowStartedEvent;
         public event Action ProjectileThrowCancelledEvent;
+        public event Action ProjectileThrowHeldEvent;
+        public event Action ProjectileThrowTappedEvent;
         public event Action GrabStartedEvent;
         public event Action GrabCancelledEvent;
         public event Action<Vector2> MouseDeltaPerformedEvent;
@@ -403,6 +405,19 @@ namespace DChild.Inputs
             if (context.phase == InputActionPhase.Started)
             {
                 ProjectileThrowStartedEvent?.Invoke();
+            }
+
+            if(context.phase == InputActionPhase.Performed)
+            {
+                if(context.interaction is HoldInteraction)
+                {
+                    ProjectileThrowHeldEvent?.Invoke();
+                }
+
+                if(context.interaction is TapInteraction)
+                {
+                    ProjectileThrowTappedEvent?.Invoke();
+                }
             }
 
             if (context.phase == InputActionPhase.Canceled)

@@ -398,6 +398,7 @@ namespace DChild.Menu
             GameSystem.SetGamePause(false);
             m_animation.AnimationEnd -= OnAnimationEnd;
             UnloadLoading -= OnUnloadLoading;
+            Resources.UnloadUnusedAssets();
             LoadingDone?.Invoke(this, EventActionArgs.Empty);
             GameplaySystem.SetInputActive(true);
             Debug.Log("Loading Scene Destroyed");
