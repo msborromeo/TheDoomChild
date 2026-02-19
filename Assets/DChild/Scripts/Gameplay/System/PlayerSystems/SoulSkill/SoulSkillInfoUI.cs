@@ -6,18 +6,13 @@ using DChild.Localization;
 
 namespace DChild.Gameplay.SoulSkills.UI
 {
-    public class SoulSkillInfoUI : MonoBehaviour , ISoulSkillLocalizer
+    public class SoulSkillInfoUI : MonoBehaviour, ISoulSkillLocalizer
     {
-        [SerializeField]
-        private CanvasGroup m_parentCanvas;
-        [SerializeField]
-        private SoulSkillUI m_skillUI;
-        [SerializeField]
-        private TextMeshProUGUI m_name;
-        [SerializeField]
-        private TextMeshProUGUI m_capcity;
-        [SerializeField]
-        private TextMeshProUGUI m_description;
+        [SerializeField] private CanvasGroup m_parentCanvas;
+        [SerializeField] private Image m_soulIcon;
+        [SerializeField] private TextMeshProUGUI m_name;
+        [SerializeField] private TextMeshProUGUI m_capcity;
+        [SerializeField] private TextMeshProUGUI m_description;
 
         public event System.Action<TextMeshProUGUI, TextMeshProUGUI, SoulSkill> soulSkillLocalize;
 
@@ -26,15 +21,15 @@ namespace DChild.Gameplay.SoulSkills.UI
             m_parentCanvas.enabled = soulSkill != null;
             m_capcity.text = soulSkill.capacity.ToString();
 
-            if (soulSkillLocalize!=null)
+            if (soulSkillLocalize != null)
             {
-                soulSkillLocalize?.Invoke(m_name,m_description,soulSkill);
+                soulSkillLocalize?.Invoke(m_name, m_description, soulSkill);
                 return;
             }
-                m_skillUI.Display(soulSkill);
-                m_name.text = soulSkill.name;
-                
-                m_description.text = soulSkill.description;  
+
+            m_soulIcon.sprite = soulSkill.icon;
+            m_name.text = soulSkill.name;
+            m_description.text = soulSkill.description;
         }
     }
 }

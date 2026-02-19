@@ -25,8 +25,6 @@ namespace DChild.Gameplay.SoulSkills
         public event EventAction<SoulSkillUIEventArgs> OnSelected;
         public event EventAction<SoulSkillUIEventArgs> OnActionRequired;
 
-
-
         private void OnSkillSelected(object sender, SoulSkillUIEventArgs eventArgs)
         {
             var skillUI = eventArgs.soulskillUI;
