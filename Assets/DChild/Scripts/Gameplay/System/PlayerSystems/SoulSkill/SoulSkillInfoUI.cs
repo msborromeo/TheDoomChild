@@ -21,15 +21,15 @@ namespace DChild.Gameplay.SoulSkills.UI
             m_parentCanvas.enabled = soulSkill != null;
             m_capcity.text = soulSkill.capacity.ToString();
 
-            if (soulSkillLocalize != null)
+            m_soulIcon.sprite = soulSkill.icon;
+            
+            if (soulSkillLocalize == null)
             {
-                soulSkillLocalize?.Invoke(m_name, m_description, soulSkill);
+                m_name.text = soulSkill.name;
+                m_description.text = soulSkill.description;
                 return;
             }
-
-            m_soulIcon.sprite = soulSkill.icon;
-            m_name.text = soulSkill.name;
-            m_description.text = soulSkill.description;
+            soulSkillLocalize?.Invoke(m_name, m_description, soulSkill);
         }
     }
 }

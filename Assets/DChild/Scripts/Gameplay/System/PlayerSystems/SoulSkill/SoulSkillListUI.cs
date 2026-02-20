@@ -1,17 +1,26 @@
 ﻿using DChild.Gameplay.Characters.Players.SoulSkills;
+using NUnit.Framework.Internal.Filters;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
 
 namespace DChild.Gameplay.SoulSkills.UI
 {
     public class SoulSkillListUI : MonoBehaviour
     {
         [SerializeField]
-        private GameObject m_uiListParent;
+        private SoulSkillUI[] m_uiList;
+
+        [SerializeField]
+        private SoulSkillNavigationHandle m_navigationHandle;
+
         [SerializeField]
         private bool m_considerAllAsAvailable;
         private Dictionary<int, SoulSkillUI> m_uiPair;
+
+        private SoulSkillList m_completeList;
+
 
         public SoulSkillUI GetButton(int index) => m_uiPair.Values.ElementAt(index);
 
@@ -75,23 +84,38 @@ namespace DChild.Gameplay.SoulSkills.UI
             //}
         }
 
-        public void InitializeList(SoulSkillList m_completeSoulSkillList)
+        public void InitializeList(SoulSkillList completeSoulSkillList)
         {
+            m_completeList = completeSoulSkillList;
+
             if (m_uiPair == null)
             {
                 m_uiPair = new Dictionary<int, SoulSkillUI>();
             }
-            m_uiPair.Clear();
-            var uiList = m_uiListParent.GetComponentsInChildren<SoulSkillUI>(true);
-            var idList = m_completeSoulSkillList.GetIDs();
 
-            for (int i = 0; i < m_completeSoulSkillList.Count; i++)
+            UpdateToggleData(0);
+        }
+
+        public void UpdateToggleData(int pageIndex)
+        {
+            m_uiPair.Clear();
+            var idList = m_completeList.GetIDs();
+            var filteredIDs = idList.Skip(pageIndex).ToArray();
+
+            for (int i = 0; i < m_uiList.Length; i++)
             {
-                var id = idList[i];
-                var ui = uiList[i];
-                ui.Display(m_completeSoulSkillList.GetInfo(id));
+                var id = filteredIDs[i];
+                var ui = m_uiList[i];
                 m_uiPair.Add(id, ui);
+
+                DisplayData(id);
             }
+        }
+
+        private void DisplayData(int id)
+        {
+            var data = m_completeList.GetInfo(id);
+            m_uiPair[id].Display(data);
         }
     }
 }

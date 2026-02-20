@@ -16,7 +16,6 @@ namespace DChild.Gameplay.SoulSkills.UI
         [SerializeField, BoxGroup("Soul Skill Info")] private TextMeshProUGUI m_soulCapacity;
 
         [SerializeField, BoxGroup("Soul Skill Visuals")] private Image m_icon;
-        [SerializeField, BoxGroup("Soul Skill Visuals")] private CanvasGroup m_isSelectedCG;
         [SerializeField, BoxGroup("Soul Skill Visuals")] private CanvasGroup m_equippedCG;
         [SerializeField, BoxGroup("Soul Skill Visuals/Current Progress")] private Image[] m_progressBars;
 

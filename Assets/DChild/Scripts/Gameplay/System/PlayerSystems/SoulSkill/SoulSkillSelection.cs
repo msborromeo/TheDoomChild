@@ -16,8 +16,6 @@ namespace DChild.Gameplay.SoulSkills
         [SerializeField]
         private GameObject m_acquiredListUI;
         [SerializeField]
-        private GameObject m_activatedListUI;
-        [SerializeField]
         private RectTransform m_highlight;
 
         private SoulSkillUI m_currentSelectedSoulSkill;
