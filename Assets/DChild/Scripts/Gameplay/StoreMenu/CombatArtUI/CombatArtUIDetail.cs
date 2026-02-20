@@ -56,13 +56,14 @@ namespace DChild.Gameplay.UI.CombatArts
                 m_artNameLabel.text += $" {level}";
             }
 
-
             Display(data.GetCombatArtLevelData(level));
             localizeCombatArt?.Invoke(data, level);
         }
 
         private void Display(CombatArtLevelData levelData)
         {
+            if (levelData == null) return;
+
             StopAllCoroutines();
             StartCoroutine(DisplayPreview(levelData.preview));
             m_descriptionLabel.text = levelData.description;
