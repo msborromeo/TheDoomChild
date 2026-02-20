@@ -86,6 +86,8 @@ namespace DChild.Gameplay.SoulSkills.UI
 
         public void InitializeList(SoulSkillList completeSoulSkillList)
         {
+            m_navigationHandle.SetupScroll(completeSoulSkillList, m_uiList.Length);
+
             m_completeList = completeSoulSkillList;
 
             if (m_uiPair == null)
