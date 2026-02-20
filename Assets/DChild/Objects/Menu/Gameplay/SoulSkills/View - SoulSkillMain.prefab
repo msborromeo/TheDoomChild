@@ -2115,8 +2115,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: NaN, y: NaN}
-  m_SizeDelta: {x: 0, y: 20.645996}
+  m_AnchoredPosition: {x: -0.000034332275, y: 0}
+  m_SizeDelta: {x: 0, y: 24}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &6375758954514068195
 CanvasRenderer:
@@ -2469,7 +2469,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805164927271877572}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2480,10 +2480,10 @@ RectTransform:
   m_Father: {fileID: 6623766367794501524}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: NaN, y: 0}
-  m_AnchorMax: {x: NaN, y: 1}
-  m_AnchoredPosition: {x: NaN, y: NaN}
-  m_SizeDelta: {x: 15.289, y: -0.000061035156}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7048556889061838912
 CanvasRenderer:
@@ -2558,8 +2558,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: NaN, y: NaN}
-  m_SizeDelta: {x: 0, y: 20.646}
+  m_AnchoredPosition: {x: -0.000034332275, y: 0}
+  m_SizeDelta: {x: 0, y: 24}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &7302222544404984710
 CanvasRenderer:
@@ -2821,10 +2821,10 @@ RectTransform:
   m_Father: {fileID: 5917309654550119079}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: NaN, y: NaN}
-  m_SizeDelta: {x: 0, y: 20.645996}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.000034332275, y: 0}
+  m_SizeDelta: {x: 16, y: 16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1227484661314999633
 CanvasRenderer:
@@ -3427,8 +3427,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -4.1059875}
-  m_SizeDelta: {x: -20.005, y: -15.75}
+  m_AnchoredPosition: {x: 0.00046157837, y: -1.4079895}
+  m_SizeDelta: {x: -3.692, y: -11.535}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4612213784353815906
 GameObject:
@@ -4252,12 +4252,25 @@ MonoBehaviour:
     Selectable: {fileID: 7596599699829111345}
   OnValueChangedCallback:
     m_PersistentCalls:
-      m_Calls: []
-  HandleRect: {fileID: 0}
-  Direction: 0
-  Value: 0.2
-  Size: 0.2
-  NumberOfSteps: 5
+      m_Calls:
+      - m_Target: {fileID: 6739146570389101934}
+        m_TargetAssemblyTypeName: DChild.Gameplay.SoulSkills.UI.SoulSkillNavigationHandle,
+          Assembly-CSharp
+        m_MethodName: HandleScroll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  HandleRect: {fileID: 5917309654550119079}
+  Direction: 3
+  Value: 0
+  Size: 0.5
+  NumberOfSteps: 2
 --- !u!1 &8605390782616757116
 GameObject:
   m_ObjectHideFlags: 0
@@ -4482,7 +4495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_soulScroll: {fileID: 7596599699829111345}
-  m_listUI: {fileID: 0}
+  m_listUI: {fileID: 33829320913624872}
 --- !u!1001 &88968032311417682
 PrefabInstance:
   m_ObjectHideFlags: 0
