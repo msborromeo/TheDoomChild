@@ -14,6 +14,7 @@ namespace DChild.Gameplay.SoulSkills.UI
         [SerializeField, BoxGroup("Soul Skill Info")] private TextMeshProUGUI m_soulName;
         [SerializeField, BoxGroup("Soul Skill Info")] private TextMeshProUGUI m_soulDescription;
         [SerializeField, BoxGroup("Soul Skill Info")] private TextMeshProUGUI m_soulCapacity;
+        [SerializeField, BoxGroup("Soul Skill Info")] private UIToggle m_toggle;
 
         [SerializeField, BoxGroup("Soul Skill Visuals")] private Image m_icon;
         [SerializeField, BoxGroup("Soul Skill Visuals")] private CanvasGroup m_equippedCG;
@@ -40,9 +41,10 @@ namespace DChild.Gameplay.SoulSkills.UI
         private SoulSkillUIEventArgs m_attachedUIEvent;
 
         [Button]
-        public void Display(SoulSkill soulSkill)
+        public void Display(SoulSkill soulSkill, bool isActivated = false)
         {
             Reset();
+            m_isActivated = isActivated;
             if (soulSkill == null)
                 return;
 
@@ -55,8 +57,8 @@ namespace DChild.Gameplay.SoulSkills.UI
         {
             bool isDiscovered = soulSkill != null;
 
-            m_unidscoveredLabelCG.alpha = isDiscovered ? 0f : 1f;
-            m_soulElementsCG.alpha = isDiscovered ? 1f : 0f;
+            UpdateDiscoveredData(isDiscovered);
+            m_equippedCG.alpha = m_isActivated ? 1f : 0f;
 
             m_soulFrame.sprite = GetCurrentPanel(soulSkill);
 
@@ -67,6 +69,13 @@ namespace DChild.Gameplay.SoulSkills.UI
             m_soulName.text = soulSkill.name;
             m_soulDescription.text = soulSkill.description;
             m_soulCapacity.text = soulSkill.capacity.ToString();
+        }
+
+        private void UpdateDiscoveredData(bool isDiscovered)
+        {
+            m_toggle.interactable = isDiscovered;
+            m_unidscoveredLabelCG.alpha = isDiscovered ? 0f : 1f;
+            m_soulElementsCG.alpha = isDiscovered ? 1f : 0f;
         }
 
         private Sprite GetCurrentPanel(SoulSkill soulSkill)
@@ -86,10 +95,13 @@ namespace DChild.Gameplay.SoulSkills.UI
         public void EquipSkill()
         {
             OnSkillEquipped?.Invoke(this, m_attachedUIEvent);
-            m_equippedCG.alpha = Convert.ToSingle(m_isActivated);
         }
 
-        public void SetAcivatedStatus(bool value) => m_isActivated = value;
+        public void SetActivatedStatus(bool value)
+        {
+            m_isActivated = value;
+            m_equippedCG.alpha = Convert.ToSingle(m_isActivated);
+        }
 
         private void SetEventArgs(SoulSkillUI ui)
         {

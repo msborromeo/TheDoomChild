@@ -49,6 +49,7 @@ namespace DChild.Gameplay.SoulSkills
             m_forceSoulSkillActivation = forceCanActivateSoulSkill;
         }
 
+        #region Soul Skill Activation
         public void ActivateSoulSkill(int soulSkillID)
         {
             if (canActivateSoulSkill == false)
@@ -67,38 +68,23 @@ namespace DChild.Gameplay.SoulSkills
 
         public void ActivateSoulSkill(SoulSkill soulSkill)
         {
-            if (m_playerHandle.CanBeActivated(soulSkill))
-            {
-                m_playerHandle.AddAsActivated(soulSkill);
-                ////m_activatedListUI.ActivateSoulSkill(soulSkill);
-                m_availableListUI.SetActivatedUIState(soulSkill.id, true);
+            if (!m_playerHandle.CanBeActivated(soulSkill))
+                return;
 
-                m_availableSoulCapacity.DisplayCapacity(m_playerHandle.currentSoulCapacity);
-            }
-            else
-            {
-                //Do Something to warn player why it cant be activated
-            }
+
+            m_playerHandle.AddAsActivated(soulSkill);
+            ////m_activatedListUI.ActivateSoulSkill(soulSkill);
+            //m_availableListUI.SetActivatedUIState(soulSkill.id, true);
+
+            m_availableSoulCapacity.DisplayCapacity(m_playerHandle.currentSoulCapacity);
         }
 
         public void DeactivateSoulSkill(SoulSkill soulSkill)
         {
             m_playerHandle.RemoveAsActivated(soulSkill);
-            m_availableListUI.SetActivatedUIState(soulSkill.id, false);
+            //m_availableListUI.SetActivatedUIState(soulSkill.id, false);
         }
-
-        public void SetAsActivatedSoulSkills(IReadOnlyCollection<int> list)
-        {
-            m_availableListUI.InitializeListActivatedState(list);
-            List<SoulSkill> activatedSoulSkills = new List<SoulSkill>();
-            for (int i = 0; i < list.Count; i++)
-            {
-                activatedSoulSkills.Add(m_completeSoulSkillList.GetInfo(list.ElementAt(i)));
-            }
-            //m_activatedListUI.SetAsActivedSoulSkills(activatedSoulSkills);
-
-            m_availableSoulCapacity.DisplayCapacity(m_playerHandle.currentSoulCapacity);
-        }
+        #endregion
 
         public void Initialize()
         {
@@ -111,17 +97,32 @@ namespace DChild.Gameplay.SoulSkills
                 m_skillSelection.OnActionRequired += OnSoulSkillActionRequired;
             }
             m_hasSubscribed = true;
-            m_availableListUI.SetAvailableSkills(m_playerHandle.acquiredSkills);
+
+            SetAvailableSoulSkills(m_playerHandle.acquiredSkills);
+            m_availableListUI.SetActivatedSkills(m_playerHandle.activatedSkills);
             m_availableListUI.InitializeList(m_completeSoulSkillList);
             //m_activatedListUI.Reset();
             SyncWithSaveData();
         }
 
-        public void SetAvailableSoulSkills(IReadOnlyCollection<int> list)
+        #region Setters
+        public void SetAvailableSoulSkills(IReadOnlyCollection<int> list) => m_availableListUI.SetAvailableSkills(list);
+        public void SetActivatedSoulSkills(IReadOnlyCollection<int> list) => m_availableListUI.SetActivatedSkills(list);
+        public void SetAsActivatedSoulSkills(IReadOnlyCollection<int> list)
         {
-            m_availableListUI.SetAvailableSkills(list);
-        }
+            SetActivatedSoulSkills(list);
+            List<SoulSkill> activatedSoulSkills = new List<SoulSkill>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                activatedSoulSkills.Add(m_completeSoulSkillList.GetInfo(list.ElementAt(i)));
+            }
+            //m_activatedListUI.SetAsActivedSoulSkills(activatedSoulSkills);
 
+            m_availableSoulCapacity.DisplayCapacity(m_playerHandle.currentSoulCapacity);
+        }
+        #endregion
+
+        #region Event Callbacks
         private void OnSoulSkillSelected(object sender, SoulSkillUIEventArgs eventArgs)
         {
             var soulSkill = m_completeSoulSkillList.GetInfo(eventArgs.soulskillUI.soulSkillID);
@@ -133,27 +134,34 @@ namespace DChild.Gameplay.SoulSkills
             if (soulSkillUI.isActivated)
             {
                 DeactivateSoulSkill(soulSkillUI.soulSkillID);
-                soulSkillUI.SetAcivatedStatus(false);
+                soulSkillUI.SetActivatedStatus(false);
                 return;
             }
 
             ActivateSoulSkill(soulSkillUI.soulSkillID);
-            soulSkillUI.SetAcivatedStatus(true);
+            soulSkillUI.SetActivatedStatus(true);
         }
-
         private void OnSoulSkillSaveDataLoaded(object sender, EventActionArgs eventArgs)
         {
             SyncWithSaveData();
         }
+        private void OnMaxCapacityChanged(object sender, EventActionArgs eventArgs)
+        {
+            m_availableSoulCapacity.DisplayCapacity(m_playerHandle.currentSoulCapacity);
+        }
+        private void OnAvailableSkillsChanged(object sender, EventActionArgs eventArgs)
+        {
+            m_availableListUI.SetAvailableSkills(m_playerHandle.acquiredSkills);
+        }
+        #endregion
 
         private void SyncWithSaveData()
         {
             //m_activatedListUI.DisplayCapacity(m_playerHandle.currentSoulCapacity);
-            var skillIDs = m_completeSoulSkillList.GetIDs();
 
             //m_availableListUI.UpdateAvailableSkillsList(m_playerHandle.acquiredSkills);
             var activatedSkillIDs = m_playerHandle.activatedSkills;
-            m_availableListUI.InitializeListActivatedState(activatedSkillIDs);
+            m_availableListUI.SetActivatedSkills(activatedSkillIDs);
 
             var activatedSoulSkillList = new List<SoulSkill>();
             foreach (var skill in activatedSkillIDs)
@@ -167,20 +175,12 @@ namespace DChild.Gameplay.SoulSkills
 
                 activatedSoulSkillList.Add(soulSkill);
                 m_playerHandle.AddAsActivated(soulSkill);
+
             }
             //m_activatedListUI.SetAsActivedSoulSkills(activatedSoulSkillList);
             m_availableSoulCapacity.DisplayCapacity(m_playerHandle.currentSoulCapacity);
         }
 
-        private void OnMaxCapacityChanged(object sender, EventActionArgs eventArgs)
-        {
-            m_availableSoulCapacity.DisplayCapacity(m_playerHandle.currentSoulCapacity);
-        }
-
-        private void OnAvailableSkillsChanged(object sender, EventActionArgs eventArgs)
-        {
-            m_availableListUI.SetAvailableSkills(m_playerHandle.acquiredSkills);
-        }
 
     }
 }
