@@ -22,6 +22,7 @@ namespace DChild.Gameplay.SoulSkills.UI
         private SoulSkillList m_completeList;
 
         private IReadOnlyCollection<int> m_playerAcquiredSkills;
+        private IReadOnlyCollection<int> m_activatedSkills;
 
         #region Deprecated
         public SoulSkillUI GetButton(int index) => m_uiPair.Values.ElementAt(index);
@@ -63,7 +64,7 @@ namespace DChild.Gameplay.SoulSkills.UI
             //m_uiPair[soulSkillID].SetIsAnActivatedUIState(isActivated);
         }
 
-   
+
 
         public void InitializeListActivatedState(IReadOnlyCollection<int> activatedoulSkillIDs)
         {
@@ -86,12 +87,12 @@ namespace DChild.Gameplay.SoulSkills.UI
         }
         #endregion
 
-        #region Update and Display
-        public void SetAvailableSkills(IReadOnlyCollection<int> availableSoulSkillIDs)
-        {
-            m_playerAcquiredSkills = availableSoulSkillIDs;
-        }
+        #region Soul Skill Filter Setters
+        public void SetAvailableSkills(IReadOnlyCollection<int> availableSoulSkillIDs) => m_playerAcquiredSkills = availableSoulSkillIDs;
+        public void SetActivatedSkills(IReadOnlyCollection<int> activatedIDs) => m_activatedSkills = activatedIDs;
+        #endregion
 
+        #region Update and Display
         public void UpdateToggleData(int pageNumber)
         {
             var allIDs = m_completeList.GetIDs();
@@ -116,17 +117,18 @@ namespace DChild.Gameplay.SoulSkills.UI
                 }
             }
         }
-        
+
         private void DisplayData(int id)
         {
-            if(!m_playerAcquiredSkills.Contains(id))
+            if (!m_playerAcquiredSkills.Contains(id))
             {
                 m_uiPair[id].Display(null);
                 return;
             }
 
             var data = m_completeList.GetInfo(id);
-            m_uiPair[id].Display(data);
+            var isActivated = m_activatedSkills.Contains(id);
+            m_uiPair[id].Display(data, isActivated);
         }
         #endregion
     }
