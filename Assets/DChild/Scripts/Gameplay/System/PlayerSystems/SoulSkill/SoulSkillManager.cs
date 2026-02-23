@@ -26,7 +26,7 @@ namespace DChild.Gameplay.SoulSkills
         [SerializeField, BoxGroup("UI")]
         private SoulSkillSelection m_skillSelection;
         [SerializeField, BoxGroup("UI")]
-        private ActivatedSoulSkillListUI m_activatedListUI;
+        private AvailableSoulCapacityUI m_activatedListUI;
         [SerializeField, BoxGroup("UI")]
         private SoulSkillListUI m_availableListUI;
         [SerializeField, BoxGroup("UI")]
@@ -73,7 +73,7 @@ namespace DChild.Gameplay.SoulSkills
                 ////m_activatedListUI.ActivateSoulSkill(soulSkill);
                 m_availableListUI.SetActivatedUIState(soulSkill.id, true);
 
-                ////m_activatedListUI.DisplayCapacity(m_playerHandle.currentSoulCapacity);
+                m_activatedListUI.DisplayCapacity(m_playerHandle.currentSoulCapacity);
             }
             else
             {
@@ -83,26 +83,8 @@ namespace DChild.Gameplay.SoulSkills
 
         public void DeactivateSoulSkill(SoulSkill soulSkill)
         {
-            bool willLastButtonBeDeleted = m_activatedListUI.GetButton(m_playerHandle.activatedSkills.Count - 1).soulSkillID == soulSkill.id;
-
             m_playerHandle.RemoveAsActivated(soulSkill);
-            //m_activatedListUI.DeactivateSoulSkill(soulSkill);
             m_availableListUI.SetActivatedUIState(soulSkill.id, false);
-
-            //m_activatedListUI.DisplayCapacity(m_playerHandle.currentSoulCapacity);
-
-            if (willLastButtonBeDeleted)
-            {
-                var activatedSkillCount = m_playerHandle.activatedSkills.Count;
-                if (activatedSkillCount == 0)
-                {
-                    EventSystem.current.SetSelectedGameObject(m_availableListUI.GetButton(0).gameObject);
-                }
-                else
-                {
-                    EventSystem.current.SetSelectedGameObject(m_availableListUI.GetButton(activatedSkillCount - 1).gameObject);
-                }
-            }
         }
 
         public void SetAsActivatedSoulSkills(IReadOnlyCollection<int> list)
