@@ -35,12 +35,12 @@ namespace DChild.Gameplay.SoulSkills
 
         private void OnSkillEquipped(object sender, SoulSkillUIEventArgs eventArgs)
         {
-   
-
+            OnActionRequired?.Invoke(this, eventArgs);
         }
+
         public void Reset() => m_currentSelectedSoulSkill = null;
 
-        private void Awake()
+        private void OnEnable()
         {
             var m_acquiredSoulSkillUIList = m_acquiredListUI.GetComponentsInChildren<SoulSkillUI>(true);
             for (int i = 0; i < m_acquiredSoulSkillUIList.Length; i++)
