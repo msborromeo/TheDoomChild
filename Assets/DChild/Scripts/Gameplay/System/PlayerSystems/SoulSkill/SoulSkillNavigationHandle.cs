@@ -42,7 +42,7 @@ namespace DChild.Gameplay.SoulSkills.UI
 
         private void SetPage(int pageIndex)
         {
-            m_listUI.UpdateToggleData(pageIndex * m_toggleCount);
+            m_listUI.UpdateToggleData(pageIndex);
         }
     }
 }

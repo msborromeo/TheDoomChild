@@ -90,27 +90,33 @@ namespace DChild.Gameplay.SoulSkills.UI
 
             m_completeList = completeSoulSkillList;
 
-            if (m_uiPair == null)
-            {
-                m_uiPair = new Dictionary<int, SoulSkillUI>();
-            }
+            m_uiPair ??= new Dictionary<int, SoulSkillUI>();
 
             UpdateToggleData(0);
         }
 
-        public void UpdateToggleData(int pageIndex)
+        public void UpdateToggleData(int pageNumber)
         {
-            m_uiPair.Clear();
+            int itemsPerPage = m_uiList.Length;
+            int startOffset = pageNumber * itemsPerPage;
+
             var idList = m_completeList.GetIDs();
-            var filteredIDs = idList.Skip(pageIndex).ToArray();
+
+            var filteredIDs = idList.Skip(startOffset).Take(itemsPerPage).ToArray();
+
+            m_uiPair.Clear();
 
             for (int i = 0; i < m_uiList.Length; i++)
             {
-                var id = filteredIDs[i];
-                var ui = m_uiList[i];
-                m_uiPair.Add(id, ui);
-
-                DisplayData(id);
+                if (i >= filteredIDs.Length)
+                {
+                    m_uiList[i].gameObject.SetActive(false);
+                    continue;
+                }
+                    var id = filteredIDs[i];
+                    m_uiPair.Add(id, m_uiList[i]);
+                    m_uiList[i].gameObject.SetActive(true);
+                    DisplayData(id);
             }
         }
 
