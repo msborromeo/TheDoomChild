@@ -100,7 +100,7 @@ namespace DChild.Gameplay.SoulSkills.UI
         public void SetActivatedStatus(bool value)
         {
             m_isActivated = value;
-            m_equippedCG.alpha = Convert.ToSingle(m_isActivated);
+            m_equippedCG.alpha = m_isActivated ? 1f : 0f;
         }
 
         private void SetEventArgs(SoulSkillUI ui)
