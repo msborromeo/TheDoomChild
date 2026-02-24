@@ -26,7 +26,7 @@ namespace DChild.Gameplay.SoulSkills
         [SerializeField, BoxGroup("UI")]
         private SoulSkillSelection m_skillSelection;
         [SerializeField, BoxGroup("UI")]
-        private ActivatedSoulSkillListUI m_activatedListUI;
+        private AvailableSoulCapacityUI m_availableSoulCapacity;
         [SerializeField, BoxGroup("UI")]
         private SoulSkillListUI m_availableListUI;
         [SerializeField, BoxGroup("UI")]
@@ -43,80 +43,52 @@ namespace DChild.Gameplay.SoulSkills
         {
             m_canActivateSoulSkill = canActivateSoulSkill;
         }
-
+        private void UpdateSoulCapacity() => m_availableSoulCapacity.DisplayCapacity(m_playerHandle.currentSoulCapacity);
+        
         public void ForceAllowSoulSkillActivation(bool forceCanActivateSoulSkill)
         {
             m_forceSoulSkillActivation = forceCanActivateSoulSkill;
         }
 
-        public void ActivateSoulSkill(int soulSkillID)
+        #region Soul Skill Activation
+        public void ActivateSoulSkill(int soulSkillID, SoulSkillUI attachedUI)
         {
             if (canActivateSoulSkill == false)
                 return;
 
-            ActivateSoulSkill(m_completeSoulSkillList.GetInfo(soulSkillID));
+            ActivateSoulSkill(m_completeSoulSkillList.GetInfo(soulSkillID), attachedUI);
         }
 
-        public void DeactivateSoulSkill(int soulSkillID)
+        public void DeactivateSoulSkill(int soulSkillID, SoulSkillUI attachedUI)
         {
             if (canActivateSoulSkill == false)
                 return;
 
-            DeactivateSoulSkill(m_completeSoulSkillList.GetInfo(soulSkillID));
+            DeactivateSoulSkill(m_completeSoulSkillList.GetInfo(soulSkillID), attachedUI);
+        }
+     
+        public void ActivateSoulSkill(SoulSkill soulSkill, SoulSkillUI attachedUI)
+        {
+            var canBeActivated = m_playerHandle.CanBeActivated(soulSkill);
+            if (!canBeActivated)
+                return;
+            
+            m_playerHandle.AddAsActivated(soulSkill);
+            ////m_activatedListUI.ActivateSoulSkill(soulSkill);
+            //m_availableListUI.SetActivatedUIState(soulSkill.id, true);
+
+            attachedUI.SetActivatedStatus(true);
+            UpdateSoulCapacity();
         }
 
-        public void ActivateSoulSkill(SoulSkill soulSkill)
+        public void DeactivateSoulSkill(SoulSkill soulSkill, SoulSkillUI attachedUI)
         {
-            if (m_playerHandle.CanBeActivated(soulSkill))
-            {
-                m_playerHandle.AddAsActivated(soulSkill);
-                m_activatedListUI.ActivateSoulSkill(soulSkill);
-                m_availableListUI.SetActivatedUIState(soulSkill.id, true);
-
-                m_activatedListUI.DisplayCapacity(m_playerHandle.currentSoulCapacity);
-            }
-            else
-            {
-                //Do Something to warn player why it cant be activated
-            }
-        }
-
-        public void DeactivateSoulSkill(SoulSkill soulSkill)
-        {
-            bool willLastButtonBeDeleted = m_activatedListUI.GetButton(m_playerHandle.activatedSkills.Count - 1).soulSkillID == soulSkill.id;
-
             m_playerHandle.RemoveAsActivated(soulSkill);
-            m_activatedListUI.DeactivateSoulSkill(soulSkill);
-            m_availableListUI.SetActivatedUIState(soulSkill.id, false);
-
-            m_activatedListUI.DisplayCapacity(m_playerHandle.currentSoulCapacity);
-
-            if (willLastButtonBeDeleted)
-            {
-                var activatedSkillCount = m_playerHandle.activatedSkills.Count;
-                if (activatedSkillCount == 0)
-                {
-                    EventSystem.current.SetSelectedGameObject(m_availableListUI.GetButton(0).gameObject);
-                }
-                else
-                {
-                    EventSystem.current.SetSelectedGameObject(m_availableListUI.GetButton(activatedSkillCount - 1).gameObject);
-                }
-            }
+            attachedUI.SetActivatedStatus(false);
+            //m_availableListUI.SetActivatedUIState(soulSkill.id, false);
+            UpdateSoulCapacity();
         }
-
-        public void SetAsActivatedSoulSkills(IReadOnlyCollection<int> list)
-        {
-            m_availableListUI.InitializeListActivatedState(list);
-            List<SoulSkill> activatedSoulSkills = new List<SoulSkill>();
-            for (int i = 0; i < list.Count; i++)
-            {
-                activatedSoulSkills.Add(m_completeSoulSkillList.GetInfo(list.ElementAt(i)));
-            }
-            m_activatedListUI.SetAsActivedSoulSkills(activatedSoulSkills);
-
-            m_activatedListUI.DisplayCapacity(m_playerHandle.currentSoulCapacity);
-        }
+        #endregion
 
         public void Initialize()
         {
@@ -129,73 +101,79 @@ namespace DChild.Gameplay.SoulSkills
                 m_skillSelection.OnActionRequired += OnSoulSkillActionRequired;
             }
             m_hasSubscribed = true;
+
+            SetAvailableSoulSkills(m_playerHandle.acquiredSkills);
+            m_availableListUI.SetActivatedSkills(m_playerHandle.activatedSkills);
             m_availableListUI.InitializeList(m_completeSoulSkillList);
-            m_activatedListUI.Reset();
+            //m_activatedListUI.Reset();
             SyncWithSaveData();
         }
 
-        public void SetAvailableSoulSkills(IReadOnlyCollection<int> list)
+        #region Setters
+        public void SetAvailableSoulSkills(IReadOnlyCollection<int> list) => m_availableListUI.SetAvailableSkills(list);
+        public void SetActivatedSoulSkills(IReadOnlyCollection<int> list) => m_availableListUI.SetActivatedSkills(list);
+        public void SetAsActivatedSoulSkills(IReadOnlyCollection<int> list)
         {
-            m_availableListUI.InitializeListAvailability(list);
-        }
+            SetActivatedSoulSkills(list);
+            List<SoulSkill> activatedSoulSkills = new List<SoulSkill>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                activatedSoulSkills.Add(m_completeSoulSkillList.GetInfo(list.ElementAt(i)));
+            }
+            //m_activatedListUI.SetAsActivedSoulSkills(activatedSoulSkills);
 
-        private void OnSoulSkillSelected(object sender, SoulSkillSelected eventArgs)
+            UpdateSoulCapacity();
+        }
+        #endregion
+
+        #region Event Callbacks
+        private void OnSoulSkillSelected(object sender, SoulSkillUIEventArgs eventArgs)
         {
             var soulSkill = m_completeSoulSkillList.GetInfo(eventArgs.soulskillUI.soulSkillID);
-            m_infoUI.DisplayInfoOf(soulSkill);
+            m_infoUI.DisplayInfo(soulSkill);
         }
-        private void OnSoulSkillActionRequired(object sender, SoulSkillSelected eventArgs)
+        private void OnSoulSkillActionRequired(object sender, SoulSkillUIEventArgs eventArgs)
         {
             var soulSkillUI = eventArgs.soulskillUI;
-            if (soulSkillUI.isAnActivatedSoulSkill)
+            if (soulSkillUI.isActivated)
             {
-                DeactivateSoulSkill(soulSkillUI.soulSkillID);
+                DeactivateSoulSkill(soulSkillUI.soulSkillID, soulSkillUI);
+                return;
             }
-            else
-            {
-                ActivateSoulSkill(soulSkillUI.soulSkillID);
-            }
-        }
 
-        private void OnSoulSkillSaveDataLoaded(object sender, EventActionArgs eventArgs)
-        {
-            SyncWithSaveData();
+            ActivateSoulSkill(soulSkillUI.soulSkillID, soulSkillUI);
         }
+        private void OnSoulSkillSaveDataLoaded(object sender, EventActionArgs eventArgs) => SyncWithSaveData();
+        private void OnMaxCapacityChanged(object sender, EventActionArgs eventArgs) => UpdateSoulCapacity();
+        private void OnAvailableSkillsChanged(object sender, EventActionArgs eventArgs) => m_availableListUI.SetAvailableSkills(m_playerHandle.acquiredSkills);
+        #endregion
 
         private void SyncWithSaveData()
         {
-            m_activatedListUI.DisplayCapacity(m_playerHandle.currentSoulCapacity);
-            var skillIDs = m_completeSoulSkillList.GetIDs();
+            //m_activatedListUI.DisplayCapacity(m_playerHandle.currentSoulCapacity);
 
-            m_availableListUI.InitializeListAvailability(m_playerHandle.acquiredSkills);
+            //m_availableListUI.UpdateAvailableSkillsList(m_playerHandle.acquiredSkills);
             var activatedSkillIDs = m_playerHandle.activatedSkills;
-            m_availableListUI.InitializeListActivatedState(activatedSkillIDs);
+            m_availableListUI.SetActivatedSkills(activatedSkillIDs);
 
             var activatedSoulSkillList = new List<SoulSkill>();
-            for (int i = 0; i < activatedSkillIDs.Count; i++)
+            foreach (var skill in activatedSkillIDs)
             {
-                var soulSkill = m_completeSoulSkillList.GetInfo(activatedSkillIDs.ElementAt(i));
-                if(soulSkill == null)
+                var soulSkill = m_completeSoulSkillList.GetInfo(skill);
+                if (soulSkill == null)
                 {
-                    Debug.LogError(activatedSkillIDs.ElementAt(i) + "This is null because this soul skill is activated through Equipment and data is not yet added to Soul Skill List");
+                    Debug.LogError(skill + " - This is null because this soul skill is activated through Equipment and data is not yet added to Soul Skill List");
                     continue;
                 }
+
                 activatedSoulSkillList.Add(soulSkill);
                 m_playerHandle.AddAsActivated(soulSkill);
+
             }
-            m_activatedListUI.SetAsActivedSoulSkills(activatedSoulSkillList);
-            m_activatedListUI.DisplayCapacity(m_playerHandle.currentSoulCapacity);
+            //m_activatedListUI.SetAsActivedSoulSkills(activatedSoulSkillList);
+            UpdateSoulCapacity();
         }
 
-        private void OnMaxCapacityChanged(object sender, EventActionArgs eventArgs)
-        {
-            m_activatedListUI.DisplayCapacity(m_playerHandle.currentSoulCapacity);
-        }
-
-        private void OnAvailableSkillsChanged(object sender, EventActionArgs eventArgs)
-        {
-            m_availableListUI.InitializeListAvailability(m_playerHandle.acquiredSkills);
-        }
 
     }
 }
