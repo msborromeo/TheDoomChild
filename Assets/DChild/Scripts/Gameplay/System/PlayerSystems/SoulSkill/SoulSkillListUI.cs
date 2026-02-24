@@ -1,29 +1,40 @@
 ﻿using DChild.Gameplay.Characters.Players.SoulSkills;
+using NUnit.Framework.Internal.Filters;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
 
 namespace DChild.Gameplay.SoulSkills.UI
 {
     public class SoulSkillListUI : MonoBehaviour
     {
         [SerializeField]
-        private GameObject m_uiListParent;
+        private SoulSkillUI[] m_uiList;
+
+        [SerializeField]
+        private SoulSkillNavigationHandle m_navigationHandle;
+
         [SerializeField]
         private bool m_considerAllAsAvailable;
-        private Dictionary<int, SoulSkillButton> m_uiPair;
+        private Dictionary<int, SoulSkillUI> m_uiPair;
 
-        public SoulSkillButton GetButton(int index) => m_uiPair.Values.ElementAt(index);
+        private SoulSkillList m_completeList;
+
+        private IReadOnlyCollection<int> m_playerAcquiredSkills;
+        private IReadOnlyCollection<int> m_activatedSkills;
+
+        #region Deprecated
+        public SoulSkillUI GetButton(int index) => m_uiPair.Values.ElementAt(index);
 
         public void MakeAvailable(int soulSkillID)
         {
             //m_uiPair[soulSkillID].Show(false);
         }
 
-        public SoulSkillButton MakeAvailableAndGetUI(int soulSkillID)
+        public SoulSkillUI MakeAvailableAndGetUI(int soulSkillID)
         {
             var button = m_uiPair[soulSkillID];
-            button.Show(false);
             return button;
         }
 
@@ -53,20 +64,7 @@ namespace DChild.Gameplay.SoulSkills.UI
             //m_uiPair[soulSkillID].SetIsAnActivatedUIState(isActivated);
         }
 
-        public void InitializeListAvailability(IReadOnlyCollection<int> availableSoulSkillIDs)
-        {
-            //foreach (var ui in m_uiPair.Values)
-            //{
-            //    if (m_considerAllAsAvailable || availableSoulSkillIDs.Contains(ui.soulSkillID))
-            //    {
-            //        ui.Show(true);
-            //    }
-            //    else
-            //    {
-            //        ui.Hide(true);
-            //    }
-            //}
-        }
+
 
         public void InitializeListActivatedState(IReadOnlyCollection<int> activatedoulSkillIDs)
         {
@@ -75,24 +73,63 @@ namespace DChild.Gameplay.SoulSkills.UI
             //    ui.SetIsAnActivatedUIState(activatedoulSkillIDs.Contains(ui.soulSkillID));
             //}
         }
+        #endregion
 
-        public void InitializeList(SoulSkillList m_completeSoulSkillList)
+        #region Initialization
+        public void InitializeList(SoulSkillList completeSoulSkillList)
         {
-            //if (m_uiPair == null)
-            //{
-            //    m_uiPair = new Dictionary<int, SoulSkillButton>();
-            //}
-            //m_uiPair.Clear();
-            //var uiList = m_uiListParent.GetComponentsInChildren<SoulSkillButton>(true);
-            //var idList = m_completeSoulSkillList.GetIDs();
+            m_navigationHandle.SetupScroll(completeSoulSkillList, m_uiList.Length);
 
-            //for (int i = 0; i < m_completeSoulSkillList.Count; i++)
-            //{
-            //    var id = idList[i];
-            //    var ui = uiList[i];
-            //    ui.DisplayAs(m_completeSoulSkillList.GetInfo(id));
-            //    m_uiPair.Add(id, ui);
-            //}
+            m_completeList = completeSoulSkillList;
+
+            m_uiPair ??= new Dictionary<int, SoulSkillUI>();
+            UpdateToggleData(0);
         }
+        #endregion
+
+        #region Soul Skill Filter Setters
+        public void SetAvailableSkills(IReadOnlyCollection<int> availableSoulSkillIDs) => m_playerAcquiredSkills = availableSoulSkillIDs;
+        public void SetActivatedSkills(IReadOnlyCollection<int> activatedIDs) => m_activatedSkills = activatedIDs;
+        #endregion
+
+        #region Update and Display
+        public void UpdateToggleData(int pageNumber)
+        {
+            var allIDs = m_completeList.GetIDs();
+            int itemsPerPage = m_uiList.Length;
+            int startOffset = pageNumber * itemsPerPage;
+
+            m_uiPair.Clear();
+
+            for (int i = 0; i < itemsPerPage; i++)
+            {
+                int dataIndex = startOffset + i;
+                bool hasData = dataIndex < allIDs.Count();
+
+                GameObject uiObj = m_uiList[i].gameObject;
+                uiObj.SetActive(hasData);
+
+                if (hasData)
+                {
+                    int id = allIDs[dataIndex];
+                    m_uiPair.Add(id, m_uiList[i]);
+                    DisplayData(id);
+                }
+            }
+        }
+
+        private void DisplayData(int id)
+        {
+            if (!m_playerAcquiredSkills.Contains(id))
+            {
+                m_uiPair[id].Display(null);
+                return;
+            }
+
+            var data = m_completeList.GetInfo(id);
+            var isActivated = m_activatedSkills.Contains(id);
+            m_uiPair[id].Display(data, isActivated);
+        }
+        #endregion
     }
 }
