@@ -43,6 +43,11 @@ namespace DChild.Menu.Inputs
             m_inputControlsDetector.InputControlChange += OnInputControlChange;
         }
 
+        private void OnDestroy()
+        {
+            m_inputControlsDetector.InputControlChange -= OnInputControlChange;
+        }
+
         private void OnInputControlChange(object sender, EventActionArgs eventArgs)
         {
             using(Cache< InputIconChangeEventArgs> cacheEvent = Cache<InputIconChangeEventArgs>.Claim())
