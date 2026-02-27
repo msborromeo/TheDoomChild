@@ -152,7 +152,6 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void OnAttackDone(object sender, EventActionArgs eventArgs)
         {
-            //m_animation.DisableRootMotion();
             m_stateHandle.ApplyQueuedState();
         }
 
@@ -170,7 +169,6 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             else
             {
-                //m_targetInfo.Set(null, null);
             }
         }
 
@@ -181,16 +179,12 @@ namespace DChild.Gameplay.Characters.Enemies
 
         protected override void OnDestroyed(object sender, EventActionArgs eventArgs)
         {
-            //m_Audiosource.clip = m_DeadClip;
-            //m_Audiosource.Play();
             StopAllCoroutines();
             m_stateHandle.OverrideState(State.WaitBehaviourEnd);
             if (m_sneerRoutine != null)
             {
                 StopCoroutine(m_sneerRoutine);
             }
-            //m_animation.SetEmptyAnimation(0, 0);
-            //m_animation.SetAnimation(0, m_info.deathAnimation, false);
             m_character.physics.UseStepClimb(true);
             m_movement.Stop();
             m_selfCollider.enabled = false;
@@ -198,54 +192,26 @@ namespace DChild.Gameplay.Characters.Enemies
             StartCoroutine(DeathRoutine());
             base.OnDestroyed(sender, eventArgs);
         }
-
         private IEnumerator DeathRoutine()
         {
             m_hitbox.Disable();
             m_selfCollider.enabled = false;
             m_animation.SetAnimation(0, m_info.deathAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathAnimation);
-            //m_animation.SetAnimation(0, m_info.disassembledIdleAnimation, true);
             gameObject.SetActive(false);
-            yield return new WaitForSeconds(m_info.deathDuration);
-           // InstantiateBlobPoisonCloud(transform.position); 
-            Debug.Log("P Blob death routine");
-           
+            yield return new WaitForSeconds(m_info.deathDuration);           
             yield return null;
-        }
-
-
-        
+        }       
         private void InstantiateBlobPoisonCloud(Vector2 spawnPosition)
         {
             var instance = GameSystem.poolManager.GetPool<FXPool>().GetOrCreateItem(m_info.blobPoisonCloud, gameObject.scene);
             instance.transform.position = spawnPosition;
-            //var component = instance.GetComponent<ParticleFX>();
-            //component.ResetState();
         }
         public void InstantiatedeathChunks()
         {
             var instance = GameSystem.poolManager.GetPool<FXPool>().GetOrCreateItem(m_info.deathChunks, gameObject.scene);
             instance.transform.position = transform.position;
-           // asd =  Instantiate(m_info.deathChunks, transform.position, Quaternion.identity);
-
-            //var component = instance.GetComponent<ParticleFX>();
-            //component.ResetState();
         }
-
-       
-
-        //private void OnFlinchStart(object sender, EventActionArgs eventArgs)
-        //{
-        //    if (m_animation.GetCurrentAnimation(0).ToString() == m_info.idleAnimation)
-        //    {
-        //        StopAllCoroutines();
-        //        m_selfCollider.enabled = true;
-        //        //m_animation.SetAnimation(0, m_info.flinchAnimation, false);
-        //        m_stateHandle.Wait(State.ReevaluateSituation);
-        //        //StartCoroutine(FlinchRoutine());
-        //    }
-        //}
 
         public override void ApplyData()
         {
@@ -262,7 +228,6 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             base.Start();
             m_currentMoveSpeed = UnityEngine.Random.Range(m_info.move.speed * .75f, m_info.move.speed * 1.25f);
-          //  m_spineEventListener.Subscribe(m_info.releaseBounceGas, BlobGasPoisonRelease);
             m_startPoint = transform.position;
         }
 
@@ -277,9 +242,7 @@ namespace DChild.Gameplay.Characters.Enemies
         }
 
         private void Update()
-        {
-            //Debug.Log("Wall Sensor is " + m_wallSensor.isDetecting);
-            //Debug.Log("Edge Sensor is " + m_edgeSensor.isDetecting);  
+        {  
             HandleCooldown();
             switch (m_stateHandle.currentState)
             {
@@ -290,13 +253,7 @@ namespace DChild.Gameplay.Characters.Enemies
                         m_animation.EnableRootMotion(false, false);
                         m_animation.SetAnimation(0, m_info.poisonBlobHopMovement, true);
                         var characterInfo = new PatrolHandle.CharacterInfo(m_character.centerMass.position, m_character.facing);
-                        m_patrolHandle.Patrol(m_movement, m_info.poisonBlobHopMovement.speed, characterInfo);
-                        Debug.Log(cloudTimer.ToString());
-                        //if (cloudTimer < 0)
-                        //{
-                        //    InstantiateBlobPoisonCloud(transform.position);
-                        //    cloudTimer = 3f;
-                        //}
+                        m_patrolHandle.Patrol(m_movement, m_info.poisonBlobHopMovement.speed, characterInfo);                   
                     }
                     else
                     {
@@ -310,11 +267,9 @@ namespace DChild.Gameplay.Characters.Enemies
                 case State.Turning:
                     m_stateHandle.Wait(m_turnState);
                     m_turnHandle.Execute();
-                    //m_turnHandle.Execute(m_info.turnAnimation, m_info.idleAnimation);
                     break;
 
                 case State.ReevaluateSituation:
-                    //How far is target, is it worth it to chase or go back to patrol
                     if (m_targetInfo.isValid)
                     {
                         m_stateHandle.SetState(State.Chase);
@@ -328,7 +283,6 @@ namespace DChild.Gameplay.Characters.Enemies
                 case State.Detect:
                     m_movement.Stop();
                     m_selfCollider.enabled = false;
-                    //m_flinchHandle.m_autoFlinch = false;
                     if (IsFacingTarget())
                     {
                         m_stateHandle.Wait(State.ReevaluateSituation);
@@ -351,12 +305,6 @@ namespace DChild.Gameplay.Characters.Enemies
                             m_animation.EnableRootMotion(false, false);
                             m_animation.SetAnimation(0, m_info.poisonBlobHopMovement, true);
                             m_movement.MoveTowards(Vector2.one * transform.localScale.x, m_info.poisonBlobHopMovement.speed);   
-                            Debug.Log(cloudTimer.ToString());
-                            //if (cloudTimer < 0)
-                            //{
-                            //    InstantiateBlobPoisonCloud(transform.position);
-                            //    cloudTimer = 3f;
-                            //}
                         }
                         else
                         {
@@ -377,13 +325,9 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public void BlobGasPoisonRelease()
         {
-            Debug.Log("yelo ");
-           //InstantiateBlobPoisonCloud(transform.position);
             if (cloudTimer >= 3f)
             {
                 InstantiateBlobPoisonCloud(transform.position);
-                //Instantiate(m_info.blobPoisonCloud, transform.position, Quaternion.identity);
-                Debug.Log("gas poison release");
                 cloudTimer = 0f;
             }
         }
