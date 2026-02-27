@@ -9,6 +9,7 @@ using DChild.Gameplay.UI;
 using DChild.Gameplay.UI.Alerts;
 using DChild.Menu.Trade;
 using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
+using Doozy.Runtime.Signals;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -247,6 +248,16 @@ namespace DChild.Gameplay.Systems
         public CharacterRecruitmentUI ConfirmationRequest()
         {
             return BaseGameplayUIHandle.Instance.GetRecruitmentConfirmation();
+        }
+
+        public void OpenPauseMenu()
+        {
+            BaseGameplaySystem.gamplayUIHandle.OpenPauseMenu();
+        }
+
+        public void UIBack()
+        {
+            BaseGameplaySystem.gamplayUIHandle.UIBack();
         }
     }
 }
