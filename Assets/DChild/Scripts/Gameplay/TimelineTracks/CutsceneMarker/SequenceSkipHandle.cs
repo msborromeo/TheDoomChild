@@ -1,4 +1,5 @@
-﻿using DChild.UI;
+﻿using DChild.Gameplay.Systems;
+using DChild.UI;
 using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
 using System;
@@ -64,7 +65,7 @@ namespace DChildDebug.Cutscene
         {
             yield return new WaitForSecondsRealtime(m_delayDuration);
             m_view.Show();
-            
+
             Debug.Log("Skip Routine Start");
             Reset();
             yield return null;
@@ -81,6 +82,7 @@ namespace DChildDebug.Cutscene
         private void SkipSequence()
         {
             //DO NOT CONTROL TIMELINE SKIP HERE PLS TYVM RAAAAAAAAAAAAAAAAAAH
+            BaseGameplaySystem.UnMuteAllSounds();
             m_view.Hide();
             SkipExecute?.Invoke();
         }
