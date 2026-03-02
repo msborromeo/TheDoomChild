@@ -90,8 +90,7 @@ namespace DChild.Gameplay.UI.Controller
 
         private void OnClickPerformed()
         {
-            //UIButton button = EventSystem.current.currentSelectedGameObject.GetComponent<UIButton>();
-            //button.OnSubmit(null);
+
         }
 
         private void OnDeleteSavePerformed()
