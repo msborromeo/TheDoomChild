@@ -6,7 +6,7 @@ namespace DChild.Gameplay.UI.CombatArts
     public class CombatArtSelectRequirements : MonoBehaviour
     {
         [SerializeField]
-        private CombatArtSelectButton[] m_requirements;
+        private CombatArtSelectButton m_requirement ;
         private CombatArtSelectButton m_button;
 
         public void ValidateButtonState()
@@ -27,14 +27,7 @@ namespace DChild.Gameplay.UI.CombatArts
 
         private bool AreRequiredArtsUnlocked()
         {
-            for (int i = 0; i < m_requirements.Length; i++)
-            {
-                if (m_requirements[i].currentState != CombatArtUnlockState.Unlocked)
-                {
-                    return false;
-                }
-            }
-            return true;
+            return (m_requirement == null || ( m_requirement.currentState == CombatArtUnlockState.Unlocked));
         }
 
         private void Awake()

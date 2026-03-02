@@ -17,6 +17,8 @@ namespace DChild.Gameplay.UI.CombatArts
         [SerializeField]
         private TextMeshProUGUI m_descriptionLabel;
         [SerializeField]
+        private TextMeshProUGUI m_requiredArtLabel;
+        [SerializeField]
         private TextMeshProUGUI m_costLabel;
         [SerializeField]
         private TextMeshProUGUI m_controlsLabel;
