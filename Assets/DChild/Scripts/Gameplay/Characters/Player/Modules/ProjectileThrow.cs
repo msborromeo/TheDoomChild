@@ -251,9 +251,59 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
         }
 
+        /* public void ThrowProjectile()
+         {
+             m_skeletonAnimation.state.Complete += State_Complete;
+
+             //var direction = CalculateThrowDirection();
+             var direction = Vector2.right;
+             direction = GetProjectilesCalculatedThrowDirection(m_spawnedProjectile);
+             direction.x *= (int)m_character.facing;
+
+             if (m_spawnedProjectile != null)
+             {
+                 m_spawnedProjectile.transform.parent = null;
+
+                 if (m_spawnedProjectile.TryGetComponentInChildren(out Animator animator))
+                 {
+                     animator.SetTrigger("Shoot");
+                 }
+                 if (m_spawnedProjectile.TryGetComponent(out Collider2D collider))
+                 {
+                     collider.enabled = true;
+                 }
+                 if (m_spawnedProjectile.TryGetComponent(out IsolatedObjectPhysics2D physics))
+                 {
+                     physics.Enable();
+                 }
+
+                 m_launcher.LaunchProjectile(direction, m_spawnedProjectile.gameObject);
+                 //m_spawnedProjectile.GetComponent<Attacker>().SetDamageModifier(m_modifier.Get(PlayerModifier.AttackDamage));
+                 var scale = m_spawnedProjectile.transform.localScale;
+                 scale.x = 1;
+                 m_spawnedProjectile.transform.localScale = scale;
+                 m_spawnedProjectile = null;
+             }
+             else
+             {
+                 var instance = GameSystem.poolManager.GetPool<ProjectilePool>().GetOrCreateItem(m_projectile.projectile, m_spawnPoint.position, Quaternion.identity);
+                 //instance.transform.position = m_spawnPoint.position;
+
+                 if (instance.TryGetComponentInChildren(out Animator animator))
+                 {
+                     animator.SetTrigger("Shoot");
+                 }
+
+                 m_launcher.LaunchProjectile(direction, instance.gameObject);
+             }
+
+             ProjectileThrown?.Invoke(this, EventActionArgs.Empty);
+         }  */
+
+
         public void ThrowProjectile()
         {
-            m_skeletonAnimation.state.Complete += State_Complete;
+           // m_skeletonAnimation.state.Complete += State_Complete;
 
             //var direction = CalculateThrowDirection();
             var direction = Vector2.right;
@@ -298,7 +348,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
 
             ProjectileThrown?.Invoke(this, EventActionArgs.Empty);
-        }
+        }  
+
+
 
         public void ThrowStraightStartVisuals()
         {
@@ -307,7 +359,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_timer = m_configuration.skullThrowCooldown;
             m_state.canAttack = false;
             m_state.isAttacking = true;
-            m_animator.SetBool(m_aimingProjectileAnimationParameter, true);
+           // m_animator.SetBool(m_aimingProjectileAnimationParameter, true);
             m_animator.SetBool(m_skullThrowAnimationParameter, true);
             m_currentAim = Vector2.right;
         }
@@ -371,6 +423,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.canAttack = false;
             m_state.isAttacking = true;
             m_animator.SetBool(m_skullThrowAnimationParameter, true);
+          //  m_animator.SetBool(m_aimingProjectileAnimationParameter, false);
         }
 
         public void StartThrow()
@@ -378,6 +431,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //commented out because simultaneously pressing crouch and projectile throw causes player to be
             //stuck in wait for behaviour and unable to move despite crouch guard for projectile throw
             //m_state.waitForBehaviour = true;
+        }
+
+
+        public void HandleSpineEvent(Spine.TrackEntry trackEntry, Spine.Event e)
+        {
+            if (e.Data.Name == "ProjectileFire")
+            {
+                ThrowProjectile();
+            }
         }
 
         public bool HasReachedVerticalThreshold()
@@ -389,7 +451,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_reachedVerticalThreshold = false;
             EndAim();
-            m_skeletonAnimation.state.Complete -= State_Complete;
+            //m_skeletonAnimation.state.Complete -= State_Complete;
+
+            m_skeletonAnimation.AnimationState.Event -= HandleSpineEvent;
 
             if (m_spawnedProjectile != null)
             {
@@ -420,6 +484,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_updateProjectileInfo = true;
             m_cacheProjectile = m_projectile;
             m_modifier = info.modifier;
+
+            m_skeletonAnimation.AnimationState.Event += HandleSpineEvent;
         }
 
         public void SetConfiguration(ProjectileThrowStatsInfo info)
