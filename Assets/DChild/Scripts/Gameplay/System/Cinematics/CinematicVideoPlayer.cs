@@ -70,10 +70,9 @@ namespace DChild.Gameplay.Cinematics
                 GameplaySystem.gamplayUIHandle.ForceStopCinematicVideo();
 
             }
-
+            
             m_afterCinematicEvent.Invoke();
 
-           // BaseGameplaySystem.UnMuteAllSounds();
         }
 
     }
