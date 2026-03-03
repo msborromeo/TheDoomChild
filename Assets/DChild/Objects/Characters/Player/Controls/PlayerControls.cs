@@ -2438,17 +2438,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3ec25687-1840-481a-920b-596c44ec417b"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Click"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""13d7cebc-7428-4763-86f7-dd755ed89124"",
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
