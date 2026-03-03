@@ -1,65 +1,117 @@
 ﻿using DChild.Gameplay.Characters.Players.SoulSkills;
+using Doozy.Runtime.UIManager.Components;
+using Holysoft.Event;
+using Sirenix.OdinInspector;
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace DChild.Gameplay.SoulSkills.UI
 {
-    public class SoulSkillUI : MonoBehaviour
+    public sealed class SoulSkillUI : MonoBehaviour
     {
-        [SerializeField]
-        protected Image m_orb;
-        [SerializeField]
-        protected Image m_icon;
-        [SerializeField]
-        private Image m_glow;
+        [SerializeField, BoxGroup("Soul Skill Info")] private TextMeshProUGUI m_soulName;
+        [SerializeField, BoxGroup("Soul Skill Info")] private TextMeshProUGUI m_soulDescription;
+        [SerializeField, BoxGroup("Soul Skill Info")] private TextMeshProUGUI m_soulCapacity;
+        [SerializeField, BoxGroup("Soul Skill Info")] private UIToggle m_toggle;
+
+        [SerializeField, BoxGroup("Soul Skill Visuals")] private Image m_icon;
+        [SerializeField, BoxGroup("Soul Skill Visuals")] private CanvasGroup m_equippedCG;
+        [SerializeField, BoxGroup("Soul Skill Visuals/Current Progress")] private Image[] m_progressBars;
+
+        [SerializeField, BoxGroup("Soul Skill Visuals/Learned Panel")] private Image m_soulFrame;
+        [SerializeField, BoxGroup("Soul Skill Visuals/Learned Panel/Assets")] private Sprite m_undiscoveredPanel;
+        [SerializeField, BoxGroup("Soul Skill Visuals/Learned Panel/Assets")] private Sprite m_inProgressPanel;
+        [SerializeField, BoxGroup("Soul Skill Visuals/Learned Panel/Assets")] private Sprite m_learnedPanel;
+
+        [SerializeField, BoxGroup("Soul Skill Visuals/No Data")] private CanvasGroup m_soulElementsCG;
+        [SerializeField, BoxGroup("Soul Skill Visuals/No Data")] private CanvasGroup m_unidscoveredLabelCG;
 
 
-        public Material orbMaterial => m_orb.material;
-        public Sprite soulSkillIcon => m_icon.sprite;
-        public Material glowMaterial => m_glow.material;
-        public int soulSkillID { get; private set; }
+        private bool m_isActivated;
+        public bool isActivated => m_isActivated;
 
-        public void DisplayAs(SoulSkill soulSkill)
+        private int m_soulSkillID;
+        public int soulSkillID => m_soulSkillID;
+
+        public event EventAction<SoulSkillUIEventArgs> OnSkillSelected;
+        public event EventAction<SoulSkillUIEventArgs> OnSkillEquipped;
+
+        private SoulSkillUIEventArgs m_attachedUIEvent;
+
+        [Button]
+        public void Display(SoulSkill soulSkill, bool isActivated = false)
         {
+            Reset();
+            m_isActivated = isActivated;
             if (soulSkill == null)
-            {
-                soulSkillID = -1;
-            }
-            else
-            {
-                soulSkillID = soulSkill.id;
-                SetOrb(soulSkill.orbData);
-                m_icon.sprite = soulSkill.icon;
-            }
+                return;
+
+            m_soulSkillID = soulSkill.id;
+            SetUIVisuals(soulSkill);
+
+            SetEventArgs(this);
+        }
+        private void SetUIVisuals(SoulSkill soulSkill)
+        {
+            bool isDiscovered = soulSkill != null;
+
+            UpdateDiscoveredData(isDiscovered);
+            m_equippedCG.alpha = m_isActivated ? 1f : 0f;
+
+            m_soulFrame.sprite = GetCurrentPanel(soulSkill);
+
+            if (!isDiscovered)
+                return;
+
+            m_icon.sprite = soulSkill.icon;
+            m_soulName.text = soulSkill.name;
+            m_soulDescription.text = soulSkill.description;
+            m_soulCapacity.text = soulSkill.capacity.ToString();
         }
 
-        protected virtual void SetOrb(SoulSkillOrbData orbData)
+        private void UpdateDiscoveredData(bool isDiscovered)
         {
-            SetOrb(orbData.activatedOrb);
+            m_toggle.interactable = isDiscovered;
+            m_unidscoveredLabelCG.alpha = isDiscovered ? 0f : 1f;
+            m_soulElementsCG.alpha = isDiscovered ? 1f : 0f;
         }
 
-        protected void SetOrb(SoulSkillOrbData.OrbInfo info)
+        private Sprite GetCurrentPanel(SoulSkill soulSkill)
         {
-            //m_orb.sprite = info.orbSprite;
-            m_orb.material = info.orbMaterial ?? null;
-            if (m_glow != null)
-                m_glow.material = info.glowMaterial ?? null;
+            return soulSkill == null
+                ? m_undiscoveredPanel
+                : !soulSkill.isFullyLearned
+                    ? m_inProgressPanel
+                    : m_learnedPanel;
         }
 
-        public virtual void CopyUI(SoulSkillButton reference)
+        public void ShowDetails()
         {
-            soulSkillID = reference.soulSkillID;
-            m_icon.sprite = reference.soulSkillIcon;
-            m_orb.material = reference.orbMaterial;
-            m_glow.material = reference.glowMaterial;
+            OnSkillSelected?.Invoke(this, m_attachedUIEvent);
         }
 
-        public virtual void Show(bool immidiate)
+        public void EquipSkill()
         {
+            OnSkillEquipped?.Invoke(this, m_attachedUIEvent);
         }
 
-        public virtual void Hide(bool immidiate)
+        public void SetActivatedStatus(bool value)
         {
+            m_isActivated = value;
+            m_equippedCG.alpha = m_isActivated ? 1f : 0f;
+        }
+
+        private void SetEventArgs(SoulSkillUI ui)
+        {
+            m_attachedUIEvent = new SoulSkillUIEventArgs(ui);
+        }
+
+        private void Reset()
+        {
+            m_soulSkillID = -1;
+            SetUIVisuals(null);
         }
     }
 }
