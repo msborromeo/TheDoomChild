@@ -19,6 +19,8 @@ namespace DChild.Gameplay.UI.CombatArts
         private GameObject m_unlockableUIAnimations;
         [SerializeField]
         private GameObject m_unlockedUIAnimations;
+        [SerializeField]
+        private CombatArtUISelectableProgressor m_buttonUIProgressor;
 
 
         private UIButton m_button;
@@ -48,8 +50,9 @@ namespace DChild.Gameplay.UI.CombatArts
                     break;
                 case CombatArtUnlockState.Unlocked:
                     m_unlockedUIAnimations.SetActive(true);
-                    EnableAnimator(m_unlockedUIAnimators);
                     UseAnimator(m_unlockedUIAnimators, m_button.selectedState.stateType);
+                    EnableAnimator(m_unlockedUIAnimators);
+                    m_buttonUIProgressor.ForceAsComplete();
                     break;
             }
         }

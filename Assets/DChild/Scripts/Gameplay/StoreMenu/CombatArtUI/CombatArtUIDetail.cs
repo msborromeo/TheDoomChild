@@ -51,18 +51,19 @@ namespace DChild.Gameplay.UI.CombatArts
             if (data == null)
                 return;
 
-            m_artNameLabel.text = data.combatArtName;
+            m_artNameLabel.text =$"{ data.combatArtName} {(level > 1 ? $"{level}" : "")}"
+            ;
             m_controlsLabel.text = data.controls;
             if (level > 1)
             {
                 m_artNameLabel.text += $" {level}";
             }
 
-            Display(data.GetCombatArtLevelData(level));
+            Display(data.GetCombatArtLevelData(level), level);
             localizeCombatArt?.Invoke(data, level);
         }
 
-        private void Display(CombatArtLevelData levelData)
+        private void Display(CombatArtLevelData levelData, int combatArtLevel)
         {
             if (levelData == null) return;
 
@@ -70,6 +71,11 @@ namespace DChild.Gameplay.UI.CombatArts
             StartCoroutine(DisplayPreview(levelData.preview));
             m_descriptionLabel.text = levelData.description;
             m_costLabel.text = levelData.cost.ToString();
+
+            var art = levelData.requiredCombatArt;
+            m_requiredArtLabel.text = levelData.requiredCombatArt != null
+                ? art.combatArtName
+                : "None";
         }
 
         private IEnumerator DisplayPreview(VideoClip clip)

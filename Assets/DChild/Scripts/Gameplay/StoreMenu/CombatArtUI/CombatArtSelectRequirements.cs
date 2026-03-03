@@ -6,7 +6,7 @@ namespace DChild.Gameplay.UI.CombatArts
     public class CombatArtSelectRequirements : MonoBehaviour
     {
         [SerializeField]
-        private CombatArtSelectButton m_requirement ;
+        private CombatArtSelectButton m_requirement;
         private CombatArtSelectButton m_button;
 
         public void ValidateButtonState()
