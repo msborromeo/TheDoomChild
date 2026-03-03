@@ -7,6 +7,7 @@ using System;
 using Holysoft.Collections;
 using DChild.Gameplay.Combat;
 using Holysoft.Event;
+using DChild.Gameplay.Characters;
 
 namespace DChild.Gameplay.Environment
 {
@@ -456,7 +457,12 @@ namespace DChild.Gameplay.Environment
 
         private void Start()
         {
+            m_spineAnimation = GetComponent<SpineRootAnimation>();  
             m_currentBehaviour?.Initialize(gameObject, m_spineAnimation, m_instruction, ref m_timer, true);
+            if(m_idlingBehaviour.Length <= 0)
+            {
+                Destroy(this);
+            }
         }
 
         private void LateUpdate()
