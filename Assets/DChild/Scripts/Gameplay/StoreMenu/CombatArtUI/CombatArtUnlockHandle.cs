@@ -87,6 +87,7 @@ namespace DChild.Gameplay.UI.CombatArts
             } while (m_unlockProgress < m_holdToUnlockDuration);
 
             UnlockCombatArt(m_artToUnlock, m_levelToUnlock);
+            m_selectableProgressor.ForceAsComplete();
             UnlockSuccessful?.Invoke();
         }
     }

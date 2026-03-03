@@ -49,10 +49,10 @@ namespace DChild.Gameplay.UI.CombatArts
                     UseAnimator(m_unlockableUIAnimators, m_button.selectedState.stateType);
                     break;
                 case CombatArtUnlockState.Unlocked:
+                    m_buttonUIProgressor.ForceAsComplete();
                     m_unlockedUIAnimations.SetActive(true);
                     UseAnimator(m_unlockedUIAnimators, m_button.selectedState.stateType);
                     EnableAnimator(m_unlockedUIAnimators);
-                    m_buttonUIProgressor.ForceAsComplete();
                     break;
             }
         }
