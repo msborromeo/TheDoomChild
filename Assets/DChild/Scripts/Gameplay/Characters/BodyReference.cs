@@ -18,6 +18,7 @@ namespace DChild.Gameplay
             Feet,
             RightHand,
             LeftHand,
+            Root,
             [HideInInspector]
             _COUNT,
         }
