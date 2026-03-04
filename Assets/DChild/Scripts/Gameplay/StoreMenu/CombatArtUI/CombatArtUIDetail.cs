@@ -17,6 +17,8 @@ namespace DChild.Gameplay.UI.CombatArts
         [SerializeField]
         private TextMeshProUGUI m_descriptionLabel;
         [SerializeField]
+        private TextMeshProUGUI m_requiredArtLabel;
+        [SerializeField]
         private TextMeshProUGUI m_costLabel;
         [SerializeField]
         private TextMeshProUGUI m_controlsLabel;
@@ -49,7 +51,8 @@ namespace DChild.Gameplay.UI.CombatArts
             if (data == null)
                 return;
 
-            m_artNameLabel.text = data.combatArtName;
+            m_artNameLabel.text =$"{ data.combatArtName} {(level > 1 ? $"{level}" : "")}"
+            ;
             m_controlsLabel.text = data.controls;
             if (level > 1)
             {
@@ -68,6 +71,11 @@ namespace DChild.Gameplay.UI.CombatArts
             StartCoroutine(DisplayPreview(levelData.preview));
             m_descriptionLabel.text = levelData.description;
             m_costLabel.text = levelData.cost.ToString();
+
+            var art = levelData.requiredCombatArt;
+            m_requiredArtLabel.text = art != null
+                ? art.combatArtName
+                : "N/A";
         }
 
         private IEnumerator DisplayPreview(VideoClip clip)

@@ -73,7 +73,7 @@ namespace DChild.Gameplay.UI.CombatArts
             }
             m_unlockArtHandler.ResetUnlockProgress();
 
-            bool CanAfford(CombatSkillPoints points, CombatArtLevelData combatArtLevelData) => points.points >= combatArtLevelData.cost;
+            static bool CanAfford(CombatSkillPoints points, CombatArtLevelData combatArtLevelData) => points.points >= combatArtLevelData.cost;
         }
 
         public void StartUnlockSelectedCombatArt()
