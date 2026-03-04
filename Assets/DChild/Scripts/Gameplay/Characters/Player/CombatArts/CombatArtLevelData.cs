@@ -21,6 +21,10 @@ namespace DChild.Gameplay.Characters.Players
         [SerializeField, HideReferenceObjectPicker]
         private ICombatArtLevelConfiguration m_configuration;
 
+        [SerializeField]
+        private CombatArtData m_requiredCombatArt;
+        public CombatArtData requiredCombatArt => m_requiredCombatArt;
+
         public CombatArtLevelData()
         {
             m_cost = 1;
@@ -41,6 +45,7 @@ namespace DChild.Gameplay.Characters.Players
         public string description => m_description;
 
         public ICombatArtLevelConfiguration configuration => m_configuration;
+
 
         public void SetConfiguration(ICombatArtLevelConfiguration configuration) => m_configuration = configuration;
     }
