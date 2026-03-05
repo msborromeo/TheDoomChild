@@ -22,6 +22,8 @@ namespace DChild.Gameplay.UI.Controller
         [SerializeField, TabGroup("Game Slot Selection")]
         private UIButton m_previousSlotButton;
         [SerializeField, TabGroup("Game Slot Selection")]
+        private UIButton m_deleteSaveButton;
+        [SerializeField, TabGroup("Game Slot Selection")]
         private CampaignSelect m_campaignSelect;
         [SerializeField, TabGroup("Game Slot Selection")]
         private CampaignHandler m_campaignHandler;
@@ -95,7 +97,7 @@ namespace DChild.Gameplay.UI.Controller
             if (m_mainMenuStateObserver.currentMainMenuState != MainMenuState.SlotSelection)
                 return;
 
-            m_campaignHandler.RequestReset();
+            m_deleteSaveButton.OnSubmit(null);
         }
 
         #endregion
