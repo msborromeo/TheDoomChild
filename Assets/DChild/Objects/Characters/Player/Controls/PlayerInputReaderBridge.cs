@@ -211,6 +211,11 @@ namespace DChild.Inputs
             m_reader.OnCycleTab(context);
         }
 
+        public void OnCycleSubTab(InputAction.CallbackContext context)
+        {
+            m_reader.OnCycleSubTab(context);
+        }
+
         public void OnDeleteSave(InputAction.CallbackContext context)
         {
             m_reader.OnDeleteSave(context);

@@ -35,9 +35,6 @@ namespace DChild.Gameplay.UI.Controller
         [SerializeField]
         private MainMenuStateObserver m_mainMenuStateObserver;
 
-        [SerializeField]
-        private Dictionary<MainMenuState, GameObject> m_menuStateAndSelectedButtonKeyValuePair;
-
         private void Awake()
         {
             m_inputReader.SetInputModeToUI();

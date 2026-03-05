@@ -2202,6 +2202,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CycleSubTab"",
+                    ""type"": ""Button"",
+                    ""id"": ""10445d15-f8da-4f0d-9567-8a9e82d487c3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -2565,6 +2574,72 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CycleTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""bdb147fe-8f9a-493a-89f9-ca1d5c33e14f"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CycleSubTab"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""97c635cf-b989-4bb6-8e7a-272258f36192"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CycleSubTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""ba5b7cd6-fafa-4aad-836b-e4cd4dc6202c"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CycleSubTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""2810ad27-2c61-4e6f-b787-c336bda06a47"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CycleSubTab"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""b061951c-3d2e-4ccd-bbfa-3fe1e48d849a"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CycleSubTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""8180fc18-6da8-4cd5-9102-3f296bce17c1"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CycleSubTab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -3230,6 +3305,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_UI_Resume = m_UI.FindAction("Resume", throwIfNotFound: true);
         m_UI_DeleteSave = m_UI.FindAction("DeleteSave", throwIfNotFound: true);
         m_UI_CycleTab = m_UI.FindAction("CycleTab", throwIfNotFound: true);
+        m_UI_CycleSubTab = m_UI.FindAction("CycleSubTab", throwIfNotFound: true);
         // Army Battle
         m_ArmyBattle = asset.FindActionMap("Army Battle", throwIfNotFound: true);
         m_ArmyBattle_SelectCommand = m_ArmyBattle.FindAction("SelectCommand", throwIfNotFound: true);
@@ -3622,6 +3698,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Resume;
     private readonly InputAction m_UI_DeleteSave;
     private readonly InputAction m_UI_CycleTab;
+    private readonly InputAction m_UI_CycleSubTab;
     public struct UIActions
     {
         private @PlayerControls m_Wrapper;
@@ -3635,6 +3712,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Resume => m_Wrapper.m_UI_Resume;
         public InputAction @DeleteSave => m_Wrapper.m_UI_DeleteSave;
         public InputAction @CycleTab => m_Wrapper.m_UI_CycleTab;
+        public InputAction @CycleSubTab => m_Wrapper.m_UI_CycleSubTab;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -3671,6 +3749,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @CycleTab.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCycleTab;
                 @CycleTab.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCycleTab;
                 @CycleTab.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCycleTab;
+                @CycleSubTab.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCycleSubTab;
+                @CycleSubTab.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCycleSubTab;
+                @CycleSubTab.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCycleSubTab;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -3702,6 +3783,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @CycleTab.started += instance.OnCycleTab;
                 @CycleTab.performed += instance.OnCycleTab;
                 @CycleTab.canceled += instance.OnCycleTab;
+                @CycleSubTab.started += instance.OnCycleSubTab;
+                @CycleSubTab.performed += instance.OnCycleSubTab;
+                @CycleSubTab.canceled += instance.OnCycleSubTab;
             }
         }
     }
@@ -3881,6 +3965,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnResume(InputAction.CallbackContext context);
         void OnDeleteSave(InputAction.CallbackContext context);
         void OnCycleTab(InputAction.CallbackContext context);
+        void OnCycleSubTab(InputAction.CallbackContext context);
     }
     public interface IArmyBattleActions
     {
