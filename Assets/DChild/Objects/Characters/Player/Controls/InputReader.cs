@@ -153,6 +153,9 @@ namespace DChild.Inputs
         public event Action UIClickPerformedEvent;
         public event Action UIClickCancelledEvent;
         public event Action UIClickStartedEvent;
+        public event Action<float> UICycleTabsPerformedEvent;
+        public event Action<float> UICycleSubTabsPerformedEvent;
+        public event Action UIDeleteSaveEvent;
         #endregion
         #region Army Battle Input
         public event Action ArmyBattleSelectCommandPerformedEvent;
@@ -803,6 +806,30 @@ namespace DChild.Inputs
             if (context.phase == InputActionPhase.Canceled)
             {
                 UIResumeCancelledEvent?.Invoke();
+            }
+        }
+
+        public void OnCycleTab(InputAction.CallbackContext context)
+        {
+            if(context.phase == InputActionPhase.Performed)
+            {
+                UICycleTabsPerformedEvent?.Invoke(context.ReadValue<float>());  
+            }
+        }
+
+        public void OnCycleSubTab(InputAction.CallbackContext context)
+        {
+            if(context.phase == InputActionPhase.Performed)
+            {
+                UICycleSubTabsPerformedEvent?.Invoke(context.ReadValue<float>());
+            }
+        }
+
+        public void OnDeleteSave(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Performed)
+            {
+                UIDeleteSaveEvent?.Invoke();
             }
         }
         #endregion
