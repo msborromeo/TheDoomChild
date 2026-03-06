@@ -2,6 +2,7 @@
 using Doozy.Runtime.UIManager.Components;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Drawing.Text;
 using System.Linq;
@@ -29,8 +30,12 @@ namespace DChild.Menu.Equipment.UI
         public void SetupUI(List<SoulEquipmentItem> acquiredItems)
         {
             SetFilter(SoulSlot.Head);
+
+            if (!m_acquiredItems.IsNullOrEmpty())
+                m_acquiredItems.Clear();
+            
             m_acquiredItems = acquiredItems;
-        }    
+        }
 
         public void UpdateItems(EquipmentCurrentItemUI currentItem)
         {
