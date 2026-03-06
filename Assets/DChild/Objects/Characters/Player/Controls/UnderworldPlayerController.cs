@@ -1050,7 +1050,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnPauseInput()
         {
-
+            GameplaySystem.gamplayUIHandle.OpenPauseMenu();
         }
 
         private void OnTeleportToOverworldStarted(InputAction.CallbackContext context, bool isCanceled)
