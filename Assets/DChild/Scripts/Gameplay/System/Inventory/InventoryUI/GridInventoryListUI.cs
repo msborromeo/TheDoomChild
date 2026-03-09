@@ -1,15 +1,15 @@
-﻿using Sirenix.OdinInspector;
+﻿using DChild.Gameplay.Items;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DChild.Gameplay.Inventories.UI
 {
-    public class GridInventoryListUI : InventoryListUI<IInventory>
+    public class GridInventoryListUI : FilteredInventoryListUI<IInventory>
     {
         [SerializeField, MinValue(1), PropertyOrder(-1)]
         private int m_page;
         private int m_startIndex;
         private int m_availableSlot;
-
 
         public void SetPage(int pageNumber)
         {
@@ -28,12 +28,23 @@ namespace DChild.Gameplay.Inventories.UI
         public override void UpdateUIList()
         {
             int i = 0;
+            UpdateUIList(ref i, m_inventory.FindStoredItemsOfType(m_currentFilter));
+
+            for (; i < itemUICount; i++)
+            {
+                m_itemUIs[i].Hide();
+            }
+            InvokeListOverallChange();
+        }
+
+        private void UpdateUIList(ref int i, IStoredItem[] items)
+        {
             for (; i <= m_availableSlot; i++)
             {
                 var itemIndex = m_startIndex + i;
-                if (itemIndex >= m_inventory.storedItemCount)
+                if (itemIndex >= items.Length)
                     break;
-                var storedItem = m_inventory.GetItem(itemIndex);
+                var storedItem = items[itemIndex];
                 if (storedItem != null)
                 {
                     var itemUI = m_itemUIs[i];
@@ -41,12 +52,6 @@ namespace DChild.Gameplay.Inventories.UI
                     itemUI.SetReference(storedItem);
                 }
             }
-
-            for (; i < itemUICount; i++)
-            {
-                m_itemUIs[i].Hide();
-            }
-            InvokeListOverallChange();
         }
 
         public override void Reset()
