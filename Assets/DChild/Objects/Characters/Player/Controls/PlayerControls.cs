@@ -114,8 +114,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""677553d6-20ed-4e6d-82bb-7a2a5f0fb77c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)"",
-                    ""initialStateCheck"": false
+                    ""interactions"": ""Tap,Hold"",
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""QuickItemCycle"",
@@ -503,7 +503,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""e2431c23-5039-4e63-8668-80500091367b"",
                     ""path"": ""<Keyboard>/r"",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""QuickItemUse"",

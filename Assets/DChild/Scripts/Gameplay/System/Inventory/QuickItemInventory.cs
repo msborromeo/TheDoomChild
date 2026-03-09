@@ -26,8 +26,28 @@ namespace DChild.Gameplay.Inventories
 
         public int storedItemCount => m_quickItemInventory.storedItemCount;
 
-        public event EventAction<ItemEventArgs> InventoryItemUpdate;
-        public event EventAction<EventActionArgs> MassInventoryItemUpdate;
+        public event EventAction<ItemEventArgs> InventoryItemUpdate
+        {
+            add
+            {
+                m_quickItemInventory.InventoryItemUpdate += value;
+            }
+            remove
+            {
+                m_quickItemInventory.InventoryItemUpdate -= value;
+            }
+        }
+        public event EventAction<EventActionArgs> MassInventoryItemUpdate
+        {
+            add
+            {
+                m_quickItemInventory.MassInventoryItemUpdate += value;
+            }
+            remove
+            {
+                m_quickItemInventory.MassInventoryItemUpdate -= value;
+            }
+        }
 
         public void AddItem(ItemData itemData, int count = 1)
         {
