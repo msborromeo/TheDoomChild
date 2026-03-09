@@ -18,6 +18,8 @@ namespace DChild.Gameplay.Inventories
         private ItemList m_referenceList;
         [SerializeField, HideLabel, FoldoutGroup("Inventory")]
         private TradableInventory m_inventory = new TradableInventory(false, true);
+        [SerializeField]
+        private QuickItemInventory m_quickItemInventory;
 
         public event EventAction<CurrencyUpdateEventArgs> OnAmountSet;
         public event EventAction<CurrencyUpdateEventArgs> OnAmountAdded;
@@ -107,6 +109,17 @@ namespace DChild.Gameplay.Inventories
                 var soulEquipmentEventArgs = new SoulEquipmentAcquiredEventArgs(((SoulEquipmentItem)item));
 
                 SoulEquipmentAcquired?.Invoke(this, soulEquipmentEventArgs);
+            }
+            else if(item.category == ItemCategory.Consumable || item.category == ItemCategory.Throwable)
+            {
+                if(m_quickItemInventory.isInventoryFull == false)
+                {
+                    m_quickItemInventory.AddItem(item, count);
+                }
+                else
+                {
+                    m_inventory.AddItem(item, count);
+                }
             }
             else
             {
