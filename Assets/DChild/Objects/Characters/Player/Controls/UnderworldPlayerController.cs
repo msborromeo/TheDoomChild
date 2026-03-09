@@ -694,11 +694,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             SwordThrustAction();
             HandleWallMovement();
         }
-
-        private void Start()
-        {
-            m_allowQuickItemCycle = true;
-        }
         #endregion
 
         #region Input Handles
