@@ -75,7 +75,8 @@ namespace DChild.Inputs
         public event Action WhipPerformedEvent;
         public event Action WhipCancelledEvent;
         public event Action<float> CycleQuickItemsStartedEvent;
-        public event Action UseQuickItemStartedEvent;
+        public event Action UseQuickItemTappedEvent;
+        public event Action UseQuickItemHeldEvent;
         public event Action UseQuickItemCancelledEvent;
         public event Action ProjectileThrowStartedEvent;
         public event Action ProjectileThrowCancelledEvent;
@@ -153,6 +154,9 @@ namespace DChild.Inputs
         public event Action UIClickPerformedEvent;
         public event Action UIClickCancelledEvent;
         public event Action UIClickStartedEvent;
+        public event Action<float> UICycleTabsPerformedEvent;
+        public event Action<float> UICycleSubTabsPerformedEvent;
+        public event Action UIDeleteSaveEvent;
         #endregion
         #region Army Battle Input
         public event Action ArmyBattleSelectCommandPerformedEvent;
@@ -326,9 +330,17 @@ namespace DChild.Inputs
 
         public void OnQuickItemUse(InputAction.CallbackContext context)
         {
-            if (context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Performed)
             {
-                UseQuickItemStartedEvent?.Invoke();
+                if(context.interaction is HoldInteraction)
+                {
+                    UseQuickItemHeldEvent?.Invoke();
+                }
+
+                if(context.interaction is TapInteraction)
+                {
+                    UseQuickItemTappedEvent?.Invoke();
+                }
             }
 
             if (context.phase == InputActionPhase.Canceled)
@@ -803,6 +815,30 @@ namespace DChild.Inputs
             if (context.phase == InputActionPhase.Canceled)
             {
                 UIResumeCancelledEvent?.Invoke();
+            }
+        }
+
+        public void OnCycleTab(InputAction.CallbackContext context)
+        {
+            if(context.phase == InputActionPhase.Performed)
+            {
+                UICycleTabsPerformedEvent?.Invoke(context.ReadValue<float>());  
+            }
+        }
+
+        public void OnCycleSubTab(InputAction.CallbackContext context)
+        {
+            if(context.phase == InputActionPhase.Performed)
+            {
+                UICycleSubTabsPerformedEvent?.Invoke(context.ReadValue<float>());
+            }
+        }
+
+        public void OnDeleteSave(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Performed)
+            {
+                UIDeleteSaveEvent?.Invoke();
             }
         }
         #endregion

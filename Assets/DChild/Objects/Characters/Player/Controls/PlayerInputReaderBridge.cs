@@ -205,6 +205,21 @@ namespace DChild.Inputs
         {
             m_reader.OnResume(context);
         }
+
+        public void OnCycleTab(InputAction.CallbackContext context)
+        {
+            m_reader.OnCycleTab(context);
+        }
+
+        public void OnCycleSubTab(InputAction.CallbackContext context)
+        {
+            m_reader.OnCycleSubTab(context);
+        }
+
+        public void OnDeleteSave(InputAction.CallbackContext context)
+        {
+            m_reader.OnDeleteSave(context);
+        }
         #endregion
 
         #region Army Battle Controls
