@@ -81,6 +81,29 @@ namespace DChild.Menu.Inputs
                     }
                     break;
             }
+
+            UpdateCurrentActiveDevice();
+        }
+
+
+        private void OnActionChange(object obj, InputActionChange change)
+        {
+            if(change == InputActionChange.ActionPerformed)
+            {
+                var recievedInputAction = (InputAction)obj;
+                var lastDevice = recievedInputAction.activeControl.device;
+
+
+                if(lastDevice is Keyboard or Mouse)
+                {
+                    CurrentDeviceTypeChanged?.Invoke(CurrentDeviceType.Keyboard);
+                }
+                else
+                {
+                    CurrentDeviceTypeChanged?.Invoke(CurrentDeviceType.Gamepad);
+                }
+                InputControlChange?.Invoke(this, EventActionArgs.Empty);
+            }
         }
 
         private void ForceDeviceChange()
@@ -91,19 +114,18 @@ namespace DChild.Menu.Inputs
 
         private void OnEnable()
         {
-            InputSystem.onDeviceChange += OnDeviceChange;
+            //InputSystem.onDeviceChange += OnDeviceChange;
+            InputSystem.onActionChange += OnActionChange;
         }
         public void Update()
         {
-            if (m_hasGamepad)
-            {
-                UpdateCurrentActiveDevice();
-            }
+
         }
 
         private void OnDisable()
         {
-            InputSystem.onDeviceChange -= OnDeviceChange;
+            //InputSystem.onDeviceChange -= OnDeviceChange;
+            InputSystem.onActionChange -= OnActionChange;
         }
     }
 }

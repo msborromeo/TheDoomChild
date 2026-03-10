@@ -17,6 +17,8 @@ namespace DChild.Gameplay.Characters.Players
     {
         [SerializeField, TabGroup("Inventory")]
         private ISerializable<TradableInventorySerialization> m_inventory;
+        [SerializeField, TabGroup("Inventory")]
+        private ISerializable<TradableInventorySerialization> m_quickItemInventory;
         [SerializeField, TabGroup("Codex")]
         private ISerializable<CodexSaveData> m_codex;
         [SerializeField, TabGroup("Skill")]
@@ -35,6 +37,7 @@ namespace DChild.Gameplay.Characters.Players
         public PlayerCharacterData SaveData()
         {
             return new PlayerCharacterData(m_inventory.SaveData(),
+                                        m_quickItemInventory.SaveData(),
                                         m_codex.SaveData(),
                                         m_playerSkills.SaveData(),
                                         m_soulSkillHandle.SaveData(),
@@ -47,6 +50,7 @@ namespace DChild.Gameplay.Characters.Players
         public void LoadData(PlayerCharacterData data)
         {
             m_inventory.LoadData(data.inventoryData);
+            m_quickItemInventory.LoadData(data.quickItemInventoryData);
             m_codex.LoadData(data.codexData);
             m_playerSkills.LoadData(data.skills);
             m_soulSkillHandle.LoadData(data.soulSkillData);

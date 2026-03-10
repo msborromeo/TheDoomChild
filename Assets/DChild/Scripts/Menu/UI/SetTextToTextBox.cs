@@ -1,5 +1,6 @@
 using DChild.Gameplay.Characters.Players.Modules;
 using DChild.Menu.Inputs;
+using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
@@ -494,9 +495,10 @@ namespace DChild.Gameplay.UI
 
         private void OnEnable()
         {
-            InputSystem.onDeviceChange += OnDeviceChanged;
-            UnderworldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
-            OverWorldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
+            //InputSystem.onDeviceChange += OnDeviceChanged;
+            InputSystem.onActionChange += OnActionChange;
+            //UnderworldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
+            //OverWorldPlayerController.ActiveControllerChanged += OnActiveControllerChanged;
         }
 
         private void OnDeviceChanged(InputDevice device, InputDeviceChange change)
@@ -513,9 +515,29 @@ namespace DChild.Gameplay.UI
 
         private void OnDisable()
         {
-            InputSystem.onDeviceChange -= OnDeviceChanged;
-            UnderworldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
-            OverWorldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
+            //InputSystem.onDeviceChange -= OnDeviceChanged;
+            InputSystem.onActionChange -= OnActionChange;
+            //UnderworldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
+            //OverWorldPlayerController.ActiveControllerChanged -= OnActiveControllerChanged;
+        }
+
+        private void OnActionChange(object obj, InputActionChange change)
+        {
+            if (change == InputActionChange.ActionPerformed)
+            {
+                var recievedInputAction = (InputAction)obj;
+                var lastDevice = recievedInputAction.activeControl.device;
+
+
+                if (lastDevice is Keyboard or Mouse)
+                {
+                    ChangeDeviceType(CurrentDeviceType.Keyboard);
+                }
+                else
+                {
+                    ChangeDeviceType(CurrentDeviceType.Gamepad);
+                }
+            }
         }
 
         private void ChangeDeviceType(CurrentDeviceType type)
