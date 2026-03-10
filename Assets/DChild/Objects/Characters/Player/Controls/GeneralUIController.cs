@@ -15,17 +15,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnEnable()
         {
-            m_inputReader.UIResumeStartedEvent += OnResumeStartedInput;
+            
         }
 
         private void OnDisable()
         {
-            m_inputReader.UIResumeStartedEvent -= OnResumeStartedInput;
-        }
-
-        private void OnResumeStartedInput()
-        {
-           
+            
         }
 
         public void SetInputModeToUI()

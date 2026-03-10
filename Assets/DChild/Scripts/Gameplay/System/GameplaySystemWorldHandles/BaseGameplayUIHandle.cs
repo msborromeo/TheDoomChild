@@ -69,6 +69,12 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private CharacterRecruitmentUI m_characterRecruitmentUI;
 
+
+        [SerializeField]
+        private PauseGameGuard m_pauseGameGuard;
+        [SerializeField]
+        private SignalSender m_backSignal;
+
         public UIAlertManager uiAlertManager => m_uiAlertManager;
 
 
@@ -182,6 +188,16 @@ namespace DChild.Gameplay.Systems
         {
             m_fastTravelUI.ForceOpenPage(startingLocation);
             m_fastTravelSignal?.SendSignal();
+        }
+
+        public void OpenPauseMenu()
+        {
+            m_pauseGameGuard.CanPauseGame();
+        }
+
+        public void UIBack()
+        {
+            m_backSignal.SendSignal();
         }
 
 

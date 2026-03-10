@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.InputSystem.Users;
 
 namespace DChild.Menu.Inputs
 {
@@ -29,13 +31,19 @@ namespace DChild.Menu.Inputs
 
         private void Start()
         {
-            InputIconHandle.UpdateInputIcons += UpdateInputIcons;
+            //InputIconHandle.UpdateInputIcons += UpdateInputIcons;
+            InputIconHandle.CurrentDeviceTypeChanged += OnDeviceTypeChanged;
             UpdateInputIcons(InputIconHandle.GetCurrentInputIcon());
         }
 
+        private void OnDeviceTypeChanged(CurrentDeviceType type, GamepadIconData data)
+        {
+            UpdateInputIcons(data);
+        }
 
         private void OnDestroy()
         {
+            //InputIconHandle.CurrentDeviceTypeChanged -= OnDeviceTypeChanged;
             InputIconHandle.UpdateInputIcons -= UpdateInputIcons;
         }
     }

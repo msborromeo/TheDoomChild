@@ -41,6 +41,9 @@ namespace DChild.Gameplay.Systems
         void OpenStoreAtPage(StorePage storePage);
         void OpenStore();
 
+        void OpenPauseMenu();
+        void UIBack();
+
         void OpenWorldMap(Location fromLocation);
         void OpenShadowGateMap(Location fromLocation);
 
