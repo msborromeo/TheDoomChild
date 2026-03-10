@@ -22,6 +22,8 @@ namespace DChild.Serialization
     {
         [SerializeField, TabGroup("Inventory"), HideReferenceObjectPicker, HideLabel]
         private TradableInventorySerialization m_inventoryData;
+        [SerializeField, TabGroup("Inventory"), HideReferenceObjectPicker, HideLabel]
+        private TradableInventorySerialization m_quickItemInventoryData;
         [SerializeField, TabGroup("Codex"), HideReferenceObjectPicker, HideLabel]
         private CodexSaveData m_codexData;
         [SerializeField, TabGroup("Skills")]
@@ -38,6 +40,7 @@ namespace DChild.Serialization
         private SkinSaveData m_skinSaveData;
 
         public TradableInventorySerialization inventoryData => m_inventoryData;
+        public TradableInventorySerialization quickItemInventoryData => m_quickItemInventoryData;
         public CodexSaveData codexData { get => m_codexData; }
         public PrimarySkillsData skills { get => m_skills; }
         public PlayerSoulSkillData soulSkillData { get => m_soulSkillData; }
@@ -49,6 +52,7 @@ namespace DChild.Serialization
         public PlayerCharacterData()
         {
             m_inventoryData = new TradableInventorySerialization();
+            m_quickItemInventoryData = new TradableInventorySerialization();
             m_codexData = new CodexSaveData();
             m_skills = new PrimarySkillsData();
             m_soulSkillData = new PlayerSoulSkillData();
@@ -57,9 +61,10 @@ namespace DChild.Serialization
             m_skinSaveData = new SkinSaveData(new PlayerSkinConfiguration(new List<SkinData>(), new SkinData()));
         }
 
-        public PlayerCharacterData(TradableInventorySerialization m_inventoryData, CodexSaveData m_codexData, PrimarySkillsData m_skills, PlayerSoulSkillData m_soulSkillData, CombatArtsSaveData combatArtsData, WeaponUpgradeSaveData weaponUpgradeSaveData, PlayerSoulEquipmentData soulEquipmentData, SkinSaveData skinSaveData)
+        public PlayerCharacterData(TradableInventorySerialization m_inventoryData, TradableInventorySerialization m_quickItemInventoryData, CodexSaveData m_codexData, PrimarySkillsData m_skills, PlayerSoulSkillData m_soulSkillData, CombatArtsSaveData combatArtsData, WeaponUpgradeSaveData weaponUpgradeSaveData, PlayerSoulEquipmentData soulEquipmentData, SkinSaveData skinSaveData)
         {
             this.m_inventoryData = m_inventoryData;
+            this.m_quickItemInventoryData = m_quickItemInventoryData;
             this.m_codexData = m_codexData;
             this.m_skills = m_skills;
             this.m_soulSkillData = m_soulSkillData;
@@ -72,6 +77,7 @@ namespace DChild.Serialization
         public PlayerCharacterData(PlayerCharacterData data)
         {
             this.m_inventoryData = new TradableInventorySerialization(data.inventoryData);
+            this.m_quickItemInventoryData = new TradableInventorySerialization(data.m_quickItemInventoryData);
             this.m_codexData = new CodexSaveData(data.codexData);
             this.m_skills = data.skills;
             this.m_soulSkillData = data.soulSkillData;

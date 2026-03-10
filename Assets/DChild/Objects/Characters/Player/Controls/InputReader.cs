@@ -75,7 +75,8 @@ namespace DChild.Inputs
         public event Action WhipPerformedEvent;
         public event Action WhipCancelledEvent;
         public event Action<float> CycleQuickItemsStartedEvent;
-        public event Action UseQuickItemStartedEvent;
+        public event Action UseQuickItemTappedEvent;
+        public event Action UseQuickItemHeldEvent;
         public event Action UseQuickItemCancelledEvent;
         public event Action ProjectileThrowStartedEvent;
         public event Action ProjectileThrowCancelledEvent;
@@ -329,9 +330,17 @@ namespace DChild.Inputs
 
         public void OnQuickItemUse(InputAction.CallbackContext context)
         {
-            if (context.phase == InputActionPhase.Started)
+            if (context.phase == InputActionPhase.Performed)
             {
-                UseQuickItemStartedEvent?.Invoke();
+                if(context.interaction is HoldInteraction)
+                {
+                    UseQuickItemHeldEvent?.Invoke();
+                }
+
+                if(context.interaction is TapInteraction)
+                {
+                    UseQuickItemTappedEvent?.Invoke();
+                }
             }
 
             if (context.phase == InputActionPhase.Canceled)
