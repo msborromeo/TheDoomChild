@@ -457,7 +457,7 @@ namespace DChild.Gameplay.Environment
 
         private void Start()
         {
-            m_spineAnimation = GetComponent<SpineRootAnimation>();  
+           // m_spineAnimation = GetComponent<SpineRootAnimation>();  to remove null reference bug 
             m_currentBehaviour?.Initialize(gameObject, m_spineAnimation, m_instruction, ref m_timer, true);
             if(m_idlingBehaviour.Length <= 0)
             {

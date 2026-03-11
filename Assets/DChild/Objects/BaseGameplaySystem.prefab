@@ -291,7 +291,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1906412781797905480}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce3ad7ed3ec74828a74f9158a988812d, type: 3}
   m_Name: 
@@ -435,7 +435,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3959289406568764592}
-  - component: {fileID: 4014180366311307645}
   - component: {fileID: 7880475160326357352}
   - component: {fileID: 7285364416098342667}
   - component: {fileID: 4979850189623587606}
@@ -464,19 +463,6 @@ Transform:
   m_Father: {fileID: 6478014794679475506}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4014180366311307645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2457540533068367656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa96d497585c39b44a82c68b89d37932, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_inputReader: {fileID: 11400000, guid: f10ab9566613cb14b98648d2d13c9ed9, type: 2}
 --- !u!114 &7880475160326357352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,20 +480,7 @@ MonoBehaviour:
     Runners: []
     Event:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4014180366311307645}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Characters.Players.Modules.GeneralUIController,
-            Assembly-CSharp
-          m_MethodName: SetInputModeToCurrentGameplay
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
   StreamId:
     Category: Store
     Name: Close
@@ -529,20 +502,7 @@ MonoBehaviour:
     Runners: []
     Event:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4014180366311307645}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Characters.Players.Modules.GeneralUIController,
-            Assembly-CSharp
-          m_MethodName: SetInputModeToUI
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
   StreamId:
     Category: Store
     Name: Open
@@ -564,20 +524,7 @@ MonoBehaviour:
     Runners: []
     Event:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4014180366311307645}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Characters.Players.Modules.GeneralUIController,
-            Assembly-CSharp
-          m_MethodName: SetInputModeToCurrentGameplay
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
   StreamId:
     Category: Gameplay
     Name: ResumeGame
@@ -599,20 +546,7 @@ MonoBehaviour:
     Runners: []
     Event:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4014180366311307645}
-          m_TargetAssemblyTypeName: DChild.Gameplay.Characters.Players.Modules.GeneralUIController,
-            Assembly-CSharp
-          m_MethodName: SetInputModeToUI
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
   StreamId:
     Category: Gameplay
     Name: PauseGame
@@ -831,6 +765,7 @@ MonoBehaviour:
   m_fadeBufferTime: 1
   m_hasEventOnVideoEnd: 0
   m_secondsBeforeVideoEnd: 0
+  m_audioVolumeTransistion: 0
 --- !u!1 &5195194276054363823
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,6 +839,8 @@ MonoBehaviour:
   m_levelFinish: {fileID: 0}
   m_skipHandle: {fileID: 0}
   m_characterRecruitmentUI: {fileID: 0}
+  m_pauseGameGuard: {fileID: 256970806261176358}
+  m_backSignal: {fileID: 7279159266427262664}
 --- !u!114 &6828250404446119209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1501,21 +1438,30 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: m_skinSaveData
+      Entry: 7
+      Data: 13|DChild.Gameplay.Characters.Player.Skins.SkinSaveData, Assembly-CSharp
+    - Name: m_acquiredSkinsIDs
       Entry: 6
+      Data: 
+    - Name: m_equippedSkin
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
       Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: m_campaignProgress
       Entry: 7
-      Data: 13|DChild.Serialization.SerializeDataList, Assembly-CSharp
+      Data: 14|DChild.Serialization.SerializeDataList, Assembly-CSharp
     - Name: m_saveDatas
       Entry: 7
-      Data: 14|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
+      Data: 15|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
         Assembly-CSharp],[DChild.Serialization.ISaveData, Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 15|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
+      Data: 16|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -1533,10 +1479,10 @@ MonoBehaviour:
       Data: 
     - Name: m_armyCharacterSaveData
       Entry: 7
-      Data: 16|DChild.Gameplay.ArmyBattle.ArmyCharactersSaveData, Assembly-CSharp
+      Data: 17|DChild.Gameplay.ArmyBattle.ArmyCharactersSaveData, Assembly-CSharp
     - Name: m_recruitedCharacterIds
       Entry: 7
-      Data: 17|System.Int32[], mscorlib
+      Data: 18|System.Int32[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -1551,14 +1497,14 @@ MonoBehaviour:
       Data: 
     - Name: m_zoneDatas
       Entry: 7
-      Data: 18|DChild.Serialization.SerializeDataList, Assembly-CSharp
+      Data: 19|DChild.Serialization.SerializeDataList, Assembly-CSharp
     - Name: m_saveDatas
       Entry: 7
-      Data: 19|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
+      Data: 20|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
         Assembly-CSharp],[DChild.Serialization.ISaveData, Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 20|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
+      Data: 21|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -1576,7 +1522,7 @@ MonoBehaviour:
       Data: 
     - Name: m_uiAlertSaveData
       Entry: 7
-      Data: 21|DChild.Gameplay.UI.Alerts.UIAlertManager+SaveData, Assembly-CSharp
+      Data: 22|DChild.Gameplay.UI.Alerts.UIAlertManager+SaveData, Assembly-CSharp
     - Name: primarySkillAlerts
       Entry: 3
       Data: 0
@@ -1609,14 +1555,14 @@ MonoBehaviour:
       Data: 
     - Name: m_miscDatas
       Entry: 7
-      Data: 22|DChild.Serialization.SerializeDataList, Assembly-CSharp
+      Data: 23|DChild.Serialization.SerializeDataList, Assembly-CSharp
     - Name: m_saveDatas
       Entry: 7
-      Data: 23|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
+      Data: 24|System.Collections.Generic.Dictionary`2[[DChild.Serialization.SerializeID,
         Assembly-CSharp],[DChild.Serialization.ISaveData, Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 24|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
+      Data: 25|DChild.Serialization.SerializeID+EqualityComparer, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
