@@ -176,6 +176,16 @@ namespace DChild.Gameplay.Inventories
         {
             m_inventory.SwapItems(itemOne, itemTwo);
         }
+
+        public int GetItemIndex(ItemData itemData)
+        {
+            return m_inventory.GetItemIndex(itemData);
+        }
+
+        public void ReplaceItem(ItemData itemData, int count, int index)
+        {
+            m_inventory.ReplaceItem(itemData, count, index);
+        }
         #endregion
     }
 }
