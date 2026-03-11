@@ -20,6 +20,8 @@ namespace DChild.Gameplay.Inventories.UI
 
         public override void SwapItems(ItemUI itemOne, ItemUI itemTwo)
         {
+            if (itemOne == null || itemTwo == null) return;
+
             m_inventory.SwapItems(itemOne.reference.data, itemTwo.reference.data);
         }
 
