@@ -54,6 +54,8 @@ namespace DChild.Gameplay.Inventories
         [Button]
         public void SetCurrentPlayerInventoryItem(ItemData data, int count)
         {
+            if (m_playerInventory.GetItem(data) == null)
+                return;
             if (data.category == ItemCategory.Consumable || data.category == ItemCategory.Throwable)
             {
                 m_currentSelectedPlayerInventoryItem = data;
@@ -64,6 +66,8 @@ namespace DChild.Gameplay.Inventories
         [Button]
         public void SetCurrentQuickItemInventoryItem(ItemData data, int count)
         {
+            if (m_quickItemInventory.GetItem(data) == null)
+                return;
             if (data.category == ItemCategory.Consumable || data.category == ItemCategory.Throwable)
             {
                 m_currentSelectedQuickItemInventoryItem = data;
