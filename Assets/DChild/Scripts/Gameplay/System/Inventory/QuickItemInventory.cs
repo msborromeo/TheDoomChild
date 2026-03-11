@@ -74,6 +74,11 @@ namespace DChild.Gameplay.Inventories
             return m_quickItemInventory.GetStoredItem(item);
         }
 
+        public int GetItemIndex(ItemData itemData)
+        {          
+            return m_quickItemInventory.GetItemIndex(itemData);
+        }
+
         public void LoadData(TradableInventorySerialization data)
         {
             m_quickItemInventory.ClearList();
@@ -101,6 +106,11 @@ namespace DChild.Gameplay.Inventories
             m_quickItemInventory.RemoveItem(itemData, count);
             if (m_quickItemInventory.storedItemCount < 7)
                 m_isInventoryFull = false;
+        }
+
+        public void ReplaceItem(ItemData itemData, int count, int index)
+        {
+            m_quickItemInventory.ReplaceItem(itemData, count, index);
         }
 
         public TradableInventorySerialization SaveData()
