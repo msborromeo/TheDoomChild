@@ -43,18 +43,32 @@ namespace DChild.Gameplay.Inventories
             m_quickItemInventory.ReplaceItem(m_currentSelectedPlayerInventoryItem,
                 m_currentSelectedPlayerInventoryItemCount,
                 quickItemInventoryIndex);
+
+            //Reset selected items after swap
+            m_currentSelectedPlayerInventoryItem = null;
+            m_currentSelectedQuickItemInventoryItem = null;
+            m_currentSelectedPlayerInventoryItemCount = 0;
+            m_currentSelectedQuickItemInventoryItemCount = 0;
         }
 
+        [Button]
         public void SetCurrentPlayerInventoryItem(ItemData data, int count)
         {
-            m_currentSelectedPlayerInventoryItem = data;
-            m_currentSelectedPlayerInventoryItemCount = count;
+            if (data.category == ItemCategory.Consumable || data.category == ItemCategory.Throwable)
+            {
+                m_currentSelectedPlayerInventoryItem = data;
+                m_currentSelectedPlayerInventoryItemCount = count;
+            }
         }
 
+        [Button]
         public void SetCurrentQuickItemInventoryItem(ItemData data, int count)
         {
-            m_currentSelectedQuickItemInventoryItem = data;
-            m_currentSelectedQuickItemInventoryItemCount = count;
+            if (data.category == ItemCategory.Consumable || data.category == ItemCategory.Throwable)
+            {
+                m_currentSelectedQuickItemInventoryItem = data;
+                m_currentSelectedQuickItemInventoryItemCount = count;
+            }
         }
     }
 }
