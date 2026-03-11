@@ -17,13 +17,12 @@ namespace DChild.Gameplay.Inventories.UI
 
         public event Action<ItemUI> OnItemSelectDuringSwap;
 
-
         private void OnItemSelected(ItemUI tradeFilter)
         {
             m_handle.Select(tradeFilter);
         }
 
-        public void HandleSwap(ItemUI itemForSwap)
+        private void HandleSwap(ItemUI itemForSwap)
         {
             if (!m_swapHandle.isSwapping)
                 return;
@@ -36,14 +35,18 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void AddToggleOnListener(UIToggle toggle)
         {
-            var tradeFilter = toggle.GetComponent<ItemUI>();
-            UnityAction handleSwap = delegate { HandleSwap(tradeFilter); };
-            toggle.OnToggleOnCallback.Event.AddListener(handleSwap);
-            toggle.OnInstantToggleOnCallback.Event.AddListener(handleSwap);
+            var events = new[] { toggle.OnToggleOnCallback.Event, toggle.OnInstantToggleOnCallback.Event };
+            var item = toggle.GetComponent<ItemUI>();
 
-            UnityAction action = delegate { OnItemSelected(tradeFilter); };
-            toggle.OnToggleOnCallback.Event.AddListener(action);
-            toggle.OnInstantToggleOnCallback.Event.AddListener(action);
+            foreach (var @event in events)
+            {
+                @event.RemoveAllListeners();
+                @event.AddListener(() =>
+                {
+                    HandleSwap(item);
+                    OnItemSelected(item);
+                });
+            }
 
             OnItemSelectDuringSwap += m_swapHandle.OnSecondItemSelected;
         }
@@ -72,7 +75,7 @@ namespace DChild.Gameplay.Inventories.UI
         private void OnEnable()
         {
             var toggles = m_itemGroup.toggles;
-            AddToggleOnListener(m_itemGroup.FirstToggle);
+            //AddToggleOnListener(m_itemGroup.FirstToggle);
             for (int i = 0; i < toggles.Count; i++)
             {
                 var toggle = toggles[i];
@@ -85,7 +88,7 @@ namespace DChild.Gameplay.Inventories.UI
         private void OnDisable()
         {
             var toggles = m_itemGroup.toggles;
-            RemoveToggleEvents(m_itemGroup.FirstToggle);
+            //RemoveToggleEvents(m_itemGroup.FirstToggle);
             for (int i = 0; i < toggles.Count; i++)
             {
                 var toggle = toggles[i];

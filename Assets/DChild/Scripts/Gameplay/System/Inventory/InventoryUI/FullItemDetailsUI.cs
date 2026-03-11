@@ -19,6 +19,12 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField, BoxGroup("Optional")]
         private TextMeshProUGUI m_quantityLimit;
 
+        [SerializeField, BoxGroup("Opacity Targets")] private CanvasGroup m_itemNameCG;
+        [SerializeField, BoxGroup("Opacity Targets")] private CanvasGroup m_itemIconCG;
+        [SerializeField, BoxGroup("Opacity Targets")] private CanvasGroup m_itemDescriptionCG;
+        [SerializeField, BoxGroup("Opacity Targets")] private CanvasGroup m_quantityValueCG;
+
+
         private Canvas m_canvas;
 
         public event Action<ItemData> LocalizeItemView;
@@ -36,34 +42,52 @@ namespace DChild.Gameplay.Inventories.UI
         public override void ShowDetails(IStoredItem reference)
         {
             var data = reference?.data ?? null;
+
+            AdjustUIAlphas(data != null);
+
             if (data == null)
-            {
-                m_name.text = "Nothing";
-                m_icon.sprite = null;
-                m_description.text = "You have nothing, this is not a lack of something but the absence of everything.\n " +
-                                    "Do not worry having nothing is fine but if you still see this when you should have something is troubling" +
-                                    "Please make sure you have nothing first before saying nothing is fine";
-                if (m_quantityLimit != null)
-                {
-                    m_quantityLimit.text = "0";
-                }
-            }
-            else
-            {
-                m_name.text = data.itemName;
-                m_icon.sprite = data.icon;
-                m_description.text = data.description;
-                if (m_quantityLimit != null)
-                {
-                    m_quantityLimit.text = data.quantityLimit.ToString();
-                }
-            }
+                return;
+            //{
+            //    m_name.text = "Nothing";
+            //    m_icon.sprite = null;
+            //    m_description.text = "You have nothing, this is not a lack of something but the absence of everything.\n " +
+            //                        "Do not worry having nothing is fine but if you still see this when you should have something is troubling" +
+            //                        "Please make sure you have nothing first before saying nothing is fine";
+            //    if (m_quantityLimit != null)
+            //    {
+            //        m_quantityLimit.text = "0";
+            //    }
+            //}
+
+            m_name.text = data.itemName;
+            m_icon.sprite = data.icon;
+            m_description.text = data.description;
+            if (m_quantityLimit != null)
+                m_quantityLimit.text = $"{data.quantityLimit}";
+
             LocalizeItemView?.Invoke(data);
+        }
+
+        private void AdjustUIAlphas(bool hasItemData)
+        {
+            var opacity = hasItemData ? 1f : 0f;
+            if (m_itemNameCG.alpha == opacity)
+                return;
+
+            m_itemNameCG.alpha = opacity;
+            m_itemDescriptionCG.alpha = opacity;
+            m_itemIconCG.alpha = opacity;
+            m_quantityValueCG.alpha = opacity;
         }
 
         private void Awake()
         {
             m_canvas = GetComponent<Canvas>();
+        }
+
+        private void OnDisable()
+        {
+            AdjustUIAlphas(false);
         }
     }
 }
