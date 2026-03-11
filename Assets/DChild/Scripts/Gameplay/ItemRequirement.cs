@@ -49,7 +49,7 @@ namespace DChild.Gameplay
                 info = m_requirements[i];
                 if (info.consumeItem)
                 {
-                    inventory.AddItem(info.item, -info.count);
+                    inventory.RemoveItem(info.item,info.count);
                 }
             }
         }
