@@ -65,18 +65,20 @@ namespace DChild.Gameplay.Items
         protected override void ApplyPickUp()
         {
             base.ApplyPickUp();
-            if (m_pickedBy.inventory.HasSpaceFor(m_data))
-            {
-                m_pickedBy.inventory.AddItem(m_data);
-                SendNotification();
-            }
-            else if (m_data is UsableItemData)
-            {
-                m_pickedBy.inventory.AddItem(m_data);
-                SendNotification();
-                //((UsableItemData)m_data).Use(m_pickedBy);
-            }
-            if(m_pickupVfx!=null)
+            //Commented out Checkers below for Item Append feature
+            //if (m_pickedBy.inventory.HasSpaceFor(m_data))
+            //{
+
+            //}
+            m_pickedBy.inventory.AddItem(m_data);
+            SendNotification();
+            //if (m_data is UsableItemData)
+            //{
+            //    m_pickedBy.inventory.AddItem(m_data);
+            //    SendNotification();
+            //    //((UsableItemData)m_data).Use(m_pickedBy);
+            //}
+            if (m_pickupVfx!=null)
             {
                 m_pickupVfx.Spawn();
             }
