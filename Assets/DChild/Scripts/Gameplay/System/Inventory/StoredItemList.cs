@@ -43,6 +43,12 @@ namespace DChild.Gameplay.Inventories
             {
                 m_hasInfiniteCount = isInfinite;
             }
+
+            public void ReplaceData(ItemData data, int count)
+            {
+                m_data = data;
+                m_count = count;
+            }
         }
 
         public abstract int storedItemCount { get; }
@@ -77,6 +83,9 @@ namespace DChild.Gameplay.Inventories
             }
         }
 
+        public abstract int GetItemIndex(ItemData itemData);
+
+        public abstract void ReplaceItem(ItemData itemData, int count, int index);
     }
 
     [System.Serializable]
@@ -201,6 +210,17 @@ namespace DChild.Gameplay.Inventories
             m_items[itemOneIndex] = m_items[itemTwoIndex];
             m_items[itemTwoIndex] = temp;
             
+        }
+
+        public override int GetItemIndex(ItemData itemData)
+        {
+            var storedItem = GetStoredItem(itemData);
+            return FindIndex(storedItem);
+        }
+
+        public override void ReplaceItem(ItemData itemData, int count, int index)
+        {
+            m_items[index].ReplaceData(itemData, count);
         }
 
         private int FindIndex(IStoredItem item)

@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 3880106936547764644}
   - component: {fileID: 4222235692980000358}
   - component: {fileID: 4767765669236342225}
+  - component: {fileID: 5236352955436488233}
   m_Layer: 13
   m_Name: CelestialVoidModel
   m_TagString: Untagged
@@ -114,7 +115,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9f33e87adb66a3e4b85a504d88a5ff7e, type: 2}
+  - {fileID: 2100000, guid: a04a070998d66814b8dbd0962cdf5239, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -148,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: fe4fb98ec1b4a034b9ae3d6c5fe7e1da, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 878f4967ac7b1734697b0f9fd0b4c6bf, type: 2}
   initialSkinName: SHADOW
   initialFlipX: 1
   initialFlipY: 0
@@ -206,6 +207,8 @@ MonoBehaviour:
   m_color: {r: 1, g: 1, b: 1, a: 0}
   m_fadeInDuration: 0.025
   m_fadeOutDuration: 0.4
+  animator: {fileID: 0}
+  triggerName: 
 --- !u!114 &4767765669236342225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +226,47 @@ MonoBehaviour:
   m_startDissolveEvent: StartFade
   m_dissolveDuration: 1
   m_delay: 0.55
+--- !u!114 &5236352955436488233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2768883401191070974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90293750f472d3340b452cec6fea2606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events:
+  - spineEvent: StartFade
+    unityHandler:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5214983208939876732}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: isDead
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6300272596676055169}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: isDead
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &3033134252935797222
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,7 +421,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5490958374904108184}
   m_LocalRotation: {x: -0, y: -0, z: 0.06622707, w: 0.9978046}
-  m_LocalPosition: {x: 0.054235835, y: 1.9200997, z: 0}
+  m_LocalPosition: {x: 0.054230586, y: 1.9200975, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -457,7 +501,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5720962590468021201}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.23892821, y: 2.626758, z: 0}
+  m_LocalPosition: {x: -0.23892303, y: 2.6267571, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -711,7 +755,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7530171058587906389}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.23892821, y: 2.626758, z: 0}
+  m_LocalPosition: {x: -0.23892303, y: 2.6267571, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -924,11 +968,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6465677510938984986, guid: 3eec74175a91b2840bf58348d3e095cb,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 135816efd85508a4c9f2a632cd3d6001, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3eec74175a91b2840bf58348d3e095cb, type: 3}
 --- !u!4 &1401342226197199240 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2136732279303318291, guid: 3eec74175a91b2840bf58348d3e095cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1068940786726408859}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6300272596676055169 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6465677510938984986, guid: 3eec74175a91b2840bf58348d3e095cb,
     type: 3}
   m_PrefabInstance: {fileID: 1068940786726408859}
   m_PrefabAsset: {fileID: 0}
@@ -1021,6 +1076,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ac340c06273ceb41bddeebb1ec82e9b, type: 3}
+--- !u!95 &5214983208939876732 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6314571316404006258, guid: 1ac340c06273ceb41bddeebb1ec82e9b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2305432611421248526}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5214983208939876735 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6314571316404006257, guid: 1ac340c06273ceb41bddeebb1ec82e9b,
