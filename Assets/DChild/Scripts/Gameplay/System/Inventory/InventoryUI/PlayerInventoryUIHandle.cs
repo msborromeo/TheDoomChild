@@ -16,6 +16,8 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField]
         private InventoryListUI<IInventory> m_listUI;
         [SerializeField]
+        private QuickItemsListUI m_quickItemListUI;
+        [SerializeField]
         private ItemUI m_firstSelectedItemUI;
         [SerializeField]
         private UsableInventoryItemHandle m_usableInventoryItemHandle;
@@ -36,20 +38,39 @@ namespace DChild.Gameplay.Inventories.UI
                 m_usableInventoryItemHandle.HandleUsageOfItem(itemUI.reference.data);
             }
 
-            m_swapHandle.SetFirstItem(itemUI);
+            m_swapHandle.SetFirstItem(itemUI as InventoryItemUI);
         }
 
         [Button]
         public void SwapItems(ItemUI itemOne, ItemUI itemTwo)
         {
+            if (IsEitherSlotQuickItem(itemOne, itemTwo))
+            {
+                m_quickItemListUI.SwapItems(itemOne, itemTwo);
+                UpdateInventorySlots();
+                return;
+            }
+
             m_listUI.SwapItems(itemOne, itemTwo);
+            UpdateInventorySlots();
+        }
+
+        private bool IsEitherSlotQuickItem(ItemUI itemOne, ItemUI itemTwo)
+        {
+            return (itemOne as InventoryItemUI).isQuickItem || (itemTwo as InventoryItemUI).isQuickItem;
+        }
+
+        public void UpdateInventorySlots()
+        {
+            m_quickItemListUI.UpdateUIList(); 
             m_listUI.UpdateUIList();
         }
 
         public void Initialize()
         {
             m_listUI.Reset();
-            m_listUI.UpdateUIList();
+            UpdateInventorySlots();
+
             Select(m_firstSelectedItemUI);
             var button = m_firstSelectedItemUI.GetComponent<UIToggle>();
             button.SetIsOn(true);

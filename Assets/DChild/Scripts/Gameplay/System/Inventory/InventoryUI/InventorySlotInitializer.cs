@@ -15,7 +15,7 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField]
         private UIToggleGroup m_itemGroup;
 
-        public event Action<ItemUI> OnItemSelectDuringSwap;
+        public event Action<InventoryItemUI> OnItemSelectDuringSwap;
 
         private void OnItemSelected(ItemUI tradeFilter)
         {
@@ -29,7 +29,7 @@ namespace DChild.Gameplay.Inventories.UI
 
             m_swapHandle.SetSwappingStatus(false);
 
-            OnItemSelectDuringSwap?.Invoke(itemForSwap);
+            OnItemSelectDuringSwap?.Invoke(itemForSwap as InventoryItemUI);
         }
 
 

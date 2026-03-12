@@ -181,8 +181,10 @@ GameObject:
   - component: {fileID: 1899008262563315502}
   - component: {fileID: 6197686158663999673}
   - component: {fileID: 3719898374306698702}
+  - component: {fileID: 4186952926345557801}
+  - component: {fileID: 418099640870816307}
   m_Layer: 5
-  m_Name: Background
+  m_Name: ToggleGroup - ItemSlots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,84 +248,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &3731191357324618388
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9181419336643639335}
-  - component: {fileID: 4870364550689313773}
-  - component: {fileID: 8207780174882356828}
-  m_Layer: 5
-  m_Name: ToggleGroup - QuickSlots
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &9181419336643639335
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3731191357324618388}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7811227163218728276}
-  - {fileID: 8905844048539960779}
-  - {fileID: 1076666831972996194}
-  - {fileID: 7297633623289984608}
-  - {fileID: 8290167827565208243}
-  - {fileID: 4658137597647028598}
-  - {fileID: 6767362268912840663}
-  m_Father: {fileID: 5493480622673879442}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.023346692, y: 0.08321169}
-  m_AnchorMax: {x: 0.9782565, y: 0.89343065}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -0.000011622906, y: 0.0000024735928}
-  m_Pivot: {x: 0, y: 0.5}
---- !u!114 &4870364550689313773
+--- !u!114 &4186952926345557801
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3731191357324618388}
+  m_GameObject: {fileID: 2931190908986930461}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Script: {fileID: 11500000, guid: dc00c7130ce2f69449993fe9b6cea813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 6
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
---- !u!114 &8207780174882356828
+  m_handle: {fileID: 8786326582090682479}
+  m_swapHandle: {fileID: 5713901238299156049}
+  m_itemGroup: {fileID: 418099640870816307}
+--- !u!114 &418099640870816307
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3731191357324618388}
+  m_GameObject: {fileID: 2931190908986930461}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57e092a41e9341c0a5edc3ae3e5eb040, type: 3}
@@ -409,7 +355,7 @@ MonoBehaviour:
   Behaviours:
     Behaviours: []
     SignalSource: {fileID: 0}
-    Selectable: {fileID: 8207780174882356828}
+    Selectable: {fileID: 0}
   Id:
     Category: None
     Name: None
@@ -455,6 +401,76 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   FirstToggle: {fileID: 7576471893163434563}
+--- !u!1 &3731191357324618388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9181419336643639335}
+  - component: {fileID: 4870364550689313773}
+  m_Layer: 5
+  m_Name: ToggleGroup - QuickSlots
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &9181419336643639335
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731191357324618388}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7811227163218728276}
+  - {fileID: 8905844048539960779}
+  - {fileID: 1076666831972996194}
+  - {fileID: 7297633623289984608}
+  - {fileID: 8290167827565208243}
+  - {fileID: 4658137597647028598}
+  - {fileID: 6767362268912840663}
+  m_Father: {fileID: 5493480622673879442}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.023346692, y: 0.08321169}
+  m_AnchorMax: {x: 0.9782565, y: 0.89343065}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -0.000011622906, y: 0.0000024735928}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &4870364550689313773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731191357324618388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 6
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &3792716059464334583
 GameObject:
   m_ObjectHideFlags: 0
@@ -1138,7 +1154,6 @@ GameObject:
   - component: {fileID: 5493480622673879442}
   - component: {fileID: 8280841078080674477}
   - component: {fileID: 2196867447846231649}
-  - component: {fileID: 9029701909526445550}
   m_Layer: 5
   m_Name: Section - SlotsBackground
   m_TagString: Untagged
@@ -1205,21 +1220,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9029701909526445550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5336700610140527196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc00c7130ce2f69449993fe9b6cea813, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_handle: {fileID: 8786326582090682479}
-  m_swapHandle: {fileID: 5713901238299156049}
-  m_itemGroup: {fileID: 8207780174882356828}
 --- !u!1 &5773880321450279179
 GameObject:
   m_ObjectHideFlags: 0
@@ -1229,6 +1229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5849202482114156138}
+  - component: {fileID: 3233377944296798933}
   m_Layer: 5
   m_Name: Section - QuickItemNavigation
   m_TagString: Untagged
@@ -1259,6 +1260,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3233377944296798933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5773880321450279179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 749eee9c2c9e7c24880f19dec97cc1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  m_inventory: {fileID: 0}
+  m_itemSlots:
+  - {fileID: 8289902446411815803}
+  - {fileID: 7276482295216475108}
+  - {fileID: 1269378637467900493}
+  - {fileID: 8803073821124409423}
+  - {fileID: 7809308089712716956}
+  - {fileID: 6902237661351169881}
+  - {fileID: 4793566968397570552}
 --- !u!1 &5923811684015932225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2502,8 +2533,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 341, y: 0}
+  m_SizeDelta: {x: 682, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8786326581297549011
 CanvasRenderer:
@@ -3251,8 +3282,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8786326582038590429}
-  - component: {fileID: 8786326582038590423}
-  - component: {fileID: 8786326582038590422}
   - component: {fileID: 6527678435785409259}
   - component: {fileID: 1798893605362643636}
   m_Layer: 5
@@ -3310,159 +3339,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &8786326582038590423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8786326582038590428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc00c7130ce2f69449993fe9b6cea813, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_handle: {fileID: 8786326582090682479}
-  m_swapHandle: {fileID: 5713901238299156049}
-  m_itemGroup: {fileID: 8786326582038590422}
---- !u!114 &8786326582038590422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8786326582038590428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e092a41e9341c0a5edc3ae3e5eb040, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 0
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
-  MultiplayerInfo: {fileID: 0}
-  IsOn: 0
-  CurrentUISelectionState: 0
-  DeselectAfterPress: 0
-  OnSelectionStateChangedCallback:
-    m_PersistentCalls:
-      m_Calls: []
-  CurrentStateName: Normal
-  NormalState:
-    StateType: 0
-    StateEvent:
-      EventName: Normal State
-      Runners: []
-      Event:
-        m_PersistentCalls:
-          m_Calls: []
-  HighlightedState:
-    StateType: 1
-    StateEvent:
-      EventName: Highlighted State
-      Runners: []
-      Event:
-        m_PersistentCalls:
-          m_Calls: []
-  PressedState:
-    StateType: 2
-    StateEvent:
-      EventName: Pressed State
-      Runners: []
-      Event:
-        m_PersistentCalls:
-          m_Calls: []
-  SelectedState:
-    StateType: 3
-    StateEvent:
-      EventName: Selected State
-      Runners: []
-      Event:
-        m_PersistentCalls:
-          m_Calls: []
-  DisabledState:
-    StateType: 4
-    StateEvent:
-      EventName: Disabled State
-      Runners: []
-      Event:
-        m_PersistentCalls:
-          m_Calls: []
-  Behaviours:
-    Behaviours: []
-    SignalSource: {fileID: 0}
-    Selectable: {fileID: 8786326582038590422}
-  Id:
-    Category: None
-    Name: None
-    Custom: 0
-  Cooldown: 0
-  OnToggleOnCallback:
-    EventName: OnToggleOnCallback
-    Runners: []
-    Event:
-      m_PersistentCalls:
-        m_Calls: []
-  OnInstantToggleOnCallback:
-    EventName: OnInstantToggleOnCallback
-    Runners: []
-    Event:
-      m_PersistentCalls:
-        m_Calls: []
-  OnToggleOffCallback:
-    EventName: OnToggleOffCallback
-    Runners: []
-    Event:
-      m_PersistentCalls:
-        m_Calls: []
-  OnInstantToggleOffCallback:
-    EventName: OnInstantToggleOffCallback
-    Runners: []
-    Event:
-      m_PersistentCalls:
-        m_Calls: []
-  OnValueChangedCallback:
-    m_PersistentCalls:
-      m_Calls: []
-  ToggleGroup: {fileID: 0}
-  OverrideInteractabilityForToggles: 0
-  ToggleGroupValue: 0
-  Mode: 1
-  HasMixedValues: 0
-  AutoSort: 1
-  OnToggleGroupMixedValuesCallback:
-    EventName: OnToggleGroupMixedValuesCallback
-    Runners: []
-    Event:
-      m_PersistentCalls:
-        m_Calls: []
-  FirstToggle: {fileID: 1869633852265539039}
 --- !u!114 &6527678435785409259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3630,6 +3506,7 @@ MonoBehaviour:
       Data: 0
   m_detailedUI: {fileID: 8786326581580233151}
   m_listUI: {fileID: 8786326581698579085}
+  m_quickItemListUI: {fileID: 3233377944296798933}
   m_firstSelectedItemUI: {fileID: 278353758879833319}
   m_usableInventoryItemHandle: {fileID: 8786326582090682470}
   m_swapHandle: {fileID: 5713901238299156049}
@@ -3660,7 +3537,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_handle: {fileID: 8786326582090682479}
-  m_swapButton: {fileID: 347760290313627058}
   m_isSwapping: 0
 --- !u!222 &8786326582090682477
 CanvasRenderer:
@@ -5067,7 +4943,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8207780174882356828}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 8046594702065270260, guid: e9569d1a7aebbc246bd76e7e4bb45500,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -5134,6 +5010,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 472374608803078071}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8289902446411815803 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8468333477997806796, guid: e9569d1a7aebbc246bd76e7e4bb45500,
+    type: 3}
+  m_PrefabInstance: {fileID: 472374608803078071}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2812772064062312501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ad229d7c86943428b215694336ea8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1130223812490738819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5260,7 +5148,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8207780174882356828}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 8468333477997806796, guid: e9569d1a7aebbc246bd76e7e4bb45500,
         type: 3}
       propertyPath: m_handle
@@ -5289,6 +5177,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1130223812490738819}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8803073821124409423 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8468333477997806796, guid: e9569d1a7aebbc246bd76e7e4bb45500,
+    type: 3}
+  m_PrefabInstance: {fileID: 1130223812490738819}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ad229d7c86943428b215694336ea8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1260676350215687976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5415,7 +5315,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8207780174882356828}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 8468333477997806796, guid: e9569d1a7aebbc246bd76e7e4bb45500,
         type: 3}
       propertyPath: m_handle
@@ -5438,6 +5338,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9569d1a7aebbc246bd76e7e4bb45500, type: 3}
+--- !u!114 &7276482295216475108 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8468333477997806796, guid: e9569d1a7aebbc246bd76e7e4bb45500,
+    type: 3}
+  m_PrefabInstance: {fileID: 1260676350215687976}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ad229d7c86943428b215694336ea8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8905844048539960779 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7703754110429285091, guid: e9569d1a7aebbc246bd76e7e4bb45500,
@@ -5777,7 +5689,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -6540,7 +6452,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8207780174882356828}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 8468333477997806796, guid: e9569d1a7aebbc246bd76e7e4bb45500,
         type: 3}
       propertyPath: m_handle
@@ -6563,6 +6475,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9569d1a7aebbc246bd76e7e4bb45500, type: 3}
+--- !u!114 &7809308089712716956 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8468333477997806796, guid: e9569d1a7aebbc246bd76e7e4bb45500,
+    type: 3}
+  m_PrefabInstance: {fileID: 1866086991619336272}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ad229d7c86943428b215694336ea8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8290167827565208243 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7703754110429285091, guid: e9569d1a7aebbc246bd76e7e4bb45500,
@@ -6902,7 +6826,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -7477,7 +7401,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -8054,7 +7978,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8207780174882356828}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 8468333477997806796, guid: e9569d1a7aebbc246bd76e7e4bb45500,
         type: 3}
       propertyPath: m_handle
@@ -8083,6 +8007,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3047878096619522965}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6902237661351169881 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8468333477997806796, guid: e9569d1a7aebbc246bd76e7e4bb45500,
+    type: 3}
+  m_PrefabInstance: {fileID: 3047878096619522965}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ad229d7c86943428b215694336ea8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3964218448685933876
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8209,7 +8145,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8207780174882356828}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 8468333477997806796, guid: e9569d1a7aebbc246bd76e7e4bb45500,
         type: 3}
       propertyPath: m_handle
@@ -8232,6 +8168,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9569d1a7aebbc246bd76e7e4bb45500, type: 3}
+--- !u!114 &4793566968397570552 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8468333477997806796, guid: e9569d1a7aebbc246bd76e7e4bb45500,
+    type: 3}
+  m_PrefabInstance: {fileID: 3964218448685933876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ad229d7c86943428b215694336ea8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6767362268912840663 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7703754110429285091, guid: e9569d1a7aebbc246bd76e7e4bb45500,
@@ -8860,7 +8808,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -9435,7 +9383,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -10010,7 +9958,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -11003,7 +10951,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8207780174882356828}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 8468333477997806796, guid: e9569d1a7aebbc246bd76e7e4bb45500,
         type: 3}
       propertyPath: m_handle
@@ -11032,6 +10980,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7212564605126958721}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1269378637467900493 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8468333477997806796, guid: e9569d1a7aebbc246bd76e7e4bb45500,
+    type: 3}
+  m_PrefabInstance: {fileID: 7212564605126958721}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ad229d7c86943428b215694336ea8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7227833306296569747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11365,7 +11325,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -11940,7 +11900,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -12724,7 +12684,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -13299,7 +13259,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -13874,7 +13834,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -14449,7 +14409,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -15024,7 +14984,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -15282,7 +15242,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -15770,7 +15730,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -16345,7 +16305,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -16920,7 +16880,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -17495,7 +17455,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -18070,7 +18030,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -18645,7 +18605,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -19220,7 +19180,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -19795,7 +19755,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -20370,7 +20330,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -20945,7 +20905,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -21520,7 +21480,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -22095,7 +22055,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -22670,7 +22630,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
@@ -23245,7 +23205,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ToggleGroup
       value: 
-      objectReference: {fileID: 8786326582038590422}
+      objectReference: {fileID: 418099640870816307}
     - target: {fileID: 6925704360875192001, guid: 9e5ffc71731f23549b2d05689b5268bf,
         type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.size
