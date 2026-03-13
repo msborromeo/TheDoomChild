@@ -4,6 +4,7 @@ using Holysoft.Event;
 using Holysoft.UI;
 using Sirenix.OdinInspector;
 using System;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace DChild.Gameplay.Inventories.UI
@@ -15,13 +16,18 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField]
         private InventoryListUI<IInventory> m_listUI;
         [SerializeField]
+        private QuickItemsListUI m_quickItemListUI;
+        [SerializeField]
         private ItemUI m_firstSelectedItemUI;
         [SerializeField]
         private UsableInventoryItemHandle m_usableInventoryItemHandle;
+        [SerializeField]
+        private InventoryUISwapHandle m_swapHandle;
 
         public void Select(ItemUI itemUI)
         {
             m_detailedUI.ShowDetails(itemUI.reference);
+
             if ((itemUI?.reference?.data ?? null) == null || itemUI.reference.data.category != ItemCategory.Consumable)
             {
                 m_usableInventoryItemHandle.Hide();
@@ -31,18 +37,40 @@ namespace DChild.Gameplay.Inventories.UI
                 m_usableInventoryItemHandle.Show();
                 m_usableInventoryItemHandle.HandleUsageOfItem(itemUI.reference.data);
             }
+
+            m_swapHandle.SetFirstItem(itemUI as InventoryItemUI);
         }
 
         [Button]
         public void SwapItems(ItemUI itemOne, ItemUI itemTwo)
         {
+            if (IsEitherSlotQuickItem(itemOne, itemTwo))
+            {
+                m_quickItemListUI.SwapItems(itemOne, itemTwo);
+                UpdateInventorySlots();
+                return;
+            }
+
             m_listUI.SwapItems(itemOne, itemTwo);
+            UpdateInventorySlots();
+        }
+
+        private bool IsEitherSlotQuickItem(ItemUI itemOne, ItemUI itemTwo)
+        {
+            return (itemOne as InventoryItemUI).isQuickItem || (itemTwo as InventoryItemUI).isQuickItem;
+        }
+
+        public void UpdateInventorySlots()
+        {
+            m_quickItemListUI.UpdateUIList(); 
             m_listUI.UpdateUIList();
         }
+
         public void Initialize()
         {
             m_listUI.Reset();
-            m_listUI.UpdateUIList();
+            UpdateInventorySlots();
+
             Select(m_firstSelectedItemUI);
             var button = m_firstSelectedItemUI.GetComponent<UIToggle>();
             button.SetIsOn(true);
@@ -63,6 +91,6 @@ namespace DChild.Gameplay.Inventories.UI
             m_listUI.ListOverallChange += OnListOverallChange;
             m_usableInventoryItemHandle.AllItemCountConsumed += OnItemUsedConsumed;
         }
-        
+
     }
 }
