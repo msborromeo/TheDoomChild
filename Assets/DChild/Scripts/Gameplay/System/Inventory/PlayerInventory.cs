@@ -20,6 +20,7 @@ namespace DChild.Gameplay.Inventories
         private TradableInventory m_inventory = new TradableInventory(false, true);
         [SerializeField]
         private QuickItemInventory m_quickItemInventory;
+        public QuickItemInventory quickItemInventory => m_quickItemInventory;
 
         public event EventAction<CurrencyUpdateEventArgs> OnAmountSet;
         public event EventAction<CurrencyUpdateEventArgs> OnAmountAdded;
