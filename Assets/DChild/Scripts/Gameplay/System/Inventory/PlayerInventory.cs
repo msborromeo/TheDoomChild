@@ -20,6 +20,7 @@ namespace DChild.Gameplay.Inventories
         private TradableInventory m_inventory = new TradableInventory(false, true);
         [SerializeField]
         private QuickItemInventory m_quickItemInventory;
+        public QuickItemInventory quickItemInventory => m_quickItemInventory;
 
         public event EventAction<CurrencyUpdateEventArgs> OnAmountSet;
         public event EventAction<CurrencyUpdateEventArgs> OnAmountAdded;
@@ -175,6 +176,16 @@ namespace DChild.Gameplay.Inventories
         public void SwapItems(ItemData itemOne, ItemData itemTwo)
         {
             m_inventory.SwapItems(itemOne, itemTwo);
+        }
+
+        public int GetItemIndex(ItemData itemData)
+        {
+            return m_inventory.GetItemIndex(itemData);
+        }
+
+        public void ReplaceItem(ItemData itemData, int count, int index)
+        {
+            m_inventory.ReplaceItem(itemData, count, index);
         }
         #endregion
     }

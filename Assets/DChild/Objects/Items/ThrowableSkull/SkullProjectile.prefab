@@ -73,7 +73,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 3
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
@@ -166,7 +166,20 @@ MonoBehaviour:
   m_model: {fileID: 0}
   m_onLaunch:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2508720340444514356}
+        m_TargetAssemblyTypeName: DChild.Gameplay.Projectiles.SimpleAttackProjectile,
+          Assembly-CSharp
+        m_MethodName: StartLifetimeTimer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_onReset:
     m_PersistentCalls:
       m_Calls: []
@@ -192,6 +205,7 @@ MonoBehaviour:
     ignoreInvulnerability: 0
     ignoresBlock: 0
     isCrit: 0
+  m_maxLifetime: 10
 --- !u!114 &2508720340444514362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_canDetectInteractables: 0
-  m_damageUniqueHitboxesOnly: 1
+  m_damageUniqueHitboxesOnly: 0
   m_collisionRegistrator: {fileID: -474589167623049408}
   m_ignoreColliderList: []
 --- !u!58 &1922451266734531290
@@ -296,7 +310,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2508720340444514364}
   serializedVersion: 8
-  lengthInSec: 0.2
+  lengthInSec: 5
   simulationSpeed: 1
   stopAction: 3
   cullingMode: 0
@@ -371,7 +385,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
