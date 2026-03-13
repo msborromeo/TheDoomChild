@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using DChild.Gameplay.Items;
 using DChild.Localization;
 using Sirenix.OdinInspector;
@@ -77,7 +78,9 @@ namespace DChild.Gameplay.Inventories.UI
             m_itemNameCG.alpha = opacity;
             m_itemDescriptionCG.alpha = opacity;
             m_itemIconCG.alpha = opacity;
-            m_quantityValueCG.alpha = opacity;
+
+            if (m_quantityValueCG != null)
+                m_quantityValueCG.alpha = opacity;
         }
 
         private void Awake()

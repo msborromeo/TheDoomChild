@@ -11,10 +11,16 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField]
         private TextMeshProUGUI m_countText;
 
+        [SerializeField] private CanvasGroup m_emptyIcon;
+
         private Canvas m_canvas;
 
         public override void ShowDetails(IStoredItem reference)
         {
+            if (m_emptyIcon != null)
+                m_emptyIcon.alpha = reference != null ? 1f : 0f;
+
+
             m_icon.sprite = reference.data.icon;
             m_countText.text = reference.count.ToString();
         }
