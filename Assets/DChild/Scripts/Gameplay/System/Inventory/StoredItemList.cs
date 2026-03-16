@@ -16,7 +16,7 @@ namespace DChild.Gameplay.Inventories
         {
             [SerializeField]
             protected ItemData m_data;
-            [SerializeField, MinValue(0), DisableIf("m_hasInfiniteCount"), HorizontalGroup("Count"), HideLabel, MaxValue("@m_data.quantityLimit"), HideIf("@m_data == null")]
+            [SerializeField, MinValue(0), DisableIf("m_hasInfiniteCount"), HorizontalGroup("Count"), HideLabel, HideIf("@m_data == null")]
             protected int m_count = 1;
             [SerializeField, LabelText("Infinite"), ToggleLeft, HorizontalGroup("Count"), HideIf("@m_data == null")]
             protected bool m_hasInfiniteCount;
