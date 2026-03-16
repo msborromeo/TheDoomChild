@@ -22,11 +22,16 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField]
         private UsableInventoryItemHandle m_usableInventoryItemHandle;
         [SerializeField]
+        private InventoryItemActionHandle m_itemActionsHandle;
+        [SerializeField]
         private InventoryUISwapHandle m_swapHandle;
 
         public void Select(ItemUI itemUI)
         {
+            var inventoryItem = itemUI as InventoryItemUI;
+
             m_detailedUI.ShowDetails(itemUI.reference);
+            m_itemActionsHandle.ShowButtonActions(inventoryItem);
 
             if ((itemUI?.reference?.data ?? null) == null || itemUI.reference.data.category != ItemCategory.Consumable)
             {
@@ -38,8 +43,8 @@ namespace DChild.Gameplay.Inventories.UI
                 m_usableInventoryItemHandle.HandleUsageOfItem(itemUI.reference.data);
             }
 
-            m_swapHandle.SetFirstItem(itemUI as InventoryItemUI);
-        }
+            m_swapHandle.SetFirstItem(inventoryItem);
+        }   
 
         [Button]
         public void SwapItems(ItemUI itemOne, ItemUI itemTwo)
@@ -52,6 +57,13 @@ namespace DChild.Gameplay.Inventories.UI
             }
 
             m_listUI.SwapItems(itemOne, itemTwo);
+            UpdateInventorySlots();
+        }
+
+        public void MoveInventoryItemToQuickItems(ItemUI itemUI)
+        {
+            m_listUI.inventory.RemoveItem(itemUI.reference.data, itemUI.reference.count);
+            m_quickItemListUI.MoveInventoryItemToQuickItems(itemUI as InventoryItemUI);
             UpdateInventorySlots();
         }
 

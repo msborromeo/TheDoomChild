@@ -17,7 +17,8 @@ namespace DChild.Gameplay.Inventories.UI
         public override void Hide()
         {
             m_toggle.SetIsOn(false);
-            m_toggle.interactable = false;
+            if (!m_isQuickItem)
+                m_toggle.interactable = false;
         }
 
         public override void Show()

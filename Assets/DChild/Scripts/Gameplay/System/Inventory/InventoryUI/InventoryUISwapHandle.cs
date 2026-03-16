@@ -20,7 +20,6 @@ namespace DChild.Gameplay.Inventories.UI
         private InventoryItemUI m_itemTwo;
         public InventoryItemUI itemTwo => m_itemTwo;
 
-
         #region Setters
         public void SetFirstItem(InventoryItemUI value) => m_itemOne = value;
         public void SetSwappingStatus(bool value) => m_isSwapping = value;
@@ -32,13 +31,19 @@ namespace DChild.Gameplay.Inventories.UI
             SwapItems();
         }
 
+        [Button]
+        public void MoveInventoryItemToQuickItems(InventoryItemUI slotUI)
+        {
+            m_handle.MoveInventoryItemToQuickItems(slotUI);
+        }
+
         public void SwapItems()
         {
             //check if either item is null due to a double call;
-            if (m_itemOne == null || m_itemTwo == null) return;
-         
-            //check if both items for swap are in same list
-            if (m_itemOne.isQuickItem == m_itemTwo.isQuickItem)
+            if (m_itemOne == null) return;
+
+            //internal swapping; check if both items for swap are in same list
+            else if (m_itemOne.isQuickItem == m_itemTwo.isQuickItem)
             {
                 m_handle.SwapItems(m_itemOne, m_itemTwo);
                 Reset();
@@ -51,6 +56,12 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void MoveItemsBetweenInventories()
         {
+            if (!m_itemOne.isQuickItem && (m_itemTwo.isQuickItem && m_itemTwo.reference == null))
+            {
+                m_handle.MoveInventoryItemToQuickItems(m_itemOne);
+                return;
+            }
+
             PrepareTransferrableItem(m_itemOne);
             PrepareTransferrableItem(m_itemTwo);
 
