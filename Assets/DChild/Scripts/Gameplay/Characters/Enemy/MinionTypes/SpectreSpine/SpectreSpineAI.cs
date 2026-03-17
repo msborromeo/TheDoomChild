@@ -378,7 +378,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 distanceToWall = Vector2.Distance(transform.position, WallPosition());
                 distanceToRoof = MathF.Abs(DistanceToRoof().y - transform.position.y);
                 yield return null;
-            } while ((distanceToGround < 30f || distanceToRoof > 5f) && distanceToWall >= 20f);
+            } while ((distanceToGround < 30f && distanceToRoof > 5f) && distanceToWall >= 20f);
             m_agent.Stop();
             yield return null;
         }
