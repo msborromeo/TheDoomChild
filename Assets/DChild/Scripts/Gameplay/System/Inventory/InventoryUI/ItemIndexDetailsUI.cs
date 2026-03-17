@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,8 @@ namespace DChild.Gameplay.Inventories.UI
 
         private Canvas m_canvas;
 
+        public event Action<IStoredItem> ItemDetailsDisplayed;
+
         public override void ShowDetails(IStoredItem reference)
         {
             if (m_emptyIcon != null)
@@ -23,6 +26,8 @@ namespace DChild.Gameplay.Inventories.UI
 
             m_icon.sprite = reference.data.icon;
             m_countText.text = reference.count.ToString();
+
+            ItemDetailsDisplayed?.Invoke(reference);
         }
 
         public override void Show()

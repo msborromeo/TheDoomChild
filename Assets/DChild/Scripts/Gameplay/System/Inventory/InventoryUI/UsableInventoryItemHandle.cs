@@ -17,10 +17,14 @@ namespace DChild.Gameplay.Inventories.UI
         private bool m_removeItemCountOnConsume;
 
         private Player m_player;
+        [SerializeField]
         private PlayerInventory m_inventory;
+        [SerializeField]
+        private QuickItemInventory m_quickItemInventory;
         private UsableItemData m_item;
 
         public event EventAction<EventActionArgs> AllItemCountConsumed;
+        public event Action<IStoredItem> ItemConsumed;
 
         #region PRE_ALPHA
         public event Action<string> ItemUsed;
@@ -46,15 +50,23 @@ namespace DChild.Gameplay.Inventories.UI
             if (m_item.CanBeUse(m_player))
             {
                 m_item.Use(m_player);
-                ItemUsed?.Invoke(m_item.itemName);
                 if (m_removeItemCountOnConsume)
                 {
-                    m_inventory.RemoveItem(m_item);
+                    if(m_quickItemInventory.GetItem(m_item) != null)
+                    {
+                        m_quickItemInventory.RemoveItem(m_item);
+                    }
+                    else
+                    {
+                        m_inventory.RemoveItem(m_item);
+                    }
                     if (m_inventory.GetCurrentAmount(m_item) == 0)
                     {
                         AllItemCountConsumed?.Invoke(this, EventActionArgs.Empty);
                     }
                 }
+                ItemConsumed?.Invoke((IStoredItem)m_item);
+                ItemUsed?.Invoke(m_item.itemName);
 
             }
         }
