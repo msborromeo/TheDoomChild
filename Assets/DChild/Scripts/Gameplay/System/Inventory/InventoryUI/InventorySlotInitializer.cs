@@ -50,7 +50,6 @@ namespace DChild.Gameplay.Inventories.UI
             m_handle.Select(tradeFilter);
         }
 
-
         private void HandleSwap(ItemUI itemForSwap)
         {
             if (!m_swapHandle.isSwapping)
@@ -60,7 +59,6 @@ namespace DChild.Gameplay.Inventories.UI
 
             OnItemSelectDuringSwap?.Invoke(itemForSwap as InventoryItemUI);
         }
-
 
         private void AddToggleOnListener(UIToggle toggle)
         {

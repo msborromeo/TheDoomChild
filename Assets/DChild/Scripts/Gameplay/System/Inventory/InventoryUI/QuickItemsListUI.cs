@@ -23,6 +23,11 @@ namespace DChild.Gameplay.Inventories.UI
             m_inventory.AddItem(itemUI.reference.data, itemUI.reference.count);
         }
 
+        public void RemoveQuickItem(ItemUI itemUI)
+        {
+            m_inventory.RemoveItem(itemUI.reference.data, itemUI.reference.count);
+        }
+
         public override void Reset()
         {
             throw new System.NotImplementedException();

@@ -30,7 +30,7 @@ namespace DChild.Gameplay.Inventories.UI
             //if (reference.data.name != "Health Shard")
             m_countText.text = reference.count.ToString();
             if(m_itemQuantityCG != null) 
-                m_itemQuantityCG.alpha = reference.count > 1 ? 1f : 0f;
+                m_itemQuantityCG.alpha = reference != null && reference.count > 1 ? 1f : 0f;
         }
 
         public override void Show()

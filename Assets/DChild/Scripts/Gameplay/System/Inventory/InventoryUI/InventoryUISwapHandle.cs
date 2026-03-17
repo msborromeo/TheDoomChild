@@ -37,6 +37,11 @@ namespace DChild.Gameplay.Inventories.UI
             m_handle.MoveInventoryItemToQuickItems(slotUI);
         }
 
+        public void MoveQuickItemToInventory(InventoryItemUI slotUI)
+        {
+            m_handle.MoveQuickItemToInventory(slotUI);
+        }
+
         public void SwapItems()
         {
             //check if either item is null due to a double call;
