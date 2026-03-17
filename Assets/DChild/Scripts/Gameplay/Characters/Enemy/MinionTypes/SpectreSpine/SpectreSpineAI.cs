@@ -168,6 +168,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Attacker m_chargedAttackAttacker;
         [SerializeField, TabGroup("Reference")]
         private Attacker m_stabAttackAttacker;
+        [SerializeField, TabGroup("Reference")]
+        private RaySensor m_roofSensor;
         [SerializeField, TabGroup("Modules")]
         private TransformTurnHandle m_turnHandle;
         [SerializeField, TabGroup("Modules")]
@@ -353,6 +355,7 @@ namespace DChild.Gameplay.Characters.Enemies
             var distanceToWall = Vector2.Distance(transform.position, WallPosition());
             var lastPostion = transform.position;
             var targetPosition = m_targetInfo.position;
+            var distanceToRoof = 0f;
             m_dustTrail.Play();
             m_animation.SetAnimation(0, m_info.verticalStabFakeOut, true);
             do
@@ -373,23 +376,34 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_agent.MoveTowardsForced(Vector2.up, 50);
                 distanceToGround = MathF.Abs(transform.position.y - GroundPosition().y);
                 distanceToWall = Vector2.Distance(transform.position, WallPosition());
+                distanceToRoof = MathF.Abs(DistanceToRoof().y - transform.position.y);
                 yield return null;
-            } while (distanceToGround < 30f && distanceToWall >= 20f);
+            } while ((distanceToGround < 30f && distanceToRoof > 5f) && distanceToWall >= 20f);
             m_agent.Stop();
             yield return null;
         }
         private IEnumerator VerticalStabRoutine()
         {
-            
+            enabled = false;
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             m_hitbox.gameObject.SetActive(false);
             var distanceToGround = 0f;
             var distanceToWall = 0f;
+            var distanceToCeiling = 0f;
             m_animation.SetAnimation(0, m_info.fadeOutAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.fadeOutAnimation);
-            transform.position = new Vector2(m_targetInfo.position.x, m_targetInfo.position.y + 30);
+
+            transform.position = new Vector2(m_targetInfo.position.x, m_targetInfo.position.y + SearchforRoof(m_targetInfo.position));
+            do
+            {
+                m_agent.MoveTowardsForced(m_targetInfo.position - (Vector2)transform.position, 120);
+                distanceToCeiling = MathF.Abs(DistanceToRoof().y - transform.position.y);
+                yield return null;
+            } while (m_roofSensor.isDetecting);
+            m_agent.Stop();
             m_animation.SetAnimation(0, m_info.fadeInAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.fadeInAnimation);
+            enabled = true;
 
             m_animation.SetAnimation(0, m_info.verticalStabStart, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.verticalStabStart);
@@ -410,7 +424,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 distanceToGround = MathF.Abs(transform.position.y - GroundPosition().y + 1);
                 distanceToWall = Vector2.Distance(transform.position, WallPosition());
                 yield return null;
-            } while (distanceToGround >= 10f && distanceToWall >= 20f);
+            } while (distanceToGround >= 5f && distanceToWall >= 20f);
 
             m_agent.Stop();
             m_dustTrail.Stop();
@@ -428,7 +442,7 @@ namespace DChild.Gameplay.Characters.Enemies
             
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             var random = UnityEngine.Random.Range(0, 2);
-            transform.position = new Vector2(m_targetInfo.position.x + (random == 0 ? 5 : -5), m_targetInfo.position.y + 20);
+            transform.position = new Vector2(m_targetInfo.position.x + (random == 0 ? 5 : -5), m_targetInfo.position.y + SearchforRoof(m_targetInfo.position));
             yield return new WaitForSeconds(2);
             m_animation.SetAnimation(0, m_info.fadeInAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.fadeInAnimation);
@@ -524,16 +538,26 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         private IEnumerator ChargedStabRoutine()
         {
+            enabled = false;
             m_stateHandle.Wait(State.Cooldown);
             m_selfCollider.SetActive(true);
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             
             float distanceToGround = 0f;
+            var distanceToCeiling = 0f;
             m_hitbox.gameObject.SetActive(false);
             m_animation.SetAnimation(0, m_info.fadeOutAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.fadeOutAnimation);
-            transform.position = new Vector2(m_targetInfo.position.x + 10, m_targetInfo.position.y + 30);
+            transform.position = new Vector2(m_targetInfo.position.x + 10, m_targetInfo.position.y + SearchforRoof(m_targetInfo.position));
+            do
+            {
+                m_agent.MoveTowardsForced(m_targetInfo.position-(Vector2)transform.position, 120);
+                distanceToCeiling = MathF.Abs(DistanceToRoof().y - transform.position.y);
+                yield return null;
+            } while (m_roofSensor.isDetecting);
+            m_agent.Stop();
             m_hitbox.gameObject.SetActive(true);
+            enabled = true;
             m_animation.SetAnimation(0, m_info.fadeInAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.fadeInAnimation);
 
@@ -561,7 +585,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 distanceToGround = MathF.Abs(transform.position.y - GroundPosition().y + 1);
                 distanceToWall = Vector2.Distance(transform.position, WallPosition());
                 yield return null;
-            } while (distanceToGround >= 10f && distanceToWall >= 20f);
+            } while (distanceToGround >= 5f && distanceToWall >= 20f);
             m_DrillEffects.Stop();
             m_dustTrail.Stop();
             m_agent.Stop();
@@ -578,7 +602,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_dustImpact.Stop();
                 transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                 var random = UnityEngine.Random.Range(0, 2);
-                transform.position = new Vector2(m_targetInfo.position.x + (random == 0 ? 5 : -5), m_targetInfo.position.y + 30);
+                transform.position = new Vector2(m_targetInfo.position.x + (random == 0 ? 5 : -5), m_targetInfo.position.y  +SearchforRoof(m_targetInfo.position));
                 yield return new WaitForSeconds(2f);
                 m_animation.SetAnimation(0, m_info.fadeInAnimation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.fadeInAnimation);
@@ -728,7 +752,7 @@ namespace DChild.Gameplay.Characters.Enemies
             /*Vector2.Distance(transform.position, target) > m_info.spearMeleeAttack.range*/ //old target in range condition
             var moveSpeed = m_info.move.speed - UnityEngine.Random.Range(0, 3);
             var newPos = Vector2.zero;
-            while (!inAttackRange || TargetBlocked())
+            while (!inAttackRange || TargetBlocked()|| m_roofSensor.isDetecting)
             {
                 newPos = new Vector2(targetPOsition.x, targetPOsition.y + 20f);
                 bool xTargetInRange = Mathf.Abs(targetPOsition.x - transform.position.x) < attackRange ? true : false;
@@ -751,6 +775,10 @@ namespace DChild.Gameplay.Characters.Enemies
             if (!IsFacingTarget())
             {
                 CustomTurn();
+            }
+            if(SearchforRoof(m_targetInfo.position)<30)
+            {
+                attack = Attack.ChargeAttack;
             }
             ExecuteAttack(attack);
             yield return null;
@@ -977,6 +1005,26 @@ namespace DChild.Gameplay.Characters.Enemies
         private Vector2 GroundPosition()
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1000, DChildUtility.GetEnvironmentMask());
+            return hit.point;
+        }
+
+        private float SearchforRoof(Vector2 target)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(target, Vector2.up, 40, DChildUtility.GetEnvironmentMask());
+            if(hit)
+            {
+                Debug.Log(hit.transform);
+                float x = Vector2.Distance(target, hit.transform.position);
+                return (x-15);
+            }else
+            {
+                return 30;
+            }
+        }
+
+        private Vector2 DistanceToRoof()
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 1000, DChildUtility.GetEnvironmentMask());
             return hit.point;
         }
         protected override void OnTargetDisappeared()
