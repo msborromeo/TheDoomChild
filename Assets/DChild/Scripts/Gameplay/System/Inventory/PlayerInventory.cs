@@ -135,6 +135,11 @@ namespace DChild.Gameplay.Inventories
             }
         }
 
+        public void ForceAddItem(ItemData item, int count = 1)
+        {
+            m_inventory.AddItem(item, count);
+        }
+
         public void RemoveItem(ItemData item, int count = 1) => m_inventory.RemoveItem(item, count);
 
         public IStoredItem[] FindStoredItemsOfType(ItemCategory category) => m_inventory.FindStoredItemsOfType(category);
