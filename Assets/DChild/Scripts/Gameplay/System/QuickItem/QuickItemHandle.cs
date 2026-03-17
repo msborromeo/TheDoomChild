@@ -57,9 +57,13 @@ namespace DChild.Gameplay.Inventories
         private ConsumableItemData m_currentItemData;
         private QuickItemCountRemover m_itemCountRemover;
 
+        public IStoredItem currentItem => m_currentItem;
+
         private bool m_hideUI;
         public event EventAction<SelectionEventArgs> SelectedItem;
         public event EventAction<SelectionEventArgs> Update;
+        public event Action CurrentItemChanged;
+        public event Action CurrentItemConsumed;
 
         #region PRE_ALPHA
         public event Action<string> ItemUsed;
@@ -96,6 +100,7 @@ namespace DChild.Gameplay.Inventories
                     m_currentItemData.Use(m_player);
                     m_cooldown.StartCooldown();
                     ItemUsed?.Invoke(m_currentItemData.itemName);
+                    CurrentItemConsumed?.Invoke();
                 }
                 if (m_removeItemCountOnConsume)
                 {
@@ -173,6 +178,7 @@ namespace DChild.Gameplay.Inventories
             }
 
             InvokeSelectedItemEvent(selectionType);
+            CurrentItemChanged?.Invoke();
         }
 
         private void InvokeSelectedItemEvent(SelectionEventArgs.SelectionType selectionType)

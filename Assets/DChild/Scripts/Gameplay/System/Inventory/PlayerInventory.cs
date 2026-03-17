@@ -113,13 +113,20 @@ namespace DChild.Gameplay.Inventories
             }
             else if(item.category == ItemCategory.Consumable || item.category == ItemCategory.Throwable)
             {
-                if(m_quickItemInventory.isInventoryFull == false)
+                if (m_quickItemInventory.isInventoryFull == false)
                 {
                     m_quickItemInventory.AddItem(item, count);
                 }
                 else
                 {
-                    m_inventory.AddItem(item, count);
+                    if (m_quickItemInventory.GetItem(item) != null)
+                    {
+                        m_quickItemInventory.AddItem(item, count);
+                    }
+                    else
+                    {
+                        m_inventory.AddItem(item, count);
+                    }
                 }
             }
             else
