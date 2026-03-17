@@ -10,10 +10,22 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void ShowButtonActions(InventoryItemUI inventoryitemUI)
         {
+            if (inventoryitemUI.reference == null)
+            {
+                Reset();
+                return;
+            }
+
             var itemCategory = inventoryitemUI.reference.data.category;
 
             m_swapButton.gameObject.SetActive(itemCategory == Items.ItemCategory.Consumable || itemCategory == Items.ItemCategory.Throwable);
             m_removeItemButton.gameObject.SetActive(inventoryitemUI.isQuickItem);
+        }
+
+        private void Reset()
+        {
+            m_swapButton.gameObject.SetActive(false);
+            m_removeItemButton.gameObject.SetActive(false);
         }
     }
 }

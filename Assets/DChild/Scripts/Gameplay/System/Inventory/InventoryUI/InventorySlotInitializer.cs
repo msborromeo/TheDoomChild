@@ -1,4 +1,5 @@
 ﻿using Doozy.Runtime.UIManager.Components;
+using Holysoft.Event;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -6,6 +7,14 @@ using UnityEngine.Events;
 
 namespace DChild.Gameplay.Inventories.UI
 {
+    public enum ItemSprite
+    {
+        KeystoneFragment,
+        ShadowShard,
+        HealthShard,
+        Default
+    }
+
     public class InventorySlotInitializer : MonoBehaviour
     {
         [SerializeField]
@@ -13,14 +22,34 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField]
         private InventoryUISwapHandle m_swapHandle;
         [SerializeField]
+        private InventoryConditionalSpritesUI m_spriteCheckerUI;
+
+        [SerializeField]
         private UIToggleGroup m_itemGroup;
 
         public event Action<InventoryItemUI> OnItemSelectDuringSwap;
+        public event Action<InventoryItemUI> OnQuickItemSlotSelected;
+
+        private ItemSprite SetIconSprite(string itemName)
+        {
+            if (itemName.Contains("Health Shard"))
+                return ItemSprite.HealthShard;
+
+            else if (itemName.Contains("Shadow Shard"))
+                return ItemSprite.ShadowShard;
+
+            else if (itemName.Contains("Keystone"))
+                return ItemSprite.KeystoneFragment;
+
+            return ItemSprite.Default;
+        }
 
         private void OnItemSelected(ItemUI tradeFilter)
         {
+            m_handle.FilterOutNonQuickItems(tradeFilter);
             m_handle.Select(tradeFilter);
         }
+
 
         private void HandleSwap(ItemUI itemForSwap)
         {

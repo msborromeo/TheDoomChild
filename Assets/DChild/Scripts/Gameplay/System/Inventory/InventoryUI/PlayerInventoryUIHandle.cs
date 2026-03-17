@@ -44,7 +44,7 @@ namespace DChild.Gameplay.Inventories.UI
             }
 
             m_swapHandle.SetFirstItem(inventoryItem);
-        }   
+        }
 
         [Button]
         public void SwapItems(ItemUI itemOne, ItemUI itemTwo)
@@ -58,6 +58,17 @@ namespace DChild.Gameplay.Inventories.UI
 
             m_listUI.SwapItems(itemOne, itemTwo);
             UpdateInventorySlots();
+        }
+
+        public void UpdateShardIcon(ItemSprite type)
+        {
+
+        }
+
+        public void FilterOutNonQuickItems(ItemUI itemUI)
+        {
+            var item = itemUI as InventoryItemUI;
+            m_listUI.UpdateUIList(item.isQuickItem);
         }
 
         public void MoveInventoryItemToQuickItems(ItemUI itemUI)
@@ -74,7 +85,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void UpdateInventorySlots()
         {
-            m_quickItemListUI.UpdateUIList(); 
+            m_quickItemListUI.UpdateUIList();
             m_listUI.UpdateUIList();
         }
 

@@ -3,11 +3,6 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Inventories.UI
 {
-    //public class QuickItemInventoryUIInitializer : MonoBehaviour
-    //{
-    //    [SerializeField]
-    //    private QuickItemInventory m_referenceQuickItems;
-    //}
     public class QuickItemsListUI : InventoryListUI<QuickItemInventory>
     {
         [SerializeField] private List<InventoryItemUI> m_itemSlots;
@@ -29,6 +24,11 @@ namespace DChild.Gameplay.Inventories.UI
         }
 
         public override void Reset()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void UpdateUIList(bool v)
         {
             throw new System.NotImplementedException();
         }

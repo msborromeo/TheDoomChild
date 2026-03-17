@@ -68,6 +68,11 @@ namespace DChild.Gameplay.Trade.UI
         {
             throw new System.NotImplementedException();
         }
+
+        public override void UpdateUIList(bool v)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
 }
