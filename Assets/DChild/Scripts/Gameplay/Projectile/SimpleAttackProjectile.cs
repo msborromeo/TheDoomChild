@@ -27,39 +27,46 @@ namespace DChild.Gameplay.Projectiles
         [SerializeField]
         AttackDamageInfo m_projectileFXDamage;
 
+        //edit/pls refactor if possible
+        [Header("Auto Return To Pool")]
+        [SerializeField]
+        private float m_maxLifetime = 5f;
+
+        private Coroutine m_lifetimeRoutine;
+
         public void ApplyCritValues(float value, float critChance, float critModifier, ParticleFX critFX)
         {
             var attacker = GetComponent<Attacker>();
 
-            if(attacker != null)
+            if (attacker != null)
             {
                 attacker.SetDamageModifier(value, critChance, critModifier, critFX);
             }
         }
 
 
-        
-        
 
-         protected override void Collide()
-         {
-             base.Collide();
-             var projectileAttacker = GetComponent<Attacker>();
-             if (projectileData.impactFX != null)
-             {
 
-                 var explosion = m_spawnHandle.InstantiateFX(projectileData.impactFX, transform.position);
-                 var explosionAttacker = explosion.gameObject.GetComponent<Attacker>();
-                 PassProjectileAttacker(projectileAttacker);
-                 explosion.transform.parent = null;
-                 SetImpactFxInfo(explosionAttacker);
-             }
-             UnloadProjectile();
-             CallImpactedEvent();
 
-         } 
+        protected override void Collide()
+        {
+            base.Collide();
+            var projectileAttacker = GetComponent<Attacker>();
+            if (projectileData.impactFX != null)
+            {
 
-    
+                var explosion = m_spawnHandle.InstantiateFX(projectileData.impactFX, transform.position);
+                var explosionAttacker = explosion.gameObject.GetComponent<Attacker>();
+                PassProjectileAttacker(projectileAttacker);
+                explosion.transform.parent = null;
+                SetImpactFxInfo(explosionAttacker);
+            }
+            UnloadProjectile();
+            CallImpactedEvent();
+
+        }
+
+
 
         private void PassProjectileAttacker(Attacker damageDealer)
         {
@@ -187,12 +194,45 @@ namespace DChild.Gameplay.Projectiles
                 m_collisionRegistrator.ClearCache();
                 // or ResetHitCache() if you only want to reset damage tracking
             }
+
+            StartLifetimeTimer();
         }
 
         private void Start()
         {
-            
+
         }
+
+
+        private void OnDisable()
+        {
+            if (m_lifetimeRoutine != null)
+            {
+                StopCoroutine(m_lifetimeRoutine);
+                m_lifetimeRoutine = null;
+            }
+        }
+
+        public void StartLifetimeTimer()
+        {
+            if (m_lifetimeRoutine != null)
+            {
+                StopCoroutine(m_lifetimeRoutine);
+            }
+
+            m_lifetimeRoutine = StartCoroutine(LifetimeRoutine());
+        }
+
+        private IEnumerator LifetimeRoutine()
+        {
+            yield return new WaitForSeconds(m_maxLifetime);
+
+            if (gameObject.activeInHierarchy)
+            {
+                UnloadProjectile();
+            }
+        }
+
 
 
     }

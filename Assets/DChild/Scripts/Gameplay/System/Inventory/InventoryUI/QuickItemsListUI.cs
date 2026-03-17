@@ -1,0 +1,36 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace DChild.Gameplay.Inventories.UI
+{
+    //public class QuickItemInventoryUIInitializer : MonoBehaviour
+    //{
+    //    [SerializeField]
+    //    private QuickItemInventory m_referenceQuickItems;
+    //}
+    public class QuickItemsListUI : InventoryListUI<QuickItemInventory>
+    {
+        [SerializeField] private List<InventoryItemUI> m_itemSlots;
+
+        public override void UpdateUIList()
+        {
+            for (int i = 0; i < m_itemSlots.Count; i++)
+                m_itemSlots[i].SetReference(m_inventory.GetItem(i));
+        }
+
+        public override void SwapItems(ItemUI itemOne, ItemUI itemTwo)
+        {
+            m_inventory.SwapItems(itemOne.reference.data, itemTwo.reference.data);
+        }
+
+        public override void Reset()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        //private void Awake()
+        //{
+        //    m_inventory = GameplaySystem.playerManager.player.inventory.quickItemInventory;
+        //}
+    }
+}

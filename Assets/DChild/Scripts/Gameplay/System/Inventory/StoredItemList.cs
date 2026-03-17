@@ -16,7 +16,7 @@ namespace DChild.Gameplay.Inventories
         {
             [SerializeField]
             protected ItemData m_data;
-            [SerializeField, MinValue(0), DisableIf("m_hasInfiniteCount"), HorizontalGroup("Count"), HideLabel, MaxValue("@m_data.quantityLimit"), HideIf("@m_data == null")]
+            [SerializeField, MinValue(0), DisableIf("m_hasInfiniteCount"), HorizontalGroup("Count"), HideLabel, HideIf("@m_data == null")]
             protected int m_count = 1;
             [SerializeField, LabelText("Infinite"), ToggleLeft, HorizontalGroup("Count"), HideIf("@m_data == null")]
             protected bool m_hasInfiniteCount;
@@ -42,6 +42,12 @@ namespace DChild.Gameplay.Inventories
             public void SetCountToInfinite(bool isInfinite)
             {
                 m_hasInfiniteCount = isInfinite;
+            }
+
+            public void ReplaceData(ItemData data, int count)
+            {
+                m_data = data;
+                m_count = count;
             }
         }
 
@@ -77,6 +83,9 @@ namespace DChild.Gameplay.Inventories
             }
         }
 
+        public abstract int GetItemIndex(ItemData itemData);
+
+        public abstract void ReplaceItem(ItemData itemData, int count, int index);
     }
 
     [System.Serializable]
@@ -201,6 +210,17 @@ namespace DChild.Gameplay.Inventories
             m_items[itemOneIndex] = m_items[itemTwoIndex];
             m_items[itemTwoIndex] = temp;
             
+        }
+
+        public override int GetItemIndex(ItemData itemData)
+        {
+            var storedItem = GetStoredItem(itemData);
+            return FindIndex(storedItem);
+        }
+
+        public override void ReplaceItem(ItemData itemData, int count, int index)
+        {
+            m_items[index].ReplaceData(itemData, count);
         }
 
         private int FindIndex(IStoredItem item)

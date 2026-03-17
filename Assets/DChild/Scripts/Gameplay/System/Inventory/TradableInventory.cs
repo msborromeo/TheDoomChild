@@ -124,13 +124,14 @@ namespace DChild.Gameplay.Inventories
         {
             base.AddItem(itemData, out storedItem, count);
 
-            if (m_restrictItemsToQuanitityLimit && storedItem.hasInfiniteCount == false)
-            {
-                if (storedItem.count > itemData.quantityLimit)
-                {
-                    storedItem.SetCount(itemData.quantityLimit);
-                }
-            }
+            //commented out to allow item appending
+            //if (m_restrictItemsToQuanitityLimit && storedItem.hasInfiniteCount == false)
+            //{
+            //    if (storedItem.count > itemData.quantityLimit)
+            //    {
+            //        storedItem.SetCount(itemData.quantityLimit);
+            //    }
+            //}
         }
 
         public override void RemoveItem(ItemData itemData, int count = 1)
