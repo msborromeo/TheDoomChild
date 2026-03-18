@@ -61,14 +61,14 @@ namespace DChild.Gameplay.Inventories
 
             if (serializedData == null)
             {
-                m_inventory.SetCurrency(CurrencyType.SoulEssence,0);
+                m_inventory.SetCurrency(CurrencyType.SoulEssence, 0);
                 SetSoulEssence(0);
                 m_inventory.InvokeMassInventoryItemUpdate();
                 return;
             }
             else
             {
-                m_inventory.SetCurrency(CurrencyType.SoulEssence,serializedData.soulEssence);
+                m_inventory.SetCurrency(CurrencyType.SoulEssence, serializedData.soulEssence);
                 SetSoulEssence(serializedData.soulEssence);
             }
 
@@ -99,40 +99,73 @@ namespace DChild.Gameplay.Inventories
 
         public void AddItem(ItemData item, int count = 1)
         {
-            if (item.category == ItemCategory.SoulSkill)
+            switch (item.category)
             {
-                var eventArgs = new SoulSkillAcquiredEventArgs(((SoulSkillItem)item).soulSkill);
-
-                SoulSkillItemAcquired?.Invoke(this, eventArgs);
-            }
-            else if(item.category == ItemCategory.SoulEquipment)
-            {
-                var soulEquipmentEventArgs = new SoulEquipmentAcquiredEventArgs(((SoulEquipmentItem)item));
-
-                SoulEquipmentAcquired?.Invoke(this, soulEquipmentEventArgs);
-            }
-            else if(item.category == ItemCategory.Consumable || item.category == ItemCategory.Throwable)
-            {
-                if (m_quickItemInventory.isInventoryFull == false)
-                {
-                    m_quickItemInventory.AddItem(item, count);
-                }
-                else
-                {
-                    if (m_quickItemInventory.GetItem(item) != null)
+                case ItemCategory.Throwable:
+                case ItemCategory.Consumable:
+                    if (!m_quickItemInventory.isInventoryFull)
                     {
                         m_quickItemInventory.AddItem(item, count);
+                        break;
                     }
-                    else
+
+                    if (m_quickItemInventory.GetItem(item) == null)
                     {
                         m_inventory.AddItem(item, count);
+                        break;
                     }
-                }
+                    
+                    m_quickItemInventory.AddItem(item, count);
+                    break;
+
+                case ItemCategory.SoulSkill:
+                    var eventArgs = new SoulSkillAcquiredEventArgs(((SoulSkillItem)item).soulSkill);
+                    SoulSkillItemAcquired?.Invoke(this, eventArgs);
+                    break;
+
+                case ItemCategory.SoulEquipment:
+                    var soulEquipmentEventArgs = new SoulEquipmentAcquiredEventArgs(((SoulEquipmentItem)item));
+                    SoulEquipmentAcquired?.Invoke(this, soulEquipmentEventArgs);
+                    break;
+
+                default:
+                    m_inventory.AddItem(item, count);
+                    break;
             }
-            else
-            {
-                m_inventory.AddItem(item, count);
-            }
+            //if (item.category == ItemCategory.SoulSkill)
+            //{
+            //    var eventArgs = new SoulSkillAcquiredEventArgs(((SoulSkillItem)item).soulSkill);
+
+            //    SoulSkillItemAcquired?.Invoke(this, eventArgs);
+            //}
+            //else if(item.category == ItemCategory.SoulEquipment)
+            //{
+            //    var soulEquipmentEventArgs = new SoulEquipmentAcquiredEventArgs(((SoulEquipmentItem)item));
+
+            //    SoulEquipmentAcquired?.Invoke(this, soulEquipmentEventArgs);
+            //}
+            //else if(item.category == ItemCategory.Consumable || item.category == ItemCategory.Throwable)
+            //{
+            //    if (m_quickItemInventory.isInventoryFull == false)
+            //    {
+            //        m_quickItemInventory.AddItem(item, count);
+            //    }
+            //    else
+            //    {
+            //        if (m_quickItemInventory.GetItem(item) != null)
+            //        {
+            //            m_quickItemInventory.AddItem(item, count);
+            //        }
+            //        else
+            //        {
+            //            m_inventory.AddItem(item, count);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    m_inventory.AddItem(item, count);
+            //}
         }
 
         public void ForceAddItem(ItemData item, int count = 1)
@@ -151,22 +184,22 @@ namespace DChild.Gameplay.Inventories
 
         public void AddSoulEssence(int value)
         {
-            m_inventory.AddCurrency(CurrencyType.SoulEssence,value);
-            OnAmountAdded?.Invoke(this, new CurrencyUpdateEventArgs(CurrencyType.SoulEssence,value));
+            m_inventory.AddCurrency(CurrencyType.SoulEssence, value);
+            OnAmountAdded?.Invoke(this, new CurrencyUpdateEventArgs(CurrencyType.SoulEssence, value));
         }
 
         public void SetSoulEssence(int value)
         {
             m_inventory.SetCurrency(CurrencyType.SoulEssence, value);
-            OnAmountSet?.Invoke(this, new CurrencyUpdateEventArgs(CurrencyType.SoulEssence,value));
+            OnAmountSet?.Invoke(this, new CurrencyUpdateEventArgs(CurrencyType.SoulEssence, value));
         }
 
         #region ITradeInventory Implementation
 
         void ITradeInventory.AddCurrency(CurrencyType type, int value)
         {
-            m_inventory.AddCurrency(type,value);
-            OnAmountAdded?.Invoke(this, new CurrencyUpdateEventArgs(type,value));
+            m_inventory.AddCurrency(type, value);
+            OnAmountAdded?.Invoke(this, new CurrencyUpdateEventArgs(type, value));
         }
 
         ITradeItem[] ITradeInventory.FindTradeItemsOfType(ItemCategory category) => m_inventory.FindTradeItemsOfType(category);

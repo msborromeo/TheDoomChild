@@ -21,16 +21,17 @@ namespace DChild.Gameplay.Inventories.UI
         {
             bool hasData = reference != null;
             if (m_emptyIcon != null) m_emptyIcon.alpha = hasData ? 0f : 1f;
+
             m_icon.gameObject.SetActive(hasData);
 
             if (!hasData) return;
 
             m_icon.sprite = reference.data.icon;
-            
             //if (reference.data.name != "Health Shard")
             m_countText.text = reference.count.ToString();
-            if(m_itemQuantityCG != null) 
-                m_itemQuantityCG.alpha = reference != null && reference.count > 1 ? 1f : 0f;
+            
+            if (m_itemQuantityCG != null)
+                m_itemQuantityCG.alpha =  reference.count > 1 ? 1f : 0f;
         }
 
         public override void Show()

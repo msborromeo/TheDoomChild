@@ -80,7 +80,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void MoveQuickItemToInventory(ItemUI itemUI)
         {
-            m_listUI.inventory.AddItem(itemUI.reference.data, itemUI.reference.count);
+            m_listUI.inventory.ForceAddItem(itemUI.reference.data, itemUI.reference.count);
             m_quickItemListUI.RemoveQuickItem(itemUI);
             UpdateInventorySlots();
         }
@@ -116,7 +116,7 @@ namespace DChild.Gameplay.Inventories.UI
             Select(null);
         }
 
-        private void OnItemUsed(object sender, EventActionArgs eventArgs)
+        private void OnItemUsed(string itemName)
         {
             UpdateInventorySlots();
         }
@@ -124,7 +124,7 @@ namespace DChild.Gameplay.Inventories.UI
         private void Awake()
         {
             m_listUI.ListOverallChange += OnListOverallChange;
-            m_usableInventoryItemHandle.OnItemUsed += OnItemUsed;
+            m_usableInventoryItemHandle.ItemUsed += OnItemUsed;
             m_usableInventoryItemHandle.AllItemCountConsumed += OnItemUsedConsumed;
         }
 

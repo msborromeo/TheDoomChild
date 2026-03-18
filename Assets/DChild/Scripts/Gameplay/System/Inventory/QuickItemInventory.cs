@@ -70,6 +70,11 @@ namespace DChild.Gameplay.Inventories
             return m_quickItemInventory.FindStoredItemsOfType(category);
         }
 
+        public void ForceAddItem(ItemData itemData, int count = 1)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IStoredItem GetItem(int index)
         {
             return m_quickItemInventory.GetStoredItem(index);
