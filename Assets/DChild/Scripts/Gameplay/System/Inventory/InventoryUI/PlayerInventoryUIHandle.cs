@@ -81,6 +81,7 @@ namespace DChild.Gameplay.Inventories.UI
             m_quickItemListUI.MoveInventoryItemToQuickItems(itemUI as InventoryItemUI);
             m_listUI.inventory.RemoveItem(itemUI.reference.data, itemUI.reference.count);
             UpdateInventorySlots();
+            Select(itemUI);
         }
 
         public void MoveQuickItemToInventory(ItemUI itemUI)
@@ -88,6 +89,7 @@ namespace DChild.Gameplay.Inventories.UI
             m_listUI.inventory.ForceAddItem(itemUI.reference.data, itemUI.reference.count);
             m_quickItemListUI.RemoveQuickItem(itemUI);
             UpdateInventorySlots();
+            Select(itemUI);
         }
 
         private bool IsEitherSlotQuickItem(ItemUI itemOne, ItemUI itemTwo)
