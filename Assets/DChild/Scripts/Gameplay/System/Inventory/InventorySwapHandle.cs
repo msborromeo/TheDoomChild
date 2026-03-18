@@ -26,11 +26,6 @@ namespace DChild.Gameplay.Inventories
         {
             if (m_currentSelectedPlayerInventoryItem == null || m_currentSelectedQuickItemInventoryItem == null)
                 return;
-            //Add condition to prevent non consumable and throwable items from being swapped
-            //if (m_currentSelectedPlayerInventoryItem.category != ItemCategory.Consumable || m_currentSelectedPlayerInventoryItem.category != ItemCategory.Throwable)
-            //    return;
-            //if (m_currentSelectedQuickItemInventoryItem.category != ItemCategory.Consumable || m_currentSelectedQuickItemInventoryItem.category != ItemCategory.Throwable)
-            //    return;
 
             int playerInventoryIndex = m_playerInventory.GetItemIndex(m_currentSelectedPlayerInventoryItem);
             int quickItemInventoryIndex = m_quickItemInventory.GetItemIndex (m_currentSelectedQuickItemInventoryItem);
@@ -46,8 +41,8 @@ namespace DChild.Gameplay.Inventories
 
             //Reset selected items after swap
             m_currentSelectedPlayerInventoryItem = null;
-            m_currentSelectedQuickItemInventoryItem = null;
             m_currentSelectedPlayerInventoryItemCount = 0;
+            m_currentSelectedQuickItemInventoryItem = null;
             m_currentSelectedQuickItemInventoryItemCount = 0;
         }
 
@@ -73,6 +68,34 @@ namespace DChild.Gameplay.Inventories
                 m_currentSelectedQuickItemInventoryItem = data;
                 m_currentSelectedQuickItemInventoryItemCount = count;
             }
+        }
+
+        [Button]
+        public void MoveQuickItemItemToPlayerInventory()
+        {
+            if (m_currentSelectedQuickItemInventoryItem == null)
+                return;
+
+            m_quickItemInventory.RemoveItem(m_currentSelectedQuickItemInventoryItem, m_currentSelectedQuickItemInventoryItemCount);
+            m_playerInventory.ForceAddItem(m_currentSelectedQuickItemInventoryItem, m_currentSelectedQuickItemInventoryItemCount);
+
+            m_currentSelectedQuickItemInventoryItem = null;
+            m_currentSelectedQuickItemInventoryItemCount = 0;
+        }
+
+        [Button]
+        public void MovePlayerInventoryItemToQuickItem()
+        {
+            if (m_currentSelectedPlayerInventoryItem == null)
+                return;
+            if (m_quickItemInventory.isInventoryFull)
+                return;
+
+            m_playerInventory.RemoveItem(m_currentSelectedPlayerInventoryItem, m_currentSelectedPlayerInventoryItemCount);
+            m_quickItemInventory.AddItem(m_currentSelectedPlayerInventoryItem, m_currentSelectedPlayerInventoryItemCount);
+
+            m_currentSelectedPlayerInventoryItem = null;
+            m_currentSelectedPlayerInventoryItemCount = 0;
         }
     }
 }
