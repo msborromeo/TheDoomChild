@@ -18,7 +18,12 @@ namespace DChild.Gameplay.Inventories.UI
 
             var itemCategory = inventoryitemUI.reference.data.category;
 
-            m_swapButton.gameObject.SetActive(itemCategory == Items.ItemCategory.Consumable || itemCategory == Items.ItemCategory.Throwable);
+            var isSwappable = itemCategory == Items.ItemCategory.Consumable
+                || itemCategory == Items.ItemCategory.Throwable
+                || itemCategory == Items.ItemCategory.Key
+                || itemCategory == Items.ItemCategory.Quest;
+
+            m_swapButton.gameObject.SetActive(isSwappable);
             m_removeItemButton.gameObject.SetActive(inventoryitemUI.isQuickItem);
         }
 

@@ -24,14 +24,15 @@ namespace DChild.Gameplay.Inventories.UI
 
             m_icon.gameObject.SetActive(hasData);
 
-            if (!hasData) return;
+            if (hasData)
+            {
+                m_icon.sprite = reference.data.icon;
+                //if (reference.data.name != "Health Shard")
+                m_countText.text = reference.count.ToString();
 
-            m_icon.sprite = reference.data.icon;
-            //if (reference.data.name != "Health Shard")
-            m_countText.text = reference.count.ToString();
-            
-            if (m_itemQuantityCG != null)
-                m_itemQuantityCG.alpha =  reference.count > 1 ? 1f : 0f;
+                if (m_itemQuantityCG != null)
+                    m_itemQuantityCG.alpha = hasData && reference.count > 1 ? 1f : 0f;
+            }
         }
 
         public override void Show()

@@ -26,11 +26,16 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField]
         private InventoryUISwapHandle m_swapHandle;
 
+        [SerializeField]
+        private GameObject m_quickItemSectionBlocker;
+
         public void Select(ItemUI itemUI)
         {
+            if (itemUI == null) return;
             var inventoryItem = itemUI as InventoryItemUI;
+                m_quickItemSectionBlocker.SetActive(itemUI.reference.data.category == ItemCategory.Quest || itemUI.reference.data.category == ItemCategory.Key);
 
-            m_detailedUI.ShowDetails(itemUI.reference);
+                m_detailedUI.ShowDetails(itemUI.reference);
             m_itemActionsHandle.ShowButtonActions(inventoryItem);
 
             if ((itemUI?.reference?.data ?? null) == null || itemUI.reference.data.category != ItemCategory.Consumable)
@@ -40,7 +45,7 @@ namespace DChild.Gameplay.Inventories.UI
             else
             {
                 m_usableInventoryItemHandle.Show();
-                m_usableInventoryItemHandle.HandleUsageOfItem(itemUI.reference.data);
+                m_usableInventoryItemHandle.HandleUsageOfItem(itemUI.reference.data, inventoryItem.isQuickItem);
             }
 
             m_swapHandle.SetFirstItem(inventoryItem);
@@ -116,7 +121,7 @@ namespace DChild.Gameplay.Inventories.UI
             Select(null);
         }
 
-        private void OnItemUsed(string itemName)
+        private void OnItemCountReduced(object sender, EventActionArgs eventArgs)
         {
             UpdateInventorySlots();
         }
@@ -124,7 +129,7 @@ namespace DChild.Gameplay.Inventories.UI
         private void Awake()
         {
             m_listUI.ListOverallChange += OnListOverallChange;
-            m_usableInventoryItemHandle.ItemUsed += OnItemUsed;
+            m_usableInventoryItemHandle.OnItemCountReduced += OnItemCountReduced;
             m_usableInventoryItemHandle.AllItemCountConsumed += OnItemUsedConsumed;
         }
 
