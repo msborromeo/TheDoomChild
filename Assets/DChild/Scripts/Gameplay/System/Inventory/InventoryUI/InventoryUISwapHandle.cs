@@ -29,15 +29,24 @@ namespace DChild.Gameplay.Inventories.UI
         #region Setters
         public void SetFirstItem(InventoryItemUI value)
         {
-            var itemForSwap = value;
-            var isKeyOrQuest = itemForSwap.reference.data.category == ItemCategory.Quest
-                || itemForSwap.reference.data.category == ItemCategory.Key;
-
-            m_quickItemSectionBlocker.SetActive(isKeyOrQuest);
             m_itemOne = value;
         }
 
-        public void SetSwappingStatus(bool value) => m_isSwapping = value;
+        public void SetSwappingStatus(bool value)
+        {
+            m_isSwapping = value;
+
+            if(m_isSwapping)
+            {
+
+                var itemForSwap = m_itemOne;
+                var isKeyOrQuest = itemForSwap.reference.data.category == ItemCategory.Quest
+                    || itemForSwap.reference.data.category == ItemCategory.Key;
+
+                m_quickItemSectionBlocker.SetActive(isKeyOrQuest);
+            }
+
+        }
         #endregion
 
         public void OnSecondItemSelected(InventoryItemUI slotUI)
