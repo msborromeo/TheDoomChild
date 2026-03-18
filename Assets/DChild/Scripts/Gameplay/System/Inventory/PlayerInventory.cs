@@ -20,6 +20,7 @@ namespace DChild.Gameplay.Inventories
         private TradableInventory m_inventory = new TradableInventory(false, true);
         [SerializeField]
         private QuickItemInventory m_quickItemInventory;
+        public QuickItemInventory quickItemInventory => m_quickItemInventory;
 
         public event EventAction<CurrencyUpdateEventArgs> OnAmountSet;
         public event EventAction<CurrencyUpdateEventArgs> OnAmountAdded;
@@ -112,19 +113,31 @@ namespace DChild.Gameplay.Inventories
             }
             else if(item.category == ItemCategory.Consumable || item.category == ItemCategory.Throwable)
             {
-                if(m_quickItemInventory.isInventoryFull == false)
+                if (m_quickItemInventory.isInventoryFull == false)
                 {
                     m_quickItemInventory.AddItem(item, count);
                 }
                 else
                 {
-                    m_inventory.AddItem(item, count);
+                    if (m_quickItemInventory.GetItem(item) != null)
+                    {
+                        m_quickItemInventory.AddItem(item, count);
+                    }
+                    else
+                    {
+                        m_inventory.AddItem(item, count);
+                    }
                 }
             }
             else
             {
                 m_inventory.AddItem(item, count);
             }
+        }
+
+        public void ForceAddItem(ItemData item, int count = 1)
+        {
+            m_inventory.AddItem(item, count);
         }
 
         public void RemoveItem(ItemData item, int count = 1) => m_inventory.RemoveItem(item, count);

@@ -12,6 +12,7 @@ namespace DChild.Gameplay.Inventories.UI
     {
         [SerializeField]
         private UIButton m_useItemButton;
+
         [SerializeField]
         private bool m_removeItemCountOnConsume;
 
@@ -54,7 +55,7 @@ namespace DChild.Gameplay.Inventories.UI
                         AllItemCountConsumed?.Invoke(this, EventActionArgs.Empty);
                     }
                 }
-                
+
             }
         }
 
