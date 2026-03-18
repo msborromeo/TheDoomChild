@@ -49,6 +49,7 @@ namespace DChild.Gameplay.Inventories.UI
         }
         #endregion
 
+
         public void OnSecondItemSelected(InventoryItemUI slotUI)
         {
             m_itemTwo = slotUI;
@@ -113,6 +114,7 @@ namespace DChild.Gameplay.Inventories.UI
         {
             m_itemOne = null;
             m_itemTwo = null;
+            m_quickItemSectionBlocker.SetActive(false);
         }
     }
 }
