@@ -18,9 +18,13 @@ namespace DChild.Gameplay.Inventories.UI
 
         private Player m_player;
         private PlayerInventory m_inventory;
+        private QuickItemInventory m_quickInventory;
         private UsableItemData m_item;
 
+        private bool m_isQuickItem;
+
         public event EventAction<EventActionArgs> AllItemCountConsumed;
+        public event EventAction<EventActionArgs> OnItemCountReduced;
 
         #region PRE_ALPHA
         public event Action<string> ItemUsed;
@@ -36,9 +40,21 @@ namespace DChild.Gameplay.Inventories.UI
             m_useItemButton.gameObject.SetActive(false);
         }
 
-        public void HandleUsageOfItem(ItemData itemData)
+        public void UseItemFromInventory(UsableItemData item)
+        {
+            if (m_isQuickItem)
+            {
+                m_quickInventory.RemoveItem(item);
+                return;
+            }
+
+            m_inventory.RemoveItem(item);
+        }
+
+        public void HandleUsageOfItem(ItemData itemData, bool isQuickItem)
         {
             m_item = (UsableItemData)itemData;
+            m_isQuickItem = isQuickItem;
         }
 
         public void UseItemOnPlayer()
@@ -49,20 +65,23 @@ namespace DChild.Gameplay.Inventories.UI
                 ItemUsed?.Invoke(m_item.itemName);
                 if (m_removeItemCountOnConsume)
                 {
-                    m_inventory.RemoveItem(m_item);
+                    UseItemFromInventory(m_item);
+                    //m_inventory.RemoveItem(m_item);
+                    OnItemCountReduced?.Invoke(this, EventActionArgs.Empty);
+
                     if (m_inventory.GetCurrentAmount(m_item) == 0)
                     {
                         AllItemCountConsumed?.Invoke(this, EventActionArgs.Empty);
                     }
                 }
-
             }
         }
 
         private void Awake()
         {
             m_player = GameplaySystem.playerManager.player;
-            //m_inventory = m_player.inventory;
+            m_inventory = m_player.inventory;
+            m_quickInventory = m_player.inventory.quickItemInventory;
         }
     }
 }

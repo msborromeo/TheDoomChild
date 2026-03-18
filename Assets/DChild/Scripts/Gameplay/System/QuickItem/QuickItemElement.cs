@@ -21,6 +21,11 @@ namespace DChild.Gameplay.Inventories
 
         public event Action<ItemData> LocalizeItemView;
 
+        public override void AdjustIconColor(bool isModified)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Hide()
         {
         }
