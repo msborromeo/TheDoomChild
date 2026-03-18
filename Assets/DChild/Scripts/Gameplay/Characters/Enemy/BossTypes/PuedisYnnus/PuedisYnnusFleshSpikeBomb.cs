@@ -3,6 +3,7 @@ using System.Collections;
 using Sirenix.OdinInspector;
 using Spine.Unity;
 using System;
+using Castle.DynamicProxy.Generators;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
@@ -34,7 +35,10 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField, TabGroup("Explosion")]
         private PuedisYnnusFleshSpikeProjectileHandle m_projectileHandle;
 
-
+        [SerializeField]
+        private SpineEventListener m_SpineEventListener;
+        [SerializeField]
+        private CircleCollider2D m_circleCollider;
         public IEnumerator BeSummoned()
         {
             transform.localScale = m_startingScale;
@@ -71,6 +75,8 @@ namespace DChild.Gameplay.Characters.Enemies
             var explosionTrack = m_animation.SetAnimation(0, m_explodeAnimation, false);
             yield return new WaitForSpineEvent(m_animation.skeletonAnimation, m_explodeEvent);
             m_projectileHandle.SpawnProjectiles();
+            yield return new WaitForSeconds(0.2f);
+            m_circleCollider.enabled = false;
             yield return new WaitForSpineAnimationComplete(explosionTrack);
         }
 
@@ -90,10 +96,20 @@ namespace DChild.Gameplay.Characters.Enemies
             StopAllCoroutines();
             StartCoroutine(ExplodeRoutine());
         }
+        private void OnDamageColliderFleshBomb()
+        {
+            Debug.Log("Damage collider Activated");
+            m_circleCollider.enabled = true;
+        }
 
         private void Awake()
         {
             gameObject.SetActive(false);
         }
+        private void Start()
+        {
+            m_SpineEventListener.Subscribe(m_explodeEvent, OnDamageColliderFleshBomb);
+        }
+
     }
 }
