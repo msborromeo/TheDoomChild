@@ -23,6 +23,9 @@ namespace DChild.Gameplay.Inventories.UI
             if (m_emptyIcon != null) m_emptyIcon.alpha = hasData ? 0f : 1f;
 
             m_icon.gameObject.SetActive(hasData);
+            
+            if (m_itemQuantityCG != null)
+                m_itemQuantityCG.alpha = hasData && reference.count > 1 ? 1f : 0f;
 
             if (hasData)
             {

@@ -1,4 +1,5 @@
-﻿using Holysoft.Event;
+﻿using DChild.Gameplay.Items;
+using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
@@ -10,6 +11,9 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField] private PlayerInventoryUIHandle m_handle;
         [SerializeField] private InventorySwapHandle m_systemSwapHandle;
 
+        [SerializeField]
+        private GameObject m_quickItemSectionBlocker;
+
         [SerializeField, ReadOnly]
         private bool m_isSwapping = false;
         public bool isSwapping => m_isSwapping;
@@ -20,8 +24,19 @@ namespace DChild.Gameplay.Inventories.UI
         private InventoryItemUI m_itemTwo;
         public InventoryItemUI itemTwo => m_itemTwo;
 
+
+
         #region Setters
-        public void SetFirstItem(InventoryItemUI value) => m_itemOne = value;
+        public void SetFirstItem(InventoryItemUI value)
+        {
+            var itemForSwap = value;
+            var isKeyOrQuest = itemForSwap.reference.data.category == ItemCategory.Quest
+                || itemForSwap.reference.data.category == ItemCategory.Key;
+
+            m_quickItemSectionBlocker.SetActive(isKeyOrQuest);
+            m_itemOne = value;
+        }
+
         public void SetSwappingStatus(bool value) => m_isSwapping = value;
         #endregion
 
@@ -29,6 +44,7 @@ namespace DChild.Gameplay.Inventories.UI
         {
             m_itemTwo = slotUI;
             SwapItems();
+
         }
 
         [Button]

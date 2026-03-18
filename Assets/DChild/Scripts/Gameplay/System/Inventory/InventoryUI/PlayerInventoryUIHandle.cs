@@ -26,16 +26,13 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField]
         private InventoryUISwapHandle m_swapHandle;
 
-        [SerializeField]
-        private GameObject m_quickItemSectionBlocker;
 
         public void Select(ItemUI itemUI)
         {
             if (itemUI == null) return;
             var inventoryItem = itemUI as InventoryItemUI;
-                m_quickItemSectionBlocker.SetActive(itemUI.reference.data.category == ItemCategory.Quest || itemUI.reference.data.category == ItemCategory.Key);
 
-                m_detailedUI.ShowDetails(itemUI.reference);
+            m_detailedUI.ShowDetails(itemUI.reference);
             m_itemActionsHandle.ShowButtonActions(inventoryItem);
 
             if ((itemUI?.reference?.data ?? null) == null || itemUI.reference.data.category != ItemCategory.Consumable)
@@ -81,7 +78,7 @@ namespace DChild.Gameplay.Inventories.UI
             m_quickItemListUI.MoveInventoryItemToQuickItems(itemUI as InventoryItemUI);
             m_listUI.inventory.RemoveItem(itemUI.reference.data, itemUI.reference.count);
             UpdateInventorySlots();
-            Select(itemUI);
+            itemUI.GetComponent<UIToggle>().SetIsOn(true);
         }
 
         public void MoveQuickItemToInventory(ItemUI itemUI)
@@ -89,7 +86,7 @@ namespace DChild.Gameplay.Inventories.UI
             m_listUI.inventory.ForceAddItem(itemUI.reference.data, itemUI.reference.count);
             m_quickItemListUI.RemoveQuickItem(itemUI);
             UpdateInventorySlots();
-            Select(itemUI);
+            itemUI.GetComponent<UIToggle>().SetIsOn(true);
         }
 
         private bool IsEitherSlotQuickItem(ItemUI itemOne, ItemUI itemTwo)
