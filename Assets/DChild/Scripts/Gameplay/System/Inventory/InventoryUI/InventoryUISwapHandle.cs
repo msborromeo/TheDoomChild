@@ -54,18 +54,21 @@ namespace DChild.Gameplay.Inventories.UI
         {
             m_itemTwo = slotUI;
             SwapItems();
-
         }
 
         [Button]
         public void MoveInventoryItemToQuickItems(InventoryItemUI slotUI)
         {
-            m_handle.MoveInventoryItemToQuickItems(slotUI);
+            PrepareTransferrableItem(slotUI);
+            m_systemSwapHandle.MovePlayerInventoryItemToQuickItem();
         }
 
         public void MoveQuickItemToInventory(InventoryItemUI slotUI)
         {
-            m_handle.MoveQuickItemToInventory(slotUI);
+            PrepareTransferrableItem(slotUI);
+            m_systemSwapHandle.MoveQuickItemItemToPlayerInventory();
+            m_handle.UpdateInventorySlots();
+            m_handle.SelectFirstSlot();
         }
 
         public void SwapItems()
