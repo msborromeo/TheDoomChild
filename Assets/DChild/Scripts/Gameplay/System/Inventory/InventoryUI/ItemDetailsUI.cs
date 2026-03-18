@@ -8,5 +8,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public abstract void Show();
         public abstract void Hide();
+
+        public abstract void AdjustIconColor(bool isModified);
     }
 }
