@@ -21,6 +21,8 @@ namespace DChild.Gameplay.Inventories
         [SerializeField]
         private QuickItemInventory m_quickItemInventory;
         public QuickItemInventory quickItemInventory => m_quickItemInventory;
+        [SerializeField]
+        private List<ItemData> m_autoQuickItemList;
 
         public event EventAction<CurrencyUpdateEventArgs> OnAmountSet;
         public event EventAction<CurrencyUpdateEventArgs> OnAmountAdded;
@@ -111,21 +113,54 @@ namespace DChild.Gameplay.Inventories
 
                 SoulEquipmentAcquired?.Invoke(this, soulEquipmentEventArgs);
             }
-            else if(item.category == ItemCategory.Consumable || item.category == ItemCategory.Throwable)
+            else if(item.category == ItemCategory.Consumable)
             {
-                if(m_quickItemInventory.isInventoryFull == false)
+                if (m_quickItemInventory.isInventoryFull == false)
                 {
-                    m_quickItemInventory.AddItem(item, count);
+                    if (m_autoQuickItemList.Contains(item))
+                    {
+                        if (m_inventory.GetItem(item) != null)
+                        {
+                            m_inventory.AddItem(item, count);
+                        }
+                        else
+                        {
+                            m_quickItemInventory.AddItem(item, count);
+                        }
+                    }
+                    else
+                    {
+                        if (m_quickItemInventory.GetItem(item) != null)
+                        {
+                            m_quickItemInventory.AddItem(item, count);
+                        }
+                        else
+                        {
+                            m_inventory.AddItem(item, count);
+                        }
+                    }
                 }
                 else
                 {
-                    m_inventory.AddItem(item, count);
+                    if (m_quickItemInventory.GetItem(item) != null)
+                    {
+                        m_quickItemInventory.AddItem(item, count);
+                    }
+                    else
+                    {
+                        m_inventory.AddItem(item, count);
+                    }
                 }
             }
             else
             {
                 m_inventory.AddItem(item, count);
             }
+        }
+
+        public void ForceAddItem(ItemData item, int count = 1)
+        {
+            m_inventory.AddItem(item, count);
         }
 
         public void RemoveItem(ItemData item, int count = 1) => m_inventory.RemoveItem(item, count);

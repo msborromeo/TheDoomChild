@@ -1,5 +1,7 @@
-﻿using Doozy.Runtime.UIManager.Components;
+﻿using DChild.Gameplay.Items;
+using Doozy.Runtime.UIManager.Components;
 using Holysoft.Event;
+using Sirenix.OdinInspector;
 using System;
 using System.Diagnostics;
 using UnityEngine;
@@ -11,13 +13,26 @@ namespace DChild.Gameplay.Inventories.UI
     {
         private UIToggle m_toggle;
 
+        [SerializeField] private Image m_backgroundFrame;
         [SerializeField] private bool m_isQuickItem;
         public bool isQuickItem => m_isQuickItem;
 
         public override void Hide()
         {
             m_toggle.SetIsOn(false);
-            m_toggle.interactable = false;
+
+            if (!m_isQuickItem)
+                m_toggle.interactable = false;
+        }
+
+        public override void SetIconColor(bool isModified)
+        {
+            m_detailsUI.AdjustIconColor(isModified);
+        }
+
+        public override void SetItemFrame(Sprite value)
+        {
+            m_backgroundFrame.sprite = value;
         }
 
         public override void Show()
@@ -30,6 +45,7 @@ namespace DChild.Gameplay.Inventories.UI
             if (reference == null || reference.data.category == Items.ItemCategory.SoulEssence)
             {
                 Hide();
+                base.ShowDetailsOf(null);
                 return;
             }
 

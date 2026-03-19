@@ -1,6 +1,9 @@
 ﻿using DChild.Gameplay.Items;
+using Doozy.Runtime.UIManager;
+using Doozy.Runtime.UIManager.Components;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DChild.Gameplay.Inventories.UI
 {
@@ -10,6 +13,11 @@ namespace DChild.Gameplay.Inventories.UI
         private int m_page;
         private int m_startIndex;
         private int m_availableSlot;
+
+        private bool m_isQuickSlotSelected;
+
+        [SerializeField] private Sprite m_notSelectableBG;
+        [SerializeField] private Sprite m_currentBG;
 
         public void SetPage(int pageNumber)
         {
@@ -30,7 +38,8 @@ namespace DChild.Gameplay.Inventories.UI
         public override void UpdateUIList()
         {
             int i = 0;
-            UpdateUIList(ref i, m_inventory.FindStoredItemsOfType(m_currentFilter));
+
+            UpdateUIList(ref i, m_inventory.FindStoredItemsOfType(m_currentFilter), m_isQuickSlotSelected);
 
             for (; i < itemUICount; i++)
             {
@@ -39,25 +48,70 @@ namespace DChild.Gameplay.Inventories.UI
             InvokeListOverallChange();
         }
 
-        private void UpdateUIList(ref int i, IStoredItem[] items)
+        public override void UpdateUIList(bool quickItemSelected = false)
+        {
+            m_isQuickSlotSelected = quickItemSelected;
+            UpdateUIList();
+
+            //cleanup & reset state
+            m_isQuickSlotSelected = false;
+        }
+
+        private void UpdateUIList(ref int i, IStoredItem[] items, bool quickItemSelected)
         {
             for (; i <= m_availableSlot; i++)
             {
-                var itemIndex = m_startIndex + i;
-                if (itemIndex >= items.Length)
-                    break;
+                int itemIndex = m_startIndex + i;
+
+                // Guard: Index out of bounds
+                if (itemIndex >= items.Length) break;
+
                 var storedItem = items[itemIndex];
-                if (storedItem != null)
-                {
-                    var itemUI = m_itemUIs[i];
-                    itemUI.Show();
-                    itemUI.SetReference(storedItem);
-                }
+
+                // Guard: Null item
+                if (storedItem == null) continue;
+
+                UpdateItemSlot(m_itemUIs[i], storedItem, quickItemSelected);
+            }
+        }
+        private void UpdateItemSlot(ItemUI itemUI, IStoredItem storedItem, bool quickItemSelected)
+        {
+            itemUI.Show();
+            itemUI.SetReference(storedItem);
+            itemUI.SetIconColor(false);
+
+            var toggle = itemUI.GetComponent<UIToggle>();
+
+            // Reset state only if it's not in a persistent state (Selected/Disabled)
+            if (toggle.currentUISelectionState != UISelectionState.Selected &&
+                toggle.currentUISelectionState != UISelectionState.Disabled)
+            {
+                toggle.SetState(UISelectionState.Normal);
+            }
+
+            if (quickItemSelected)
+            {
+                ApplyQuickSelectionRestrictions(itemUI, toggle);
+            }
+        }
+
+        public void ApplyQuickSelectionRestrictions(ItemUI itemUI, UIToggle toggle)
+        {
+            var category = itemUI.reference.data.category;
+            bool isRestricted = category == ItemCategory.Key || category == ItemCategory.Quest;
+
+            if (isRestricted)
+            {
+                toggle.interactable = false;
+                toggle.SetState(UISelectionState.Normal);
+                itemUI.SetIconColor(true);
+                itemUI.SetItemFrame(m_notSelectableBG);
             }
         }
 
         public override void Reset()
         {
+            m_isQuickSlotSelected = false;
             SetPage(1);
         }
     }

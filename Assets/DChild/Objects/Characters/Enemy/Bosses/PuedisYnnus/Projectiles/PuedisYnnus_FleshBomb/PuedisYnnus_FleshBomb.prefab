@@ -73,6 +73,8 @@ GameObject:
   - component: {fileID: 8078788117016953505}
   - component: {fileID: 2444107527511567955}
   - component: {fileID: 4987056562444215185}
+  - component: {fileID: 8733435355897726033}
+  - component: {fileID: 6249187216670403201}
   m_Layer: 13
   m_Name: PuedisYnnus_FleshBomb
   m_TagString: Untagged
@@ -125,6 +127,8 @@ MonoBehaviour:
   m_explodeAnimation: Explosion
   m_explodeEvent: Spawn Explosion Hurtbox
   m_projectileHandle: {fileID: 4987056562444215185}
+  m_SpineEventListener: {fileID: 8733435355897726033}
+  m_circleCollider: {fileID: 6947162697028130807}
 --- !u!114 &4987056562444215185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +152,43 @@ MonoBehaviour:
   - {fileID: 8214664760638134775}
   - {fileID: 4000928908658413588}
   - {fileID: 2790386395684268520}
+--- !u!114 &8733435355897726033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2690859843663780805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd8599297ea1c84ba2f23b8f6c74e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animation: {fileID: 3312909712134829271}
+--- !u!114 &6249187216670403201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2690859843663780805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e10454193b54c9a4eb8bfb67b80c746d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_centerMass: {fileID: 6275709537859102008}
+  m_data: {fileID: 11400000, guid: be2c5455fa7b60f4788059a360ae6fbb, type: 2}
+  m_currentAttackInfo:
+    damage:
+      m_type: 0
+      m_value: 0
+    criticalDamageInfo:
+      chance: 0
+      damageModifier: 0
+    ignoreInvulnerability: 0
+    ignoresBlock: 0
+    isCrit: 0
 --- !u!1 &3801468130917157684
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,7 +233,9 @@ GameObject:
   - component: {fileID: 1419852976841577769}
   - component: {fileID: 3312909712134829271}
   - component: {fileID: 1558164959941491777}
-  m_Layer: 0
+  - component: {fileID: 6947162697028130807}
+  - component: {fileID: 4789078357864758304}
+  m_Layer: 13
   m_Name: Spine GameObject (FleshBomb)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,6 +358,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_animationTracks: []
   m_skeletonAnimation: {fileID: 3312909712134829271}
+--- !u!58 &6947162697028130807
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4008185228034324889}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.22844219, y: 0.8748131}
+  serializedVersion: 2
+  m_Radius: 11.372219
+--- !u!114 &4789078357864758304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4008185228034324889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d74578be2c646f438409c91e5fd4ee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_canDetectInteractables: 0
+  m_damageUniqueHitboxesOnly: 0
+  m_collisionRegistrator: {fileID: 0}
+  m_ignoreColliderList: []
 --- !u!1 &6091818498189553710
 GameObject:
   m_ObjectHideFlags: 0

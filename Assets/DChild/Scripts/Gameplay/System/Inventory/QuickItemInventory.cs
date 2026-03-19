@@ -52,7 +52,13 @@ namespace DChild.Gameplay.Inventories
         public void AddItem(ItemData itemData, int count = 1)
         {
             if (m_isInventoryFull == true)
-                return;
+            {
+                if(GetItem(itemData) == null)
+                {
+                    return;
+                }
+            }
+                
 
             m_quickItemInventory.AddItem(itemData, count);
             if (m_quickItemInventory.storedItemCount >= m_maxItems)
@@ -62,6 +68,11 @@ namespace DChild.Gameplay.Inventories
         public IStoredItem[] FindStoredItemsOfType(ItemCategory category)
         {
             return m_quickItemInventory.FindStoredItemsOfType(category);
+        }
+
+        public void ForceAddItem(ItemData itemData, int count = 1)
+        {
+            throw new System.NotImplementedException();
         }
 
         public IStoredItem GetItem(int index)

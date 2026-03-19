@@ -37,8 +37,10 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_isGrowing = false;
             StopAllCoroutines();
-            m_normalPlatform.Disappear(true);
-            m_spikedPlatform.Disappear(true);
+            m_normalPlatform.Appear(true);
+            m_normalPlatform.Disappear(false);
+            m_spikedPlatform.Appear(true);
+            m_spikedPlatform.Disappear(false);
         }
 
         private IEnumerator TransformationToSpikeRoutine()
@@ -53,6 +55,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_normalPlatform.Appear(false);
             m_spikedPlatform.Disappear(false);
             m_isInSpikeForm = false;
+          
         }
 
         private void Start()

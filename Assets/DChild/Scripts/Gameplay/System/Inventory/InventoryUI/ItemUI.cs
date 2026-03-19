@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DChild.Gameplay.Items;
+using UnityEngine;
 
 namespace DChild.Gameplay.Inventories.UI
 {
@@ -14,6 +15,9 @@ namespace DChild.Gameplay.Inventories.UI
         public abstract void Show();
         public abstract void Hide();
 
+        public abstract void SetItemFrame(Sprite value);
+        public abstract void SetIconColor(bool isModified);
+
         public void SetReference(IStoredItem reference)
         {
             if (m_reference != reference)
@@ -23,7 +27,6 @@ namespace DChild.Gameplay.Inventories.UI
 
             ShowDetailsOf(m_reference);
         }
-
 
         protected virtual void ShowDetailsOf(IStoredItem reference)
         {
