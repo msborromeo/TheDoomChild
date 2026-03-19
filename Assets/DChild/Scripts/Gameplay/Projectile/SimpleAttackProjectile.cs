@@ -2,6 +2,7 @@
 using DChild.Gameplay.Combat;
 using Sirenix.OdinInspector;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace DChild.Gameplay.Projectiles
@@ -26,15 +27,26 @@ namespace DChild.Gameplay.Projectiles
         [SerializeField]
         AttackDamageInfo m_projectileFXDamage;
 
+        //edit/pls refactor if possible
+        [Header("Auto Return To Pool")]
+        [SerializeField]
+        private float m_maxLifetime = 5f;
+
+        private Coroutine m_lifetimeRoutine;
+
         public void ApplyCritValues(float value, float critChance, float critModifier, ParticleFX critFX)
         {
             var attacker = GetComponent<Attacker>();
 
-            if(attacker != null)
+            if (attacker != null)
             {
                 attacker.SetDamageModifier(value, critChance, critModifier, critFX);
             }
         }
+
+
+
+
 
         protected override void Collide()
         {
@@ -53,6 +65,8 @@ namespace DChild.Gameplay.Projectiles
             CallImpactedEvent();
 
         }
+
+
 
         private void PassProjectileAttacker(Attacker damageDealer)
         {
@@ -144,21 +158,81 @@ namespace DChild.Gameplay.Projectiles
             }
         }
 
+        /* protected override void Awake()
+         {
+             base.Awake();
+             if (m_fxHandleInstantiated == false)
+             {
+                 m_spawnHandle = new FXSpawnHandle<FX>();
+                 m_fxHandleInstantiated = true;
+             }
+             ProjectileDamageConfigHandle();
+         }*/ //orignal 
+
+
+        private CollisionRegistrator m_collisionRegistrator;
+
         protected override void Awake()
         {
             base.Awake();
+
+            m_collisionRegistrator = GetComponent<CollisionRegistrator>();
+
             if (m_fxHandleInstantiated == false)
             {
                 m_spawnHandle = new FXSpawnHandle<FX>();
                 m_fxHandleInstantiated = true;
             }
+
             ProjectileDamageConfigHandle();
+        }
+
+        private void OnEnable()
+        {
+            if (m_collisionRegistrator != null)
+            {
+                m_collisionRegistrator.ClearCache();
+                // or ResetHitCache() if you only want to reset damage tracking
+            }
+
+            StartLifetimeTimer();
         }
 
         private void Start()
         {
-            
+
         }
+
+
+        private void OnDisable()
+        {
+            if (m_lifetimeRoutine != null)
+            {
+                StopCoroutine(m_lifetimeRoutine);
+                m_lifetimeRoutine = null;
+            }
+        }
+
+        public void StartLifetimeTimer()
+        {
+            if (m_lifetimeRoutine != null)
+            {
+                StopCoroutine(m_lifetimeRoutine);
+            }
+
+            m_lifetimeRoutine = StartCoroutine(LifetimeRoutine());
+        }
+
+        private IEnumerator LifetimeRoutine()
+        {
+            yield return new WaitForSeconds(m_maxLifetime);
+
+            if (gameObject.activeInHierarchy)
+            {
+                UnloadProjectile();
+            }
+        }
+
 
 
     }

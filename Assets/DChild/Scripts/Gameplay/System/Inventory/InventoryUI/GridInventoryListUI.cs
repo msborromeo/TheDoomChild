@@ -1,15 +1,23 @@
-﻿using Sirenix.OdinInspector;
+﻿using DChild.Gameplay.Items;
+using Doozy.Runtime.UIManager;
+using Doozy.Runtime.UIManager.Components;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DChild.Gameplay.Inventories.UI
 {
-    public class GridInventoryListUI : InventoryListUI<IInventory>
+    public class GridInventoryListUI : FilteredInventoryListUI<IInventory>
     {
         [SerializeField, MinValue(1), PropertyOrder(-1)]
         private int m_page;
         private int m_startIndex;
         private int m_availableSlot;
 
+        private bool m_isQuickSlotSelected;
+
+        [SerializeField] private Sprite m_notSelectableBG;
+        [SerializeField] private Sprite m_currentBG;
 
         public void SetPage(int pageNumber)
         {
@@ -20,6 +28,8 @@ namespace DChild.Gameplay.Inventories.UI
 
         public override void SwapItems(ItemUI itemOne, ItemUI itemTwo)
         {
+            if (itemOne == null || itemTwo == null) return;
+
             m_inventory.SwapItems(itemOne.reference.data, itemTwo.reference.data);
         }
 
@@ -28,19 +38,8 @@ namespace DChild.Gameplay.Inventories.UI
         public override void UpdateUIList()
         {
             int i = 0;
-            for (; i <= m_availableSlot; i++)
-            {
-                var itemIndex = m_startIndex + i;
-                if (itemIndex >= m_inventory.storedItemCount)
-                    break;
-                var storedItem = m_inventory.GetItem(itemIndex);
-                if (storedItem != null)
-                {
-                    var itemUI = m_itemUIs[i];
-                    itemUI.Show();
-                    itemUI.SetReference(storedItem);
-                }
-            }
+
+            UpdateUIList(ref i, m_inventory.FindStoredItemsOfType(m_currentFilter), m_isQuickSlotSelected);
 
             for (; i < itemUICount; i++)
             {
@@ -49,8 +48,70 @@ namespace DChild.Gameplay.Inventories.UI
             InvokeListOverallChange();
         }
 
+        public override void UpdateUIList(bool quickItemSelected = false)
+        {
+            m_isQuickSlotSelected = quickItemSelected;
+            UpdateUIList();
+
+            //cleanup & reset state
+            m_isQuickSlotSelected = false;
+        }
+
+        private void UpdateUIList(ref int i, IStoredItem[] items, bool quickItemSelected)
+        {
+            for (; i <= m_availableSlot; i++)
+            {
+                int itemIndex = m_startIndex + i;
+
+                // Guard: Index out of bounds
+                if (itemIndex >= items.Length) break;
+
+                var storedItem = items[itemIndex];
+
+                // Guard: Null item
+                if (storedItem == null) continue;
+
+                UpdateItemSlot(m_itemUIs[i], storedItem, quickItemSelected);
+            }
+        }
+        private void UpdateItemSlot(ItemUI itemUI, IStoredItem storedItem, bool quickItemSelected)
+        {
+            itemUI.Show();
+            itemUI.SetReference(storedItem);
+            itemUI.SetIconColor(false);
+
+            var toggle = itemUI.GetComponent<UIToggle>();
+
+            // Reset state only if it's not in a persistent state (Selected/Disabled)
+            if (toggle.currentUISelectionState != UISelectionState.Selected &&
+                toggle.currentUISelectionState != UISelectionState.Disabled)
+            {
+                toggle.SetState(UISelectionState.Normal);
+            }
+
+            if (quickItemSelected)
+            {
+                ApplyQuickSelectionRestrictions(itemUI, toggle);
+            }
+        }
+
+        public void ApplyQuickSelectionRestrictions(ItemUI itemUI, UIToggle toggle)
+        {
+            var category = itemUI.reference.data.category;
+            bool isRestricted = category == ItemCategory.Key || category == ItemCategory.Quest;
+
+            if (isRestricted)
+            {
+                toggle.interactable = false;
+                toggle.SetState(UISelectionState.Normal);
+                itemUI.SetIconColor(true);
+                itemUI.SetItemFrame(m_notSelectableBG);
+            }
+        }
+
         public override void Reset()
         {
+            m_isQuickSlotSelected = false;
             SetPage(1);
         }
     }

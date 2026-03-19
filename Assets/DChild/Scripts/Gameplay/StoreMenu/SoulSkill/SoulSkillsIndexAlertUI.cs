@@ -3,7 +3,7 @@ using DChild.Gameplay.UI.Alerts;
 
 namespace DChild.Gameplay.UI.SoulSkills.Alerts
 {
-    public class SoulSkillsIndexAlertUI : UIAlertIconElement<SoulSkillButton>
+    public class SoulSkillsIndexAlertUI : UIAlertIconElement<SoulSkillUI>
     {
 
         public override bool HasAlert()

@@ -18,6 +18,11 @@ namespace DChild.Gameplay.Inventories
         private ItemList m_referenceList;
         [SerializeField, HideLabel, FoldoutGroup("Inventory")]
         private TradableInventory m_inventory = new TradableInventory(false, true);
+        [SerializeField]
+        private QuickItemInventory m_quickItemInventory;
+        public QuickItemInventory quickItemInventory => m_quickItemInventory;
+        [SerializeField]
+        private List<ItemData> m_autoQuickItemList;
 
         public event EventAction<CurrencyUpdateEventArgs> OnAmountSet;
         public event EventAction<CurrencyUpdateEventArgs> OnAmountAdded;
@@ -108,10 +113,54 @@ namespace DChild.Gameplay.Inventories
 
                 SoulEquipmentAcquired?.Invoke(this, soulEquipmentEventArgs);
             }
+            else if(item.category == ItemCategory.Consumable)
+            {
+                if (m_quickItemInventory.isInventoryFull == false)
+                {
+                    if (m_autoQuickItemList.Contains(item))
+                    {
+                        if (m_inventory.GetItem(item) != null)
+                        {
+                            m_inventory.AddItem(item, count);
+                        }
+                        else
+                        {
+                            m_quickItemInventory.AddItem(item, count);
+                        }
+                    }
+                    else
+                    {
+                        if (m_quickItemInventory.GetItem(item) != null)
+                        {
+                            m_quickItemInventory.AddItem(item, count);
+                        }
+                        else
+                        {
+                            m_inventory.AddItem(item, count);
+                        }
+                    }
+                }
+                else
+                {
+                    if (m_quickItemInventory.GetItem(item) != null)
+                    {
+                        m_quickItemInventory.AddItem(item, count);
+                    }
+                    else
+                    {
+                        m_inventory.AddItem(item, count);
+                    }
+                }
+            }
             else
             {
                 m_inventory.AddItem(item, count);
             }
+        }
+
+        public void ForceAddItem(ItemData item, int count = 1)
+        {
+            m_inventory.AddItem(item, count);
         }
 
         public void RemoveItem(ItemData item, int count = 1) => m_inventory.RemoveItem(item, count);
@@ -162,6 +211,16 @@ namespace DChild.Gameplay.Inventories
         public void SwapItems(ItemData itemOne, ItemData itemTwo)
         {
             m_inventory.SwapItems(itemOne, itemTwo);
+        }
+
+        public int GetItemIndex(ItemData itemData)
+        {
+            return m_inventory.GetItemIndex(itemData);
+        }
+
+        public void ReplaceItem(ItemData itemData, int count, int index)
+        {
+            m_inventory.ReplaceItem(itemData, count, index);
         }
         #endregion
     }

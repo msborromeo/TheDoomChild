@@ -26,6 +26,8 @@ namespace DChild.Gameplay.UI.CombatArts
 
         private float m_unlockProgress;
 
+        private CombatArtUISelectableProgressor m_selectableProgressor;
+
         public event Action UnlockSuccessful;
 
         public void InitializeReferences(Characters.Players.CombatArts progress, CombatArtList artList)
@@ -39,6 +41,9 @@ namespace DChild.Gameplay.UI.CombatArts
             StopAllCoroutines();
             m_unlockProgress = 0;
             m_progressor.DisplayProgress(0f);
+
+            if (m_selectableProgressor != null)
+                m_selectableProgressor.DisplayProgress(0f);
         }
 
         public void StartUnlockProgress()
@@ -55,17 +60,20 @@ namespace DChild.Gameplay.UI.CombatArts
         public void VerifyUnlockFunction(CombatArtSelectButton reference)
         {
             var isUnlockable = reference.currentState == CombatArtUnlockState.Unlockable;
-            m_unlockButton.interactable = isUnlockable;
+            m_unlockButton.gameObject.SetActive(isUnlockable);
+            //m_unlockButton.interactable = isUnlockable;
             if (isUnlockable)
             {
                 m_artToUnlock = reference.skillUnlock;
                 m_levelToUnlock = reference.unlockLevel;
+                m_selectableProgressor = reference.GetComponent<CombatArtUISelectableProgressor>();
             }
         }
 
         public void DisableUnlockFunction()
         {
-            m_unlockButton.interactable = false;
+            //m_unlockButton.interactable = false;
+            m_unlockButton.gameObject.SetActive(false);
         }
 
         private IEnumerator UnlockProgressRoutine()
@@ -74,10 +82,12 @@ namespace DChild.Gameplay.UI.CombatArts
             {
                 m_unlockProgress += Time.unscaledDeltaTime;
                 m_progressor.DisplayProgress(m_unlockProgress / m_holdToUnlockDuration);
+                m_selectableProgressor.DisplayProgress(m_unlockProgress / m_holdToUnlockDuration);
                 yield return null;
             } while (m_unlockProgress < m_holdToUnlockDuration);
 
             UnlockCombatArt(m_artToUnlock, m_levelToUnlock);
+            m_selectableProgressor.ForceAsComplete();
             UnlockSuccessful?.Invoke();
         }
     }

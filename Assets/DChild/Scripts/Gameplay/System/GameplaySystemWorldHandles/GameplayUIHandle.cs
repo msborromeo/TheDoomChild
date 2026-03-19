@@ -7,13 +7,11 @@ using DChild.Gameplay.Systems.Serialization;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
 using DChild.Gameplay.UI.Alerts;
-using DChild.Inputs;
 using DChild.Menu.Trade;
 using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
-using Holysoft.Event;
+using Doozy.Runtime.Signals;
 using System;
 using System.Collections;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Video;
@@ -250,6 +248,16 @@ namespace DChild.Gameplay.Systems
         public CharacterRecruitmentUI ConfirmationRequest()
         {
             return BaseGameplayUIHandle.Instance.GetRecruitmentConfirmation();
+        }
+
+        public void OpenPauseMenu()
+        {
+            BaseGameplaySystem.gamplayUIHandle.OpenPauseMenu();
+        }
+
+        public void UIBack()
+        {
+            BaseGameplaySystem.gamplayUIHandle.UIBack();
         }
     }
 }

@@ -81,7 +81,10 @@ namespace DChild.Gameplay.Environment
                 BecameUnmovable?.Invoke(this, EventActionArgs.Empty);
             }
         }
-
+        public void SetGrabModifier(float speed)
+        {
+            m_grabbedMoveModifier = speed;
+        }
         public void SetGrabState(bool isGrabbed)
         {
             if (isGrabbed)

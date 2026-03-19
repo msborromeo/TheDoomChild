@@ -1,5 +1,57 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1579019462823745558
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1870060586642413726}
+  - component: {fileID: 6096602614261190763}
+  m_Layer: 8
+  m_Name: QuickItemInventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1870060586642413726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579019462823745558}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7518031641455754585}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6096602614261190763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579019462823745558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b434aa288f4a24cb1df4165784a976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_referenceList: {fileID: 11400000, guid: 819c1396b920f124594a1d8220e9d9e9, type: 2}
+  m_quickItemInventory:
+    m_items: []
+    m_markAllItemsAsTradable: 0
+    m_restrictItemsToQuanitityLimit: 1
+    soulEssence: 0
+  m_maxItems: 7
+  m_isInventoryFull: 0
 --- !u!1 &5573233925074938722
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,6 +998,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7518031641455754585}
   - component: {fileID: 2531548895851099347}
+  - component: {fileID: 6022421831297679738}
   m_Layer: 8
   m_Name: Inventory
   m_TagString: Untagged
@@ -964,7 +1017,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1870060586642413726}
   m_Father: {fileID: 7518031643020262915}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -986,6 +1040,29 @@ MonoBehaviour:
     m_markAllItemsAsTradable: 0
     m_restrictItemsToQuanitityLimit: 1
     soulEssence: 0
+  m_quickItemInventory: {fileID: 6096602614261190763}
+  m_autoQuickItemList:
+  - {fileID: 11400000, guid: 9264a42395312a04f943c03d112aec75, type: 2}
+  - {fileID: 11400000, guid: 9574de7393252554090ad6563a85eba2, type: 2}
+  - {fileID: 11400000, guid: dff45c2c7f9d98846a726650a806251a, type: 2}
+--- !u!114 &6022421831297679738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7518031641455754583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e163d674854979445b303a3fd61ba957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_playerInventory: {fileID: 2531548895851099347}
+  m_quickItemInventory: {fileID: 6096602614261190763}
+  m_currentSelectedPlayerInventoryItem: {fileID: 0}
+  m_currentSelectedPlayerInventoryItemCount: 0
+  m_currentSelectedQuickItemInventoryItem: {fileID: 0}
+  m_currentSelectedQuickItemInventoryItemCount: 0
 --- !u!1 &7518031641492634115
 GameObject:
   m_ObjectHideFlags: 0
@@ -1413,6 +1490,7 @@ MonoBehaviour:
   m_inventory: {fileID: 2531548895851099347}
   m_itemEffectHandle: {fileID: 2000943039735974509}
   m_moduleConfigurator: {fileID: 0}
+  m_skinHandle: {fileID: 0}
   m_serializer: {fileID: 233810294478454533}
   m_controlledCharacter: {fileID: 0}
   m_state: {fileID: 0}
@@ -1663,6 +1741,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 2531548895851099347}
+    - {fileID: 6096602614261190763}
     - {fileID: 1475017650848671562}
     - {fileID: 7518031642767482061}
     - {fileID: 9053890134280088711}
@@ -1678,24 +1757,27 @@ MonoBehaviour:
     - Name: m_inventory
       Entry: 10
       Data: 0
-    - Name: m_codex
+    - Name: m_quickItemInventory
       Entry: 10
       Data: 1
-    - Name: m_playerSkills
+    - Name: m_codex
       Entry: 10
       Data: 2
-    - Name: m_soulSkillHandle
+    - Name: m_playerSkills
       Entry: 10
       Data: 3
-    - Name: m_soulEquipmentHandle
+    - Name: m_soulSkillHandle
       Entry: 10
       Data: 4
-    - Name: m_combatArts
+    - Name: m_soulEquipmentHandle
       Entry: 10
       Data: 5
-    - Name: m_playerWeapon
+    - Name: m_combatArts
       Entry: 10
       Data: 6
-    - Name: m_playerSkin
+    - Name: m_playerWeapon
       Entry: 10
       Data: 7
+    - Name: m_playerSkin
+      Entry: 10
+      Data: 8

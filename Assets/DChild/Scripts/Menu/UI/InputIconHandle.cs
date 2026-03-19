@@ -1,5 +1,6 @@
 ﻿using Holysoft.Event;
 using Sirenix.Utilities;
+using System;
 using UnityEngine;
 
 namespace DChild.Menu.Inputs
@@ -33,6 +34,7 @@ namespace DChild.Menu.Inputs
         private GamepadIconData m_ps4IconData;
         [SerializeField]
         private InputControlsDetector m_inputControlsDetector;
+        public static event Action<CurrentDeviceType, GamepadIconData> CurrentDeviceTypeChanged;
 
 
         public void Awake()
@@ -40,7 +42,26 @@ namespace DChild.Menu.Inputs
             xboxIconData = m_xboxIconData;
             ps4IconData = m_ps4IconData;
             inputControlsDetector = m_inputControlsDetector;
-            m_inputControlsDetector.InputControlChange += OnInputControlChange;
+            //m_inputControlsDetector.InputControlChange += OnInputControlChange;
+            m_inputControlsDetector.CurrentDeviceTypeChanged += OnInputDeviceChanged;
+        }
+
+        private void OnDestroy()
+        {
+            //m_inputControlsDetector.InputControlChange -= OnInputControlChange;
+            m_inputControlsDetector.CurrentDeviceTypeChanged -= OnInputDeviceChanged;
+        }
+
+        private void OnInputDeviceChanged(CurrentDeviceType type)
+        {
+            if(type == CurrentDeviceType.Gamepad)
+            {
+                CurrentDeviceTypeChanged?.Invoke(type, xboxIconData);
+            }
+            else
+            {
+                CurrentDeviceTypeChanged?.Invoke(type, null);
+            }
         }
 
         private void OnInputControlChange(object sender, EventActionArgs eventArgs)

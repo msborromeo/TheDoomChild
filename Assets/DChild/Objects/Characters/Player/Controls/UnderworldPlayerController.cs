@@ -110,7 +110,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private Vector2 m_vector2Input;
         [SerializeField, ReadOnly(true)]
         private Vector2 m_mouseDelta;
-        private bool m_allowQuickItemCycle;
         private bool m_isGrabbing;
         #endregion
 
@@ -231,7 +230,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.WhipPerformedEvent += OnWhipPerformedInput;
             m_inputReader.WhipCancelledEvent += OnWhipCancelledInput;
             m_inputReader.CycleQuickItemsStartedEvent += OnCycleQuickItemsStartedInput;
-            m_inputReader.UseQuickItemStartedEvent += OnUseQuickItemsStartedInput;
+            m_inputReader.UseQuickItemTappedEvent += OnUseQuickItemsTappedInput;
+            m_inputReader.UseQuickItemHeldEvent += OnUseQuickItemsHeldInput;
             m_inputReader.UseQuickItemCancelledEvent += OnUseQuickItemsCancelledInput;
             m_inputReader.ProjectileThrowStartedEvent += OnProjectileThrowStartedInput;
             m_inputReader.ProjectileThrowCancelledEvent += OnProjectileThrowCancelledInput;
@@ -316,7 +316,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.WhipPerformedEvent -= OnWhipPerformedInput;
             m_inputReader.WhipCancelledEvent -= OnWhipCancelledInput;
             m_inputReader.CycleQuickItemsStartedEvent -= OnCycleQuickItemsStartedInput;
-            m_inputReader.UseQuickItemStartedEvent -= OnUseQuickItemsStartedInput;
+            m_inputReader.UseQuickItemTappedEvent -= OnUseQuickItemsTappedInput;
+            m_inputReader.UseQuickItemHeldEvent -= OnUseQuickItemsHeldInput;
             m_inputReader.UseQuickItemCancelledEvent -= OnUseQuickItemsCancelledInput;
             m_inputReader.ProjectileThrowStartedEvent -= OnProjectileThrowStartedInput;
             m_inputReader.ProjectileThrowCancelledEvent -= OnProjectileThrowCancelledInput;
@@ -1004,22 +1005,38 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
         }
 
-        private void OnUseQuickItemsStartedInput()
+        private void OnUseQuickItemsTappedInput()
         {
             if(m_handle.IsCoolDownOver() == false)
                 return;
 
-            m_allowQuickItemCycle = false;
+            if (m_state.isAimingProjectile == true)
+                return;
+
             m_handle.UseCurrentItem();
             if (m_handle.IsCurrentItemThrowable())
             {
-                ProjectileThrowStart();//need to prevent this if current item is not a throwable
+                StartCoroutine(StraightThrowRoutine());
+            }
+        }
+
+        private void OnUseQuickItemsHeldInput()
+        {
+            if (m_handle.IsCoolDownOver() == false)
+                return;
+
+            if (m_handle.IsCurrentItemThrowable() == false)
+                return;
+
+            m_handle.UseCurrentItem();
+            if (m_handle.IsCurrentItemThrowable())
+            {
+                ProjectileThrowStart();
             }
         }
 
         private void OnUseQuickItemsCancelledInput()
         {
-            m_allowQuickItemCycle = true;
             if (m_handle.IsCurrentItemThrowable())
             {
                 ProjectileThrowCancel();
@@ -1028,16 +1045,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnCycleQuickItemsStartedInput(float obj)
         {
-            if (m_allowQuickItemCycle)
+            if (m_state.isAimingProjectile == true)
+                return;
+
+            if (obj == -1)
             {
-                if (obj == -1)
-                {
-                    m_handle.Previous();
-                }
-                else
-                {
-                    m_handle.Next();
-                }
+                m_handle.Previous();
+            }
+            else
+            {
+                m_handle.Next();
             }
         }
 
@@ -1050,7 +1067,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnPauseInput()
         {
-
+            GameplaySystem.gamplayUIHandle.OpenPauseMenu();
         }
 
         private void OnTeleportToOverworldStarted(InputAction.CallbackContext context, bool isCanceled)
