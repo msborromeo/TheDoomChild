@@ -67,6 +67,13 @@ namespace DChild.Gameplay.Inventories.UI
 
         }
 
+        public void SelectFirstSlot()
+        {
+            Select(m_firstSelectedItemUI);
+            var button = m_firstSelectedItemUI.GetComponent<UIToggle>();
+            button.SetIsOn(true);
+        }
+
         public void FilterOutNonQuickItems(ItemUI itemUI)
         {
             var item = itemUI as InventoryItemUI;
@@ -81,13 +88,13 @@ namespace DChild.Gameplay.Inventories.UI
             itemUI.GetComponent<UIToggle>().SetIsOn(true);
         }
 
-        public void MoveQuickItemToInventory(ItemUI itemUI)
-        {
-            m_listUI.inventory.ForceAddItem(itemUI.reference.data, itemUI.reference.count);
-            m_quickItemListUI.RemoveQuickItem(itemUI);
-            UpdateInventorySlots();
-            itemUI.GetComponent<UIToggle>().SetIsOn(true);
-        }
+        //public void MoveQuickItemToInventory(ItemUI itemUI)
+        //{
+        //    m_listUI.inventory.ForceAddItem(itemUI.reference.data, itemUI.reference.count);
+        //    m_quickItemListUI.RemoveQuickItem(itemUI);
+        //    UpdateInventorySlots();
+        //    //itemUI.GetComponent<UIToggle>().SetIsOn(true);
+        //}
 
         private bool IsEitherSlotQuickItem(ItemUI itemOne, ItemUI itemTwo)
         {
@@ -105,9 +112,7 @@ namespace DChild.Gameplay.Inventories.UI
             m_listUI.Reset();
             UpdateInventorySlots();
 
-            Select(m_firstSelectedItemUI);
-            var button = m_firstSelectedItemUI.GetComponent<UIToggle>();
-            button.SetIsOn(true);
+            SelectFirstSlot();
         }
 
         private void OnListOverallChange(object sender, EventActionArgs eventArgs)
