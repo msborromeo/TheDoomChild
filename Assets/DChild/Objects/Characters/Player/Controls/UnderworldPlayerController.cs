@@ -15,7 +15,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using DChild.Gameplay.Narrative;
 using System.Collections;
-using DChild.UI;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -34,8 +33,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private Character m_character;
         [SerializeField]
         private CharacterState m_state;
-        [SerializeField]
-        private UnderworldUIStateObserver m_underworldUIStateObserver;
 
         private IDash m_activeDash;
         private ISlide m_activeSlide;
@@ -208,7 +205,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.PickedUpBook += OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted += OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp += OnPlayerWokeUp;
-            m_underworldUIStateObserver.UnderworldUIStateChanged += OnUIStateChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent += OnVector2PerformedInput;
@@ -295,7 +291,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.PickedUpBook -= OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted -= OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp -= OnPlayerWokeUp;
-            m_underworldUIStateObserver.UnderworldUIStateChanged -= OnUIStateChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent -= OnVector2PerformedInput;
@@ -368,11 +363,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportToOverworldStarted -= OnTeleportToOverworldStarted;
             m_inputReader.TeleportToMordenThroneRoom -= OnTeleportToMordenThroneRoom;
             m_inputReader.TeleportToMordenThroneRoomStarted -= OnTeleportToMordenThroneRoomStarted;
-        }
-
-        private void Start()
-        {
-            m_inputReader.SetInputModeToUnderworldGameplay();
         }
 
         private void FixedUpdate()
@@ -2408,19 +2398,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             //m_input.projectileThrowPressed = true;
         }
 
-
-        private void OnUIStateChanged(UnderworldUIState state)
-        {
-            if(state != UnderworldUIState.GameplayHUD)
-            {
-                m_inputReader.SetInputModeToUI();
-            }
-            else
-            {
-                m_inputReader.SetInputModeToUnderworldGameplay();
-            }
-        }
-
         private void FlipCharacter()
         {
             var oppositeFacing = m_character.facing == HorizontalDirection.Right ? HorizontalDirection.Left : HorizontalDirection.Right;
@@ -2528,6 +2505,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_playerInput.DeactivateInput();
             ControllerDisabled?.Invoke(this, EventActionArgs.Empty);
         }
+
 
         private void OnActiveSceneChanged(Scene arg0, Scene arg1)
         {
