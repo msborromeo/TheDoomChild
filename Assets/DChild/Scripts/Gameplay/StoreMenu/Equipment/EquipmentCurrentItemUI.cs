@@ -37,7 +37,7 @@ namespace DChild.Menu.Equipment.UI
             if (m_currentItem.soulEquipment.Slot != m_soulSlot)
                 return;
 
-            m_itemImage.sprite = m_currentItem.icon;
+            m_itemImage.sprite = m_currentItem.equippedIcon;
             ToggleItemVisibility(true);
 
             m_equipmentUI.equipmentHandle.EquipSoulEquipment(m_currentItem);

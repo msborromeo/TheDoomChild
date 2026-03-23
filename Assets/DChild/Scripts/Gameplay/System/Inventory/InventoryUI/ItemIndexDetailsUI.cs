@@ -29,7 +29,7 @@ namespace DChild.Gameplay.Inventories.UI
 
             if (hasData)
             {
-                m_icon.sprite = reference.data.icon;
+                m_icon.sprite = reference.data.slotIcon;
                 //if (reference.data.name != "Health Shard")
                 m_countText.text = reference.count.ToString();
 
