@@ -22,11 +22,18 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField]
         private UsableInventoryItemHandle m_usableInventoryItemHandle;
         [SerializeField]
+        private InventoryItemActionHandle m_itemActionsHandle;
+        [SerializeField]
         private InventoryUISwapHandle m_swapHandle;
+
 
         public void Select(ItemUI itemUI)
         {
+            if (itemUI == null) return;
+            var inventoryItem = itemUI as InventoryItemUI;
+
             m_detailedUI.ShowDetails(itemUI.reference);
+            m_itemActionsHandle.ShowButtonActions(inventoryItem);
 
             if ((itemUI?.reference?.data ?? null) == null || itemUI.reference.data.category != ItemCategory.Consumable)
             {
@@ -35,10 +42,10 @@ namespace DChild.Gameplay.Inventories.UI
             else
             {
                 m_usableInventoryItemHandle.Show();
-                m_usableInventoryItemHandle.HandleUsageOfItem(itemUI.reference.data);
+                m_usableInventoryItemHandle.HandleUsageOfItem(itemUI.reference.data, inventoryItem.isQuickItem);
             }
 
-            m_swapHandle.SetFirstItem(itemUI as InventoryItemUI);
+            m_swapHandle.SetFirstItem(inventoryItem);
         }
 
         [Button]
@@ -55,6 +62,40 @@ namespace DChild.Gameplay.Inventories.UI
             UpdateInventorySlots();
         }
 
+        public void UpdateShardIcon(ItemSprite type)
+        {
+
+        }
+
+        public void SelectFirstSlot()
+        {
+            Select(m_firstSelectedItemUI);
+            var button = m_firstSelectedItemUI.GetComponent<UIToggle>();
+            button.SetIsOn(true);
+        }
+
+        public void FilterOutNonQuickItems(ItemUI itemUI)
+        {
+            var item = itemUI as InventoryItemUI;
+            m_listUI.UpdateUIList(item.isQuickItem);
+        }
+
+        public void MoveInventoryItemToQuickItems(ItemUI itemUI)
+        {
+            m_quickItemListUI.MoveInventoryItemToQuickItems(itemUI as InventoryItemUI);
+            m_listUI.inventory.RemoveItem(itemUI.reference.data, itemUI.reference.count);
+            UpdateInventorySlots();
+            itemUI.GetComponent<UIToggle>().SetIsOn(true);
+        }
+
+        //public void MoveQuickItemToInventory(ItemUI itemUI)
+        //{
+        //    m_listUI.inventory.ForceAddItem(itemUI.reference.data, itemUI.reference.count);
+        //    m_quickItemListUI.RemoveQuickItem(itemUI);
+        //    UpdateInventorySlots();
+        //    //itemUI.GetComponent<UIToggle>().SetIsOn(true);
+        //}
+
         private bool IsEitherSlotQuickItem(ItemUI itemOne, ItemUI itemTwo)
         {
             return (itemOne as InventoryItemUI).isQuickItem || (itemTwo as InventoryItemUI).isQuickItem;
@@ -62,7 +103,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void UpdateInventorySlots()
         {
-            m_quickItemListUI.UpdateUIList(); 
+            m_quickItemListUI.UpdateUIList();
             m_listUI.UpdateUIList();
         }
 
@@ -71,9 +112,7 @@ namespace DChild.Gameplay.Inventories.UI
             m_listUI.Reset();
             UpdateInventorySlots();
 
-            Select(m_firstSelectedItemUI);
-            var button = m_firstSelectedItemUI.GetComponent<UIToggle>();
-            button.SetIsOn(true);
+            SelectFirstSlot();
         }
 
         private void OnListOverallChange(object sender, EventActionArgs eventArgs)
@@ -86,9 +125,15 @@ namespace DChild.Gameplay.Inventories.UI
             Select(null);
         }
 
+        private void OnItemCountReduced(object sender, EventActionArgs eventArgs)
+        {
+            UpdateInventorySlots();
+        }
+
         private void Awake()
         {
             m_listUI.ListOverallChange += OnListOverallChange;
+            m_usableInventoryItemHandle.OnItemCountReduced += OnItemCountReduced;
             m_usableInventoryItemHandle.AllItemCountConsumed += OnItemUsedConsumed;
         }
 

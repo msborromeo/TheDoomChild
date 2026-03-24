@@ -86,6 +86,11 @@ namespace DChild.Gameplay.Inventories
         public abstract int GetItemIndex(ItemData itemData);
 
         public abstract void ReplaceItem(ItemData itemData, int count, int index);
+
+        public void ForceAddItem(ItemData itemData, int count = 1)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     [System.Serializable]

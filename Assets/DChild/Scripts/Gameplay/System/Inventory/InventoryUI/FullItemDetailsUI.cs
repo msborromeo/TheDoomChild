@@ -30,6 +30,11 @@ namespace DChild.Gameplay.Inventories.UI
 
         public event Action<ItemData> LocalizeItemView;
 
+        public override void AdjustIconColor(bool isModified)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Hide()
         {
             m_canvas.enabled = false;
