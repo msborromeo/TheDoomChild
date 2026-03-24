@@ -208,7 +208,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.PickedUpBook += OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted += OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp += OnPlayerWokeUp;
-            m_underworldUIStateObserver.UnderworldUIStateChanged += OnUIStateChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent += OnVector2PerformedInput;
@@ -295,7 +294,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.PickedUpBook -= OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted -= OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp -= OnPlayerWokeUp;
-            m_underworldUIStateObserver.UnderworldUIStateChanged -= OnUIStateChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent -= OnVector2PerformedInput;
@@ -2406,19 +2404,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnProjectileThrowRequest(object sender, EventActionArgs eventArgs)
         {
             //m_input.projectileThrowPressed = true;
-        }
-
-
-        private void OnUIStateChanged(UnderworldUIState state)
-        {
-            if(state != UnderworldUIState.GameplayHUD)
-            {
-                m_inputReader.SetInputModeToUI();
-            }
-            else
-            {
-                m_inputReader.SetInputModeToUnderworldGameplay();
-            }
         }
 
         private void FlipCharacter()

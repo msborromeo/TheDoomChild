@@ -66,6 +66,7 @@ GameObject:
   - component: {fileID: 1552169840937797270}
   - component: {fileID: 592986543773746069}
   - component: {fileID: 9080061925557473466}
+  - component: {fileID: 4482596584172640143}
   m_Layer: 8
   m_Name: Control
   m_TagString: Untagged
@@ -828,7 +829,19 @@ MonoBehaviour:
     m_ActionId: a433c9e0-987b-4005-bd68-f5c3adc055ff
     m_ActionName: Underworld/MordenThroneRoomTeleport[/Keyboard/h]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 861599492571646785}
+        m_TargetAssemblyTypeName: DChild.Inputs.PlayerInputReaderBridge, Assembly-CSharp
+        m_MethodName: OnDeleteSave
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c24c7fbe-0511-44a5-9d24-1f67d35463a2
     m_ActionName: UI/DeleteSave[/Keyboard/delete]
   - m_PersistentCalls:
@@ -934,6 +947,20 @@ MonoBehaviour:
   m_handle: {fileID: 0}
   m_vector2Input: {x: 0, y: 0}
   m_mouseDelta: {x: 0, y: 0}
+--- !u!114 &4482596584172640143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5573233925074938722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd6195e4dc423042bad3ba3b11c7a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inputReader: {fileID: 11400000, guid: f10ab9566613cb14b98648d2d13c9ed9, type: 2}
+  m_UIStateObserver: {fileID: 0}
 --- !u!1 &5734926324226388515
 GameObject:
   m_ObjectHideFlags: 0
