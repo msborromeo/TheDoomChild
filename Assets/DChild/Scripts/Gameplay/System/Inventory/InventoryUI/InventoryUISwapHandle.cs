@@ -1,4 +1,5 @@
-﻿using Holysoft.Event;
+﻿using DChild.Gameplay.Items;
+using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
@@ -9,6 +10,9 @@ namespace DChild.Gameplay.Inventories.UI
     {
         [SerializeField] private PlayerInventoryUIHandle m_handle;
         [SerializeField] private InventorySwapHandle m_systemSwapHandle;
+
+        [SerializeField]
+        private GameObject m_quickItemSectionBlocker;
 
         [SerializeField, ReadOnly]
         private bool m_isSwapping = false;
@@ -21,10 +25,30 @@ namespace DChild.Gameplay.Inventories.UI
         public InventoryItemUI itemTwo => m_itemTwo;
 
 
+
         #region Setters
-        public void SetFirstItem(InventoryItemUI value) => m_itemOne = value;
-        public void SetSwappingStatus(bool value) => m_isSwapping = value;
+        public void SetFirstItem(InventoryItemUI value)
+        {
+            m_itemOne = value;
+        }
+
+        public void SetSwappingStatus(bool value)
+        {
+            m_isSwapping = value;
+
+            if(m_isSwapping)
+            {
+
+                var itemForSwap = m_itemOne;
+                var isKeyOrQuest = itemForSwap.reference.data.category == ItemCategory.Quest
+                    || itemForSwap.reference.data.category == ItemCategory.Key;
+
+                m_quickItemSectionBlocker.SetActive(isKeyOrQuest);
+            }
+
+        }
         #endregion
+
 
         public void OnSecondItemSelected(InventoryItemUI slotUI)
         {
@@ -32,13 +56,28 @@ namespace DChild.Gameplay.Inventories.UI
             SwapItems();
         }
 
+        [Button]
+        public void MoveInventoryItemToQuickItems(InventoryItemUI slotUI)
+        {
+            PrepareTransferrableItem(slotUI);
+            m_systemSwapHandle.MovePlayerInventoryItemToQuickItem();
+        }
+
+        public void MoveQuickItemToInventory(InventoryItemUI slotUI)
+        {
+            PrepareTransferrableItem(slotUI);
+            m_systemSwapHandle.MoveQuickItemItemToPlayerInventory();
+            m_handle.UpdateInventorySlots();
+            m_handle.SelectFirstSlot();
+        }
+
         public void SwapItems()
         {
             //check if either item is null due to a double call;
-            if (m_itemOne == null || m_itemTwo == null) return;
-         
-            //check if both items for swap are in same list
-            if (m_itemOne.isQuickItem == m_itemTwo.isQuickItem)
+            if (m_itemOne == null) return;
+
+            //internal swapping; check if both items for swap are in same list
+            else if (m_itemOne.isQuickItem == m_itemTwo.isQuickItem)
             {
                 m_handle.SwapItems(m_itemOne, m_itemTwo);
                 Reset();
@@ -51,6 +90,12 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void MoveItemsBetweenInventories()
         {
+            if (!m_itemOne.isQuickItem && (m_itemTwo.isQuickItem && m_itemTwo.reference == null))
+            {
+                m_handle.MoveInventoryItemToQuickItems(m_itemOne);
+                return;
+            }
+
             PrepareTransferrableItem(m_itemOne);
             PrepareTransferrableItem(m_itemTwo);
 
@@ -72,6 +117,7 @@ namespace DChild.Gameplay.Inventories.UI
         {
             m_itemOne = null;
             m_itemTwo = null;
+            m_quickItemSectionBlocker.SetActive(false);
         }
     }
 }

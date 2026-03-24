@@ -1,5 +1,6 @@
 using DChild.Gameplay.EquipmentSystem;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +17,18 @@ namespace DChild.Menu.Equipment.UI
         [SerializeField] private PlayerSoulEquipmentHandle m_equipmentHandle;
         public PlayerSoulEquipmentHandle equipmentHandle => m_equipmentHandle;
 
-        [BoxGroup("GRID SELECTION"),SerializeField] private EquipmentSelectionUI m_selectionUI;
+        [BoxGroup("GRID SELECTION"), SerializeField] private EquipmentSelectionUI m_selectionUI;
         public EquipmentSelectionUI selectionUI => m_selectionUI;
 
         [BoxGroup("DETAILS"), SerializeField] private EquipmentDetailsUI m_detailsUI;
         public EquipmentDetailsUI detailsUI => m_detailsUI;
 
-        private List<SoulEquipmentItem> m_acquiredItems = new();
+        private List<SoulEquipmentItem> m_acquiredItems;
 
         private void GetEquipmentData(SoulEquipmentList equipmentList)
         {
+            m_acquiredItems = new();
+
             int[] IDs = equipmentList.GetIDs();
 
             for (int i = 0; i < IDs.Length; i++)

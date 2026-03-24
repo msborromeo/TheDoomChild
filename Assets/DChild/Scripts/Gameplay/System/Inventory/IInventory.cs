@@ -10,6 +10,7 @@ namespace DChild.Gameplay.Inventories
         event EventAction<EventActionArgs> MassInventoryItemUpdate;
 
         void AddItem(ItemData itemData, int count = 1);
+        void ForceAddItem(ItemData itemData, int count = 1);
         void RemoveItem(ItemData itemData, int count = 1);
         void SetItem(ItemData itemData, int count = 1);
 

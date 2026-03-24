@@ -25,6 +25,7 @@ namespace DChild.Gameplay.Inventories.UI
         }
 
         public abstract void UpdateUIList();
+        public abstract void UpdateUIList(bool v);
 
         public abstract void SwapItems(ItemUI itemOne, ItemUI itemTwo);
 

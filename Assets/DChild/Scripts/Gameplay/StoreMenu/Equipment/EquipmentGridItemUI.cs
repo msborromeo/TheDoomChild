@@ -42,7 +42,7 @@ namespace DChild.Menu.Equipment.UI
             SetGridItemUIState(hasItem);
 
             if (hasItem)
-                m_itemIcon.sprite = item.icon;
+                m_itemIcon.sprite = item.slotIcon;
         }
 
         [Button]
