@@ -14,6 +14,8 @@ namespace DChild.Gameplay.UI.Controller
     {
         [SerializeField]
         private InputReader m_inputReader;
+        [SerializeField]
+        private StoreNavigator m_storeNavigator;
 
         [SerializeField]
         private UnderworldUIStateObserver m_UIStateObserver;
@@ -22,12 +24,19 @@ namespace DChild.Gameplay.UI.Controller
         {
             m_inputReader.UICycleTabsPerformedEvent += OnUICycleTabsPerformed;
             m_inputReader.UICycleSubTabsPerformedEvent += OnUICycleSubtabsPerformed;
+            m_inputReader.UINavigatePerformedEvent += OnUINavigatePerformed;
         }
 
         private void OnDisable()
         {
             m_inputReader.UICycleTabsPerformedEvent -= OnUICycleTabsPerformed;
             m_inputReader.UICycleSubTabsPerformedEvent -= OnUICycleSubtabsPerformed;
+            m_inputReader.UINavigatePerformedEvent -= OnUINavigatePerformed;
+        }
+
+        private void OnUINavigatePerformed(Vector2 vector)
+        {
+            throw new NotImplementedException();
         }
 
         private void OnUICycleTabsPerformed(float obj)
@@ -35,75 +44,96 @@ namespace DChild.Gameplay.UI.Controller
             switch (m_UIStateObserver.currentUnderworldUIState)
             {
                 case UnderworldUIState.NecroMap:
-                    if(obj > 0)
+                    if (obj > 0)
                     {
-                        GameplayUIHandle.Instance.OpenStoreAtPage(StorePage.Player);
+                        m_storeNavigator.SetPage(StorePage.Player);
+                        m_storeNavigator.OpenPage();
                     }
-                    else if(obj < 0)
+                    else if (obj < 0)
                     {
-                        GameplayUIHandle.Instance.OpenStoreAtPage(StorePage.Codex);
+                        m_storeNavigator.SetPage(StorePage.Codex);
+                        m_storeNavigator.OpenPage();
                     }
                     break;
+
                 case UnderworldUIState.NecroStats:
                     if (obj > 0)
                     {
-                        GameplayUIHandle.Instance.OpenStoreAtPage(StorePage.Items);
+                        m_storeNavigator.SetPage(StorePage.Items);
+                        m_storeNavigator.OpenPage();
                     }
                     else if (obj < 0)
                     {
-                        GameplayUIHandle.Instance.OpenStoreAtPage(StorePage.Map);
+                        m_storeNavigator.SetPage(StorePage.Map);
+                        m_storeNavigator.OpenPage();
                     }
                     break;
+
                 case UnderworldUIState.NecroItems:
                     if (obj > 0)
                     {
-                        GameplayUIHandle.Instance.OpenStoreAtPage(StorePage.Equipment);
+                        m_storeNavigator.SetPage(StorePage.Equipment);
+                        m_storeNavigator.OpenPage();
                     }
                     else if (obj < 0)
                     {
-                        GameplayUIHandle.Instance.OpenStoreAtPage(StorePage.Player);
+                        m_storeNavigator.SetPage(StorePage.Player);
+                        m_storeNavigator.OpenPage();
                     }
                     break;
+
                 case UnderworldUIState.NecroEquipment:
                     if (obj > 0)
                     {
-                        GameplayUIHandle.Instance.OpenStoreAtPage(StorePage.SoulSkills);
+                        m_storeNavigator.SetPage(StorePage.SoulSkills);
+                        m_storeNavigator.OpenPage();
                     }
                     else if (obj < 0)
                     {
-                        GameplayUIHandle.Instance.OpenStoreAtPage(StorePage.Items);
+                        m_storeNavigator.SetPage(StorePage.Items);
+                        m_storeNavigator.OpenPage();
                     }
                     break;
+
                 case UnderworldUIState.NecroSoulSkills:
                     if (obj > 0)
                     {
-                        GameplayUIHandle.Instance.OpenStoreAtPage(StorePage.CombatArts);
+                        m_storeNavigator.SetPage(StorePage.CombatArts);
+                        m_storeNavigator.OpenPage();
                     }
                     else if (obj < 0)
                     {
-                        GameplayUIHandle.Instance.OpenStoreAtPage(StorePage.Equipment);
+                        m_storeNavigator.SetPage(StorePage.Equipment);
+                        m_storeNavigator.OpenPage();
                     }
                     break;
+
                 case UnderworldUIState.NecroCombatArts:
                     if (obj > 0)
                     {
-                        GameplayUIHandle.Instance.OpenStoreAtPage(StorePage.Codex);
+                        m_storeNavigator.SetPage(StorePage.Codex);
+                        m_storeNavigator.OpenPage();
                     }
                     else if (obj < 0)
                     {
-                        GameplayUIHandle.Instance.OpenStoreAtPage(StorePage.SoulSkills);
+                        m_storeNavigator.SetPage(StorePage.SoulSkills);
+                        m_storeNavigator.OpenPage();
                     }
                     break;
+
                 case UnderworldUIState.NecroCodex:
                     if (obj > 0)
                     {
-                        GameplayUIHandle.Instance.OpenStoreAtPage(StorePage.Map);
+                        m_storeNavigator.SetPage(StorePage.Map);
+                        m_storeNavigator.OpenPage();
                     }
                     else if (obj < 0)
                     {
-                        GameplayUIHandle.Instance.OpenStoreAtPage(StorePage.CombatArts);
+                        m_storeNavigator.SetPage(StorePage.CombatArts);
+                        m_storeNavigator.OpenPage();
                     }
                     break;
+
                 case UnderworldUIState.MordenElevator:
                     break;
                 case UnderworldUIState.Shop:
@@ -113,7 +143,18 @@ namespace DChild.Gameplay.UI.Controller
 
         private void OnUICycleSubtabsPerformed(float obj)
         {
-            throw new NotImplementedException();
+            if(m_UIStateObserver.currentUnderworldUIState == UnderworldUIState.NecroItems)
+            {
+                //Handle filter in inventory
+                if(obj > 0)
+                {
+                    
+                }
+                else if(obj < 0)
+                {
+
+                }
+            }
         }
     }
 }
