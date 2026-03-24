@@ -38,6 +38,7 @@ namespace DChild.Gameplay.Inventories.UI
             switch (m_category)
             {
                 case ItemCategory.Key:
+                case ItemCategory.Quest:
                     updatedLabel = "Quest Items";
                     break;
                 case ItemCategory.All:
