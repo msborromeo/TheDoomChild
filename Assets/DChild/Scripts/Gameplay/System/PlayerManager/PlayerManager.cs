@@ -27,6 +27,8 @@ namespace DChild.Gameplay.Systems
         ArmyBattleCharacterRecruiter armyBattleCharacterRecruiter { get; }
         PlayerCharacterOverride OverrideCharacterControls();
 
+        PlayerInput PlayerInput { get; }
+
         bool IsPartOfPlayer(GameObject gameObject);
         bool IsPartOfPlayer(GameObject gameObject, out IPlayer player);
 
@@ -76,6 +78,8 @@ namespace DChild.Gameplay.Systems
         public IAutoReflexHandler autoReflex => m_autoReflex;
 
         public ArmyBattleCharacterRecruiter armyBattleCharacterRecruiter => m_armyBattleCharacterRecruiter;
+
+        public PlayerInput PlayerInput => m_playerInput;
 
         public static event Action<bool> PlayerControlsEnabled;
 

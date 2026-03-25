@@ -17,9 +17,6 @@ namespace DChild.Gameplay.UI.Controller
         [SerializeField]
         private StoreNavigator m_storeNavigator;
 
-        [SerializeField]
-        private GameplayUIStateObserver m_UIStateObserver;
-
         private void OnEnable()
         {
             m_inputReader.UICycleTabsPerformedEvent += OnUICycleTabsPerformed;
@@ -41,7 +38,7 @@ namespace DChild.Gameplay.UI.Controller
 
         private void OnUICycleTabsPerformed(float obj)
         {
-            switch (m_UIStateObserver.currentUnderworldUIState)
+            switch (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState())
             {
                 case GameplayUIState.NecroMap:
                     if (obj > 0)
@@ -143,7 +140,7 @@ namespace DChild.Gameplay.UI.Controller
 
         private void OnUICycleSubtabsPerformed(float obj)
         {
-            if(m_UIStateObserver.currentUnderworldUIState == GameplayUIState.NecroItems)
+            if(BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() == GameplayUIState.NecroItems)
             {
                 //Handle filter in inventory
                 if(obj > 0)

@@ -34,8 +34,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private Character m_character;
         [SerializeField]
         private CharacterState m_state;
-        [SerializeField]
-        private GameplayUIStateObserver m_underworldUIStateObserver;
 
         private IDash m_activeDash;
         private ISlide m_activeSlide;

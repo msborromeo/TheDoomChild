@@ -1,3 +1,4 @@
+using DChild.Gameplay.Systems;
 using DChild.Gameplay.UI.Controller;
 using DChild.Inputs;
 using Sirenix.OdinInspector;
@@ -26,10 +27,26 @@ namespace DChild.UI
         {
             m_currentUnderworldUIState = (GameplayUIState)underworldUIState;
 
+            var currentWorldType = BaseGameplaySystem.GetCurrentWorldType();
+
             if(m_currentUnderworldUIState == GameplayUIState.GameplayHUD)
             {
-                m_inputReader.SetInputModeToUnderworldGameplay();
-                m_playerInput.SwitchCurrentActionMap("Underworld");
+                if(currentWorldType == WorldType.Underworld)
+                {
+                    m_inputReader.SetInputModeToUnderworldGameplay();
+                    m_playerInput.SwitchCurrentActionMap("Underworld");
+                }
+                else if(currentWorldType == WorldType.Overworld)
+                {
+                    m_inputReader.SetInputModeTOverworldGameplay();
+                    m_playerInput.SwitchCurrentActionMap("Overworld");
+                }
+                else if(currentWorldType == WorldType.ArmyBattle)
+                {
+                    m_inputReader.SetInputModeToArmyBattleGameplay();
+                    m_playerInput.SwitchCurrentActionMap("Army Battle");
+                }
+
             }
             else
             {

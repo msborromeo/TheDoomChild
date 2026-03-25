@@ -16,6 +16,7 @@ using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
 using System.Drawing.Text;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 
 namespace DChild.Gameplay.Systems
@@ -247,10 +248,16 @@ namespace DChild.Gameplay.Systems
             m_regen.ShadowRegenEffect(false);
         }
 
+        public void SetCurrentUIState(int state)
+        {
+            BaseGameplaySystem.gamplayUIHandle.SetGameplayUIState(state);
+        }
+
         public void Initialize()
         {
             m_notificationManager.InitializeFullPriorityHandling();
             m_notificationManager.InitializePromptPriorityHandling();
+            BaseGameplaySystem.gamplayUIHandle.SetCurrentPlayerInput(GameplaySystem.playerManager.PlayerInput);
             GameplaySystem.campaignSerializer.PostDeserialization += OnPostDeserialization;
         }
 
