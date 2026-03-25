@@ -257,7 +257,6 @@ namespace DChild.Gameplay.Systems
         {
             m_notificationManager.InitializeFullPriorityHandling();
             m_notificationManager.InitializePromptPriorityHandling();
-            BaseGameplaySystem.gamplayUIHandle.SetCurrentPlayerInput(GameplaySystem.playerManager.PlayerInput);
             GameplaySystem.campaignSerializer.PostDeserialization += OnPostDeserialization;
         }
 

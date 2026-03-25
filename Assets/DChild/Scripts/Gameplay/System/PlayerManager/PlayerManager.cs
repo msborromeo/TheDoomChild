@@ -280,6 +280,7 @@ namespace DChild.Gameplay.Systems
                 m_playerOriginalParent = playerCharacter.transform.parent;
 
                 m_playerInput = m_player.GetComponentInChildren<PlayerInput>();
+                BaseGameplaySystem.gamplayUIHandle.SetCurrentPlayerInput(m_playerInput);
             }
             //m_autoReflex.Initialize();
         }
