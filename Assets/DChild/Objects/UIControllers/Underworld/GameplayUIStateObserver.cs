@@ -9,24 +9,24 @@ using UnityEngine.InputSystem;
 
 namespace DChild.UI
 {
-    public class UnderworldUIStateObserver : MonoBehaviour
+    public class GameplayUIStateObserver : MonoBehaviour
     {
         [SerializeField]
-        private UnderworldUIState m_currentUnderworldUIState;
-        public UnderworldUIState currentUnderworldUIState => m_currentUnderworldUIState;
+        private GameplayUIState m_currentUnderworldUIState;
+        public GameplayUIState currentUnderworldUIState => m_currentUnderworldUIState;
 
         [SerializeField]
         private InputReader m_inputReader;
-        [SerializeField]
+
         private PlayerInput m_playerInput;
 
-        public event Action<UnderworldUIState> UnderworldUIStateChanged;
+        public event Action<GameplayUIState> UnderworldUIStateChanged;
 
         public void SetCurrentUnderworldUIState(int underworldUIState)
         {
-            m_currentUnderworldUIState = (UnderworldUIState)underworldUIState;
+            m_currentUnderworldUIState = (GameplayUIState)underworldUIState;
 
-            if(m_currentUnderworldUIState == UnderworldUIState.GameplayHUD)
+            if(m_currentUnderworldUIState == GameplayUIState.GameplayHUD)
             {
                 m_inputReader.SetInputModeToUnderworldGameplay();
                 m_playerInput.SwitchCurrentActionMap("Underworld");
@@ -38,6 +38,11 @@ namespace DChild.UI
             }
 
             UnderworldUIStateChanged?.Invoke(m_currentUnderworldUIState);
+        }
+
+        public void SetCurrentPlayerInput(PlayerInput playerInput)
+        {
+            m_playerInput = playerInput;
         }
     }
 }

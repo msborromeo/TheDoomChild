@@ -5,6 +5,7 @@ using DChild.Gameplay.Systems.Serialization;
 using DChild.Gameplay.UI;
 using DChild.Gameplay.UI.Alerts;
 using DChild.Menu;
+using DChild.UI;
 using DChildDebug.Cutscene;
 using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
@@ -14,6 +15,7 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Video;
 using DLocation = DChild.Gameplay.Environment.Location;
 
@@ -74,6 +76,8 @@ namespace DChild.Gameplay.Systems
         private PauseGameGuard m_pauseGameGuard;
         [SerializeField]
         private SignalSender m_backSignal;
+        [SerializeField]
+        private GameplayUIStateObserver m_gameplayUIStateObserver;
 
         public UIAlertManager uiAlertManager => m_uiAlertManager;
 
@@ -200,6 +204,17 @@ namespace DChild.Gameplay.Systems
             m_backSignal.SendSignal();
         }
 
+        public void SetGameplayUIState(int state)
+        {
+            m_gameplayUIStateObserver.SetCurrentUnderworldUIState(state);
+        }
+
+        public void SetCurrentPlayerInput(PlayerInput playerInput)
+        {
+            m_gameplayUIStateObserver.SetCurrentPlayerInput(playerInput);
+        }
+
+        public GameplayUIState GetCurrentUIState() => m_gameplayUIStateObserver.currentUnderworldUIState;
 
         private void Awake()
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DChild.UI
 {
-    public enum UnderworldUIState
+    public enum GameplayUIState
     {
         GameplayHUD,
         PauseGame,
@@ -19,7 +19,9 @@ namespace DChild.UI
         GameOver,
         MordenElevator,
         Shop,
-        Dialogue
+        Dialogue,
+        FastTravel,
+        CinematicVideo
     }
 }
 
