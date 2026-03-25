@@ -18,7 +18,8 @@ namespace DChild.UI
         NecroCodex,
         GameOver,
         MordenElevator,
-        Shop
+        Shop,
+        Dialogue
     }
 }
 
