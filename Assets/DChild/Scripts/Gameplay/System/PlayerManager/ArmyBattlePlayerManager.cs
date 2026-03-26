@@ -22,6 +22,8 @@ namespace DChild.Gameplay.Systems
 
         public ArmyBattleCharacterRecruiter armyBattleCharacterRecruiter => throw new NotImplementedException();
 
+        public PlayerInput PlayerInput => throw new NotImplementedException();
+
         public void DisableControls()
         {
             Debug.Log("Theres no Player controls to actually modify");

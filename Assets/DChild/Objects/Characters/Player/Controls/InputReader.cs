@@ -165,12 +165,16 @@ namespace DChild.Inputs
         #endregion
         #endregion
 
+        public event Action ActiveActionMapChanged;
+
         public void SetInputModeToUnderworldGameplay()
         {
             m_playerControls.Underworld.Enable();
             m_playerControls.Overworld.Disable();
             m_playerControls.UI.Disable();
             m_playerControls.ArmyBattle.Disable();
+
+            ActiveActionMapChanged?.Invoke();
         }
 
         public void SetInputModeTOverworldGameplay()
@@ -179,6 +183,8 @@ namespace DChild.Inputs
             m_playerControls.Underworld.Disable();
             m_playerControls.UI.Disable();
             m_playerControls.ArmyBattle.Disable();
+
+            ActiveActionMapChanged?.Invoke();
         }
 
         public void SetInputModeToUI()
@@ -187,6 +193,8 @@ namespace DChild.Inputs
             m_playerControls.Underworld.Disable();
             m_playerControls.Overworld.Disable();
             m_playerControls.ArmyBattle.Disable();
+
+            ActiveActionMapChanged?.Invoke();
         }
 
         public void SetInputModeToArmyBattleGameplay()
@@ -195,6 +203,8 @@ namespace DChild.Inputs
             m_playerControls.Underworld.Disable();
             m_playerControls.Overworld.Disable();
             m_playerControls.UI.Disable();
+
+            ActiveActionMapChanged?.Invoke();
         }
 
         #region Underworld Actions
