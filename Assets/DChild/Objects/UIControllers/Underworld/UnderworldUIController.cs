@@ -22,6 +22,8 @@ namespace DChild.Gameplay.UI.Controller
             m_inputReader.UICycleTabsPerformedEvent += OnUICycleTabsPerformed;
             m_inputReader.UICycleSubTabsPerformedEvent += OnUICycleSubtabsPerformed;
             m_inputReader.UINavigatePerformedEvent += OnUINavigatePerformed;
+            m_inputReader.UIClickPerformedEvent += OnUIClickPerformed;
+            m_inputReader.UISubmitPerformedEvent += OnUISubmitPerformed;
         }
 
         private void OnDisable()
@@ -29,11 +31,29 @@ namespace DChild.Gameplay.UI.Controller
             m_inputReader.UICycleTabsPerformedEvent -= OnUICycleTabsPerformed;
             m_inputReader.UICycleSubTabsPerformedEvent -= OnUICycleSubtabsPerformed;
             m_inputReader.UINavigatePerformedEvent -= OnUINavigatePerformed;
+            m_inputReader.UIClickPerformedEvent -= OnUIClickPerformed;
+            m_inputReader.UISubmitPerformedEvent -= OnUISubmitPerformed;
+        }
+
+        private void OnUISubmitPerformed()
+        {
+            if (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() == GameplayUIState.Dialogue)
+            {
+                BaseGameplaySystem.gamplayUIHandle.ContinueDialogue();
+            }
+        }
+
+        private void OnUIClickPerformed()
+        {
+            if(BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() == GameplayUIState.Dialogue)
+            {
+                BaseGameplaySystem.gamplayUIHandle.ContinueDialogue();
+            }
         }
 
         private void OnUINavigatePerformed(Vector2 vector)
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnUICycleTabsPerformed(float obj)
