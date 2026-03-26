@@ -206,6 +206,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.PickedUpBook += OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted += OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp += OnPlayerWokeUp;
+            m_inputReader.ActiveActionMapChanged += OnActiveActionMapChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent += OnVector2PerformedInput;
@@ -292,6 +293,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.PickedUpBook -= OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted -= OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp -= OnPlayerWokeUp;
+            m_inputReader.ActiveActionMapChanged -= OnActiveActionMapChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent -= OnVector2PerformedInput;
@@ -2551,6 +2553,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_activeSlide?.Clear(); //clear slide vfx because it is still visible in some scene changes
             m_shadowGaugeRegen.Enable(true);
         }
+
+        private void OnActiveActionMapChanged()
+        {
+            //Reset vector2 input to prevent moving on its own when action map changes mid movement
+            m_vector2Input = Vector2.zero;
+        }
+
         #endregion
 
         #region Module Handling

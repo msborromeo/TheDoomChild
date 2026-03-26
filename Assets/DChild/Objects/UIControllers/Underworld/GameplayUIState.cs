@@ -23,7 +23,8 @@ namespace DChild.UI
         Shop,
         Dialogue,
         FastTravel,
-        CinematicVideo
+        CinematicVideo,
+        Cinematic
     }
 }
 
