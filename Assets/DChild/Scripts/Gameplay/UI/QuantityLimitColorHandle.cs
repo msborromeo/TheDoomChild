@@ -19,6 +19,9 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void UpdateQuantityTextColor()
         {
+            if(currentItem == null) 
+                return;
+
             if(currentItem.count >= currentItem.data.quantityLimit)
             {
                 quantityText.color = overLimitColor;

@@ -17,9 +17,6 @@ namespace DChild.Gameplay.UI.Controller
         [SerializeField]
         private StoreNavigator m_storeNavigator;
 
-        [SerializeField]
-        private UnderworldUIStateObserver m_UIStateObserver;
-
         private void OnEnable()
         {
             m_inputReader.UICycleTabsPerformedEvent += OnUICycleTabsPerformed;
@@ -41,9 +38,9 @@ namespace DChild.Gameplay.UI.Controller
 
         private void OnUICycleTabsPerformed(float obj)
         {
-            switch (m_UIStateObserver.currentUnderworldUIState)
+            switch (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState())
             {
-                case UnderworldUIState.NecroMap:
+                case GameplayUIState.NecroMap:
                     if (obj > 0)
                     {
                         m_storeNavigator.SetPage(StorePage.Player);
@@ -56,7 +53,7 @@ namespace DChild.Gameplay.UI.Controller
                     }
                     break;
 
-                case UnderworldUIState.NecroStats:
+                case GameplayUIState.NecroStats:
                     if (obj > 0)
                     {
                         m_storeNavigator.SetPage(StorePage.Items);
@@ -69,7 +66,7 @@ namespace DChild.Gameplay.UI.Controller
                     }
                     break;
 
-                case UnderworldUIState.NecroItems:
+                case GameplayUIState.NecroItems:
                     if (obj > 0)
                     {
                         m_storeNavigator.SetPage(StorePage.Equipment);
@@ -82,7 +79,7 @@ namespace DChild.Gameplay.UI.Controller
                     }
                     break;
 
-                case UnderworldUIState.NecroEquipment:
+                case GameplayUIState.NecroEquipment:
                     if (obj > 0)
                     {
                         m_storeNavigator.SetPage(StorePage.SoulSkills);
@@ -95,7 +92,7 @@ namespace DChild.Gameplay.UI.Controller
                     }
                     break;
 
-                case UnderworldUIState.NecroSoulSkills:
+                case GameplayUIState.NecroSoulSkills:
                     if (obj > 0)
                     {
                         m_storeNavigator.SetPage(StorePage.CombatArts);
@@ -108,7 +105,7 @@ namespace DChild.Gameplay.UI.Controller
                     }
                     break;
 
-                case UnderworldUIState.NecroCombatArts:
+                case GameplayUIState.NecroCombatArts:
                     if (obj > 0)
                     {
                         m_storeNavigator.SetPage(StorePage.Codex);
@@ -121,7 +118,7 @@ namespace DChild.Gameplay.UI.Controller
                     }
                     break;
 
-                case UnderworldUIState.NecroCodex:
+                case GameplayUIState.NecroCodex:
                     if (obj > 0)
                     {
                         m_storeNavigator.SetPage(StorePage.Map);
@@ -134,16 +131,16 @@ namespace DChild.Gameplay.UI.Controller
                     }
                     break;
 
-                case UnderworldUIState.MordenElevator:
+                case GameplayUIState.MordenElevator:
                     break;
-                case UnderworldUIState.Shop:
+                case GameplayUIState.Shop:
                     break;
             }
         }
 
         private void OnUICycleSubtabsPerformed(float obj)
         {
-            if(m_UIStateObserver.currentUnderworldUIState == UnderworldUIState.NecroItems)
+            if(BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() == GameplayUIState.NecroItems)
             {
                 //Handle filter in inventory
                 if(obj > 0)
