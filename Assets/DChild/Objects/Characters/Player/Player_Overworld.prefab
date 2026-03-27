@@ -1,5 +1,57 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &877885860986849989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5028002541636745800}
+  - component: {fileID: 7734196180448177791}
+  m_Layer: 0
+  m_Name: QuickItemInventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5028002541636745800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877885860986849989}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6734730172745076563}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7734196180448177791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877885860986849989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b434aa288f4a24cb1df4165784a976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_referenceList: {fileID: 11400000, guid: 819c1396b920f124594a1d8220e9d9e9, type: 2}
+  m_quickItemInventory:
+    m_items: []
+    m_markAllItemsAsTradable: 0
+    m_restrictItemsToQuanitityLimit: 1
+    soulEssence: 0
+  m_maxItems: 7
+  m_isInventoryFull: 0
 --- !u!1 &1878234078647259709
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,10 +508,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e87919d8b71de448aea3a8513e6fece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_completeSoulSkillList: {fileID: 0}
-  m_playerHandle: {fileID: 0}
+  m_completeSoulSkillList: {fileID: 11400000, guid: ff4b65653ede1d8468a25cb642e91872,
+    type: 2}
+  m_playerHandle: {fileID: 8966390929634700481}
   m_skillSelection: {fileID: 0}
-  m_activatedListUI: {fileID: 0}
+  m_availableSoulCapacity: {fileID: 0}
   m_availableListUI: {fileID: 0}
   m_infoUI: {fileID: 0}
   m_forceSoulSkillActivation: 0
@@ -583,6 +636,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 6734730172745076562}
+    - {fileID: 7734196180448177791}
     - {fileID: 6734730172246290021}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -592,9 +646,12 @@ MonoBehaviour:
     - Name: m_inventory
       Entry: 10
       Data: 0
-    - Name: m_codex
+    - Name: m_quickItemInventory
       Entry: 10
       Data: 1
+    - Name: m_codex
+      Entry: 10
+      Data: 2
     - Name: m_playerSkills
       Entry: 7
       Data: 0|DChild.Gameplay.Characters.Players.PlayerCharacterDataHolder`1[[DChild.Serialization.PrimarySkillsData,
@@ -1018,6 +1075,26 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 962ad15c-d90f-406f-90c2-409e43dd94f2
     m_ActionName: Underworld/SwordThrust[/Keyboard/t,/DualShock4GamepadHID/rightStickPress]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 50b27411-7919-4dcc-9842-8e7c989f8304
+    m_ActionName: Underworld/OverworldTeleport[/Keyboard/t]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a433c9e0-987b-4005-bd68-f5c3adc055ff
+    m_ActionName: Underworld/MordenThroneRoomTeleport[/Keyboard/h]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c24c7fbe-0511-44a5-9d24-1f67d35463a2
+    m_ActionName: UI/DeleteSave[/Keyboard/delete]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c047f446-e481-43d2-9c93-12ccfd40b74d
+    m_ActionName: UI/CycleTab[/Keyboard/q,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 10445d15-f8da-4f0d-9567-8a9e82d487c3
+    m_ActionName: UI/CycleSubTab[/Keyboard/z,/Keyboard/x]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Overworld
@@ -1085,7 +1162,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5028002541636745800}
   m_Father: {fileID: 6734730171648301109}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1107,6 +1185,11 @@ MonoBehaviour:
     m_markAllItemsAsTradable: 0
     m_restrictItemsToQuanitityLimit: 1
     soulEssence: 0
+  m_quickItemInventory: {fileID: 7734196180448177791}
+  m_autoQuickItemList:
+  - {fileID: 11400000, guid: 9264a42395312a04f943c03d112aec75, type: 2}
+  - {fileID: 11400000, guid: 9574de7393252554090ad6563a85eba2, type: 2}
+  - {fileID: 11400000, guid: dff45c2c7f9d98846a726650a806251a, type: 2}
 --- !u!1 &8278414560899739337
 GameObject:
   m_ObjectHideFlags: 0
