@@ -16,6 +16,7 @@ using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
 using System.Drawing.Text;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 
 namespace DChild.Gameplay.Systems
@@ -245,6 +246,11 @@ namespace DChild.Gameplay.Systems
         public void DeactivateShadowRegenEffect()
         {
             m_regen.ShadowRegenEffect(false);
+        }
+
+        public void SetCurrentUIState(int state)
+        {
+            BaseGameplaySystem.gamplayUIHandle.SetGameplayUIState(state);
         }
 
         public void Initialize()

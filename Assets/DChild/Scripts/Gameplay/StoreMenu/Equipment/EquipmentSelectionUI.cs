@@ -30,10 +30,6 @@ namespace DChild.Menu.Equipment.UI
         public void SetupUI(List<SoulEquipmentItem> acquiredItems)
         {
             SetFilter(SoulSlot.Head);
-
-            if (!m_acquiredItems.IsNullOrEmpty())
-                m_acquiredItems.Clear();
-            
             m_acquiredItems = acquiredItems;
         }
 

@@ -27,6 +27,8 @@ namespace DChild.Gameplay.Systems
         ArmyBattleCharacterRecruiter armyBattleCharacterRecruiter { get; }
         PlayerCharacterOverride OverrideCharacterControls();
 
+        PlayerInput PlayerInput { get; }
+
         bool IsPartOfPlayer(GameObject gameObject);
         bool IsPartOfPlayer(GameObject gameObject, out IPlayer player);
 
@@ -76,6 +78,8 @@ namespace DChild.Gameplay.Systems
         public IAutoReflexHandler autoReflex => m_autoReflex;
 
         public ArmyBattleCharacterRecruiter armyBattleCharacterRecruiter => m_armyBattleCharacterRecruiter;
+
+        public PlayerInput PlayerInput => m_playerInput;
 
         public static event Action<bool> PlayerControlsEnabled;
 
@@ -276,6 +280,7 @@ namespace DChild.Gameplay.Systems
                 m_playerOriginalParent = playerCharacter.transform.parent;
 
                 m_playerInput = m_player.GetComponentInChildren<PlayerInput>();
+                BaseGameplaySystem.gamplayUIHandle.SetCurrentPlayerInput(m_playerInput);
             }
             //m_autoReflex.Initialize();
         }
