@@ -114,6 +114,11 @@ namespace DChild.Gameplay.Narrative
             m_storePickupSequence.SetActive(startSequence);
         }
 
+        public void ForceCinematicState()
+        {
+            BaseGameplaySystem.gamplayUIHandle.ToggleCinematicMode(true);
+        }
+
         public void InvokeBookPickedUp()
         {
             PickedUpBook?.Invoke();
@@ -160,6 +165,7 @@ namespace DChild.Gameplay.Narrative
             {
                 yield return null;
             }
+
             m_wakeUpInput.action.performed -= OnInputPerformed;
             m_wakeUpPrompt.Hide();
             m_cameraToDisable.enabled = false;
