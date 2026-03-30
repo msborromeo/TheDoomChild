@@ -8,6 +8,7 @@ using DChild.Menu;
 using DChild.UI;
 using DChildDebug.Cutscene;
 using Doozy.Runtime.Signals;
+using Doozy.Runtime.UIManager.Components;
 using Doozy.Runtime.UIManager.Containers;
 using Holysoft.Event;
 using PixelCrushers.DialogueSystem;
@@ -78,9 +79,15 @@ namespace DChild.Gameplay.Systems
         private SignalSender m_backSignal;
         [SerializeField]
         private GameplayUIStateObserver m_gameplayUIStateObserver;
+        [SerializeField, FoldoutGroup("Signals")]
+        private SignalSender m_continueDialogueSignal;
 
         public UIAlertManager uiAlertManager => m_uiAlertManager;
 
+        public void ContinueDialogue()
+        {
+            m_continueDialogueSignal.SendSignal();
+        }
 
         public void ToggleCinematicMode(bool on)
         {
