@@ -168,6 +168,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private ParticleFX m_lightningshieldsmallFX;
 
         [SerializeField]
+        private bool m_WillAmbush;
+        [SerializeField]
         private WayPointPatrol m_patrolHandle;
         [SerializeField]
         private MovementHandle2D m_moveHandle;
@@ -493,9 +495,20 @@ namespace DChild.Gameplay.Characters.Enemies
             m_idleDuringPatrolDurationTimer = m_info.GetRandomIdleDuringPatrolDuration();
         }
 
+        /*public override void Enable()
+        {
+            if(m_stateHandle.currentState == State.Dormant)
+            {
+                enabled = false;
+            }else
+            {
+                base.Enable();
+            }
+        }*/
+
         public void LaunchAmbush(Vector2 position)
         {
-            enabled = true;
+            m_WillAmbush = false;
             m_animation.EnableRootMotion(true, false);
             m_aggroCollider.enabled = true;
             m_stateHandle.OverrideState(State.Detect);
@@ -503,6 +516,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public void PrepareAmbush(Vector2 position)
         {
+            enabled = false;
+            m_WillAmbush = true;
             StopAllCoroutines();
             m_animation.EnableRootMotion(false, false);
             m_animation.DisableRootMotion();
@@ -514,7 +529,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_moveHandle.Stop();
             m_aggroCollider.enabled = false;
             m_stateHandle.OverrideState(State.Dormant);
-            enabled = false;
+            enabled = true;
         }
 
         protected override void Start()
@@ -535,7 +550,7 @@ namespace DChild.Gameplay.Characters.Enemies
             
             m_patrolHandle.Initialize();
             m_patrolHandle.TurnRequest += OnTurnRequest;
-            m_stateHandle = new StateHandle<State>(!enabled ? State.Dormant : State.Patrol, State.WaitForBehaviour);
+            m_stateHandle = new StateHandle<State>(m_WillAmbush ? State.Dormant : State.Patrol, State.WaitForBehaviour);
             m_turnHandle.TurnDone += OnTurnDone;
             m_canIdleDuringPatrol = true;
             m_idleDuringPatrolCooldownTimer = m_info.GetRandomIdleDuringPatrolCooldown();
@@ -557,6 +572,11 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
                 case State.Patrol:
+                    if (m_WillAmbush)
+                    {
+                        PrepareAmbush(transform.position);
+                        break;
+                    }
                     m_character.physics.simulateGravity = true;
                     m_hitbox.Enable();
                     m_aggroCollider.enabled = true;
@@ -636,6 +656,11 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
                 case State.ReevaluateSituation:
+                    if (m_WillAmbush)
+                    {
+                        PrepareAmbush(transform.position);
+                        break;
+                    }
                     if (m_targetInfo.doesTargetExist)
                     {
                         m_stateHandle.SetState(State.Chase);

@@ -202,6 +202,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private GameObject m_projectilePoint;
         [SerializeField]
         private GameObject m_targetPointIK;
+        [SerializeField]
+        private bool m_WillAmbush;
 
         private Vector2 m_lastTargetPos;
         private Vector2 m_initialPos;
@@ -529,7 +531,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public void LaunchAmbush(Vector2 position)
         {
-            enabled = true;
+            m_WillAmbush = false;
             m_aggroCollider.enabled = true;
             m_animation.EnableRootMotion(true, false);
             m_stateHandle.OverrideState(State.Detect);
@@ -537,6 +539,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public void PrepareAmbush(Vector2 position)
         {
+            enabled = false;
+            m_WillAmbush = true;
             StopAllCoroutines();
             m_animation.EnableRootMotion(false, false);
             m_animation.DisableRootMotion();
@@ -548,7 +552,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_movement.Stop();
             m_aggroCollider.enabled = false;
             m_stateHandle.OverrideState(State.Dormant);
-            enabled = false;
+            enabled = true;
         }
 
         protected override void Start()
@@ -576,7 +580,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_flinchHandle.FlinchEnd += OnFlinchEnd;
             //m_randomSpawnColliders = new List<Collider2D>();
             m_projectileLauncher = new ProjectileLauncher(m_info.projectile.projectileInfo, m_projectilePoint.transform);
-            m_stateHandle = new StateHandle<State>(!enabled ? State.Dormant : State.Patrol, State.WaitBehaviourEnd);
+            m_stateHandle = new StateHandle<State>(m_WillAmbush ? State.Dormant : State.Patrol, State.WaitBehaviourEnd);
             m_attackDecider = new RandomAttackDecider<Attack>();
             UpdateAttackDeciderList();
         }
@@ -598,6 +602,11 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
                 case State.Patrol:
+                    if (m_WillAmbush)
+                    {
+                        PrepareAmbush(transform.position);
+                        break;
+                    }
                     m_character.physics.simulateGravity = true;
                     m_hitbox.Enable();
                     m_aggroCollider.enabled = true;
@@ -720,6 +729,11 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
                 case State.ReevaluateSituation:
+                    if (m_WillAmbush)
+                    {
+                        PrepareAmbush(transform.position);
+                        break;
+                    }
                     if (m_targetInfo.isValid)
                     {
                         m_stateHandle.SetState(State.Chasing);

@@ -173,6 +173,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private bool m_isDetecting;
         //private bool m_prepAmbush;
         private Vector2 m_startPoint;
+        private bool m_escapedPod = false;
+
+        [SerializeField]
+        private bool m_WillAmbush;
 
         [SerializeField, TabGroup("Sensors")]
         private RaySensor m_wallSensor;
@@ -394,6 +398,18 @@ namespace DChild.Gameplay.Characters.Enemies
             }
         }
 
+        /*public override void Enable()
+        {
+            if(m_escapedPod)
+            {
+                base.Enable();
+            }
+            else
+            {
+                enabled = false;
+            }
+        }*/
+
         public override void ApplyData()
         {
             base.ApplyData();
@@ -554,7 +570,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public void LaunchAmbush(Vector2 position)
         {
-            enabled = true;
+            m_WillAmbush = false;
             m_aggroCollider.enabled = true;
             m_animation.EnableRootMotion(true, false);
             m_stateHandle.OverrideState(State.Detect);
@@ -562,6 +578,8 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public void PrepareAmbush(Vector2 position)
         {
+            enabled = false;
+            m_WillAmbush = true;
             StopAllCoroutines();
             m_animation.EnableRootMotion(false, false);
             m_animation.DisableRootMotion();
@@ -573,7 +591,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.idleCapsuleAnimation, true);
             m_movement.Stop();
             m_stateHandle.OverrideState(State.Dormant);
-            enabled = false;
+            enabled = true;
         }
 
         protected override void Start()
@@ -597,7 +615,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_deathHandle.SetAnimation(m_info.deathAnimation.animation);
             m_flinchHandle.FlinchStart += OnFlinchStart;
             m_flinchHandle.FlinchEnd += OnFlinchEnd;
-            m_stateHandle = new StateHandle<State>(!enabled ? State.Dormant : State.Patrol, State.WaitBehaviourEnd);
+            m_stateHandle = new StateHandle<State>(m_WillAmbush ? State.Dormant : State.Patrol, State.WaitBehaviourEnd);
             m_attackDecider = new RandomAttackDecider<Attack>();
             UpdateAttackDeciderList();
         }
@@ -767,6 +785,11 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
                 case State.ReevaluateSituation:
+                    if(m_WillAmbush)
+                    {
+                        PrepareAmbush(transform.position);
+                        break;
+                    }
                     //How far is target, is it worth it to chase or go back to patrol
                     if (m_targetInfo.isValid)
                     {
