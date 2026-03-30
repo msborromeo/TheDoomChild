@@ -88,6 +88,22 @@ MonoBehaviour:
     attachmentThreshold: 0.5
     eventThreshold: 0.5
     drawOrderThreshold: 0.5
+--- !u!114 &-5911346709744600392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: 
+  m_Time: 0.2833333333333333
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: c634ef0ee68b91d45917afb62e2c00c9, type: 2}
 --- !u!114 &-5654768480806446363
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,28 +127,12 @@ MonoBehaviour:
     waitForInput: 0.5
     noteConversation: Intro/Store Introduces itself to Player
     noteEntryID: 4
-    noteEntryText: '[4] HEY! Pick me up! Get me off this disgusting ground!'
+    noteEntryText: '[4] [pic=necroFrustratedExpression]HEY! You there!'
     playableReference: 
     end: 0
     isWaitingForInput: 0
     isDone: 0
   end: 6
---- !u!114 &-5602656988013976174
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
-  m_Name: Signal Emitter
-  m_EditorClassIdentifier: 
-  m_Time: 0
-  m_Retroactive: 0
-  m_EmitOnce: 0
-  m_Asset: {fileID: 11400000, guid: c634ef0ee68b91d45917afb62e2c00c9, type: 2}
 --- !u!114 &-3385964134092609481
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,8 +156,8 @@ MonoBehaviour:
     waitForInput: 0.5
     noteConversation: Intro/Store Introduces itself to Player
     noteEntryID: 2
-    noteEntryText: '[2] (in your head) Why does picking you up feel like something
-      I''d regret after?'
+    noteEntryText: "[2] [pic=crazyKnightDoubtful]I feel like picking him up is something
+      you\u2019re going to regret later on..."
     playableReference: 
     end: 0
     isWaitingForInput: 0
@@ -186,9 +186,8 @@ MonoBehaviour:
     waitForInput: 0.5
     noteConversation: Intro/Store Introduces itself to Player
     noteEntryID: 5
-    noteEntryText: '[5] FINALLY! Thanks for finally lifting me up!
-
-'
+    noteEntryText: '[5] [pic=necroSmirkingExpression]Finally. Watch your left, the
+      water down there does more harm than good.'
     playableReference: 
     end: 0
     isWaitingForInput: 0
@@ -267,7 +266,25 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -462,7 +479,25 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -552,7 +587,25 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -569,6 +622,22 @@ MonoBehaviour:
   m_Markers:
     m_Objects: []
   trackIndex: 0
+--- !u!114 &-2380364194736891071
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: 
+  m_Time: 33.083333333333336
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: e3b3b9acb6456814db9e89f2b0d38ad5, type: 2}
 --- !u!114 &-2096771810009844001
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -604,7 +673,7 @@ MonoBehaviour:
     waitForInput: 0.5
     noteConversation: Intro/Store Introduces itself to Player
     noteEntryID: 6
-    noteEntryText: '[6] [pic=necroTalkingExpression] I suggest we get moving.'
+    noteEntryText: '[6] [pic=necroTalkingExpression]I suggest we get moving.'
     playableReference: 
     end: 0
     isWaitingForInput: 0
@@ -724,6 +793,22 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events: []
+--- !u!114 &-1589779132003217165
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: 
+  m_Time: 33.6
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: f6de445c04f24fd4aa518d2b997e64f8, type: 2}
 --- !u!114 &-1344749302626943418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -747,9 +832,8 @@ MonoBehaviour:
   m_Clips: []
   m_Markers:
     m_Objects:
-    - {fileID: 2120383012122212087}
-    - {fileID: -5602656988013976174}
     - {fileID: 5573680952629122267}
+    - {fileID: -2380364194736891071}
 --- !u!114 &-1236687298636393867
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -816,6 +900,22 @@ MonoBehaviour:
   m_bufferingTime: 0.1
   m_ClipProperties:
     volume: 1
+--- !u!114 &-518844730784916818
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: 
+  m_Time: 33.083333333333336
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: e3b3b9acb6456814db9e89f2b0d38ad5, type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -984,9 +1084,7 @@ MonoBehaviour:
     waitForInput: 0.5
     noteConversation: Intro/Store Introduces itself to Player
     noteEntryID: 1
-    noteEntryText: '[1] YOUR MOTHER! Hahahaha!
-
-'
+    noteEntryText: '[1] [pic=crazyKnightLaughing]HAHAHAHAHA! IT WAS YOUR MOTHER!'
     playableReference: 
     end: 0
     isWaitingForInput: 0
@@ -1119,22 +1217,6 @@ MonoBehaviour:
     attachmentThreshold: 0.5
     eventThreshold: 0.5
     drawOrderThreshold: 0.5
---- !u!114 &2120383012122212087
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
-  m_Name: Signal Emitter
-  m_EditorClassIdentifier: 
-  m_Time: 33.13333349227905
-  m_Retroactive: 0
-  m_EmitOnce: 0
-  m_Asset: {fileID: 11400000, guid: f6de445c04f24fd4aa518d2b997e64f8, type: 2}
 --- !u!114 &3636805120483561177
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1562,7 +1644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
   m_Name: Signal Emitter
   m_EditorClassIdentifier: 
-  m_Time: 0.016666666666666666
+  m_Time: 0
   m_Retroactive: 0
   m_EmitOnce: 0
   m_Asset: {fileID: 11400000, guid: d0426f1180ffa494f8b5e1627bc3c4d5, type: 2}
@@ -1600,25 +1682,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -1728,6 +1792,38 @@ MonoBehaviour:
   m_Markers:
     m_Objects: []
   trackIndex: 0
+--- !u!114 &6006695919723475805
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: 
+  m_Time: 33.083333333333336
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 0}
+--- !u!114 &6207720788190073170
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: 
+  m_Time: 0
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: d0426f1180ffa494f8b5e1627bc3c4d5, type: 2}
 --- !u!114 &6815624361110234057
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1751,9 +1847,7 @@ MonoBehaviour:
     waitForInput: 0.5
     noteConversation: Intro/Store Introduces itself to Player
     noteEntryID: 3
-    noteEntryText: '[3] Who was that who just spoke!?
-
-'
+    noteEntryText: '[3] [pic=playerExcitedExpression]Who was that who just spoke?!'
     playableReference: 
     end: 0
     isWaitingForInput: 0
@@ -1912,7 +2006,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: '[4] HEY! Pick me ...'
+    m_DisplayName: '[4] [pic=necroFru...'
   - m_Version: 1
     m_Start: 6
     m_ClipIn: 0
@@ -1981,7 +2075,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: '[2] (in your head...'
+    m_DisplayName: '[2] [pic=crazyKni...'
   - m_Version: 1
     m_Start: 11
     m_ClipIn: 0
@@ -2050,7 +2144,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: '[3] Who was that ...'
+    m_DisplayName: '[3] [pic=playerEx...'
   - m_Version: 1
     m_Start: 15.999999999999998
     m_ClipIn: 0
@@ -2119,7 +2213,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: '[1] YOUR MOTHER! ...'
+    m_DisplayName: '[1] [pic=crazyKni...'
   - m_Version: 1
     m_Start: 23.93333333333333
     m_ClipIn: 0
@@ -2188,7 +2282,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: '[5] FINALLY! Than...'
+    m_DisplayName: '[5] [pic=necroSmi...'
   - m_Version: 1
     m_Start: 28.53333341280619
     m_ClipIn: 0
