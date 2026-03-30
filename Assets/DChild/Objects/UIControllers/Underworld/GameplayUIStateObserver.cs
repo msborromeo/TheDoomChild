@@ -18,6 +18,8 @@ namespace DChild.UI
 
         [SerializeField]
         private InputReader m_inputReader;
+        [SerializeField, ReadOnly()]
+        private string m_currentActionMap;
 
         private PlayerInput m_playerInput;
 
@@ -35,16 +37,19 @@ namespace DChild.UI
                 {
                     m_inputReader.SetInputModeToUnderworldGameplay();
                     m_playerInput.SwitchCurrentActionMap("Underworld");
+                    m_currentActionMap = "Underworld";
                 }
                 else if(currentWorldType == WorldType.Overworld)
                 {
                     m_inputReader.SetInputModeTOverworldGameplay();
                     m_playerInput.SwitchCurrentActionMap("Overworld");
+                    m_currentActionMap = "Overworld";
                 }
                 else if(currentWorldType == WorldType.ArmyBattle)
                 {
                     m_inputReader.SetInputModeToArmyBattleGameplay();
                     m_playerInput.SwitchCurrentActionMap("Army Battle");
+                    m_currentActionMap = "Army Battle";
                 }
 
             }
@@ -52,6 +57,7 @@ namespace DChild.UI
             {
                 m_inputReader.SetInputModeToUI();
                 m_playerInput.SwitchCurrentActionMap("UI");
+                m_currentActionMap = "UI";
             }
 
             UnderworldUIStateChanged?.Invoke(m_currentUnderworldUIState);
