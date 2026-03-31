@@ -4,7 +4,9 @@ using UnityEngine;
 
 namespace DChild.UI
 {
-    public enum UnderworldUIState
+    //To whoever looks at this in the future: DO NOT REMOVE OR MOVE ANYTHING IN THIS ENUM
+    //You can only add if needed
+    public enum GameplayUIState
     {
         GameplayHUD,
         PauseGame,
@@ -18,7 +20,15 @@ namespace DChild.UI
         NecroCodex,
         GameOver,
         MordenElevator,
-        Shop
+        Shop,
+        Dialogue,
+        FastTravel,
+        CinematicVideo,
+        Cinematic,
+        SettingsDisplay,
+        SettingsAudio,
+        SettingsController,
+        SettingsLanguage
     }
 }
 

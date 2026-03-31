@@ -181,6 +181,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private Hitbox m_helmetHitbox;
         [SerializeField, TabGroup("Helmet")]
         private Collider2D m_headCollider;
+        [SerializeField, TabGroup("Helmet")]
+        private GameObject m_bodyHitBox;
+        [SerializeField, TabGroup("Helmet")]
+        private GameObject m_headHitBox;
         private List<float> m_helmetHealthThreshholds;
         private int m_helmetIndex;
 
@@ -455,7 +459,8 @@ namespace DChild.Gameplay.Characters.Enemies
                     m_attackResistance.SetData(m_weakResistance);
                 else
                     m_attackResistance.SetData(null);
-                return true;
+                
+             return true;
             }
             //else if (m_helmetHealth.currentValue <= m_helmetHealth.maxValue * 0.3f)
             //{
@@ -661,7 +666,7 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void Awake()
         {
             base.Awake();
-            
+            m_helmetHealth.Death += M_helmetHealth_Death;
             m_patrolHandle.TurnRequest += OnTurnRequest;
             m_attackHandle.AttackDone += OnAttackDone;
             m_turnHandle.TurnDone += OnTurnDone;
@@ -678,6 +683,13 @@ namespace DChild.Gameplay.Characters.Enemies
             m_helmetHealthThreshholds.Add(m_helmetHealth.maxValue * 0.3f);
             m_helmetHealthThreshholds.Add(m_helmetHealth.maxValue * 0f);
             #endregion
+        }
+
+        private void M_helmetHealth_Death(object sender, EventActionArgs eventArgs)
+        {
+            m_headHitBox.SetActive(false);
+            m_bodyHitBox.SetActive(true);
+            Debug.Log("Helmet removed");
         }
 
         private void Update()

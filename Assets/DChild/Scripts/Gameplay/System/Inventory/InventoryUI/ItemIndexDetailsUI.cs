@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,8 @@ namespace DChild.Gameplay.Inventories.UI
 
         [SerializeField] private CanvasGroup m_emptyIcon;
         [SerializeField] private CanvasGroup m_itemQuantityCG;
+
+        public event Action<IStoredItem> ItemDetailsDisplayed;
 
         private Canvas m_canvas;
 
@@ -36,6 +39,8 @@ namespace DChild.Gameplay.Inventories.UI
                 if (m_itemQuantityCG != null)
                     m_itemQuantityCG.alpha = hasData && reference.count > 1 ? 1f : 0f;
             }
+
+            ItemDetailsDisplayed?.Invoke(reference);
         }
 
         public override void Show()

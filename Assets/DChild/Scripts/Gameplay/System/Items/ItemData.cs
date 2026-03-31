@@ -173,5 +173,12 @@ namespace DChild.Gameplay.Items
         {
             m_equippedIcon = x;
         }
+
+        public void SetIcon(Sprite x)
+        {
+            m_icon = x;
+            EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssets();
+        }
     }
 }

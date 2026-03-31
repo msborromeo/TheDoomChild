@@ -25,6 +25,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public event EventAction<EventActionArgs> AllItemCountConsumed;
         public event EventAction<EventActionArgs> OnItemCountReduced;
+        public event Action<IStoredItem> ItemConsumed;
 
         #region PRE_ALPHA
         public event Action<string> ItemUsed;
@@ -68,6 +69,7 @@ namespace DChild.Gameplay.Inventories.UI
                     UseItemFromInventory(m_item);
                     //m_inventory.RemoveItem(m_item);
                     OnItemCountReduced?.Invoke(this, EventActionArgs.Empty);
+                    ItemConsumed?.Invoke((IStoredItem)m_item);
 
                     if (m_inventory.GetCurrentAmount(m_item) == 0)
                     {

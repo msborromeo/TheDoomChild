@@ -1,6 +1,7 @@
 using DChild.Gameplay.Characters.AI;
 using DChild.Gameplay.Combat;
 using DChild.Gameplay.Pathfinding;
+using DChild.Gameplay.Pooling;
 using Holysoft.Event;
 using Sirenix.OdinInspector;
 using Spine.Unity;
@@ -126,7 +127,7 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField]
         private bool m_isReturningToIdle;
         [SerializeField]
-        private GameObject m_explosionFX;
+        private PoolableObject m_explosionFX;
 
         private void OnTurnRequest(object sender, EventActionArgs eventArgs) => m_stateHandle.OverrideState(State.Turning);
 
@@ -205,7 +206,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_agent.Stop();
             Debug.Log("DIE HERE");
 
-            m_deathVFX.Play();
+            //m_deathVFX.Play();
             m_animation.SetAnimation(0, m_info.deathAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.deathAnimation);
             yield return new WaitForSeconds(1f); //added wait for seconds here because death animation is too fast to notice death
@@ -249,7 +250,9 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         public void ExplosionEvent()
         {
-            m_explosionFX.SetActive(true);
+            // m_explosionFX.SetActive(true);
+            var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_explosionFX.gameObject, gameObject.scene);
+            instance.SpawnAt(new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
         }
 
         private void Update()
