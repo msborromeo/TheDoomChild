@@ -24,7 +24,11 @@ namespace DChild.UI
         Dialogue,
         FastTravel,
         CinematicVideo,
-        Cinematic
+        Cinematic,
+        SettingsDisplay,
+        SettingsAudio,
+        SettingsController,
+        SettingsLanguage
     }
 }
 
