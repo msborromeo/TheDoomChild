@@ -2288,6 +2288,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnFlinch(object sender, EventActionArgs eventArgs)
         {
+            m_vector2Input = Vector2.zero;
+
             if (m_teleportingSkull.canTeleport)
             {
                 m_teleportingSkull?.Cancel();
