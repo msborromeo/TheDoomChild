@@ -7,15 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ynus_CrimsonOrb_Main
+  m_Name: YnnusProjectileAppearVFX
   m_Shader: {fileID: 4800000, guid: 6eb86e4931b506a408fd1477edec61ea, type: 3}
   m_ValidKeywords:
+  - ADDITIVECONFIG_ON
   - COLORRAMP_ON
-  - HSV_ON
-  - MASK_ON
-  - SHAPE2CONTRAST_ON
-  - SHAPE2DISTORT_ON
-  - SHAPE2_ON
+  - FADE_ON
+  - GLOW_ON
+  - PREMULTIPLYCOLOR_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -27,7 +26,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _ColorRampTex:
-        m_Texture: {fileID: -6005546421080157531, guid: 72b7f470b9834014787e22707fb9e79b,
+        m_Texture: {fileID: -7740892969094995619, guid: 56178e93b9d621c4895e4dd0d3f4bd76,
           type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -48,7 +47,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeTex:
-        m_Texture: {fileID: 2800000, guid: 854b25bc08516364da5a786b1cad247e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6187274798193db4ba683c65929e7506, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GlowTex:
@@ -56,7 +55,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ad5da642b28ff2d4d913e410c5dcc0f4, type: 3}
+        m_Texture: {fileID: 2800000, guid: d393cda6604b58e4491ea72dc7ab1876, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -69,10 +68,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Shape2DistortTex:
         m_Texture: {fileID: 2800000, guid: fcb027caad6963b4a80539bbce0d10e9, type: 3}
-        m_Scale: {x: 2, y: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Shape2Tex:
-        m_Texture: {fileID: 2800000, guid: 180c2751e46bf154aa1be4187f24096a, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Shape3DistortTex:
@@ -110,7 +109,7 @@ Material:
     - _ColorGradingMidPoint: 0.5
     - _ColorMask: 15
     - _ColorRampBlend: 1
-    - _ColorRampLuminosity: -0.364
+    - _ColorRampLuminosity: 0
     - _CullingOption: 0
     - _DebugShape: 1
     - _DepthGlow: 1
@@ -125,21 +124,21 @@ Material:
     - _DistortionScrollXSpeed: 0
     - _DistortionScrollYSpeed: 0
     - _DstMode: 10
-    - _EditorDrawers: 44
-    - _FadeAmount: -0.1
+    - _EditorDrawers: 60
+    - _FadeAmount: 0.545
     - _FadeBurnGlow: 5
     - _FadeBurnWidth: 0.01
-    - _FadePower: 1
+    - _FadePower: 6.93
     - _FadeScrollXSpeed: 0
     - _FadeScrollYSpeed: 0
-    - _FadeTransition: 0.075
+    - _FadeTransition: 0.539
     - _Glow: 0
-    - _GlowGlobal: 1
+    - _GlowGlobal: 1.4
     - _HandDrawnAmount: 10
     - _HandDrawnSpeed: 5
     - _HsvBright: 1
-    - _HsvSaturation: 1.43
-    - _HsvShift: 0
+    - _HsvSaturation: 1
+    - _HsvShift: 180
     - _LightAmount: 0
     - _MaskPow: 1
     - _OffsetSh1: 1
@@ -150,7 +149,7 @@ Material:
     - _RandomSh1Mult: 1
     - _RandomSh2Mult: 1
     - _RandomSh3Mult: 1
-    - _RenderingMode: 0
+    - _RenderingMode: 3
     - _RimAddAmount: 1
     - _RimBias: 0
     - _RimErodesAlpha: 0
@@ -175,10 +174,10 @@ Material:
     - _Shape2AlphaWeight: 2
     - _Shape2Brightness: 0
     - _Shape2ColorWeight: 2
-    - _Shape2Contrast: 0.73
-    - _Shape2DistortAmount: 0.67
-    - _Shape2DistortXSpeed: -0.5
-    - _Shape2DistortYSpeed: -1
+    - _Shape2Contrast: 1
+    - _Shape2DistortAmount: 0.5
+    - _Shape2DistortXSpeed: 0.1
+    - _Shape2DistortYSpeed: 0.1
     - _Shape2RotationOffset: 0
     - _Shape2RotationSpeed: 0
     - _Shape2XSpeed: 0
@@ -198,7 +197,7 @@ Material:
     - _ShapeBrightness: 0
     - _ShapeColorWeight: 1
     - _ShapeContrast: 1
-    - _ShapeDistortAmount: 1.9
+    - _ShapeDistortAmount: 0.5
     - _ShapeDistortXSpeed: 0.1
     - _ShapeDistortYSpeed: 0.1
     - _ShapeRotationOffset: 0
@@ -206,7 +205,7 @@ Material:
     - _ShapeXSpeed: 0
     - _ShapeYSpeed: 0
     - _SoftFactor: 0.5
-    - _SrcMode: 5
+    - _SrcMode: 1
     - _TextureScrollXSpeed: 1
     - _TextureScrollYSpeed: 0
     - _TimingSeed: 0
@@ -242,13 +241,13 @@ Material:
     - _Shape3Color: {r: 1, g: 1, b: 1, a: 1}
     - _ShapeColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
---- !u!28 &2360602236244123108
+--- !u!28 &1780667896440028830
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: z_TrailWidthGradientTex
+  m_Name: z_ColorRampTexGradientTex
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
@@ -289,13 +288,13 @@ Texture2D:
     offset: 0
     size: 0
     path: 
---- !u!28 &6794113081921149427
+--- !u!28 &5921299515623559986
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: z_ColorRampTexGradientTex
+  m_Name: z_TrailWidthGradientTex
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
