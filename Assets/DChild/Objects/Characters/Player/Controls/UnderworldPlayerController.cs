@@ -15,6 +15,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using DChild.Gameplay.Narrative;
 using System.Collections;
+using DChild.UI;
 
 namespace DChild.Gameplay.Characters.Players.Modules
 {
@@ -205,6 +206,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.PickedUpBook += OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted += OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp += OnPlayerWokeUp;
+            m_inputReader.ActiveActionMapChanged += OnActiveActionMapChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent += OnVector2PerformedInput;
@@ -291,6 +293,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.PickedUpBook -= OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted -= OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp -= OnPlayerWokeUp;
+            m_inputReader.ActiveActionMapChanged -= OnActiveActionMapChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent -= OnVector2PerformedInput;
@@ -363,6 +366,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.TeleportToOverworldStarted -= OnTeleportToOverworldStarted;
             m_inputReader.TeleportToMordenThroneRoom -= OnTeleportToMordenThroneRoom;
             m_inputReader.TeleportToMordenThroneRoomStarted -= OnTeleportToMordenThroneRoomStarted;
+        }
+
+        private void Start()
+        {
+            m_inputReader.SetInputModeToUnderworldGameplay();
         }
 
         private void FixedUpdate()
@@ -2280,6 +2288,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnFlinch(object sender, EventActionArgs eventArgs)
         {
+            m_vector2Input = Vector2.zero;
+
             if (m_teleportingSkull.canTeleport)
             {
                 m_teleportingSkull?.Cancel();
@@ -2506,7 +2516,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
             ControllerDisabled?.Invoke(this, EventActionArgs.Empty);
         }
 
-
         private void OnActiveSceneChanged(Scene arg0, Scene arg1)
         {
             m_movement?.Cancel();
@@ -2546,6 +2555,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_activeSlide?.Clear(); //clear slide vfx because it is still visible in some scene changes
             m_shadowGaugeRegen.Enable(true);
         }
+
+        private void OnActiveActionMapChanged()
+        {
+            //Reset vector2 input to prevent moving on its own when action map changes mid movement
+            m_vector2Input = Vector2.zero;
+        }
+
         #endregion
 
         #region Module Handling

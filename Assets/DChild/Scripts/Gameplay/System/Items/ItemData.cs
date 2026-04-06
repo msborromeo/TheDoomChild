@@ -138,6 +138,10 @@ namespace DChild.Gameplay.Items
         private ItemCategory m_category;
         [SerializeField, PreviewField(100, ObjectFieldAlignment.Center), ToggleGroup("m_enableEdit")]
         private Sprite m_icon;
+        [SerializeField, PreviewField(100, ObjectFieldAlignment.Center), ToggleGroup("m_enableEdit")]
+        private Sprite m_equippedIcon;
+        [SerializeField, PreviewField(75, ObjectFieldAlignment.Center), ToggleGroup("m_enableEdit")]
+        private Sprite m_slotIcon;
         [SerializeField, MinValue(1), ToggleGroup("m_enableEdit")]
         private int m_quantityLimit;
         [SerializeField, ToggleGroup("m_enableEdit"), HideLabel, BoxGroup("m_enableEdit/Cost")]
@@ -152,10 +156,29 @@ namespace DChild.Gameplay.Items
         public ItemCategory category => m_category;
 
         public Sprite icon { get => m_icon; }
+        public Sprite equippedIcon { get => m_equippedIcon; }
+        public Sprite slotIcon { get => m_slotIcon; }
         public int quantityLimit { get => m_quantityLimit; }
         public ItemCost cost { get => m_cost; }
         public string description { get => m_description; }
         public bool canBeSold => m_canBeSold;
         public virtual bool hasInfiniteUses => false;
+
+        public void SetslotIcon(Sprite x)
+        {
+            m_slotIcon = x;
+        }
+
+        public void SetEquippedIcon(Sprite x)
+        {
+            m_equippedIcon = x;
+        }
+
+        public void SetIcon(Sprite x)
+        {
+            m_icon = x;
+            EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssets();
+        }
     }
 }
