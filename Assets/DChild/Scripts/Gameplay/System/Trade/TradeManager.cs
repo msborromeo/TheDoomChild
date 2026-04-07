@@ -20,8 +20,8 @@ namespace DChild.Gameplay.Trade
     {
         [SerializeField]
         private TradeHandle m_tradeHandle;
-        [SerializeField]
-        private TradeOptionHandle m_tradeOption;
+        //[SerializeField]
+        //private TradeOptionHandle m_tradeOption;
         [SerializeField]
         private TransactionDetailsUI m_transactionDetails;
         [SerializeField]
@@ -55,7 +55,7 @@ namespace DChild.Gameplay.Trade
 
             m_tradeHandle.SetCurrencyToTrade(type);
             m_tradeHandle.SetTraders(buyer, seller);
-            m_tradeOption.ChangeToBuyOption(true);
+            //m_tradeOption.ChangeToBuyOption(true);
             m_itemBeingTradedUI.SetCostTypeToDisplay(type);
             ResetTradeUI();
 
@@ -84,7 +84,7 @@ namespace DChild.Gameplay.Trade
         private void UpdateTradeInteractability()
         {
             var enableTradeButton = m_tradeHandle.CanBuyerAffordTransaction();
-            m_tradeOption.SetInteractability(enableTradeButton);
+            //m_tradeOption.SetInteractability(enableTradeButton);
         }
 
         public void SetTradeFilter(ItemCategory filter)
