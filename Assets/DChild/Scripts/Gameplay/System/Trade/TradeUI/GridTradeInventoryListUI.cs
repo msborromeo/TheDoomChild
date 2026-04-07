@@ -1,11 +1,11 @@
 ﻿using DChild.Gameplay.Inventories;
 using DChild.Gameplay.Inventories.UI;
+using Doozy.Runtime.UIManager.Components;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DChild.Gameplay.Trade.UI
 {
-
     public class GridTradeInventoryListUI : FilteredInventoryListUI<ITradeInventory>
     {
         [SerializeField, MinValue(1), PropertyOrder(-1)]
@@ -13,15 +13,47 @@ namespace DChild.Gameplay.Trade.UI
         private int m_startIndex;
         private int m_availableSlot;
 
+        [SerializeField] private UIScrollbar m_gridScroll;
+        private int m_currentPageIndex;
+        private int m_totalSections;
 
-        public void SetPage(int pageNumber)
+        #region Scrollbar Methods
+        [Button]
+        public void SetupScroll(ITradeItem[] tradeItems, int toggleCount = 24)
         {
-            m_page = pageNumber;
-            m_startIndex = (pageNumber - 1) * itemUICount;
-            m_availableSlot = itemUICount - 1;
+            m_currentPageIndex = -1;
+            m_totalSections = Mathf.CeilToInt(tradeItems.Length / (float)toggleCount);
+
+            m_gridScroll.numberOfSteps = m_totalSections;
+            m_gridScroll.size = 1f / m_totalSections;
+        }
+        public void HandleScroll()
+        {
+            int updatedPage = Mathf.RoundToInt(m_gridScroll.value * (m_totalSections - 1));
+
+            if (m_currentPageIndex != updatedPage)
+            {
+                m_currentPageIndex = updatedPage;
+                SetPage(m_currentPageIndex);
+                UpdateUIList();
+            }
         }
 
+        public override void SetupScrollUI()
+        {
+            SetupScroll(m_inventory.GetTradableItems());
+        }
 
+        public void SetPage(int pageIndex)
+        {
+            m_page = pageIndex;
+            m_startIndex = pageIndex * itemUICount;
+
+            m_availableSlot = itemUICount;
+        }
+        #endregion
+
+        #region UpdateUIList Overloading
         [Button, HideInEditorMode, PropertyOrder(-1)]
         public override void UpdateUIList()
         {
@@ -37,27 +69,36 @@ namespace DChild.Gameplay.Trade.UI
 
             for (; i < itemUICount; i++)
             {
-                m_itemUIs[i].Hide();
+                m_itemUIs[i].gameObject.SetActive(false);
             }
             InvokeListOverallChange();
         }
 
         private void UpdateUIList(ref int i, ITradeItem[] tradableItems)
         {
-            for (; i <= m_availableSlot; i++)
+            SetupScroll(tradableItems);
+
+            for (int slotIndex = 0; slotIndex < itemUICount; slotIndex++)
             {
-                var itemIndex = m_startIndex + i;
-                if (itemIndex >= tradableItems.Length)
+                int itemDataIndex = m_startIndex + slotIndex;
+
+                if (itemDataIndex >= tradableItems.Length)
+                {
                     break;
-                var storedItem = tradableItems[itemIndex];
+                }
+
+                var storedItem = tradableItems[itemDataIndex];
                 if (storedItem != null)
                 {
-                    var itemUI = m_itemUIs[i];
-                    itemUI.Show();
+                    var itemUI = m_itemUIs[slotIndex];
+                    itemUI.gameObject.SetActive(true);
                     itemUI.SetReference(storedItem);
+
+                    i = slotIndex + 1;
                 }
             }
         }
+        #endregion
 
         public override void Reset()
         {
