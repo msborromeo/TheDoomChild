@@ -24,6 +24,7 @@ namespace DChild.Gameplay.Trade.UI
             m_currentPageIndex = -1;
             m_totalSections = Mathf.CeilToInt(tradeItems.Length / (float)toggleCount);
 
+            m_gridScroll.gameObject.SetActive(m_totalSections > 1);
             m_gridScroll.numberOfSteps = m_totalSections;
             m_gridScroll.size = 1f / m_totalSections;
         }
