@@ -1,15 +1,12 @@
 using DChild.ArmyBattle.Recruitment;
-using DChild.Gameplay.Characters.NPC;
 using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace DChild.ArmyBattle.Recruited {
+namespace DChild.ArmyBattle.Recruited
+{
     public class MordenNpcSetup : MonoBehaviour
     {
         [SerializeField]
@@ -37,6 +34,7 @@ namespace DChild.ArmyBattle.Recruited {
 
         private string NPCname;
 
+#if UNITY_EDITOR
         [Button]
         private void InitializeDatabase()
         {
@@ -89,6 +87,7 @@ namespace DChild.ArmyBattle.Recruited {
             }*/
            
         }
+#endif
 
         [Button, ShowIf("m_ShowSetup")]
         private void SelfSetup()
