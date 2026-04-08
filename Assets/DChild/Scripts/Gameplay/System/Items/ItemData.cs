@@ -173,6 +173,7 @@ namespace DChild.Gameplay.Items
         {
             m_equippedIcon = x;
         }
+#if UNITY_EDITOR
 
         public void SetIcon(Sprite x)
         {
@@ -180,5 +181,7 @@ namespace DChild.Gameplay.Items
             EditorUtility.SetDirty(this);
             AssetDatabase.SaveAssets();
         }
+#endif
     }
+
 }

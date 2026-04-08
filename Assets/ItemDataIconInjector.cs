@@ -13,6 +13,7 @@ public class ItemDataIconInjector : MonoBehaviour
     public List<Sprite> Non_used_Icons;
     public List<ItemData> Non_used_Items;
 
+#if UNITY_EDITOR
     [Button]
     private void SetIconsIntoSlots()
     {
@@ -34,6 +35,7 @@ public class ItemDataIconInjector : MonoBehaviour
             }
             
         }
+
         EditorUtility.SetDirty(this);
     }
 
@@ -100,4 +102,5 @@ public class ItemDataIconInjector : MonoBehaviour
         }
         EditorUtility.SetDirty(this);
     }
+#endif
 }
