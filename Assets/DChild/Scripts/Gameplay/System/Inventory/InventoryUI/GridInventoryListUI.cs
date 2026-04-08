@@ -114,5 +114,10 @@ namespace DChild.Gameplay.Inventories.UI
             m_isQuickSlotSelected = false;
             SetPage(1);
         }
+
+        public override void SetupScrollUI()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
