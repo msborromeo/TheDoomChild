@@ -2,6 +2,7 @@
 using DChild.Gameplay.Inventories.UI;
 using Doozy.Runtime.UIManager.Components;
 using Sirenix.OdinInspector;
+using System;
 using UnityEngine;
 
 namespace DChild.Gameplay.Trade.UI
@@ -17,8 +18,14 @@ namespace DChild.Gameplay.Trade.UI
         private int m_currentPageIndex;
         private int m_totalSections;
 
+        private ITradeItem[] m_filteredItemList;
+
         #region Scrollbar Methods
         [Button]
+        public override void SetupScrollUI()
+        {
+            SetupScroll(m_filteredItemList);
+        }
         public void SetupScroll(ITradeItem[] tradeItems, int toggleCount = 24)
         {
             m_currentPageIndex = -1;
@@ -27,6 +34,7 @@ namespace DChild.Gameplay.Trade.UI
             m_gridScroll.gameObject.SetActive(m_totalSections > 1);
             m_gridScroll.numberOfSteps = m_totalSections;
             m_gridScroll.size = 1f / m_totalSections;
+
         }
         public void HandleScroll()
         {
@@ -38,11 +46,6 @@ namespace DChild.Gameplay.Trade.UI
                 SetPage(m_currentPageIndex);
                 UpdateUIList();
             }
-        }
-
-        public override void SetupScrollUI()
-        {
-            SetupScroll(m_inventory.GetTradableItems());
         }
 
         public void SetPage(int pageIndex)
@@ -59,14 +62,14 @@ namespace DChild.Gameplay.Trade.UI
         public override void UpdateUIList()
         {
             int i = 0;
+
             if (m_currentFilter == Items.ItemCategory.All)
-            {
-                UpdateUIList(ref i, m_inventory.GetTradableItems());
-            }
+                m_filteredItemList = m_inventory.GetTradableItems();
+
             else
-            {
-                UpdateUIList(ref i, m_inventory.FindTradeItemsOfType(m_currentFilter));
-            }
+                m_filteredItemList = m_inventory.FindTradeItemsOfType(m_currentFilter);
+
+            UpdateUIList(ref i, m_filteredItemList);
 
             for (; i < itemUICount; i++)
             {
@@ -77,7 +80,7 @@ namespace DChild.Gameplay.Trade.UI
 
         private void UpdateUIList(ref int i, ITradeItem[] tradableItems)
         {
-            SetupScroll(tradableItems);
+            SetupScrollUI();
 
             for (int slotIndex = 0; slotIndex < itemUICount; slotIndex++)
             {
@@ -104,6 +107,7 @@ namespace DChild.Gameplay.Trade.UI
         public override void Reset()
         {
             SetPage(1);
+            m_filteredItemList = null;
         }
 
         public override void SwapItems(ItemUI itemOne, ItemUI itemTwo)
