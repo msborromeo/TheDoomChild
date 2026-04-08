@@ -38,6 +38,11 @@ namespace DChild.Gameplay.Inventories.UI
             throw new System.NotImplementedException();
         }
 
+        public override void SetupScrollUI()
+        {
+            throw new System.NotImplementedException();
+        }
+
         //private void Awake()
         //{
         //    m_inventory = GameplaySystem.playerManager.player.inventory.quickItemInventory;
