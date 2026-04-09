@@ -203,7 +203,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_projectileThrow.ProjectileThrown += ResetProjectile;
             m_teleportingSkull.Teleported += HasTeleported;
             SceneManager.activeSceneChanged += OnActiveSceneChanged;
-            NewGameIntroEvent.PickedUpBook += OnPickedUpBook;
+            NewGameIntroEvent.NewGameIntroFinished += OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted += OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp += OnPlayerWokeUp;
             m_inputReader.ActiveActionMapChanged += OnActiveActionMapChanged;
@@ -290,7 +290,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_projectileThrow.ProjectileThrown -= ResetProjectile;
             m_teleportingSkull.Teleported -= HasTeleported;
             SceneManager.activeSceneChanged -= OnActiveSceneChanged;
-            NewGameIntroEvent.PickedUpBook -= OnPickedUpBook;
+            NewGameIntroEvent.NewGameIntroFinished -= OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted -= OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp -= OnPlayerWokeUp;
             m_inputReader.ActiveActionMapChanged -= OnActiveActionMapChanged;
@@ -2139,7 +2139,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnPickedUpBook()
         {
             m_storeHasBeenPickedUp = true;
-            NewGameIntroEvent.PickedUpBook -= OnPickedUpBook;
+            NewGameIntroEvent.NewGameIntroFinished -= OnPickedUpBook;
         }
 
         private void HandleGroundBehaviour()
@@ -2562,6 +2562,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_vector2Input = Vector2.zero;
         }
 
+        public void ControlMovementOverride(float direction)
+        {
+            m_vector2Input.y = 0;
+            m_vector2Input.x = direction;
+        }
         #endregion
 
         #region Module Handling

@@ -31,12 +31,14 @@ namespace DChild.UI
 
         private void OnDialogueEnd()
         {
-            OnDialogueStartEvent?.Invoke();
+            OnDialogueEndEvent?.Invoke();
+            Debug.Log("Dialogue Ended");
         }
 
         private void OnDialogueStart()
         {
-            OnDialogueEndEvent?.Invoke();
+            OnDialogueStartEvent?.Invoke();
+            Debug.Log("Dialogue Started");
         }
     }
 }
