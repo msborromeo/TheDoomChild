@@ -34,6 +34,11 @@ namespace DChild.Gameplay.Trade
         private TradeDetailsUI m_itemBeingTradedUI;
         [SerializeField]
         private NPCProfileUI m_sellerProfile;
+
+        [SerializeField]
+        private InventoryFilterToggleUI[] m_filterToggles;
+
+
         //[SerializeField]
         //private Image m_highlight;
         //[SerializeField]
@@ -99,11 +104,20 @@ namespace DChild.Gameplay.Trade
             InitializeTradeUI();
         }
 
+        private void SetupFilterToggles()
+        {
+            foreach (var toggle in m_filterToggles)
+            {
+                toggle.UpdateToggleVisuals();
+            }
+        }
+
         public void InitializeTradeUI()
         {
             m_listUI.Reset();
             m_listUI.SetInventoryReference(m_tradeHandle.currentSeller);
-            Select(m_firstSelectedItemUI);
+            SetupFilterToggles();
+            //Select(m_firstSelectedItemUI);
         }
 
         public void RequestConfirmTrade()

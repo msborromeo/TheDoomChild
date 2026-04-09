@@ -74,12 +74,10 @@ namespace DChild.Gameplay.Trade.UI
 
             for (; i < itemUICount; i++)
             {
-                m_itemUIs[i].Hide();
+                //m_itemUIs[i].Hide();
                 m_itemUIs[i].gameObject.SetActive(false);
             }
 
-
-            m_itemUIs[0].GetComponent<UIToggle>().SetState(Doozy.Runtime.UIManager.UISelectionState.Selected);
             InvokeListOverallChange();
         }
 
@@ -99,7 +97,7 @@ namespace DChild.Gameplay.Trade.UI
                 {
                     var itemUI = m_itemUIs[slotIndex];
                     itemUI.gameObject.SetActive(true);
-                    itemUI.Show();
+                    //itemUI.Show();
                     itemUI.SetReference(storedItem);
 
                     i = slotIndex + 1;

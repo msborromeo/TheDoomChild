@@ -57,8 +57,6 @@ namespace DChild.Gameplay.Inventories.UI
         public abstract bool HasItemsOfCategory();
         public void UpdateToggleVisuals()
         {
-            Reset();
-
             m_targetIcon.sprite = HasItemsOfCategory()
                 ? m_toggle.IsOn
                     ? m_hasItemsAndSelected
@@ -66,11 +64,6 @@ namespace DChild.Gameplay.Inventories.UI
                 : m_noItems;
 
             m_targetBG.sprite = m_toggle.IsOn ? m_selectedBG : m_notSelectedBG;
-        }
-        protected void Reset()
-        {
-            m_targetIcon.sprite = m_noItems;
-            m_targetIcon.sprite = m_notSelectedBG;
         }
     }
 }
