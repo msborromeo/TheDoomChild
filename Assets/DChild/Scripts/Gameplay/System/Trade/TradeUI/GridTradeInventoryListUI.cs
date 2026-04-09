@@ -11,7 +11,7 @@ namespace DChild.Gameplay.Trade.UI
     {
         [SerializeField, MinValue(1), PropertyOrder(-1)]
         private int m_page;
-        private int m_startIndex;
+        private int m_startIndex = 0;
         private int m_availableSlot;
 
         [SerializeField] private UIScrollbar m_gridScroll;
@@ -69,19 +69,22 @@ namespace DChild.Gameplay.Trade.UI
             else
                 m_filteredItemList = m_inventory.FindTradeItemsOfType(m_currentFilter);
 
+            SetupScrollUI();
             UpdateUIList(ref i, m_filteredItemList);
 
             for (; i < itemUICount; i++)
             {
+                m_itemUIs[i].Hide();
                 m_itemUIs[i].gameObject.SetActive(false);
             }
+
+            //brute force visual display
+            m_itemUIs[0].GetComponent<UIToggle>().SetState(Doozy.Runtime.UIManager.UISelectionState.Selected);
             InvokeListOverallChange();
         }
 
         private void UpdateUIList(ref int i, ITradeItem[] tradableItems)
         {
-            SetupScrollUI();
-
             for (int slotIndex = 0; slotIndex < itemUICount; slotIndex++)
             {
                 int itemDataIndex = m_startIndex + slotIndex;
@@ -96,20 +99,15 @@ namespace DChild.Gameplay.Trade.UI
                 {
                     var itemUI = m_itemUIs[slotIndex];
                     itemUI.gameObject.SetActive(true);
+                    itemUI.Show();
                     itemUI.SetReference(storedItem);
 
                     i = slotIndex + 1;
                 }
             }
+            tradableItems[0].
         }
         #endregion
-
-        public override void Reset()
-        {
-            SetPage(1);
-            m_filteredItemList = null;
-        }
-
         public override void SwapItems(ItemUI itemOne, ItemUI itemTwo)
         {
             throw new System.NotImplementedException();
@@ -119,6 +117,14 @@ namespace DChild.Gameplay.Trade.UI
         {
             throw new System.NotImplementedException();
         }
+
+        public override void Reset()
+        {
+            SetPage(0);
+            m_filteredItemList = null;
+        }
+
+     
     }
 
 }

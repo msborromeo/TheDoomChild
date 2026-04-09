@@ -12,6 +12,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public override void SelectFilter()
         {
+            m_attachedInventory.SetPage(0);
             m_attachedInventory.SetFilter(m_category);
             base.SelectFilter();
         }

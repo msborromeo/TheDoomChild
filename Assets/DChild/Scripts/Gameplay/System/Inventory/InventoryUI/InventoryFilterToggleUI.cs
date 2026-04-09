@@ -15,6 +15,7 @@ namespace DChild.Gameplay.Inventories.UI
         //[SerializeField] protected FilteredInventoryListUI<IInventory> m_inventoryUI;
 
         [SerializeField] protected ItemCategory m_category;
+        public ItemCategory category => m_category;
 
         [BoxGroup("Category Icon"), SerializeField] protected Image m_targetIcon;
         [FoldoutGroup("Category Icon/State Sprites"), SerializeField] protected Sprite m_hasItems;
@@ -56,6 +57,8 @@ namespace DChild.Gameplay.Inventories.UI
         public abstract bool HasItemsOfCategory();
         public void UpdateToggleVisuals()
         {
+            Reset();
+
             m_targetIcon.sprite = HasItemsOfCategory()
                 ? m_toggle.IsOn
                     ? m_hasItemsAndSelected
@@ -64,6 +67,10 @@ namespace DChild.Gameplay.Inventories.UI
 
             m_targetBG.sprite = m_toggle.IsOn ? m_selectedBG : m_notSelectedBG;
         }
-
+        protected void Reset()
+        {
+            m_targetIcon.sprite = m_noItems;
+            m_targetIcon.sprite = m_notSelectedBG;
+        }
     }
 }
