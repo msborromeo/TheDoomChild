@@ -78,7 +78,7 @@ namespace DChild.Gameplay.Trade.UI
                 m_itemUIs[i].gameObject.SetActive(false);
             }
 
-            //brute force visual display
+
             m_itemUIs[0].GetComponent<UIToggle>().SetState(Doozy.Runtime.UIManager.UISelectionState.Selected);
             InvokeListOverallChange();
         }
@@ -105,7 +105,6 @@ namespace DChild.Gameplay.Trade.UI
                     i = slotIndex + 1;
                 }
             }
-            tradableItems[0].
         }
         #endregion
         public override void SwapItems(ItemUI itemOne, ItemUI itemTwo)
