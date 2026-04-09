@@ -178,8 +178,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 //else
                 {
                     //Debug.Log("Distance is " + dist + " and it is less than distancecheck" + m_configuration.distanceCheck + " While i am pulling");
-                    var pullSpeed = m_modifier.Get(PlayerModifier.MoveSpeed) *(m_configuration.pullForce/ m_movableObject.grabbedMoveModifier);
-                    m_movableObject.MoveObject(direction, pullSpeed);
+                    if(m_movableObject.grabbedMoveModifier>0)
+                    {
+                        var pullSpeed = m_modifier.Get(PlayerModifier.MoveSpeed) * (m_configuration.pullForce / m_movableObject.grabbedMoveModifier);
+                        m_movableObject.MoveObject(direction, pullSpeed);
+                    }
                 }
             }
             else
