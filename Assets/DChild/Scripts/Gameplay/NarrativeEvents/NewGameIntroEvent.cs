@@ -119,7 +119,7 @@ namespace DChild.Gameplay.Narrative
             BaseGameplaySystem.gamplayUIHandle.ToggleCinematicMode(true);
         }
 
-        public void InvokeBookPickedUp()
+        public void InvokeGameIntroFinished()
         {
             NewGameIntroFinished?.Invoke();
         }
