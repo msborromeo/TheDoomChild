@@ -34,10 +34,15 @@ namespace DChild.Gameplay.Trade
         private TradeDetailsUI m_itemBeingTradedUI;
         [SerializeField]
         private NPCProfileUI m_sellerProfile;
+
         [SerializeField]
-        private Image m_highlight;
-        [SerializeField]
-        private UIToggle m_defaultToggle;
+        private InventoryFilterToggleUI[] m_filterToggles;
+
+
+        //[SerializeField]
+        //private Image m_highlight;
+        //[SerializeField]
+        //private UIToggle m_defaultToggle;
 
         [SerializeField]
         private ConfirmationHandler m_tradeConfirmation;
@@ -51,7 +56,7 @@ namespace DChild.Gameplay.Trade
 
         public void SetupTrade(ITradeInventory buyer, ITradeInventory seller, CurrencyType type)
         {
-            m_defaultToggle.SetIsOn(true);
+            //m_defaultToggle.SetIsOn(true);
 
             m_tradeHandle.SetCurrencyToTrade(type);
             m_tradeHandle.SetTraders(buyer, seller);
@@ -76,8 +81,8 @@ namespace DChild.Gameplay.Trade
         {
             m_itemBeingTradedUI.ShowDetails(item.reference);
             m_tradeHandle.SetItemToTrade((ITradeItem)item.reference);
-            m_highlight.enabled = true;
-            m_highlight.rectTransform.position = item.transform.position;
+            //m_highlight.enabled = true;
+            //m_highlight.rectTransform.position = item.transform.position;
             UpdateTradeInteractability();
         }
 
@@ -95,15 +100,24 @@ namespace DChild.Gameplay.Trade
 
         public void ResetTradeUI()
         {
-            m_listUI.ResetFilter();
+            //m_listUI.ResetFilter();
             InitializeTradeUI();
+        }
+
+        private void SetupFilterToggles()
+        {
+            foreach (var toggle in m_filterToggles)
+            {
+                toggle.UpdateToggleVisuals();
+            }
         }
 
         public void InitializeTradeUI()
         {
             m_listUI.Reset();
             m_listUI.SetInventoryReference(m_tradeHandle.currentSeller);
-            Select(m_firstSelectedItemUI);
+            SetupFilterToggles();
+            //Select(m_firstSelectedItemUI);
         }
 
         public void RequestConfirmTrade()
