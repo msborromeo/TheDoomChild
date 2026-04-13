@@ -1,4 +1,5 @@
 using DChild.Gameplay.Trade;
+using DChild.Gameplay.Trade.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
