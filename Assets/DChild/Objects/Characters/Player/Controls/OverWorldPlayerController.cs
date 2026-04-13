@@ -36,22 +36,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public event EventAction<EventActionArgs> ControllerEnabled;
         public static event Action<string> ActiveControllerChanged;
 
-        public void Disable()
-        {
-            m_inputReader.SetInputModeToUI();
-        }
         public void Enable()
         {
             m_inputReader.SetInputModeTOverworldGameplay();
         }
 
-        public void OnDisable()
+        public void Disable()
         {
-            m_inputReader.OverworldMovePerformedEvent -= OnVector2Input;
-            m_inputReader.OverworldMoveCancelledEvent -= OnVector2InputCancelled;
-            m_inputReader.InteractStartedEvent -= OnInteract;
-            m_inputReader.StoreStartedEvent -= OnStoreStartedInput;
-
+            m_inputReader.SetInputModeToUI();
         }
 
         public void OnEnable()
@@ -60,6 +52,22 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.OverworldMoveCancelledEvent += OnVector2InputCancelled;
             m_inputReader.InteractStartedEvent += OnInteract;
             m_inputReader.StoreStartedEvent += OnStoreStartedInput;
+            m_inputReader.PauseStartedEvent += OnPauseStartedInput;
+        }
+
+        public void OnDisable()
+        {
+            m_inputReader.OverworldMovePerformedEvent -= OnVector2Input;
+            m_inputReader.OverworldMoveCancelledEvent -= OnVector2InputCancelled;
+            m_inputReader.InteractStartedEvent -= OnInteract;
+            m_inputReader.StoreStartedEvent -= OnStoreStartedInput;
+            m_inputReader.PauseStartedEvent -= OnPauseStartedInput;
+
+        }
+
+        private void OnPauseStartedInput()
+        {
+            GameplaySystem.gamplayUIHandle.OpenPauseMenu();
         }
 
         private void OnStoreStartedInput()
@@ -99,7 +107,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         void Start()
         {
-
+            m_inputReader.SetInputModeTOverworldGameplay();
         }
 
         void Update()
