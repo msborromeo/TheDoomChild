@@ -2,12 +2,14 @@ using DarkTonic.MasterAudio;
 using DChild.Configurations;
 using DChild.Gameplay.Cinematics;
 using DChild.Gameplay.VFX;
+using DChild.Inputs;
 using DChild.Menu;
 using DChild.Serialization;
 using Holysoft.Event;
 using PixelCrushers.DialogueSystem;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace DChild.Gameplay.Systems
 {
@@ -43,6 +45,8 @@ namespace DChild.Gameplay.Systems
 
         [SerializeField]
         private static WorldTypeManager m_worldTypeManager;
+        [SerializeField]
+        private static ActiveInputHandle m_activeInputHandle;
 
         public static bool HasInstance => m_instance != null;
 
@@ -97,6 +101,21 @@ namespace DChild.Gameplay.Systems
         }
 
         private void AssignModule<T>(out T module) where T : MonoBehaviour, IGameplaySystemModule => module = GetComponentInChildren<T>();
+
+        public static void SetInputToGameplay()
+        {
+            m_activeInputHandle.SetInputToGameplay();
+        }
+
+        public static void SetInputToUI()
+        {
+            m_activeInputHandle.SetInputToUI();
+        }
+
+        public static void SetCurrentPlayerInput(PlayerInput playerInput)
+        {
+            m_activeInputHandle.SetCurrentPlayerInput(playerInput);
+        }
 
         public static WorldType GetCurrentWorldType()
         {
@@ -231,6 +250,7 @@ namespace DChild.Gameplay.Systems
                 m_activatableModules = GetComponentsInChildren<IGameplayActivatable>();
                 var initializables = GetComponentsInChildren<IGameplayInitializable>();
                 m_worldTypeManager = GetComponentInChildren<WorldTypeManager>();
+                m_activeInputHandle = GetComponentInChildren<ActiveInputHandle>();
                 //m_volumeMixerManager = GetComponentInChildren<VolumeMixerManagerHandle>();
 
                 for (int i = 0; i < m_gameplayModuleManager.Length; i++)

@@ -14,6 +14,8 @@ namespace DChild.Gameplay.Characters.Players
     {
         [SerializeField, Range(-1f, 1f), OnValueChanged("OnHorizontalInputChanged")]
         private float m_moveDirectionInput;
+        [SerializeField]
+        private UnderworldPlayerController m_playerController;
 
         [Title("Modules")]
         [SerializeField]
@@ -25,11 +27,13 @@ namespace DChild.Gameplay.Characters.Players
                 m_moveDirectionInput = Mathf.Clamp(value, -1f, 1f);
                 if (value == 0)
                 {
-                    m_input.OnVector2(UnityEngine.InputSystem.InputActionPhase.Canceled, Vector2.zero);
+                    //m_input.OnVector2(UnityEngine.InputSystem.InputActionPhase.Canceled, Vector2.zero);
+                    m_playerController.ControlMovementOverride(0);
                 }
                 else
                 {
-                    m_input.OnVector2(UnityEngine.InputSystem.InputActionPhase.Performed, new Vector2(m_moveDirectionInput, 0)); // Changed 6 to 0 based on context
+                    //m_input.OnVector2(UnityEngine.InputSystem.InputActionPhase.Performed, new Vector2(m_moveDirectionInput, 0)); // Changed 6 to 0 based on context
+                    m_playerController.ControlMovementOverride(m_moveDirectionInput);
                 }
             }
         }

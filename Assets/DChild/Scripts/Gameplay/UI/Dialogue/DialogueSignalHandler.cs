@@ -28,12 +28,6 @@ namespace DChild.UI
         public void CheckSignal()
         {
             StartCoroutine(BufferSend());
-            //if (GameplaySystem.gamplayUIHandle.isInCutsceneMode)
-            //{
-            //    m_dialogueIntervalSignal.SendSignal();
-            //    return;
-            //}
-            //m_dialogueEndSignal.SendSignal();
         }
     }
 }
