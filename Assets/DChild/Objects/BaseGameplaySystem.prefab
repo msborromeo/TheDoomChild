@@ -551,6 +551,37 @@ MonoBehaviour:
     Category: Gameplay
     Name: PauseGame
     Custom: 0
+--- !u!1 &3106724405067335909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8201331733226060760}
+  m_Layer: 0
+  m_Name: ActiveInputHandle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8201331733226060760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3106724405067335909}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6478014794679475506}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3559428508853499061
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,6 +620,7 @@ Transform:
   - {fileID: 7169248552564290885}
   - {fileID: 712446644022810396}
   - {fileID: 911568515682953909}
+  - {fileID: 8201331733226060760}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -841,6 +873,8 @@ MonoBehaviour:
   m_characterRecruitmentUI: {fileID: 0}
   m_pauseGameGuard: {fileID: 256970806261176358}
   m_backSignal: {fileID: 7279159266427262664}
+  m_gameplayUIStateObserver: {fileID: 0}
+  m_continueDialogueSignal: {fileID: 0}
 --- !u!114 &6828250404446119209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1304,6 +1338,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: m_quickItemInventoryData
+      Entry: 6
+      Data: 
     - Name: m_codexData
       Entry: 7
       Data: 5|DChild.Menu.Codex.CodexSaveData, Assembly-CSharp
@@ -1756,7 +1793,6 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 24500006, guid: 8ea4d87d36b90654d9b8d7c9f518ad7a, type: 2}
-    - {fileID: -7654392548116403704, guid: 8ea4d87d36b90654d9b8d7c9f518ad7a, type: 2}
     - {fileID: 1777281506696924240, guid: 8ea4d87d36b90654d9b8d7c9f518ad7a, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -1806,8 +1842,8 @@ MonoBehaviour:
       Entry: 3
       Data: 2
     - Name: $v
-      Entry: 10
-      Data: 1
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -1819,7 +1855,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 10
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 8
       Data: 

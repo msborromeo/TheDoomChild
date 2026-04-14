@@ -71,6 +71,8 @@ namespace DChild.Gameplay.Systems
         private SequenceSkipHandle m_skipHandle;
         [SerializeField]
         private CharacterRecruitmentUI m_characterRecruitmentUI;
+        [SerializeField]
+        private DChildStandardUIContinueButtonFastForward m_continueButtonFastForward;
 
 
         [SerializeField]
@@ -86,7 +88,7 @@ namespace DChild.Gameplay.Systems
 
         public void ContinueDialogue()
         {
-            m_continueDialogueSignal.SendSignal();
+            m_continueButtonFastForward.OnFastForward();
         }
 
         public void ToggleCinematicMode(bool on)
@@ -216,11 +218,6 @@ namespace DChild.Gameplay.Systems
         public void SetGameplayUIState(int state)
         {
             m_gameplayUIStateObserver.SetCurrentUnderworldUIState(state);
-        }
-
-        public void SetCurrentPlayerInput(PlayerInput playerInput)
-        {
-            m_gameplayUIStateObserver.SetCurrentPlayerInput(playerInput);
         }
 
         public GameplayUIState GetCurrentUIState() => m_gameplayUIStateObserver.currentUnderworldUIState;

@@ -158,7 +158,7 @@ namespace PixelCrushers.DialogueSystem
             m_played.Clear();
             m_behaviours.Clear();
             DChildStandardDialogueUI.isInCutscene = true;
-            SequenceSkipHandle.SkipExecute += OnCutsceneSkip;
+            //SequenceSkipHandle.SkipExecute += OnCutsceneSkip;
             m_isCutsceneSkipped = false;
         }
 
@@ -170,7 +170,7 @@ namespace PixelCrushers.DialogueSystem
             m_played.Clear();
             m_behaviours.Clear();
             DChildStandardDialogueUI.isInCutscene = false;
-            SequenceSkipHandle.SkipExecute -= OnCutsceneSkip;
+            //SequenceSkipHandle.SkipExecute -= OnCutsceneSkip;
         }
     }
 }

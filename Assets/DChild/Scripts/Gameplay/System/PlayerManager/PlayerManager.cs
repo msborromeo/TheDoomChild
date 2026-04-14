@@ -93,6 +93,7 @@ namespace DChild.Gameplay.Systems
             m_gameplayInput?.SetStoreInputActive(false);
             m_gameplayInput?.ToggleUINavigationInput(true);
             m_characterInput?.Disable();
+            BaseGameplaySystem.SetInputToUI();
         }
 
         public void EnableInput()
@@ -100,6 +101,8 @@ namespace DChild.Gameplay.Systems
             m_gameplayInput?.SetStoreInputActive(true);
             m_gameplayInput?.ToggleUINavigationInput(false);
             m_characterInput?.Enable();
+            //Note: lines above may be unnecessary but not sure as of this time
+            BaseGameplaySystem.SetInputToGameplay();
         }
 
         public void FreezePlayerPosition(bool freezePlayerPosition)
@@ -146,8 +149,9 @@ namespace DChild.Gameplay.Systems
             m_gameplayInput?.SetStoreInputActive(false);
             m_characterInput?.Disable();
             m_player.controller.Disable();
-            m_playerInput?.DeactivateInput();
+            //m_playerInput?.DeactivateInput();
             m_player.state.allowExtendedIdle = false;
+            BaseGameplaySystem.SetInputToUI(); //Set to UI since case where player shouldn't move is usually in UI
             PlayerControlsEnabled?.Invoke(false);
         }
 
@@ -157,8 +161,9 @@ namespace DChild.Gameplay.Systems
             m_gameplayInput?.SetStoreInputActive(true);
             m_characterInput?.Enable();
             m_player.controller.Enable();
-            m_playerInput?.ActivateInput();
+            //m_playerInput?.ActivateInput();
             m_player.state.allowExtendedIdle = true;
+            BaseGameplaySystem.SetInputToGameplay();
             PlayerControlsEnabled?.Invoke(true);
         }
 
@@ -280,7 +285,7 @@ namespace DChild.Gameplay.Systems
                 m_playerOriginalParent = playerCharacter.transform.parent;
 
                 m_playerInput = m_player.GetComponentInChildren<PlayerInput>();
-                BaseGameplaySystem.gamplayUIHandle.SetCurrentPlayerInput(m_playerInput);
+                BaseGameplaySystem.SetCurrentPlayerInput(m_playerInput);
             }
             //m_autoReflex.Initialize();
         }
