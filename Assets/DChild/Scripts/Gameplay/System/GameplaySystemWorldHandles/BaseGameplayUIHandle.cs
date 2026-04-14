@@ -218,11 +218,6 @@ namespace DChild.Gameplay.Systems
             m_gameplayUIStateObserver.SetCurrentUnderworldUIState(state);
         }
 
-        public void SetCurrentPlayerInput(PlayerInput playerInput)
-        {
-            m_gameplayUIStateObserver.SetCurrentPlayerInput(playerInput);
-        }
-
         public GameplayUIState GetCurrentUIState() => m_gameplayUIStateObserver.currentUnderworldUIState;
 
         private void Awake()
