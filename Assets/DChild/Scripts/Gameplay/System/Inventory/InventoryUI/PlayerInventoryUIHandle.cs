@@ -26,6 +26,8 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField]
         private InventoryUISwapHandle m_swapHandle;
 
+        [SerializeField]
+        private InventoryCategoryToggleUI[] m_filterToggles;
 
         public void Select(ItemUI itemUI)
         {
@@ -107,11 +109,20 @@ namespace DChild.Gameplay.Inventories.UI
             m_listUI.UpdateUIList();
         }
 
+        private void SetupFilterToggles()
+        {
+            foreach (var toggle in m_filterToggles)
+            {
+                toggle.UpdateToggleVisuals();
+            }
+        }
+
+
         public void Initialize()
         {
             m_listUI.Reset();
             UpdateInventorySlots();
-
+            SetupFilterToggles();
             SelectFirstSlot();
         }
 
