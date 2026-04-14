@@ -786,9 +786,6 @@ namespace DChild.Inputs
         #region UI Controls
         public void OnNavigate(InputAction.CallbackContext context)
         {
-            if (m_playerControls.UI.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 UINavigateStartedEvent?.Invoke(context.ReadValue<Vector2>());
@@ -807,9 +804,6 @@ namespace DChild.Inputs
 
         public void OnSubmit(InputAction.CallbackContext context)
         {
-            if (m_playerControls.UI.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 UISubmitStartedEvent?.Invoke();
@@ -828,9 +822,6 @@ namespace DChild.Inputs
 
         public void OnCancel(InputAction.CallbackContext context)
         {
-            if (m_playerControls.UI.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 UICancelStartedEvent?.Invoke();
@@ -849,9 +840,6 @@ namespace DChild.Inputs
 
         public void OnPoint(InputAction.CallbackContext context)
         {
-            if (m_playerControls.UI.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 UIPointStartedEvent?.Invoke(context.ReadValue<Vector2>());
@@ -870,9 +858,6 @@ namespace DChild.Inputs
 
         public void OnClick(InputAction.CallbackContext context)
         {
-            if (m_playerControls.UI.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 UIClickStartedEvent?.Invoke();
@@ -891,9 +876,6 @@ namespace DChild.Inputs
 
         public void OnScrollWheel(InputAction.CallbackContext context)
         {
-            if (m_playerControls.UI.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 UIScrollWheelStartedEvent?.Invoke(context.ReadValue<Vector2>());
@@ -912,9 +894,6 @@ namespace DChild.Inputs
 
         public void OnResume(InputAction.CallbackContext context)
         {
-            if (m_playerControls.UI.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 UIResumeStartedEvent?.Invoke();
@@ -933,9 +912,6 @@ namespace DChild.Inputs
 
         public void OnCycleTab(InputAction.CallbackContext context)
         {
-            if (m_playerControls.UI.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Performed)
             {
                 UICycleTabsPerformedEvent?.Invoke(context.ReadValue<float>());  
@@ -944,9 +920,6 @@ namespace DChild.Inputs
 
         public void OnCycleSubTab(InputAction.CallbackContext context)
         {
-            if (m_playerControls.UI.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Performed)
             {
                 UICycleSubTabsPerformedEvent?.Invoke(context.ReadValue<float>());
@@ -955,9 +928,6 @@ namespace DChild.Inputs
 
         public void OnDeleteSave(InputAction.CallbackContext context)
         {
-            if (m_playerControls.UI.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Performed)
             {
                 UIDeleteSaveEvent?.Invoke();
