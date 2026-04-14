@@ -71,6 +71,8 @@ namespace DChild.Gameplay.Systems
         private SequenceSkipHandle m_skipHandle;
         [SerializeField]
         private CharacterRecruitmentUI m_characterRecruitmentUI;
+        [SerializeField]
+        private DChildStandardUIContinueButtonFastForward m_continueButtonFastForward;
 
 
         [SerializeField]
@@ -86,7 +88,7 @@ namespace DChild.Gameplay.Systems
 
         public void ContinueDialogue()
         {
-            m_continueDialogueSignal.SendSignal();
+            m_continueButtonFastForward.OnFastForward();
         }
 
         public void ToggleCinematicMode(bool on)
