@@ -25,7 +25,7 @@ namespace DChild.Gameplay.Trade.UI
         private void OnTransactionModified(object sender, EventActionArgs eventArgs)
         {
             m_amountToTrade.text = m_transactionInfo.count.ToString();
-            m_button.interactable = m_transactionInfo.count > 0;
+            //m_button.interactable = m_transactionInfo.count > 0;
         }
     }
 }
