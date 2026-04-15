@@ -124,7 +124,7 @@ namespace DChild.Gameplay.Trade
             m_listUI.Reset();
             m_listUI.SetInventoryReference(m_tradeHandle.currentSeller);
             SetupFilterToggles();
-            //Select(m_firstSelectedItemUI);
+            Select(m_firstSelectedItemUI);
         }
 
         public void RequestConfirmTrade()
