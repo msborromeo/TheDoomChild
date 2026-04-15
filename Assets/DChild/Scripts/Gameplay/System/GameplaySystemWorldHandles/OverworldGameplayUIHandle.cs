@@ -51,6 +51,11 @@ namespace DChild.Gameplay.UI
             m_navMap.UpdateConfiguration(location, sceneIndex, inGameReference, mapReferencePoint, calculationOffset);
         }
 
+        public void SetCurrentUIState(int state)
+        {
+            BaseGameplaySystem.gamplayUIHandle.SetGameplayUIState(state);
+        }
+
         public void Initialize()
         {
 

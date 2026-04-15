@@ -13,6 +13,8 @@ using DChild.Gameplay.Items;
 using I2.Loc;
 using DChild.Localization;
 using Doozy.Runtime.UIManager.Components;
+using Doozy.Runtime.UIManager.Containers;
+using Doozy._Examples.E24___Popup___with_Two_Buttons;
 
 namespace DChild.Gameplay.Trade
 {
@@ -34,10 +36,17 @@ namespace DChild.Gameplay.Trade
         private TradeDetailsUI m_itemBeingTradedUI;
         [SerializeField]
         private NPCProfileUI m_sellerProfile;
+
         [SerializeField]
-        private Image m_highlight;
+        private InventoryFilterToggleUI[] m_filterToggles;
         [SerializeField]
-        private UIToggle m_defaultToggle;
+        private UIButton m_tradeButton;
+
+
+        //[SerializeField]
+        //private Image m_highlight;
+        //[SerializeField]
+        //private UIToggle m_defaultToggle;
 
         [SerializeField]
         private ConfirmationHandler m_tradeConfirmation;
@@ -51,7 +60,7 @@ namespace DChild.Gameplay.Trade
 
         public void SetupTrade(ITradeInventory buyer, ITradeInventory seller, CurrencyType type)
         {
-            m_defaultToggle.SetIsOn(true);
+            //m_defaultToggle.SetIsOn(true);
 
             m_tradeHandle.SetCurrencyToTrade(type);
             m_tradeHandle.SetTraders(buyer, seller);
@@ -74,16 +83,19 @@ namespace DChild.Gameplay.Trade
 
         public void Select(ItemUI item)
         {
+            //if (item.reference == null) return;
+
             m_itemBeingTradedUI.ShowDetails(item.reference);
             m_tradeHandle.SetItemToTrade((ITradeItem)item.reference);
-            m_highlight.enabled = true;
-            m_highlight.rectTransform.position = item.transform.position;
+            //m_highlight.enabled = true;
+            //m_highlight.rectTransform.position = item.transform.position;
             UpdateTradeInteractability();
         }
 
         private void UpdateTradeInteractability()
         {
-            var enableTradeButton = m_tradeHandle.CanBuyerAffordTransaction();
+            m_tradeHandle.CanBuyerAffordTransaction();
+            m_tradeButton.gameObject.SetActive(m_tradeHandle.CanBuyerAffordTransaction());
             //m_tradeOption.SetInteractability(enableTradeButton);
         }
 
@@ -95,14 +107,23 @@ namespace DChild.Gameplay.Trade
 
         public void ResetTradeUI()
         {
-            m_listUI.ResetFilter();
+            //m_listUI.ResetFilter();
             InitializeTradeUI();
+        }
+
+        private void SetupFilterToggles()
+        {
+            foreach (var toggle in m_filterToggles)
+            {
+                toggle.UpdateToggleVisuals();
+            }
         }
 
         public void InitializeTradeUI()
         {
             m_listUI.Reset();
             m_listUI.SetInventoryReference(m_tradeHandle.currentSeller);
+            SetupFilterToggles();
             Select(m_firstSelectedItemUI);
         }
 

@@ -28,7 +28,8 @@ namespace DChild.UI
         SettingsDisplay,
         SettingsAudio,
         SettingsController,
-        SettingsLanguage
+        SettingsLanguage,
+        ConfirmationWindow
     }
 }
 

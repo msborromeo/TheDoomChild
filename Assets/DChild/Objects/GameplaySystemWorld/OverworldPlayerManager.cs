@@ -141,6 +141,11 @@ namespace DChild.Gameplay.Systems
             }
         }
 
+        private void Start()
+        {
+            BaseGameplaySystem.SetCurrentPlayerInput(m_playerInput);
+        }
+
         public void TeleportPlayer(Vector2 position)
         {
             m_player.SetPosition(position);

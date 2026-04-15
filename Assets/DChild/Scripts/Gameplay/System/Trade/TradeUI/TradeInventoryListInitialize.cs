@@ -21,27 +21,44 @@ namespace DChild.Gameplay.Trade.UI
 
         private void AddToggleOnListener(UIToggle toggle)
         {
-            var tradeFilter = toggle.GetComponent<InventoryItemUI>();
-            UnityAction action = delegate { OnItemSelected(tradeFilter); };
-            toggle.OnToggleOnCallback.Event.AddListener(action);
-            toggle.OnInstantToggleOnCallback.Event.AddListener(action);
+            var events = new[] { toggle.OnToggleOnCallback.Event, toggle.OnInstantToggleOnCallback.Event };
+            var item = toggle.GetComponent<InventoryItemUI>();
+
+            foreach (var @event in events)
+            {
+                @event.RemoveAllListeners();
+                @event.AddListener(() =>
+                {
+                    OnItemSelected(item);
+                });
+            }
         }
 
-        private IEnumerator Start()
+        private void Start()
         {
-            while (m_itemGroup.numberOfToggles == 0)
-                yield return null;
-
-            yield return null;
             var toggles = m_itemGroup.toggles;
-            AddToggleOnListener(m_itemGroup.FirstToggle);
+            //AddToggleOnListener(m_itemGroup.FirstToggle);
             for (int i = 0; i < toggles.Count; i++)
             {
                 var toggle = toggles[i];
                 AddToggleOnListener(toggle);
             }
-            Debug.Log("Trade Inventory Initialized: " + m_itemGroup.numberOfToggles);
         }
+        //private IEnumerator Start()
+        //{
+        //    while (m_itemGroup.numberOfToggles == 0)
+        //        yield return null;
+
+        //    yield return null;
+        //    var toggles = m_itemGroup.toggles;
+        //    //AddToggleOnListener(m_itemGroup.FirstToggle);
+        //    for (int i = 0; i < toggles.Count; i++)
+        //    {
+        //        var toggle = toggles[i];
+        //        AddToggleOnListener(toggle);
+        //    }
+        //    Debug.Log("Trade Inventory Initialized: " + m_itemGroup.numberOfToggles);
+        //}
     }
 
 }
