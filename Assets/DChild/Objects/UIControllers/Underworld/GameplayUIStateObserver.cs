@@ -16,14 +16,7 @@ namespace DChild.UI
         private GameplayUIState m_currentUnderworldUIState;
         public GameplayUIState currentUnderworldUIState => m_currentUnderworldUIState;
 
-        [SerializeField]
-        private InputReader m_inputReader;
-        [SerializeField, ReadOnly()]
-        private string m_currentActionMap;
-
-        private PlayerInput m_playerInput;
-
-        public event Action<GameplayUIState> UnderworldUIStateChanged;
+        public event Action<GameplayUIState> GameplayUIStateChanged;
 
         public void SetCurrentUnderworldUIState(int underworldUIState)
         {
@@ -31,41 +24,36 @@ namespace DChild.UI
 
             var currentWorldType = BaseGameplaySystem.GetCurrentWorldType();
 
-            if(m_currentUnderworldUIState == GameplayUIState.GameplayHUD)
-            {
-                if(currentWorldType == WorldType.Underworld)
-                {
-                    m_inputReader.SetInputModeToUnderworldGameplay();
-                    m_playerInput.SwitchCurrentActionMap("Underworld");
-                    m_currentActionMap = "Underworld";
-                }
-                else if(currentWorldType == WorldType.Overworld)
-                {
-                    m_inputReader.SetInputModeTOverworldGameplay();
-                    m_playerInput.SwitchCurrentActionMap("Overworld");
-                    m_currentActionMap = "Overworld";
-                }
-                else if(currentWorldType == WorldType.ArmyBattle)
-                {
-                    m_inputReader.SetInputModeToArmyBattleGameplay();
-                    m_playerInput.SwitchCurrentActionMap("Army Battle");
-                    m_currentActionMap = "Army Battle";
-                }
+            //if(m_currentUnderworldUIState == GameplayUIState.GameplayHUD)
+            //{
+            //    if(currentWorldType == WorldType.Underworld)
+            //    {
+            //        m_inputReader.SetInputModeToUnderworldGameplay();
+            //        m_playerInput.SwitchCurrentActionMap("Underworld");
+            //        m_currentActionMap = "Underworld";
+            //    }
+            //    else if(currentWorldType == WorldType.Overworld)
+            //    {
+            //        m_inputReader.SetInputModeTOverworldGameplay();
+            //        m_playerInput.SwitchCurrentActionMap("Overworld");
+            //        m_currentActionMap = "Overworld";
+            //    }
+            //    else if(currentWorldType == WorldType.ArmyBattle)
+            //    {
+            //        m_inputReader.SetInputModeToArmyBattleGameplay();
+            //        m_playerInput.SwitchCurrentActionMap("Army Battle");
+            //        m_currentActionMap = "Army Battle";
+            //    }
 
-            }
-            else
-            {
-                m_inputReader.SetInputModeToUI();
-                m_playerInput.SwitchCurrentActionMap("UI");
-                m_currentActionMap = "UI";
-            }
+            //}
+            //else
+            //{
+            //    m_inputReader.SetInputModeToUI();
+            //    m_playerInput.SwitchCurrentActionMap("UI");
+            //    m_currentActionMap = "UI";
+            //}
 
-            UnderworldUIStateChanged?.Invoke(m_currentUnderworldUIState);
-        }
-
-        public void SetCurrentPlayerInput(PlayerInput playerInput)
-        {
-            m_playerInput = playerInput;
+            GameplayUIStateChanged?.Invoke(m_currentUnderworldUIState);
         }
     }
 }

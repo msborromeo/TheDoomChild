@@ -62,7 +62,7 @@ namespace DChild.Gameplay.Narrative
         public static event Action NewGameIntroStarted;
         public static event Action NewGamePlayerWokeUp;
         public static event Action NewGameIntroPromptPressed;
-        public static event Action PickedUpBook;
+        public static event Action NewGameIntroFinished;
 
         private void OnInputPerformed(InputAction.CallbackContext context)
         {
@@ -119,9 +119,9 @@ namespace DChild.Gameplay.Narrative
             BaseGameplaySystem.gamplayUIHandle.ToggleCinematicMode(true);
         }
 
-        public void InvokeBookPickedUp()
+        public void InvokeGameIntroFinished()
         {
-            PickedUpBook?.Invoke();
+            NewGameIntroFinished?.Invoke();
         }
 
         public void InvokePlayerWokeUp()
