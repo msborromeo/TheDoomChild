@@ -3729,6 +3729,73 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5380147066604556000}
   m_CullTransparentMesh: 0
+--- !u!1 &5757602175587854795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8258828416577694531}
+  - component: {fileID: 8680288555472669383}
+  m_Layer: 0
+  m_Name: SignalListener - OnShopClose
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8258828416577694531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5757602175587854795}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6751511827678236665}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8680288555472669383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5757602175587854795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec4976bef1d463b82e8013afa2cb347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Callback:
+    EventName: Callback triggered every time a signal is received
+    Runners: []
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6751511827678236659}
+          m_TargetAssemblyTypeName: Doozy.Runtime.UIManager.Containers.UIContainer,
+            Assembly-CSharp
+          m_MethodName: Hide
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  StreamId:
+    Category: Merchant
+    Name: CloseShop
+    Custom: 0
 --- !u!1 &5981169130397511334
 GameObject:
   m_ObjectHideFlags: 0
@@ -8128,6 +8195,7 @@ RectTransform:
   - {fileID: 6751511827037162569}
   - {fileID: 6751511826276023911}
   - {fileID: 6014977982861468613}
+  - {fileID: 8258828416577694531}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16409,6 +16477,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7794241032935329832}
     m_Modifications:
+    - target: {fileID: 548342717662810077, guid: 0a773c5c741ae7a48b883f623f96ab88,
+        type: 3}
+      propertyPath: Id.Name
+      value: Purchase
+      objectReference: {fileID: 0}
+    - target: {fileID: 548342717662810077, guid: 0a773c5c741ae7a48b883f623f96ab88,
+        type: 3}
+      propertyPath: Id.Category
+      value: Merchant
+      objectReference: {fileID: 0}
     - target: {fileID: 548342717662810077, guid: 0a773c5c741ae7a48b883f623f96ab88,
         type: 3}
       propertyPath: Behaviours.Behaviours.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
