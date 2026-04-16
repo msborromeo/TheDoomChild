@@ -323,8 +323,8 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack2Anticipation);
             m_hitbox.gameObject.SetActive(false);
             var random = UnityEngine.Random.Range(0, 2);
-            transform.position = new Vector2(m_targetInfo.position.x + (random == 0 ? 5 : -5), m_targetInfo.position.y);
-            yield return new WaitForSeconds(1);
+            transform.position = new Vector2(m_targetInfo.position.x + (random == 0 ? 5 : -5), m_targetInfo.position.y - 2f);
+            yield return new WaitForSeconds(0.5f);
             if (!IsFacingTarget())
             {
                 CustomTurn();
