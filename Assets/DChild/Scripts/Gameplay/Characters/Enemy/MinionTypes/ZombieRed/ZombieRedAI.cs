@@ -132,6 +132,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Collider2D m_solidCollider;
         [SerializeField, TabGroup("Reference")]
         private Collider2D m_aggroSensor;
+        [SerializeField, TabGroup("Reference")]
+        private Attacker m_attackerDamage;
         [SerializeField, TabGroup("Modules")]
         private AnimatedTurnHandle m_turnHandle;
         [SerializeField, TabGroup("Modules")]
@@ -144,7 +146,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private DeathHandle m_deathHandle;
         [SerializeField, TabGroup("Modules")]
         private FlinchHandler m_flinchHandle;
-
+        [SerializeField, TabGroup("Data")]
+        private AttackData m_comboDamage;
         private float m_currentPatience;
         private float m_currentCD;
         private float m_currentFullCD;
@@ -183,8 +186,10 @@ namespace DChild.Gameplay.Characters.Enemies
         //[SerializeField]
         //private AudioClip m_DeadClip;
 
+        private AttackData m_defaultAttackData;
         private void OnAttackDone(object sender, EventActionArgs eventArgs)
         {
+            
             m_attackBB.SetActive(false);
             m_flinchHandle.m_autoFlinch = true;
             GetComponent<IsolatedCharacterPhysics2D>().UseStepClimb(true);
@@ -345,6 +350,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_stateHandle.OverrideState(m_willPatrol ? State.Patrol : State.Idle);
             }
             m_startPoint = transform.position;
+            m_defaultAttackData = m_statsData.damage;
         }
 
         protected override void Awake()
@@ -429,16 +435,17 @@ namespace DChild.Gameplay.Characters.Enemies
 
                 case State.Attacking:
                     m_stateHandle.Wait(State.Cooldown);
-
                     m_attackBB.SetActive(true);
-                    m_animation.EnableRootMotion(true, true);
+                    m_animation.EnableRootMotion(true, true);                 
                     switch (m_attackDecider.chosenAttack.attack)
                     {
                         case Attack.Attack1:
+                            m_attackerDamage.SetData(m_defaultAttackData);
                             m_attackHandle.ExecuteAttack(m_info.attack.animation, m_info.idleAnimation.animation);
                             break;
                         case Attack.Attack2:
-                            m_attackHandle.ExecuteAttack(m_info.attackCombo.animation, m_info.idleAnimation.animation);
+                            m_attackerDamage.SetData(m_comboDamage);
+                            m_attackHandle.ExecuteAttack(m_info.attackCombo.animation, m_info.idleAnimation.animation);                            
                             break;
                     }
                     m_attackDecider.hasDecidedOnAttack = false;
