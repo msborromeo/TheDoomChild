@@ -25,6 +25,8 @@ namespace DChild.Gameplay.Trade
         //[SerializeField]
         //private TradeOptionHandle m_tradeOption;
         [SerializeField]
+        private TradeUIAppearanceInitializer m_appearanceInitializer;
+        [SerializeField]
         private TransactionDetailsUI m_transactionDetails;
         [SerializeField]
         private TradePlayerCurrencies m_playerCurrencies;
@@ -74,6 +76,7 @@ namespace DChild.Gameplay.Trade
         public void SetSellerProfile(NPCProfile profile)
         {
             m_sellerProfile.Set(profile);
+            m_appearanceInitializer.SetShopAppearance(profile);
         }
 
         public void SetSellingTradeRates(TradeAskingPrice sellingPriceRate)
