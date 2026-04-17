@@ -90,17 +90,17 @@ namespace DChild.Gameplay.Systems
 
         public void DisableInput()
         {
-            m_gameplayInput?.SetStoreInputActive(false);
-            m_gameplayInput?.ToggleUINavigationInput(true);
-            m_characterInput?.Disable();
+            //m_gameplayInput?.SetStoreInputActive(false);
+            //m_gameplayInput?.ToggleUINavigationInput(true);
+            //m_characterInput?.Disable();
             BaseGameplaySystem.SetInputToUI();
         }
 
         public void EnableInput()
         {
-            m_gameplayInput?.SetStoreInputActive(true);
-            m_gameplayInput?.ToggleUINavigationInput(false);
-            m_characterInput?.Enable();
+            //m_gameplayInput?.SetStoreInputActive(true);
+            //m_gameplayInput?.ToggleUINavigationInput(false);
+            //m_characterInput?.Enable();
             //Note: lines above may be unnecessary but not sure as of this time
             BaseGameplaySystem.SetInputToGameplay();
         }

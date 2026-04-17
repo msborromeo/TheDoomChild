@@ -95,7 +95,6 @@ namespace DChild.Gameplay.Systems
         {
             if (on == true)
             {
-                m_gameplayUIStateObserver.SetCurrentUnderworldUIState(16); //set UI mode to cinematic to prevent player control
                 DialogueManager.StopAllConversations();
             }
 
@@ -213,11 +212,6 @@ namespace DChild.Gameplay.Systems
         public void UIBack()
         {
             m_backSignal.SendSignal();
-        }
-
-        public void SetGameplayUIState(int state)
-        {
-            m_gameplayUIStateObserver.SetCurrentUnderworldUIState(state);
         }
 
         public GameplayUIState GetCurrentUIState() => m_gameplayUIStateObserver.currentUnderworldUIState;
