@@ -44,7 +44,6 @@ namespace DChild.Gameplay.Trade.UI
                 var toggle = toggles[i];
                 AddToggleOnListener(toggle);
             }
-            GameplaySystem.gamplayUIHandle.SetCurrentUIState(DChild.UI.GameplayUIState.Shop);
         }
 
         //private IEnumerator Start()
