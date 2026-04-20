@@ -146,9 +146,9 @@ namespace DChild.Gameplay.Systems
         [Button]
         public void DisableControls()
         {
-            m_gameplayInput?.SetStoreInputActive(false);
-            m_characterInput?.Disable();
-            m_player.controller.Disable();
+            //m_gameplayInput?.SetStoreInputActive(false);
+            //m_characterInput?.Disable();
+            //m_player.controller.Disable();
             //m_playerInput?.DeactivateInput();
             m_player.state.allowExtendedIdle = false;
             BaseGameplaySystem.SetInputToUI(); //Set to UI since case where player shouldn't move is usually in UI
@@ -158,9 +158,9 @@ namespace DChild.Gameplay.Systems
         [Button]
         public void EnableControls()
         {
-            m_gameplayInput?.SetStoreInputActive(true);
-            m_characterInput?.Enable();
-            m_player.controller.Enable();
+            //m_gameplayInput?.SetStoreInputActive(true);
+            //m_characterInput?.Enable();
+            //m_player.controller.Enable();
             //m_playerInput?.ActivateInput();
             m_player.state.allowExtendedIdle = true;
             BaseGameplaySystem.SetInputToGameplay();
