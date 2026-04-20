@@ -14,6 +14,11 @@ namespace DChild.Inputs
         private InputReader m_inputReader;
         [SerializeField]
         private GameplayUIStateObserver m_gameplayUIStateObserver;
+        [SerializeField]
+        private bool m_enableControlsInCinematic = false;
+        public bool enableControlsInCinematic { get { return m_enableControlsInCinematic;  }
+                                            set { m_enableControlsInCinematic = value; }
+        }
 
         [SerializeField, ReadOnly()]
         private string m_currentActionMap;
@@ -35,6 +40,16 @@ namespace DChild.Inputs
             if (state == GameplayUIState.GameplayHUD)
             {
                 SetInputToGameplay();
+            }
+            else if(state == GameplayUIState.Cinematic)
+            {
+                if (m_enableControlsInCinematic)
+                {
+                    SetInputToGameplay();
+                }
+                {
+                    SetInputToUI();
+                }
             }
             else
             {

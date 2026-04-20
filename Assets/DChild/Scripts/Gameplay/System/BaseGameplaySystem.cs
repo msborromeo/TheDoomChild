@@ -113,6 +113,11 @@ namespace DChild.Gameplay.Systems
             m_activeInputHandle.SetInputToUI();
         }
 
+        public static void ToggleCinematicControls(bool value)
+        {
+            m_activeInputHandle.enableControlsInCinematic = value;
+        }
+
         public static void SetCurrentPlayerInput(PlayerInput playerInput)
         {
             m_activeInputHandle.SetCurrentPlayerInput(playerInput);

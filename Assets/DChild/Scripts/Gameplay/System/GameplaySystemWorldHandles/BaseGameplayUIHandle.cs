@@ -216,6 +216,11 @@ namespace DChild.Gameplay.Systems
 
         public GameplayUIState GetCurrentUIState() => m_gameplayUIStateObserver.currentUnderworldUIState;
 
+        public void OverrideCurrentUIState(GameplayUIState state)
+        {
+            m_gameplayUIStateObserver.SetCurrentUnderworldUIState(state);
+        }
+
         private void Awake()
         {
             if (Instance == null)

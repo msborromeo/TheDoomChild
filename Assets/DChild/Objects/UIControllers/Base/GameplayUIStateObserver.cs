@@ -25,59 +25,98 @@ namespace DChild.UI
         private List<DoozySignalName> m_doozyUISignalNames = new List<DoozySignalName>();
         [SerializeField]
         private List<DoozySignalName> m_doozyGameplaySignalNames = new List<DoozySignalName>();
+        [SerializeField]
+        private List<DoozySignalName> m_doozyCinematicSignalNames = new List<DoozySignalName>();
 
         [SerializeField, ReadOnly]
-        private List<SignalReceiver> m_UISignalRecievers = new List<SignalReceiver>();
+        private List<SignalReceiver> m_UISignalReceivers = new List<SignalReceiver>();
         [SerializeField, ReadOnly]
-        private List<SignalReceiver> m_GameplaySignalRecievers = new List<SignalReceiver>();
+        private List<SignalReceiver> m_GameplaySignalReceivers = new List<SignalReceiver>();
+        [SerializeField, ReadOnly]
+        private List<SignalReceiver> m_CinematicSignalReceivers = new List<SignalReceiver>();
 
         private void Awake()
         {
             //initialize number of signal recievers for UI and Gameplay Signals
-            InitializeSignalReceivers(m_doozyUISignalNames, m_UISignalRecievers);
-            InitializeSignalReceivers(m_doozyGameplaySignalNames, m_GameplaySignalRecievers);
+            InitializeSignalReceivers(m_doozyUISignalNames, m_UISignalReceivers);
+            InitializeSignalReceivers(m_doozyGameplaySignalNames, m_GameplaySignalReceivers);
+            InitializeSignalReceivers(m_doozyCinematicSignalNames, m_CinematicSignalReceivers);
 
         }
 
         private void OnEnable()
         {
             //Subscribe each signal receiver to corresponding function
-            for(int i = 0; i < m_UISignalRecievers.Count; i++)
+            for(int i = 0; i < m_UISignalReceivers.Count; i++)
             {
-                m_UISignalRecievers[i].onSignal += OnUISignalReceived;
+                m_UISignalReceivers[i].onSignal += OnUISignalReceived;
             }
 
-            for(int i = 0; i < m_GameplaySignalRecievers.Count; i++)
+            for(int i = 0; i < m_GameplaySignalReceivers.Count; i++)
             {
-                m_GameplaySignalRecievers[i].onSignal += OnGameplaySignalReceived;
+                m_GameplaySignalReceivers[i].onSignal += OnGameplaySignalReceived;
             }
 
+            for(int i = 0; i < m_CinematicSignalReceivers.Count; i++)
+            {
+                m_CinematicSignalReceivers[i].onSignal += OnCinematicSignalReceived;
+            }
         }
 
-        private void OnGameplaySignalReceived(Signal arg0)
+        private void OnCinematicSignalReceived(Signal signal)
+        {
+            //guard for exiting cinematic mode in case it doesn't return to no window at cinematic end
+            if (signal.stream.category == "Cinematic" && signal.stream.name == "Toggle")
+            {
+                signal.TryGetValue(out bool value);
+                if (value == false)
+                {
+                    SetCurrentUnderworldUIState(GameplayUIState.GameplayHUD);
+                    return;
+                }
+            }
+
+            SetCurrentUnderworldUIState(GameplayUIState.Cinematic);
+            Debug.Log($"Received signal: \nCategory: {signal.stream.category}\nName: {signal.stream.name}");
+        }
+
+        private void OnGameplaySignalReceived(Signal signal)
         {
             SetCurrentUnderworldUIState(GameplayUIState.GameplayHUD);
+            Debug.Log($"Received signal: \nCategory: {signal.stream.category}\nName: {signal.stream.name}");
         }
 
         private void OnUISignalReceived(Signal signal)
         {
+            //guard for exiting dialogue in case it doesn't return to no window
+            if(signal.stream.category == "Dialogue" && signal.stream.name == "Toggle")
+            {
+                signal.TryGetValue(out bool value);
+                if(value == false)
+                {
+                    SetCurrentUnderworldUIState(GameplayUIState.GameplayHUD);
+                    return;
+                }
+            }
+
             SetCurrentUnderworldUIState(GameplayUIState.InteractableUI);
+            Debug.Log($"Received signal: \nCategory: {signal.stream.category}\nName: {signal.stream.name}");
         }
 
         private void OnDisable()
         {
             //unregister all recievers
-            DisconnectSignalReceivers(m_UISignalRecievers);
-            DisconnectSignalReceivers(m_GameplaySignalRecievers);
+            DisconnectSignalReceivers(m_UISignalReceivers);
+            DisconnectSignalReceivers(m_GameplaySignalReceivers);
+            DisconnectSignalReceivers(m_CinematicSignalReceivers);
         }
 
         public void SetCurrentUnderworldUIState(GameplayUIState gameplayUIState)
         {
             m_currentUIState = gameplayUIState;
 
-            var currentWorldType = BaseGameplaySystem.GetCurrentWorldType();
-
             GameplayUIStateChanged?.Invoke(m_currentUIState);
+            Debug.Log("Changed UI State to: " +  m_currentUIState);
         }
 
         private void InitializeSignalReceivers(List<DoozySignalName> doozySignals, List<SignalReceiver> signalRecievers)
@@ -90,13 +129,9 @@ namespace DChild.UI
                 //Set category and name for connection, set stream connection to stream ID to connect using category and name
                 SignalStream.Get(doozySignals[i].categoryName, doozySignals[i].name).ConnectReceiver(signalReceiver);
                 signalReceiver.streamConnection = StreamConnection.StreamId;
-                //signalReceiver.stream.SetCategoryAndName(doozySignals[i].categoryName, doozySignals[i].name);
 
                 //Add to reciever list
                 signalRecievers.Add(signalReceiver);
-
-                //connect reciever to stream 
-                //signalReceiver.Connect();
             }
         }
 

@@ -9,7 +9,8 @@ namespace DChild.UI
     public enum GameplayUIState
     {
         GameplayHUD,
-        InteractableUI
+        InteractableUI,
+        Cinematic
     }
 }
 
