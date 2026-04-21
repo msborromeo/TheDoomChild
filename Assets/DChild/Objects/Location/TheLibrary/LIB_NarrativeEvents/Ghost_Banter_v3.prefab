@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6409474490275845901
+--- !u!1 &3013157899280976698
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6409474490275845902}
-  - component: {fileID: 6409474490275845888}
-  - component: {fileID: 6409474490275845903}
+  - component: {fileID: 3013157899280976699}
+  - component: {fileID: 3013157899280976696}
+  - component: {fileID: 3013157899280976697}
   m_Layer: 9
-  m_Name: Ghost_Banter
+  m_Name: Ghost_Banter_v3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6409474490275845902
+--- !u!4 &3013157899280976699
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6409474490275845901}
+  m_GameObject: {fileID: 3013157899280976698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -389.4, y: -289.2, z: 0}
+  m_LocalPosition: {x: -391.8, y: -286.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6409474490275845888
+--- !u!114 &3013157899280976696
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6409474490275845901}
+  m_GameObject: {fileID: 3013157899280976698}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
@@ -48,7 +48,7 @@ MonoBehaviour:
   trigger: 8
   condition:
     luaConditions:
-    - Variable["IsGhostBanter"] == false
+    - Variable["isGhostBanter_v3"] == false
     questConditions: []
     acceptedTags:
     - Hitbox
@@ -64,7 +64,7 @@ MonoBehaviour:
   setAnotherQuestEntryState: 0
   anotherQuestEntryNumber: 1
   anotherQuestEntryState: 0
-  luaCode: Variable["IsGhostBanter"] = true
+  luaCode: Variable["isGhostBanter_v3"] = true
   sequence: 
   sequenceSpeaker: {fileID: 0}
   sequenceListener: {fileID: 0}
@@ -83,7 +83,7 @@ MonoBehaviour:
   allowBarksDuringConversations: 0
   skipBarkIfNoValidEntries: 0
   cacheBarkLines: 0
-  conversation: Ghost Banter
+  conversation: Ghost Banter v3
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
@@ -107,20 +107,20 @@ MonoBehaviour:
   useBarkTitlePicker: 1
   useQuestNamePicker: 1
   selectedDatabase: {fileID: 11400000, guid: 89f4cf846fda79940bacffcd1094451f, type: 2}
---- !u!61 &6409474490275845903
+--- !u!61 &3013157899280976697
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6409474490275845901}
+  m_GameObject: {fileID: 3013157899280976698}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.5935669, y: 1.7147064}
+  m_Offset: {x: 0.6059418, y: -4.1407013}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -131,5 +131,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 11.947815, y: 40.30667}
+  m_Size: {x: 5.443695, y: 35.13553}
   m_EdgeRadius: 0

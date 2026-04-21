@@ -30,27 +30,27 @@ namespace DChild.Menu.Trade
 
         //public void SetFilter(ItemCategory category)
         //{
-            //m_filterAppliedLabel.text = label;
-            //m_manager.SetTradeFilter(category);
-            //m_filterLabellocalize.SetTerm("ShopUI/Inventory/"+label);
+        //m_filterAppliedLabel.text = label;
+        //m_manager.SetTradeFilter(category);
+        //m_filterLabellocalize.SetTerm("ShopUI/Inventory/"+label);
         //}
 
-        private void OnToggleSelected(TradeCategoryToggleUI filterToggle)
-        {
-            m_manager.SetTradeFilter(filterToggle.category);
-        }
+        //    private void OnToggleSelected(TradeCategoryToggleUI filterToggle)
+        //    {
+        //        m_manager.SetTradeFilter(filterToggle.category);
+        //    }
 
-        private void Start()
-        {
-            var toggles = m_filterGroup.toggles;
-            for (int i = 0; i < toggles.Count; i++)
-            {
-                var toggle = toggles[i];
-                var tradeFilter = toggle.GetComponent<TradeCategoryToggleUI>();
-                UnityAction action = delegate { OnToggleSelected(tradeFilter); };
-                toggle.OnToggleOnCallback.Event.AddListener(action);
-                toggle.OnInstantToggleOnCallback.Event.AddListener(action);
-            }
-        }
+        //    private void Start()
+        //    {
+        //        var toggles = m_filterGroup.toggles;
+        //        for (int i = 0; i < toggles.Count; i++)
+        //        {
+        //            var toggle = toggles[i];
+        //            var tradeFilter = toggle.GetComponent<TradeCategoryToggleUI>();
+        //            UnityAction action = delegate { OnToggleSelected(tradeFilter); };
+        //            toggle.OnToggleOnCallback.Event.AddListener(action);
+        //            toggle.OnInstantToggleOnCallback.Event.AddListener(action);
+        //        }
+        //    }
     }
 }

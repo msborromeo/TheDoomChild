@@ -13,6 +13,8 @@ using DChild.Gameplay.Items;
 using I2.Loc;
 using DChild.Localization;
 using Doozy.Runtime.UIManager.Components;
+using Doozy.Runtime.UIManager.Containers;
+using Doozy._Examples.E24___Popup___with_Two_Buttons;
 
 namespace DChild.Gameplay.Trade
 {
@@ -22,6 +24,8 @@ namespace DChild.Gameplay.Trade
         private TradeHandle m_tradeHandle;
         //[SerializeField]
         //private TradeOptionHandle m_tradeOption;
+        [SerializeField]
+        private TradeUIAppearanceInitializer m_appearanceInitializer;
         [SerializeField]
         private TransactionDetailsUI m_transactionDetails;
         [SerializeField]
@@ -37,6 +41,8 @@ namespace DChild.Gameplay.Trade
 
         [SerializeField]
         private InventoryFilterToggleUI[] m_filterToggles;
+        [SerializeField]
+        private UIButton m_tradeButton;
 
 
         //[SerializeField]
@@ -70,6 +76,7 @@ namespace DChild.Gameplay.Trade
         public void SetSellerProfile(NPCProfile profile)
         {
             m_sellerProfile.Set(profile);
+            m_appearanceInitializer.SetShopAppearance(profile);
         }
 
         public void SetSellingTradeRates(TradeAskingPrice sellingPriceRate)
@@ -79,6 +86,8 @@ namespace DChild.Gameplay.Trade
 
         public void Select(ItemUI item)
         {
+            //if (item.reference == null) return;
+
             m_itemBeingTradedUI.ShowDetails(item.reference);
             m_tradeHandle.SetItemToTrade((ITradeItem)item.reference);
             //m_highlight.enabled = true;
@@ -88,7 +97,8 @@ namespace DChild.Gameplay.Trade
 
         private void UpdateTradeInteractability()
         {
-            var enableTradeButton = m_tradeHandle.CanBuyerAffordTransaction();
+            m_tradeHandle.CanBuyerAffordTransaction();
+            m_tradeButton.gameObject.SetActive(m_tradeHandle.CanBuyerAffordTransaction());
             //m_tradeOption.SetInteractability(enableTradeButton);
         }
 
@@ -117,7 +127,7 @@ namespace DChild.Gameplay.Trade
             m_listUI.Reset();
             m_listUI.SetInventoryReference(m_tradeHandle.currentSeller);
             SetupFilterToggles();
-            //Select(m_firstSelectedItemUI);
+            Select(m_firstSelectedItemUI);
         }
 
         public void RequestConfirmTrade()
