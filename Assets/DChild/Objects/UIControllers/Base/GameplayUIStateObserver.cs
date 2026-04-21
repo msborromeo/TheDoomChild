@@ -76,6 +76,16 @@ namespace DChild.UI
                 }
             }
 
+            if (signal.stream.category == "Cinematic" && signal.stream.name == "Bars")
+            {
+                signal.TryGetValue(out bool value);
+                if (value == false)
+                {
+                    SetCurrentUnderworldUIState(GameplayUIState.GameplayHUD);
+                    return;
+                }
+            }
+
             SetCurrentUnderworldUIState(GameplayUIState.Cinematic);
             Debug.Log($"Received signal: \nCategory: {signal.stream.category}\nName: {signal.stream.name}");
         }
