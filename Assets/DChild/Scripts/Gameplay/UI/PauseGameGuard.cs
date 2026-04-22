@@ -21,6 +21,7 @@ public class PauseGameGuard : MonoBehaviour
     
     public void CanPauseGame()
     {
+        if (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() != DChild.UI.GameplayUIState.GameplayHUD) return;
         if (GameplaySystem.GetCurrentWorldType() == WorldType.ArmyBattle) return;
         if (LoadingHandle.isLoading) return;
         if(m_UITransitionInProgress) return;

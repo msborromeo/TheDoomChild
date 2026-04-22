@@ -129,6 +129,11 @@ namespace DChild.Gameplay.Narrative
             NewGamePlayerWokeUp?.Invoke();
         }
 
+        public void ToggleCinematicControls(bool value)
+        {
+            BaseGameplaySystem.ToggleCinematicControls(value);
+        }
+
         public void EndEvent()
         {
             m_isDone = true;

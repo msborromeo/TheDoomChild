@@ -248,11 +248,6 @@ namespace DChild.Gameplay.Systems
             m_regen.ShadowRegenEffect(false);
         }
 
-        public void SetCurrentUIState(int state)
-        {
-            BaseGameplaySystem.gamplayUIHandle.SetGameplayUIState(state);
-        }
-
         public void Initialize()
         {
             m_notificationManager.InitializeFullPriorityHandling();
