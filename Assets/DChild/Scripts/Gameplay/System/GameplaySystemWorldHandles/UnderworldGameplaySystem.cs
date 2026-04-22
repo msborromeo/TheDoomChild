@@ -50,7 +50,7 @@ namespace DChild.Gameplay.Systems
         public static void ResumeGame()
         {
             m_playerManager?.EnableInput();
-            m_volumeMixerManager.UseSnapshot(AudioSnapshot.Gameplay);
+            //m_volumeMixerManager.UseSnapshot(AudioSnapshot.Gameplay);
         }
 
         public static void ClearCaches()
@@ -62,7 +62,7 @@ namespace DChild.Gameplay.Systems
         public static void PauseGame()
         {
             m_playerManager?.DisableInput();
-            m_volumeMixerManager.UseSnapshot(AudioSnapshot.GamePause);
+            //m_volumeMixerManager.UseSnapshot(AudioSnapshot.GamePause);
         }
         public static void LoadGame()
         {
