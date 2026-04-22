@@ -1113,6 +1113,7 @@ GameObject:
   - component: {fileID: 9138020021064194335}
   - component: {fileID: 7998134285208556277}
   - component: {fileID: 5612694420329553625}
+  - component: {fileID: 7391919752007233688}
   m_Layer: 5
   m_Name: Button - Characters (1)
   m_TagString: Untagged
@@ -1199,7 +1200,7 @@ MonoBehaviour:
   MultiplayerInfo: {fileID: 0}
   IsOn: 0
   CurrentUISelectionState: 0
-  DeselectAfterPress: 0
+  DeselectAfterPress: 1
   OnSelectionStateChangedCallback:
     m_PersistentCalls:
       m_Calls: []
@@ -1245,7 +1246,38 @@ MonoBehaviour:
         m_PersistentCalls:
           m_Calls: []
   Behaviours:
-    Behaviours: []
+    Behaviours:
+    - EventName: Selected
+      Runners: []
+      Event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 7391919752007233688}
+            m_TargetAssemblyTypeName: DChild.Menu.Codex.CodexIndexButtonUI, Assembly-CSharp
+            m_MethodName: UpdateScrollToElement
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      BehaviourName: 10
+      Receiver:
+        ConnectionMode: 1
+        SignalProviderId:
+          Type: 0
+          Category: UI
+          Name: Selected
+        ProviderReference: {fileID: 0}
+        StreamId:
+          Category: None
+          Name: None
+          Custom: 0
+      Cooldown: 0
+      Selectable: {fileID: 7998134285208556277}
     SignalSource: {fileID: 6093557652813096300}
     Selectable: {fileID: 7998134285208556277}
   Id:
@@ -2618,6 +2650,20 @@ MonoBehaviour:
       ToCustomValue: 1
       FromOffset: 0
       ToOffset: 0
+--- !u!114 &7391919752007233688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6093557652813096300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52deea00cee1f49449869845672d4535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_parentView: {fileID: 0}
+  m_buttonRect: {fileID: 1651982271281299435}
 --- !u!1 &6444381167344977083
 GameObject:
   m_ObjectHideFlags: 0
