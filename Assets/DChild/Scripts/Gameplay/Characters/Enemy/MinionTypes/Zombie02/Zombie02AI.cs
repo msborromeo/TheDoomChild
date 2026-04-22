@@ -89,7 +89,9 @@ namespace DChild.Gameplay.Characters.Enemies
             private SimpleProjectileAttackInfo m_projectile;
             public SimpleProjectileAttackInfo projectile => m_projectile;
 
-
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_damageColliderbox;
+            public string damageColliderbox => m_damageColliderbox;
             public override void Initialize()
             {
 #if UNITY_EDITOR
@@ -146,6 +148,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Collider2D m_legCollider;
         [SerializeField, TabGroup("Reference")]
         private Collider2D m_bodyCollider;
+        [SerializeField, TabGroup("Reference")]
+        private Collider2D m_damagerCollider;
         [SerializeField, TabGroup("Modules")]
         private AnimatedTurnHandle m_turnHandle;
         [SerializeField, TabGroup("Modules")]
@@ -361,7 +365,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private void UpdateAttackDeciderList()
         {
-            m_attackDecider.SetList(/*new AttackInfo<Attack>(Attack.Attack1, m_info.attack1.range),*/
+            m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Attack1, m_info.attack1.range),
                                     new AttackInfo<Attack>(Attack.Attack2, m_info.attack2.range));
             m_attackDecider.hasDecidedOnAttack = false;
         }
@@ -483,6 +487,16 @@ namespace DChild.Gameplay.Characters.Enemies
             RaycastHit2D hit = Physics2D.Raycast(m_character.centerMass.position, Vector2.down, 1000, DChildUtility.GetEnvironmentMask());
             return hit.point;
         }
+        private void ClawAttackColliderController()
+        {
+            StartCoroutine(ClawAttackColliderRoutine());
+        }
+        private IEnumerator ClawAttackColliderRoutine()
+        {
+            m_damagerCollider.enabled = true;
+            yield return new WaitForSeconds(0.3f);
+            m_damagerCollider.enabled = false;
+        }
 
         protected override void Start()
         {
@@ -491,6 +505,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_currentMoveSpeed = UnityEngine.Random.Range(m_info.run.speed * .75f, m_info.run.speed * 1.25f);
             m_currentFullCD = UnityEngine.Random.Range(m_info.attackCD * .5f, m_info.attackCD * 2f);
             m_startPoint = transform.position;
+            m_spineEventListener.Subscribe(m_info.damageColliderbox, ClawAttackColliderController);
         }
 
         protected override void Awake()
