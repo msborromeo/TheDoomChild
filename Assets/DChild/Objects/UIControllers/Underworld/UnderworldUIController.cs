@@ -17,6 +17,11 @@ namespace DChild.Gameplay.UI.Controller
         [SerializeField]
         private StoreNavigator m_storeNavigator;
 
+        [SerializeField, MinValue(0)]
+        private int m_necroTabIndex = 0;
+        [SerializeField]
+        private List<StorePage> m_necroPageOrders = new List<StorePage>();
+
         private void OnEnable()
         {
             m_inputReader.UICycleTabsPerformedEvent += OnUICycleTabsPerformed;
@@ -24,6 +29,7 @@ namespace DChild.Gameplay.UI.Controller
             m_inputReader.UINavigatePerformedEvent += OnUINavigatePerformed;
             m_inputReader.UIClickPerformedEvent += OnUIClickPerformed;
             m_inputReader.UISubmitPerformedEvent += OnUISubmitPerformed;
+            m_inputReader.UICancelPerformedEvent += OnUICancelPerformed;
         }
 
         private void OnDisable()
@@ -33,22 +39,22 @@ namespace DChild.Gameplay.UI.Controller
             m_inputReader.UINavigatePerformedEvent -= OnUINavigatePerformed;
             m_inputReader.UIClickPerformedEvent -= OnUIClickPerformed;
             m_inputReader.UISubmitPerformedEvent -= OnUISubmitPerformed;
+            m_inputReader.UICancelPerformedEvent -= OnUICancelPerformed;
+        }
+
+        private void OnUICancelPerformed()
+        {
+            m_necroTabIndex = 0;
         }
 
         private void OnUISubmitPerformed()
         {
-            if (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() == GameplayUIState.Dialogue)
-            {
-                BaseGameplaySystem.gamplayUIHandle.ContinueDialogue();
-            }
+            BaseGameplaySystem.gamplayUIHandle.ContinueDialogue();
         }
 
         private void OnUIClickPerformed()
         {
-            if(BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() == GameplayUIState.Dialogue)
-            {
-                BaseGameplaySystem.gamplayUIHandle.ContinueDialogue();
-            }
+            BaseGameplaySystem.gamplayUIHandle.ContinueDialogue();
         }
 
         private void OnUINavigatePerformed(Vector2 vector)
@@ -58,119 +64,44 @@ namespace DChild.Gameplay.UI.Controller
 
         private void OnUICycleTabsPerformed(float obj)
         {
-            switch (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState())
+            if (obj > 0)
             {
-                case GameplayUIState.NecroMap:
-                    if (obj > 0)
-                    {
-                        m_storeNavigator.SetPage(StorePage.Player);
-                        m_storeNavigator.OpenPage();
-                    }
-                    else if (obj < 0)
-                    {
-                        m_storeNavigator.SetPage(StorePage.Codex);
-                        m_storeNavigator.OpenPage();
-                    }
-                    break;
+                //to achieve cycle back on end
+                if (m_necroTabIndex == m_necroPageOrders.Count - 1)
+                {
+                    m_storeNavigator.SetPage(m_necroPageOrders[0]);
+                    m_storeNavigator.OpenPage();
+                    m_necroTabIndex = 0;
+                }
 
-                case GameplayUIState.NecroStats:
-                    if (obj > 0)
-                    {
-                        m_storeNavigator.SetPage(StorePage.Items);
-                        m_storeNavigator.OpenPage();
-                    }
-                    else if (obj < 0)
-                    {
-                        m_storeNavigator.SetPage(StorePage.Map);
-                        m_storeNavigator.OpenPage();
-                    }
-                    break;
+                m_necroTabIndex += 1;
+                m_storeNavigator.SetPage(m_necroPageOrders[m_necroTabIndex]);
+                m_storeNavigator.OpenPage();
+            }
+            else if (obj < 0)
+            {
+                if (m_necroTabIndex == 0)
+                {
+                    m_storeNavigator.SetPage(m_necroPageOrders[m_necroPageOrders.Count - 1]);
+                    m_storeNavigator.OpenPage();
+                    m_necroTabIndex = m_necroPageOrders.Count - 1;
+                }
 
-                case GameplayUIState.NecroItems:
-                    if (obj > 0)
-                    {
-                        m_storeNavigator.SetPage(StorePage.Equipment);
-                        m_storeNavigator.OpenPage();
-                    }
-                    else if (obj < 0)
-                    {
-                        m_storeNavigator.SetPage(StorePage.Player);
-                        m_storeNavigator.OpenPage();
-                    }
-                    break;
-
-                case GameplayUIState.NecroEquipment:
-                    if (obj > 0)
-                    {
-                        m_storeNavigator.SetPage(StorePage.SoulSkills);
-                        m_storeNavigator.OpenPage();
-                    }
-                    else if (obj < 0)
-                    {
-                        m_storeNavigator.SetPage(StorePage.Items);
-                        m_storeNavigator.OpenPage();
-                    }
-                    break;
-
-                case GameplayUIState.NecroSoulSkills:
-                    if (obj > 0)
-                    {
-                        m_storeNavigator.SetPage(StorePage.CombatArts);
-                        m_storeNavigator.OpenPage();
-                    }
-                    else if (obj < 0)
-                    {
-                        m_storeNavigator.SetPage(StorePage.Equipment);
-                        m_storeNavigator.OpenPage();
-                    }
-                    break;
-
-                case GameplayUIState.NecroCombatArts:
-                    if (obj > 0)
-                    {
-                        m_storeNavigator.SetPage(StorePage.Codex);
-                        m_storeNavigator.OpenPage();
-                    }
-                    else if (obj < 0)
-                    {
-                        m_storeNavigator.SetPage(StorePage.SoulSkills);
-                        m_storeNavigator.OpenPage();
-                    }
-                    break;
-
-                case GameplayUIState.NecroCodex:
-                    if (obj > 0)
-                    {
-                        m_storeNavigator.SetPage(StorePage.Map);
-                        m_storeNavigator.OpenPage();
-                    }
-                    else if (obj < 0)
-                    {
-                        m_storeNavigator.SetPage(StorePage.CombatArts);
-                        m_storeNavigator.OpenPage();
-                    }
-                    break;
-
-                case GameplayUIState.MordenElevator:
-                    break;
-                case GameplayUIState.Shop:
-                    break;
+                m_necroTabIndex -= 1;
+                m_storeNavigator.SetPage(m_necroPageOrders[m_necroTabIndex]);
+                m_storeNavigator.OpenPage();
             }
         }
 
         private void OnUICycleSubtabsPerformed(float obj)
         {
-            if(BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() == GameplayUIState.NecroItems)
+            if (obj > 0)
             {
-                //Handle filter in inventory
-                if(obj > 0)
-                {
-                    
-                }
-                else if(obj < 0)
-                {
 
-                }
+            }
+            else if (obj < 0)
+            {
+
             }
         }
     }
