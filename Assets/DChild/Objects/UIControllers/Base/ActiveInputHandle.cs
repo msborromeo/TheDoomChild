@@ -47,6 +47,7 @@ namespace DChild.Inputs
                 {
                     SetInputToGameplay();
                 }
+                else
                 {
                     SetInputToUI();
                 }

@@ -66,25 +66,31 @@ namespace DChild.UI
         private void OnCinematicSignalReceived(Signal signal)
         {
             //guard for exiting cinematic mode in case it doesn't return to no window at cinematic end
-            if (signal.stream.category == "Cinematic" && signal.stream.name == "Toggle")
-            {
-                signal.TryGetValue(out bool value);
-                if (value == false)
-                {
-                    SetCurrentUnderworldUIState(GameplayUIState.GameplayHUD);
-                    return;
-                }
-            }
+            //if (signal.stream.category == "Cinematic" && signal.stream.name == "Toggle")
+            //{
+            //    signal.TryGetValue(out bool value);
+            //    if (value == false)
+            //    {
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        SetCurrentUnderworldUIState(GameplayUIState.Cinematic);
+            //    }
+            //}
 
-            if (signal.stream.category == "Cinematic" && signal.stream.name == "Bars")
-            {
-                signal.TryGetValue(out bool value);
-                if (value == false)
-                {
-                    SetCurrentUnderworldUIState(GameplayUIState.GameplayHUD);
-                    return;
-                }
-            }
+            //if (signal.stream.category == "Cinematic" && signal.stream.name == "Bars")
+            //{
+            //    signal.TryGetValue(out bool value);
+            //    if (value == false)
+            //    {
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        SetCurrentUnderworldUIState(GameplayUIState.Cinematic);
+            //    }
+            //}
 
             SetCurrentUnderworldUIState(GameplayUIState.Cinematic);
             Debug.Log($"Received signal: \nCategory: {signal.stream.category}\nName: {signal.stream.name}");
@@ -104,7 +110,6 @@ namespace DChild.UI
                 signal.TryGetValue(out bool value);
                 if(value == false)
                 {
-                    SetCurrentUnderworldUIState(GameplayUIState.GameplayHUD);
                     return;
                 }
             }
