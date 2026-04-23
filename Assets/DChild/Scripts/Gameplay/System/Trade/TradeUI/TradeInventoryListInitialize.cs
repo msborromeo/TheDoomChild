@@ -44,11 +44,11 @@ namespace DChild.Gameplay.Trade.UI
                 var toggle = toggles[i];
                 AddToggleOnListener(toggle);
             }
-            UnderworldGameplaySystem.gameplayUIHandle.SetCurrentUIState(12);
+            //UnderworldGameplaySystem.gameplayUIHandle.SetCurrentUIState(12);
         }
         private void OnDisable()
         {
-            UnderworldGameplaySystem.gameplayUIHandle.SetCurrentUIState(0);
+            //UnderworldGameplaySystem.gameplayUIHandle.SetCurrentUIState(0);
         }
 
         //private IEnumerator Start()
