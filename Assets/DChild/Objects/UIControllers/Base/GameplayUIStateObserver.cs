@@ -35,9 +35,14 @@ namespace DChild.UI
         [SerializeField, ReadOnly]
         private List<SignalReceiver> m_CinematicSignalReceivers = new List<SignalReceiver>();
 
+        //Specific conditions to check
+        [SerializeField, ReadOnly]
+        private bool m_isInDialogue;
+        public bool isInDialogue => m_isInDialogue;
+
         private void Awake()
         {
-            //initialize number of signal recievers for UI and Gameplay Signals
+            //initialize number of signal receivers for UI and Gameplay Signals
             InitializeSignalReceivers(m_doozyUISignalNames, m_UISignalReceivers);
             InitializeSignalReceivers(m_doozyGameplaySignalNames, m_GameplaySignalReceivers);
             InitializeSignalReceivers(m_doozyCinematicSignalNames, m_CinematicSignalReceivers);
@@ -110,7 +115,12 @@ namespace DChild.UI
                 signal.TryGetValue(out bool value);
                 if(value == false)
                 {
+                    m_isInDialogue = false;
                     return;
+                }
+                else
+                {
+                    m_isInDialogue = true;
                 }
             }
 
