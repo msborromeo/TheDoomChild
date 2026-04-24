@@ -37,24 +37,20 @@ namespace DChild.Inputs
 
         private void OnUIStateChanged(GameplayUIState state)
         {
-            if (state == GameplayUIState.GameplayHUD)
+            switch (state)
             {
-                SetInputToGameplay();
-            }
-            else if(state == GameplayUIState.Cinematic)
-            {
-                if (m_enableControlsInCinematic)
-                {
+                case GameplayUIState.GameplayHUD:
                     SetInputToGameplay();
-                }
-                else
-                {
-                    SetInputToUI();
-                }
-            }
-            else
-            {
-                SetInputToUI();
+                    break;
+                case GameplayUIState.InteractableUI:
+                    SetInputToUI();            
+                    break;
+                case GameplayUIState.Cinematic:
+                    if (m_enableControlsInCinematic)
+                        SetInputToGameplay();
+                    else
+                        SetInputToUI();
+                    break;
             }
         }
 
