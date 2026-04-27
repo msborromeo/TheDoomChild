@@ -91,6 +91,16 @@ namespace DChild.Inputs
             m_currentActionMap = "UI";
         }
 
+        public void DisableInput()
+        {
+            m_playerInput.enabled = false;
+        }
+
+        public void EnableInput()
+        {
+            m_playerInput.enabled = true;
+        }
+
         public void SetCurrentPlayerInput(PlayerInput playerInput)
         {
             m_playerInput = playerInput;
