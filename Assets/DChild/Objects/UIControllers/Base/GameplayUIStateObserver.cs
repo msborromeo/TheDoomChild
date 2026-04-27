@@ -4,6 +4,7 @@ using DChild.Inputs;
 using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Listeners;
 using PixelCrushers;
+using PixelCrushers.DialogueSystem.SequencerCommands;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
@@ -52,17 +53,17 @@ namespace DChild.UI
         private void OnEnable()
         {
             //Subscribe each signal receiver to corresponding function
-            for(int i = 0; i < m_UISignalReceivers.Count; i++)
+            for (int i = 0; i < m_UISignalReceivers.Count; i++)
             {
                 m_UISignalReceivers[i].onSignal += OnUISignalReceived;
             }
 
-            for(int i = 0; i < m_GameplaySignalReceivers.Count; i++)
+            for (int i = 0; i < m_GameplaySignalReceivers.Count; i++)
             {
                 m_GameplaySignalReceivers[i].onSignal += OnGameplaySignalReceived;
             }
 
-            for(int i = 0; i < m_CinematicSignalReceivers.Count; i++)
+            for (int i = 0; i < m_CinematicSignalReceivers.Count; i++)
             {
                 m_CinematicSignalReceivers[i].onSignal += OnCinematicSignalReceived;
             }
@@ -78,10 +79,6 @@ namespace DChild.UI
                 {
                     return;
                 }
-                else
-                {
-                    SetCurrentUnderworldUIState(GameplayUIState.Cinematic);
-                }
             }
 
             if (signal.stream.category == "Cinematic" && signal.stream.name == "Bars")
@@ -90,10 +87,6 @@ namespace DChild.UI
                 if (value == false)
                 {
                     return;
-                }
-                else
-                {
-                    SetCurrentUnderworldUIState(GameplayUIState.Cinematic);
                 }
             }
 
@@ -110,10 +103,10 @@ namespace DChild.UI
         private void OnUISignalReceived(Signal signal)
         {
             //guard for exiting dialogue in case it doesn't return to no window
-            if(signal.stream.category == "Dialogue" && signal.stream.name == "Toggle")
+            if (signal.stream.category == "Dialogue" && signal.stream.name == "Toggle")
             {
                 signal.TryGetValue(out bool value);
-                if(value == false)
+                if (value == false)
                 {
                     m_isInDialogue = false;
                     return;
@@ -141,7 +134,7 @@ namespace DChild.UI
             m_currentUIState = gameplayUIState;
 
             GameplayUIStateChanged?.Invoke(m_currentUIState);
-            Debug.Log("Changed UI State to: " +  m_currentUIState);
+            Debug.Log("Changed UI State to: " + m_currentUIState);
         }
 
         private void InitializeSignalReceivers(List<DoozySignalName> doozySignals, List<SignalReceiver> signalRecievers)
@@ -162,7 +155,7 @@ namespace DChild.UI
 
         private void DisconnectSignalReceivers(List<SignalReceiver> signalReceivers)
         {
-            for(int i = 0;i < signalReceivers.Count; i++)
+            for (int i = 0; i < signalReceivers.Count; i++)
             {
                 signalReceivers[i].Disconnect();
             }

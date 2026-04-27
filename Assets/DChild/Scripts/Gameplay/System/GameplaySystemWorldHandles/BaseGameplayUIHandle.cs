@@ -160,7 +160,7 @@ namespace DChild.Gameplay.Systems
         public CharacterRecruitmentUI GetRecruitmentConfirmation()
         {
             return m_characterRecruitmentUI;
-            
+
         }
         public void SendconfirmationSignal()
         {
