@@ -121,7 +121,7 @@ namespace DChild.Gameplay.Systems
         [Button]
         public PlayerCharacterOverride OverrideCharacterControls()
         {
-            DisableControls();
+            //DisableControls();
             m_overrideController.enabled = true;
             m_player.state.allowExtendedIdle = true;
             return m_overrideController;
