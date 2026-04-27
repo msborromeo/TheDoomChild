@@ -1070,16 +1070,25 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_storeHasBeenPickedUp == false)
                 return;
+            if (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
+                return;
+
             GameplaySystem.gamplayUIHandle.OpenStoreAtPage(StorePage.Map);
         }
 
         private void OnPauseInput()
         {
+            if (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
+                return;
+
             GameplaySystem.gamplayUIHandle.OpenPauseMenu();
         }
 
         private void OnTeleportToOverworldStarted(InputAction.CallbackContext context, bool isCanceled)
         {
+            if (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
+                return;
+
             GameplaySystem.gamplayUIHandle.ShowHoldToTeleportSequence(context, isCanceled);
         }
 
