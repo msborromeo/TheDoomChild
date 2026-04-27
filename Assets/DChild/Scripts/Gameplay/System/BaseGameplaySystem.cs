@@ -105,12 +105,16 @@ namespace DChild.Gameplay.Systems
 
         public static void SetInputToGameplay()
         {
-            m_activeInputHandle.SetInputToGameplay();
+            //Commented this out to fix spam esc issue causing underworld controls while pause is up
+            //Controls are now completely dependent on the UI State
+           // m_activeInputHandle.SetInputToGameplay();
         }
 
         public static void SetInputToUI()
         {
-            m_activeInputHandle.SetInputToUI();
+            //Commented this out to fix spam esc issue causing underworld controls while pause is up
+            //Controls are now completely dependent on the UI State
+            //m_activeInputHandle.SetInputToUI();
         }
 
         public static void ToggleCinematicControls(bool value)
