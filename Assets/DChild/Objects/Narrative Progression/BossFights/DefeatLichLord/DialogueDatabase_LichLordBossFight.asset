@@ -280,6 +280,7 @@ MonoBehaviour:
     alternatePortraits: []
     spritePortraits:
     - {fileID: 21300000, guid: 4d5a48d02dd39634e906414bf4a9279a, type: 3}
+    - {fileID: 21300000, guid: 0f7f41f7cd69c26449b901037e0da3c0, type: 3}
   - id: 25
     fields:
     - title: Name
@@ -779,6 +780,36 @@ MonoBehaviour:
     spritePortrait: {fileID: 21300000, guid: 27f67ef7063014a459b5265a29849f27, type: 3}
     alternatePortraits: []
     spritePortraits: []
+  - id: 103
+    fields:
+    - title: Name
+      value: Imp
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: IsPlayer
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Display Name
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: BanterColor
+      value: '#ffffffff'
+      type: 0
+      typeString: CustomFieldType_HexColor
+    portrait: {fileID: 0}
+    spritePortrait: {fileID: 0}
+    alternatePortraits: []
+    spritePortraits: []
   items:
   - id: 21
     fields:
@@ -1004,7 +1035,8 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: This is for betraying our master!
+        value: This is the price betraying our master! You shall pay in blood and
+          bone.
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
@@ -1169,7 +1201,8 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: You will be defeated soon!
+        value: "Arrogance won't save you. Even here, you are not safe from the Doomed
+          Knight\u2019s blade."
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
@@ -1187,7 +1220,7 @@ MonoBehaviour:
       - originConversationID: 382
         originDialogueID: 8
         destinationConversationID: 382
-        destinationDialogueID: 9
+        destinationDialogueID: 10
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -1198,7 +1231,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 29
-        y: 224
+        y: 226
         width: 160
         height: 30
     - id: 9
@@ -1262,8 +1295,80 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 274
+        x: 29
+        y: 323
+        width: 160
+        height: 30
+    - id: 10
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: I will emerge victorious. You will be nothing but dust beneath my
+          boots.
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: 
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 382
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 382
+        originDialogueID: 10
+        destinationConversationID: 382
+        destinationDialogueID: 9
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 29
+        y: 276
         width: 160
         height: 30
     entryGroups: []
@@ -1421,8 +1526,8 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: No. NO...it's not possible! Why are you still strong? Even if your
-          soul is splitted! Don't you understand...you...you...
+        value: No... this cannot be! Your soul was split in two .Do you not grasp
+          the truth of your own existence?
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -1493,7 +1598,8 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: ...should be the protector of this realm and not his destroyer!
+        value: "You were meant to be this realm\u2019s protector\u2026 its PROTECTOR!
+          not its\u2026 nh\u2026 Not its destroyer."
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -1528,7 +1634,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 42
-        y: 129
+        y: 128
         width: 160
         height: 30
     entryGroups: []
@@ -1686,9 +1792,8 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: You did great. You can now reach the garden. Go there. An army is
-          waiting. In this final battle you will unleash your power to defeat the
-          menace which is haunting our realm!
+        value: You have done well, Doomed Knight. Now, make haste to the garden.
+          An army gathers there. PURGE the menace that haunts our realm!
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -1729,7 +1834,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 32
-        y: 70
+        y: 69
         width: 160
         height: 30
     - id: 2
