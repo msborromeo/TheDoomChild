@@ -37,24 +37,20 @@ namespace DChild.Inputs
 
         private void OnUIStateChanged(GameplayUIState state)
         {
-            if (state == GameplayUIState.GameplayHUD)
+            switch (state)
             {
-                SetInputToGameplay();
-            }
-            else if(state == GameplayUIState.Cinematic)
-            {
-                if (m_enableControlsInCinematic)
-                {
+                case GameplayUIState.GameplayHUD:
                     SetInputToGameplay();
-                }
-                else
-                {
-                    SetInputToUI();
-                }
-            }
-            else
-            {
-                SetInputToUI();
+                    break;
+                case GameplayUIState.InteractableUI:
+                    SetInputToUI();            
+                    break;
+                case GameplayUIState.Cinematic:
+                    if (m_enableControlsInCinematic)
+                        SetInputToGameplay();
+                    else
+                        SetInputToUI();
+                    break;
             }
         }
 
@@ -93,6 +89,16 @@ namespace DChild.Inputs
             m_inputReader.SetInputModeToUI();
             m_playerInput.SwitchCurrentActionMap("UI");
             m_currentActionMap = "UI";
+        }
+
+        public void DisableInput()
+        {
+            m_playerInput.enabled = false;
+        }
+
+        public void EnableInput()
+        {
+            m_playerInput.enabled = true;
         }
 
         public void SetCurrentPlayerInput(PlayerInput playerInput)

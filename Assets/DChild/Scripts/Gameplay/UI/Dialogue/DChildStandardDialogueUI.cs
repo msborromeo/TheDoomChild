@@ -94,7 +94,7 @@ namespace DChild.UI
             }
 
             dialogueActive = true;
-            GameplaySystem.playerManager.DisableControls();
+            //GameplaySystem.playerManager.DisableControls();
 
             currentConverstionIsABanter = false;
         }
