@@ -22,18 +22,16 @@ namespace DChild.Gameplay.Systems
     public class BaseGameplaySystem : MonoBehaviour
     {
         [SerializeField]
-        private static VolumeMixerManagerHandle m_volumeMixerManager;
-        [SerializeField]
         private bool m_doNotDeserializeOnAwake;
         [SerializeField]
         private AudioListenerPositioner m_audioListener;
        
-
         private GameplaySettings m_settings;
         private static BaseGameplaySystem m_instance;
         private static CampaignSlot m_campaignToLoad;
         private static GameplayModifiers m_modifiers;
         private static GameplayConstantsReference m_constantsReference;
+        private static VolumeMixerManagerHandle m_volumeMixerManager;
         public static GameplayModifiers modifiers => m_modifiers;
         public static GameplayConstantsReference constantsReference => m_constantsReference;
         private static CampaignSerializer m_campaignSerializer;
@@ -100,16 +98,24 @@ namespace DChild.Gameplay.Systems
             m_gameplayModuleManager[0] = m_skeletonManager;
         }
 
-        private void AssignModule<T>(out T module) where T : MonoBehaviour, IGameplaySystemModule => module = GetComponentInChildren<T>();
+        private void AssignModule<T>(out T module) where T : MonoBehaviour, IGameplaySystemModule
+        { 
+            module = GetComponentInChildren<T>();
+        } 
 
-        public static void SetInputToGameplay()
+        public static void DisableInput()
         {
-            m_activeInputHandle.SetInputToGameplay();
+            m_activeInputHandle.DisableInput();
         }
 
-        public static void SetInputToUI()
+        public static void EnableInput()
         {
-            m_activeInputHandle.SetInputToUI();
+            m_activeInputHandle.EnableInput();
+        }
+
+        public static void ToggleCinematicControls(bool value)
+        {
+            m_activeInputHandle.enableControlsInCinematic = value;
         }
 
         public static void SetCurrentPlayerInput(PlayerInput playerInput)

@@ -84,6 +84,8 @@ namespace DChild.Gameplay.Systems
         [SerializeField, FoldoutGroup("Signals")]
         private SignalSender m_continueDialogueSignal;
 
+        public GameplayUIStateObserver gameplayUIStateObserver => m_gameplayUIStateObserver;
+
         public UIAlertManager uiAlertManager => m_uiAlertManager;
 
         public void ContinueDialogue()
@@ -95,7 +97,6 @@ namespace DChild.Gameplay.Systems
         {
             if (on == true)
             {
-                m_gameplayUIStateObserver.SetCurrentUnderworldUIState(16); //set UI mode to cinematic to prevent player control
                 DialogueManager.StopAllConversations();
             }
 
@@ -159,7 +160,7 @@ namespace DChild.Gameplay.Systems
         public CharacterRecruitmentUI GetRecruitmentConfirmation()
         {
             return m_characterRecruitmentUI;
-            
+
         }
         public void SendconfirmationSignal()
         {
@@ -215,12 +216,12 @@ namespace DChild.Gameplay.Systems
             m_backSignal.SendSignal();
         }
 
-        public void SetGameplayUIState(int state)
+        public GameplayUIState GetCurrentUIState() => m_gameplayUIStateObserver.currentUnderworldUIState;
+
+        public void OverrideCurrentUIState(GameplayUIState state)
         {
             m_gameplayUIStateObserver.SetCurrentUnderworldUIState(state);
         }
-
-        public GameplayUIState GetCurrentUIState() => m_gameplayUIStateObserver.currentUnderworldUIState;
 
         private void Awake()
         {

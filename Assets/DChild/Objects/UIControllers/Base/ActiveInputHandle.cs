@@ -14,6 +14,11 @@ namespace DChild.Inputs
         private InputReader m_inputReader;
         [SerializeField]
         private GameplayUIStateObserver m_gameplayUIStateObserver;
+        [SerializeField]
+        private bool m_enableControlsInCinematic = false;
+        public bool enableControlsInCinematic { get { return m_enableControlsInCinematic;  }
+                                            set { m_enableControlsInCinematic = value; }
+        }
 
         [SerializeField, ReadOnly()]
         private string m_currentActionMap;
@@ -32,13 +37,20 @@ namespace DChild.Inputs
 
         private void OnUIStateChanged(GameplayUIState state)
         {
-            if (state == GameplayUIState.GameplayHUD)
+            switch (state)
             {
-                SetInputToGameplay();
-            }
-            else
-            {
-                SetInputToUI();
+                case GameplayUIState.GameplayHUD:
+                    SetInputToGameplay();
+                    break;
+                case GameplayUIState.InteractableUI:
+                    SetInputToUI();            
+                    break;
+                case GameplayUIState.Cinematic:
+                    if (m_enableControlsInCinematic)
+                        SetInputToGameplay();
+                    else
+                        SetInputToUI();
+                    break;
             }
         }
 
@@ -77,6 +89,16 @@ namespace DChild.Inputs
             m_inputReader.SetInputModeToUI();
             m_playerInput.SwitchCurrentActionMap("UI");
             m_currentActionMap = "UI";
+        }
+
+        public void DisableInput()
+        {
+            m_playerInput.enabled = false;
+        }
+
+        public void EnableInput()
+        {
+            m_playerInput.enabled = true;
         }
 
         public void SetCurrentPlayerInput(PlayerInput playerInput)
