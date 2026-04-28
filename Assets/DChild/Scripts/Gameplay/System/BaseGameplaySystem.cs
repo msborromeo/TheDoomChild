@@ -103,14 +103,14 @@ namespace DChild.Gameplay.Systems
             module = GetComponentInChildren<T>();
         } 
 
-        public static void SetInputToGameplay()
+        public static void DisableInput()
         {
-            m_activeInputHandle.SetInputToGameplay();
+            m_activeInputHandle.DisableInput();
         }
 
-        public static void SetInputToUI()
+        public static void EnableInput()
         {
-            m_activeInputHandle.SetInputToUI();
+            m_activeInputHandle.EnableInput();
         }
 
         public static void ToggleCinematicControls(bool value)

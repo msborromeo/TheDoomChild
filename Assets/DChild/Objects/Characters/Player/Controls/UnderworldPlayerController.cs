@@ -206,7 +206,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.NewGameIntroFinished += OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted += OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp += OnPlayerWokeUp;
-            m_inputReader.ActiveActionMapChanged += OnActiveActionMapChanged;
+            BaseGameplaySystem.gamplayUIHandle.gameplayUIStateObserver.GameplayUIStateChanged += OnUIStateChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent += OnVector2PerformedInput;
@@ -293,7 +293,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.NewGameIntroFinished -= OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted -= OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp -= OnPlayerWokeUp;
-            m_inputReader.ActiveActionMapChanged -= OnActiveActionMapChanged;
+            BaseGameplaySystem.gamplayUIHandle.gameplayUIStateObserver.GameplayUIStateChanged -= OnUIStateChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent -= OnVector2PerformedInput;
@@ -2565,9 +2565,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_shadowGaugeRegen.Enable(true);
         }
 
-        private void OnActiveActionMapChanged()
+        private void OnUIStateChanged(GameplayUIState state)
         {
-            //Reset vector2 input to prevent moving on its own when action map changes mid movement
+            //return guard here assumes PlayerCharacterOverride is moving player during Gameplay 
+            if (state == GameplayUIState.GameplayHUD)
+                return;
+
+            //reset when interactableUI or Cinematic is current state to prevent running on its own
             m_vector2Input = Vector2.zero;
         }
 
