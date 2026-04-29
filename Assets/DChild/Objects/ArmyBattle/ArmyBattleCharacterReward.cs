@@ -84,10 +84,6 @@ namespace DChild.Gameplay.ArmyBattle
             ui.SetDeclineOffer(OnDecline);
             ui.SetupUI(m_CharacterReward[0].name);
             BaseGameplaySystem.gamplayUIHandle.SendconfirmationSignal();
-            //GameplaySystem.PauseGame();
-
-
-
         }
 
         public void RequirementMet(bool isAchieved)
@@ -103,7 +99,7 @@ namespace DChild.Gameplay.ArmyBattle
         public void SetupConfirmationUI()
         {
             CharacterRecruitmentUI ui = GameplaySystem.gamplayUIHandle.ConfirmationRequest();
-            if(!m_isFree)
+            if (!m_isFree)
             {
                 /*
                 if(m_requiresSoulEssence)
@@ -165,10 +161,8 @@ namespace DChild.Gameplay.ArmyBattle
         }
         public void AttemptGiveReward()
         {
-            GameplaySystem.PauseGame();
             SetupConfirmationUI();
             GiveReward();
-            //m_GiveReward?.Invoke();
         }
 
         private void AcceptOffer(object sender, EventActionArgs eventActionArgs)
@@ -293,6 +287,7 @@ namespace DChild.Gameplay.ArmyBattle
                         }
                         break;
                 }
+
                 if (m_OtherConditions)
                 {
                     if (!m_RequirementAchieved)
@@ -303,7 +298,6 @@ namespace DChild.Gameplay.ArmyBattle
                 }
             }
 
-            GameplaySystem.ResumeGame();
             m_GiveReward?.Invoke();
             m_CharacterGiver?.RecruitCharacter(m_CharacterReward);
             //Because Characters are usually recieved at isolated maps where save points do not exists
@@ -314,7 +308,6 @@ namespace DChild.Gameplay.ArmyBattle
         }
         private void RequirementFailed()
         {
-            GameplaySystem.ResumeGame();
             m_RequirementFailed?.Invoke();
         }
         /*
@@ -355,7 +348,7 @@ namespace DChild.Gameplay.ArmyBattle
 
         private void OnDecline(object sender, EventActionArgs eventActionArgs)
         {
-            GameplaySystem.ResumeGame();
+
         }
 
     }
