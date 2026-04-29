@@ -177,7 +177,7 @@ namespace DChild.Inputs
             ActiveActionMapChanged?.Invoke();
         }
 
-        public void SetInputModeTOverworldGameplay()
+        public void SetInputModeToOverworldGameplay()
         {
             m_playerControls.Overworld.Enable();
             m_playerControls.Underworld.Disable();
@@ -211,17 +211,11 @@ namespace DChild.Inputs
         //Underworld Actions
         public void OnVector2(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             OnVector2(context.phase, context.ReadValue<Vector2>());
         }
 
         public void OnVector2(InputActionPhase phase, Vector2 value)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (phase == InputActionPhase.Performed)
             {
                 Vector2InputPerformedEvent?.Invoke(value);
@@ -235,9 +229,6 @@ namespace DChild.Inputs
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 JumpStartedEvent?.Invoke();
@@ -256,9 +247,6 @@ namespace DChild.Inputs
 
         public void OnDash(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 DashStartedEvent?.Invoke();
@@ -267,9 +255,6 @@ namespace DChild.Inputs
 
         public void OnGrab(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 GrabStartedEvent?.Invoke();
@@ -283,9 +268,6 @@ namespace DChild.Inputs
 
         public void OnInteract(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 InteractStartedEvent?.Invoke();
@@ -294,9 +276,6 @@ namespace DChild.Inputs
 
         public void OnMouseDelta(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Performed)
             {
                 MouseDeltaPerformedEvent?.Invoke(context.ReadValue<Vector2>());
@@ -305,9 +284,6 @@ namespace DChild.Inputs
 
         public void OnPause(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 PauseStartedEvent?.Invoke();
@@ -316,9 +292,6 @@ namespace DChild.Inputs
 
         public void OnTeleportToOverworld(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             switch (context.phase)
             {
                 case InputActionPhase.Started:
@@ -335,9 +308,6 @@ namespace DChild.Inputs
 
         public void OnTeleportToMordenThroneRoom(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             switch (context.phase)
             {
                 case InputActionPhase.Started:
@@ -354,9 +324,6 @@ namespace DChild.Inputs
 
         public void OnQuickItemCycle(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 CycleQuickItemsStartedEvent?.Invoke(context.ReadValue<float>());
@@ -365,9 +332,6 @@ namespace DChild.Inputs
 
         public void OnQuickItemUse(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Performed)
             {
                 if(context.interaction is HoldInteraction)
@@ -389,9 +353,6 @@ namespace DChild.Inputs
 
         public void OnSlash(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 SlashStartedEvent?.Invoke();
@@ -423,9 +384,6 @@ namespace DChild.Inputs
 
         public void OnStore(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 StoreStartedEvent?.Invoke();
