@@ -93,7 +93,7 @@ namespace DChild.Gameplay.Systems
             //m_gameplayInput?.SetStoreInputActive(false);
             //m_gameplayInput?.ToggleUINavigationInput(true);
             //m_characterInput?.Disable();
-            BaseGameplaySystem.SetInputToUI();
+            BaseGameplaySystem.DisableInput();
         }
 
         public void EnableInput()
@@ -102,7 +102,7 @@ namespace DChild.Gameplay.Systems
             //m_gameplayInput?.ToggleUINavigationInput(false);
             //m_characterInput?.Enable();
             //Note: lines above may be unnecessary but not sure as of this time
-            BaseGameplaySystem.SetInputToGameplay();
+            BaseGameplaySystem.EnableInput();
         }
 
         public void FreezePlayerPosition(bool freezePlayerPosition)
@@ -121,7 +121,7 @@ namespace DChild.Gameplay.Systems
         [Button]
         public PlayerCharacterOverride OverrideCharacterControls()
         {
-            DisableControls();
+            //DisableControls();
             m_overrideController.enabled = true;
             m_player.state.allowExtendedIdle = true;
             return m_overrideController;
@@ -151,7 +151,7 @@ namespace DChild.Gameplay.Systems
             //m_player.controller.Disable();
             //m_playerInput?.DeactivateInput();
             m_player.state.allowExtendedIdle = false;
-            BaseGameplaySystem.SetInputToUI(); //Set to UI since case where player shouldn't move is usually in UI
+            BaseGameplaySystem.DisableInput();
             PlayerControlsEnabled?.Invoke(false);
         }
 
@@ -163,7 +163,7 @@ namespace DChild.Gameplay.Systems
             //m_player.controller.Enable();
             //m_playerInput?.ActivateInput();
             m_player.state.allowExtendedIdle = true;
-            BaseGameplaySystem.SetInputToGameplay();
+            BaseGameplaySystem.EnableInput();
             PlayerControlsEnabled?.Invoke(true);
         }
 
