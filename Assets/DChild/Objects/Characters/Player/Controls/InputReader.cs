@@ -177,7 +177,7 @@ namespace DChild.Inputs
             ActiveActionMapChanged?.Invoke();
         }
 
-        public void SetInputModeTOverworldGameplay()
+        public void SetInputModeToOverworldGameplay()
         {
             m_playerControls.Overworld.Enable();
             m_playerControls.Underworld.Disable();
@@ -211,9 +211,6 @@ namespace DChild.Inputs
         //Underworld Actions
         public void OnVector2(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             OnVector2(context.phase, context.ReadValue<Vector2>());
         }
 

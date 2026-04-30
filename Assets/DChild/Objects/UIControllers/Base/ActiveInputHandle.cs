@@ -69,7 +69,7 @@ namespace DChild.Inputs
                     break;
                 case WorldType.Overworld:
                     {
-                        m_inputReader.SetInputModeTOverworldGameplay();
+                        m_inputReader.SetInputModeToOverworldGameplay();
                         m_playerInput.SwitchCurrentActionMap("Overworld");
                         m_currentActionMap = "Overworld";
                     }
