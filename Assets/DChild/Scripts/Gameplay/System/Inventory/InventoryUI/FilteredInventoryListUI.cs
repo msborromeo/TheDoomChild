@@ -11,6 +11,7 @@ namespace DChild.Gameplay.Inventories.UI
             if(m_currentFilter != itemCategory)
             {
                 m_currentFilter = itemCategory;
+
                 UpdateUIList();
             }
         }

@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.Inventories;
 using DChild.Gameplay.Inventories.UI;
+using DChild.Gameplay.Systems;
 using Doozy.Runtime.UIManager.Components;
 using System.Collections;
 using UnityEngine;
@@ -21,27 +22,50 @@ namespace DChild.Gameplay.Trade.UI
 
         private void AddToggleOnListener(UIToggle toggle)
         {
-            var tradeFilter = toggle.GetComponent<InventoryItemUI>();
-            UnityAction action = delegate { OnItemSelected(tradeFilter); };
-            toggle.OnToggleOnCallback.Event.AddListener(action);
-            toggle.OnInstantToggleOnCallback.Event.AddListener(action);
+            var events = new[] { toggle.OnToggleOnCallback.Event, toggle.OnInstantToggleOnCallback.Event };
+            var item = toggle.GetComponent<InventoryItemUI>();
+
+            foreach (var @event in events)
+            {
+                @event.RemoveAllListeners();
+                @event.AddListener(() =>
+                {
+                    OnItemSelected(item);
+                });
+            }
         }
 
-        private IEnumerator Start()
+        private void OnEnable()
         {
-            while (m_itemGroup.numberOfToggles == 0)
-                yield return null;
-
-            yield return null;
             var toggles = m_itemGroup.toggles;
-            AddToggleOnListener(m_itemGroup.FirstToggle);
+            //AddToggleOnListener(m_itemGroup.FirstToggle);
             for (int i = 0; i < toggles.Count; i++)
             {
                 var toggle = toggles[i];
                 AddToggleOnListener(toggle);
             }
-            Debug.Log("Trade Inventory Initialized: " + m_itemGroup.numberOfToggles);
+            //UnderworldGameplaySystem.gameplayUIHandle.SetCurrentUIState(12);
         }
+        private void OnDisable()
+        {
+            //UnderworldGameplaySystem.gameplayUIHandle.SetCurrentUIState(0);
+        }
+
+        //private IEnumerator Start()
+        //{
+        //    while (m_itemGroup.numberOfToggles == 0)
+        //        yield return null;
+
+        //    yield return null;
+        //    var toggles = m_itemGroup.toggles;
+        //    //AddToggleOnListener(m_itemGroup.FirstToggle);
+        //    for (int i = 0; i < toggles.Count; i++)
+        //    {
+        //        var toggle = toggles[i];
+        //        AddToggleOnListener(toggle);
+        //    }
+        //    Debug.Log("Trade Inventory Initialized: " + m_itemGroup.numberOfToggles);
+        //}
     }
 
 }

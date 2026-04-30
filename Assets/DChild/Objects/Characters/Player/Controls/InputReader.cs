@@ -395,9 +395,6 @@ namespace DChild.Inputs
         #region Primary Skills
         public void OnShadowMorph(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 ShadowMorphStartedEvent?.Invoke();
@@ -406,9 +403,6 @@ namespace DChild.Inputs
 
         public void OnWhip(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Performed)
             {
                 WhipPerformedEvent?.Invoke();
@@ -422,9 +416,6 @@ namespace DChild.Inputs
 
         public void OnProjectileThrow(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 ProjectileThrowStartedEvent?.Invoke();
@@ -451,9 +442,6 @@ namespace DChild.Inputs
 
         public void OnLevitate(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 LevitateStartedEvent?.Invoke();
@@ -472,9 +460,6 @@ namespace DChild.Inputs
 
         public void OnSwordThrust(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Performed)
             {
                 SwordThrustPerformedEvent?.Invoke();
@@ -491,9 +476,6 @@ namespace DChild.Inputs
         //Combat Arts
         public void OnAirSlashCombo(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 AirSlashStartedEvent?.Invoke();
@@ -512,9 +494,6 @@ namespace DChild.Inputs
 
         public void OnBackDiver(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 BackDiverStartedEvent?.Invoke();
@@ -533,9 +512,6 @@ namespace DChild.Inputs
 
         public void OnBarrier(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 BarrierStartedEvent?.Invoke();
@@ -554,9 +530,6 @@ namespace DChild.Inputs
 
         public void OnReaperHarvest(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 ReapersHarvestStartedEvent?.Invoke();
@@ -575,9 +548,6 @@ namespace DChild.Inputs
 
         public void OnSoulFireBlast(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 SoulFireBlastStartedEvent?.Invoke();
@@ -596,9 +566,6 @@ namespace DChild.Inputs
 
         public void OnSovereignImpale(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 SovereignImpaleStartedEvent?.Invoke();
@@ -617,9 +584,6 @@ namespace DChild.Inputs
 
         public void OnTeleportingSkull(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 TeleportingSkullStartedEvent?.Invoke();
@@ -638,9 +602,6 @@ namespace DChild.Inputs
 
         public void OnDiagonalSwordDash(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 DiagonalSwordDashStartedEvent?.Invoke();
@@ -659,9 +620,6 @@ namespace DChild.Inputs
 
         public void OnEdgedFury(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 EdgedFuryStartedEvent?.Invoke();
@@ -680,9 +638,6 @@ namespace DChild.Inputs
 
         public void OnHellTrident(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 HellTridentStartedEvent?.Invoke();
@@ -701,9 +656,6 @@ namespace DChild.Inputs
 
         public void OnIcarusWings(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             if (context.phase == InputActionPhase.Started)
             {
                 IcarusWingsStartedEvent?.Invoke();
