@@ -252,12 +252,12 @@ namespace DChild.Gameplay.Systems
 
         public void OpenPauseMenu()
         {
-            BaseGameplaySystem.gamplayUIHandle.OpenPauseMenu();
+            BaseGameplaySystem.gameplayUIHandle.OpenPauseMenu();
         }
 
         public void UIBack()
         {
-            BaseGameplaySystem.gamplayUIHandle.UIBack();
+            BaseGameplaySystem.gameplayUIHandle.UIBack();
         }
     }
 }
