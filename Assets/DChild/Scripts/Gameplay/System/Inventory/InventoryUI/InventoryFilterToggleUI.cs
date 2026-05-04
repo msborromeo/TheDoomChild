@@ -57,8 +57,6 @@ namespace DChild.Gameplay.Inventories.UI
         public abstract bool HasItemsOfCategory();
         public void UpdateToggleVisuals()
         {
-            gameObject.SetActive(HasItemsOfCategory());
-            
             if (!HasItemsOfCategory())
                 return;
 
