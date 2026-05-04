@@ -27,7 +27,7 @@ namespace DChild.Gameplay.ArmyBattle
     public class ArmyBattleCharacterReward : MonoBehaviour
     {
        
-        [TabGroup("Main","Reference")]
+        //[TabGroup("Main","Reference")]
         //[SerializeField, TabGroup("Main/Reference", "General References")]
         //private SpriteRenderer m_Graphics;
         //[SerializeField, TabGroup("Main/Reference", "General References")]
@@ -190,11 +190,7 @@ namespace DChild.Gameplay.ArmyBattle
                 }
             }
 
-            m_GiveReward?.Invoke();
-            m_CharacterGiver?.RecruitCharacter(m_CharacterReward);
-            //Because Characters are usually recieved at isolated maps where save points do not exists
-            //and Underworld data is lost upon exiting due to changing into Overworld Data 
-            GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Quest);
+            GiveRewardNow();
         }
 
         private bool EvaluateRequirements()
@@ -289,7 +285,15 @@ namespace DChild.Gameplay.ArmyBattle
             m_RequirementsText += "\n Accept?";
             return m_RequirementsText;
         }*/
-
+        [Button]
+        public void GiveRewardNow()
+        {
+            m_GiveReward?.Invoke();
+            m_CharacterGiver?.RecruitCharacter(m_CharacterReward);
+            //Because Characters are usually recieved at isolated maps where save points do not exists
+            //and Underworld data is lost upon exiting due to changing into Overworld Data 
+            GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Quest);
+        }
         private void OnDecline(object sender, EventActionArgs eventActionArgs)
         {
 
