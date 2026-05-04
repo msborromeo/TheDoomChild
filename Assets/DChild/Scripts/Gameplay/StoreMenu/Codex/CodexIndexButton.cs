@@ -13,10 +13,8 @@ namespace DChild.Menu.Codex
 
         private CanvasGroup m_canvas;
 
-
         private UIToggle m_toggle;
         private UIButton m_button;
-
 
         // A helper property to treat both as a basic 'Selectable'
         private Selectable m_selectable => (Selectable)m_toggle ?? m_button;
@@ -92,7 +90,6 @@ namespace DChild.Menu.Codex
                 m_info?.SetInfo(data);
             }
         }
-
         private void Start()
         {
             if (m_data != null)
