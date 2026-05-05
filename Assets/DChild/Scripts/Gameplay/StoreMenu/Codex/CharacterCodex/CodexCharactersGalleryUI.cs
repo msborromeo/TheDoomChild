@@ -65,15 +65,5 @@ namespace DChild.Codex.Characters
                 .Where(npc => npc.characterType == CharacterType.NPC)
                 .ToList();
         }
-
-#if UNITY_EDITOR
-        [Button]
-        public void TestSetupFunctionality()
-        {
-            RetrieveNPCs();
-            SetupGalleryEntries();
-        }
-#endif
-
     }
 }
