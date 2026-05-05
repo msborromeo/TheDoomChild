@@ -65,5 +65,9 @@ namespace DChild.Codex.Characters
                 .Where(npc => npc.characterType == CharacterType.NPC)
                 .ToList();
         }
+        private void Awake()
+        {
+            Initialize();
+        }
     }
 }
