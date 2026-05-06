@@ -108,15 +108,15 @@ namespace DChild.Menu.Codex
                 var ID = m_IDs[itemIndex];
                 var data = m_assetList.GetInfo(ID);
                 m_buttons[i].SetData(data);
-                m_buttons[i].Show();
+                //m_buttons[i].Show();
                 var hasInfoOnID = m_tracker?.HasInfoOf(ID) ?? true;
                 m_buttons[i].SetInteractable(m_revealAllData || hasInfoOnID);
             }
 
-            for (; i < m_buttonCount; i++)
-            {
-                m_buttons[i].Hide();
-            }
+            //for (; i < m_buttonCount; i++)
+            //{
+            //    m_buttons[i].Hide();
+            //}
         }
 
         public override CodexIndexButton<DatabaseAssetType> GetButton(int index) => m_buttons[index];

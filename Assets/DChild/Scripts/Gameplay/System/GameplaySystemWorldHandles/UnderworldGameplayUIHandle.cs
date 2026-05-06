@@ -7,6 +7,7 @@ using DChild.Gameplay.LevelFinish.UI;
 using DChild.Gameplay.NavigationMap;
 using DChild.Gameplay.Trade;
 using DChild.Gameplay.UI;
+using DChild.Gameplay.UI.Alerts;
 using DChild.Menu;
 using DChild.Menu.Trade;
 using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
@@ -27,6 +28,10 @@ namespace DChild.Gameplay.Systems
 
         [SerializeField]
         private UINotificationManager m_notificationManager;
+
+        [SerializeField]
+        private UIAlertManager m_uiAlertManager;
+        public UIAlertManager uiAlertManager => m_uiAlertManager;
 
         [SerializeField, FoldoutGroup("Merchant UI")]
         private SignalSender m_tradeWindowSignal;
