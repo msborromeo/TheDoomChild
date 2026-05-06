@@ -24,7 +24,7 @@ namespace DChild.Gameplay.Systems
 
         public bool isInCutsceneMode { get; private set; }
 
-        public UIAlertManager alertManager => BaseGameplayUIHandle.Instance.uiAlertManager;
+        public UIAlertManager alertManager => UnderworldGameplayUIHandle.Instance.uiAlertManager;
         public IUINotificationManager notificationManager => UnderworldGameplayUIHandle.Instance.notificationManager;
 
         public void ActivateHealthRegenEffect(PassiveRegeneration.Handle regenHandle)
@@ -252,12 +252,12 @@ namespace DChild.Gameplay.Systems
 
         public void OpenPauseMenu()
         {
-            BaseGameplaySystem.gameplayUIHandle.OpenPauseMenu();
+            BaseGameplaySystem.gamplayUIHandle.OpenPauseMenu();
         }
 
         public void UIBack()
         {
-            BaseGameplaySystem.gameplayUIHandle.UIBack();
+            BaseGameplaySystem.gamplayUIHandle.UIBack();
         }
     }
 }
