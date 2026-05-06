@@ -104,7 +104,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private IInterruptableCombatArtModule m_currentCombatArt;
 
         [SerializeField]
-        private QuickItemHandle m_handle;
+        private QuickItemHandle m_quickItemHandle;
 
         #region Input Variables
         [SerializeField, ReadOnly(true)]
@@ -124,8 +124,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #region Usual Unity Stuff
         private void Awake()
         {
-            m_inputReader.SetInputModeToUnderworldGameplay();
-
             m_chargeAttackHandle = new ChargeAttackHandle();
 
             m_tracker = m_character.GetComponentInChildren<PlayerStatisticTracker>();
@@ -206,7 +204,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.NewGameIntroFinished += OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted += OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp += OnPlayerWokeUp;
-            m_inputReader.ActiveActionMapChanged += OnActiveActionMapChanged;
+            BaseGameplaySystem.gameplayUIHandle.gameplayUIStateObserver.GameplayUIStateChanged += OnUIStateChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent += OnVector2PerformedInput;
@@ -293,7 +291,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.NewGameIntroFinished -= OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted -= OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp -= OnPlayerWokeUp;
-            m_inputReader.ActiveActionMapChanged -= OnActiveActionMapChanged;
+            BaseGameplaySystem.gameplayUIHandle.gameplayUIStateObserver.GameplayUIStateChanged -= OnUIStateChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent -= OnVector2PerformedInput;
@@ -1015,14 +1013,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnUseQuickItemsTappedInput()
         {
-            if(m_handle.IsCoolDownOver() == false)
+            if(m_quickItemHandle.IsCoolDownOver() == false)
                 return;
 
             if (m_state.isAimingProjectile == true)
                 return;
 
-            m_handle.UseCurrentItem();
-            if (m_handle.IsCurrentItemThrowable())
+            m_quickItemHandle.UseCurrentItem();
+            if (m_quickItemHandle.IsCurrentItemThrowable())
             {
                 StartCoroutine(StraightThrowRoutine());
             }
@@ -1030,14 +1028,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnUseQuickItemsHeldInput()
         {
-            if (m_handle.IsCoolDownOver() == false)
+            if (m_quickItemHandle.IsCoolDownOver() == false)
                 return;
 
-            if (m_handle.IsCurrentItemThrowable() == false)
+            if (m_quickItemHandle.IsCurrentItemThrowable() == false)
                 return;
 
-            m_handle.UseCurrentItem();
-            if (m_handle.IsCurrentItemThrowable())
+            m_quickItemHandle.UseCurrentItem();
+            if (m_quickItemHandle.IsCurrentItemThrowable())
             {
                 ProjectileThrowStart();
             }
@@ -1045,7 +1043,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnUseQuickItemsCancelledInput()
         {
-            if (m_handle.IsCurrentItemThrowable())
+            if (m_quickItemHandle.IsCurrentItemThrowable())
             {
                 ProjectileThrowCancel();
             }
@@ -1058,11 +1056,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             if (obj == -1)
             {
-                m_handle.Previous();
+                m_quickItemHandle.Previous();
             }
             else
             {
-                m_handle.Next();
+                m_quickItemHandle.Next();
             }
         }
 
@@ -1070,7 +1068,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_storeHasBeenPickedUp == false)
                 return;
-            if (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
+            if (BaseGameplaySystem.gameplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
                 return;
 
             GameplaySystem.gamplayUIHandle.OpenStoreAtPage(StorePage.Map);
@@ -1078,7 +1076,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnPauseInput()
         {
-            if (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
+            if (BaseGameplaySystem.gameplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
                 return;
 
             GameplaySystem.gamplayUIHandle.OpenPauseMenu();
@@ -1086,7 +1084,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnTeleportToOverworldStarted(InputAction.CallbackContext context, bool isCanceled)
         {
-            if (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
+            if (BaseGameplaySystem.gameplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
                 return;
 
             GameplaySystem.gamplayUIHandle.ShowHoldToTeleportSequence(context, isCanceled);
@@ -2565,9 +2563,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_shadowGaugeRegen.Enable(true);
         }
 
-        private void OnActiveActionMapChanged()
+        private void OnUIStateChanged(GameplayUIState state)
         {
-            //Reset vector2 input to prevent moving on its own when action map changes mid movement
+            //return guard here assumes PlayerCharacterOverride is moving player during Gameplay 
+            if (state == GameplayUIState.GameplayHUD)
+                return;
+
+            //reset when interactableUI or Cinematic is current state to prevent running on its own
             m_vector2Input = Vector2.zero;
         }
 

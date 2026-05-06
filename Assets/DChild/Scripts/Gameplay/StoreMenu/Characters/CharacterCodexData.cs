@@ -124,7 +124,7 @@ namespace DChild.Codex.Characters
 
         public string projectName => m_projectName;
 
-        public string indexName => throw new System.NotImplementedException();
+        public string indexName => m_displayName;
 
 #if UNITY_EDITOR
         [Button, FoldoutGroup("File Utility")]

@@ -84,6 +84,8 @@ namespace DChild.Gameplay.Systems
         [SerializeField, FoldoutGroup("Signals")]
         private SignalSender m_continueDialogueSignal;
 
+        public GameplayUIStateObserver gameplayUIStateObserver => m_gameplayUIStateObserver;
+
         public UIAlertManager uiAlertManager => m_uiAlertManager;
 
         public void ContinueDialogue()
@@ -158,7 +160,7 @@ namespace DChild.Gameplay.Systems
         public CharacterRecruitmentUI GetRecruitmentConfirmation()
         {
             return m_characterRecruitmentUI;
-            
+
         }
         public void SendconfirmationSignal()
         {

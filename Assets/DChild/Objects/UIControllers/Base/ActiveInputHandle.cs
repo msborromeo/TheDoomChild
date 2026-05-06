@@ -23,10 +23,25 @@ namespace DChild.Inputs
         [SerializeField, ReadOnly()]
         private string m_currentActionMap;
 
+        [SerializeField, BoxGroup("EDITOR ONLY")]
+        private bool m_isEditorOnly;
+        [SerializeField, BoxGroup("EDITOR ONLY")]
+        private PlayerInput m_editorOnlyPlayerInput;
+
         private PlayerInput m_playerInput;
 
         private void OnEnable()
         {
+            //Hacky fix because there is no base gameplay system to handle ui states when there is no Scene_System
+            if (m_isEditorOnly)
+            {
+                m_playerInput = m_editorOnlyPlayerInput;
+
+                m_inputReader.SetInputModeToUnderworldGameplay();
+                m_playerInput.SwitchCurrentActionMap("Underworld");
+                m_currentActionMap = "Underworld";
+            }
+
             m_gameplayUIStateObserver.GameplayUIStateChanged += OnUIStateChanged;
         }
 
@@ -37,24 +52,20 @@ namespace DChild.Inputs
 
         private void OnUIStateChanged(GameplayUIState state)
         {
-            if (state == GameplayUIState.GameplayHUD)
+            switch (state)
             {
-                SetInputToGameplay();
-            }
-            else if(state == GameplayUIState.Cinematic)
-            {
-                if (m_enableControlsInCinematic)
-                {
+                case GameplayUIState.GameplayHUD:
                     SetInputToGameplay();
-                }
-                else
-                {
-                    SetInputToUI();
-                }
-            }
-            else
-            {
-                SetInputToUI();
+                    break;
+                case GameplayUIState.InteractableUI:
+                    SetInputToUI();            
+                    break;
+                case GameplayUIState.Cinematic:
+                    if (m_enableControlsInCinematic)
+                        SetInputToGameplay();
+                    else
+                        SetInputToUI();
+                    break;
             }
         }
 
@@ -73,7 +84,7 @@ namespace DChild.Inputs
                     break;
                 case WorldType.Overworld:
                     {
-                        m_inputReader.SetInputModeTOverworldGameplay();
+                        m_inputReader.SetInputModeToOverworldGameplay();
                         m_playerInput.SwitchCurrentActionMap("Overworld");
                         m_currentActionMap = "Overworld";
                     }
@@ -93,6 +104,16 @@ namespace DChild.Inputs
             m_inputReader.SetInputModeToUI();
             m_playerInput.SwitchCurrentActionMap("UI");
             m_currentActionMap = "UI";
+        }
+
+        public void DisableInput()
+        {
+            m_playerInput.enabled = false;
+        }
+
+        public void EnableInput()
+        {
+            m_playerInput.enabled = true;
         }
 
         public void SetCurrentPlayerInput(PlayerInput playerInput)

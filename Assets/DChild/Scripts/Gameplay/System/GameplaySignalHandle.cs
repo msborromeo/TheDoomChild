@@ -54,12 +54,15 @@ namespace DChild.Gameplay
 
         public void OverridePlayerControl()
         {
-            GameplaySystem.playerManager.DisableControls();
+            //Commented out because controls during cinematic is now handled by
+            //UI State observer and Active Input Handle but removing this outright
+            //may cause lots of null reference issues across cinematics
+            //GameplaySystem.playerManager.DisableControls();
         }
 
         public void StopPlayerControlOverride()
         {
-            GameplaySystem.playerManager.EnableControls();
+            //GameplaySystem.playerManager.EnableControls();
         }
 
         public void MakePlayerInvulnerable(bool value)

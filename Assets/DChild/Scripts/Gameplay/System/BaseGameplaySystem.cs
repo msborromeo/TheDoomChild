@@ -62,7 +62,7 @@ namespace DChild.Gameplay.Systems
 
         public static bool isGamePaused { get; private set; }
 
-        public static BaseGameplayUIHandle gamplayUIHandle => m_baseGameplayUIHandle;
+        public static BaseGameplayUIHandle gameplayUIHandle => m_baseGameplayUIHandle;
         public static IFXManager fXManager => m_fxManager;
         public static ICinema cinema => m_cinema;
         public static IWorld world => m_world;
@@ -103,14 +103,14 @@ namespace DChild.Gameplay.Systems
             module = GetComponentInChildren<T>();
         } 
 
-        public static void SetInputToGameplay()
+        public static void DisableInput()
         {
-            m_activeInputHandle.SetInputToGameplay();
+            m_activeInputHandle.DisableInput();
         }
 
-        public static void SetInputToUI()
+        public static void EnableInput()
         {
-            m_activeInputHandle.SetInputToUI();
+            m_activeInputHandle.EnableInput();
         }
 
         public static void ToggleCinematicControls(bool value)
@@ -271,9 +271,9 @@ namespace DChild.Gameplay.Systems
                 if (m_campaignToLoad != null)
                 {
                     m_campaignSerializer.SetSlot(m_campaignToLoad);
+                    m_worldTypeManager.SetCurrentWorldType(m_campaignToLoad.location);
                 }
 
-                m_worldTypeManager.SetCurrentWorldType(m_campaignToLoad.location);
 
                 if (m_doNotDeserializeOnAwake == false)
                 {
