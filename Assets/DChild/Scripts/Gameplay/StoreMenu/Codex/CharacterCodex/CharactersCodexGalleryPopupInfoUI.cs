@@ -15,19 +15,28 @@ namespace DChild.Codex.Characters
         [SerializeField]
         private TextMeshProUGUI m_description;
 
+        private string creatureNameText
+        {
+            set
+            {
+                m_alphabetName.text = value;
+                m_baybayinName.text = value;
+            }
+        }
+
         protected override void UpdateInfo()
         {
             if (m_showDataOf == null)
             {
+                creatureNameText = "";
                 SetImage(m_creatureImage, null);
                 m_description.text = "";
+                return;
             }
-            else
-            {
-                SetImage(m_creatureImage, m_showDataOf.infoImage);
-                m_description.text = m_showDataOf.description;
 
-            }
+            creatureNameText = m_showDataOf.characterName;
+            SetImage(m_creatureImage, m_showDataOf.infoImage);
+            m_description.text = m_showDataOf.description;
         }
 
         private void SetImage(Image image, Sprite sprite)

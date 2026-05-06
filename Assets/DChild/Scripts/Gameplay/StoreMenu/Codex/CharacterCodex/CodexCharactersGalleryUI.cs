@@ -1,4 +1,5 @@
 ﻿
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,17 +9,19 @@ namespace DChild.Codex.Characters
     public class CodexCharactersGalleryUI : CodexGalleryUI<CharacterCodexData, CharacterCodexProgressTracker>
     {
         [Header("Character Specific UI")]
-        [SerializeField] private CharacterCodexList m_completeList;
+        [SerializeField, AssetSelector] private List<CharacterCodexData> m_completeList;
         [SerializeField] private List<CharacterCodexIndexButton> m_entryButtons;
 
         protected override void RetrieveEntries()
         {
             if (m_filteredList.Count > 0) return;
 
-            m_filteredList = m_completeList.GetIDs()
-                .Select(id => m_completeList.GetInfo(id))
-                .Where(npc => npc.characterType == CharacterType.NPC)
-                .ToList();
+            m_filteredList = m_completeList;
+
+            //m_filteredList = m_completeList.GetIDs()
+            //    .Select(id => m_completeList.GetInfo(id))
+            //    .Where(npc => npc.characterType == CharacterType.NPC)
+            //    .ToList();
         }
 
         public override void SetupGalleryEntries()
