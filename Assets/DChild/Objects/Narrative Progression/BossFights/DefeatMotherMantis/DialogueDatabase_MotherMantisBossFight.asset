@@ -952,7 +952,7 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: 
-  - id: 562
+  - id: 912
     fields:
     - title: Name
       value: IsMotherMantisNewIntroTriggered
@@ -966,7 +966,7 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: 
-  - id: 563
+  - id: 913
     fields:
     - title: Name
       value: IsMotherMantisNewMidFightTriggered
@@ -980,7 +980,7 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: 
-  - id: 564
+  - id: 914
     fields:
     - title: Name
       value: IsMotherMantisNewDefeatTriggered
@@ -990,6 +990,146 @@ MonoBehaviour:
       value: False
       type: 2
       typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 915
+    fields:
+    - title: Name
+      value: motherMantisIdleExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 1
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 916
+    fields:
+    - title: Name
+      value: motherMantisAngryExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 2
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 206
+    fields:
+    - title: Name
+      value: playerIdleExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 1
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 216
+    fields:
+    - title: Name
+      value: playerThinkingExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 2
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 208
+    fields:
+    - title: Name
+      value: playerFacingAwayExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 3
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 209
+    fields:
+    - title: Name
+      value: playerExcitedExpression
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 4
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 217
+    fields:
+    - title: Name
+      value: crazyKnightDoubtful
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 1
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 218
+    fields:
+    - title: Name
+      value: crazyKnightGoofy
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 2
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 219
+    fields:
+    - title: Name
+      value: crazyKnightInLove
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 3
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 220
+    fields:
+    - title: Name
+      value: crazyKnightLaughing
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 4
+      type: 1
+      typeString: CustomFieldType_Number
     - title: Description
       value: 
       type: 0
@@ -1591,7 +1731,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "Good eye, let's see if that\u2019s the case."
+        value: "[pic=playerThinkingExpression]Good eye, let's see if that\u2019s
+          the case."
         type: 0
         typeString: 
       - title: Sequence
@@ -1613,14 +1754,14 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 32
+        x: 33
         y: 118
         width: 160
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
     canvasZoom: 1
-  - id: 389
+  - id: 1790
     fields:
     - title: Title
       value: Mother Mantis New Intro
@@ -1696,7 +1837,7 @@ MonoBehaviour:
         value: None()
         type: 0
         typeString: 
-      conversationID: 389
+      conversationID: 1790
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1704,9 +1845,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 389
+      - originConversationID: 1790
         originDialogueID: 0
-        destinationConversationID: 389
+        destinationConversationID: 1790
         destinationDialogueID: 1
         isConnector: 0
         priority: 2
@@ -1744,14 +1885,14 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: You dare walk into my Garden?
+        value: '[pic=motherMantisAngryExpression]You dare walk into my Garden?'
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 389
+      conversationID: 1790
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1759,9 +1900,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 389
+      - originConversationID: 1790
         originDialogueID: 1
-        destinationConversationID: 389
+        destinationConversationID: 1790
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
@@ -1799,14 +1940,14 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Oh my, I didn't know they grew this big!
+        value: '[pic=crazyKnightGoofy]Oh my, I didn''t know they grew this big!'
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 389
+      conversationID: 1790
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1814,9 +1955,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 389
+      - originConversationID: 1790
         originDialogueID: 2
-        destinationConversationID: 389
+        destinationConversationID: 1790
         destinationDialogueID: 3
         isConnector: 0
         priority: 2
@@ -1854,14 +1995,15 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Bigger and superior to any of my kind.
+        value: '[pic=motherMantisIdleExpression]Bigger and superior to any of my
+          kind.'
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 389
+      conversationID: 1790
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1869,9 +2011,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 389
+      - originConversationID: 1790
         originDialogueID: 3
-        destinationConversationID: 389
+        destinationConversationID: 1790
         destinationDialogueID: 4
         isConnector: 0
         priority: 2
@@ -1909,14 +2051,14 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: And an ego to match.
+        value: '[pic=crazyKnightDoubtful]And an ego to match.'
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 389
+      conversationID: 1790
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1924,9 +2066,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 389
+      - originConversationID: 1790
         originDialogueID: 4
-        destinationConversationID: 389
+        destinationConversationID: 1790
         destinationDialogueID: 5
         isConnector: 0
         priority: 2
@@ -1971,7 +2113,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 389
+      conversationID: 1790
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1979,9 +2121,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 389
+      - originConversationID: 1790
         originDialogueID: 5
-        destinationConversationID: 389
+        destinationConversationID: 1790
         destinationDialogueID: 6
         isConnector: 0
         priority: 2
@@ -2019,14 +2161,14 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "It\u2019s a giant bug! What\u2019s to know?"
+        value: "[pic=crazyKnightLaughing]It\u2019s a giant bug! What\u2019s to know?"
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 389
+      conversationID: 1790
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2034,9 +2176,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 389
+      - originConversationID: 1790
         originDialogueID: 6
-        destinationConversationID: 389
+        destinationConversationID: 1790
         destinationDialogueID: 7
         isConnector: 0
         priority: 2
@@ -2074,14 +2216,15 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: I've got nothing specific. It's probably just a mutation.
+        value: '[pic=necroFrustratedExpression]I''ve got nothing specific. It''s
+          probably just a mutation.'
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 389
+      conversationID: 1790
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2089,9 +2232,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 389
+      - originConversationID: 1790
         originDialogueID: 7
-        destinationConversationID: 389
+        destinationConversationID: 1790
         destinationDialogueID: 8
         isConnector: 0
         priority: 2
@@ -2129,14 +2272,15 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: She just probably eats a lot or someone screwed a bug!
+        value: '[pic=crazyKnightLaughing]She just probably eats a lot or someone
+          screwed a bug!'
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 389
+      conversationID: 1790
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2144,9 +2288,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 389
+      - originConversationID: 1790
         originDialogueID: 8
-        destinationConversationID: 389
+        destinationConversationID: 1790
         destinationDialogueID: 9
         isConnector: 0
         priority: 2
@@ -2184,14 +2328,14 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Why are you in my domain?!
+        value: '[pic=motherMantisAngryExpression]Why are you in my domain?!'
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 389
+      conversationID: 1790
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2199,9 +2343,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 389
+      - originConversationID: 1790
         originDialogueID: 9
-        destinationConversationID: 389
+        destinationConversationID: 1790
         destinationDialogueID: 10
         isConnector: 0
         priority: 2
@@ -2239,14 +2383,14 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: I'm looking for people!
+        value: '[pic=playerExcitedExpression]I''m looking for people!'
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 389
+      conversationID: 1790
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2254,9 +2398,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 389
+      - originConversationID: 1790
         originDialogueID: 10
-        destinationConversationID: 389
+        destinationConversationID: 1790
         destinationDialogueID: 11
         isConnector: 0
         priority: 2
@@ -2294,15 +2438,15 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Half of them are in my stomach. Your armor will decorate my nest,
-          and your body will feed my children.
+        value: '[pic=motherMantisAngryExpression]Half of them are in my stomach.
+          Your armor will decorate my nest, and your body will feed my children.'
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 389
+      conversationID: 1790
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2310,9 +2454,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 389
+      - originConversationID: 1790
         originDialogueID: 11
-        destinationConversationID: 389
+        destinationConversationID: 1790
         destinationDialogueID: 12
         isConnector: 0
         priority: 2
@@ -2350,15 +2494,15 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "You\u2019ll get more than a stomach ache trying to eat him. His soul
-          will give you nightmares you can't wake up from."
+        value: "[pic=crazyKnightGoofy]You\u2019ll get more than a stomach ache trying
+          to eat him. His soul will give you nightmares you can't wake up from."
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 389
+      conversationID: 1790
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2366,9 +2510,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 389
+      - originConversationID: 1790
         originDialogueID: 12
-        destinationConversationID: 389
+        destinationConversationID: 1790
         destinationDialogueID: 13
         isConnector: 0
         priority: 2
@@ -2406,14 +2550,14 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: DIE!
+        value: '[pic=motherMantisAngryExpression]DIE!'
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 389
+      conversationID: 1790
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2433,9 +2577,9 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
-  - id: 390
+    canvasScrollPosition: {x: 0, y: 34.462875}
+    canvasZoom: 0.94000006
+  - id: 1791
     fields:
     - title: Title
       value: Mother Mantis New Mid-Fight
@@ -2515,7 +2659,7 @@ MonoBehaviour:
         value: None()
         type: 0
         typeString: 
-      conversationID: 390
+      conversationID: 1791
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2523,9 +2667,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 390
+      - originConversationID: 1791
         originDialogueID: 0
-        destinationConversationID: 390
+        destinationConversationID: 1791
         destinationDialogueID: 1
         isConnector: 0
         priority: 2
@@ -2571,7 +2715,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 390
+      conversationID: 1791
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2579,9 +2723,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 390
+      - originConversationID: 1791
         originDialogueID: 1
-        destinationConversationID: 390
+        destinationConversationID: 1791
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
@@ -2627,7 +2771,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 390
+      conversationID: 1791
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2635,9 +2779,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 390
+      - originConversationID: 1791
         originDialogueID: 2
-        destinationConversationID: 390
+        destinationConversationID: 1791
         destinationDialogueID: 3
         isConnector: 0
         priority: 2
@@ -2682,7 +2826,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 390
+      conversationID: 1791
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2690,9 +2834,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 390
+      - originConversationID: 1791
         originDialogueID: 3
-        destinationConversationID: 390
+        destinationConversationID: 1791
         destinationDialogueID: 4
         isConnector: 0
         priority: 2
@@ -2737,7 +2881,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 390
+      conversationID: 1791
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2745,9 +2889,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 390
+      - originConversationID: 1791
         originDialogueID: 4
-        destinationConversationID: 390
+        destinationConversationID: 1791
         destinationDialogueID: 5
         isConnector: 0
         priority: 2
@@ -2792,7 +2936,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 390
+      conversationID: 1791
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2800,9 +2944,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 390
+      - originConversationID: 1791
         originDialogueID: 5
-        destinationConversationID: 390
+        destinationConversationID: 1791
         destinationDialogueID: 6
         isConnector: 0
         priority: 2
@@ -2847,7 +2991,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 390
+      conversationID: 1791
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2855,9 +2999,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 390
+      - originConversationID: 1791
         originDialogueID: 6
-        destinationConversationID: 390
+        destinationConversationID: 1791
         destinationDialogueID: 7
         isConnector: 0
         priority: 2
@@ -2902,7 +3046,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 390
+      conversationID: 1791
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2910,9 +3054,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 390
+      - originConversationID: 1791
         originDialogueID: 7
-        destinationConversationID: 390
+        destinationConversationID: 1791
         destinationDialogueID: 8
         isConnector: 0
         priority: 2
@@ -2957,7 +3101,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 390
+      conversationID: 1791
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -3103,7 +3247,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Down she goes!
+        value: '[pic=crazyKnightLaughing]Down she goes!'
         type: 0
         typeString: 
       - title: Sequence
@@ -3213,7 +3357,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "I looked into its eyes, it was no boy\u2026"
+        value: "[pic=motherMantisIdleExpression]I looked into its eyes, it was no
+          boy\u2026"
         type: 0
         typeString: 
       - title: Sequence
@@ -3242,7 +3387,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 30
-        y: 170
+        y: 169
         width: 160
         height: 30
     - id: 4
@@ -3323,7 +3468,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "He is more than he seems\u2026"
+        value: "[pic=motherMantisIdleExpression]He is more than he seems\u2026"
         type: 0
         typeString: 
       - title: Sequence
@@ -3378,7 +3523,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: No riddles! Answer me straight!
+        value: '[pic=playerExcitedExpression]No riddles! Answer me straight!'
         type: 0
         typeString: 
       - title: Sequence
@@ -3433,7 +3578,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "He will stop you\u2026 for you are destruction..."
+        value: "[pic=motherMantisAngryExpression]He will stop you\u2026 for you are
+          destruction..."
         type: 0
         typeString: 
       - title: Sequence
