@@ -17,6 +17,7 @@ using Spine.Unity.Examples;
 using DChild.Gameplay.Pooling;
 using UnityEngine.Playables;
 using DChild.Temp;
+using System.Linq.Expressions;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
@@ -125,6 +126,9 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, BoxGroup("Jump Smash")]
             private BasicAnimationInfo m_jumpSmashWallStickAnimation;
             public BasicAnimationInfo jumpSmashWallStickAnimation => m_jumpSmashWallStickAnimation;
+            [SerializeField, BoxGroup("Jump Smash")]
+            private BasicAnimationInfo m_jumpSmashGroundAnticipition;
+            public BasicAnimationInfo jumpSmashGroundAnticipition => m_jumpSmashGroundAnticipition;
             [SerializeField, BoxGroup("Jump Smash")]
             private Vector2 m_posOffset;
             public Vector2 posOffset => m_posOffset;
@@ -304,6 +308,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_cielingClimbBackward.SetData(m_skeletonDataAsset);
                 m_elementalOverloadProjectile.SetData(m_skeletonDataAsset);
                 m_jumpSmashAttack.SetData(m_skeletonDataAsset);
+                m_jumpSmashGroundAnticipition.SetData(m_skeletonDataAsset);
                 m_tendrilWhipAttack.SetData(m_skeletonDataAsset);
                 m_elementalBeamAttack.SetData(m_skeletonDataAsset);
                 m_elementalBeamWallAttack.SetData(m_skeletonDataAsset);
@@ -381,6 +386,7 @@ namespace DChild.Gameplay.Characters.Enemies
             Phase2Pattern4,
             Phase2Pattern5,
             Phase2Pattern6,
+            JumpSmash,
             BackwardTendrilWhip,
             TwoStomp,
             TendrilWhip,
@@ -474,6 +480,32 @@ namespace DChild.Gameplay.Characters.Enemies
 
         [SerializeField, TabGroup("Spawn Points")]
         private Transform m_projectilePoint;
+
+        [SerializeField, TabGroup("AttackDatas")]
+        private AttackData m_jumpSmash;
+        [SerializeField, TabGroup("AttackDatas")]
+        private AttackData m_tendrilJumpSmash;
+        [SerializeField, TabGroup("AttackDatas")]
+        private AttackData m_stompsAttackData;
+        [SerializeField, TabGroup("AttackDatas")]
+        private AttackData m_defaultAttackData;
+        [SerializeField, TabGroup("AttackDatas")]
+        private AttackData m_elementalBeamAttackData;
+        [SerializeField, TabGroup("AttackDatas")]
+        private AttackData m_tigrexBitingAttackData;
+        [SerializeField, TabGroup("AttackDatas")]
+        private AttackData m_elementalOverload;
+        [SerializeField, TabGroup("AttackColliders")]
+        private Collider2D m_tendrilWhipCollider;
+        [SerializeField, TabGroup("AttackColliders")]
+        private Collider2D[] m_smashCollider;
+        [SerializeField, TabGroup("AttackColliders")]
+        private Collider2D m_laserCollider;
+        [SerializeField, TabGroup("AttackColliders")]
+        private Collider2D m_tigrexBiting;
+        [SerializeField, TabGroup("Attacker")]
+        private Attacker m_attackerDamage;
+      
 
         private bool canUseBackTendril => m_backCooldown <= 0;
 
@@ -772,8 +804,17 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.turnAnimation);
 
         }
+        private void SmashColliderController(bool activate)
+        {
+            for (int i = 0; i < m_smashCollider.Length; i++)
+            {
+                m_smashCollider[i].enabled = activate;
+            }
+            
+        }
         private IEnumerator TwoStompsRoutine()
         {
+            SmashColliderController(true);
             m_animation.SetAnimation(0, m_info.twoStompsAttack.animation, true);
             var timer = 0f;
             while (timer < m_info.twoStompsDuration)
@@ -782,14 +823,30 @@ namespace DChild.Gameplay.Characters.Enemies
                 timer += Time.deltaTime;
                 yield return null;
             }
+            SmashColliderController(false);
         }
+        private IEnumerator JumpSmashGroundRoutine()
+        {
+            m_character.physics.SetVelocity(BallisticVelocity(new Vector2(m_targetInfo.position.x - 20f, /*(transform.position.y - m_targetInfo.position.y)*/GroundPosition(m_targetInfo.position).y)));
+            m_animation.SetAnimation(0, m_info.jumpSmashGroundAnticipition, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.jumpSmashGroundAnticipition.animation);   
+            m_animation.SetAnimation(0, m_info.jumpSmashStartAnimation, false);
+            yield return new WaitUntil(() => m_groundSensor.isDetecting);
+            m_animation.SetAnimation(0, m_info.jumpSmashAttack.animation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.jumpSmashAttack.animation);
+            m_animation.SetAnimation(0, m_info.jumpSmashLandAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.jumpSmashLandAnimation);
+            yield return null;
+        }
+       
         private IEnumerator TendrilWhipRoutine()
         {
+            
             m_animation.SetAnimation(0, m_info.tendrilWhipAnticipationAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.tendrilWhipAnticipationAnimation);
             m_animation.SetAnimation(0, m_info.tendrilWhipAttack.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.tendrilWhipAttack.animation);
-            
+
         }
         private IEnumerator TigrexBiteRoutine()
         {
@@ -902,14 +959,32 @@ namespace DChild.Gameplay.Characters.Enemies
             m_currentAttackCount++;
             m_stateHandle.ApplyQueuedState();
         }
-
-        private IEnumerator ElementalOverloadAttack()
+        private IEnumerator JumpSmashGroundAttack()
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
-            yield return ElementalOverloadRoutine();
+            m_attackerDamage.SetData(m_jumpSmash);
+            if (!IsFacingTarget())
+                CustomTurn();
+            SmashColliderController(true);
+            yield return JumpSmashGroundRoutine();
+            SmashColliderController(false);
             m_currentAttackCount++;
             m_movement.Stop();
             DoRandomIdleAnimation();
+            m_currentAttackDecider.hasDecidedOnAttack = false;
+            m_stateHandle.ApplyQueuedState();
+
+        }
+        private IEnumerator ElementalOverloadAttack()
+        {
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            m_laserCollider.enabled = true;
+            m_attackerDamage.SetData(m_elementalOverload);
+            yield return ElementalOverloadRoutine();
+            m_laserCollider.enabled = false;
+            m_currentAttackCount++;
+            m_movement.Stop();
+            DoRandomIdleAnimation(); 
             m_currentAttackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
 
@@ -918,8 +993,11 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator TendrilClimbJumpSmashAttack()
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
+            m_attackerDamage.SetData(m_tendrilJumpSmash);
             yield return TendrilClimbRoutine();
+            SmashColliderController(true);
             yield return JumpSmashRoutine();
+            SmashColliderController(false);
             m_currentAttackCount++;
             m_movement.Stop();
             m_currentAttackDecider.hasDecidedOnAttack = false;
@@ -930,13 +1008,19 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator TendrilClimbAttack()
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
+           
             yield return TendrilClimbRoutine();
             var Random = UnityEngine.Random.Range(0, 2);
-
+            yield return new WaitForSeconds(0.3f);
+            m_attackerDamage.SetData(m_elementalBeamAttackData);
+            m_laserCollider.enabled = true;
             yield return ElementalBeamRoutine();
-
-
+            m_laserCollider.enabled = false;
+            yield return new WaitForSeconds(0.3f);
+            m_attackerDamage.SetData(m_tendrilJumpSmash);
+            SmashColliderController(true);
             yield return JumpSmashRoutine();
+            SmashColliderController(false);
             m_currentAttackCount++;
             m_movement.Stop();
             m_currentAttackDecider.hasDecidedOnAttack = false;
@@ -949,7 +1033,10 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.ReevaluateSituation);
             if (!IsFacingTarget())
                 CustomTurn();
+            m_attackerDamage.SetData(m_elementalBeamAttackData);
+            m_laserCollider.enabled = true;
             yield return ElementalBeamFlickRoutine();
+            m_laserCollider.enabled = false;
             m_currentAttackCount++;
             m_movement.Stop();
             m_animation.SetAnimation(0, RandomIdleAnimation(), true);
@@ -961,7 +1048,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator TigrexBiteAttack()
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
+            m_attackerDamage.SetData(m_tigrexBitingAttackData);
+            m_tigrexBiting.enabled = true;
             yield return TigrexBiteRoutine();
+            m_tigrexBiting.enabled = false;
             m_currentAttackCount++;
             m_movement.Stop();
             DoRandomIdleAnimation();
@@ -973,7 +1063,9 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator TendrilWhipBackwardAttack()
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
+            m_tendrilWhipCollider.enabled = true;
             yield return TendrilWhipBackwardRoutine();
+            m_tendrilWhipCollider.enabled = false;
             if (!IsFacingTarget())
                 CustomTurn();
             DoRandomIdleAnimation();
@@ -988,7 +1080,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.ReevaluateSituation);
             if (!IsFacingTarget())
                 CustomTurn();
-            
+            m_attackerDamage.SetData(m_stompsAttackData);
             yield return TwoStompsRoutine();
 
             m_movement.Stop();
@@ -1003,7 +1095,9 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.ReevaluateSituation);
             if (!IsFacingTarget())
                 CustomTurn();
+            m_tendrilWhipCollider.enabled = true;
             yield return TendrilWhipRoutine();
+            m_tendrilWhipCollider.enabled = false;
             DoRandomIdleAnimation();
             m_currentAttackCount++;
             m_currentAttackDecider.hasDecidedOnAttack = false;
@@ -1222,11 +1316,44 @@ namespace DChild.Gameplay.Characters.Enemies
                                             new AttackInfo<Attack>(Attack.TendrilWhip, 0),
                                             new AttackInfo<Attack>(Attack.TendrilClimbJumpSmash, 0),
                                             new AttackInfo<Attack>(Attack.ElementalBeamFlick, 0),
-                                            new AttackInfo<Attack>(Attack.TendrilClimbElementalBeam, 0));
+                                            new AttackInfo<Attack>(Attack.TendrilClimbElementalBeam, 0),
+                                            new AttackInfo<Attack>(Attack.JumpSmash, 0));
 
                     m_ComplexeattackDecider.SetList(new AttackInfo<Attack>(Attack.TendrilClimbJumpSmash, 0),
                                            new AttackInfo<Attack>(Attack.ElementalBeamFlick, 0),
-                                           new AttackInfo<Attack>(Attack.TendrilClimbElementalBeam, 0));
+                                           new AttackInfo<Attack>(Attack.TendrilClimbElementalBeam, 0),
+                                           new AttackInfo<Attack>(Attack.JumpSmash, 0));
+                    break;
+                case Phase.PhaseTwo:
+                    m_BasicAttackDecider.SetList(new AttackInfo<Attack>(Attack.TwoStomp, 0),
+                                             new AttackInfo<Attack>(Attack.TendrilWhip, 0),
+                                             new AttackInfo<Attack>(Attack.TendrilClimbJumpSmash, 0),
+                                             new AttackInfo<Attack>(Attack.ElementalBeamFlick, 0),
+                                             new AttackInfo<Attack>(Attack.TendrilClimbElementalBeam, 0),
+                                             new AttackInfo<Attack>(Attack.JumpSmash, 0));
+
+                   m_ComplexeattackDecider.SetList(new AttackInfo<Attack>(Attack.TendrilClimbJumpSmash, 0),
+                                         new AttackInfo<Attack>(Attack.ElementalBeamFlick, 0),
+                                         new AttackInfo<Attack>(Attack.TendrilClimbElementalBeam, 0), 
+                                         new AttackInfo<Attack>(Attack.TigrexBiting, 0),
+                                         new AttackInfo<Attack>(Attack.ElementalOverload, 0),
+                                         new AttackInfo<Attack>(Attack.JumpSmash, 0));
+                    break;
+                case Phase.Wait:
+                    break;
+            }
+
+            //m_currentAttackDecider.hasDecidedOnAttack = false;
+        }
+        private void UpdateAttackDeciderListTesting()
+        {
+
+            switch (m_phaseHandle.currentPhase)
+            {
+                case Phase.PhaseOne:
+                    m_BasicAttackDecider.SetList(new AttackInfo<Attack>(Attack.TwoStomp, 0));
+
+                    m_ComplexeattackDecider.SetList(new AttackInfo<Attack>(Attack.TwoStomp, 0));
                     break;
                 case Phase.PhaseTwo:
                     m_BasicAttackDecider.SetList(new AttackInfo<Attack>(Attack.TwoStomp, 0),
@@ -1235,11 +1362,11 @@ namespace DChild.Gameplay.Characters.Enemies
                                              new AttackInfo<Attack>(Attack.ElementalBeamFlick, 0),
                                              new AttackInfo<Attack>(Attack.TendrilClimbElementalBeam, 0));
 
-                   m_ComplexeattackDecider.SetList(new AttackInfo<Attack>(Attack.TendrilClimbJumpSmash, 0),
-                                         new AttackInfo<Attack>(Attack.ElementalBeamFlick, 0),
-                                         new AttackInfo<Attack>(Attack.TendrilClimbElementalBeam, 0), 
-                                         new AttackInfo<Attack>(Attack.TigrexBiting, 0),
-                                         new AttackInfo<Attack>(Attack.ElementalOverload, 0));
+                    m_ComplexeattackDecider.SetList(new AttackInfo<Attack>(Attack.TendrilClimbJumpSmash, 0),
+                                          new AttackInfo<Attack>(Attack.ElementalBeamFlick, 0),
+                                          new AttackInfo<Attack>(Attack.TendrilClimbElementalBeam, 0),
+                                          new AttackInfo<Attack>(Attack.TigrexBiting, 0),
+                                          new AttackInfo<Attack>(Attack.ElementalOverload, 0));
                     break;
                 case Phase.Wait:
                     break;
@@ -1253,6 +1380,7 @@ namespace DChild.Gameplay.Characters.Enemies
             if (m_BasicAttackDecider != null && m_ComplexeattackDecider != null)
             {
                 UpdateAttackDeciderList();
+               // UpdateAttackDeciderListTesting();
             }
             base.ApplyData();
         }
@@ -1416,6 +1544,10 @@ namespace DChild.Gameplay.Characters.Enemies
                     //m_stateHandle.Wait(m_currentAttackCount >= m_maxAttackCount ? State.Roar : State.Cooldown);
                     m_lastTargetPos = m_targetInfo.position;
                     m_currentIdleAnimation = RandomIdleAnimation();
+                    m_tendrilWhipCollider.enabled = false;
+                    SmashColliderController(false);
+                    m_tigrexBiting.enabled = false; 
+                    m_laserCollider.enabled = false;
                     StopAllCoroutines();
                     if (m_currentAttackDecider.hasDecidedOnAttack == false)
                     {
@@ -1438,7 +1570,7 @@ namespace DChild.Gameplay.Characters.Enemies
                             break;
                         case Attack.ElementalBeamFlick:
                             StartCoroutine(ElementalBeamFlickAttack());
-                           break;
+                            break;
                         case Attack.TendrilClimbElementalBeam:
                             StartCoroutine(TendrilClimbAttack());
                             break;
@@ -1447,8 +1579,14 @@ namespace DChild.Gameplay.Characters.Enemies
                             break;
                         case Attack.ElementalOverload:
                             StartCoroutine(ElementalOverloadAttack());
+                            break;  
+                        case Attack.JumpSmash:
+                            StartCoroutine(JumpSmashGroundAttack());
+                            break;
+                        case Attack.WaitAttackEnd:
                             break;
                     }
+
                     m_stateHandle.Wait(State.ReevaluateSituation);
                     /*switch (m_currentAttack)
                     {
@@ -1551,6 +1689,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;*/
 
                 case State.ReevaluateSituation:
+                    
                     if (m_currentAttackCount == 7)
                     {
                         StopAllCoroutines();
