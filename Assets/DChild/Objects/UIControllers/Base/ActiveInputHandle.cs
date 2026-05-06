@@ -30,9 +30,11 @@ namespace DChild.Inputs
         [SerializeField, BoxGroup("EDITOR ONLY")]
         private PlayerInput m_editorOnlyPlayerInput;
 
-        private void OnEnable()
+        private void Start()
         {
-            //Hacky fix because there is no base gameplay system to handle ui states when there is no Scene_System
+            //Hacky fix because there is no base gameplay system to
+            //handle ui states when there is no Scene_System
+            // This assumes testing in an underworld scene
             if (m_isEditorOnly)
             {
                 m_playerInput = m_editorOnlyPlayerInput;
@@ -41,7 +43,9 @@ namespace DChild.Inputs
                 m_playerInput.SwitchCurrentActionMap("Underworld");
                 m_currentActionMap = "Underworld";
             }
-
+        }
+        private void OnEnable()
+        {
             m_gameplayUIStateObserver.GameplayUIStateChanged += OnUIStateChanged;
         }
 
