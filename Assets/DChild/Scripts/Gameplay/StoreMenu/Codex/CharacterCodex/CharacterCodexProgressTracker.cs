@@ -1,6 +1,7 @@
 using DChild.Gameplay;
 using DChild.Gameplay.UI;
 using DChild.Menu.Codex;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace DChild.Codex.Characters
             SetProgress(ID, true);
         }
 
+        [Button]
         public void RecordCharacterToCodex(CharacterCodexData data)
         {
             RecordCharacterToCodex(data.id);

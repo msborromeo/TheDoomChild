@@ -4088,6 +4088,7 @@ GameObject:
   - component: {fileID: 8623491377212961913}
   - component: {fileID: 1652451765402195888}
   - component: {fileID: 6324767047507379010}
+  - component: {fileID: 6418148410089398369}
   m_Layer: 5
   m_Name: BestiaryIndexButton
   m_TagString: Untagged
@@ -4277,10 +4278,10 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 1
             m_CallState: 2
-          - m_Target: {fileID: 0}
-            m_TargetAssemblyTypeName: DChild.Gameplay.UI.Alerts.UIAlertIconBase,
+          - m_Target: {fileID: 6418148410089398369}
+            m_TargetAssemblyTypeName: DChild.Menu.Codex.Bestiary.Alerts.BestiaryCodexIndexAlertUI,
               Assembly-CSharp
-            m_MethodName: UpdateState
+            m_MethodName: RenderAlertUseless
             m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -4334,7 +4335,7 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 1
             m_CallState: 2
-          - m_Target: {fileID: 3001306203497852007}
+          - m_Target: {fileID: 6418148410089398369}
             m_TargetAssemblyTypeName: DChild.Menu.Codex.Bestiary.Alerts.BestiaryCodexIndexAlertUI,
               Assembly-CSharp
             m_MethodName: RenderAlertUseless
@@ -4366,7 +4367,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 3001306203497852007}
+          - m_Target: {fileID: 0}
             m_TargetAssemblyTypeName: DChild.Menu.Codex.Bestiary.Alerts.BestiaryCodexIndexAlertUI,
               Assembly-CSharp
             m_MethodName: RenderAlertUseless
@@ -5370,6 +5371,20 @@ MonoBehaviour:
   m_descritpion: {fileID: 0}
   m_storeNotes: {fileID: 0}
   m_hunterNotes: {fileID: 0}
+--- !u!114 &6418148410089398369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4680197709307424060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddaba59d5e4a5044a8e0f85e2805f946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_hasAlert: 0
+  m_iconContainer: {fileID: 7466461800900403092}
 --- !u!1 &6740204605766748707
 GameObject:
   m_ObjectHideFlags: 0
@@ -6524,33 +6539,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21d5cd02f6da18347bc9d030f3de496d, type: 3}
---- !u!1 &100353199696214247 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1772765119660980446, guid: 21d5cd02f6da18347bc9d030f3de496d,
-    type: 3}
-  m_PrefabInstance: {fileID: 1873117906383863865}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3001306203497852007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100353199696214247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddaba59d5e4a5044a8e0f85e2805f946, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_hasAlert: 0
-  m_iconContainer: {fileID: 7466461800900403092}
 --- !u!114 &7466461800900403092 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9106443086126260141, guid: 21d5cd02f6da18347bc9d030f3de496d,
     type: 3}
   m_PrefabInstance: {fileID: 1873117906383863865}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100353199696214247}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b71aa88e9bf8432f89217a09c5a0b21c, type: 3}
