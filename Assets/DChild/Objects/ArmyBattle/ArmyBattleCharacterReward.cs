@@ -80,7 +80,7 @@ namespace DChild.Gameplay.ArmyBattle
             ui.SetAcceptOffer(AcceptOffer);
             ui.SetDeclineOffer(null);
             ui.SetupUI(m_CharacterReward[0].name);
-            BaseGameplaySystem.gameplayUIHandle.SendconfirmationSignal();
+            BaseGameplaySystem.gamplayUIHandle.SendconfirmationSignal();
         }
 
         public void RequirementMet(bool isAchieved)
