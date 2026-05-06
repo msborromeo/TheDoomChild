@@ -116,7 +116,7 @@ namespace DChild.Gameplay.Narrative
 
         public void ForceCinematicState()
         {
-            BaseGameplaySystem.gameplayUIHandle.ToggleCinematicMode(true);
+            BaseGameplaySystem.gamplayUIHandle.ToggleCinematicMode(true);
         }
 
         public void InvokeGameIntroFinished()

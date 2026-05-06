@@ -49,18 +49,18 @@ namespace DChild.Gameplay.UI.Controller
 
         private void OnUISubmitPerformed()
         {
-            if (BaseGameplaySystem.gameplayUIHandle.gameplayUIStateObserver.isInDialogue)
+            if (BaseGameplaySystem.gamplayUIHandle.gameplayUIStateObserver.isInDialogue)
             {
-                BaseGameplaySystem.gameplayUIHandle.ContinueDialogue();
+                BaseGameplaySystem.gamplayUIHandle.ContinueDialogue();
             }
         }
 
         private void OnUIClickPerformed()
         {
             //Might not be cleanest solution but should handle banter continuing on click during UI controls issue
-            if (BaseGameplaySystem.gameplayUIHandle.gameplayUIStateObserver.isInDialogue)
+            if (BaseGameplaySystem.gamplayUIHandle.gameplayUIStateObserver.isInDialogue)
             {
-                BaseGameplaySystem.gameplayUIHandle.ContinueDialogue();
+                BaseGameplaySystem.gamplayUIHandle.ContinueDialogue();
             }
         }
 
