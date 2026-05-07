@@ -53,7 +53,7 @@ namespace DChild.Menu.Codex.Characters
         protected override bool CheckPlayerProgress(CharacterCodexData data)
         {
             // Using the instance ID logic from your original code
-            return m_playerTracker.HasInfoOf(data.GetInstanceID());
+            return m_playerTracker.HasInfoOf(data.id);
         }
 
         public override void SetPopupEntryData(CharacterCodexData data)

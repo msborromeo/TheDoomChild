@@ -32,14 +32,17 @@ namespace DChild.Menu.Codex.Bestiary
             bool hasSelectedFirst = false;
             int startOffset = page * m_entryButtons.Count;
 
-            int i = 0;
-            for (; i < m_entryButtons.Count; i++)
+            for (int i = 0; i < m_entryButtons.Count; i++)
             {
                 var entryButton = m_entryButtons[i];
-                var data = m_filteredList[i + startOffset];
+                int dataIndex = i + startOffset;
 
-                entryButton.gameObject.SetActive(true);
+                entryButton.gameObject.SetActive(dataIndex < m_filteredList.Count);
+
+                var data = m_filteredList[dataIndex];
                 entryButton.SetData(data);
+
+                entryButton.OnEntrySelected -= SetPopupEntryData;
                 entryButton.OnEntrySelected += SetPopupEntryData;
 
                 bool isUnlocked = m_revealAllData || CheckPlayerProgress(data);
@@ -50,12 +53,6 @@ namespace DChild.Menu.Codex.Bestiary
                     entryButton.Select();
                     hasSelectedFirst = true;
                 }
-            }
-
-            for (; i < m_entryButtons.Count; i++)
-            {
-                m_entryButtons[i].SetInteractable(false);
-                continue;
             }
         }
 
@@ -89,7 +86,7 @@ namespace DChild.Menu.Codex.Bestiary
 
         protected override bool CheckPlayerProgress(BestiaryData data)
         {
-            return m_playerTracker.HasInfoOf(data.GetInstanceID());
+            return m_playerTracker.HasInfoOf(data.id);
         }
 
         public override void Initialize()
