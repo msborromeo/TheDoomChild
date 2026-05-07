@@ -35,23 +35,31 @@ namespace DChild.Menu.Codex.Bestiary
             for (int i = 0; i < m_entryButtons.Count; i++)
             {
                 var entryButton = m_entryButtons[i];
+
                 int dataIndex = i + startOffset;
 
-                entryButton.gameObject.SetActive(dataIndex < m_filteredList.Count);
-
-                var data = m_filteredList[dataIndex];
-                entryButton.SetData(data);
-
-                entryButton.OnEntrySelected -= SetPopupEntryData;
-                entryButton.OnEntrySelected += SetPopupEntryData;
-
-                bool isUnlocked = m_revealAllData || CheckPlayerProgress(data);
-                entryButton.SetInteractable(isUnlocked);
-
-                if (!hasSelectedFirst && isUnlocked)
+                if (dataIndex < m_filteredList.Count)
                 {
-                    entryButton.Select();
-                    hasSelectedFirst = true;
+                    var data = m_filteredList[dataIndex];
+
+                    entryButton.gameObject.SetActive(true);
+                    entryButton.SetData(data);
+
+                    entryButton.OnEntrySelected -= SetPopupEntryData;
+                    entryButton.OnEntrySelected += SetPopupEntryData;
+
+                    bool isUnlocked = m_revealAllData || CheckPlayerProgress(data);
+                    entryButton.SetInteractable(isUnlocked);
+
+                    if (!hasSelectedFirst && isUnlocked)
+                    {
+                        entryButton.Select();
+                        hasSelectedFirst = true;
+                    }
+                }
+                else
+                {
+                    entryButton.gameObject.SetActive(false);
                 }
             }
         }
