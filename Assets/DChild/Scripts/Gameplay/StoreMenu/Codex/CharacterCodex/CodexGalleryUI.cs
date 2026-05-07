@@ -1,4 +1,4 @@
-﻿namespace DChild.Codex.Characters
+﻿namespace DChild.Menu.Codex
 {
     using System;
     using System.Collections.Generic;
@@ -11,6 +11,10 @@
 
         [SerializeField, Tooltip("EDITOR ONLY: Bypasses progression checks")]
         protected bool m_revealAllData;
+
+        [Header("Sections UI Scrollbar")]
+        [SerializeField]
+        protected CodexScrollNavigationHandle m_navigationHandle;
         
         protected List<InfoType> m_filteredList = new List<InfoType>();
         public List<InfoType> FilteredList => m_filteredList;

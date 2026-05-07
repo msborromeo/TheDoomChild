@@ -1,10 +1,10 @@
 ﻿
+using DChild.Codex.Characters;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-namespace DChild.Codex.Characters
+namespace DChild.Menu.Codex.Characters
 {
     public class CodexCharactersGalleryUI : CodexGalleryUI<CharacterCodexData, CharacterCodexProgressTracker>
     {
@@ -53,7 +53,7 @@ namespace DChild.Codex.Characters
         protected override bool CheckPlayerProgress(CharacterCodexData data)
         {
             // Using the instance ID logic from your original code
-            return m_playerTracker.HasInfoOf(data.GetInstanceID());
+            return m_playerTracker.HasInfoOf(data.id);
         }
 
         public override void SetPopupEntryData(CharacterCodexData data)

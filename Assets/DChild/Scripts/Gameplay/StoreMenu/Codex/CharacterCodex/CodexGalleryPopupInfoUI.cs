@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace DChild.Codex.Characters
+namespace DChild.Menu.Codex
 {
 
     public abstract class CodexGalleryPopupInfoUI<InfoType> : MonoBehaviour
