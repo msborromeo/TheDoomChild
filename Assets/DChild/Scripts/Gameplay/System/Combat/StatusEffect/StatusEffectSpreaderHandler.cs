@@ -45,6 +45,7 @@ public class StatusEffectSpreaderHandler : MonoBehaviour
         }
 
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -68,14 +69,17 @@ public class StatusEffectSpreaderHandler : MonoBehaviour
                         }
                         else
                         {
+           
                             GameplaySystem.combatManager.Inflict(characterStatusEffectReciever, i.Key.type);
+
                         }
                     }
 
 
                 }
             }
-        } else if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             var otherGameObject = collision.gameObject;
 
@@ -114,7 +118,9 @@ public class StatusEffectSpreaderHandler : MonoBehaviour
 
             if (otherGameObject.tag == "Hitbox")
             {
+
                 var characterStatusEffectReciever = otherGameObject.GetComponentInParent<StatusEffectReciever>();
+
 
                 if (characterStatusEffectReciever)
                 {
@@ -127,7 +133,9 @@ public class StatusEffectSpreaderHandler : MonoBehaviour
                         }
                         else
                         {
+
                             GameplaySystem.combatManager.Inflict(characterStatusEffectReciever, i.Key.type);
+
                         }
                     }
 
@@ -155,6 +163,7 @@ public class StatusEffectSpreaderHandler : MonoBehaviour
                         else
                         {
                             GameplaySystem.combatManager.Inflict(characterStatusEffectReciever, i.Key.type);
+
                         }
                     }
 
