@@ -1,4 +1,5 @@
 ﻿using Doozy.Runtime.UIManager.Components;
+using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
@@ -81,6 +82,12 @@ namespace DChild.Menu.Codex
     {
         [SerializeReference]
         private CodexIndexInfoUI<IndexInfoType> m_info;
+        public event Action<DatabaseAssetType> OnEntrySelected;
+
+        public void SetGalleryPopupData()
+        {
+            OnEntrySelected?.Invoke(data);
+        }
 
         public override void SetData(DatabaseAssetType data)
         {

@@ -1,32 +1,30 @@
-﻿using Sirenix.OdinInspector;
-using Sirenix.Utilities;
+﻿
+using DChild.Codex.Characters;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-namespace DChild.Codex.Characters
+namespace DChild.Menu.Codex.Characters
 {
-    public class CodexCharactersGalleryUI : MonoBehaviour
+    public class CodexCharactersGalleryUI : CodexGalleryUI<CharacterCodexData, CharacterCodexProgressTracker>
     {
-        [SerializeField] private CharacterCodexList m_completeList;
-        [SerializeField] private CharacterCodexProgressTracker m_playerTracker;
-
-
-        private List<CharacterCodexData> m_filteredList;
-        public List<CharacterCodexData> completeNpcList => m_filteredList;
-
+        [Header("Character Specific UI")]
+        [SerializeField, AssetSelector] private List<CharacterCodexData> m_completeList;
         [SerializeField] private List<CharacterCodexIndexButton> m_entryButtons;
 
-        [SerializeField, BoxGroup("EDITOR ONLY")]
-        private bool m_revealAllData;
-        
-        public void Initialize()
+        protected override void RetrieveEntries()
         {
-            RetrieveNPCs();
-            SetupGalleryEntries();
+            if (m_filteredList.Count > 0) return;
+
+            m_filteredList = m_completeList;
+
+            //m_filteredList = m_completeList.GetIDs()
+            //    .Select(id => m_completeList.GetInfo(id))
+            //    .Where(npc => npc.characterType == CharacterType.NPC)
+            //    .ToList();
         }
-        public void SetupGalleryEntries()
+
+        public override void SetupGalleryEntries()
         {
             bool hasSelectedFirst = false;
 
@@ -34,40 +32,34 @@ namespace DChild.Codex.Characters
             {
                 var entryButton = m_entryButtons[i];
 
-                if (entryButton.data == null && i < m_filteredList.Count)
-                    entryButton.SetData(m_filteredList[i]);
-
-                bool isInteractable = SetEntryInteractability(entryButton);
-
-                if (!hasSelectedFirst && isInteractable)
+                if (i < m_filteredList.Count)
                 {
-                    entryButton.Select(); 
-                    hasSelectedFirst = true;
+                    var data = m_filteredList[i];
+                    entryButton.SetData(data);
+                    entryButton.OnEntrySelected += SetPopupEntryData;
+
+                    bool isUnlocked = m_revealAllData || CheckPlayerProgress(data);
+                    entryButton.SetInteractable(isUnlocked);
+
+                    if (!hasSelectedFirst && isUnlocked)
+                    {
+                        entryButton.Select();
+                        hasSelectedFirst = true;
+                    }
                 }
             }
         }
-        public bool SetEntryInteractability(CharacterCodexIndexButton entryButton)
-        {
-            var hasRecordedEntry = m_playerTracker.HasInfoOf(entryButton.GetInstanceID());
-            bool canInteract = m_revealAllData || hasRecordedEntry;
 
-            entryButton.SetInteractable(canInteract);
-            return canInteract;
+        protected override bool CheckPlayerProgress(CharacterCodexData data)
+        {
+            // Using the instance ID logic from your original code
+            return m_playerTracker.HasInfoOf(data.id);
         }
-        private void RetrieveNPCs()
-        {
-            if (!m_filteredList.IsNullOrEmpty()) return;
 
-            int[] m_npcIDs = m_completeList.GetIDs();
-
-            m_filteredList = m_npcIDs
-                .Select(id => m_completeList.GetInfo(id))
-                .Where(npc => npc.characterType == CharacterType.NPC)
-                .ToList();
-        }
-        private void Awake()
+        public override void SetPopupEntryData(CharacterCodexData data)
         {
-            Initialize();
+            Debug.Log($"received data: {data}");
+            base.SetPopupEntryData(data);
         }
     }
 }
