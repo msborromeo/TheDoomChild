@@ -1,11 +1,13 @@
-﻿using DChild.Codex.Characters;
+using DChild.Codex.Characters;
+using DChild.Menu.Bestiary;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DChild.Menu.Codex.Characters
+namespace DChild.Menu.Codex.Bestiary
 {
-    public class CharactersCodexGalleryPopupInfoUI : CodexGalleryPopupInfoUI<CharacterCodexData>
+
+    public class BestiaryCodexGalleryPopupInfoUI : CodexGalleryPopupInfoUI<BestiaryData>
     {
         [SerializeField]
         private TextMeshProUGUI m_alphabetName;
@@ -35,7 +37,7 @@ namespace DChild.Menu.Codex.Characters
                 return;
             }
 
-            creatureNameText = m_showDataOf.characterName;
+            creatureNameText = m_showDataOf.creatureName;
             SetImage(m_creatureImage, m_showDataOf.infoImage);
             m_description.text = m_showDataOf.description;
         }
@@ -54,6 +56,4 @@ namespace DChild.Menu.Codex.Characters
             }
         }
     }
-
-
 }

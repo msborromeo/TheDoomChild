@@ -1,10 +1,10 @@
 ﻿
+using DChild.Codex.Characters;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-namespace DChild.Codex.Characters
+namespace DChild.Menu.Codex.Characters
 {
     public class CodexCharactersGalleryUI : CodexGalleryUI<CharacterCodexData, CharacterCodexProgressTracker>
     {

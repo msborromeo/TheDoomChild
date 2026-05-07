@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
-namespace DChild.Codex.Characters
+namespace DChild.Menu.Codex
 {
-
     public abstract class CodexGalleryHandle<InfoType, ProgressTracker> : MonoBehaviour
     {
         [SerializeReference]
