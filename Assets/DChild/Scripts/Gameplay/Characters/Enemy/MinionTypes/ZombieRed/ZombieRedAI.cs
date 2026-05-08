@@ -148,6 +148,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private FlinchHandler m_flinchHandle;
         [SerializeField, TabGroup("Data")]
         private AttackData m_comboDamage;
+        [SerializeField, TabGroup("Data")]
+        private AttackData m_normalDamage;
         private float m_currentPatience;
         private float m_currentCD;
         private float m_currentFullCD;
@@ -440,7 +442,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     switch (m_attackDecider.chosenAttack.attack)
                     {
                         case Attack.Attack1:
-                            m_attackerDamage.SetData(m_defaultAttackData);
+                            m_attackerDamage.SetData(m_normalDamage);
                             m_attackHandle.ExecuteAttack(m_info.attack.animation, m_info.idleAnimation.animation);
                             break;
                         case Attack.Attack2:

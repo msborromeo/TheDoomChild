@@ -252,7 +252,7 @@ PrefabInstance:
     - target: {fileID: 182803244704829877, guid: 8241154d8961a3b498f5abbf26f46a69,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.72664
+      value: 7.7266345
       objectReference: {fileID: 0}
     - target: {fileID: 2550697406945093044, guid: 8241154d8961a3b498f5abbf26f46a69,
         type: 3}
@@ -344,6 +344,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 2675980820534539592, guid: 8241154d8961a3b498f5abbf26f46a69,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3137674232029756295, guid: 8241154d8961a3b498f5abbf26f46a69,
         type: 3}
@@ -899,7 +904,7 @@ PrefabInstance:
     - target: {fileID: 7913955764830972342, guid: 8241154d8961a3b498f5abbf26f46a69,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.000005335241
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8588064947015266996, guid: 8241154d8961a3b498f5abbf26f46a69,
         type: 3}
@@ -1147,6 +1152,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a5cea4c16e7c4478a55620f5e666e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2778733715007408919 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5860521086020847868, guid: 8241154d8961a3b498f5abbf26f46a69,
+    type: 3}
+  m_PrefabInstance: {fileID: 8630246501980734443}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3178903334706330733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2778733715007408919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e10454193b54c9a4eb8bfb67b80c746d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_centerMass: {fileID: 0}
+  m_data: {fileID: 11400000, guid: 2f79aea86e5b9f64a8b17663eee9870a, type: 2}
+  m_currentAttackInfo:
+    damage:
+      m_type: 1
+      m_value: 0
+    criticalDamageInfo:
+      chance: 0
+      damageModifier: 0
+    ignoreInvulnerability: 0
+    ignoresBlock: 0
+    isCrit: 0
 --- !u!114 &3484403563283408458 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5161087667450045857, guid: 8241154d8961a3b498f5abbf26f46a69,
@@ -1637,30 +1672,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_character: {fileID: 3041241503373307224}
   m_resistance: {fileID: 0}
---- !u!114 &7415687614497943895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2407544920029165130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e10454193b54c9a4eb8bfb67b80c746d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_centerMass: {fileID: 8452616459497312862}
-  m_data: {fileID: 11400000, guid: 12446151ab656a54fabb0b9c83f6107b, type: 2}
-  m_currentAttackInfo:
-    damage:
-      m_type: 1
-      m_value: 0
-    criticalDamageInfo:
-      chance: 0
-      damageModifier: 0
-    ignoreInvulnerability: 0
-    ignoresBlock: 0
-    isCrit: 0
 --- !u!114 &7788430012747545820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1686,7 +1697,7 @@ MonoBehaviour:
   m_bodyCollider: {fileID: 2111610062273430774}
   m_solidCollider: {fileID: 5083788762137297900}
   m_aggroSensor: {fileID: 4773423642042309869}
-  m_attackerDamage: {fileID: 7415687614497943895}
+  m_attackerDamage: {fileID: 3178903334706330733}
   m_turnHandle: {fileID: 3353443262523148835}
   m_movement: {fileID: 736090510437839998}
   m_patrolHandle: {fileID: 736090510437839997}
@@ -1695,6 +1706,7 @@ MonoBehaviour:
   m_deathHandle: {fileID: 4429158283262265981}
   m_flinchHandle: {fileID: 970891474762812463}
   m_comboDamage: {fileID: 11400000, guid: 2f79aea86e5b9f64a8b17663eee9870a, type: 2}
+  m_normalDamage: {fileID: 11400000, guid: 6b21c941e218d854d82b8e0f5b2f37c3, type: 2}
   m_wallSensor: {fileID: 7098895923311595162}
   m_groundSensor: {fileID: 2517373782553984372}
   m_edgeSensor: {fileID: 3764403106125999380}
