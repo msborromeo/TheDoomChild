@@ -1,14 +1,11 @@
-using DChild.Gameplay.Environment;
-using DChild.Menu.Codex;
-using System.Collections;
-using System.Collections.Generic;
+﻿using DChild.Codex.Characters;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DChild.Codex.Characters
+namespace DChild.Menu.Codex.Characters
 {
-    public class CharactersCodexInfoUI : CodexInfoUI<CharacterCodexData>
+    public class CharactersCodexGalleryPopupInfoUI : CodexGalleryPopupInfoUI<CharacterCodexData>
     {
         [SerializeField]
         private TextMeshProUGUI m_alphabetName;
@@ -16,10 +13,6 @@ namespace DChild.Codex.Characters
         private TextMeshProUGUI m_baybayinName;
         [SerializeField]
         private Image m_creatureImage;
-        [SerializeField]
-        private Image m_sketchImage;
-        [SerializeField]
-        private TextMeshProUGUI m_location;
         [SerializeField]
         private TextMeshProUGUI m_description;
 
@@ -38,30 +31,13 @@ namespace DChild.Codex.Characters
             {
                 creatureNameText = "";
                 SetImage(m_creatureImage, null);
-                SetImage(m_sketchImage, null);
-                m_location.text = "";
                 m_description.text = "";
+                return;
             }
-            else
-            {
-                creatureNameText = m_showDataOf.name;
-                SetImage(m_creatureImage, m_showDataOf.infoImage);
-                m_description.text = m_showDataOf.description;
 
-            }
-        }
-
-        private void UpdateLocation(IReadOnlyList<Location> locations)
-        {
-            m_location.text = "";
-            for (int i = 0; i < locations.Count; i++)
-            {
-                m_location.text += locations[i].ToString().Replace('_', ' ');
-                if (i < locations.Count - 1)
-                {
-                    m_location.text += "/";
-                }
-            }
+            creatureNameText = m_showDataOf.characterName;
+            SetImage(m_creatureImage, m_showDataOf.infoImage);
+            m_description.text = m_showDataOf.description;
         }
 
         private void SetImage(Image image, Sprite sprite)
