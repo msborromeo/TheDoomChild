@@ -38,7 +38,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void Enable()
         {
-            m_inputReader.SetInputModeTOverworldGameplay();
+            m_inputReader.SetInputModeToOverworldGameplay();
         }
 
         public void Disable()
@@ -102,12 +102,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void Awake()
         {
-            m_inputReader.SetInputModeTOverworldGameplay();
+            m_inputReader.SetInputModeToOverworldGameplay();
         }
 
         void Start()
         {
-            m_inputReader.SetInputModeTOverworldGameplay();
+            m_inputReader.SetInputModeToOverworldGameplay();
         }
 
         void Update()

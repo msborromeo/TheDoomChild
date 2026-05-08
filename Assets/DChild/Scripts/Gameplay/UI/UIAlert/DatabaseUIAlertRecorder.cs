@@ -33,7 +33,7 @@ namespace DChild.Gameplay.UI.Alerts
 
         public override bool HasNewNotification(T data)
         {
-            return m_alerts.Contains(data.id);
+            return data != null && m_alerts.Contains(data.id) ;
         }
         public override bool HasNewNotification(int id)
         {

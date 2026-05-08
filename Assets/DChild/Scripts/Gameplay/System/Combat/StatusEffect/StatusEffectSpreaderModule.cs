@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay;
+using DChild.Gameplay.Combat;
 using DChild.Gameplay.Combat.StatusAilment;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +18,8 @@ public class StatusEffectSpreaderModule : IStatusEffectModule
 
     public void Start(Character character)
     {
-        m_spreadStatus = character.gameObject.AddComponent<StatusEffectSpreaderHandler>();
+        var characterHitBox = character.gameObject.GetComponentInChildren<Hitbox>();
+        m_spreadStatus = characterHitBox.gameObject.AddComponent<StatusEffectSpreaderHandler>();
         m_spreadStatus.statusEffectList.Add(m_data, m_chance);
     }
 
