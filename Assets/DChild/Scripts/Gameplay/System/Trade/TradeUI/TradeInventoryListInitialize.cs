@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.Inventories;
 using DChild.Gameplay.Inventories.UI;
+using DChild.Gameplay.Systems;
 using Doozy.Runtime.UIManager.Components;
 using System.Collections;
 using UnityEngine;
@@ -34,7 +35,7 @@ namespace DChild.Gameplay.Trade.UI
             }
         }
 
-        private void Start()
+        private void OnEnable()
         {
             var toggles = m_itemGroup.toggles;
             //AddToggleOnListener(m_itemGroup.FirstToggle);
@@ -43,7 +44,13 @@ namespace DChild.Gameplay.Trade.UI
                 var toggle = toggles[i];
                 AddToggleOnListener(toggle);
             }
+            //UnderworldGameplaySystem.gameplayUIHandle.SetCurrentUIState(12);
         }
+        private void OnDisable()
+        {
+            //UnderworldGameplaySystem.gameplayUIHandle.SetCurrentUIState(0);
+        }
+
         //private IEnumerator Start()
         //{
         //    while (m_itemGroup.numberOfToggles == 0)

@@ -20,6 +20,8 @@ namespace DChild.Gameplay.Inventories.UI
         public override bool HasItemsOfCategory()
         {
             var categorizedInventory = m_attachedInventory.inventory.FindTradeItemsOfType(m_category);
+
+            gameObject.SetActive(categorizedInventory.Length > 0);
             return categorizedInventory.Length > 0;
         }
     }

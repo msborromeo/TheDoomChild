@@ -1,7 +1,9 @@
 ﻿using Doozy.Runtime.UIManager.Components;
+using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DChild.Menu.Codex
 {
@@ -10,52 +12,69 @@ namespace DChild.Menu.Codex
         [SerializeField, OnValueChanged("UpdateInfo")]
         protected DatabaseAssetType m_data;
 
-        private UIToggle m_button;
         private CanvasGroup m_canvas;
 
+        private UIToggle m_toggle;
+        private UIButton m_button;
 
-        public bool isAvailable => m_button.gameObject.activeInHierarchy && m_button.interactable;
+        // A helper property to treat both as a basic 'Selectable'
+        private Selectable m_selectable => (Selectable)m_toggle ?? m_button;
+
+        public bool isAvailable => m_selectable.gameObject.activeInHierarchy && m_selectable.interactable;
         public DatabaseAssetType data => m_data;
         public abstract void SetData(DatabaseAssetType data);
 
         public void SetIsOn(bool isOn)
         {
-            if (m_button.isOn != isOn)
+            if (m_toggle != null)
             {
-                m_button.SetIsOn(isOn);
-                if (isOn)
+                if (m_toggle.isOn != isOn)
                 {
-                    m_button.Select();
+                    m_toggle.SetIsOn(isOn);
+                    if (isOn) m_toggle.Select();
+                    m_toggle.SendSignal(isOn);
                 }
-                m_button.SendSignal(isOn);
+            }
+            else if (m_button != null && isOn)
+            {
+                // Buttons don't have 'isOn', but we can still 'Select' them
+                m_button.Select();
             }
         }
 
-        public void Show()
+        public void Select()
         {
-            m_button.gameObject.SetActive(true);
+            m_selectable?.Select();
         }
-
-        public void Hide()
-        {
-            m_button.gameObject.SetActive(false);
-        }
-
 
         public void SetInteractable(bool isInteractable)
         {
+            EnsureReferences();
+            if (m_selectable != null)
+                m_selectable.interactable = isInteractable;
+        }
+
+        private void EnsureReferences()
+        {
 #if UNITY_EDITOR
-            if (m_button == null)
+            if (m_toggle == null && m_button == null)
             {
-                m_button = GetComponent<UIToggle>();
+                m_toggle = GetComponent<UIToggle>();
+                m_button = GetComponent<UIButton>();
             }
 #endif
-            m_button.interactable = isInteractable;
         }
 
         private void Awake()
         {
-            m_button = GetComponent<UIToggle>();
+            m_toggle = GetComponent<UIToggle>();
+            m_button = GetComponent<UIButton>();
+
+            // Safety check: Ensure at least one exists
+            if (m_toggle == null && m_button == null)
+            {
+                Debug.LogError($"{gameObject.name} needs either a UIToggle or UIButton!");
+            }
         }
     }
 
@@ -63,6 +82,12 @@ namespace DChild.Menu.Codex
     {
         [SerializeReference]
         private CodexIndexInfoUI<IndexInfoType> m_info;
+        public event Action<DatabaseAssetType> OnEntrySelected;
+
+        public void SetGalleryPopupData()
+        {
+            OnEntrySelected?.Invoke(data);
+        }
 
         public override void SetData(DatabaseAssetType data)
         {
@@ -72,7 +97,6 @@ namespace DChild.Menu.Codex
                 m_info?.SetInfo(data);
             }
         }
-
         private void Start()
         {
             if (m_data != null)

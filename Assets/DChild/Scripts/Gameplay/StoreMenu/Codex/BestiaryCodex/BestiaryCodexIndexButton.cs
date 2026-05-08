@@ -28,7 +28,6 @@ namespace DChild.Menu.Codex.Bestiary
         {
             base.SetData(data);
             OnBestiaryDataChanged?.Invoke(data);
-
         }
     }
 }

@@ -10,7 +10,6 @@ namespace DChild.Codex.Characters
 {
     public class CharactersCodexInfoUI : CodexInfoUI<CharacterCodexData>
     {
-
         [SerializeField]
         private TextMeshProUGUI m_alphabetName;
         [SerializeField]
@@ -23,8 +22,6 @@ namespace DChild.Codex.Characters
         private TextMeshProUGUI m_location;
         [SerializeField]
         private TextMeshProUGUI m_description;
-
-
 
         private string creatureNameText
         {
