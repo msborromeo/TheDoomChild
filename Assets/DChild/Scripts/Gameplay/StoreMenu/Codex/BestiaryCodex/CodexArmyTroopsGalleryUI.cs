@@ -10,15 +10,15 @@ using UnityEngine;
 
 namespace DChild.Menu.Codex.ArmyTroops
 {
-    public class CodexArmyTroopsGalleryUI : CodexGalleryUI<CharacterCodexData, CharacterCodexProgressTracker>
+    public class CodexArmyTroopsGalleryUI : CodexGalleryUI<ArmyGroupTemplateData, CharacterCodexProgressTracker>
     {
         [BoxGroup("Full Codex & Army Group Data List")]
-        [SerializeField, AssetSelector] private ArmyGroupTemplateList m_battleDataList;
+        [SerializeField, AssetSelector] private List<ArmyGroupTemplateData> m_battleDataList;
         [BoxGroup("Full Codex & Army Group Data List")]
         [SerializeField, AssetSelector] private CharacterCodexList m_codexDataList;
 
         [Header("Troops Specific UI")]
-        [SerializeField] private List<CharacterCodexIndexButton> m_entryButtons;
+        [SerializeField] private List<ArmyTroopsIndexButton> m_entryButtons;
 
         public override void SetupGalleryEntries()
         {
@@ -28,10 +28,19 @@ namespace DChild.Menu.Codex.ArmyTroops
             {
                 var entryButton = m_entryButtons[i];
 
+                //set gallery button w/ army group data
+                entryButton.SetArmyData(m_battleDataList[i]);
+
+                //TODO populate codex data 
+                var characterGroupData = entryButton.armyData.armyCharacterGroup;
+
+                if (characterGroupData != null)
+                    PopulateButtonGroupData(characterGroupData, entryButton);
+
                 if (i < m_filteredList.Count)
                 {
                     var data = m_filteredList[i];
-                    entryButton.SetData(data);
+                    //entryButton.SetData(data);
                     entryButton.OnEntrySelected += SetPopupEntryData;
 
                     bool isUnlocked = m_revealAllData || CheckPlayerProgress(data);
@@ -46,21 +55,41 @@ namespace DChild.Menu.Codex.ArmyTroops
             }
         }
 
-        protected override bool CheckPlayerProgress(CharacterCodexData data)
+        private void PopulateButtonGroupData(ArmyCharacterGroup armyGroup, ArmyTroopsIndexButton button)
         {
-            // Using the instance ID logic from your original code
+            for (int i = 0; i < armyGroup.memberCount; i++)
+            {
+                var unitCodexData = GetCodexData(armyGroup.GetCharacter(i));
+                button.AddUnitCodexData(unitCodexData);
+            }
+        }
+
+        private CharacterCodexData GetCodexData(ArmyCharacterData character)
+        {
+            return m_codexDataList.GetIDs().
+                    Select(id => m_codexDataList.GetInfo(id)).FirstOrDefault(character => character.armyData == character);
+        }
+
+        protected override bool CheckPlayerProgress(ArmyGroupTemplateData data)
+        {
+            //TODO modify to check if army group has at least one member unlocked
             return m_playerTracker.HasInfoOf(data.id);
         }
 
+        private bool CheckPlayerProgress(CharacterCodexData data) => m_playerTracker.HasInfoOf(data.id);
+
         protected override void RetrieveEntries()
         {
-            if (m_filteredList.Count > 0 || m_battleDataList.count > 0) return;
+            if (m_filteredList.Count > 0 || m_battleDataList.Count > 0) return;
 
-            //Codex data filtering from NPCs
-            m_filteredList = m_codexDataList.GetIDs().
-                Select(id => m_codexDataList.GetInfo(id))
-                .Where(npc => npc.characterType == CharacterType.Army)
-                .ToList();
+            //Get Army Characters from complete Codex List
+            m_filteredList = m_battleDataList;
+        }
+
+        public override void SetPopupEntryData(ArmyGroupTemplateData data)
+        {
+            Debug.Log($"received data: {data}");
+            base.SetPopupEntryData(data);
         }
     }
 }
