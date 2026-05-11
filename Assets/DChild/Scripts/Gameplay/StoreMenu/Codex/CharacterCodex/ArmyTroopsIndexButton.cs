@@ -16,7 +16,7 @@ namespace DChild.Menu.Codex.ArmyTroops
         private ArmyGroupTemplateData m_armyData;
         public ArmyGroupTemplateData armyData => m_armyData;
 
-        private List<CharacterCodexData> m_codexData;
+        private List<CharacterCodexData> m_codexData = new();
         public List<CharacterCodexData> codexData => m_codexData;
 
 
@@ -45,9 +45,22 @@ namespace DChild.Menu.Codex.ArmyTroops
         private void UpdateUI(ArmyCharacterGroup group)
         {
             m_name.text = group.name;
-            m_unitOne.sprite = group.GetCharacter(0).icon;
-            m_unitTwo.sprite = group.GetCharacter(1).icon;
-            m_unitThree.sprite = group.GetCharacter(2).icon;
+
+            Image[] spriteIcons = { m_unitOne, m_unitTwo, m_unitThree };
+
+            for (int i = 0; i < spriteIcons.Length; i++)
+            {
+                bool isActive = i < group.memberCount;
+                spriteIcons[i].gameObject.SetActive(isActive);
+
+                if (isActive)
+                    SetUnitIcon(group.GetCharacter(i).icon, spriteIcons[i]);
+            }
+        }
+
+        private void SetUnitIcon(Sprite icon, Image target)
+        {
+            target.sprite = icon;
         }
 
         private void UpdateGroupIcon(DamageType value)
@@ -91,8 +104,6 @@ namespace DChild.Menu.Codex.ArmyTroops
             }
 #endif
         }
-
-
     }
 }
 
