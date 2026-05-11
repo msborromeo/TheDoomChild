@@ -85,7 +85,7 @@ namespace DChild.Gameplay.UI
             m_promptNotificationHandle.QueueNotification(lootList);
             EnablePromptNotificationRoutine();
 
-            GameplaySystem.gamplayUIHandle.alertManager.inventoryAlerts.RecordNewNotification(lootList.GetAllItems());
+            //GameplaySystem.gamplayUIHandle.alertManager.inventoryAlerts.RecordNewNotification(lootList.GetAllItems());
         }
 
         [Button("Store Notification"), FoldoutGroup("Options"), HideInEditorMode]

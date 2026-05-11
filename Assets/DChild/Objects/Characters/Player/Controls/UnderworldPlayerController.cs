@@ -204,7 +204,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.NewGameIntroFinished += OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted += OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp += OnPlayerWokeUp;
-            BaseGameplaySystem.gameplayUIHandle.gameplayUIStateObserver.GameplayUIStateChanged += OnUIStateChanged;
+            BaseGameplaySystem.gamplayUIHandle.gameplayUIStateObserver.GameplayUIStateChanged += OnUIStateChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent += OnVector2PerformedInput;
@@ -291,7 +291,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             NewGameIntroEvent.NewGameIntroFinished -= OnPickedUpBook;
             NewGameIntroEvent.NewGameIntroStarted -= OnNewGameIntroStarted;
             NewGameIntroEvent.NewGamePlayerWokeUp -= OnPlayerWokeUp;
-            BaseGameplaySystem.gameplayUIHandle.gameplayUIStateObserver.GameplayUIStateChanged -= OnUIStateChanged;
+            BaseGameplaySystem.gamplayUIHandle.gameplayUIStateObserver.GameplayUIStateChanged -= OnUIStateChanged;
 
             //action handles
             m_inputReader.Vector2InputPerformedEvent -= OnVector2PerformedInput;
@@ -1068,7 +1068,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_storeHasBeenPickedUp == false)
                 return;
-            if (BaseGameplaySystem.gameplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
+            if (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
                 return;
 
             GameplaySystem.gamplayUIHandle.OpenStoreAtPage(StorePage.Map);
@@ -1076,7 +1076,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnPauseInput()
         {
-            if (BaseGameplaySystem.gameplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
+            if (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
                 return;
 
             GameplaySystem.gamplayUIHandle.OpenPauseMenu();
@@ -1084,7 +1084,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnTeleportToOverworldStarted(InputAction.CallbackContext context, bool isCanceled)
         {
-            if (BaseGameplaySystem.gameplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
+            if (BaseGameplaySystem.gamplayUIHandle.GetCurrentUIState() != GameplayUIState.GameplayHUD)
                 return;
 
             GameplaySystem.gamplayUIHandle.ShowHoldToTeleportSequence(context, isCanceled);
