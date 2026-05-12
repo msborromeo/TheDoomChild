@@ -34,7 +34,7 @@ namespace DChild.Menu.Codex.ArmyTroops
         {
             bool hasSkill = skill != null;
 
-            m_skillDescription.transform.parent.gameObject.SetActive(hasSkill);
+            m_skillDescription.transform.parent.gameObject.transform.parent.gameObject.SetActive(hasSkill);
 
             if (!hasSkill) return;
 
