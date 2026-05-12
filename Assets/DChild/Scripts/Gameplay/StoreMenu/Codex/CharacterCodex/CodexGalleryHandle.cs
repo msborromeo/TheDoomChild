@@ -7,7 +7,7 @@ namespace DChild.Menu.Codex
         [SerializeReference]
         protected CodexGalleryUI<InfoType, ProgressTracker> m_gallery;
         [SerializeReference]
-        private CodexGalleryPopupInfoUI<InfoType> m_popupPage;
+        protected CodexGalleryPopupInfoUI<InfoType> m_popupPage;
 
         public void SetPopupDetails(InfoType data)
         {
@@ -17,7 +17,7 @@ namespace DChild.Menu.Codex
             }
         }
 
-        private void Awake()    
+        public virtual void Awake()    
         {
             m_gallery.OnGalleryEntryReceived += m_popupPage.ShowInfo;
 

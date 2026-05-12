@@ -4,6 +4,7 @@ using DChild.Menu.Bestiary;
 using DChild.Menu.Codex.Bestiary;
 using DChild.Menu.Codex.Characters;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace DChild.Menu.Codex.ArmyTroops
 
         [Header("Troops Specific UI")]
         [SerializeField] private List<ArmyTroopsIndexButton> m_entryButtons;
+
+        public Action<List<CharacterCodexData>> OnCodexDatasReceived;
 
         protected override void RetrieveEntries()
         {
@@ -74,9 +77,16 @@ namespace DChild.Menu.Codex.ArmyTroops
 
         private void ResubscribeButtonEvents(ArmyTroopsIndexButton button)
         {
+            button.OnCodexDataSent -= PrepareCodexData;
+            button.OnArmyDataSent -= SetPopupEntryData;
 
-            button.OnEntrySelected -= SetPopupEntryData;
-            button.OnEntrySelected += SetPopupEntryData;
+            button.OnCodexDataSent += PrepareCodexData;
+            button.OnArmyDataSent += SetPopupEntryData;
+        }
+
+        private void PrepareCodexData(List<CharacterCodexData> codexDatas)
+        {
+            OnCodexDatasReceived.Invoke(codexDatas);
         }
 
         private void PopulateButtonGroupData(ArmyCharacterGroup armyGroup, ArmyTroopsIndexButton button)
@@ -102,25 +112,19 @@ namespace DChild.Menu.Codex.ArmyTroops
 
         private bool CheckPlayerProgress(CharacterCodexData data) => m_playerTracker.HasInfoOf(data.id);
 
-      
-
-        public override void SetPopupEntryData(ArmyGroupTemplateData data)
-        {
-            Debug.Log($"received data: {data}");
-            base.SetPopupEntryData(data);
-        }
 
         public override void Initialize()
         {
             base.Initialize();
             if (m_navigationHandle != null)
-            {
                 m_navigationHandle.SetupScroll(m_battleDataList.Count, m_entryButtons.Count);
-            }
         }
         private new void Awake()
         {
             m_navigationHandle.OnCurrentPageChange += SetupGalleryEntries;
+            
+            foreach (var button in m_entryButtons)
+                ResubscribeButtonEvents(button);
         }
 
         private void OnDestroy()

@@ -30,9 +30,7 @@
 
         public event Action<InfoType> OnGalleryEntryReceived;
         public virtual void SetPopupEntryData(InfoType data) => OnGalleryEntryReceived.Invoke(data);
-        protected virtual void Awake()
-        {
-            Initialize();
-        }
+        
+        protected virtual void Awake() => Initialize();
     }
 }

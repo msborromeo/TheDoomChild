@@ -9,16 +9,20 @@ namespace DChild.Menu.Codex.ArmyTroops
 {
     public class ArmyTroopsUnitEntryUI : MonoBehaviour
     {
-
+        #region TMP Fields
         [BoxGroup("TMP Panels"), SerializeField] private TextMeshProUGUI m_unitName;
         [BoxGroup("TMP Panels"), SerializeField] private TextMeshProUGUI m_unitDescription;
         [BoxGroup("TMP Panels"), SerializeField] private TextMeshProUGUI m_troopCount;
         [BoxGroup("TMP Panels"), SerializeField] private TextMeshProUGUI m_attackPower;
-
+        #endregion
+        
+        #region Army Type Icons
         [SerializeField, FoldoutGroup("Army Type Sprites")] private Image m_iconType;
         [SerializeField, FoldoutGroup("Army Type Sprites")] private Sprite m_meleeIcon;
         [SerializeField, FoldoutGroup("Army Type Sprites")] private Sprite m_magicIcon;
         [SerializeField, FoldoutGroup("Army Type Sprites")] private Sprite m_rangedIcon;
+        #endregion
+
 
         [Button]
         public void Display(CharacterCodexData character, DamageType type)
