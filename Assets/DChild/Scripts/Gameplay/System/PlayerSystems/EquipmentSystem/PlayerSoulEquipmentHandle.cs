@@ -190,6 +190,7 @@ namespace DChild.Gameplay.EquipmentSystem
             if (isAcquired == false)
                 return;
 
+            //Prevent equipping item if one of the same slot is already equipped
             if (m_equippedSoulSlotEquipmentPair.ContainsKey(equipment.Slot))
                 return;
 
