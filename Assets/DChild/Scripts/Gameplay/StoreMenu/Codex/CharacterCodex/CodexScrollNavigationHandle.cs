@@ -32,6 +32,7 @@ namespace DChild.Menu.Codex
             m_scrollBar.numberOfSteps = m_totalSections;
             m_scrollBar.size = 1f / m_totalSections;
 
+            m_scrollBar.value = 0;
             //UpdatePageLabel(1);
         }
 

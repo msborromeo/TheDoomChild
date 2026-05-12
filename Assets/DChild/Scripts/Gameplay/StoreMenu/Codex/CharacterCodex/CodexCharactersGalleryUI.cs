@@ -61,5 +61,10 @@ namespace DChild.Menu.Codex.Characters
             Debug.Log($"received data: {data}");
             base.SetPopupEntryData(data);
         }
+
+        public override void SetupGalleryEntries(int page)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

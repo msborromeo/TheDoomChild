@@ -3,10 +3,8 @@ using UnityEngine;
 
 namespace DChild.Menu.Codex
 {
-
     public abstract class CodexGalleryPopupInfoUI<InfoType> : MonoBehaviour
     {
-
         [ShowInInspector, OnValueChanged("UpdateInfo")]
         protected InfoType m_showDataOf;
         public void ShowInfo(InfoType data)
