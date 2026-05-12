@@ -19,12 +19,8 @@ namespace DChild.Menu.Codex
 
         public virtual void Awake()    
         {
-            m_gallery.OnGalleryEntryReceived += m_popupPage.ShowInfo;
-
-        }
-        private void OnDestroy()
-        {
             m_gallery.OnGalleryEntryReceived -= m_popupPage.ShowInfo;
+            m_gallery.OnGalleryEntryReceived += m_popupPage.ShowInfo;
         }
     }
 

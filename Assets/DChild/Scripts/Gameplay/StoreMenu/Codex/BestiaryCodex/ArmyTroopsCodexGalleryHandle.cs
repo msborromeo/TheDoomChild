@@ -11,17 +11,22 @@ namespace DChild.Menu.Codex.ArmyTroops
             if (m_gallery is CodexArmyTroopsGalleryUI troopsGallery &&
                 m_popupPage is ArmyTroopsCodexGalleryPopupInfoUI troopsPopup)
             {
-                troopsGallery.OnCodexDatasReceived += troopsPopup.OnCodexDatasReceived;
+                troopsGallery.OnCodexDataReceived -= troopsPopup.OnCodexDatasReceived;
+                m_gallery.OnGalleryEntryReceived -= m_popupPage.ShowInfo;
+
+                troopsGallery.OnCodexDataReceived += troopsPopup.OnCodexDatasReceived;
+                m_gallery.OnGalleryEntryReceived += m_popupPage.ShowInfo;
             }
         }
 
-        private void OnDisable()
-        {
-            if (m_gallery is CodexArmyTroopsGalleryUI troopsGallery &&
-                m_popupPage is ArmyTroopsCodexGalleryPopupInfoUI troopsPopup)
-            {
-                troopsGallery.OnCodexDatasReceived -= troopsPopup.OnCodexDatasReceived;
-            }
-        }
+        //private void OnDisable()
+        //{
+        //    if (m_gallery is CodexArmyTroopsGalleryUI troopsGallery &&
+        //        m_popupPage is ArmyTroopsCodexGalleryPopupInfoUI troopsPopup)
+        //    {
+        //        troopsGallery.OnCodexDataReceived -= troopsPopup.OnCodexDatasReceived;
+        //        m_gallery.OnGalleryEntryReceived -= m_popupPage.ShowInfo;
+        //    }
+        //}
     }
 }

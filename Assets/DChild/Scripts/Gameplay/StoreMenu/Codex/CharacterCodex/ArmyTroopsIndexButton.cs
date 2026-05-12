@@ -21,8 +21,7 @@ namespace DChild.Menu.Codex.ArmyTroops
 
 
         private UIButton m_button;
-        public Action<ArmyGroupTemplateData> OnArmyDataSent;
-        public Action<List<CharacterCodexData>> OnCodexDataSent;
+        public Action<ArmyGroupTemplateData, List<CharacterCodexData>> OnEntrySelected;
 
         [SerializeField] private TextMeshProUGUI m_name;
         [SerializeField] private Image m_unitOne;
@@ -49,8 +48,7 @@ namespace DChild.Menu.Codex.ArmyTroops
         }
         public void SetGalleryPopupData()
         {
-            OnCodexDataSent.Invoke(m_codexData);
-            OnArmyDataSent.Invoke(m_armyData);
+            OnEntrySelected.Invoke(m_armyData, codexData);
         }
         #endregion
 

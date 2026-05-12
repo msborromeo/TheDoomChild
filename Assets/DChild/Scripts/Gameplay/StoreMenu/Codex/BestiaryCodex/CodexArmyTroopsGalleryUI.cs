@@ -21,7 +21,7 @@ namespace DChild.Menu.Codex.ArmyTroops
         [Header("Troops Specific UI")]
         [SerializeField] private List<ArmyTroopsIndexButton> m_entryButtons;
 
-        public Action<List<CharacterCodexData>> OnCodexDatasReceived;
+        public Action<List<CharacterCodexData>> OnCodexDataReceived;
 
         protected override void RetrieveEntries()
         {
@@ -52,7 +52,10 @@ namespace DChild.Menu.Codex.ArmyTroops
                 entryButton.SetArmyData(battleData);
 
                 if (battleData.armyCharacterGroup != null)
+                {
+                    entryButton.codexData.Clear();
                     PopulateButtonGroupData(battleData.armyCharacterGroup, entryButton);
+                }
 
                 ResubscribeButtonEvents(entryButton);
 
@@ -77,16 +80,14 @@ namespace DChild.Menu.Codex.ArmyTroops
 
         private void ResubscribeButtonEvents(ArmyTroopsIndexButton button)
         {
-            button.OnCodexDataSent -= PrepareCodexData;
-            button.OnArmyDataSent -= SetPopupEntryData;
-
-            button.OnCodexDataSent += PrepareCodexData;
-            button.OnArmyDataSent += SetPopupEntryData;
+            button.OnEntrySelected -= OnEntrySelected;
+            button.OnEntrySelected += OnEntrySelected;
         }
 
-        private void PrepareCodexData(List<CharacterCodexData> codexDatas)
+        private void OnEntrySelected(ArmyGroupTemplateData armyData, List<CharacterCodexData> codexDatas)
         {
-            OnCodexDatasReceived.Invoke(codexDatas);
+            OnCodexDataReceived.Invoke(codexDatas);
+            SetPopupEntryData(armyData);
         }
 
         private void PopulateButtonGroupData(ArmyCharacterGroup armyGroup, ArmyTroopsIndexButton button)
@@ -111,26 +112,21 @@ namespace DChild.Menu.Codex.ArmyTroops
         }
 
         private bool CheckPlayerProgress(CharacterCodexData data) => m_playerTracker.HasInfoOf(data.id);
-
-
         public override void Initialize()
         {
             base.Initialize();
             if (m_navigationHandle != null)
                 m_navigationHandle.SetupScroll(m_battleDataList.Count, m_entryButtons.Count);
         }
+
         private new void Awake()
         {
+            m_navigationHandle.OnCurrentPageChange -= SetupGalleryEntries;
             m_navigationHandle.OnCurrentPageChange += SetupGalleryEntries;
-            
-            foreach (var button in m_entryButtons)
-                ResubscribeButtonEvents(button);
         }
 
         private void OnDestroy()
         {
-            m_navigationHandle.OnCurrentPageChange -= SetupGalleryEntries;
         }
-
     }
 }
