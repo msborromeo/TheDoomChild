@@ -20,6 +20,7 @@
         public List<InfoType> FilteredList => m_filteredList;
         protected abstract void RetrieveEntries();
         protected abstract bool CheckPlayerProgress(InfoType data);
+        public abstract void SetupGalleryEntries(int page);
         public abstract void SetupGalleryEntries();
         public virtual void Initialize()
         {
