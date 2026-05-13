@@ -21,19 +21,20 @@ namespace DChild.Menu.Codex.ArmyTroops
 
 
         private UIButton m_button;
-        public Action<ArmyGroupTemplateData> OnEntrySelected;
+        public Action<ArmyGroupTemplateData, List<CharacterCodexData>> OnEntrySelected;
 
         [SerializeField] private TextMeshProUGUI m_name;
         [SerializeField] private Image m_unitOne;
         [SerializeField] private Image m_unitTwo;
         [SerializeField] private Image m_unitThree;
-        
+
         [BoxGroup("Icon Handling"), SerializeField] private Image m_typeIcon;
         [BoxGroup("Icon Handling"), FoldoutGroup("Icon Handling/Sprites"), SerializeField] private Sprite m_meleeIcon;
         [BoxGroup("Icon Handling"), FoldoutGroup("Icon Handling/Sprites"), SerializeField] private Sprite m_magicIcon;
         [BoxGroup("Icon Handling"), FoldoutGroup("Icon Handling/Sprites"), SerializeField] private Sprite m_rangedIcon;
 
 
+        #region Setters
         public void SetArmyData(ArmyGroupTemplateData groupData)
         {
             m_armyData = groupData;
@@ -41,7 +42,17 @@ namespace DChild.Menu.Codex.ArmyTroops
             UpdateUI(groupData.armyCharacterGroup);
             UpdateGroupIcon(groupData.damageType);
         }
+        public void AddUnitCodexData(CharacterCodexData codexData)
+        {
+            m_codexData.Add(codexData);
+        }
+        public void SetGalleryPopupData()
+        {
+            OnEntrySelected.Invoke(m_armyData, codexData);
+        }
+        #endregion
 
+        #region UI Visuals
         private void UpdateUI(ArmyCharacterGroup group)
         {
             m_name.text = group.name;
@@ -57,12 +68,19 @@ namespace DChild.Menu.Codex.ArmyTroops
                     SetUnitIcon(group.GetCharacter(i).icon, spriteIcons[i]);
             }
         }
-
         private void SetUnitIcon(Sprite icon, Image target)
         {
             target.sprite = icon;
         }
-
+        private void EnsureReferences()
+        {
+#if UNITY_EDITOR
+            if (m_button == null)
+            {
+                m_button = GetComponent<UIButton>();
+            }
+#endif
+        }
         private void UpdateGroupIcon(DamageType value)
         {
             switch (value)
@@ -78,32 +96,19 @@ namespace DChild.Menu.Codex.ArmyTroops
                     break;
             }
         }
-
-        public void AddUnitCodexData(CharacterCodexData codexData)
-        {
-            m_codexData.Add(codexData);
-        }
-
-        public void Select()
-        {
-            m_button?.Select();
-        }
-
         public void SetInteractable(bool isInteractable)
         {
             EnsureReferences();
             if (m_button != null)
                 m_button.interactable = isInteractable;
         }
-        private void EnsureReferences()
+
+        public void Select()
         {
-#if UNITY_EDITOR
-            if (m_button == null)
-            {
-                m_button = GetComponent<UIButton>();
-            }
-#endif
+            m_button?.Select();
         }
+        #endregion
+
     }
 }
 
