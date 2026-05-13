@@ -4,6 +4,7 @@ using DChild.Menu.Bestiary;
 using DChild.Menu.Codex.Bestiary;
 using DChild.Menu.Codex.Characters;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace DChild.Menu.Codex.ArmyTroops
 
         [Header("Troops Specific UI")]
         [SerializeField] private List<ArmyTroopsIndexButton> m_entryButtons;
+
+        public Action<List<CharacterCodexData>> OnCodexDataReceived;
 
         protected override void RetrieveEntries()
         {
@@ -49,7 +52,10 @@ namespace DChild.Menu.Codex.ArmyTroops
                 entryButton.SetArmyData(battleData);
 
                 if (battleData.armyCharacterGroup != null)
+                {
+                    entryButton.codexData.Clear();
                     PopulateButtonGroupData(battleData.armyCharacterGroup, entryButton);
+                }
 
                 ResubscribeButtonEvents(entryButton);
 
@@ -74,9 +80,14 @@ namespace DChild.Menu.Codex.ArmyTroops
 
         private void ResubscribeButtonEvents(ArmyTroopsIndexButton button)
         {
+            button.OnEntrySelected -= OnEntrySelected;
+            button.OnEntrySelected += OnEntrySelected;
+        }
 
-            button.OnEntrySelected -= SetPopupEntryData;
-            button.OnEntrySelected += SetPopupEntryData;
+        private void OnEntrySelected(ArmyGroupTemplateData armyData, List<CharacterCodexData> codexDatas)
+        {
+            OnCodexDataReceived.Invoke(codexDatas);
+            SetPopupEntryData(armyData);
         }
 
         private void PopulateButtonGroupData(ArmyCharacterGroup armyGroup, ArmyTroopsIndexButton button)
@@ -101,32 +112,21 @@ namespace DChild.Menu.Codex.ArmyTroops
         }
 
         private bool CheckPlayerProgress(CharacterCodexData data) => m_playerTracker.HasInfoOf(data.id);
-
-      
-
-        public override void SetPopupEntryData(ArmyGroupTemplateData data)
-        {
-            Debug.Log($"received data: {data}");
-            base.SetPopupEntryData(data);
-        }
-
         public override void Initialize()
         {
             base.Initialize();
             if (m_navigationHandle != null)
-            {
                 m_navigationHandle.SetupScroll(m_battleDataList.Count, m_entryButtons.Count);
-            }
         }
+
         private new void Awake()
         {
+            m_navigationHandle.OnCurrentPageChange -= SetupGalleryEntries;
             m_navigationHandle.OnCurrentPageChange += SetupGalleryEntries;
         }
 
         private void OnDestroy()
         {
-            m_navigationHandle.OnCurrentPageChange -= SetupGalleryEntries;
         }
-
     }
 }
