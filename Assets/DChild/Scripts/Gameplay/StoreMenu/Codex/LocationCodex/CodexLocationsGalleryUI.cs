@@ -76,6 +76,8 @@ namespace DChild.Menu.Codex.Locations
             {
                 m_navigationHandle.SetupScroll(m_completeList.Count, m_entryButtons.Count);
             }
+
+            m_entryButtons[0].SetGalleryPopupData();
         }
         private new void Awake()
         {
