@@ -110,6 +110,7 @@ namespace DChild.Codex.LocationCodex
         public string indexName => m_customName;
 
         public Sprite indexImage => m_indexImage;
+        public Sprite infoImage => m_infoImage;
 
         public Location[] locatedIn => m_locatedIn;
 
