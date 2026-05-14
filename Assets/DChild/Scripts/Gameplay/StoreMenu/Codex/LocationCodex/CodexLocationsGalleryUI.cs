@@ -1,31 +1,14 @@
-using DChild.Gameplay.SoulSkills.UI;
-using DChild.Menu.Bestiary;
-using Holysoft.Event;
+﻿using DChild.Codex.LocationCodex;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-
-namespace DChild.Menu.Codex.Bestiary
+namespace DChild.Menu.Codex.Locations
 {
-    public class CodexBestiaryGalleryUI : CodexGalleryUI<BestiaryData, BestiaryCodexProgressTracker>
+    public class CodexLocationsGalleryUI : CodexGalleryUI<LocationCodexData, LocationCodexProgressTracker>
     {
-        [Header("Bestiary Specific UI")]
-        [SerializeField, AssetSelector] private BestiaryList m_completeList;
-        [SerializeField] private List<BestiaryCodexIndexButton> m_entryButtons;
-
-        protected override void RetrieveEntries()
-        {
-            if (m_filteredList.Count > 0) return;
-            m_filteredList = m_completeList.GetIDs()
-                .Select(id => m_completeList.GetInfo(id))
-                .ToList();
-        }
-
-        public void OnPageChange(object sender, EventActionArgs args)
-        {
-            SetupGalleryEntries();
-        }
+        [Header("Locations Specific UI")]
+        [SerializeField, AssetSelector] private List<LocationCodexData> m_completeList;
+        [SerializeField] private List<LocationCodexIndexButton> m_entryButtons;
 
         public override void SetupGalleryEntries(int page)
         {
@@ -52,12 +35,13 @@ namespace DChild.Menu.Codex.Bestiary
                 if (!hasSelectedFirst && isUnlocked)
                 {
                     entryButton.Select();
+                    entryButton.SetGalleryPopupData();
                     hasSelectedFirst = true;
                 }
             }
         }
 
-        private bool SetUnlockedStatus(BestiaryCodexIndexButton button, BestiaryData data)
+        private bool SetUnlockedStatus(LocationCodexIndexButton button, LocationCodexData data)
         {
             bool isUnlocked = m_revealAllData || CheckPlayerProgress(data);
             button.SetInteractable(isUnlocked);
@@ -65,20 +49,27 @@ namespace DChild.Menu.Codex.Bestiary
             return isUnlocked;
         }
 
-        private void ResubscribeButtonEvents(BestiaryCodexIndexButton button)
+        private void ResubscribeButtonEvents(LocationCodexIndexButton button)
         {
             button.OnEntrySelected -= SetPopupEntryData;
             button.OnEntrySelected += SetPopupEntryData;
         }
-
-
-        public override void SetupGalleryEntries() => SetupGalleryEntries(0);
-
-        protected override bool CheckPlayerProgress(BestiaryData data)
+        public override void SetupGalleryEntries()
         {
-            return m_playerTracker.HasInfoOf(data.id);
+            SetupGalleryEntries(0);
         }
 
+        protected override bool CheckPlayerProgress(LocationCodexData data)
+        {
+            return m_playerTracker != null && m_playerTracker.HasInfoOf(data.id);
+        }
+
+        protected override void RetrieveEntries()
+        {
+            if (m_filteredList.Count > 0) return;
+
+            m_filteredList = m_completeList;
+        }
         public override void Initialize()
         {
             base.Initialize();
@@ -86,6 +77,7 @@ namespace DChild.Menu.Codex.Bestiary
             {
                 m_navigationHandle.SetupScroll(m_completeList.Count, m_entryButtons.Count);
             }
+
         }
         private new void Awake()
         {
@@ -98,3 +90,4 @@ namespace DChild.Menu.Codex.Bestiary
         }
     }
 }
+
