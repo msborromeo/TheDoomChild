@@ -26,8 +26,6 @@ namespace DChild.Menu.Codex.Locations
 
         protected override void UpdateInfo()
         {
-            gameObject.SetActive(m_showDataOf != null);
-
             if (m_showDataOf == null)
             {
                 m_locationName.text = "";

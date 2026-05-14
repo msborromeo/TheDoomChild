@@ -35,6 +35,7 @@ namespace DChild.Menu.Codex.Locations
                 if (!hasSelectedFirst && isUnlocked)
                 {
                     entryButton.Select();
+                    entryButton.SetGalleryPopupData();
                     hasSelectedFirst = true;
                 }
             }
