@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3621218809233962131}
   - component: {fileID: 8130507662315014984}
   m_Layer: 5
-  m_Name: Image - ArmyUnit (1)
+  m_Name: Image - ArmyUnit (Left)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 2597901732847019936}
   - component: {fileID: 7064246849388942949}
   m_Layer: 5
-  m_Name: Image - ArmyUnit (3)
+  m_Name: Image - ArmyUnit (Middle)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -218,9 +218,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 95cb21fb3f7bd32488ca908e91671e67, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9d8d06b1ac3fa154f8c9901dc3f79537, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -237,6 +237,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2329003250443689434}
+  - component: {fileID: 4200144997454937133}
   m_Layer: 0
   m_Name: Section - ArmyUnits
   m_TagString: Untagged
@@ -267,6 +268,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.000030517578}
   m_SizeDelta: {x: 0, y: -0.000030517578}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4200144997454937133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3009262928961747977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d82b9c87ab13a1b4084aa247100c6247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_firstModel: {fileID: 8130507662315014984}
+  m_secondModel: {fileID: 7064246849388942949}
+  m_thirdModel: {fileID: 3802941960705006751}
 --- !u!1 &3242603450636714972
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -760.8, y: 244.03949}
+  m_AnchoredPosition: {x: -760.80054, y: 244.03957}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &8814067238413202452
@@ -402,7 +418,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_Spacing: 50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
@@ -611,7 +627,7 @@ GameObject:
   - component: {fileID: 5514616731552244796}
   - component: {fileID: 3802941960705006751}
   m_Layer: 5
-  m_Name: Image - ArmyUnit (2)
+  m_Name: Image - ArmyUnit (Right)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -709,10 +725,10 @@ RectTransform:
   m_Father: {fileID: 6932312229381595803}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 57.4}
-  m_SizeDelta: {x: 208.34998, y: 0}
+  m_SizeDelta: {x: 0.000030517578, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5685298798510308646
 CanvasRenderer:
@@ -742,7 +758,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Magic
+  m_text: Range
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03de9f858562ece4c9ac9d91b56d9ad5, type: 2}
   m_sharedMaterial: {fileID: 21213444537982326, guid: 03de9f858562ece4c9ac9d91b56d9ad5,
@@ -892,7 +908,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Skill description goes here
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a576fbe1b6faba498194776bfd96bc4, type: 2}
   m_sharedMaterial: {fileID: 21892830720195836, guid: 6a576fbe1b6faba498194776bfd96bc4,
@@ -956,7 +972,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 22, y: 16, z: 38.554688, w: 16}
+  m_margin: {x: 32, y: 16, z: 40, w: 16}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -971,6 +987,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5851195673898638151}
+  - component: {fileID: 818129460078771574}
   m_Layer: 0
   m_Name: Section - ArmySkill
   m_TagString: Untagged
@@ -985,7 +1002,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7960723720905109945}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1000,6 +1017,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &818129460078771574
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7960723720905109945}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &113463554035509806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1112,13 +1141,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 06facc9c1e2059544bd8ac05f4fdefdf,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Monster
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cc7f32cd2e0280e46b86ece7f4262ad0,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9ebf7903bcb717b4e86dd5480c62a448,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &7746005263711082979 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 113463554035509806}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &133814055608766829
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1130,6 +1200,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: REUSABLE - HorizontalLayout - GalleryRow (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8325908891523153697, guid: 598846510dd2f1f4c98702d6360fc875,
         type: 3}
@@ -1356,13 +1431,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4242ff161bc1a1747b8fda4012c1f803,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: The Foxes IV
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 09fbd6edb7657dd4dbcd4f464e0bca41,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6941a9856ccf04447aa9bb30544fcc5d,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &7635636628517900173 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 223903662952823872}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &275498951231620646
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1374,6 +1484,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: REUSABLE - HorizontalLayout - GalleryRow (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8325908891523153697, guid: 598846510dd2f1f4c98702d6360fc875,
         type: 3}
@@ -1600,13 +1720,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 02cfca3ec2465114f919cd3631762c04,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Food Family
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4eeb18afeef8e9542a886ba8d7d91238,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &8010697643778512053 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 416577672496899960}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &601225499477447806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1719,13 +1874,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f489bbbb4f367f14f85f0ad9053e998d,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Magical Weapons
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 53a6e32362dc96142a66b33e374337b7,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f6d5401e8e130584ea1d114e9c0225a3,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &7114481621133289395 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 601225499477447806}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1420499810302020727
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1838,13 +2034,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 774b3b7d157de5f4d9b2f50ee2f5a06b,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: The Foxes III
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1f3ab40d9ca0ce54da23356340d61daa,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b3d6ba524be937a4280ea4af80659975,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &8744562426545749946 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 1420499810302020727}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1662955091472047366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1960,10 +2197,27 @@ PrefabInstance:
     - target: {fileID: 7055127549380311425, guid: 2bf726a47544ddc40a67a7cc884c363d,
         type: 3}
       propertyPath: m_Name
-      value: Section - UnitEntry (1)
+      value: Section - UnitEntry (Left)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055127549380311425, guid: 2bf726a47544ddc40a67a7cc884c363d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bf726a47544ddc40a67a7cc884c363d, type: 3}
+--- !u!114 &2785299961035379927 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3581310955469015505, guid: 2bf726a47544ddc40a67a7cc884c363d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1662955091472047366}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b54c9c2f6c415c45a898ae2bf1360d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3011322226323637687 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4530160823512602801, guid: 2bf726a47544ddc40a67a7cc884c363d,
@@ -2082,13 +2336,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 95856b439ea1ddc4399173d8a8951ef4,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: HeroParty
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 25b0c226661c56c4f8c18a2e5f82a9b4,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6804bbe6d15da9b4b9af72383564cc44,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &5410375736853964689 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 2448207972923462748}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2742788931213297959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2225,6 +2520,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 728766446536469477, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnValueChangedCallback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4298022075898519332}
+    - target: {fileID: 728766446536469477, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnValueChangedCallback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HandleScroll
+      objectReference: {fileID: 0}
+    - target: {fileID: 728766446536469477, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnValueChangedCallback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DChild.Menu.Codex.CodexScrollNavigationHandle, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 740321600739260064, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
@@ -2466,6 +2776,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3252272291866841929, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: m_text
+      value: Detectives
       objectReference: {fileID: 0}
     - target: {fileID: 3252272291866841929, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
@@ -3613,8 +3928,78 @@ PrefabInstance:
       objectReference: {fileID: 1624082872742578169}
     - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6605720196745569737}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
       propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Initialize
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DChild.Menu.Codex.ArmyTroops.CodexArmyTroopsGalleryUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8697649165039274328, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
@@ -3725,6 +4110,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Codex Section - ArmyGroups Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274331, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8697692419956522776, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
@@ -3844,6 +4234,233 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 68217dfce821b1c40bcff36312662051, type: 3}
+--- !u!114 &806773714841901678 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3252272291866841929, guid: 68217dfce821b1c40bcff36312662051,
+    type: 3}
+  m_PrefabInstance: {fileID: 2742788931213297959}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2757472793937368917 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 23884576110108274, guid: 68217dfce821b1c40bcff36312662051,
+    type: 3}
+  m_PrefabInstance: {fileID: 2742788931213297959}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8337330523510665343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2757472793937368917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4883485a563d5409a7ebb2bb9c1b4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_groupInfoUI: {fileID: 5137213944936419531}
+  m_modelsUI: {fileID: 4200144997454937133}
+  m_entriesUI:
+  - {fileID: 2785299961035379927}
+  - {fileID: 69142709411917603}
+  - {fileID: 5439601712613961690}
+--- !u!114 &3174265023569601218 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 728766446536469477, guid: 68217dfce821b1c40bcff36312662051,
+    type: 3}
+  m_PrefabInstance: {fileID: 2742788931213297959}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3467139788497372336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6d751abed448a38b1fe69abef0adc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3194739861812354017 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 740181306843632326, guid: 68217dfce821b1c40bcff36312662051,
+    type: 3}
+  m_PrefabInstance: {fileID: 2742788931213297959}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5137213944936419531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194739861812354017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae61df75d49d1bf49920a2ff5a746208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_groupName: {fileID: 806773714841901678}
+  m_skillDescription: {fileID: 6174099538134422197}
+  m_damageType: {fileID: 4688827758025137855}
+  m_iconType: {fileID: 9030646522041712940}
+  m_meleeIcon: {fileID: 21300000, guid: e33f40a5ae0687947815fdfc930e28bf, type: 3}
+  m_magicIcon: {fileID: 21300000, guid: 95cb21fb3f7bd32488ca908e91671e67, type: 3}
+  m_rangedIcon: {fileID: 21300000, guid: 9d8d06b1ac3fa154f8c9901dc3f79537, type: 3}
+--- !u!1 &3467139788497372336 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1589094764539923863, guid: 68217dfce821b1c40bcff36312662051,
+    type: 3}
+  m_PrefabInstance: {fileID: 2742788931213297959}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4298022075898519332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3467139788497372336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e4022f642817bc4dbaa6be5e7fd81a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_scrollBar: {fileID: 3174265023569601218}
+  m_pageLabel: {fileID: 0}
+--- !u!1 &4934841366533065918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7092127161746507161, guid: 68217dfce821b1c40bcff36312662051,
+    type: 3}
+  m_PrefabInstance: {fileID: 2742788931213297959}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5114170802353418600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4934841366533065918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55155a8bff4db0a4cab507f17452db3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_gallery: {fileID: 6605720196745569737}
+  m_popupPage: {fileID: 8337330523510665343}
+--- !u!114 &6605720196745569737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4934841366533065918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc6685018ce0a08469530ba725fa5802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_playerTracker: {fileID: 0}
+  m_revealAllData: 1
+  m_navigationHandle: {fileID: 4298022075898519332}
+  m_battleDataList:
+  - {fileID: 11400000, guid: 52a2cd3eadf616148ba65f0a143dc51d, type: 2}
+  - {fileID: 11400000, guid: a92130e97e9c97846893561d050d5f48, type: 2}
+  - {fileID: 11400000, guid: db0a414ae6537bd4ca9c904cd68f422e, type: 2}
+  - {fileID: 11400000, guid: 81298b998388ed44f8911204a160a6f9, type: 2}
+  - {fileID: 11400000, guid: f5eb43d7a85fa4f4f94f77433f0b3320, type: 2}
+  - {fileID: 11400000, guid: 38652f58a1848574b86e3fb5c70824fa, type: 2}
+  - {fileID: 11400000, guid: 18e3dc863a8439945a37a9969ae9e97a, type: 2}
+  - {fileID: 11400000, guid: e24be8303111d9f40bbf435e481496cc, type: 2}
+  - {fileID: 11400000, guid: 2bfcc175971447942ba8e5f3f48cfcb0, type: 2}
+  - {fileID: 11400000, guid: 8bfa3249262928c49ba60cae48da28fe, type: 2}
+  - {fileID: 11400000, guid: 6d1e7461bb262774f83d5ef25d9c59ae, type: 2}
+  - {fileID: 11400000, guid: 59f53d89068e4ff44b77159ed2d316d9, type: 2}
+  - {fileID: 11400000, guid: 89e8e1773f085c742b6a7ea4377777ef, type: 2}
+  - {fileID: 11400000, guid: c64ccb3b8740616429d5c471c25791e1, type: 2}
+  - {fileID: 11400000, guid: 467f4196778f1d145b9979b37555ffcc, type: 2}
+  - {fileID: 11400000, guid: 1f378800fc7443e4face24e63a733d29, type: 2}
+  - {fileID: 11400000, guid: 8006a0ff943e3084292fe6d9a48a47c3, type: 2}
+  - {fileID: 11400000, guid: a9651ea1aa7683b4693dd78457dd6800, type: 2}
+  - {fileID: 11400000, guid: dacf83922c790d8488981db91713c2f8, type: 2}
+  - {fileID: 11400000, guid: 8400ac439fcbdff458ad291c9719ed29, type: 2}
+  - {fileID: 11400000, guid: 9c47aa5a4626d8945b8524c3744980e8, type: 2}
+  - {fileID: 11400000, guid: b881040d3864f194e93a3a311b2d01c1, type: 2}
+  - {fileID: 11400000, guid: 7a01b42ee2cb05445a0bed0bd7ad7d49, type: 2}
+  - {fileID: 11400000, guid: e2caae28528aef34a8b3f3423c057cb2, type: 2}
+  - {fileID: 11400000, guid: e950ad0b59e0c6041b930f5d731cf40f, type: 2}
+  - {fileID: 11400000, guid: 47623ea5b62c95c4c88b99d8bf1b16bc, type: 2}
+  - {fileID: 11400000, guid: 25bd1bf16fbdaa54390d1448ffd2812d, type: 2}
+  - {fileID: 11400000, guid: fbf684f1f66336046ba25d9bdd324ec1, type: 2}
+  - {fileID: 11400000, guid: 4dacd6280e7f2624fb75420274d86a22, type: 2}
+  - {fileID: 11400000, guid: 34f560754c701a64c8a6c0d7bcb6446d, type: 2}
+  - {fileID: 11400000, guid: 644d826caf3fb6f45ab7472fa045f8c2, type: 2}
+  - {fileID: 11400000, guid: b78e0413939a143458519b8ac195705c, type: 2}
+  - {fileID: 11400000, guid: 5eaf05b0a8a0e964d8151fd788610605, type: 2}
+  - {fileID: 11400000, guid: bbf7f7f893158e0458332fbbf9bfb6eb, type: 2}
+  - {fileID: 11400000, guid: c44e3c44a4eb67a488fd602795bcdc64, type: 2}
+  - {fileID: 11400000, guid: bfbbafe8dd3962b448989dfdaec6f5a5, type: 2}
+  - {fileID: 11400000, guid: 8eba01bb5ff655c478d3ccb14b6945a5, type: 2}
+  - {fileID: 11400000, guid: 5ac473dc662dead4d9b21bac4343459b, type: 2}
+  - {fileID: 11400000, guid: fdd22fdd4290453429ddf8819be86e8e, type: 2}
+  - {fileID: 11400000, guid: ecc745deb9df8284a98a791197ff3803, type: 2}
+  - {fileID: 11400000, guid: efa5a75a059178f488a09d94e23616cc, type: 2}
+  - {fileID: 11400000, guid: 4e217586fefc3d34a88c9ca5f0c636ec, type: 2}
+  - {fileID: 11400000, guid: 9b3d8292a219da149b55ad8180276935, type: 2}
+  - {fileID: 11400000, guid: 495612416e374c5469d0dbf9bd2a15bd, type: 2}
+  - {fileID: 11400000, guid: d5d85c1361099484baba0d6bbc2b9381, type: 2}
+  - {fileID: 11400000, guid: e239788170c916442b64e294852630b3, type: 2}
+  - {fileID: 11400000, guid: 4bfdc7ac86d540340969f7038c3fc1d0, type: 2}
+  - {fileID: 11400000, guid: ddc68c9f730a749478f5481db00897d1, type: 2}
+  - {fileID: 11400000, guid: a801e5b5ac95c384683a454854722f18, type: 2}
+  - {fileID: 11400000, guid: 9f72744df3d86fa4495534cd3c84bd31, type: 2}
+  - {fileID: 11400000, guid: bf4a38e8d54a5494ab1162e0568e34a2, type: 2}
+  - {fileID: 11400000, guid: 613923ccf82e8ca4fab8467dff478d60, type: 2}
+  - {fileID: 11400000, guid: f9ab99cc7f6450b419ac5593d9f61474, type: 2}
+  - {fileID: 11400000, guid: eb1bd10febd51804fb8b5d6d9e948ffb, type: 2}
+  - {fileID: 11400000, guid: 7d591fd61bba91d4387820a04b9a8ac0, type: 2}
+  - {fileID: 11400000, guid: 4c89820f28b189d48bf596efde1d1f21, type: 2}
+  m_codexDataList: {fileID: 11400000, guid: b5f4ffc3bbc2b1b47844b9c39b646842, type: 2}
+  m_entryButtons:
+  - {fileID: 4488776876298792822}
+  - {fileID: 5151300368368662748}
+  - {fileID: 8744562426545749946}
+  - {fileID: 7635636628517900173}
+  - {fileID: 4197945829755692185}
+  - {fileID: 6718093489907341892}
+  - {fileID: 6282457002942689865}
+  - {fileID: 5153496956770322522}
+  - {fileID: 5939127852319896343}
+  - {fileID: 101575869777070689}
+  - {fileID: 77912252162070975}
+  - {fileID: 3799911676014013409}
+  - {fileID: 388193163243933291}
+  - {fileID: 2041602457744325935}
+  - {fileID: 3932328324438731664}
+  - {fileID: 3814221009111912595}
+  - {fileID: 158672457636346478}
+  - {fileID: 5410375736853964689}
+  - {fileID: 6852947842964456511}
+  - {fileID: 3163003034772307515}
+  - {fileID: 6037811079827226930}
+  - {fileID: 490496791886612823}
+  - {fileID: 4386526657730432135}
+  - {fileID: 1561206603287901896}
+  - {fileID: 1524561982097936036}
+  - {fileID: 7114481621133289395}
+  - {fileID: 1331562979668642289}
+  - {fileID: 6346083595538230751}
+  - {fileID: 365143137681227988}
+  - {fileID: 7746005263711082979}
+  - {fileID: 2893100299494300411}
+  - {fileID: 336036396774335874}
+  - {fileID: 8010697643778512053}
+  - {fileID: 3907247648788994049}
+  - {fileID: 3546556602776536870}
+  - {fileID: 1048888500040086257}
+  - {fileID: 4590651275538183032}
+  - {fileID: 4897702208661172984}
+  - {fileID: 5149834141450199873}
+  - {fileID: 2819286849579831012}
 --- !u!224 &7280799686875881337 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4835389068652353118, guid: 68217dfce821b1c40bcff36312662051,
@@ -3968,13 +4585,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0d561de90a56bfe4aabdca49d23be863,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Worker II
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: eea757c449a0d934d90df5fd7fd28005,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 694505b988f12214bbbe78a9b1e2bdf4,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &4897702208661172984 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 2960111847272235317}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3272052126148819863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4087,13 +4739,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 71b541bc3a6b2dc448554c5f225d3393,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Merchants
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 03877e4874299014bb84da3ef4098c31,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e07d3788aff1e7d47ac04c8f6b30ce70,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &5153496956770322522 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 3272052126148819863}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3283498355044420369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4206,13 +4899,59 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3dde99a4b076d624e93b55d3886f9da5,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: The Foxes II
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 53e7937d047dddc42bac507842d0962d,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4fde9e19af268e24a905811e8728a2a5,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &5151300368368662748 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 3283498355044420369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3286412642132037772
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4325,13 +5064,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: addbd65299e8e8d48945502fee632e49,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Worker III
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 92501c44028400f489ef08e0f5dbac5e,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 066d7142b7b673648b8a06949a82bcf7,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &5149834141450199873 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 3286412642132037772}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3550802138613163762
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4447,7 +5227,12 @@ PrefabInstance:
     - target: {fileID: 7055127549380311425, guid: 2bf726a47544ddc40a67a7cc884c363d,
         type: 3}
       propertyPath: m_Name
-      value: Section - UnitEntry (2)
+      value: Section - UnitEntry (Middle)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055127549380311425, guid: 2bf726a47544ddc40a67a7cc884c363d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7498504063363647521, guid: 2bf726a47544ddc40a67a7cc884c363d,
         type: 3}
@@ -4456,6 +5241,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bf726a47544ddc40a67a7cc884c363d, type: 3}
+--- !u!114 &69142709411917603 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3581310955469015505, guid: 2bf726a47544ddc40a67a7cc884c363d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3550802138613163762}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b54c9c2f6c415c45a898ae2bf1360d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1123831721433775683 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4530160823512602801, guid: 2bf726a47544ddc40a67a7cc884c363d,
@@ -4574,13 +5371,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fe79418dd1c1e4344b22c07e1bdeb277,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Silverstar Family
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0f78b4eb2c4fb2a44ab3a5c453557b00,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a24e35b56f7f42c46bbd2d7a9c8dcfa4,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &6346083595538230751 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 3674265868529704466}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3888510824756443122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4693,13 +5531,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 39c1dad2407bcf34887a15f0572a7386,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Circus Troop
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7598f2ac980e5464db36a59237e9b9eb,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3fd76fd0853c5154b82419aaadd68a32,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &6852947842964456511 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 3888510824756443122}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4023748909418015113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4812,13 +5685,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c12724b75e8a19043b70844b67b2fd4f,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Pirates
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3d5dfbdfdefc0a94aa1e8709df80837c,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d3e41a485c6717e49b2b5a0b719e6087,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &6718093489907341892 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 4023748909418015113}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4071334806444867802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4931,13 +5845,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ea2992bb26b5f5d419dddd8dbab9a858,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Weapon Smiths
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c861b61594af06d44a8437f0d6a2e9a1,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 589ed710cd9ee064fa1f938020c781e1,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &5939127852319896343 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 4071334806444867802}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4118208779700826879
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5050,13 +6005,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 914378ea6bee1a44193ba0771dfced09,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Original Characters
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2a736033526deb1419a345e0a5e13f4e,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 10576a3775638b343b5f047806de1360,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &6037811079827226930 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 4118208779700826879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4450551922111480196
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5169,13 +6165,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c0c3b90958c22514fa64706ed333acf0,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Pirates II
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b8701ce964f652a4d9e6ed534cd9ec6f,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0bfabaffa730ba847957a6c8b6b300cb,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &6282457002942689865 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 4450551922111480196}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4686403053763857910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5288,13 +6325,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: eca1c72a47110404182c274c5b339d51,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Circus Troop II
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 93ee74e7e9a9c504094523d55b3eaa73,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b5d1345da4f70414d9ea98ad15938fe2,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &3163003034772307515 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 4686403053763857910}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4812684835570870582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5407,13 +6479,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 81fd3dca3a6804c4ea9822f9597011b9,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Creature Family
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 641b4f86862229c4596d470313303b11,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9a513e4f232f04d40b5d2ccaa537ed6d,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &2893100299494300411 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 4812684835570870582}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5059516740808295685
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5425,6 +6538,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: REUSABLE - HorizontalLayout - GalleryRow (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8325908891523153697, guid: 598846510dd2f1f4c98702d6360fc875,
         type: 3}
@@ -5651,13 +6774,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b5a08be73eb00e444a02e7b0a38bfb0a,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Fairytale Creatures
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e2d93a6cb26c44749b9a5da635faf896,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 553f54e51d93d0d42b5e5da4891d2401,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &2819286849579831012 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 5605946126027046185}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5813677913254975316
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5770,13 +6934,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d35c869a116cb4d4d8ac28f472906b47,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Guards
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 34494ae4f67adf54eb9e3f4571bbd7d7,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3d3d158a57011db4a86e068cafa55b35,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &4197945829755692185 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 5813677913254975316}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5972507414664145401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5788,6 +6993,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: REUSABLE - HorizontalLayout - GalleryRow (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8325908891523153697, guid: 598846510dd2f1f4c98702d6360fc875,
         type: 3}
@@ -6014,11 +7229,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6a5c583c32e6aac4ebab87ff2188c6d4,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: The Foxes
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 06dea55109433fa4cbc23abce151416a,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c463b2a8dfe01d9488e45a9930f5f676,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
 --- !u!1 &1624082872742578169 stripped
@@ -6027,6 +7271,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6099873865389153467}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4488776876298792822 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 6099873865389153467}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624082872742578169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6149956921011388597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6139,13 +7395,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e7d712506b6ca974c9d31ac7b404cd5a,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Worker
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3a624e7ce3aeaaf43aed254134090703,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 031ffb8640fbc954dbe3b3b5ad7d9e8a,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &4590651275538183032 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 6149956921011388597}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6185820509936308643
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6157,6 +7448,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: REUSABLE - HorizontalLayout - GalleryRow (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8325908891523153697, guid: 598846510dd2f1f4c98702d6360fc875,
         type: 3}
@@ -6383,13 +7684,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 29acae24e293f62418975832f60d7d64,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Thief Family (Ali Papa)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1a4bedb9cbfc6dd48bfa958d24264fdf,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5eac1b26e86be1141b30a6674b9646b0,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &4386526657730432135 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 6200435232085032778}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6619071336024945899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6502,13 +7844,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3eadcb5e43983474db2faf3543fe40d0,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Cat People
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0f619a2ba02424e4f83465f7a893c599,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ae89ae4b67fd963499301fda48b84e8c,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &3546556602776536870 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 6619071336024945899}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6664804054340982877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6621,13 +8004,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 88bf49376cf29d642b456c8cc4b9361e,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Warrior Friends
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4ab8b61da56364b47a41d106cb5d974f,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &3932328324438731664 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 6664804054340982877}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6689280549325843404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6740,13 +8158,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 00b22db8a3a33bd49aac01b7cd1e1a9c,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Guest Characters
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b084d24d82386304785e7013dc0883ef,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 882f03a38c85a9147913195c94788fba,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &3907247648788994049 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 6689280549325843404}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6774146060823683934
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6859,13 +8318,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 785e758375904f242b2910ea2755d46f,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Mages
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cc18cf545cbeade47a0838c083944420,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 76cfbab9b145e3e49a15588f56d83a01,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &3814221009111912595 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 6774146060823683934}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6798099757884495916
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6978,13 +8478,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2ee1d6075abfca54f958b8e76e424a62,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Gamblers
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7ce79413196c71c4688ba9427be7afe9,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2479166e7b26f414988d019498d5729a,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &3799911676014013409 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 6798099757884495916}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7233390919378190652
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7097,13 +8638,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 21a36810f4ca40c4caf0fc57969f5b72,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Monster Hunter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d6e226f8ca749d044b4a592a087ff277,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: aa653b6ba73851c4b9af3a00c3ff0e11,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &1048888500040086257 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 7233390919378190652}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7557035765608090019
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7216,13 +8798,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e8c104e0546225e42b956992a28c96fa,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Magic Beings
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3001c88e6d9e3cd4fbe605b5a1299590,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5ab40e30b8f6af64fa79b575f4b47750,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &158672457636346478 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 7557035765608090019}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7747478372755913132
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7335,13 +8958,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8212ac4b0016ddf4fa00018349ae84dd,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Handwerker
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 469fbebd8fd04cc4190ee650f88003ac,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3a43304f13bde1f4eb1e0cd0332d319c,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &101575869777070689 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 7747478372755913132}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7780110162332101234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7454,13 +9118,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e3a640633774c974284b3f707f4832d6,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Scientiests
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fc27891795923e9489250449752a1739,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: abbe4368a664cca478c6f8b83ffbf1da,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &77912252162070975 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 7780110162332101234}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7792023422592989850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7573,13 +9272,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 328ef5f0924b0f34d8424569765bcd13,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Original Characters II
+      objectReference: {fileID: 0}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0da4116ae800f8c40bd303ba235e4cf6,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &490496791886612823 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 7792023422592989850}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7929812582774395219
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7591,6 +9325,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: REUSABLE - HorizontalLayout - GalleryRow (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8325908891523153697, guid: 598846510dd2f1f4c98702d6360fc875,
         type: 3}
@@ -7817,13 +9561,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c4e37661eb52b5645960bec43e5d389c,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Gargoyle Family
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c8366bb7dd1baf1469b7c0201b98a113,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 47deedff8bfe17c409d8bf1b091d9efe,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &336036396774335874 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 7945928012563043919}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8038766588931915174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7936,13 +9715,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f9859c06cddc99645832567b44502221,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Assassin
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2d18fd4bf63571d46850b2a3e2518ff4,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c37a84248affc0248adb5a890282697f,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bc137dfe7560074e8ee0d6bb1356a70,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &388193163243933291 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 8038766588931915174}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8069733104658035481
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8055,13 +9875,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f0315e64b5eaa054fb9e0e9f12b7cbcc,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Silverstar FamilyII
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f9cc0c2b27dc0ec4d9f616807f2ea29d,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d97492808d49dec43a921103ac1d16df,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &365143137681227988 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 8069733104658035481}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8188303955756719512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8073,6 +9928,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: REUSABLE - HorizontalLayout - GalleryRow (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8325908891523153697, guid: 598846510dd2f1f4c98702d6360fc875,
         type: 3}
@@ -8299,13 +10164,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e405d09f41435fe4989cc7444e2f4396,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Paladins
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 26acc1467e2741b4581c9a425875724e,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 06bdb0d23357cab4db557fddf2bf8a28,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &2041602457744325935 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 8554999402246786786}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8689384622112815676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8418,13 +10324,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a43ff5c87c1b9cc479e93a539bc2a94c,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Mystery Characters
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dc86e8de2aa4191418b7f8cb75ed1a47,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 57b3be427c38c0440b0d5277fe7e0b88,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &1331562979668642289 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 8689384622112815676}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8814697490745752935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8436,6 +10383,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: REUSABLE - HorizontalLayout - GalleryRow (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344735544023102777, guid: 598846510dd2f1f4c98702d6360fc875,
+        type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8325908891523153697, guid: 598846510dd2f1f4c98702d6360fc875,
         type: 3}
@@ -8665,7 +10622,7 @@ PrefabInstance:
     - target: {fileID: 7055127549380311425, guid: 2bf726a47544ddc40a67a7cc884c363d,
         type: 3}
       propertyPath: m_Name
-      value: Section - UnitEntry (3)
+      value: Section - UnitEntry (Right)
       objectReference: {fileID: 0}
     - target: {fileID: 7498504063363647521, guid: 2bf726a47544ddc40a67a7cc884c363d,
         type: 3}
@@ -8680,6 +10637,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8849018809332540939}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5439601712613961690 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3581310955469015505, guid: 2bf726a47544ddc40a67a7cc884c363d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8849018809332540939}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b54c9c2f6c415c45a898ae2bf1360d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9171238818836858117
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8792,13 +10761,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d58f13f9477136544ae6fb31f9474497,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Thief Family II
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a2e336c2c8c0ba84e8faa4a8170fdf7a,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d89c48128859ff4499b8015bfcd08d61,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &1561206603287901896 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 9171238818836858117}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9206511251796016489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8911,10 +10915,51 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168334766871613534, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cf0df6c63e0617146bac9eb7e26db771,
+        type: 3}
+    - target: {fileID: 2262246544882764555, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_text
+      value: Magical Characters
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233333798623789786, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f8b0197d36c1804478015d6f5e4aa30a,
+        type: 3}
     - target: {fileID: 4769026350644960066, guid: ffcfe6000e3a03d41b7ed74424dbf859,
         type: 3}
       propertyPath: m_Name
       value: Button - ArmyGroupsEntry (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5393813254679003345, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cf4a1fd0d2850d4458290b36e6732e4d,
+        type: 3}
+    - target: {fileID: 8543571613993248417, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 957c3dc6c0ad9724d994c6603b520862,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcfe6000e3a03d41b7ed74424dbf859, type: 3}
+--- !u!114 &1524561982097936036 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7704616896442889165, guid: ffcfe6000e3a03d41b7ed74424dbf859,
+    type: 3}
+  m_PrefabInstance: {fileID: 9206511251796016489}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cebaa40c7eed48847e622cf2cdd0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
