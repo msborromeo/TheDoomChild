@@ -102,16 +102,16 @@ namespace DChild.Codex.Tutorial
 
 
 
-        [SerializeField, MinValue(1), MaxValue(4)]
+        [SerializeField, MinValue(0), MaxValue(4), ToggleGroup("m_enableEdit")]
         private int m_numberOfActions = 1;
 
-        [SerializeField]
+        [SerializeField, ShowIf("@m_numberOfActions > 0"), ToggleGroup("m_enableEdit")]
         private InputActionConfiguration m_actionConfiguration1;
-        [SerializeField, ShowIf("@m_numberOfActions > 1")]
+        [SerializeField, ShowIf("@m_numberOfActions > 1"), ToggleGroup("m_enableEdit")]
         private InputActionConfiguration m_actionConfiguration2;
-        [SerializeField, ShowIf("@m_numberOfActions > 2")]
+        [SerializeField, ShowIf("@m_numberOfActions > 2"), ToggleGroup("m_enableEdit")]
         private InputActionConfiguration m_actionConfiguration3;
-        [SerializeField, ShowIf("@m_numberOfActions > 3")]
+        [SerializeField, ShowIf("@m_numberOfActions > 3"), ToggleGroup("m_enableEdit")]
         private InputActionConfiguration m_actionConfiguration4;
 
 
@@ -130,6 +130,12 @@ namespace DChild.Codex.Tutorial
         public Sprite infoImage => m_infoImage;
 
         public string description => m_description;
+
+        [Button]
+        private void UpdateID()
+        {
+            m_ID = Mathf.Abs(GetInstanceID());
+        }
 
 #if UNITY_EDITOR
         [Button, FoldoutGroup("File Utility")]
