@@ -59,7 +59,7 @@ namespace DChild.Gameplay.Narrative
 
         private void UpdateUIElements()
         {
-            m_bullets[pageIndex].color = Color.yellow;
+            m_bullets[pageIndex].color = new Color32(253, 215, 32, 255);
             m_prevButton.gameObject.SetActive(pageIndex > 0);
             m_nextButton.gameObject.SetActive(pageIndex < m_entryInfos.Length - 1);
 
@@ -76,14 +76,14 @@ namespace DChild.Gameplay.Narrative
 
         public void Previous()
         {
-            m_bullets[pageIndex].color = Color.white;
+            m_bullets[pageIndex].color = new Color32(28, 50, 58, 255);
             pageIndex--;
             Display();
         }
 
         public void Next()
         {
-            m_bullets[pageIndex].color = Color.white;
+            m_bullets[pageIndex].color = new Color32(28, 50, 58, 255);
             pageIndex++;
             Display();
         }
