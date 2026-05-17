@@ -41,6 +41,8 @@ namespace DChild.Gameplay.Narrative
 
         private void SetupBullets()
         {
+            ResetBullets();
+
             AddBullet(m_bulletPoint, 0);
 
             for (int i = 1; i < m_entryInfos.Length; i++)
@@ -48,7 +50,6 @@ namespace DChild.Gameplay.Narrative
                 var bullet = Instantiate(m_bulletPoint, m_bulletSection.transform).gameObject;
                 AddBullet(bullet.GetComponent<Image>(), i);
             }
-
         }
 
         private void AddBullet(Image bullet, int number)
@@ -56,7 +57,7 @@ namespace DChild.Gameplay.Narrative
             bullet.name = $"Image - SectionBullet ({number + 1})";
             m_bullets.Add(bullet);
         }
-
+            
         private void UpdateUIElements()
         {
             m_bullets[pageIndex].color = new Color32(253, 215, 32, 255);
@@ -66,6 +67,20 @@ namespace DChild.Gameplay.Narrative
             if (m_nextButton.gameObject.activeSelf == false)
                 m_backButton.SetActive(true);
 
+        }
+        private void ResetBullets()
+        {
+            if (m_bullets == null) return;
+
+            for (int i = 1; i < m_bullets.Count; i++)
+            {
+                if (m_bullets[i] != null)
+                {
+                    Destroy(m_bullets[i].gameObject);
+                }
+            }
+
+            m_bullets.Clear();
         }
 
         public void Display()
@@ -94,7 +109,8 @@ namespace DChild.Gameplay.Narrative
             pageIndex = 0;
             m_entryTitle.text = "";
             m_entryInfos = null;
-            m_bullets.Clear();
+
+            ResetBullets();
         }
     }
 }
