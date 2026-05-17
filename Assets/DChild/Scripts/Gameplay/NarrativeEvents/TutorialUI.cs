@@ -1,4 +1,5 @@
-﻿using Doozy.Runtime.Signals;
+﻿using DChild.Codex.Tutorial;
+using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
@@ -19,11 +20,12 @@ namespace DChild.Gameplay.Narrative
         [BoxGroup("Navigation Buttons"), SerializeField] private GameObject m_nextButton;
         [BoxGroup("Navigation Buttons"), SerializeField] private GameObject m_backButton;
 
-        private TutorialEntry[] m_entryInfos;
+        private TutorialCodexData[] m_entryInfos;
         private List<Image> m_bullets = new();
         private int pageIndex = 0;
 
 
+        [Button]
         public void SetEntry(TutorialData data)
         {
             if (data == null)

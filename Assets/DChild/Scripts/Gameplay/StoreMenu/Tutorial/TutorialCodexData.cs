@@ -112,6 +112,7 @@ namespace DChild.Codex.Tutorial
         public string indexName => m_customName;
 
         public Sprite indexImage => m_indexImage;
+        public Sprite infoImage => m_infoImage;
 
         public string description => m_description;
 
