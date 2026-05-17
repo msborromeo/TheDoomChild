@@ -1,5 +1,6 @@
 using DChild;
 using DChild.Gameplay.Environment;
+using DChild.Gameplay.UI;
 using DChild.Menu.Codex;
 using DChildEditor;
 using Sirenix.OdinInspector;
@@ -98,6 +99,20 @@ namespace DChild.Codex.Tutorial
         private Sprite m_sketchImage;
         [SerializeField, TextArea, ToggleGroup("m_enableEdit")]
         private string m_description;
+
+
+
+        [SerializeField, MinValue(1), MaxValue(4)]
+        private int m_numberOfActions = 1;
+
+        [SerializeField]
+        private InputActionConfiguration m_actionConfiguration1;
+        [SerializeField, ShowIf("@m_numberOfActions > 1")]
+        private InputActionConfiguration m_actionConfiguration2;
+        [SerializeField, ShowIf("@m_numberOfActions > 2")]
+        private InputActionConfiguration m_actionConfiguration3;
+        [SerializeField, ShowIf("@m_numberOfActions > 3")]
+        private InputActionConfiguration m_actionConfiguration4;
 
 
         //[SerializeField, ValueDropdown("GetLocations", IsUniqueList = true), ToggleGroup("m_enableEdit")]

@@ -14,17 +14,5 @@ namespace DChild.Gameplay.Narrative
         [SerializeField] private TutorialCodexData[] m_entrySections;
         public string entryTitle => m_entryTitle;
         public TutorialCodexData[] entrySections => m_entrySections;
-
-        [SerializeField, MinValue(1), MaxValue(4)]
-        private int m_numberOfActions = 1;
-
-        [SerializeField]
-        private InputActionConfiguration m_actionConfiguration1;
-        [SerializeField, ShowIf("@m_numberOfActions > 1")]
-        private InputActionConfiguration m_actionConfiguration2;
-        [SerializeField, ShowIf("@m_numberOfActions > 2")]
-        private InputActionConfiguration m_actionConfiguration3;
-        [SerializeField, ShowIf("@m_numberOfActions > 3")]
-        private InputActionConfiguration m_actionConfiguration4;
     }
 }
