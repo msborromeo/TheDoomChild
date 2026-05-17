@@ -43,9 +43,7 @@ namespace DChild.Gameplay.Narrative
         {
             ResetBullets();
 
-            AddBullet(m_bulletPoint, 0);
-
-            for (int i = 1; i < m_entryInfos.Length; i++)
+            for (int i = 0; i < m_entryInfos.Length; i++)
             {
                 var bullet = Instantiate(m_bulletPoint, m_bulletSection.transform).gameObject;
                 AddBullet(bullet.GetComponent<Image>(), i);
@@ -72,7 +70,7 @@ namespace DChild.Gameplay.Narrative
         {
             if (m_bullets == null) return;
 
-            for (int i = 1; i < m_bullets.Count; i++)
+            for (int i = 0; i < m_bullets.Count; i++)
             {
                 if (m_bullets[i] != null)
                 {
