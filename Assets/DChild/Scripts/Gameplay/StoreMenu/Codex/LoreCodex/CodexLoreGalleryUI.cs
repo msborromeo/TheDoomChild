@@ -18,6 +18,7 @@ namespace DChild.Menu.Codex.Lore
         public override void SetupGalleryEntries(int page)
         {
             bool hasSelectedFirst = false;
+            bool noAvailable = true;
             int startOffset = page * m_entryButtons.Count;
 
             for (int i = 0; i < m_entryButtons.Count; i++)
@@ -35,15 +36,18 @@ namespace DChild.Menu.Codex.Lore
                 ResubscribeButtonEvents(entryButton);
 
                 bool isUnlocked = SetUnlockedStatus(entryButton, data);
-                entryButton.SetData(isUnlocked ? data : null);
+                entryButton.SetData(entryButton.isAvailable ? data : null);
 
                 if (!hasSelectedFirst && isUnlocked)
                 {
                     entryButton.Select();
                     entryButton.SetGalleryPopupData();
                     hasSelectedFirst = true;
+                    noAvailable = false;
                 }
             }
+            if (noAvailable)
+                m_entryButtons[0].SetGalleryPopupData();
         }
 
         private bool SetUnlockedStatus(LoreCodexIndexButton button, LoreCodexData data)
