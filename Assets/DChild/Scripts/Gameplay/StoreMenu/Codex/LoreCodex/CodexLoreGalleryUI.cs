@@ -15,10 +15,11 @@ namespace DChild.Menu.Codex.Lore
         [SerializeField, AssetSelector] private LoreCodexList m_completeList;
         [SerializeField] private List<LoreCodexIndexButton> m_entryButtons;
 
+        private bool noAvailable = true;
+
         public override void SetupGalleryEntries(int page)
         {
             bool hasSelectedFirst = false;
-            bool noAvailable = true;
             int startOffset = page * m_entryButtons.Count;
 
             for (int i = 0; i < m_entryButtons.Count; i++)

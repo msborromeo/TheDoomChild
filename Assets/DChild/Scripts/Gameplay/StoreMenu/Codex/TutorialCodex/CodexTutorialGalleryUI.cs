@@ -17,11 +17,12 @@ namespace DChild.Menu.Codex.Tutorials
         [SerializeField, AssetSelector] private TutorialCodexList m_completeList;
         [SerializeField] private List<TutorialCodexIndexButton> m_entryButtons;
 
+       private bool noAvailable = true;
+
         public override void SetupGalleryEntries() => SetupGalleryEntries(0);
         public override void SetupGalleryEntries(int page)
         {
             bool hasSelectedFirst = false;
-            bool noAvailable = true;
 
             int startOffset = page * m_entryButtons.Count;
 

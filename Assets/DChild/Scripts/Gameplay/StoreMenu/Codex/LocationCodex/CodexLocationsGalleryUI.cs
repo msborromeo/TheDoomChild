@@ -10,10 +10,11 @@ namespace DChild.Menu.Codex.Locations
         [SerializeField, AssetSelector] private List<LocationCodexData> m_completeList;
         [SerializeField] private List<LocationCodexIndexButton> m_entryButtons;
 
+        private bool noAvailable = true;
+
         public override void SetupGalleryEntries(int page)
         {
             bool hasSelectedFirst = false;
-            bool noAvailable = true;
             int startOffset = page * m_entryButtons.Count;
 
             for (int i = 0; i < m_entryButtons.Count; i++)
