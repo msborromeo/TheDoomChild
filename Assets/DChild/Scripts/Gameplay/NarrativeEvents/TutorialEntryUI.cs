@@ -1,4 +1,5 @@
 ﻿using DChild.Codex.Tutorial;
+using DChild.Gameplay.UI;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace DChild.Gameplay.Narrative
         [SerializeField] private Image m_entryImage;
         [BoxGroup("VIDEO"), SerializeField] private VideoPlayer m_videoPlayer;
         [BoxGroup("VIDEO"), SerializeField] private RawImage m_videoTexture;
-        [SerializeField] private TextMeshProUGUI m_entryDescription;
+        [SerializeField] private SetTextToTextBox m_inputDescriptionPanel;
 
         public void Display(TutorialCodexData info)
         {
@@ -20,11 +21,27 @@ namespace DChild.Gameplay.Narrative
             if (info == null)
                 return;
 
-
-            m_entryDescription.text = info.description;
             m_entryImage.enabled = true;
             m_entryImage.sprite = info.infoImage;
 
+            switch (info.numberOfActions)
+            {
+                case 0:
+                    m_inputDescriptionPanel.GetComponent<TextMeshProUGUI>().text = info.description;
+                    break;
+                case 1:
+                    m_inputDescriptionPanel.SetText(info.description, info.actionConfiguration1);
+                    break;
+                case 2:
+                    m_inputDescriptionPanel.SetText(info.description, info.actionConfiguration1, info.actionConfiguration2);
+                    break;
+                case 3:
+                    m_inputDescriptionPanel.SetText(info.description, info.actionConfiguration1, info.actionConfiguration2, info.actionConfiguration3);
+                    break;
+
+                default:
+                    break;
+            }
             //m_entryDescription.text = info.instructions;
             //switch (info.displayType)
             //{
@@ -45,7 +62,7 @@ namespace DChild.Gameplay.Narrative
 
         private void Reset()
         {
-            m_entryDescription.text = "";
+            //m_inputDescriptionPanel.GetComponent<TextMeshProUGUI>().text = "";
 
             m_entryImage.sprite = null;
             m_entryImage.enabled = false;
