@@ -1,5 +1,6 @@
 using DChild;
 using DChild.Gameplay.Environment;
+using DChild.Gameplay.UI;
 using DChild.Menu.Codex;
 using DChildEditor;
 using Sirenix.OdinInspector;
@@ -100,6 +101,20 @@ namespace DChild.Codex.Tutorial
         private string m_description;
 
 
+
+        [SerializeField, MinValue(0), MaxValue(4), ToggleGroup("m_enableEdit")]
+        private int m_numberOfActions = 1;
+
+        [SerializeField, ShowIf("@m_numberOfActions > 0"), ToggleGroup("m_enableEdit")]
+        private InputActionConfiguration m_actionConfiguration1;
+        [SerializeField, ShowIf("@m_numberOfActions > 1"), ToggleGroup("m_enableEdit")]
+        private InputActionConfiguration m_actionConfiguration2;
+        [SerializeField, ShowIf("@m_numberOfActions > 2"), ToggleGroup("m_enableEdit")]
+        private InputActionConfiguration m_actionConfiguration3;
+        [SerializeField, ShowIf("@m_numberOfActions > 3"), ToggleGroup("m_enableEdit")]
+        private InputActionConfiguration m_actionConfiguration4;
+
+
         //[SerializeField, ValueDropdown("GetLocations", IsUniqueList = true), ToggleGroup("m_enableEdit")]
         [SerializeField, DrawWithUnity]
         private Location[] m_locatedIn;
@@ -112,8 +127,15 @@ namespace DChild.Codex.Tutorial
         public string indexName => m_customName;
 
         public Sprite indexImage => m_indexImage;
+        public Sprite infoImage => m_infoImage;
 
         public string description => m_description;
+
+        [Button]
+        private void UpdateID()
+        {
+            m_ID = Mathf.Abs(GetInstanceID());
+        }
 
 #if UNITY_EDITOR
         [Button, FoldoutGroup("File Utility")]
