@@ -27,7 +27,7 @@ namespace DChild.Gameplay.Narrative
             switch (info.numberOfActions)
             {
                 case 0:
-                    m_inputDescriptionPanel.SetText(string.Empty);
+                    m_inputDescriptionPanel.SetText(info.description);
                     break;
                 case 1:
                     m_inputDescriptionPanel.SetText(info.description, info.actionConfiguration1);
@@ -63,6 +63,7 @@ namespace DChild.Gameplay.Narrative
         private void Reset()
         {
             //m_inputDescriptionPanel.GetComponent<TextMeshProUGUI>().text = "";
+            m_inputDescriptionPanel.SetText(string.Empty);
 
             m_entryImage.sprite = null;
             m_entryImage.enabled = false;
