@@ -68,9 +68,9 @@ namespace DChild.Gameplay.Narrative
             m_entryImage.sprite = null;
             m_entryImage.enabled = false;
 
-            m_videoPlayer.clip = null;
-            m_videoPlayer.enabled = false;
-            m_videoTexture.enabled = false;
+            //m_videoPlayer.clip = null;
+            //m_videoPlayer.enabled = false;
+            //m_videoTexture.enabled = false;
         }
     }
 }

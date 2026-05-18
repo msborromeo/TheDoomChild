@@ -31,11 +31,11 @@ namespace DChild.Menu.Codex.Lore
                 if (!hasData) continue;
 
                 var data = m_filteredList[dataIndex];
-                entryButton.SetData(data);
 
                 ResubscribeButtonEvents(entryButton);
 
                 bool isUnlocked = SetUnlockedStatus(entryButton, data);
+                entryButton.SetData(isUnlocked ? data : null);
 
                 if (!hasSelectedFirst && isUnlocked)
                 {

@@ -1,18 +1,27 @@
-﻿using DChild.Codex.LocationCodex;
+using DChild.Codex.LocationCodex;
+using DChild.Codex.Tutorial;
+using DChild.Gameplay.Narrative;
+using DChild.Menu.Bestiary;
+using DChild.Menu.Codex.Bestiary;
 using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-namespace DChild.Menu.Codex.Locations
-{
-    public class CodexLocationsGalleryUI : CodexGalleryUI<LocationCodexData, LocationCodexProgressTracker>
-    {
-        [Header("Locations Specific UI")]
-        [SerializeField, AssetSelector] private List<LocationCodexData> m_completeList;
-        [SerializeField] private List<LocationCodexIndexButton> m_entryButtons;
 
+namespace DChild.Menu.Codex.Tutorials
+{
+    public class CodexTutorialGalleryUI : CodexGalleryUI<TutorialCodexData, TutorialCodexProgressTracker>
+    {
+        [Header("Tutorials Specific UI")]
+        [SerializeField, AssetSelector] private TutorialCodexList m_completeList;
+        [SerializeField] private List<TutorialCodexIndexButton> m_entryButtons;
+
+        public override void SetupGalleryEntries() => SetupGalleryEntries(0);
         public override void SetupGalleryEntries(int page)
         {
             bool hasSelectedFirst = false;
+
             int startOffset = page * m_entryButtons.Count;
 
             for (int i = 0; i < m_entryButtons.Count; i++)
@@ -26,6 +35,7 @@ namespace DChild.Menu.Codex.Locations
                 if (!hasData) continue;
 
                 var data = m_filteredList[dataIndex];
+                //entryButton.SetTutorialData(data);
 
                 ResubscribeButtonEvents(entryButton);
 
@@ -38,10 +48,11 @@ namespace DChild.Menu.Codex.Locations
                     entryButton.SetGalleryPopupData();
                     hasSelectedFirst = true;
                 }
+
             }
         }
 
-        private bool SetUnlockedStatus(LocationCodexIndexButton button, LocationCodexData data)
+        private bool SetUnlockedStatus(TutorialCodexIndexButton button, TutorialCodexData data)
         {
             bool isUnlocked = m_revealAllData || CheckPlayerProgress(data);
             button.SetInteractable(isUnlocked);
@@ -49,26 +60,19 @@ namespace DChild.Menu.Codex.Locations
             return isUnlocked;
         }
 
-        private void ResubscribeButtonEvents(LocationCodexIndexButton button)
+        private void ResubscribeButtonEvents(TutorialCodexIndexButton button)
         {
             button.OnEntrySelected -= SetPopupEntryData;
             button.OnEntrySelected += SetPopupEntryData;
         }
-        public override void SetupGalleryEntries()
-        {
-            SetupGalleryEntries(0);
-        }
 
-        protected override bool CheckPlayerProgress(LocationCodexData data)
-        {
-            return m_playerTracker != null && m_playerTracker.HasInfoOf(data.id);
-        }
+        protected override bool CheckPlayerProgress(TutorialCodexData data) => m_playerTracker != null && m_playerTracker.HasInfoOf(data.id);
 
         protected override void RetrieveEntries()
         {
-            if (m_filteredList.Count > 0) return;
-
-            m_filteredList = m_completeList;
+            m_filteredList = m_completeList.GetIDs()
+                .Select(id => m_completeList.GetInfo(id))
+                .ToList();
         }
         public override void Initialize()
         {
@@ -88,6 +92,6 @@ namespace DChild.Menu.Codex.Locations
         {
             m_navigationHandle.OnCurrentPageChange -= SetupGalleryEntries;
         }
+
     }
 }
-
