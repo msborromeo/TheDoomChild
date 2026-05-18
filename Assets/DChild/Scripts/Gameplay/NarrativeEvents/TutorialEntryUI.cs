@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using DChild.Codex.Tutorial;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,27 +14,33 @@ namespace DChild.Gameplay.Narrative
         [BoxGroup("VIDEO"), SerializeField] private RawImage m_videoTexture;
         [SerializeField] private TextMeshProUGUI m_entryDescription;
 
-        public void Display(TutorialEntry info)
+        public void Display(TutorialCodexData info)
         {
-            if (info != null)
-                Reset();
+            Reset();
+            if (info == null)
+                return;
 
-            m_entryDescription.text = info.instructions;
-            switch (info.displayType)
-            {
-                case TutorialEntry.DisplayType.Image:
-                    m_entryImage.enabled = true;
-                    m_entryImage.sprite = info.attachmentImage;
-                    break;
-                case TutorialEntry.DisplayType.Video:
-                    m_videoPlayer.enabled = true;
-                    m_videoTexture.enabled = true;
-                    m_videoPlayer.clip = info.attachmentVideo;
-                    m_videoPlayer.Play();
-                    break;
-                default:
-                    break;
-            }
+
+            m_entryDescription.text = info.description;
+            m_entryImage.enabled = true;
+            m_entryImage.sprite = info.infoImage;
+
+            //m_entryDescription.text = info.instructions;
+            //switch (info.displayType)
+            //{
+            //    case TutorialEntry.DisplayType.Image:
+            //        m_entryImage.enabled = true;
+            //        m_entryImage.sprite = info.attachmentImage;
+            //        break;
+            //    case TutorialEntry.DisplayType.Video:
+            //        m_videoPlayer.enabled = true;
+            //        m_videoTexture.enabled = true;
+            //        m_videoPlayer.clip = info.attachmentVideo;
+            //        m_videoPlayer.Play();
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
 
         private void Reset()
