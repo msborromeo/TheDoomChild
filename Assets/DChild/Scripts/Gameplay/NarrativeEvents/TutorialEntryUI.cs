@@ -27,7 +27,7 @@ namespace DChild.Gameplay.Narrative
             switch (info.numberOfActions)
             {
                 case 0:
-                    m_inputDescriptionPanel.GetComponent<TextMeshProUGUI>().text = info.description;
+                    m_inputDescriptionPanel.SetText(string.Empty);
                     break;
                 case 1:
                     m_inputDescriptionPanel.SetText(info.description, info.actionConfiguration1);

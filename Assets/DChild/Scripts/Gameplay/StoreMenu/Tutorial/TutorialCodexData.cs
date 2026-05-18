@@ -102,17 +102,17 @@ namespace DChild.Codex.Tutorial
 
 
 
-        [SerializeField, MinValue(0), MaxValue(4), ToggleGroup("m_enableEdit")]
+        [SerializeField, MinValue(0), MaxValue(4)]
         private int m_numberOfActions = 1;
         public int numberOfActions => m_numberOfActions;
 
-        [SerializeField, ShowIf("@m_numberOfActions > 0"), ToggleGroup("m_enableEdit")]
+        [SerializeField, ShowIf("@m_numberOfActions > 0")]
         private InputActionConfiguration m_actionConfiguration1;
-        [SerializeField, ShowIf("@m_numberOfActions > 1"), ToggleGroup("m_enableEdit")]
+        [SerializeField, ShowIf("@m_numberOfActions > 1")]
         private InputActionConfiguration m_actionConfiguration2;
-        [SerializeField, ShowIf("@m_numberOfActions > 2"), ToggleGroup("m_enableEdit")]
+        [SerializeField, ShowIf("@m_numberOfActions > 2")]
         private InputActionConfiguration m_actionConfiguration3;
-        [SerializeField, ShowIf("@m_numberOfActions > 3"), ToggleGroup("m_enableEdit")]
+        [SerializeField, ShowIf("@m_numberOfActions > 3")]
         private InputActionConfiguration m_actionConfiguration4;
 
 
