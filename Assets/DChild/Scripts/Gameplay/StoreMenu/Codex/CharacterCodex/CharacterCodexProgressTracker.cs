@@ -10,7 +10,6 @@ namespace DChild.Codex.Characters
 {
     public class CharacterCodexProgressTracker : CodexProgressTracker<CharacterCodexList, CharacterCodexData>
     {
-
         public void RecordCharacterToCodex(int ID)
         {
             if (HasInfoOf(ID) == false)
@@ -23,8 +22,7 @@ namespace DChild.Codex.Characters
         [Button]
         public void RecordCharacterToCodex(CharacterCodexData data)
         {
-            if (data.characterType == CharacterType.NPC)
-                RecordCharacterToCodex(data.id);
+            RecordCharacterToCodex(data.id);
         }
 
         private void Awake()
