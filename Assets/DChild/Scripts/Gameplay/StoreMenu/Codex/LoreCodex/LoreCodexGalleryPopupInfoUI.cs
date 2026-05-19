@@ -8,6 +8,7 @@ namespace DChild.Menu.Codex.Lore
     public class LoreCodexGalleryPopupInfoUI : CodexGalleryPopupInfoUI<LoreCodexData>
     {
         [SerializeField] private TextMeshProUGUI m_locationName;
+        [SerializeField] private Image m_panelBackground;
         [SerializeField] private Image m_locationImage;
         [SerializeField] private TextMeshProUGUI m_description;
 
@@ -30,12 +31,14 @@ namespace DChild.Menu.Codex.Lore
             if (m_showDataOf == null)
             {
                 m_locationName.text = "";
+                m_panelBackground.color = Color.clear;
                 SetImage(m_locationImage, null);
                 m_description.text = "";
                 return;
             }
 
             m_locationName.text = m_showDataOf.indexName;
+            m_panelBackground.color = Color.white;
             SetImage(m_locationImage, m_showDataOf.infoImage);
             m_description.text = m_showDataOf.description;
         }
