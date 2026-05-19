@@ -15,6 +15,7 @@ namespace DChild.Menu.Codex
                 UpdateInfo();
             }
         }
+
         protected abstract void UpdateInfo();
     }
 }
