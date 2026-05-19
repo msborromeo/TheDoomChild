@@ -102,9 +102,14 @@ namespace DChild.Gameplay.UI
                 case StoreNotificationType.Character:
                     GameplaySystem.gamplayUIHandle.alertManager.charactersAlerts.RecordNewNotification(ID);
                     break;
-                case StoreNotificationType.Location:
-                    break;
                 case StoreNotificationType.Lore:
+                    GameplaySystem.gamplayUIHandle.alertManager.loreAlerts.RecordNewNotification(ID);
+                    break;
+                case StoreNotificationType.Location:
+                    GameplaySystem.gamplayUIHandle.alertManager.locationAlerts.RecordNewNotification(ID);
+                    break;
+                case StoreNotificationType.Tutorial:
+                    GameplaySystem.gamplayUIHandle.alertManager.tutorialAlerts.RecordNewNotification(ID);
                     break;
                 case StoreNotificationType.Extras:
                     break;

@@ -15,6 +15,8 @@ namespace DChild.Menu.Codex.Lore
         [SerializeField, AssetSelector] private LoreCodexList m_completeList;
         [SerializeField] private List<LoreCodexIndexButton> m_entryButtons;
 
+        private bool noAvailable = true;
+
         public override void SetupGalleryEntries(int page)
         {
             bool hasSelectedFirst = false;
@@ -31,19 +33,22 @@ namespace DChild.Menu.Codex.Lore
                 if (!hasData) continue;
 
                 var data = m_filteredList[dataIndex];
-                entryButton.SetData(data);
 
                 ResubscribeButtonEvents(entryButton);
 
                 bool isUnlocked = SetUnlockedStatus(entryButton, data);
+                entryButton.SetData(entryButton.isAvailable ? data : null);
 
                 if (!hasSelectedFirst && isUnlocked)
                 {
                     entryButton.Select();
                     entryButton.SetGalleryPopupData();
                     hasSelectedFirst = true;
+                    noAvailable = false;
                 }
             }
+            if (noAvailable)
+                m_entryButtons[0].SetGalleryPopupData();
         }
 
         private bool SetUnlockedStatus(LoreCodexIndexButton button, LoreCodexData data)

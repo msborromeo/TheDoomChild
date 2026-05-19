@@ -6,6 +6,7 @@
         Character,
         Location,
         Lore,
+        Tutorial,
         Extras
     }
 }

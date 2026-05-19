@@ -102,16 +102,17 @@ namespace DChild.Codex.Tutorial
 
 
 
-        [SerializeField, MinValue(0), MaxValue(4), ToggleGroup("m_enableEdit")]
+        [SerializeField, MinValue(0), MaxValue(4)]
         private int m_numberOfActions = 1;
+        public int numberOfActions => m_numberOfActions;
 
-        [SerializeField, ShowIf("@m_numberOfActions > 0"), ToggleGroup("m_enableEdit")]
+        [SerializeField, ShowIf("@m_numberOfActions > 0")]
         private InputActionConfiguration m_actionConfiguration1;
-        [SerializeField, ShowIf("@m_numberOfActions > 1"), ToggleGroup("m_enableEdit")]
+        [SerializeField, ShowIf("@m_numberOfActions > 1")]
         private InputActionConfiguration m_actionConfiguration2;
-        [SerializeField, ShowIf("@m_numberOfActions > 2"), ToggleGroup("m_enableEdit")]
+        [SerializeField, ShowIf("@m_numberOfActions > 2")]
         private InputActionConfiguration m_actionConfiguration3;
-        [SerializeField, ShowIf("@m_numberOfActions > 3"), ToggleGroup("m_enableEdit")]
+        [SerializeField, ShowIf("@m_numberOfActions > 3")]
         private InputActionConfiguration m_actionConfiguration4;
 
 
@@ -130,6 +131,11 @@ namespace DChild.Codex.Tutorial
         public Sprite infoImage => m_infoImage;
 
         public string description => m_description;
+
+        public InputActionConfiguration actionConfiguration1 => m_actionConfiguration1;
+        public InputActionConfiguration actionConfiguration2 => m_actionConfiguration2;
+        public InputActionConfiguration actionConfiguration3 => m_actionConfiguration3;
+        public InputActionConfiguration actionConfiguration4 => m_actionConfiguration4;
 
         [Button]
         private void UpdateID()

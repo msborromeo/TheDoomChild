@@ -23,18 +23,19 @@ namespace DChild.Codex.Characters
         [Button]
         public void RecordCharacterToCodex(CharacterCodexData data)
         {
-            RecordCharacterToCodex(data.id);
+            if (data.characterType == CharacterType.NPC)
+                RecordCharacterToCodex(data.id);
         }
 
         private void Awake()
         {
-          
+
         }
 
 #if UNITY_EDITOR
         public void Initialize(GameObject character)
         {
-           
+
         }
 #endif
     }

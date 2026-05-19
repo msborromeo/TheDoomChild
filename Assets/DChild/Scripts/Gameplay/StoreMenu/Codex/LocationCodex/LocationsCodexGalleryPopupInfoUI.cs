@@ -7,9 +7,10 @@ namespace DChild.Menu.Codex.Locations
     public class LocationsCodexGalleryPopupInfoUI : CodexGalleryPopupInfoUI<LocationCodexData>
     {
         [SerializeField] private TextMeshProUGUI m_locationName;
+        [SerializeField] private Image m_panelBackground;
         [SerializeField] private Image m_locationImage;
         [SerializeField] private TextMeshProUGUI m_description;
-        
+
         private void SetImage(Image image, Sprite sprite)
         {
             if (sprite == null)
@@ -29,12 +30,14 @@ namespace DChild.Menu.Codex.Locations
             if (m_showDataOf == null)
             {
                 m_locationName.text = "";
+                m_panelBackground.color = Color.clear;
                 SetImage(m_locationImage, null);
                 m_description.text = "";
                 return;
             }
 
             m_locationName.text = m_showDataOf.indexName;
+            m_panelBackground.color = Color.white;
             SetImage(m_locationImage, m_showDataOf.infoImage);
             m_description.text = m_showDataOf.description;
         }
