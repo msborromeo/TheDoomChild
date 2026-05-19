@@ -86,7 +86,7 @@ namespace DChild.Menu.Codex
 
         public void SetGalleryPopupData()
         {
-            OnEntrySelected?.Invoke(data);
+            OnEntrySelected?.Invoke(isAvailable ? data : null);
         }
 
         public override void SetData(DatabaseAssetType data)

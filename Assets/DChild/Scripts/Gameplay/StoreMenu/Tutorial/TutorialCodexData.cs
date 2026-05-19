@@ -1,5 +1,6 @@
 using DChild;
 using DChild.Gameplay.Environment;
+using DChild.Gameplay.UI;
 using DChild.Menu.Codex;
 using DChildEditor;
 using Sirenix.OdinInspector;
@@ -100,6 +101,21 @@ namespace DChild.Codex.Tutorial
         private string m_description;
 
 
+
+        [SerializeField, MinValue(0), MaxValue(4)]
+        private int m_numberOfActions = 1;
+        public int numberOfActions => m_numberOfActions;
+
+        [SerializeField, ShowIf("@m_numberOfActions > 0")]
+        private InputActionConfiguration m_actionConfiguration1;
+        [SerializeField, ShowIf("@m_numberOfActions > 1")]
+        private InputActionConfiguration m_actionConfiguration2;
+        [SerializeField, ShowIf("@m_numberOfActions > 2")]
+        private InputActionConfiguration m_actionConfiguration3;
+        [SerializeField, ShowIf("@m_numberOfActions > 3")]
+        private InputActionConfiguration m_actionConfiguration4;
+
+
         //[SerializeField, ValueDropdown("GetLocations", IsUniqueList = true), ToggleGroup("m_enableEdit")]
         [SerializeField, DrawWithUnity]
         private Location[] m_locatedIn;
@@ -112,8 +128,20 @@ namespace DChild.Codex.Tutorial
         public string indexName => m_customName;
 
         public Sprite indexImage => m_indexImage;
+        public Sprite infoImage => m_infoImage;
 
         public string description => m_description;
+
+        public InputActionConfiguration actionConfiguration1 => m_actionConfiguration1;
+        public InputActionConfiguration actionConfiguration2 => m_actionConfiguration2;
+        public InputActionConfiguration actionConfiguration3 => m_actionConfiguration3;
+        public InputActionConfiguration actionConfiguration4 => m_actionConfiguration4;
+
+        [Button]
+        private void UpdateID()
+        {
+            m_ID = Mathf.Abs(GetInstanceID());
+        }
 
 #if UNITY_EDITOR
         [Button, FoldoutGroup("File Utility")]

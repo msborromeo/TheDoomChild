@@ -1,4 +1,5 @@
-﻿using Doozy.Runtime.Signals;
+﻿using DChild.Codex.Tutorial;
+using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
@@ -19,11 +20,12 @@ namespace DChild.Gameplay.Narrative
         [BoxGroup("Navigation Buttons"), SerializeField] private GameObject m_nextButton;
         [BoxGroup("Navigation Buttons"), SerializeField] private GameObject m_backButton;
 
-        private TutorialEntry[] m_entryInfos;
+        private TutorialCodexData[] m_entryInfos;
         private List<Image> m_bullets = new();
         private int pageIndex = 0;
 
 
+        [Button]
         public void SetEntry(TutorialData data)
         {
             if (data == null)
@@ -39,14 +41,16 @@ namespace DChild.Gameplay.Narrative
 
         private void SetupBullets()
         {
-            AddBullet(m_bulletPoint, 0);
+            ResetBullets();
 
-            for (int i = 1; i < m_entryInfos.Length; i++)
+            for (int i = 0; i < m_entryInfos.Length; i++)
             {
                 var bullet = Instantiate(m_bulletPoint, m_bulletSection.transform).gameObject;
-                AddBullet(bullet.GetComponent<Image>(), i);
-            }
+                Image bulletImage = bullet.GetComponent<Image>();
 
+                bulletImage.color = i == 0 ? new Color32(253, 215, 32, 255) : new Color32(28, 50, 58, 255);
+                AddBullet(bulletImage, i);
+            }
         }
 
         private void AddBullet(Image bullet, int number)
@@ -57,7 +61,7 @@ namespace DChild.Gameplay.Narrative
 
         private void UpdateUIElements()
         {
-            m_bullets[pageIndex].color = Color.yellow;
+            m_bullets[pageIndex].color = new Color32(253, 215, 32, 255);
             m_prevButton.gameObject.SetActive(pageIndex > 0);
             m_nextButton.gameObject.SetActive(pageIndex < m_entryInfos.Length - 1);
 
@@ -74,16 +78,31 @@ namespace DChild.Gameplay.Narrative
 
         public void Previous()
         {
-            m_bullets[pageIndex].color = Color.white;
+            m_bullets[pageIndex].color = new Color32(28, 50, 58, 255);
             pageIndex--;
             Display();
         }
 
         public void Next()
         {
-            m_bullets[pageIndex].color = Color.white;
+            m_bullets[pageIndex].color = new Color32(28, 50, 58, 255);
             pageIndex++;
             Display();
+        }
+
+        private void ResetBullets()
+        {
+            if (m_bullets == null) return;
+
+            for (int i = 0; i < m_bullets.Count; i++)
+            {
+                if (m_bullets[i] != null)
+                {
+                    Destroy(m_bullets[i].gameObject);
+                }
+            }
+
+            m_bullets.Clear();
         }
 
         private void Reset()
@@ -92,7 +111,8 @@ namespace DChild.Gameplay.Narrative
             pageIndex = 0;
             m_entryTitle.text = "";
             m_entryInfos = null;
-            m_bullets.Clear();
+
+            ResetBullets();
         }
     }
 }
