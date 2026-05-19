@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using DChild.Codex.Tutorial;
+using DChild.Gameplay.UI;
+using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.Video;
 
 namespace DChild.Gameplay.Narrative
@@ -8,8 +11,8 @@ namespace DChild.Gameplay.Narrative
     public class TutorialData : ScriptableObject
     {
         [SerializeField] private string m_entryTitle;
-        [SerializeField] private TutorialEntry[] m_entrySections;
+        [SerializeField] private TutorialCodexData[] m_entrySections;
         public string entryTitle => m_entryTitle;
-        public TutorialEntry[] entrySections => m_entrySections;
+        public TutorialCodexData[] entrySections => m_entrySections;
     }
 }
