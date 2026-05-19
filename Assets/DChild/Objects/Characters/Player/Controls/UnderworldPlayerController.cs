@@ -710,8 +710,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if ( m_state.isExecutingCombatArt)
                 return;
 
-            if(m_state.isGrounded == false && vector.y < 0)
-                m_movement.TriggerFastFall();
+            //if(m_state.isGrounded == false && vector.y < 0)
+            //    m_movement.TriggerFastFall();
             
             m_vector2Input = vector;
         }
