@@ -148,7 +148,6 @@ namespace DChild.Menu.Codex.ArmyTroops
         {
             if (data == null) return false;
 
-            // TODO Fixed: Checks if the army group has at least one member unlocked
             if (data.armyCharacterGroup != null)
             {
                 for (int i = 0; i < data.armyCharacterGroup.memberCount; i++)
@@ -163,7 +162,6 @@ namespace DChild.Menu.Codex.ArmyTroops
                 }
             }
 
-            // Fallback to tracking the overall group ID if no individual group data structure exists
             return m_playerTracker.HasInfoOf(data.id);
         }
 
