@@ -1,6 +1,7 @@
 using DChild.Gameplay;
 using DChild.Gameplay.UI;
 using DChild.Menu.Codex;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,18 +11,19 @@ namespace DChild.Codex.Tutorial
     public class TutorialCodexProgressTracker : CodexProgressTracker<TutorialCodexList, TutorialCodexData>
     {
 
-        public void RecordLoreToCodex(int ID)
+        public void RecordTutorialToCodex(int ID)
         {
             if (HasInfoOf(ID) == false)
             {
-                GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(StoreNotificationType.Extras,ID);
+                GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(StoreNotificationType.Tutorial,ID);
             }
             SetProgress(ID, true);
         }
 
-        public void RecordCharacterToCodex(TutorialCodexData data)
+        [Button]
+        public void RecordTutorialToCodex(TutorialCodexData data)
         {
-            RecordLoreToCodex(data.id);
+            RecordTutorialToCodex(data.id);
         }
 
         private void Awake()
