@@ -9,13 +9,16 @@ namespace DChild.Menu.Codex.ArmyTroops.Alerts
 
         public override bool HasAlert()
         {
-            var unitCodexDaatas = m_reference.codexData;
-            foreach (var unit in unitCodexDaatas)
+            if (m_reference.armyData != null)
             {
-                if(GameplaySystem.gamplayUIHandle.alertManager.armyTroopAlerts.HasNewNotification(unit))
+                var unitCodexDatas = m_reference.codexData;
+                foreach (var unit in unitCodexDatas)
                 {
-                    m_notifyingUnit = unit;
-                    return true;
+                    if (GameplaySystem.gamplayUIHandle.alertManager.armyTroopAlerts.HasNewNotification(unit))
+                    {
+                        m_notifyingUnit = unit;
+                        return true;
+                    }
                 }
             }
             return false;
