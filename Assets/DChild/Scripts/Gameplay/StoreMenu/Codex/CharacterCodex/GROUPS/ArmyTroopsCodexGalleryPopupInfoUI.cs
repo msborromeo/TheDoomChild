@@ -19,6 +19,7 @@ namespace DChild.Menu.Codex.ArmyTroops
 
         public void OnCodexDatasReceived(List<CharacterCodexData> value)
         {
+            m_codexDatas.Clear();
             m_codexDatas = value;
         }
 
