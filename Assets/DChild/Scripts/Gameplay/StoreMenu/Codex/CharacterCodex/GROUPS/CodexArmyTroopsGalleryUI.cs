@@ -38,24 +38,15 @@ namespace DChild.Menu.Codex.ArmyTroops
             int slotsPerPage = m_entryButtons.Count;
             int startOffset = page * slotsPerPage;
 
-            int remainingDataCount = m_filteredList.Count - startOffset;
-            if (remainingDataCount < slotsPerPage)
-            {
-                slotsPerPage = Mathf.Max(0, remainingDataCount);
-            }
-
-            for (int i = slotsPerPage; i < m_entryButtons.Count; i++)
-            {
-                m_entryButtons[i].gameObject.SetActive(false);
-            }
-
-            for (int i = 0; i < slotsPerPage; i++)
+            for (int i = 0; i < m_entryButtons.Count; i++)
             {
                 var entryButton = m_entryButtons[i];
                 int dataIndex = i + startOffset;
+
                 bool hasData = dataIndex < m_filteredList.Count;
 
                 entryButton.gameObject.SetActive(hasData);
+
                 if (!hasData) continue;
 
                 var battleData = m_filteredList[dataIndex];
@@ -70,14 +61,11 @@ namespace DChild.Menu.Codex.ArmyTroops
                 ResubscribeButtonEvents(entryButton);
 
                 bool isUnlocked = SetUnlockedStatus(entryButton, battleData);
+                if (!isUnlocked) continue;
 
-                if (!isUnlocked)
-                    continue;
-                
                 SetUnitsOpacity(entryButton);
 
-                if (hasSelectedFirst)
-                    continue;
+                if (hasSelectedFirst) continue;
 
                 entryButton.Select();
                 hasSelectedFirst = true;
@@ -100,7 +88,7 @@ namespace DChild.Menu.Codex.ArmyTroops
         {
             for (int i = 0; i < button.codexData.Count; i++)
             {
-                bool isRecorded = CheckPlayerProgress(button.codexData[i]);
+                bool isRecorded = m_revealAllData || CheckPlayerProgress(button.codexData[i]);
                 button.SetUnitOpacity(i, isRecorded);
             }
         }

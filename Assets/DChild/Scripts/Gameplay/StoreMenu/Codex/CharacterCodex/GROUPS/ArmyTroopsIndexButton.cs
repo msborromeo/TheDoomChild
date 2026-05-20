@@ -73,6 +73,9 @@ namespace DChild.Menu.Codex.ArmyTroops
         {
             Image[] spriteIcons = { m_unitOne, m_unitTwo, m_unitThree };
 
+            if (i < 0 || i >= spriteIcons.Length)
+                return;
+
             spriteIcons[i].color = isUnlocked ? Color.white : Color.black;
         }
 
