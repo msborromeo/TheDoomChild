@@ -1,6 +1,7 @@
 ﻿using DChild.Gameplay.UI.Alerts;
 using DChild.Gameplay;
 using DChild.Codex.Characters;
+using UnityEngine;
 namespace DChild.Menu.Codex.ArmyTroops.Alerts
 {
     public class ArmyTroopsCodexIndexAlertUI : UIAlertIconElement<ArmyTroopsIndexButton>
@@ -9,16 +10,19 @@ namespace DChild.Menu.Codex.ArmyTroops.Alerts
 
         public override bool HasAlert()
         {
-            if (m_reference.armyData != null)
+            var battleData = m_reference.armyData; // Replace with your button's actual data field/property
+            if (battleData == null || battleData.armyCharacterGroup == null)
+                return false;
+
+            var charactersInGroup = m_reference.codexData;
+            if (charactersInGroup == null)
+                return false;
+
+            foreach (var unit in charactersInGroup)
             {
-                var unitCodexDatas = m_reference.codexData;
-                foreach (var unit in unitCodexDatas)
+                if (unit != null && GameplaySystem.gamplayUIHandle.alertManager.armyTroopAlerts.HasNewNotification(unit.id))
                 {
-                    if (GameplaySystem.gamplayUIHandle.alertManager.armyTroopAlerts.HasNewNotification(unit))
-                    {
-                        m_notifyingUnit = unit;
-                        return true;
-                    }
+                    return true;
                 }
             }
             return false;
@@ -26,16 +30,23 @@ namespace DChild.Menu.Codex.ArmyTroops.Alerts
 
         public override void RenderAlertUseless()
         {
-            for (int i = 0; i < m_reference.armyData.armyCharacterGroup.memberCount; i++)
+            var battleData = m_reference.armyData;
+            if (battleData != null && battleData.armyCharacterGroup != null)
             {
-                var unit = m_reference.armyData.armyCharacterGroup.GetCharacter(i);
-                if (unit == m_notifyingUnit)
+                var charactersInGroup = m_reference.codexData;
+                if (charactersInGroup != null)
                 {
-                    GameplaySystem.gamplayUIHandle.alertManager.armyTroopAlerts.RecordNewNotification(m_notifyingUnit, false);
-                    base.RenderAlertUseless();
+                    foreach (var unit in charactersInGroup)
+                    {
+                        if (unit != null && GameplaySystem.gamplayUIHandle.alertManager.armyTroopAlerts.HasNewNotification(unit.id))
+                        {
+                            GameplaySystem.gamplayUIHandle.alertManager.armyTroopAlerts.RecordNewNotification(unit, false);
+                        }
+                    }
                 }
             }
 
+            base.RenderAlertUseless();
         }
 
         protected override void ConnectToDataUI() => UpdateState();

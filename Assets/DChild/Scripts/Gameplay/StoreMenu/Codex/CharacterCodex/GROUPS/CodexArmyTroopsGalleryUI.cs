@@ -49,8 +49,6 @@ namespace DChild.Menu.Codex.ArmyTroops
 
                 if (!hasData) continue;
 
-                Debug.Log($"[Gallery Debug] Processing loop index {i}, dataIndex {dataIndex}. Button null? {entryButton == null}, List Count: {m_filteredList.Count}");
-
                 var battleData = m_filteredList[dataIndex];
                 entryButton.SetArmyData(battleData);
 
@@ -90,7 +88,7 @@ namespace DChild.Menu.Codex.ArmyTroops
         {
             for (int i = 0; i < button.codexData.Count; i++)
             {
-                bool isRecorded = CheckPlayerProgress(button.codexData[i]);
+                bool isRecorded = m_revealAllData || CheckPlayerProgress(button.codexData[i]);
                 button.SetUnitOpacity(i, isRecorded);
             }
         }
