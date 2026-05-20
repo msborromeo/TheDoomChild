@@ -26,8 +26,16 @@ namespace DChild.Menu.Codex.ArmyTroops.Alerts
 
         public override void RenderAlertUseless()
         {
-            GameplaySystem.gamplayUIHandle.alertManager.armyTroopAlerts.RecordNewNotification(m_notifyingUnit, false);
-            base.RenderAlertUseless();
+            for (int i = 0; i < m_reference.armyData.armyCharacterGroup.memberCount; i++)
+            {
+                var unit = m_reference.armyData.armyCharacterGroup.GetCharacter(i);
+                if (unit == m_notifyingUnit)
+                {
+                    GameplaySystem.gamplayUIHandle.alertManager.armyTroopAlerts.RecordNewNotification(m_notifyingUnit, false);
+                    base.RenderAlertUseless();
+                }
+            }
+
         }
 
         protected override void ConnectToDataUI() => UpdateState();
