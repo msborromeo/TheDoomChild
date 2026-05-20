@@ -220,7 +220,7 @@ namespace DChild.Gameplay.Systems
 
         public void OverrideCurrentUIState(GameplayUIState state)
         {
-            m_gameplayUIStateObserver.SetCurrentUnderworldUIState(state);
+            m_gameplayUIStateObserver.SetCurrentUIState(state);
         }
 
         private void Awake()

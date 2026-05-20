@@ -27,7 +27,7 @@ namespace DChild.Menu.Codex.Bestiary
             SetupGalleryEntries();
         }
 
-        public void SetupGalleryEntries(int page)
+        public override void SetupGalleryEntries(int page)
         {
             bool hasSelectedFirst = false;
             int startOffset = page * m_entryButtons.Count;
@@ -38,59 +38,41 @@ namespace DChild.Menu.Codex.Bestiary
 
                 int dataIndex = i + startOffset;
 
-                if (dataIndex < m_filteredList.Count)
+                bool hasData = dataIndex < m_filteredList.Count;
+                entryButton.gameObject.SetActive(hasData);
+                if (!hasData) continue;
+
+                var data = m_filteredList[dataIndex];
+                entryButton.SetData(data);
+
+                ResubscribeButtonEvents(entryButton);
+
+                bool isUnlocked = SetUnlockedStatus(entryButton, data);
+
+                if (!hasSelectedFirst && isUnlocked)
                 {
-                    var data = m_filteredList[dataIndex];
-
-                    entryButton.gameObject.SetActive(true);
-                    entryButton.SetData(data);
-
-                    entryButton.OnEntrySelected -= SetPopupEntryData;
-                    entryButton.OnEntrySelected += SetPopupEntryData;
-
-                    bool isUnlocked = m_revealAllData || CheckPlayerProgress(data);
-                    entryButton.SetInteractable(isUnlocked);
-
-                    if (!hasSelectedFirst && isUnlocked)
-                    {
-                        entryButton.Select();
-                        hasSelectedFirst = true;
-                    }
-                }
-                else
-                {
-                    entryButton.gameObject.SetActive(false);
+                    entryButton.Select();
+                    hasSelectedFirst = true;
                 }
             }
         }
 
-
-        public override void SetupGalleryEntries()
+        private bool SetUnlockedStatus(BestiaryCodexIndexButton button, BestiaryData data)
         {
-            bool hasSelectedFirst = false;
+            bool isUnlocked = m_revealAllData || CheckPlayerProgress(data);
+            button.SetInteractable(isUnlocked);
 
-            for (int i = 0; i < m_entryButtons.Count; i++)
-            {
-                var entryButton = m_entryButtons[i];
-
-                if (i < m_filteredList.Count)
-                {
-                    var data = m_filteredList[i];
-
-                    entryButton.SetData(data);
-                    entryButton.OnEntrySelected += SetPopupEntryData;
-
-                    bool isUnlocked = m_revealAllData || CheckPlayerProgress(data);
-                    entryButton.SetInteractable(isUnlocked);
-
-                    if (!hasSelectedFirst && isUnlocked)
-                    {
-                        entryButton.Select();
-                        hasSelectedFirst = true;
-                    }
-                }
-            }
+            return isUnlocked;
         }
+
+        private void ResubscribeButtonEvents(BestiaryCodexIndexButton button)
+        {
+            button.OnEntrySelected -= SetPopupEntryData;
+            button.OnEntrySelected += SetPopupEntryData;
+        }
+
+
+        public override void SetupGalleryEntries() => SetupGalleryEntries(0);
 
         protected override bool CheckPlayerProgress(BestiaryData data)
         {
