@@ -189,6 +189,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8847720460050938554}
+        m_TargetAssemblyTypeName: DChild.Gameplay.UI.Alerts.UIAlertDataObserver,
+          Assembly-CSharp
+        m_MethodName: UpdateState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   HandleRect: {fileID: 46549756983952913}
   Direction: 3
   Value: 0
@@ -3331,13 +3344,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
+      propertyPath: AutoSelectAfterShow
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
       propertyPath: OnHideCallback.Event.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
       propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
@@ -3367,7 +3385,7 @@ PrefabInstance:
     - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
       propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
@@ -3398,7 +3416,7 @@ PrefabInstance:
         type: 3}
       propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8847720460050938554}
     - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
       propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[2].m_Target
@@ -3452,7 +3470,7 @@ PrefabInstance:
     - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
       propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetActive
+      value: UpdateState
       objectReference: {fileID: 0}
     - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
@@ -3497,6 +3515,11 @@ PrefabInstance:
     - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
       propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: DChild.Gameplay.UI.Alerts.UIAlertDataObserver, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
+        type: 3}
+      propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
@@ -3522,7 +3545,7 @@ PrefabInstance:
     - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}
       propertyPath: OnShowCallback.Event.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8697649165039274318, guid: 68217dfce821b1c40bcff36312662051,
         type: 3}

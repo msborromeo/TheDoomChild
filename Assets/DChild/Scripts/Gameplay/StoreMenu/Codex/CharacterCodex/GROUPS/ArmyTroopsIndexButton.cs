@@ -68,10 +68,19 @@ namespace DChild.Menu.Codex.ArmyTroops
                     SetUnitIcon(group.GetCharacter(i).icon, spriteIcons[i]);
             }
         }
-        private void SetUnitIcon(Sprite icon, Image target)
+
+        public void SetUnitOpacity(int i, bool isUnlocked)
         {
-            target.sprite = icon;
+            Image[] spriteIcons = { m_unitOne, m_unitTwo, m_unitThree };
+
+            if (i < 0 || i >= spriteIcons.Length)
+                return;
+
+            spriteIcons[i].color = isUnlocked ? Color.white : Color.black;
         }
+
+        private void SetUnitIcon(Sprite icon, Image target) => target.sprite = icon;
+
         private void EnsureReferences()
         {
 #if UNITY_EDITOR
