@@ -148,6 +148,11 @@ namespace DChild.Gameplay.Systems
             }
         }
 
+        public void ToggleMapLegend(bool willshow)
+        {
+            m_navMap.ToggleLegendVisibility(willshow);
+        }
+
         public void ShowHoldToTeleportSequence(CallbackContext context, bool isCanceled)
         {
             if (isCanceled)

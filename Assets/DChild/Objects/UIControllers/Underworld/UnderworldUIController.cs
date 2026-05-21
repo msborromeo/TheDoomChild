@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 namespace DChild.Gameplay.UI.Controller
@@ -19,6 +20,7 @@ namespace DChild.Gameplay.UI.Controller
 
         [SerializeField, MinValue(0)]
         private int m_necroTabIndex = 0;
+        private bool m_toggleMap = true;
         [SerializeField]
         private List<StorePage> m_necroPageOrders = new List<StorePage>();
 
@@ -30,6 +32,7 @@ namespace DChild.Gameplay.UI.Controller
             m_inputReader.UIClickPerformedEvent += OnUIClickPerformed;
             m_inputReader.UISubmitPerformedEvent += OnUISubmitPerformed;
             m_inputReader.UICancelPerformedEvent += OnUICancelPerformed;
+            m_inputReader.UIToggleMapLegendEvent += OnUIToggleMapLegendEvent;
         }
 
         private void OnDisable()
@@ -45,6 +48,7 @@ namespace DChild.Gameplay.UI.Controller
         private void OnUICancelPerformed()
         {
             m_necroTabIndex = 0;
+            m_toggleMap = true;
         }
 
         private void OnUISubmitPerformed()
@@ -110,6 +114,11 @@ namespace DChild.Gameplay.UI.Controller
             {
 
             }
+        }
+        private void OnUIToggleMapLegendEvent()
+        {
+            m_toggleMap = !m_toggleMap;
+            UnderworldGameplaySystem.gameplayUIHandle.ToggleMapLegend(m_toggleMap);
         }
     }
 }
