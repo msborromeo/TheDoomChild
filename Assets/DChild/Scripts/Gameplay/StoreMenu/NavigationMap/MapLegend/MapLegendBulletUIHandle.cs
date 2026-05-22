@@ -17,7 +17,6 @@ namespace DChild.Gameplay.NavigationMap.MapLegend
         public void SetupBullets()
         {
             ResetBullets();
-            AddBullet(m_bulletPoint, 0);
             for (int i = 1; i < (m_legendUI.listUI.legendEntries.Count / m_maxEntriesPerSection) + 1; i++)
             {
                 var bullet = Instantiate(m_bulletPoint, m_bulletSection.transform).gameObject;
