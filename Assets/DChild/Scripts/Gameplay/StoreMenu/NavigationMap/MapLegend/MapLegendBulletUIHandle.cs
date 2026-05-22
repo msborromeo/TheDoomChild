@@ -17,7 +17,7 @@ namespace DChild.Gameplay.NavigationMap.MapLegend
         public void SetupBullets()
         {
             ResetBullets();
-            for (int i = 1; i < (m_legendUI.listUI.legendEntries.Count / m_maxEntriesPerSection) + 1; i++)
+            for (int i = 0; i < m_legendUI.listUI.legendEntries.Count / m_maxEntriesPerSection; i++)
             {
                 var bullet = Instantiate(m_bulletPoint, m_bulletSection.transform).gameObject;
                 Image bulletImage = bullet.GetComponent<Image>();
@@ -26,7 +26,6 @@ namespace DChild.Gameplay.NavigationMap.MapLegend
                 AddBullet(bulletImage, i);
             }
 
-            HighlightActiveBullet();
         }
 
         private void HighlightActiveBullet() => m_bullets[pageIndex].color = new Color32(253, 215, 32, 255);
