@@ -2211,6 +2211,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleLegend"",
+                    ""type"": ""Button"",
+                    ""id"": ""70aca701-cb20-427d-9609-926876487241"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -2642,6 +2651,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""CycleSubTab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""39b478c3-c735-4105-838b-fd8b969b940d"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ToggleLegend"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""febed497-792f-467f-b52e-929ac0a80098"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ToggleLegend"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -3306,6 +3337,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_UI_DeleteSave = m_UI.FindAction("DeleteSave", throwIfNotFound: true);
         m_UI_CycleTab = m_UI.FindAction("CycleTab", throwIfNotFound: true);
         m_UI_CycleSubTab = m_UI.FindAction("CycleSubTab", throwIfNotFound: true);
+        m_UI_ToggleLegend = m_UI.FindAction("ToggleLegend", throwIfNotFound: true);
         // Army Battle
         m_ArmyBattle = asset.FindActionMap("Army Battle", throwIfNotFound: true);
         m_ArmyBattle_SelectCommand = m_ArmyBattle.FindAction("SelectCommand", throwIfNotFound: true);
@@ -3699,6 +3731,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_DeleteSave;
     private readonly InputAction m_UI_CycleTab;
     private readonly InputAction m_UI_CycleSubTab;
+    private readonly InputAction m_UI_ToggleLegend;
     public struct UIActions
     {
         private @PlayerControls m_Wrapper;
@@ -3713,6 +3746,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @DeleteSave => m_Wrapper.m_UI_DeleteSave;
         public InputAction @CycleTab => m_Wrapper.m_UI_CycleTab;
         public InputAction @CycleSubTab => m_Wrapper.m_UI_CycleSubTab;
+        public InputAction @ToggleLegend => m_Wrapper.m_UI_ToggleLegend;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -3752,6 +3786,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @CycleSubTab.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCycleSubTab;
                 @CycleSubTab.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCycleSubTab;
                 @CycleSubTab.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCycleSubTab;
+                @ToggleLegend.started -= m_Wrapper.m_UIActionsCallbackInterface.OnToggleLegend;
+                @ToggleLegend.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnToggleLegend;
+                @ToggleLegend.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnToggleLegend;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -3786,6 +3823,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @CycleSubTab.started += instance.OnCycleSubTab;
                 @CycleSubTab.performed += instance.OnCycleSubTab;
                 @CycleSubTab.canceled += instance.OnCycleSubTab;
+                @ToggleLegend.started += instance.OnToggleLegend;
+                @ToggleLegend.performed += instance.OnToggleLegend;
+                @ToggleLegend.canceled += instance.OnToggleLegend;
             }
         }
     }
@@ -3966,6 +4006,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnDeleteSave(InputAction.CallbackContext context);
         void OnCycleTab(InputAction.CallbackContext context);
         void OnCycleSubTab(InputAction.CallbackContext context);
+        void OnToggleLegend(InputAction.CallbackContext context);
     }
     public interface IArmyBattleActions
     {

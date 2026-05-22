@@ -99,6 +99,9 @@ namespace DChild.Gameplay.UI
                 case StoreNotificationType.Bestiary:
                     GameplaySystem.gamplayUIHandle.alertManager.bestiaryAlerts.RecordNewNotification(ID);
                     break;
+                case StoreNotificationType.ArmyTroops:
+                    GameplaySystem.gamplayUIHandle.alertManager.armyTroopAlerts.RecordNewNotification(ID);
+                    break;
                 case StoreNotificationType.Character:
                     GameplaySystem.gamplayUIHandle.alertManager.charactersAlerts.RecordNewNotification(ID);
                     break;
