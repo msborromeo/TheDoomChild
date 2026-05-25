@@ -1,10 +1,12 @@
 ﻿using DChild.Gameplay.Environment;
 using DChild.Gameplay.NavigationMap.MapLegend;
+using DChild.Gameplay.UI;
 using DChild.Gameplay.UI.Map;
 using DChild.UI;
 using Doozy.Runtime.UIManager.Animators;
 using Doozy.Runtime.UIManager.Containers;
 using Holysoft.Event;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DChild.Gameplay.NavigationMap
@@ -25,7 +27,8 @@ namespace DChild.Gameplay.NavigationMap
         [SerializeField]
         private MapZoomHandler m_zoomHandler;
 
-        [SerializeField] private UIContainerUIAnimator m_legendSection;
+        [SerializeField, BoxGroup("Map Legend")] private UIContainerUIAnimator m_legendSection;
+        [SerializeField, BoxGroup("Map Legend")] private SetTextToTextBox m_toggleIconsPrompt;
 
         private NavigationMapIconManager m_iconManager;
 
@@ -74,6 +77,9 @@ namespace DChild.Gameplay.NavigationMap
         public void ToggleMapIconsVisibility(bool willShow)
         {
             m_iconManager.ToggleIconVisibility(willShow);
+
+            var updatedPromptLabel = !willShow ? "Show" : "Hide";
+            m_toggleIconsPrompt.SetText($"BUTTONPROMPT {updatedPromptLabel} Icons");
         }
 
         public void OpenMap()
