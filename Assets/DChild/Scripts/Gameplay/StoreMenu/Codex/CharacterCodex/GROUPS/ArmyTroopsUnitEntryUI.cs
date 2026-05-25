@@ -40,9 +40,7 @@ namespace DChild.Menu.Codex.ArmyTroops
 
         public void SetEntryVisuals(bool isRecorded)
         {
-            var visualState = isRecorded ? Doozy.Runtime.UIManager.UISelectionState.Normal : Doozy.Runtime.UIManager.UISelectionState.Disabled;
-
-            gameObject.GetComponent<UIButton>().SetState(visualState);
+            gameObject.GetComponent<UIButton>().interactable = isRecorded;
         }
 
         private void SetIconType(DamageType type)
