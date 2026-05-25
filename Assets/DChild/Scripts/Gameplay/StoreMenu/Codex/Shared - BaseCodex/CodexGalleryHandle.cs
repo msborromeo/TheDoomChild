@@ -9,6 +9,8 @@ namespace DChild.Menu.Codex
         [SerializeReference]
         protected CodexGalleryPopupInfoUI<InfoType> m_popupPage;
 
+        protected ProgressTracker m_playerTracker;
+
         public void SetPopupDetails(InfoType data)
         {
             if (m_popupPage != null)

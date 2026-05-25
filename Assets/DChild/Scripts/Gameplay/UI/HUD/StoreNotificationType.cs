@@ -2,6 +2,7 @@
 {
     public enum StoreNotificationType
     {
+        ArmyTroops,
         Bestiary,
         Character,
         Location,

@@ -38,7 +38,7 @@ namespace DChild.Menu.Codex.ArmyTroops
             int slotsPerPage = m_entryButtons.Count;
             int startOffset = page * slotsPerPage;
 
-            for (int i = 0; i < slotsPerPage; i++)
+            for (int i = 0; i < m_entryButtons.Count; i++)
             {
                 var entryButton = m_entryButtons[i];
                 int dataIndex = i + startOffset;
@@ -46,6 +46,7 @@ namespace DChild.Menu.Codex.ArmyTroops
                 bool hasData = dataIndex < m_filteredList.Count;
 
                 entryButton.gameObject.SetActive(hasData);
+
                 if (!hasData) continue;
 
                 var battleData = m_filteredList[dataIndex];
@@ -59,22 +60,43 @@ namespace DChild.Menu.Codex.ArmyTroops
 
                 ResubscribeButtonEvents(entryButton);
 
-                bool isUnlocked = SetUnlockedStatus(entryButton, m_filteredList[dataIndex]);
+                bool isUnlocked = SetUnlockedStatus(entryButton, battleData);
+                if (!isUnlocked) continue;
 
-                if (!hasSelectedFirst && isUnlocked)
+                SetUnitsOpacity(entryButton);
+
+                if (hasSelectedFirst) continue;
+
+                entryButton.Select();
+                hasSelectedFirst = true;
+            }
+        }
+
+        private void PopulateButtonGroupData(ArmyCharacterGroup armyGroup, ArmyTroopsIndexButton button)
+        {
+            for (int i = 0; i < armyGroup.memberCount; i++)
+            {
+                var unitCodexData = GetCodexData(armyGroup.GetCharacter(i));
+                if (unitCodexData != null)
                 {
-                    entryButton.Select();
-                    hasSelectedFirst = true;
+                    button.AddUnitCodexData(unitCodexData);
                 }
             }
         }
-        #endregion
+
+        private void SetUnitsOpacity(ArmyTroopsIndexButton button)
+        {
+            for (int i = 0; i < button.codexData.Count; i++)
+            {
+                bool isRecorded = m_revealAllData || CheckPlayerProgress(button.codexData[i]);
+                button.SetUnitOpacity(i, isRecorded);
+            }
+        }
 
         private bool SetUnlockedStatus(ArmyTroopsIndexButton button, ArmyGroupTemplateData data)
         {
             bool isUnlocked = m_revealAllData || CheckPlayerProgress(data);
             button.SetInteractable(isUnlocked);
-
             return isUnlocked;
         }
 
@@ -90,28 +112,48 @@ namespace DChild.Menu.Codex.ArmyTroops
             SetPopupEntryData(armyData);
         }
 
-        private void PopulateButtonGroupData(ArmyCharacterGroup armyGroup, ArmyTroopsIndexButton button)
-        {
-            for (int i = 0; i < armyGroup.memberCount; i++)
-            {
-                var unitCodexData = GetCodexData(armyGroup.GetCharacter(i));
-                button.AddUnitCodexData(unitCodexData);
-            }
-        }
-
         private CharacterCodexData GetCodexData(ArmyCharacterData character)
         {
-            return m_codexDataList.GetIDs().
-                    Select(id => m_codexDataList.GetInfo(id)).FirstOrDefault(codexData => codexData.characterType == CharacterType.Army && codexData.armyData == character);
+            if (character == null || m_codexDataList == null) return null;
+
+            // Optimized to avoid heavy allocation chains (.GetIDs().Select().FirstOrDefault())
+            var ids = m_codexDataList.GetIDs();
+            for (int i = 0; i < ids.Length; i++)
+            {
+                var codexData = m_codexDataList.GetInfo(ids[i]);
+                if (codexData != null &&
+                    codexData.characterType == CharacterType.Army &&
+                    codexData.armyData == character)
+                {
+                    return codexData;
+                }
+            }
+            return null;
         }
+        #endregion
 
         protected override bool CheckPlayerProgress(ArmyGroupTemplateData data)
         {
-            //TODO modify to check if army group has at least one member unlocked
+            if (data == null) return false;
+
+            if (data.armyCharacterGroup != null)
+            {
+                for (int i = 0; i < data.armyCharacterGroup.memberCount; i++)
+                {
+                    var unit = data.armyCharacterGroup.GetCharacter(i);
+                    var codexData = GetCodexData(unit);
+
+                    if (codexData != null && CheckPlayerProgress(codexData))
+                    {
+                        return true; // Found at least one unlocked member
+                    }
+                }
+            }
+
             return m_playerTracker.HasInfoOf(data.id);
         }
 
-        private bool CheckPlayerProgress(CharacterCodexData data) => m_playerTracker.HasInfoOf(data.id);
+        private bool CheckPlayerProgress(CharacterCodexData data) => data != null && m_playerTracker.HasInfoOf(data.id);
         public override void Initialize()
         {
             base.Initialize();
