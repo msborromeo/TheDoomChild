@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,12 +13,22 @@ namespace DChild.Gameplay.NavigationMap.MapLegend
         [SerializeField] private int m_maxEntriesPerSection;
 
         private List<Image> m_bullets = new();
-        private int pageIndex = 0;
+        private int m_pageIndex = 0;
+
+        public Action<int> OnPageChange;
 
         public void SetupBullets()
         {
             ResetBullets();
-            for (int i = 0; i < m_legendUI.listUI.legendEntries.Count / m_maxEntriesPerSection; i++)
+
+            int totalEntries = m_legendUI.listUI.legendEntries.Count;
+            var pageLimit = m_legendUI.listUI.entryLimit;
+
+            if (totalEntries == 0) return;
+
+            int totalPages = (totalEntries + pageLimit - 1) / pageLimit;
+
+            for (int i = 0; i < totalPages; i++)
             {
                 var bullet = Instantiate(m_bulletPoint, m_bulletSection.transform).gameObject;
                 Image bulletImage = bullet.GetComponent<Image>();
@@ -25,10 +36,9 @@ namespace DChild.Gameplay.NavigationMap.MapLegend
                 bulletImage.color = new Color32(53, 52, 53, 255);
                 AddBullet(bulletImage, i);
             }
-
         }
 
-        private void HighlightActiveBullet() => m_bullets[pageIndex].color = new Color32(253, 215, 32, 255);
+        private void HighlightActiveBullet() => m_bullets[m_pageIndex].color = new Color32(253, 215, 32, 255);
 
         private void AddBullet(Image bullet, int number)
         {
@@ -36,18 +46,13 @@ namespace DChild.Gameplay.NavigationMap.MapLegend
             m_bullets.Add(bullet);
         }
 
-        //public void Previous()
-        //{
-        //    m_bullets[pageIndex].color = new Color32(28, 50, 58, 255);
-        //    pageIndex--;
-        //    HighlightActiveBullet();
-        //}
-
         public void Next()
         {
-            m_bullets[pageIndex].color = new Color32(28, 50, 58, 255);
-            pageIndex = pageIndex != (m_bullets.Count - 1) ? pageIndex++ : 0;
+            m_bullets[m_pageIndex].color = new Color32(28, 50, 58, 255);
+            m_pageIndex = m_pageIndex != (m_bullets.Count - 1) ? m_pageIndex++ : 0;
             HighlightActiveBullet();
+
+            OnPageChange.Invoke(m_pageIndex);
         }
 
         private void ResetBullets()

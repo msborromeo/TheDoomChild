@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.Environment;
+using DChild.Gameplay.NavigationMap.MapLegend;
 using DChild.Gameplay.UI.Map;
 using DChild.UI;
 using Doozy.Runtime.UIManager.Animators;
@@ -43,6 +44,8 @@ namespace DChild.Gameplay.NavigationMap
                 m_iconManager = m_currentMap.GetComponentInChildren<NavigationMapIconManager>();
                 m_collectathonManager.SetCollectathonDetails(location);
                 m_zoomHandler.SetZoomConstraints(m_mapInstance.minZoom, m_mapInstance.maxZoom);
+
+                m_legendSection.GetComponent<MapLegendUI>().SetLegendList(m_iconManager.legendIcons);
             }
 
             m_tracker.SetReferencePointPosition(m_currentMap, mapReferencePoint);
@@ -87,6 +90,7 @@ namespace DChild.Gameplay.NavigationMap
             m_tracker.UpdateTrackerPosition();
             MoveTrackerToCenter();
             m_collectathonManager.ShowCollectathonDetails();
+            m_legendSection.GetComponent<MapLegendUI>().SetLegendList(m_iconManager.legendIcons);
             m_zoomHandler.OnMapZoom += m_iconManager.OnMapZoom;
 
         }
