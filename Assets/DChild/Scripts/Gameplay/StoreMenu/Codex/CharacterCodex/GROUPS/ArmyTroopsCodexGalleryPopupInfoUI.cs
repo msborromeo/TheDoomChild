@@ -36,9 +36,10 @@ namespace DChild.Menu.Codex.ArmyTroops
         {
             for (int i = 0; i < m_entriesUI.Length; i++)
             {
-                m_entriesUI[i].gameObject.SetActive(i < codexData.Count && m_playerTracker.HasInfoOf(codexData[i].id));
+                m_entriesUI[i].gameObject.SetActive(i < codexData.Count);
+                m_entriesUI[i].SetEntryVisuals(m_playerTracker.HasInfoOf(codexData[i].id));
 
-                if (i < codexData.Count)
+                if (i < codexData.Count && m_playerTracker.HasInfoOf(codexData[i].id))
                     m_entriesUI[i].Display(codexData[i], type);
             }
         }
