@@ -36,6 +36,7 @@ namespace DChild.Gameplay.NavigationMap.MapLegend
                 bulletImage.color = new Color32(53, 52, 53, 255);
                 AddBullet(bulletImage, i);
             }
+            HighlightActiveBullet();
         }
 
         private void HighlightActiveBullet() => m_bullets[m_pageIndex].color = new Color32(253, 215, 32, 255);
