@@ -153,6 +153,11 @@ namespace DChild.Gameplay.Systems
             m_navMap.ToggleLegendVisibility(willshow);
         }
 
+        public void CycleNextLegendPage()
+        {
+            m_navMap.CycleNextLegendPage();
+        }
+
         public void ShowHoldToTeleportSequence(CallbackContext context, bool isCanceled)
         {
             if (isCanceled)
@@ -274,13 +279,13 @@ namespace DChild.Gameplay.Systems
         {
             m_navMap.ForceMapUpdateOnNextOpen();
         }
-        
+
         public UIHandlerExtraReference getReference()
         {
             //Initialization
             _ExtraReference.m_BossHealth = m_BossHealth;
             _ExtraReference.m_QuickItems = m_QuickItems;
-            
+
             return _ExtraReference;
         }
 

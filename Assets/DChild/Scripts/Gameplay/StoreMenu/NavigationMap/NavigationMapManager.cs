@@ -66,6 +66,11 @@ namespace DChild.Gameplay.NavigationMap
                 m_legendSection.Hide();
         }
 
+        public void CycleNextLegendPage()
+        {
+            m_legendSection.GetComponent<MapLegendUI>().bulletHandle.Next();
+        }
+
 
         public void OpenMap()
         {

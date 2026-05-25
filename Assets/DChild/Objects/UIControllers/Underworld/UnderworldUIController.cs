@@ -108,11 +108,27 @@ namespace DChild.Gameplay.UI.Controller
         {
             if (obj > 0)
             {
+                switch (m_necroTabIndex)
+                {
+                    case 0:
+                        UnderworldGameplaySystem.gameplayUIHandle.CycleNextLegendPage();
+                        break;
 
+                    default:
+                        break;
+                }
             }
             else if (obj < 0)
             {
+                switch (m_necroTabIndex)
+                {
+                    case 0:
+                        UnderworldGameplaySystem.gameplayUIHandle.CycleNextLegendPage();
+                        break;
 
+                    default:
+                        break;
+                }
             }
         }
         private void OnUIToggleMapLegendEvent()
