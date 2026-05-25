@@ -153,9 +153,13 @@ namespace DChild.Gameplay.Systems
             m_navMap.ToggleLegendVisibility(willshow);
         }
 
-        public void CycleNextLegendPage()
+        public void CycleLegendPage()
         {
-            m_navMap.CycleNextLegendPage();
+            m_navMap.CycleLegendPage();
+        }
+        public void ToggleMapIconsVisibility(bool willShow)
+        {
+            m_navMap.ToggleMapIconsVisibility(willShow);
         }
 
         public void ShowHoldToTeleportSequence(CallbackContext context, bool isCanceled)

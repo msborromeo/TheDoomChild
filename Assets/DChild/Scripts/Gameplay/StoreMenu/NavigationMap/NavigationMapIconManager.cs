@@ -27,6 +27,14 @@ namespace DChild.Gameplay.NavigationMap
             }
         }
 
+        public void ToggleIconVisibility(bool toggle)
+        {
+            foreach (var item in m_legendIcons)
+            {
+                item.gameObject.SetActive(toggle);
+            }
+        }
+
         private void Awake()
         {
             foreach (var iconGroup in m_iconGroupCollection)

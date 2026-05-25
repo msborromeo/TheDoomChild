@@ -66,11 +66,15 @@ namespace DChild.Gameplay.NavigationMap
                 m_legendSection.Hide();
         }
 
-        public void CycleNextLegendPage()
+        public void CycleLegendPage()
         {
             m_legendSection.GetComponent<MapLegendUI>().bulletHandle.Next();
         }
 
+        public void ToggleMapIconsVisibility(bool willShow)
+        {
+            m_iconManager.ToggleIconVisibility(willShow);
+        }
 
         public void OpenMap()
         {
@@ -97,7 +101,6 @@ namespace DChild.Gameplay.NavigationMap
             m_collectathonManager.ShowCollectathonDetails();
             m_legendSection.GetComponent<MapLegendUI>().SetLegendList(m_iconManager.legendIcons);
             m_zoomHandler.OnMapZoom += m_iconManager.OnMapZoom;
-
         }
 
         private void MoveTrackerToCenter()

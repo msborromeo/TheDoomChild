@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,10 +48,13 @@ namespace DChild.Gameplay.NavigationMap.MapLegend
             m_bullets.Add(bullet);
         }
 
+        [Button]
         public void Next()
         {
+            if (m_bullets == null || m_bullets.Count == 0) return;
+
             m_bullets[m_pageIndex].color = new Color32(28, 50, 58, 255);
-            m_pageIndex = m_pageIndex != (m_bullets.Count - 1) ? m_pageIndex++ : 0;
+            m_pageIndex = m_pageIndex != (m_bullets.Count - 1) ? m_pageIndex + 1 : 0;
             HighlightActiveBullet();
 
             OnPageChange.Invoke(m_pageIndex);
