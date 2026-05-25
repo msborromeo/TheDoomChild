@@ -25,9 +25,9 @@ namespace DChild.Inputs
 
         private PlayerInput m_playerInput;
 
-        [SerializeField, BoxGroup("EDITOR ONLY")]
+        [SerializeField, BoxGroup("EDITOR ONLY"), Tooltip("Check if this is Editor Only version of BaseGameplay")]
         private bool m_isEditorOnly;
-        [SerializeField, BoxGroup("EDITOR ONLY")]
+        [SerializeField, BoxGroup("EDITOR ONLY"), Tooltip("Only need to manually reference player's Player Input if dealing with Editor Only version of BaseGameplay")]
         private PlayerInput m_editorOnlyPlayerInput;
 
         private void Start()

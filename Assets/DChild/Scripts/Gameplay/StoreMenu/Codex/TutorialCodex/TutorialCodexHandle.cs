@@ -9,7 +9,7 @@ namespace DChild.Codex.Tutorial
     {
         public void SelectButton(TutorialCodexIndexButton button)
         {
-            Select(button);
+            //Select(button);
         }
     }
 

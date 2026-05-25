@@ -73,31 +73,6 @@ namespace DChild.Menu.Codex.Bestiary
 
 
         public override void SetupGalleryEntries() => SetupGalleryEntries(0);
-        //{
-        //    bool hasSelectedFirst = false;
-
-        //    for (int i = 0; i < m_entryButtons.Count; i++)
-        //    {
-        //        var entryButton = m_entryButtons[i];
-
-        //        if (i < m_filteredList.Count)
-        //        {
-        //            var data = m_filteredList[i];
-
-        //            entryButton.SetData(data);
-        //            entryButton.OnEntrySelected += SetPopupEntryData;
-
-        //            bool isUnlocked = m_revealAllData || CheckPlayerProgress(data);
-        //            entryButton.SetInteractable(isUnlocked);
-
-        //            if (!hasSelectedFirst && isUnlocked)
-        //            {
-        //                entryButton.Select();
-        //                hasSelectedFirst = true;
-        //            }
-        //        }
-        //    }
-        //}
 
         protected override bool CheckPlayerProgress(BestiaryData data)
         {
