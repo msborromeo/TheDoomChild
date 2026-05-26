@@ -1,8 +1,12 @@
 ﻿using DChild.Gameplay.Environment;
+using DChild.Gameplay.NavigationMap.MapLegend;
+using DChild.Gameplay.UI;
 using DChild.Gameplay.UI.Map;
 using DChild.UI;
+using Doozy.Runtime.UIManager.Animators;
 using Doozy.Runtime.UIManager.Containers;
 using Holysoft.Event;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DChild.Gameplay.NavigationMap
@@ -23,6 +27,9 @@ namespace DChild.Gameplay.NavigationMap
         [SerializeField]
         private MapZoomHandler m_zoomHandler;
 
+        [SerializeField, BoxGroup("Map Legend")] private UIContainerUIAnimator m_legendSection;
+        [SerializeField, BoxGroup("Map Legend")] private SetTextToTextBox m_toggleIconsPrompt;
+
         private NavigationMapIconManager m_iconManager;
 
         public event EventAction<EventActionArgs> OnMapZoom;
@@ -37,9 +44,11 @@ namespace DChild.Gameplay.NavigationMap
                 m_zoomHandler.SetupZoom(m_currentMap);
                 m_mapNeedsCompleteUpdate = true;
                 m_mapInstance = m_currentMap.GetComponentInChildren<NavigationMapInstance>();
-                m_iconManager= m_currentMap.GetComponentInChildren<NavigationMapIconManager>();
+                m_iconManager = m_currentMap.GetComponentInChildren<NavigationMapIconManager>();
                 m_collectathonManager.SetCollectathonDetails(location);
                 m_zoomHandler.SetZoomConstraints(m_mapInstance.minZoom, m_mapInstance.maxZoom);
+
+                m_legendSection.GetComponent<MapLegendUI>().SetLegendList(m_iconManager.legendIcons);
             }
 
             m_tracker.SetReferencePointPosition(m_currentMap, mapReferencePoint);
@@ -52,7 +61,27 @@ namespace DChild.Gameplay.NavigationMap
             m_mapNeedsCompleteUpdate = true;
         }
 
-       
+        public void ToggleLegendVisibility(bool visible)
+        {
+            if (visible)
+                m_legendSection.Show();
+            else
+                m_legendSection.Hide();
+        }
+
+        public void CycleLegendPage()
+        {
+            m_legendSection.GetComponent<MapLegendUI>().bulletHandle.Next();
+        }
+
+        public void ToggleMapIconsVisibility(bool willShow)
+        {
+            m_iconManager.ToggleIconVisibility(willShow);
+
+            var updatedPromptLabel = !willShow ? "Show" : "Hide";
+            m_toggleIconsPrompt.SetText($"BUTTONPROMPT {updatedPromptLabel} Icons");
+        }
+
         public void OpenMap()
         {
             if (m_mapNeedsCompleteUpdate)
@@ -76,8 +105,8 @@ namespace DChild.Gameplay.NavigationMap
             m_tracker.UpdateTrackerPosition();
             MoveTrackerToCenter();
             m_collectathonManager.ShowCollectathonDetails();
+            m_legendSection.GetComponent<MapLegendUI>().SetLegendList(m_iconManager.legendIcons);
             m_zoomHandler.OnMapZoom += m_iconManager.OnMapZoom;
-
         }
 
         private void MoveTrackerToCenter()
