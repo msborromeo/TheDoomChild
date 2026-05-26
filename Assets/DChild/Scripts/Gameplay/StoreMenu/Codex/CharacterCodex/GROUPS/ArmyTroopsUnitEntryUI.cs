@@ -1,5 +1,6 @@
 ﻿using DChild.Codex.Characters;
 using DChild.Gameplay.ArmyBattle;
+using Doozy.Runtime.UIManager.Components;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -27,12 +28,19 @@ namespace DChild.Menu.Codex.ArmyTroops
         [Button]
         public void Display(CharacterCodexData character, DamageType type)
         {
+
+
             m_unitName.text = character.armyData.name;
             m_unitDescription.text = character.armyData.description ?? character.description;
             m_troopCount.text = $"{character.armyData.troopCount}";
             m_attackPower.text = $"{character.armyData.attackPower}";
 
             SetIconType(type);
+        }
+
+        public void SetEntryVisuals(bool isRecorded)
+        {
+            gameObject.GetComponent<UIButton>().interactable = isRecorded;
         }
 
         private void SetIconType(DamageType type)

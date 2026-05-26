@@ -148,6 +148,20 @@ namespace DChild.Gameplay.Systems
             }
         }
 
+        public void ToggleMapLegend(bool willshow)
+        {
+            m_navMap.ToggleLegendVisibility(willshow);
+        }
+
+        public void CycleLegendPage()
+        {
+            m_navMap.CycleLegendPage();
+        }
+        public void ToggleMapIconsVisibility(bool willShow)
+        {
+            m_navMap.ToggleMapIconsVisibility(willShow);
+        }
+
         public void ShowHoldToTeleportSequence(CallbackContext context, bool isCanceled)
         {
             if (isCanceled)
@@ -269,13 +283,13 @@ namespace DChild.Gameplay.Systems
         {
             m_navMap.ForceMapUpdateOnNextOpen();
         }
-        
+
         public UIHandlerExtraReference getReference()
         {
             //Initialization
             _ExtraReference.m_BossHealth = m_BossHealth;
             _ExtraReference.m_QuickItems = m_QuickItems;
-            
+
             return _ExtraReference;
         }
 
