@@ -24,10 +24,7 @@ namespace DChild.Codex.Quests.UI
         public int currentPage => throw new System.NotImplementedException();
         public event EventAction<EventActionArgs> PageChange;
 
-        public void SetSectionType(bool value)
-        {
-            m_isMain = value;
-        }
+        public void SetSectionType(bool value) => m_isMain = value;
 
         public void Initialize(Quest[] quests)
         {
@@ -52,7 +49,6 @@ namespace DChild.Codex.Quests.UI
                     questButton.Display(null);
                     continue;
                 }
-                questButton.background.SetBackground(m_isMain);
                 questButton.SetSelectionIndex(m_startingIndex + i);
                 questButton.Display(quests[i]);
             }
