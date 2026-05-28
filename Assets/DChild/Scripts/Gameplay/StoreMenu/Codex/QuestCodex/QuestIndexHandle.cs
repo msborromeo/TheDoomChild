@@ -40,6 +40,8 @@ namespace DChild.Codex.Quests.UI
 
         public void Display(Quest[] quests)
         {
+            var selectedFirst = false;
+
             for (int i = 0; i < m_maxRows; i++)
             {
                 var questButton = m_questButtons[i];
@@ -51,6 +53,12 @@ namespace DChild.Codex.Quests.UI
                 }
                 questButton.SetSelectionIndex(m_startingIndex + i);
                 questButton.Display(quests[i]);
+
+                if(!selectedFirst)
+                {
+                    questButton.GetComponent<UIButton>().Select();
+                    selectedFirst = true;
+                }
             }
         }
 

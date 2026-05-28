@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
+using System.Linq;
 using UnityEngine;
 
 namespace DChild.Codex.Quests.UI
@@ -12,6 +13,8 @@ namespace DChild.Codex.Quests.UI
         [SerializeField] private QuestProgressIndexHandle m_progressIndexHandle;
         [SerializeField] private QuestProgressContentUI m_progressContent;
 
+        private Quest[] m_completeList;
+
         public QuestLogDataList questList => m_questList;
         public QuestIndexHandle indexHandle => m_indexHandle;
 
@@ -20,14 +23,17 @@ namespace DChild.Codex.Quests.UI
             m_progressIndexHandle.Display(button.questData);
         }
 
-        public void Select(QuestProgressUI button)
-        {
-            m_progressContent.Display(button.entry);
-        }
+        public void Select(QuestProgressUI button) => m_progressContent.Display(button.entry);
 
-        public void ResetDisplay()
+        private void ResetDisplay() => m_progressIndexHandle.ResetButtons();
+
+        public void Initialize()
         {
-            m_progressIndexHandle.ResetButtons();
+            ResetDisplay();
+
+            m_completeList = m_questList.mainQuests.Concat(m_questList.sideQuests).ToArray();
+
+            m_indexHandle.Initialize(m_completeList);
         }
     }
 }
