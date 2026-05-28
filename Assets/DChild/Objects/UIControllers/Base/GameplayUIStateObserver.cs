@@ -90,13 +90,13 @@ namespace DChild.UI
                 }
             }
 
-            SetCurrentUnderworldUIState(GameplayUIState.Cinematic);
+            SetCurrentUIState(GameplayUIState.Cinematic);
             Debug.Log($"Received signal: \nCategory: {signal.stream.category}\nName: {signal.stream.name}");
         }
 
         private void OnGameplaySignalReceived(Signal signal)
         {
-            SetCurrentUnderworldUIState(GameplayUIState.GameplayHUD);
+            SetCurrentUIState(GameplayUIState.GameplayHUD);
             Debug.Log($"Received signal: \nCategory: {signal.stream.category}\nName: {signal.stream.name}");
         }
 
@@ -117,7 +117,7 @@ namespace DChild.UI
                 }
             }
 
-            SetCurrentUnderworldUIState(GameplayUIState.InteractableUI);
+            SetCurrentUIState(GameplayUIState.InteractableUI);
             Debug.Log($"Received signal: \nCategory: {signal.stream.category}\nName: {signal.stream.name}");
         }
 
@@ -129,7 +129,7 @@ namespace DChild.UI
             DisconnectSignalReceivers(m_CinematicSignalReceivers);
         }
 
-        public void SetCurrentUnderworldUIState(GameplayUIState gameplayUIState)
+        public void SetCurrentUIState(GameplayUIState gameplayUIState)
         {
             m_currentUIState = gameplayUIState;
 

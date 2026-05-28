@@ -220,6 +220,11 @@ namespace DChild.Inputs
         {
             m_reader.OnDeleteSave(context);
         }
+        public void OnToggleMapLegend(InputAction.CallbackContext context)
+        {
+            m_reader.OnToggleMapLegend(context);
+        }
+
         #endregion
 
         #region Army Battle Controls

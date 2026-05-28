@@ -115,8 +115,10 @@ namespace DChild.Gameplay.Inventories
             }
             else if(item.category == ItemCategory.Consumable)
             {
+                //Check if quick item inventory is full before trying to add item there
                 if (m_quickItemInventory.isInventoryFull == false)
                 {
+                    //Check if the item is part of the autoQuickItem list and add it to quick items if the item is not in player inventory
                     if (m_autoQuickItemList.Contains(item))
                     {
                         if (m_inventory.GetItem(item) != null)
@@ -130,6 +132,8 @@ namespace DChild.Gameplay.Inventories
                     }
                     else
                     {
+                        //If the item is not part of autoQuickItems list, check if the item is in the quick items inventory and add to quick items if it is.
+                        //This assumes that the player manually placed the item into the quick items hence it should add there to avoid duplication
                         if (m_quickItemInventory.GetItem(item) != null)
                         {
                             m_quickItemInventory.AddItem(item, count);
@@ -142,6 +146,7 @@ namespace DChild.Gameplay.Inventories
                 }
                 else
                 {
+                    //If the quick items inventory is full, check first if the item is already in the quick items inventory before adding it to player inventory
                     if (m_quickItemInventory.GetItem(item) != null)
                     {
                         m_quickItemInventory.AddItem(item, count);
