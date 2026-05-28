@@ -20,5 +20,17 @@ namespace DChild.Gameplay.Environment
             gameObject.transform.SetParent(m_parentPlatform);
         }
 
+        private void FixedUpdate()
+        {
+            if(!m_parentPlatform)
+            {
+                return;
+            }
+
+            if(Vector2.Distance(m_parentPlatform.transform.position,transform.position)>20)
+            {
+                transform.SetParent(null);
+            }
+        }
     }
 }

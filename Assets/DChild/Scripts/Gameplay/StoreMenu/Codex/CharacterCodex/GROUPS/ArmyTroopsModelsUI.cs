@@ -12,20 +12,30 @@ namespace DChild.Menu.Codex.ArmyTroops
         [SerializeField] private Image m_secondModel;
         [SerializeField] private Image m_thirdModel;
 
-        [Button]
-        public void Display(CharacterCodexData[] characterUnits, CharacterCodexProgressTracker progressTracker)
+        public void Display(CharacterCodexData[] characterUnits, CharacterCodexProgressTracker tracker, bool debugReveal = false)
         {
-            Image[] spritePortraits = { m_firstModel, m_secondModel, m_thirdModel };
+            Image[] spritePortraits = characterUnits.Length < 3
+                ? new Image[] { m_firstModel, m_thirdModel }
+                : new Image[] { m_firstModel, m_secondModel, m_thirdModel };
 
-            for (int i = 0; i < spritePortraits.Length; i++)
+            m_secondModel.gameObject.SetActive(characterUnits.Length > 2);
+
+            int displayCount = Mathf.Min(spritePortraits.Length, characterUnits.Length);
+
+            for (int i = 0; i < displayCount; i++)
             {
-                spritePortraits[i].gameObject.SetActive(i < characterUnits.Length);
-                
-                if (i < characterUnits.Length)
-                {
-                    SetModelSprite(spritePortraits[i], characterUnits[i].infoImage);
-                    SetModelOpacity(spritePortraits[i], progressTracker.HasInfoOf(characterUnits[i].id));
-                }
+                var unit = characterUnits[i];
+                var portrait = spritePortraits[i];
+
+                portrait.gameObject.SetActive(true);
+
+                SetModelSprite(portrait, unit.infoImage);
+                SetModelOpacity(portrait, debugReveal || tracker.HasInfoOf(unit.id));
+            }
+
+            for (int i = displayCount; i < spritePortraits.Length; i++)
+            {
+                spritePortraits[i].gameObject.SetActive(false);
             }
         }
 
