@@ -157,6 +157,7 @@ namespace DChild.Inputs
         public event Action<float> UICycleTabsPerformedEvent;
         public event Action<float> UICycleSubTabsPerformedEvent;
         public event Action UIDeleteSaveEvent;
+        public event Action UIToggleMapLegendEvent;
         #endregion
         #region Army Battle Input
         public event Action ArmyBattleSelectCommandPerformedEvent;
@@ -841,6 +842,13 @@ namespace DChild.Inputs
             if (context.phase == InputActionPhase.Performed)
             {
                 UIDeleteSaveEvent?.Invoke();
+            }
+        }
+        public void OnToggleMapLegend(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Performed)
+            {
+                UIToggleMapLegendEvent?.Invoke();
             }
         }
         #endregion
