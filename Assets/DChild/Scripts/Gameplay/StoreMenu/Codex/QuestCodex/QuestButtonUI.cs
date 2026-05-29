@@ -13,18 +13,14 @@ namespace DChild.Codex.Quests.UI
         [SerializeField] private TextMeshProUGUI m_name;
 
         private Quest m_questData;
-        private int m_selectionIndex;
 
         private UIButton m_button;
 
         public Quest questData => m_questData;
 
-        public virtual int selectionIndex => m_selectionIndex;
-
         public QuestDataLocalizer localizer;
 
 
-        public void SetSelectionIndex(int index) => m_selectionIndex = index;
         private void SetQuestData(Quest data) => m_questData = data;
 
 
@@ -33,12 +29,15 @@ namespace DChild.Codex.Quests.UI
             m_button = gameObject.GetComponent<UIButton>();
         }
 
-        public void Display(Quest questData)
+        public void Display(Quest questData, bool debugReveal = false)
         {
-            EnsureReference();
-            m_button.interactable = questData != null;
+            var hasData = questData != null;
 
-            if (questData == null || questData.state == QuestState.Unassigned)
+            EnsureReference();
+            m_button.interactable = hasData || debugReveal;
+
+            //if (!hasData || questData.state == QuestState.Unassigned)
+            if (!hasData)
                 return;
 
             SetQuestData(localizer.LocalizeQuest(questData));

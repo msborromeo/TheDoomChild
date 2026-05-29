@@ -50,24 +50,22 @@ namespace DChild.Codex.Quests.UI
         }
 
         [Button(ButtonSizes.Large)]
-        public void ShowDialogueHistory()
-        {
-            m_descriptionPanel.text = m_currentQuestDescription;
-            //for (int i = m_conversationList.Count - 1; i >= 0; i--)
-            //{
-            //    //ConversationData entry = m_conversationList[i];
-            //    //if(i < m_conversationList.Count)
-            //    //m_UIPanels[i].Display(entry);
-            //}
-        }
+        public void ShowDialogueHistory() => m_descriptionPanel.text = m_currentQuestDescription;
+        //for (int i = m_conversationList.Count - 1; i >= 0; i--)
+        //{
+        //    //ConversationData entry = m_conversationList[i];
+        //    //if(i < m_conversationList.Count)
+        //    //m_UIPanels[i].Display(entry);
+        //}
+        //}
 
         void ResetButton()
         {
-            m_questOrder.text = null;
-            m_questName.text = null;
-            m_questStatus.text = null;
-            m_currentQuestDescription = null;
-            m_descriptionPanel.text = null;
+            m_questOrder.text = "";
+            m_questName.text = "";
+            m_questStatus.text = "";
+            m_currentQuestDescription = "";
+            m_descriptionPanel.text = "";
         }
 
 
