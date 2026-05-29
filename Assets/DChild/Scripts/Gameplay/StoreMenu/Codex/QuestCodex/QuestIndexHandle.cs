@@ -69,29 +69,5 @@ namespace DChild.Codex.Quests.UI
         {
             m_navigationHandle.OnCurrentPageChange += SetPage;
         }
-
-        //public void NextPage()
-        //{
-        //    m_page++;
-        //    SetPage(m_page);
-        //}
-
-        //public void PreviousPage()
-        //{
-        //    m_page--;
-        //    SetPage(m_page);
-        //}
-
-        //public void HandleScroll()
-        //{
-        //    int totalPages = GetTotalPages();
-        //    int updatedPage = Mathf.FloorToInt(m_scrollBar.value / (1f / totalPages));
-        //    updatedPage = Mathf.Clamp(updatedPage, 0, totalPages - 1);
-
-        //    if (m_page != updatedPage)
-        //    {
-        //        SetPage(updatedPage);
-        //    }
-        //}
     }
 }
