@@ -11,6 +11,7 @@ using Doozy.Runtime.UIManager.Components;
 namespace DChild.Codex.Quests.UI
 {
 
+    [RequireComponent(typeof(UIButton))]
     public class QuestProgressUI : MonoBehaviour, IQuestDataLocalize
     {
         [BoxGroup("TMP Fields"), SerializeField] private TextMeshProUGUI m_questOrder;
