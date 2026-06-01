@@ -28,8 +28,9 @@ namespace DChild.Codex.Quests.UI
         private void SetupSubEntry(QuestProgressUI targetUI, QuestEntry entry, bool debugReveal)
         {
             targetUI.gameObject.SetActive(true);
-            targetUI.GetComponent<UIButton>().interactable = entry.state != QuestState.Unassigned || debugReveal;
+            targetUI.SetInteractablility(entry.state != QuestState.Unassigned || debugReveal);
         }
+
         private void OnDisable() => ResetSubEntryUIs();
 
         public void ResetSubEntryUIs()

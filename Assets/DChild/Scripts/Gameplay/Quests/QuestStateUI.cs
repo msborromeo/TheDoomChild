@@ -21,8 +21,8 @@ namespace DChild.Gameplay.Quests
             switch (quest)
             {
                 case QuestState.Active:
-                    m_inProgress.text = m_isMainQuest ? "" : "IN PROGRESS";
-                    m_completed.text = m_isMainQuest ? "STARTED" : "";
+                    m_inProgress.text = "IN PROGRESS";
+                    m_completed.text = "STARTED";
 
                     if (m_isMainQuest)
                         m_isMainQuest = false;

@@ -21,7 +21,7 @@ namespace DChild.Codex.Quests.UI
         public void Select(QuestButtonUI button)
         {
             ResetDisplay();
-            m_progressIndexHandle.Display(button.questData);
+            m_progressIndexHandle.Display(button.questData, m_revealAllQuests);
         }
 
         public void Select(QuestProgressUI button) => m_progressContent.Display(button.entry);
