@@ -46,7 +46,7 @@ namespace DChild.Codex.Quests.UI
 
         private void SetQuestDescription(string description)
         {
-            m_currentQuestDescription = description;
+            //m_currentQuestDescription = description;
             m_descriptionPanel.text = description;
         }
 
@@ -69,7 +69,7 @@ namespace DChild.Codex.Quests.UI
             m_questOrder.text = $"{toRomanNumeral(index + 1)}";
             m_questName.text = entry.name;
             m_questStatus.text = GetQuestStatus(entry.state);
-            //SetQuestDescription(entry.description);
+            SetQuestDescription(entry.description);
 
             LocalizeEntry?.Invoke(entry, index);
         }
