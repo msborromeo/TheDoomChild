@@ -1,101 +1,74 @@
 ﻿using DChild.Gameplay.ArmyBattle;
+using DChild.Menu.Codex;
 using Doozy.Runtime.UIManager.Components;
 using Holysoft.Collections;
 using Holysoft.Event;
 using PixelCrushers.DialogueSystem;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace DChild.Codex.Quests.UI
 {
-
-    public class QuestIndexHandle : MonoBehaviour, IPageHandle
+    public class QuestIndexHandle : MonoBehaviour
     {
-        [SerializeField] private UIScrollbar m_scrollBar;
+        [SerializeField] private CodexScrollNavigationHandle m_navigationHandle;
         [SerializeField] private List<QuestButtonUI> m_questButtons;
 
         private Quest[] m_quests;
-        private Quest[] m_filteredQuests;
+        private int m_startingIndex = 0;
 
-        private bool m_isMain;
-        private int m_page, m_maxRows = 8, m_startingIndex = 0;
-
-        public int currentPage => throw new System.NotImplementedException();
         public event EventAction<EventActionArgs> PageChange;
 
-        public void SetSectionType(bool value) => m_isMain = value;
-
-        public void Initialize(Quest[] quests)
+        private bool m_revealAllQuests;
+        public void Initialize(Quest[] quests, bool debugReveal)
         {
-            m_quests = quests;
-            m_scrollBar.numberOfSteps = GetTotalPages();
-            m_scrollBar.size = 1f / GetTotalPages();
-            m_scrollBar.value = 0;
+            m_revealAllQuests = debugReveal;
 
+            m_quests = quests;
+
+            m_navigationHandle.SetupScroll(quests.Length, m_questButtons.Count);
             SetPage(0);
         }
 
-        public int GetTotalPages() => Mathf.CeilToInt(m_quests.Length / (float)m_maxRows);
-
-        public void Display(Quest[] quests)
+        public void Display(int startOffset, bool debugReveal = false)
         {
             var selectedFirst = false;
 
-            for (int i = 0; i < m_maxRows; i++)
+            for (int i = 0; i < m_questButtons.Count; i++)
             {
                 var questButton = m_questButtons[i];
 
-                if (i >= quests.Length)
-                {
-                    questButton.Display(null);
-                    continue;
-                }
-                questButton.SetSelectionIndex(m_startingIndex + i);
-                questButton.Display(quests[i]);
+                int dataIndex = i + startOffset;
 
-                if(!selectedFirst)
-                {
-                    questButton.GetComponent<UIButton>().Select();
-                    selectedFirst = true;
-                }
+                var hasData = dataIndex < m_quests.Length;
+                questButton.gameObject.SetActive(hasData);
+
+                if (!hasData)
+                    continue;
+
+                //if(DialogueManager.masterDatabase)
+                questButton.Display(m_quests[dataIndex], debugReveal);
+
+                if (selectedFirst)
+                    continue;
+
+                questButton.GetComponent<UIButton>().Select();
+                selectedFirst = true;
             }
         }
 
         public void SetPage(int pageIndex)
         {
-            m_page = pageIndex;
-            m_startingIndex = m_page * m_maxRows;
-
-            int rangeCount = (m_startingIndex + m_maxRows) < m_quests.Length ? m_maxRows : (m_quests.Length - m_startingIndex);
-
-            m_filteredQuests = m_quests.Skip(m_startingIndex).Take(rangeCount).ToArray();
-
-            Display(m_filteredQuests);
+            m_startingIndex = pageIndex * m_questButtons.Count;
+            Display(m_startingIndex, m_revealAllQuests);
         }
 
-        public void NextPage()
-        {
-            m_page++;
-            SetPage(m_page);
-        }
 
-        public void PreviousPage()
+        private void Awake()
         {
-            m_page--;
-            SetPage(m_page);
-        }
-
-        public void HandleScroll()
-        {
-            int totalPages = GetTotalPages();
-            int updatedPage = Mathf.FloorToInt(m_scrollBar.value / (1f / totalPages));
-            updatedPage = Mathf.Clamp(updatedPage, 0, totalPages - 1);
-
-            if (m_page != updatedPage)
-            {
-                SetPage(updatedPage);
-            }
+            m_navigationHandle.OnCurrentPageChange += SetPage;
         }
     }
 }

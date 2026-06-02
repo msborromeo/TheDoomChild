@@ -6,13 +6,14 @@ using TMPro;
 using UnityEngine;
 using DChild.Localization;
 using System;
+using Doozy.Runtime.UIManager.Components;
 
 namespace DChild.Codex.Quests.UI
 {
 
+    [RequireComponent(typeof(UIButton))]
     public class QuestProgressUI : MonoBehaviour, IQuestDataLocalize
     {
-
         [BoxGroup("TMP Fields"), SerializeField] private TextMeshProUGUI m_questOrder;
         [BoxGroup("TMP Fields"), SerializeField] private TextMeshProUGUI m_questName;
         [BoxGroup("TMP Fields"), SerializeField] private TextMeshProUGUI m_questStatus;
@@ -28,48 +29,61 @@ namespace DChild.Codex.Quests.UI
         public QuestEntry entry => m_entry;
 
         public event Action<QuestEntry, int> LocalizeEntry;
-        void OnDisable()
+
+        private UIButton m_button;
+
+        public void SetInteractablility(bool value)
         {
-            ResetButton();
+            EnsureReference();
+            m_button.interactable = value;
         }
+
+        private void EnsureReference()
+        {
+            if (m_button == null)
+                m_button = GetComponent<UIButton>();
+        }
+
         private void SetQuestDescription(string description)
         {
-            m_currentQuestDescription = description;
+            //m_currentQuestDescription = description;
             m_descriptionPanel.text = description;
+        }
+
+        private string GetQuestStatus(QuestState state)
+        {
+            return state switch
+            {
+                QuestState.Active => "In Progress",
+                QuestState.Success => "Completed",
+                _ => "",
+            };
         }
 
         public void Display(QuestEntry entry, int index)
         {
+            Reset();
+
             m_entry = entry;
             m_questOrder.text = $"{toRomanNumeral(index + 1)}";
             m_questName.text = entry.name;
-            m_questStatus.text = $"{entry.state}".Replace("_", " ");
             SetQuestDescription(entry.description);
+            
+            SetInteractablility(entry.state == QuestState.Active || entry.state == QuestState.Success);
+            m_questStatus.text = GetQuestStatus(entry.state);
 
             LocalizeEntry?.Invoke(entry, index);
         }
 
         [Button(ButtonSizes.Large)]
-        public void ShowDialogueHistory()
-        {
-            m_descriptionPanel.text = m_currentQuestDescription;
-            //for (int i = m_conversationList.Count - 1; i >= 0; i--)
-            //{
-            //    //ConversationData entry = m_conversationList[i];
-            //    //if(i < m_conversationList.Count)
-            //    //m_UIPanels[i].Display(entry);
-            //}
-        }
-
-        void ResetButton()
-        {
-            m_questOrder.text = null;
-            m_questName.text = null;
-            m_questStatus.text = null;
-            m_currentQuestDescription = null;
-            m_descriptionPanel.text = null;
-        }
-
+        public void ShowDialogueHistory() => m_descriptionPanel.text = m_currentQuestDescription;
+        //for (int i = m_conversationList.Count - 1; i >= 0; i--)
+        //{
+        //    //ConversationData entry = m_conversationList[i];
+        //    //if(i < m_conversationList.Count)
+        //    //m_UIPanels[i].Display(entry);
+        //}
+        //}
 
         private static string toRomanNumeral(int number)
         {
@@ -80,5 +94,16 @@ namespace DChild.Codex.Quests.UI
                 while (number >= value) { result.Append(numeral); number -= value; }
             return result.ToString();
         }
+        private void Reset()
+        {
+            m_questOrder.text = "";
+            m_questName.text = "";
+            m_questStatus.text = "";
+            m_currentQuestDescription = "";
+            m_descriptionPanel.text = "";
+        }
+
+        //private void OnDisable() => Reset();
+
     }
 }
