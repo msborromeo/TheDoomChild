@@ -48,6 +48,7 @@ namespace DChild.Codex.Quests.UI
                 if (!hasData)
                     continue;
 
+                //if(DialogueManager.masterDatabase)
                 questButton.Display(m_quests[dataIndex], debugReveal);
 
                 if (selectedFirst)
