@@ -54,7 +54,7 @@ namespace DChild.Codex.Quests.UI
                 var discoveredQuest = questData.state != QuestState.Unassigned;
                 questButton.SetInteractability(discoveredQuest || debugReveal);
 
-                if (selectedFirst == false)
+                if (selectedFirst == false && discoveredQuest)
                 {
                     questButton.Select();
                     selectedFirst = true;
