@@ -126,7 +126,11 @@ namespace DChild.Gameplay.Combat
 
         protected virtual void HandleDamageUniqueHitboxes(Collider2D collider2D)
         {
-            var hitbox = m_collisionRegistrator.GetHitbox(collider2D);
+            if(collider2D==null)
+            {
+                return;
+            }
+            var hitbox = m_collisionRegistrator?.GetHitbox(collider2D);
             if (hitbox != null && m_collisionRegistrator.HasDamagedDamageable(hitbox.damageable) == false)
             {
                 if (IsValidHitboxToHit(collider2D, hitbox))
