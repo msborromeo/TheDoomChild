@@ -30,7 +30,13 @@ namespace DChild.Codex.Quests.UI
 
         public void Select(QuestProgressUI button) => m_progressContent.Display(button.entry);
 
-        private void ResetDisplay() => m_progressIndexHandle.ResetSubEntryUIs();
+        private void ResetDisplay()
+        {
+            m_questTitleTMP.text = "";
+            m_progressContent.Reset();
+
+            m_progressIndexHandle.ResetSubEntryUIs();
+        }
 
         public void Initialize()
         {
