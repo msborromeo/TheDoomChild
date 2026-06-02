@@ -54,7 +54,6 @@ namespace DChild.Codex.Quests.UI
         {
             return state switch
             {
-                QuestState.Unassigned => "Undiscovered",
                 QuestState.Active => "In Progress",
                 QuestState.Success => "Completed",
                 _ => "",
@@ -68,8 +67,10 @@ namespace DChild.Codex.Quests.UI
             m_entry = entry;
             m_questOrder.text = $"{toRomanNumeral(index + 1)}";
             m_questName.text = entry.name;
-            m_questStatus.text = GetQuestStatus(entry.state);
             SetQuestDescription(entry.description);
+            
+            SetInteractablility(entry.state == QuestState.Active || entry.state == QuestState.Success);
+            m_questStatus.text = GetQuestStatus(entry.state);
 
             LocalizeEntry?.Invoke(entry, index);
         }

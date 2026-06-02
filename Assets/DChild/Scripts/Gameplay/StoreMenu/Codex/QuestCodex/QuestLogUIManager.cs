@@ -2,6 +2,7 @@
 using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace DChild.Codex.Quests.UI
@@ -15,6 +16,8 @@ namespace DChild.Codex.Quests.UI
         [SerializeField] private QuestProgressIndexHandle m_progressIndexHandle;
         [SerializeField] private QuestProgressContentUI m_progressContent;
 
+        [SerializeField] private TextMeshProUGUI m_questTitleTMP;
+
         [SerializeField, BoxGroup("EDITOR ONLY")] private bool m_revealAllQuests;
 
         private Quest[] m_completeList;
@@ -22,6 +25,7 @@ namespace DChild.Codex.Quests.UI
         {
             ResetDisplay();
             m_progressIndexHandle.Display(button.questData, m_revealAllQuests);
+            m_questTitleTMP.text = button.questData.name;
         }
 
         public void Select(QuestProgressUI button) => m_progressContent.Display(button.entry);
