@@ -48,14 +48,17 @@ namespace DChild.Codex.Quests.UI
                 if (!hasData)
                     continue;
 
-                //if(DialogueManager.masterDatabase)
-                questButton.Display(m_quests[dataIndex], debugReveal);
+                var questData = m_quests[dataIndex];
+                questButton.Display(questData);
 
-                if (selectedFirst)
-                    continue;
+                var discoveredQuest = questData.state != QuestState.Unassigned;
+                questButton.SetInteractability(discoveredQuest || debugReveal);
 
-                questButton.GetComponent<UIButton>().Select();
-                selectedFirst = true;
+                if (selectedFirst == false)
+                {
+                    questButton.Select();
+                    selectedFirst = true;
+                }
             }
         }
 

@@ -23,25 +23,33 @@ namespace DChild.Codex.Quests.UI
 
         private void SetQuestData(Quest data) => m_questData = data;
 
+        public void Select() => m_button.Select();
 
         private void EnsureReference()
         {
-            m_button = gameObject.GetComponent<UIButton>();
+            m_button = GetComponent<UIButton>();
         }
 
-        public void Display(Quest questData, bool debugReveal = false)
+        public void SetInteractability(bool value)
         {
+            m_button.interactable = value;
+        }
+
+        public void Display(Quest questData)
+        {
+            EnsureReference();
             var hasData = questData != null;
 
-            EnsureReference();
-            m_button.interactable = hasData || debugReveal;
-
-            //if (!hasData || questData.state == QuestState.Unassigned)
             if (!hasData)
                 return;
 
             SetQuestData(localizer.LocalizeQuest(questData));
             m_name.text = m_questData.name;
+        }
+
+        private void Awake()
+        {
+            EnsureReference();
         }
     }
 }
