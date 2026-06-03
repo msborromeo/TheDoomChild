@@ -73,7 +73,7 @@ namespace DChild.Gameplay.UI.Controller
 
         private void OnUINavigatePerformed(Vector2 vector)
         {
-            
+
         }
 
         private void OnUICycleTabsPerformed(float obj)
@@ -132,7 +132,7 @@ namespace DChild.Gameplay.UI.Controller
                     case StorePage.CombatArts:
                         break;
                     case StorePage.Codex:
-                    
+                        HandleCodexCallback(obj);
                         break;
                     case StorePage.Bestiary:
                         break;
@@ -158,8 +158,7 @@ namespace DChild.Gameplay.UI.Controller
                     case StorePage.CombatArts:
                         break;
                     case StorePage.Codex:
-                        m_toggleMainQuests = !m_toggleMainQuests;
-                        UnderworldGameplaySystem.gameplayUIHandle.ToggleCodexQuests(m_toggleMainQuests);
+                        HandleCodexCallback(obj);
                         break;
                     case StorePage.Bestiary:
                         break;
@@ -168,6 +167,58 @@ namespace DChild.Gameplay.UI.Controller
                 }
             }
         }
+
+        private void HandleCodexCallback(float obj)
+        {
+            var currentCodexPage = m_storeNavigator.codexHandler.currentPage;
+
+            //input for 'Z'
+            if (obj < 0)
+            {
+                switch (currentCodexPage)
+                {
+                    case CodexPage.Characters:
+                        break;
+                    case CodexPage.ArmyTroops:
+                        break;
+                    case CodexPage.Bestiary:
+                        break;
+                    case CodexPage.Quests:
+                        m_toggleMainQuests = !m_toggleMainQuests;
+                        UnderworldGameplaySystem.gameplayUIHandle.ToggleCodexQuests(m_toggleMainQuests);
+                        break;
+                    case CodexPage.Locations:
+                        break;
+                    case CodexPage.Lore:
+                        break;
+                    case CodexPage.Tutorials:
+                        break;
+                }
+            }
+
+            //input for 'X'
+            else if (obj > 0)
+            {
+                switch (currentCodexPage)
+                {
+                    case CodexPage.Characters:
+                        break;
+                    case CodexPage.ArmyTroops:
+                        break;
+                    case CodexPage.Bestiary:
+                        break;
+                    case CodexPage.Quests:
+                        break;
+                    case CodexPage.Locations:
+                        break;
+                    case CodexPage.Lore:
+                        break;
+                    case CodexPage.Tutorials:
+                        break;
+                }
+            }
+        }
+
         private void OnUIToggleMapLegendEvent()
         {
             m_toggleMap = !m_toggleMap;

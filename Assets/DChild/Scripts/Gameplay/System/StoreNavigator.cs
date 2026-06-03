@@ -1,4 +1,5 @@
-﻿using Doozy.Runtime.Signals;
+﻿using DChild.Menu.Codex;
+using Doozy.Runtime.Signals;
 using Doozy.Runtime.UIManager.Components;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
@@ -14,6 +15,10 @@ namespace DChild.Gameplay.Systems
         private StorePage m_currentPage;
         [SerializeField]
         private Dictionary<StorePage, UIToggle> m_pageToggleButtons;
+
+        [SerializeField]
+        private CodexPageHandler m_codexHandler;
+        public CodexPageHandler codexHandler => m_codexHandler;
 
         public void SetPage(StorePage page) => m_currentPage = page;
         public void SetPage(int page) => m_currentPage = (StorePage)page;

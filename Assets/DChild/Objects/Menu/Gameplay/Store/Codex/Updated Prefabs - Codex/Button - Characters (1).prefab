@@ -1779,6 +1779,37 @@ MonoBehaviour:
           m_Calls: []
   Behaviours:
     Behaviours:
+    - EventName: PointerLeftClick
+      Runners: []
+      Event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 7391919752007233688}
+            m_TargetAssemblyTypeName: DChild.Menu.Codex.CodexIndexButtonUI, Assembly-CSharp
+            m_MethodName: UpdateCurrentPage
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      BehaviourName: 7
+      Receiver:
+        ConnectionMode: 1
+        SignalProviderId:
+          Type: 0
+          Category: Pointer
+          Name: LeftClick
+        ProviderReference: {fileID: 0}
+        StreamId:
+          Category: None
+          Name: None
+          Custom: 0
+      Cooldown: 0
+      Selectable: {fileID: 7998134285208556277}
     - EventName: Selected
       Runners: []
       Event:
@@ -1803,6 +1834,37 @@ MonoBehaviour:
           Type: 0
           Category: UI
           Name: Selected
+        ProviderReference: {fileID: 0}
+        StreamId:
+          Category: None
+          Name: None
+          Custom: 0
+      Cooldown: 0
+      Selectable: {fileID: 7998134285208556277}
+    - EventName: Submit
+      Runners: []
+      Event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 7391919752007233688}
+            m_TargetAssemblyTypeName: DChild.Menu.Codex.CodexIndexButtonUI, Assembly-CSharp
+            m_MethodName: UpdateCurrentPage
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      BehaviourName: 12
+      Receiver:
+        ConnectionMode: 1
+        SignalProviderId:
+          Type: 0
+          Category: UI
+          Name: Submit
         ProviderReference: {fileID: 0}
         StreamId:
           Category: None
@@ -3196,6 +3258,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parentView: {fileID: 0}
   m_buttonRect: {fileID: 1651982271281299435}
+  m_pageHandler: {fileID: 0}
+  m_codexPage: 0
 --- !u!114 &1985386960497438267
 MonoBehaviour:
   m_ObjectHideFlags: 0
