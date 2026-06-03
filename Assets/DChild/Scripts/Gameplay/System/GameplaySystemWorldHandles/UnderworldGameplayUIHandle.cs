@@ -131,6 +131,11 @@ namespace DChild.Gameplay.Systems
             m_storeNavigator.OpenStore();
         }
 
+        public StorePage GetActiveStorePage()
+        {
+            return m_storeNavigator.currentPage;
+        }
+
         public void OpenElevator(ElevatorLocation location, ElevatorLevelInfo[] labels, MovingPlatform elevator)
         {
             m_elevator.Display(location, labels, elevator);
