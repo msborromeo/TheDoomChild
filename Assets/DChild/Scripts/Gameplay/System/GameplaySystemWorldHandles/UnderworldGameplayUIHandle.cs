@@ -1,4 +1,5 @@
-﻿using DChild.Gameplay.Characters.Enemies;
+﻿using DChild.Codex.Quests.UI;
+using DChild.Gameplay.Characters.Enemies;
 using DChild.Gameplay.Characters.NPC;
 using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Combat.UI;
@@ -56,6 +57,10 @@ namespace DChild.Gameplay.Systems
 
         [SerializeField]
         private MobileTeleportPromptHandle m_teleportHandle;
+
+        [SerializeField, FoldoutGroup("Codex Sections")]
+        private QuestLogUIManager m_questManager;
+
 
 
         [SerializeField, FoldoutGroup("Side Notification")]
@@ -160,6 +165,10 @@ namespace DChild.Gameplay.Systems
         public void ToggleMapIconsVisibility(bool willShow)
         {
             m_navMap.ToggleMapIconsVisibility(willShow);
+        }
+        public void ToggleCodexQuests(bool isMain)
+        {
+            m_questManager.ToggleQuests(isMain);
         }
 
         public void ShowHoldToTeleportSequence(CallbackContext context, bool isCanceled)

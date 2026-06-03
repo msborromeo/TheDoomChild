@@ -22,6 +22,8 @@ namespace DChild.Gameplay.UI.Controller
         private int m_necroTabIndex = 0;
         private bool m_toggleMap = true;
         private bool m_toggleMapIcons = true;
+        private bool m_toggleMainQuests = true;
+
         [SerializeField]
         private List<StorePage> m_necroPageOrders = new List<StorePage>();
 
@@ -130,6 +132,7 @@ namespace DChild.Gameplay.UI.Controller
                     case StorePage.CombatArts:
                         break;
                     case StorePage.Codex:
+                    
                         break;
                     case StorePage.Bestiary:
                         break;
@@ -155,6 +158,8 @@ namespace DChild.Gameplay.UI.Controller
                     case StorePage.CombatArts:
                         break;
                     case StorePage.Codex:
+                        m_toggleMainQuests = !m_toggleMainQuests;
+                        UnderworldGameplaySystem.gameplayUIHandle.ToggleCodexQuests(m_toggleMainQuests);
                         break;
                     case StorePage.Bestiary:
                         break;
