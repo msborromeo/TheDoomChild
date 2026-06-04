@@ -24,7 +24,7 @@ namespace DChild.Gameplay.Systems
 
         public bool isInCutsceneMode { get; private set; }
 
-        public UIAlertManager alertManager => UnderworldGameplayUIHandle.Instance.uiAlertManager;
+        public UIAlertManager alertManager => BaseGameplayUIHandle.Instance.uiAlertManager;
         public IUINotificationManager notificationManager => UnderworldGameplayUIHandle.Instance.notificationManager;
 
         public void ActivateHealthRegenEffect(PassiveRegeneration.Handle regenHandle)
