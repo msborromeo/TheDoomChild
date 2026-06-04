@@ -53,7 +53,7 @@ namespace DChild.Menu.Codex.ArmyTroops
 
                 ui.SetEntryVisuals(shouldReveal);
 
-                if (hasEntryData)
+                if (shouldReveal)
                     ui.Display(data, type);
             }
 

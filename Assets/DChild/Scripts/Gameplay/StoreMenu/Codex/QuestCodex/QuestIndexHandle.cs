@@ -29,6 +29,8 @@ namespace DChild.Codex.Quests.UI
             m_quests = quests;
 
             m_navigationHandle.SetupScroll(quests.Length, m_questButtons.Count);
+            m_navigationHandle.gameObject.SetActive(quests.Length > m_questButtons.Count);
+
             SetPage(0);
         }
 
