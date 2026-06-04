@@ -18,6 +18,9 @@ namespace DChild.Gameplay.Quests
 
         public void Display(QuestState quest)
         {
+            m_completed.gameObject.SetActive(m_isMainQuest);
+            m_inProgress.gameObject.SetActive(!m_isMainQuest);
+            
             switch (quest)
             {
                 case QuestState.Active:
@@ -30,7 +33,7 @@ namespace DChild.Gameplay.Quests
 
                 case QuestState.Success:
                     m_completed.text = "COMPLETE";
-                    m_inProgress.text = "";
+                    m_inProgress.text = "COMPLETE";
                     break;
             }
         }
