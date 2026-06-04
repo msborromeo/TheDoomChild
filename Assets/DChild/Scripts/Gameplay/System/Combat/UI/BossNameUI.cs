@@ -15,11 +15,15 @@ namespace DChild.Gameplay.Combat.UI
         private TextMeshProUGUI m_bossTitle;
         [SerializeField]
         private TextMeshProUGUI m_bossNameOnly;
+        
+        [SerializeField] private TextMeshProUGUI m_baybayinName;
 
         public event Action<BestiaryData> localizeBestiaryData;
 
         public void SetName(Boss boss)
         {
+            m_baybayinName.text = boss.creatureName;
+
             var hasTitle = boss.creatureTitle != string.Empty || boss.creatureTitle != "";
             if (hasTitle)
             {
