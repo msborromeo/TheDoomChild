@@ -174,13 +174,13 @@ namespace DChild.Gameplay.Characters.Enemies
                     idleAnim = m_info.idleAnimation3;
                     break;*/
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.3f);
             collider.enabled = true;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.2f);
             //m_animation.SetAnimation(1, idleAnim, true);
             m_hitbox.SetInvulnerability(Invulnerability.None);
             this.GetComponent<Damageable>().Destroyed += OnDestroyed;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3f);
             m_hasMantisLanded = false;
             if (m_isPetalRain == false && m_checker == false)
             {

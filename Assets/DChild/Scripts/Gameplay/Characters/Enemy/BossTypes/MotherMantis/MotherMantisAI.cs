@@ -332,7 +332,7 @@ namespace DChild.Gameplay.Characters.Enemies
         [ShowInInspector]
         private StateHandle<State> m_stateHandle;
         State m_turnState;
-        //[ShowInInspector]
+        [ShowInInspector]
         private PhaseHandle<Phase, PhaseInfo> m_phaseHandle;
         [ShowInInspector]
         private RandomAttackDecider<Attack> m_attackDecider;
@@ -563,11 +563,11 @@ namespace DChild.Gameplay.Characters.Enemies
             m_skeleton.GetComponent<MeshRenderer>().sortingLayerName = "PlayableGround";
             m_landingCueFX.Play();
             yield return new WaitForSeconds(1f);
+            m_damageCollider.SetActive(true);
             m_animation.SetAnimation(0, m_info.landingAnimation, false);
             yield return new WaitForSeconds(0.6f);
             m_landFX.Play();
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landingAnimation.animation);
-            m_damageCollider.SetActive(true);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landingAnimation.animation);      
             m_hitbox.SetInvulnerability(Invulnerability.None);
         }
         private IEnumerator PetalFXRoutine(Vector2 target)
