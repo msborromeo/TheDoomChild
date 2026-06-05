@@ -24,7 +24,7 @@ namespace DChild.Gameplay.FastTravel
             m_handle.TransferPlayerTo(travelButton.data.fastTravelPoint);
         }
 
-        public void ForceOpenPage(Location startingLocation)
+        public void ForceOpenPage(Location startingLocation, FastTravelData playerLocation)
         {
             if (GameplaySystem.GetCurrentWorldType() == Systems.WorldType.Overworld)
                 return;
