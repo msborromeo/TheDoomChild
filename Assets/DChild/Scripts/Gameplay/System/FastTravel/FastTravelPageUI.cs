@@ -42,7 +42,7 @@ namespace DChild.Gameplay.FastTravel
             {
                 var button = m_townGateButtons[i];
                 var data = locationList.GetUnderworldTravelData(i);
-                var isActivated = SetupTownGateButton(button, data, gateNumber: i);
+                var isActivated = SetupTownGateButton(button, data, gateNumber: i+1);
 
                 if (isActivated)
                     m_activatedButtons.Add(button);
