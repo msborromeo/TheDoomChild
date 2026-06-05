@@ -41,15 +41,8 @@ namespace DChild.Gameplay.FastTravel
             for (int i = 0; i < listCount; i++)
             {
                 var button = m_townGateButtons[i];
-
                 var data = locationList.GetUnderworldTravelData(i);
-                button.SetData(data);
-                button.SetButtonLabel(data.pointName ?? $"Town Gate #{i + 1}");
-
-                string varName = FastTravelUtility.GenerateActivationVariableName(data);
-                bool isActivated = DialogueLua.GetVariable(varName).asBool;
-
-                button.SetInteractability(isActivated);
+                var isActivated = SetupTownGateButton(button, data, gateNumber: i);
 
                 if (isActivated)
                     m_activatedButtons.Add(button);
@@ -59,11 +52,9 @@ namespace DChild.Gameplay.FastTravel
                     button.Select();
                     hasSelectedFirst = true;
                 }
-
-                Show(button);
             }
 
-            SetupOverworldOption(locationList.overworldTravelData);
+            SetupTownGateButton(m_overworldTownGateButtons, locationList.overworldTravelData, isOverworld: true);
 
             bool hasAvailableTownGates = m_activatedButtons.Count > 0;
             SetShowCaseImageVisibility(hasAvailableTownGates);
@@ -72,13 +63,20 @@ namespace DChild.Gameplay.FastTravel
                 ShowCase(m_activatedButtons[0]);
         }
 
-        private void SetupOverworldOption(FastTravelData overworldData)
+        private bool SetupTownGateButton(FastTravelOptionButton button, FastTravelData travelData,bool isOverworld = false, int gateNumber = 1)
         {
-            bool isOverworldActivated = DialogueLua.GetVariable(FastTravelUtility.GenerateActivationVariableName(overworldData)).asBool;
+            button.SetData(travelData);
+            
+            //button.SetButtonLabel(travelData.pointName);
+            button.SetButtonLabel(!isOverworld ? $"Town Gate #{gateNumber}" : "Overworld");
 
-            m_overworldTownGateButtons.SetData(overworldData);
-            m_overworldTownGateButtons.SetButtonLabel("Overworld");
-            m_overworldTownGateButtons.SetInteractability(isOverworldActivated);
+            string varName = FastTravelUtility.GenerateActivationVariableName(travelData);
+            bool isActivated = DialogueLua.GetVariable(varName).asBool;
+
+            button.SetInteractability(isActivated);
+            Show(button);
+
+            return isActivated;
         }
 
         public void ShowCase(FastTravelOptionButton button)
