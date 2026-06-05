@@ -2,6 +2,7 @@
 using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -11,62 +12,83 @@ namespace DChild.Gameplay.FastTravel
 {
     public class FastTravelPageUI : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, BoxGroup("UI Labels")]
         private TextMeshProUGUI m_locationLabel;
+        [SerializeField, BoxGroup("UI Labels")]
+        private TextMeshProUGUI m_townGateLabel;
+
         [SerializeField, AssetSelector(IsUniqueList = true)]
         private FastTravelOptionButton[] m_townGateButtons;
         [SerializeField]
         private FastTravelOptionButton m_overworldTownGateButtons;
-        [SerializeField]
-        private Image m_locationBackground;
+        //[SerializeField]
+        //private Image m_locationBackground;
         [SerializeField]
         private Image m_showcaseImage;
 
         private List<FastTravelOptionButton> m_activatedButtons = new();
 
-
         private void SetShowCaseImageVisibility(bool value) => m_showcaseImage.gameObject.transform.parent.gameObject.SetActive(value);
+
         public void ShowPage(FastTravelPageData locationList)
         {
             m_locationLabel.text = locationList.location.ToString().Replace('_', ' ');
-            m_locationBackground.sprite = locationList.locationBackground;
             ResetButtons(locationList);
 
-            for (int i = 0; i < locationList.count; i++)
+            bool hasSelectedFirst = false;
+            int listCount = locationList.count;
+
+            for (int i = 0; i < listCount; i++)
             {
                 var button = m_townGateButtons[i];
-                Show(button);
+
                 var data = locationList.GetUnderworldTravelData(i);
                 button.SetData(data);
-                button.SetButtonLabel($"Town Gate #{i + 1}");
+                button.SetButtonLabel(data.pointName ?? $"Town Gate #{i + 1}");
 
-                var isActivated = DialogueLua.GetVariable(FastTravelUtility.GenerateActivationVariableName(data)).asBool;
+                string varName = FastTravelUtility.GenerateActivationVariableName(data);
+                bool isActivated = DialogueLua.GetVariable(varName).asBool;
+
                 button.SetInteractability(isActivated);
 
-                if (button.IsInteractable())
+                if (isActivated)
                     m_activatedButtons.Add(button);
+
+                if (!hasSelectedFirst)
+                {
+                    button.Select();
+                    hasSelectedFirst = true;
+                }
+
+                Show(button);
             }
 
-            var isOverworldActivated = DialogueLua.GetVariable(FastTravelUtility.GenerateActivationVariableName(locationList.overworldTravelData)).asBool;
-            m_overworldTownGateButtons.SetData(locationList.overworldTravelData);
-            m_overworldTownGateButtons.SetButtonLabel("Overworld");
-            m_overworldTownGateButtons.SetInteractability(isOverworldActivated);
+            SetupOverworldOption(locationList.overworldTravelData);
 
-            var hasAvailableTownGates = m_activatedButtons.Count > 0;
-
+            bool hasAvailableTownGates = m_activatedButtons.Count > 0;
             SetShowCaseImageVisibility(hasAvailableTownGates);
 
             if (hasAvailableTownGates)
                 ShowCase(m_activatedButtons[0]);
         }
 
+        private void SetupOverworldOption(FastTravelData overworldData)
+        {
+            bool isOverworldActivated = DialogueLua.GetVariable(FastTravelUtility.GenerateActivationVariableName(overworldData)).asBool;
+
+            m_overworldTownGateButtons.SetData(overworldData);
+            m_overworldTownGateButtons.SetButtonLabel("Overworld");
+            m_overworldTownGateButtons.SetInteractability(isOverworldActivated);
+        }
+
         public void ShowCase(FastTravelOptionButton button)
         {
-            if (button == null && !button.IsInteractable())
+            if (button == null || !button.IsInteractable())
             {
                 SetShowCaseImageVisibility(false);
                 return;
             }
+
             m_showcaseImage.sprite = button.data.image;
         }
 
@@ -81,16 +103,8 @@ namespace DChild.Gameplay.FastTravel
             m_activatedButtons.Clear();
         }
 
-        private void Show(FastTravelOptionButton button)
-        {
-            button.gameObject.SetActive(true);
-        }
-
-        private void Hide(FastTravelOptionButton button)
-        {
-            button.gameObject.SetActive(false);
-        }
-
+        private void Show(Component component) => component.gameObject.SetActive(true);
+        private void Hide(Component component) => component.gameObject.SetActive(false);
 
     }
 }

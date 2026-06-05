@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 8737062154082482571}
   - component: {fileID: 7885770694302271027}
   m_Layer: 5
-  m_Name: Toggle Group - Locations
+  m_Name: ToggleGroup - Locations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1045,6 +1045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_locationLabel: {fileID: 164362208025286117}
+  m_townGateLabel: {fileID: 0}
   m_townGateButtons:
   - {fileID: 1036428384002479151}
   - {fileID: 4546618314396371648}
@@ -1054,7 +1055,6 @@ MonoBehaviour:
   - {fileID: 6053643214352959412}
   - {fileID: 5555852440913052348}
   m_overworldTownGateButtons: {fileID: 8593926041084196645}
-  m_locationBackground: {fileID: 6011196250812071822}
   m_showcaseImage: {fileID: 445994242647941665}
 --- !u!114 &402812351431324088
 MonoBehaviour:
@@ -4055,6 +4055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_locationLabel: {fileID: 6051673795369739492}
+  m_townGateLabel: {fileID: 478126145750708434}
   m_townGateButtons:
   - {fileID: 7423091483042942838}
   - {fileID: 1778073450374110447}
@@ -4063,8 +4064,7 @@ MonoBehaviour:
   - {fileID: 6041857637404491033}
   - {fileID: 6552975506695280458}
   - {fileID: 4976829752498275624}
-  m_overworldTownGateButtons: {fileID: 0}
-  m_locationBackground: {fileID: 0}
+  m_overworldTownGateButtons: {fileID: 8593926041084196645}
   m_showcaseImage: {fileID: 9072121240603179852}
 --- !u!114 &7610378046902723636
 MonoBehaviour:
@@ -4968,7 +4968,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2898976735394208644}
   m_Layer: 0
-  m_Name: Section - LocationImage
+  m_Name: Section - TownGateLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5420,7 +5420,7 @@ GameObject:
   - component: {fileID: 4831982207044579602}
   - component: {fileID: 5769387210163304502}
   m_Layer: 0
-  m_Name: List - TownGateButtons
+  m_Name: VerticalLayout - TownGateButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9725,7 +9725,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: dc989777d47a9cc4f90ee5719eca9b74,
+      objectReference: {fileID: 21300000, guid: b26d34a8ca6a37c46ace2f1af2d770c5,
         type: 3}
     - target: {fileID: 4161549476261359294, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
         type: 3}
@@ -9872,7 +9872,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0324e2471052cd54e933d78d9e3c5e22,
+      objectReference: {fileID: 21300000, guid: 86f9460080486b84389b0e2d512adb08,
         type: 3}
     - target: {fileID: 4161549476261359294, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
         type: 3}
@@ -13104,7 +13104,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c60e0b62d6cf3174bb77179125186512,
+      objectReference: {fileID: 21300000, guid: 92260ebe48b819448871a843665beb2a,
         type: 3}
     - target: {fileID: 4161549476261359294, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
         type: 3}
@@ -13251,7 +13251,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d4cc359e7548ce341bb3a652b5340a95,
+      objectReference: {fileID: 21300000, guid: d519469db5ad5f0488cfe79cad425d1c,
         type: 3}
     - target: {fileID: 4161549476261359294, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
         type: 3}
@@ -13398,7 +13398,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b4b6c9fb300d7524a94f97b6b0bd8896,
+      objectReference: {fileID: 21300000, guid: 993c85d95ca6d1949a639b70dfef75a0,
         type: 3}
     - target: {fileID: 4161549476261359294, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
         type: 3}
@@ -13703,6 +13703,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5204638566378689253}
     m_Modifications:
+    - target: {fileID: 214198291162460412, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4161549476261359294, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
         type: 3}
       propertyPath: m_Pivot.x
@@ -13815,9 +13820,30 @@ PrefabInstance:
       objectReference: {fileID: 3874314586523948859}
     - target: {fileID: 4884186309043524878, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
         type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884186309043524878, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
+        type: 3}
+      propertyPath: CurrentStateName
+      value: Disabled
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884186309043524878, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
+        type: 3}
+      propertyPath: CurrentUISelectionState
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884186309043524878, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
+        type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6018602614900443172}
+    - target: {fileID: 5662929467282707922, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
+        type: 3}
+      propertyPath: m_locationList
+      value: 
+      objectReference: {fileID: 11400000, guid: a341c8578ec3566408763f18ceb0df77,
+        type: 2}
     - target: {fileID: 6160436055290033413, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
         type: 3}
       propertyPath: m_Name
@@ -13842,7 +13868,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d69594d37b6700542a87f54de0482415,
+      objectReference: {fileID: 21300000, guid: 5c16da3867167a440a27932a493eece8,
         type: 3}
     - target: {fileID: 4161549476261359294, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
         type: 3}
@@ -15465,7 +15491,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 43bfce67d2540d44584552f15d055e37,
+      objectReference: {fileID: 21300000, guid: 6f4c004019c93b74d9e03d292d8428a5,
         type: 3}
     - target: {fileID: 4161549476261359294, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
         type: 3}
@@ -15608,6 +15634,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4831982207044579602}
     m_Modifications:
+    - target: {fileID: 1395075362643630455, guid: 0f2be16912377b340a83a073ad66db43,
+        type: 3}
+      propertyPath: m_data
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1899609086051889359, guid: 0f2be16912377b340a83a073ad66db43,
         type: 3}
       propertyPath: m_Name
@@ -16220,6 +16251,21 @@ PrefabInstance:
       objectReference: {fileID: 3874314586523948859}
     - target: {fileID: 4884186309043524878, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
         type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884186309043524878, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
+        type: 3}
+      propertyPath: CurrentStateName
+      value: Disabled
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884186309043524878, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
+        type: 3}
+      propertyPath: CurrentUISelectionState
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884186309043524878, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
+        type: 3}
       propertyPath: OnToggleOnCallback.Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6018602614900443172}
@@ -16722,7 +16768,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: bc1545af9285e0b4196c72873306cab5,
+      objectReference: {fileID: 21300000, guid: fcb20f4300a0f3b448bbd5e1991803a9,
         type: 3}
     - target: {fileID: 4161549476261359294, guid: 8d33b9ae77c7fbb4ca4fe39dd8c48095,
         type: 3}
