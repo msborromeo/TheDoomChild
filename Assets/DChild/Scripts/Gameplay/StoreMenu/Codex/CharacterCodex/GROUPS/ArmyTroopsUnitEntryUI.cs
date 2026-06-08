@@ -28,8 +28,6 @@ namespace DChild.Menu.Codex.ArmyTroops
         [Button]
         public void Display(CharacterCodexData character, DamageType type)
         {
-
-
             m_unitName.text = character.armyData.name;
             m_unitDescription.text = character.armyData.description ?? character.description;
             m_troopCount.text = $"{character.armyData.troopCount}";

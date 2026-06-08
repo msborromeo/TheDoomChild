@@ -16,11 +16,14 @@ namespace DChild.Codex.Quests.UI
         [SerializeField] private QuestProgressIndexHandle m_progressIndexHandle;
         [SerializeField] private QuestProgressContentUI m_progressContent;
 
+        [SerializeField, BoxGroup("Quest Type")] private TextMeshProUGUI m_activeHeaderTMP;
+        [SerializeField, BoxGroup("Quest Type")] private TextMeshProUGUI m_availableSubHeaderTMP;
+
         [SerializeField] private TextMeshProUGUI m_questTitleTMP;
 
         [SerializeField, BoxGroup("EDITOR ONLY")] private bool m_revealAllQuests;
 
-        private Quest[] m_completeList;
+        private Quest[] m_filteredQuestList;
         public void Select(QuestButtonUI button)
         {
             ResetDisplay();
@@ -34,20 +37,30 @@ namespace DChild.Codex.Quests.UI
         {
             m_questTitleTMP.text = "";
             m_progressContent.Reset();
-
             m_progressIndexHandle.ResetSubEntryUIs();
         }
 
         public void Initialize()
         {
             ResetDisplay();
-
-            // Ensure arrays are not null before concatenating
-            var mains = m_questList.mainQuests ?? new Quest[0];
-            var sides = m_questList.sideQuests ?? new Quest[0];
-
-            m_completeList = mains.Concat(sides).ToArray();
-            m_indexHandle.Initialize(m_completeList, m_revealAllQuests);
+            ToggleQuests(true);
         }
+
+        public void ToggleQuests(bool isMain)
+        {
+            m_filteredQuestList = isMain ? m_questList.mainQuests : m_questList.sideQuests;
+            UpdateHeaders(isMain);
+            DisplayQuestList();
+        }
+
+        private void UpdateHeaders(bool isMain)
+        {
+            m_activeHeaderTMP.text = isMain ? "Main Quests" : "Side Quests";
+            m_availableSubHeaderTMP.text = !isMain ? "Main Quests" : "Side Quests";
+        }
+
+        private void DisplayQuestList() => m_indexHandle.Initialize(m_filteredQuestList, m_revealAllQuests);
+
+
     }
 }
