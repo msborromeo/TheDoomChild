@@ -14,18 +14,14 @@ namespace DChild.Gameplay.FastTravel
         [SerializeField]
         private FastTravelPageUI m_locationPage;
 
-        public void SelectLocationTab(FastTravelLocationTab locationTab)
-        {
-            m_locationPage.ShowPage(locationTab.locationList);
-        }
+        public void SelectLocationTab(FastTravelLocationTab locationTab) => m_locationPage.ShowPage(locationTab.locationList);
+        public void FastTravelTo(FastTravelOptionButton travelButton) => m_handle.TransferPlayerTo(travelButton.data.fastTravelPoint);
 
-        public void FastTravelTo(FastTravelOptionButton travelButton)
-        {
-            m_handle.TransferPlayerTo(travelButton.data.fastTravelPoint);
-        }
-
+        
         public void ForceOpenPage(Location startingLocation, FastTravelData playerLocation)
         {
+            m_locationPage.SetCurrentPlayerPosition(playerLocation);
+
             if (GameplaySystem.GetCurrentWorldType() == Systems.WorldType.Overworld)
                 return;
 
