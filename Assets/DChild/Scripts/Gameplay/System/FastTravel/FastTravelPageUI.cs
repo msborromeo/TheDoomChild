@@ -64,7 +64,7 @@ namespace DChild.Gameplay.FastTravel
         private bool SetupTownGateButton(FastTravelOptionButton button, FastTravelData travelData, bool isOverworld = false, int gateNumber = 1)
         {
             button.SetData(travelData);
-            button.ToggleCurrentLocationIcon(button.playerMarker != null && travelData == m_currentLocation);
+            button.ToggleCurrentLocationIcon(travelData == m_currentLocation);
 
             //button.SetButtonLabel(travelData.pointName);
             button.SetButtonLabel(!isOverworld ? $"Town Gate #{gateNumber}" : "Overworld");
