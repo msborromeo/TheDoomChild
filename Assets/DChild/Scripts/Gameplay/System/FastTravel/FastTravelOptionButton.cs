@@ -11,6 +11,7 @@ namespace DChild.Gameplay.FastTravel
         [SerializeField] private TextMeshProUGUI m_buttonLabel;
         [SerializeField] private UIButton m_button;
         [SerializeField] private Image m_playerMarker;
+        public Image playerMarker => m_playerMarker;
 
         public FastTravelData data => m_data;
 
