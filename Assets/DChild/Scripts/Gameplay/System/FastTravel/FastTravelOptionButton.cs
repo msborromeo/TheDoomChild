@@ -24,9 +24,8 @@ namespace DChild.Gameplay.FastTravel
         {
             if (m_data)
                 m_buttonLabel.text = value;
-
         }
-
+        public void Select() => m_button.Select();
         public void SetInteractability(bool interactability)
         {
             m_button.interactable = interactability;

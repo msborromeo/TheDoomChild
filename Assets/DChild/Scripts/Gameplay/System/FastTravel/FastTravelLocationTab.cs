@@ -14,6 +14,7 @@ namespace DChild.Gameplay.FastTravel
         public void OnDataChange()
         {
             m_icon.sprite = m_locationList?.tabIcon ?? null;
+            m_icon.color = m_icon != null ? Color.white : Color.black;
         }
     }
 }
