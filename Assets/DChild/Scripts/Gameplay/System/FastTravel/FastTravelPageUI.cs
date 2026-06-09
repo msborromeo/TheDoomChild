@@ -12,23 +12,21 @@ namespace DChild.Gameplay.FastTravel
 {
     public class FastTravelPageUI : MonoBehaviour
     {
-        [SerializeField, BoxGroup("UI Labels")]
-        private TextMeshProUGUI m_locationLabel;
-        [SerializeField, BoxGroup("UI Labels")]
-        private TextMeshProUGUI m_townGateLabel;
+        [SerializeField, BoxGroup("UI Labels")] private TextMeshProUGUI m_locationLabel;
+        [SerializeField, BoxGroup("UI Labels")] private TextMeshProUGUI m_townGateLabel;
 
-        [SerializeField, AssetSelector(IsUniqueList = true)]
-        private FastTravelOptionButton[] m_townGateButtons;
-        [SerializeField]
-        private FastTravelOptionButton m_overworldTownGateButtons;
+        [SerializeField, AssetSelector(IsUniqueList = true)] private FastTravelOptionButton[] m_townGateButtons;
+        [SerializeField] private FastTravelOptionButton m_overworldTownGateButtons;
         //[SerializeField]
         //private Image m_locationBackground;
-        [SerializeField]
-        private Image m_showcaseImage;
+        [SerializeField] private Image m_showcaseImage;
 
+        private FastTravelData m_currentLocation;
         private List<FastTravelOptionButton> m_activatedButtons = new();
 
         private void SetShowCaseImageVisibility(bool value) => m_showcaseImage.gameObject.transform.parent.gameObject.SetActive(value);
+        public void SetCurrentPlayerPosition(FastTravelData data) => m_currentLocation = data;
+
 
         public void ShowPage(FastTravelPageData locationList)
         {
@@ -42,7 +40,7 @@ namespace DChild.Gameplay.FastTravel
             {
                 var button = m_townGateButtons[i];
                 var data = locationList.GetUnderworldTravelData(i);
-                var isActivated = SetupTownGateButton(button, data, gateNumber: i+1);
+                var isActivated = SetupTownGateButton(button, data, gateNumber: i + 1);
 
                 if (isActivated)
                     m_activatedButtons.Add(button);
@@ -63,10 +61,11 @@ namespace DChild.Gameplay.FastTravel
                 ShowCase(m_activatedButtons[0]);
         }
 
-        private bool SetupTownGateButton(FastTravelOptionButton button, FastTravelData travelData,bool isOverworld = false, int gateNumber = 1)
+        private bool SetupTownGateButton(FastTravelOptionButton button, FastTravelData travelData, bool isOverworld = false, int gateNumber = 1)
         {
             button.SetData(travelData);
-            
+            button.ToggleCurrentLocationIcon(travelData == m_currentLocation);
+
             //button.SetButtonLabel(travelData.pointName);
             button.SetButtonLabel(!isOverworld ? $"Town Gate #{gateNumber}" : "Overworld");
 
@@ -96,6 +95,12 @@ namespace DChild.Gameplay.FastTravel
             {
                 Hide(m_townGateButtons[i]);
                 m_townGateButtons[i].SetData(null);
+
+                if (!m_townGateButtons[i].playerMarker.enabled)
+                    continue;
+
+                m_townGateButtons[i].ToggleCurrentLocationIcon(false);
+
             }
 
             m_activatedButtons.Clear();
