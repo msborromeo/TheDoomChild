@@ -39,6 +39,8 @@ namespace DChild.Gameplay.Environment.Interractables
         private string m_openIdle;
         [SerializeField]
         public Vector3 m_Offset;
+        [SerializeField]
+        public FastTravelData m_UIData;
 
 
 
@@ -107,7 +109,7 @@ namespace DChild.Gameplay.Environment.Interractables
             }
             if(wasPreviouslyActive == true)
             {
-                GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location);
+                GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location, m_UIData);
             }
             NearPortal();
 
