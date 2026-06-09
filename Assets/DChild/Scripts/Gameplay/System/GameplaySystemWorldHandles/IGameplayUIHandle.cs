@@ -2,6 +2,7 @@
 using DChild.Gameplay.Characters.NPC;
 using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Environment;
+using DChild.Gameplay.FastTravel;
 using DChild.Gameplay.LevelFinish.UI;
 using DChild.Gameplay.Systems.Serialization;
 using DChild.Gameplay.Trade;
@@ -9,6 +10,7 @@ using DChild.Gameplay.UI;
 using DChild.Gameplay.UI.Alerts;
 using DChild.Menu.Trade;
 using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
+using DChild.UI;
 using Holysoft.Event;
 using System;
 using System.Collections;
@@ -36,7 +38,7 @@ namespace DChild.Gameplay.Systems
 
         void UpdateNavMapConfiguration(Location location, int sceneIndex, Transform inGameReference, Vector2 mapReferencePoint, Vector2 calculationOffset);
         void OpenTradeWindow(NPCProfile merchantData, ITradeInventory merchantInventory, TradeAskingPrice merchantBuyingPriceRate, CurrencyType type);
-        void OpenFastTravel(Location startingLocation);
+        void OpenFastTravel(Location startingLocation, FastTravelData playerLocation);
         void OpenWeaponUpgradeConfirmationWindow();
         void OpenStoreAtPage(StorePage storePage);
         void OpenStore();
@@ -68,13 +70,11 @@ namespace DChild.Gameplay.Systems
         void DeactivateHealthRegenEffect();
         void ActivateShadowRegenEffect();
         void DeactivateShadowRegenEffect();
-
         void ShowMordenElevatorUI(ElevatorLocation location, ElevatorLevelInfo[] labels, MovingPlatform elevator);
-
         void TogglePause(bool toggle);
-
         void RequestTeleportConfirmation(LocationData destinationData);
         public void NotifyUnlockedLocation(AvailableLocations location, InputActionConfiguration input);
+        void OverrideCurrentUIState(GameplayUIState state);
 
         UIHandlerExtraReference GetReference();
         CharacterRecruitmentUI ConfirmationRequest();
