@@ -1002,6 +1002,7 @@ GameObject:
   - component: {fileID: 1445368761832122920}
   - component: {fileID: 2658166022026527017}
   - component: {fileID: 4846129268335204964}
+  - component: {fileID: 8548371125053634665}
   m_Layer: 0
   m_Name: StoreTab
   m_TagString: Untagged
@@ -2576,6 +2577,18 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
+          - m_Target: {fileID: 8548371125053634665}
+            m_TargetAssemblyTypeName: DChild.Gameplay.Systems.StoreTabUI, Assembly-CSharp
+            m_MethodName: UpdateStorePage
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
       BehaviourName: 4
       Receiver:
         ConnectionMode: 1
@@ -2652,6 +2665,20 @@ MonoBehaviour:
   m_hasAlert: 0
   m_iconContainer: {fileID: 8301248065309342079}
   m_toObserve: []
+--- !u!114 &8548371125053634665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4131690653207141061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b92570b47d164e81ef8da831c63b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_navigator: {fileID: 0}
+  m_page: 0
 --- !u!1 &5251903950536880483
 GameObject:
   m_ObjectHideFlags: 0
@@ -2751,7 +2778,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 28
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

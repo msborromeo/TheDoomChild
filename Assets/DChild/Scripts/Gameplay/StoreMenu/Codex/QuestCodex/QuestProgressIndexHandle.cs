@@ -1,4 +1,5 @@
-﻿using PixelCrushers.DialogueSystem;
+﻿using Doozy.Runtime.UIManager.Components;
+using PixelCrushers.DialogueSystem;
 using UnityEngine;
 
 namespace DChild.Codex.Quests.UI
@@ -8,29 +9,36 @@ namespace DChild.Codex.Quests.UI
         [SerializeField]
         private QuestProgressUI[] m_progressUIs;
 
-        public void Display(Quest quest)
+        public void Display(Quest quest, bool debugReveal = false)
         {
-            if(quest == null) return;
-            int count = quest.entryCount;
-            for (int i = 0; i < m_progressUIs.Length; i++)
+            if (quest == null) return;
+
+            for (int i = 0; i < quest.entryCount; i++)
             {
-                bool isActive = quest.GetEntry(i).state != QuestState.Unassigned;
-                m_progressUIs[i].gameObject.SetActive(isActive);
-                if (isActive)
-                    m_progressUIs[i].Display(quest.GetEntry(i), i);
+                //TODO update subEntry button interactability via quest state
+                var subEntryUI = m_progressUIs[i];
+                var entry = quest.GetEntry(i);
+
+                SetupSubEntry(subEntryUI, entry, debugReveal);
+
+                subEntryUI.Display(entry, i);
             }
         }
 
-        private void OnDisable()
+        private void SetupSubEntry(QuestProgressUI targetUI, QuestEntry entry, bool debugReveal)
         {
-            ResetButtons();
+            targetUI.gameObject.SetActive(true);
+            targetUI.SetInteractablility(entry.state != QuestState.Unassigned || debugReveal);
         }
 
-        public void ResetButtons()
+        private void OnDisable() => ResetSubEntryUIs();
+
+        public void ResetSubEntryUIs()
         {
             foreach (QuestProgressUI obj in m_progressUIs)
             {
-                obj.gameObject.SetActive(false);
+                if (obj.gameObject.activeSelf)
+                    obj.gameObject.SetActive(false);
             }
         }
     }

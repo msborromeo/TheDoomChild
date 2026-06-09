@@ -1,5 +1,6 @@
 ﻿using DChild.Codex.Characters;
 using DChild.Gameplay.ArmyBattle;
+using Doozy.Runtime.UIManager.Components;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -33,6 +34,11 @@ namespace DChild.Menu.Codex.ArmyTroops
             m_attackPower.text = $"{character.armyData.attackPower}";
 
             SetIconType(type);
+        }
+
+        public void SetEntryVisuals(bool isRecorded)
+        {
+            gameObject.GetComponent<UIButton>().interactable = isRecorded;
         }
 
         private void SetIconType(DamageType type)

@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 namespace DChild.Gameplay.UI.Controller
@@ -19,6 +20,11 @@ namespace DChild.Gameplay.UI.Controller
 
         [SerializeField, MinValue(0)]
         private int m_necroTabIndex = 0;
+
+        private bool m_toggleMap = true;
+        private bool m_toggleMapIcons = true;
+        private bool m_toggleMainQuests = true;
+
         [SerializeField]
         private List<StorePage> m_necroPageOrders = new List<StorePage>();
 
@@ -30,6 +36,9 @@ namespace DChild.Gameplay.UI.Controller
             m_inputReader.UIClickPerformedEvent += OnUIClickPerformed;
             m_inputReader.UISubmitPerformedEvent += OnUISubmitPerformed;
             m_inputReader.UICancelPerformedEvent += OnUICancelPerformed;
+            m_inputReader.UIToggleMapLegendEvent += OnUIToggleMapLegendEvent;
+
+            m_storeNavigator.OnStoreTabClicked += OnStoreTabClicked;
         }
 
         private void OnDisable()
@@ -40,11 +49,15 @@ namespace DChild.Gameplay.UI.Controller
             m_inputReader.UIClickPerformedEvent -= OnUIClickPerformed;
             m_inputReader.UISubmitPerformedEvent -= OnUISubmitPerformed;
             m_inputReader.UICancelPerformedEvent -= OnUICancelPerformed;
+
+            m_storeNavigator.OnStoreTabClicked -= OnStoreTabClicked;
+
         }
 
+        #region UI Input Callbacks
         private void OnUICancelPerformed()
         {
-            m_necroTabIndex = 0;
+            m_toggleMap = true;
         }
 
         private void OnUISubmitPerformed()
@@ -62,11 +75,13 @@ namespace DChild.Gameplay.UI.Controller
             {
                 BaseGameplaySystem.gamplayUIHandle.ContinueDialogue();
             }
+
+            m_necroTabIndex = (int) UnderworldGameplaySystem.gameplayUIHandle.GetActiveStorePage();
         }
 
         private void OnUINavigatePerformed(Vector2 vector)
         {
-            
+
         }
 
         private void OnUICycleTabsPerformed(float obj)
@@ -76,41 +91,150 @@ namespace DChild.Gameplay.UI.Controller
                 //to achieve cycle back on end
                 if (m_necroTabIndex == m_necroPageOrders.Count - 1)
                 {
-                    m_storeNavigator.SetPage(m_necroPageOrders[0]);
-                    m_storeNavigator.OpenPage();
+                    OpenStoreAtPage(m_necroPageOrders[0]);
                     m_necroTabIndex = 0;
+                    return;
                 }
 
                 m_necroTabIndex += 1;
-                m_storeNavigator.SetPage(m_necroPageOrders[m_necroTabIndex]);
-                m_storeNavigator.OpenPage();
+                OpenStoreAtPage(m_necroPageOrders[m_necroTabIndex]);
             }
             else if (obj < 0)
             {
                 if (m_necroTabIndex == 0)
                 {
-                    m_storeNavigator.SetPage(m_necroPageOrders[m_necroPageOrders.Count - 1]);
-                    m_storeNavigator.OpenPage();
                     m_necroTabIndex = m_necroPageOrders.Count - 1;
+                    OpenStoreAtPage(m_necroPageOrders[m_necroTabIndex]);
+                    return;
                 }
 
                 m_necroTabIndex -= 1;
-                m_storeNavigator.SetPage(m_necroPageOrders[m_necroTabIndex]);
-                m_storeNavigator.OpenPage();
+                OpenStoreAtPage(m_necroPageOrders[m_necroTabIndex]);
             }
+        }
+
+        private void OpenStoreAtPage(StorePage page)
+        {
+            m_storeNavigator.SetPage(page);
+            m_storeNavigator.OpenPage();
         }
 
         private void OnUICycleSubtabsPerformed(float obj)
         {
+            var currentNecroPage = (StorePage)m_necroTabIndex;
+
             if (obj > 0)
             {
-
+                switch (currentNecroPage)
+                {
+                    case StorePage.Map:
+                        m_toggleMapIcons = !m_toggleMapIcons;
+                        UnderworldGameplaySystem.gameplayUIHandle.ToggleMapIconsVisibility(m_toggleMapIcons);
+                        break;
+                    case StorePage.Player:
+                        break;
+                    case StorePage.Items:
+                        break;
+                    case StorePage.Equipment:
+                        break;
+                    case StorePage.SoulSkills:
+                        break;
+                    case StorePage.CombatArts:
+                        break;
+                    case StorePage.Codex:
+                        HandleCodexCallback(obj);
+                        break;
+                }
             }
             else if (obj < 0)
             {
-
+                switch (currentNecroPage)
+                {
+                    case StorePage.Map:
+                        UnderworldGameplaySystem.gameplayUIHandle.CycleLegendPage();
+                        break;
+                    case StorePage.Player:
+                        break;
+                    case StorePage.Items:
+                        break;
+                    case StorePage.Equipment:
+                        break;
+                    case StorePage.SoulSkills:
+                        break;
+                    case StorePage.CombatArts:
+                        break;
+                    case StorePage.Codex:
+                        HandleCodexCallback(obj);
+                        break;
+                }
             }
         }
+        private void OnUIToggleMapLegendEvent()
+        {
+            m_toggleMap = !m_toggleMap;
+            UnderworldGameplaySystem.gameplayUIHandle.ToggleMapLegend(m_toggleMap);
+        }
+        #endregion
+
+        #region Store Tab Index Handling
+        private void OnStoreTabClicked(StorePage page)
+        {
+            m_necroTabIndex = (int)page;
+        }
+        #endregion
+
+        #region Codex Navigation Handling
+        private void HandleCodexCallback(float obj)
+        {
+            var currentCodexPage = m_storeNavigator.codexHandler.currentPage;
+
+            //input for 'Z'
+            if (obj < 0)
+            {
+                switch (currentCodexPage)
+                {
+                    case CodexPage.Characters:
+                        break;
+                    case CodexPage.ArmyTroops:
+                        break;
+                    case CodexPage.Bestiary:
+                        break;
+                    case CodexPage.Quests:
+                        m_toggleMainQuests = !m_toggleMainQuests;
+                        UnderworldGameplaySystem.gameplayUIHandle.ToggleCodexQuests(m_toggleMainQuests);
+                        break;
+                    case CodexPage.Locations:
+                        break;
+                    case CodexPage.Lore:
+                        break;
+                    case CodexPage.Tutorials:
+                        break;
+                }
+            }
+
+            //input for 'X'
+            else if (obj > 0)
+            {
+                switch (currentCodexPage)
+                {
+                    case CodexPage.Characters:
+                        break;
+                    case CodexPage.ArmyTroops:
+                        break;
+                    case CodexPage.Bestiary:
+                        break;
+                    case CodexPage.Quests:
+                        break;
+                    case CodexPage.Locations:
+                        break;
+                    case CodexPage.Lore:
+                        break;
+                    case CodexPage.Tutorials:
+                        break;
+                }
+            }
+        }
+        #endregion
     }
 }
 
