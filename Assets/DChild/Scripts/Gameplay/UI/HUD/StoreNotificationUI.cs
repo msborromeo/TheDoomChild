@@ -12,7 +12,7 @@ namespace DChild.Gameplay.UI
         [SerializeField]
         private TextMeshProUGUI m_header;
         [SerializeField]
-        private InstructionsPromptUI m_instructions;
+        private SetTextToTextBox m_instructions;
 
         public void Show(StoreNotificationInfo info)
         {
