@@ -87,6 +87,7 @@ namespace DChild.Gameplay.FastTravel
             }
 
             m_showcaseImage.sprite = button.data.image;
+            m_townGateLabel.text = button.label.text;
         }
 
         private void ResetButtons(FastTravelPageData locationList)
