@@ -791,18 +791,14 @@ MonoBehaviour:
   m_CharacterReward:
   - {fileID: 11400000, guid: 23778fcf796655c4892acde7b331963c, type: 2}
   m_isFree: 0
-  m_requiresSoulEssence: 1
+  m_Requirement: 0
+  m_TakeRequiredItemFromInvintory: 0
   m_requiredSoulEssence: 200
-  m_requiresItem: 0
   m_hasItem: {fileID: 0}
   m_ItemAmount: 0
-  m_requiresCombatArt: 0
   m_CombatArt: 0
-  m_requiresPrimarySkill: 0
   m_PrimarySkill: 0
-  m_requiresSpecificNPC: 0
   armyCharacterData: {fileID: 0}
-  m_requiresMinimumNPCsRecruited: 0
   neededNPCsRecruited: 0
 --- !u!114 &8220188319567799885
 MonoBehaviour:
@@ -919,7 +915,7 @@ MonoBehaviour:
       - m_Target: {fileID: 6559218483267348391}
         m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.ArmyBattleCharacterReward,
           Assembly-CSharp
-        m_MethodName: AttemptGiveReward
+        m_MethodName: RecruitmentConfirmation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1004,7 +1000,7 @@ MonoBehaviour:
       - m_Target: {fileID: 6559218483267348391}
         m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.ArmyBattleCharacterReward,
           Assembly-CSharp
-        m_MethodName: AttemptGiveReward
+        m_MethodName: RecruitmentConfirmation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1034,12 +1030,22 @@ PrefabInstance:
     - target: {fileID: 2677176962818127485, guid: 210eaba80e53eb24887c0f03c16d5c0a,
         type: 3}
       propertyPath: m_Size.x
-      value: 3.0496407
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677176962818127485, guid: 210eaba80e53eb24887c0f03c16d5c0a,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 2677176962818127485, guid: 210eaba80e53eb24887c0f03c16d5c0a,
         type: 3}
       propertyPath: m_Offset.x
-      value: 0.28025246
+      value: 4.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677176962818127485, guid: 210eaba80e53eb24887c0f03c16d5c0a,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 1.03
       objectReference: {fileID: 0}
     - target: {fileID: 4192188984726503087, guid: 210eaba80e53eb24887c0f03c16d5c0a,
         type: 3}

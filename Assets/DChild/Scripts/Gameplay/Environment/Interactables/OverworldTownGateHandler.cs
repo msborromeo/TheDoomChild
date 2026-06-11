@@ -1,4 +1,5 @@
 ﻿using DChild.Gameplay.Characters;
+using DChild.Gameplay.FastTravel;
 using DChild.Gameplay.Systems;
 using Holysoft.Event;
 using PixelCrushers.DialogueSystem;
@@ -15,6 +16,8 @@ namespace DChild.Gameplay.Environment.Interractables
         private LocationPoster m_poster;
         [SerializeField]
         private GameObject m_onEffect;
+        [SerializeField]
+        public FastTravelData m_UIData;
 
         [SerializeField]
         public Vector3 m_Offset;
@@ -37,7 +40,7 @@ namespace DChild.Gameplay.Environment.Interractables
         [Button, HideInEditorMode]
         public void Interact(Character character)
         {
-            GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location);
+            GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location, m_UIData);
         }
 
         private void OnDrawGizmosSelected()

@@ -2,6 +2,7 @@
 using DChild.Gameplay.Characters.NPC;
 using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Environment;
+using DChild.Gameplay.FastTravel;
 using DChild.Gameplay.LevelFinish.UI;
 using DChild.Gameplay.Systems.Serialization;
 using DChild.Gameplay.Trade;
@@ -9,6 +10,7 @@ using DChild.Gameplay.UI;
 using DChild.Gameplay.UI.Alerts;
 using DChild.Menu.Trade;
 using DChild.Scripts.Gameplay.Environment.Interactables.Elevator;
+using DChild.UI;
 using Doozy.Runtime.Signals;
 using System;
 using System.Collections;
@@ -24,7 +26,7 @@ namespace DChild.Gameplay.Systems
 
         public bool isInCutsceneMode { get; private set; }
 
-        public UIAlertManager alertManager => UnderworldGameplayUIHandle.Instance.uiAlertManager;
+        public UIAlertManager alertManager => BaseGameplayUIHandle.Instance.uiAlertManager;
         public IUINotificationManager notificationManager => UnderworldGameplayUIHandle.Instance.notificationManager;
 
         public void ActivateHealthRegenEffect(PassiveRegeneration.Handle regenHandle)
@@ -57,9 +59,9 @@ namespace DChild.Gameplay.Systems
             UnderworldGameplayUIHandle.Instance.MonitorBoss(boss);
         }
 
-        public void OpenFastTravel(Location startingLocation)
+        public void OpenFastTravel(Location startingLocation, FastTravelData playerLocation)
         {
-            BaseGameplayUIHandle.Instance.OpenFastTravel(startingLocation);
+            BaseGameplayUIHandle.Instance.OpenFastTravel(startingLocation, playerLocation);
         }
 
         public void OpenShadowGateMap(Location fromLocation)
@@ -258,6 +260,11 @@ namespace DChild.Gameplay.Systems
         public void UIBack()
         {
             BaseGameplaySystem.gamplayUIHandle.UIBack();
+        }
+
+        public void OverrideCurrentUIState(GameplayUIState state)
+        {
+            BaseGameplaySystem.gamplayUIHandle.OverrideCurrentUIState(state);
         }
     }
 }
