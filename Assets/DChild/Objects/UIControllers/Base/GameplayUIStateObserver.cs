@@ -54,8 +54,8 @@ namespace DChild.UI
 
             foreach (var signalGroup in m_signalCategories)
             {
-                signalGroup.OnSignalValueReceived -= SetDialogueStatus;
-                signalGroup.OnSignalValueReceived += SetDialogueStatus;
+                signalGroup.DialogueSignalValueReceived -= SetDialogueStatus;
+                signalGroup.DialogueSignalValueReceived += SetDialogueStatus;
                 
                 signalGroup.OnSignalReceived -= SetCurrentUIState;
                 signalGroup.OnSignalReceived += SetCurrentUIState;

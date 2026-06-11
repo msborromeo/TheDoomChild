@@ -8,7 +8,7 @@ namespace DChild.UI
         [SerializeField] private GameplayUIState m_categoryState;
 
         public Action<GameplayUIState> OnSignalReceived;
-        public Action<bool> OnSignalValueReceived;
+        public Action<bool> DialogueSignalValueReceived;
 
         public void UpdateCurrentState()
         {

@@ -17,13 +17,16 @@ namespace DChild.UI
         public void HandleSignalValue()
         {
             EnsureReference();
-            m_listener.stream.currentSignal.TryGetValue(out bool value);
+            var signal = m_listener.stream.currentSignal;
+            signal.TryGetValue(out bool value);
+
+            //specifically for inDialogue Observer value
+            if (signal.stream.category == "Dialogue" && signal.stream.name == "Toggle")
+                m_parentGroup.DialogueSignalValueReceived.Invoke(value);
 
             if (!value)
                 return;
 
-
-            m_parentGroup.OnSignalValueReceived.Invoke(value);
             m_parentGroup.UpdateCurrentState();
         }
     }
