@@ -181,7 +181,8 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 3540eedbf99e9fa468f01166a13b24d8, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -243,7 +244,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 7
     - Name: 
       Entry: 7
       Data: 
@@ -254,14 +255,14 @@ MonoBehaviour:
       Entry: 7
       Data: 5|DChild.Gameplay.UI.StoreNotificationInfo, Assembly-CSharp
     - Name: m_icon
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: m_headerLabel
       Entry: 1
-      Data: Bestiary Update
+      Data: Codex Update
     - Name: m_instructions
       Entry: 1
-      Data: Press $#0 to open necromicon
+      Data: Press    BUTTONPROMPT to open necromicon
     - Name: 
       Entry: 8
       Data: 
@@ -278,14 +279,14 @@ MonoBehaviour:
       Entry: 7
       Data: 6|DChild.Gameplay.UI.StoreNotificationInfo, Assembly-CSharp
     - Name: m_icon
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: m_headerLabel
       Entry: 1
-      Data: Lore Update
+      Data: Codex Update
     - Name: m_instructions
       Entry: 1
-      Data: Press $#0 to open necromicon
+      Data: Press    BUTTONPROMPT to open necromicon
     - Name: 
       Entry: 8
       Data: 
@@ -302,14 +303,110 @@ MonoBehaviour:
       Entry: 7
       Data: 7|DChild.Gameplay.UI.StoreNotificationInfo, Assembly-CSharp
     - Name: m_icon
+      Entry: 10
+      Data: 0
+    - Name: m_headerLabel
+      Entry: 1
+      Data: Codex Update
+    - Name: m_instructions
+      Entry: 1
+      Data: Press    BUTTONPROMPT to open necromicon
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 6
+    - Name: $v
+      Entry: 7
+      Data: 8|DChild.Gameplay.UI.StoreNotificationInfo, Assembly-CSharp
+    - Name: m_icon
       Entry: 6
       Data: 
     - Name: m_headerLabel
       Entry: 1
-      Data: Extras Unlock
+      Data: Extras Update
     - Name: m_instructions
       Entry: 1
-      Data: Something for everyone
+      Data: Return to main menu to view.
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: 9|DChild.Gameplay.UI.StoreNotificationInfo, Assembly-CSharp
+    - Name: m_icon
+      Entry: 10
+      Data: 0
+    - Name: m_headerLabel
+      Entry: 1
+      Data: Codex Update
+    - Name: m_instructions
+      Entry: 1
+      Data: Press    BUTTONPROMPT to open necromicon
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: 10|DChild.Gameplay.UI.StoreNotificationInfo, Assembly-CSharp
+    - Name: m_icon
+      Entry: 10
+      Data: 0
+    - Name: m_headerLabel
+      Entry: 1
+      Data: Codex Update
+    - Name: m_instructions
+      Entry: 1
+      Data: Press    BUTTONPROMPT to open necromicon
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: 11|DChild.Gameplay.UI.StoreNotificationInfo, Assembly-CSharp
+    - Name: m_icon
+      Entry: 10
+      Data: 0
+    - Name: m_headerLabel
+      Entry: 1
+      Data: Codex Update
+    - Name: m_instructions
+      Entry: 1
+      Data: Press    BUTTONPROMPT to open necromicon
     - Name: 
       Entry: 8
       Data: 
@@ -380,6 +477,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c8d4734bc2690e84db5f06449d588eab, type: 2}
   m_confirmationRequest:
     m_confirmation: {fileID: 0}
+    m_confirmationHeader: 
     m_confirmationMessage: Upgrade weapon?
   m_playerInventory: {fileID: 0}
   m_playerWeapon: {fileID: 0}
@@ -505,6 +603,8 @@ MonoBehaviour:
   m_navMap: {fileID: 0}
   m_regen: {fileID: 0}
   m_elevator: {fileID: 0}
+  m_teleportHandle: {fileID: 0}
+  m_questManager: {fileID: 0}
   m_journalNotification: {fileID: 0}
   m_playerHUD: {fileID: 0}
   m_interactablePrompt: {fileID: 0}
@@ -526,6 +626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_returnToMainMenuRequest:
     m_confirmation: {fileID: 0}
+    m_confirmationHeader: 
     m_confirmationMessage: 
 --- !u!1 &1317516889
 GameObject:
@@ -2934,7 +3035,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2984493700997397161}
   - component: {fileID: 1545669049967821395}
-  - component: {fileID: 6168822362483496899}
   - component: {fileID: 3951483400078990134}
   - component: {fileID: 7132930369399272247}
   - component: {fileID: 1051951913548788863}
@@ -3489,7 +3589,7 @@ MonoBehaviour:
     type: 2}
   m_playerHandle: {fileID: 0}
   m_skillSelection: {fileID: 0}
-  m_activatedListUI: {fileID: 0}
+  m_availableSoulCapacity: {fileID: 0}
   m_availableListUI: {fileID: 0}
   m_infoUI: {fileID: 0}
   m_forceSoulSkillActivation: 1

@@ -30,10 +30,6 @@ namespace DChild.Gameplay.Systems
         [SerializeField]
         private UINotificationManager m_notificationManager;
 
-        [SerializeField]
-        private UIAlertManager m_uiAlertManager;
-        public UIAlertManager uiAlertManager => m_uiAlertManager;
-
         [SerializeField, FoldoutGroup("Merchant UI")]
         private SignalSender m_tradeWindowSignal;
         [SerializeField, FoldoutGroup("Merchant UI")]
