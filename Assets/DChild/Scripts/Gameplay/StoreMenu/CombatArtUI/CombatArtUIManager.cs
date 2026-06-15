@@ -46,13 +46,13 @@ namespace DChild.Gameplay.UI.CombatArts
         {
             var combatArtData = m_referenceList.GetCombatArtData(m_firstSelected.skillUnlock);
             m_uiDetail.Display(combatArtData, m_firstSelected.unlockLevel);
-            m_firstSelected.Select();
+            m_firstSelected.uiButton.Select();
         }
 
         public void SyncButtonStates()
         {
             InitializeButtonStates();
-            ValidateButtonStates();
+            ValidateButtonVisuals();
         }
 
         public void Select(CombatArtSelectButton button)
@@ -65,17 +65,19 @@ namespace DChild.Gameplay.UI.CombatArts
             m_uiDetail.Display(combatArtData, m_currentSelectedButton.unlockLevel);
             m_selectorHighlight.Highlight(button);
 
-            if (CanAfford(m_progressionReference.skillPoints, combatArtData.GetCombatArtLevelData(m_currentSelectedButton.unlockLevel)))
-            {
-                m_unlockArtHandler.VerifyUnlockFunction(m_currentSelectedButton);
-            }
-            else
-            {
-                m_unlockArtHandler.DisableUnlockFunction();
-            }
             m_unlockArtHandler.ResetUnlockProgress();
 
-            static bool CanAfford(CombatSkillPoints points, CombatArtLevelData combatArtLevelData) => points.points >= combatArtLevelData.cost;
+            var availableSkillPoints = m_progressionReference.skillPoints.points;
+            var combatArtCost = combatArtData.GetCombatArtLevelData(m_currentSelectedButton.unlockLevel).cost;
+
+            if (availableSkillPoints < combatArtCost)
+            {
+                m_unlockArtHandler.DisableUnlockFunction();
+                return;
+            }
+
+            m_unlockArtHandler.VerifyUnlockFunction(m_currentSelectedButton);
+            //static bool CanAfford(CombatSkillPoints points, CombatArtLevelData combatArtLevelData) => points.points >= combatArtLevelData.cost;
         }
 
         public void StartUnlockSelectedCombatArt()
@@ -96,7 +98,7 @@ namespace DChild.Gameplay.UI.CombatArts
             var combatArtLevelData = combatArtData.GetCombatArtLevelData(m_currentSelectedButton.unlockLevel);
             m_progressionReference.skillPoints.AddPoint(-combatArtLevelData.cost);
             m_currentSelectedButton.SetState(CombatArtUnlockState.Unlocked);
-            ValidateButtonStates();
+            ValidateButtonVisuals();
         }
 
         private void PopulateCombatArtList(CombatArtSelectButton[] buttons)
@@ -104,13 +106,14 @@ namespace DChild.Gameplay.UI.CombatArts
             for (int i = 0; i < buttons.Length; i++)
             {
                 var button = buttons[i];
-                button.Selected -= OnCombatArtSelected;
-                button.Selected += OnCombatArtSelected;
+
+                button.OnButtonSelected += Select;
 
                 if (m_abilityButtonPair.TryGetValue(button.skillUnlock, out CombatArtSelectButton[] array))
                 {
                     array[button.unlockLevel - 1] = button;
                 }
+
                 else
                 {
                     var combatArtData = m_referenceList.GetCombatArtData(button.skillUnlock);
@@ -127,16 +130,15 @@ namespace DChild.Gameplay.UI.CombatArts
                 }
             }
         }
+
         #region Combat Art Button State Handling
-        private void ValidateButtonStates()
+        private void ValidateButtonVisuals()
         {
-            for (int i = m_artRequirements.Length - 1; i >= 0; i--)
+            for (int i = 0; i < m_artRequirements.Length; i--)
             {
                 m_artRequirements[i].ValidateButtonState();
             }
         }
-
-        private void OnCombatArtSelected(CombatArtSelectButton obj) => Select(obj);
 
         private void InitializeButtonStates()
         {
@@ -158,7 +160,7 @@ namespace DChild.Gameplay.UI.CombatArts
                 var currentLevel = m_progressionReference.GetAbilityLevel(combatArt);
                 for (int k = 0; k < levelButtons.Length; k++)
                 {
-                    var state = (k + 1 < currentLevel) ? CombatArtUnlockState.Unlocked : CombatArtUnlockState.Locked;
+                    var state = (k < currentLevel) ? CombatArtUnlockState.Unlocked : CombatArtUnlockState.Locked;
                     levelButtons[k].SetState(state);
                 }
                 return;

@@ -11,16 +11,15 @@ namespace DChild.Gameplay.UI.CombatArts
 
         public void ValidateButtonState()
         {
-            if (!HasUnlockedRequired())
+            if (HasUnlockedRequired())
             {
-                Reset();
-                return;
+                if (m_button.currentState == CombatArtUnlockState.Unlocked)
+                    return;
+
+                m_button.SetState(CombatArtUnlockState.Unlockable);
             }
 
-            if (m_button.currentState == CombatArtUnlockState.Unlocked)
-                return;
-
-            m_button.SetState(CombatArtUnlockState.Unlockable);
+            Reset();
         }
 
         private bool HasUnlockedRequired()
