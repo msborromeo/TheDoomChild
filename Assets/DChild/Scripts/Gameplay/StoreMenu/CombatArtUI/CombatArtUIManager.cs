@@ -103,7 +103,9 @@ namespace DChild.Gameplay.UI.CombatArts
             for (int i = 0; i < buttons.Length; i++)
             {
                 var button = buttons[i];
+                button.Selected -= OnCombatArtSelected;
                 button.Selected += OnCombatArtSelected;
+
                 if (m_abilityButtonPair.TryGetValue(button.skillUnlock, out CombatArtSelectButton[] array))
                 {
                     array[button.unlockLevel - 1] = button;
@@ -152,22 +154,16 @@ namespace DChild.Gameplay.UI.CombatArts
         {
             if (m_abilityButtonPair.TryGetValue(combatArt, out CombatArtSelectButton[] array))
             {
-                if (m_progressionReference.IsAbilityActivated(combatArt))
-                {
-                    var currentLevel = m_progressionReference.GetAbilityLevel(combatArt);
-                    for (int k = 0; k < currentLevel; k++)
-                    {
-                        array[k].SetState(CombatArtUnlockState.Unlocked);
-                    }
-
-                }
-                else
+                if (!m_progressionReference.IsAbilityActivated(combatArt))
                 {
                     for (int k = 0; k < array.Length; k++)
-                    {
                         array[k].SetState(CombatArtUnlockState.Locked);
-                    }
+                    return;
                 }
+
+                var currentLevel = m_progressionReference.GetAbilityLevel(combatArt);
+                for (int k = 0; k < currentLevel; k++)
+                    array[k].SetState(CombatArtUnlockState.Unlocked);
             }
         }
 
