@@ -11,29 +11,33 @@ namespace DChild.Gameplay.UI.CombatArts
 
         public void ValidateButtonState()
         {
-            if (AreRequiredArtsUnlocked())
+            if (!HasUnlockedRequired())
             {
-                if (m_button.currentState != CombatArtUnlockState.Unlocked)
-                {
-                    m_button.SetState(CombatArtUnlockState.Unlockable);
-                }
+                Reset();
+                return;
             }
-            else
-            {
-                m_button.SetState(CombatArtUnlockState.Locked);
-            }
-            m_button.ForceVisualSync();
+
+            if (m_button.currentState == CombatArtUnlockState.Unlocked)
+                return;
+
+            m_button.SetState(CombatArtUnlockState.Unlockable);
         }
 
-        private bool AreRequiredArtsUnlocked()
+        private bool HasUnlockedRequired()
         {
-            return (m_requirement == null || ( m_requirement.currentState == CombatArtUnlockState.Unlocked));
+            return (m_requirement == null || (m_requirement.currentState == CombatArtUnlockState.Unlocked));
         }
 
         private void Awake()
         {
             m_button = GetComponent<CombatArtSelectButton>();
         }
+
+        private void Reset()
+        {
+            m_button.SetState(CombatArtUnlockState.Locked);
+        }
+
     }
 
 }

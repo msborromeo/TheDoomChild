@@ -24,6 +24,13 @@ namespace DChild.Gameplay.UI.CombatArts
         public int unlockLevel => m_unlockLevel;
         public CombatArtUnlockState currentState => m_currentState;
 
+        private UIButton m_button;
+
+        private void EnsureReference()
+        {
+            m_button = GetComponent<UIButton>();
+        }
+
         public void SetState(CombatArtUnlockState state)
         {
             m_currentState = state;
@@ -37,6 +44,9 @@ namespace DChild.Gameplay.UI.CombatArts
 
         public void Select()
         {
+            EnsureReference();
+
+            m_button.Select();
             Selected?.Invoke(this);
         }
 
@@ -44,7 +54,8 @@ namespace DChild.Gameplay.UI.CombatArts
 
         private void Awake()
         {
-            m_visuals.Initialize(GetComponent<UIButton>());
+            EnsureReference();
+            m_visuals.Initialize(m_button);
         }
 
 #if UNITY_EDITOR

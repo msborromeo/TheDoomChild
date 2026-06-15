@@ -36,23 +36,27 @@ namespace DChild.Gameplay.UI.CombatArts
         public void SetState(CombatArtUnlockState state)
         {
             DisableAllAnimations();
+            var stateType = m_button.selectedState.stateType;
+
             switch (state)
             {
                 case CombatArtUnlockState.Locked:
                     m_lockedUIAnimations.SetActive(true);
                     EnableAnimator(m_lockedUIAnimators);
-                    UseAnimator(m_lockedUIAnimators, m_button.selectedState.stateType);
+                    UseAnimator(m_lockedUIAnimators, stateType);
                     break;
+
                 case CombatArtUnlockState.Unlockable:
                     m_unlockableUIAnimations.SetActive(true);
                     EnableAnimator(m_unlockableUIAnimators);
-                    UseAnimator(m_unlockableUIAnimators, m_button.selectedState.stateType);
+                    UseAnimator(m_unlockableUIAnimators, stateType);
                     break;
+
                 case CombatArtUnlockState.Unlocked:
                     m_buttonUIProgressor.ForceAsComplete();
                     m_unlockedUIAnimations.SetActive(true);
-                    UseAnimator(m_unlockedUIAnimators, m_button.selectedState.stateType);
                     EnableAnimator(m_unlockedUIAnimators);
+                    UseAnimator(m_unlockedUIAnimators, stateType);
                     break;
             }
         }
