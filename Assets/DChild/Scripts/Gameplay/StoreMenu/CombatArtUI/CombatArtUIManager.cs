@@ -33,6 +33,7 @@ namespace DChild.Gameplay.UI.CombatArts
         public void Initialize()
         {
             m_selectorHighlight.Initialize();
+            m_unlockArtHandler.UnlockSuccessful -= OnUnlockSuccessFull;
             m_unlockArtHandler.UnlockSuccessful += OnUnlockSuccessFull;
             m_unlockArtHandler.InitializeReferences(m_progressionReference, m_referenceList);
             m_unlockArtHandler.ResetUnlockProgress();
