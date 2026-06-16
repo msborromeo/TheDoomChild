@@ -200,9 +200,9 @@ namespace DChild.Gameplay.Systems
             m_cinematicVideoHandle.ForceStopCinematicVideo();
         }
 
-        public void OpenFastTravel(DLocation startingLocation)
+        public void OpenFastTravel(DLocation startingLocation, FastTravelData playerLocation)
         {
-            m_fastTravelUI.ForceOpenPage(startingLocation);
+            m_fastTravelUI.ForceOpenPage(startingLocation, playerLocation);
             m_fastTravelSignal?.SendSignal();
         }
 
