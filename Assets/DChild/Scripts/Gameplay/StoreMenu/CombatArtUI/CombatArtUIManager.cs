@@ -37,8 +37,7 @@ namespace DChild.Gameplay.UI.CombatArts
             m_unlockArtHandler.UnlockSuccessful += OnUnlockSuccessFull;
             m_unlockArtHandler.InitializeReferences(m_progressionReference, m_referenceList);
             m_unlockArtHandler.ResetUnlockProgress();
-            SyncButtonStates();
-
+            ValidateButtonVisuals();
             SetupUIData();
         }
 
@@ -51,7 +50,7 @@ namespace DChild.Gameplay.UI.CombatArts
 
         public void SyncButtonStates()
         {
-            InitializeButtonStates();
+            //InitializeButtonStates();
             ValidateButtonVisuals();
         }
 
@@ -134,42 +133,41 @@ namespace DChild.Gameplay.UI.CombatArts
         #region Combat Art Button State Handling
         private void ValidateButtonVisuals()
         {
-            for (int i = 0; i < m_artRequirements.Length; i--)
+            foreach (var requirementButton in m_artRequirements)
             {
-                m_artRequirements[i].ValidateButtonState();
+                requirementButton.ValidateButtonState(m_progressionReference);
             }
         }
 
-        private void InitializeButtonStates()
-        {
-            var combatArtCount = (int)CombatArt._Count;
-            for (int i = 0; i < combatArtCount; i++)
-            {
-                var combatArt = (CombatArt)i;
-                InitializeArtLevelButtons(combatArt);
-            }
-        }
+        //private void InitializeButtonStates()
+        //{
+        //    var combatArtCount = (int)CombatArt._Count;
+        //    for (int i = 0; i < combatArtCount; i++)
+        //    {
+        //        var combatArt = (CombatArt)i;
+        //        InitializeArtLevelButtons(combatArt);
+        //    }
+        //}
 
-        private void InitializeArtLevelButtons(CombatArt combatArt)
-        {
-            if (!m_abilityButtonPair.TryGetValue(combatArt, out CombatArtSelectButton[] levelButtons))
-                return;
+        //private void InitializeArtLevelButtons(CombatArt combatArt)
+        //{
+        //    if (!m_abilityButtonPair.TryGetValue(combatArt, out CombatArtSelectButton[] levelButtons))
+        //        return;
 
-            if (m_progressionReference.IsAbilityActivated(combatArt))
-            {
-                var currentLevel = m_progressionReference.GetAbilityLevel(combatArt);
-                for (int k = 0; k < levelButtons.Length; k++)
-                {
-                    var state = (k < currentLevel) ? CombatArtUnlockState.Unlocked : CombatArtUnlockState.Locked;
-                    levelButtons[k].SetState(state);
-                }
-                return;
-            }
+        //    if (!m_progressionReference.IsAbilityActivated(combatArt))
+        //    {
+        //        for (int k = 0; k < levelButtons.Length; k++)
+        //            levelButtons[k].SetState(CombatArtUnlockState.Locked);
+        //        return;
+        //    }
 
-            for (int k = 0; k < levelButtons.Length; k++)
-                levelButtons[k].SetState(CombatArtUnlockState.Locked);
-            return;
-        }
+        //    var currentLevel = m_progressionReference.GetAbilityLevel(combatArt);
+        //    for (int k = 0; k < currentLevel; k++)
+        //    {
+        //        levelButtons[k].SetState(CombatArtUnlockState.Unlocked);
+        //    }
+        //    return;
+        //}
         #endregion
 
 
