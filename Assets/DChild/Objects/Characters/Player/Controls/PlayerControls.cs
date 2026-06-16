@@ -2220,6 +2220,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HoldToSkip"",
+                    ""type"": ""Button"",
+                    ""id"": ""a046fa83-6954-49bf-a893-fe6f5655f4e0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=1.5,pressPoint=0.5)"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -2671,6 +2680,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""ToggleLegend"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15e12d36-304e-40cd-95af-cb4176e4de45"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""HoldToSkip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83faf655-63f0-448a-badb-6b3345b83091"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""HoldToSkip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -3338,6 +3369,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_UI_CycleTab = m_UI.FindAction("CycleTab", throwIfNotFound: true);
         m_UI_CycleSubTab = m_UI.FindAction("CycleSubTab", throwIfNotFound: true);
         m_UI_ToggleLegend = m_UI.FindAction("ToggleLegend", throwIfNotFound: true);
+        m_UI_HoldToSkip = m_UI.FindAction("HoldToSkip", throwIfNotFound: true);
         // Army Battle
         m_ArmyBattle = asset.FindActionMap("Army Battle", throwIfNotFound: true);
         m_ArmyBattle_SelectCommand = m_ArmyBattle.FindAction("SelectCommand", throwIfNotFound: true);
@@ -3732,6 +3764,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_CycleTab;
     private readonly InputAction m_UI_CycleSubTab;
     private readonly InputAction m_UI_ToggleLegend;
+    private readonly InputAction m_UI_HoldToSkip;
     public struct UIActions
     {
         private @PlayerControls m_Wrapper;
@@ -3747,6 +3780,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @CycleTab => m_Wrapper.m_UI_CycleTab;
         public InputAction @CycleSubTab => m_Wrapper.m_UI_CycleSubTab;
         public InputAction @ToggleLegend => m_Wrapper.m_UI_ToggleLegend;
+        public InputAction @HoldToSkip => m_Wrapper.m_UI_HoldToSkip;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -3789,6 +3823,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @ToggleLegend.started -= m_Wrapper.m_UIActionsCallbackInterface.OnToggleLegend;
                 @ToggleLegend.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnToggleLegend;
                 @ToggleLegend.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnToggleLegend;
+                @HoldToSkip.started -= m_Wrapper.m_UIActionsCallbackInterface.OnHoldToSkip;
+                @HoldToSkip.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnHoldToSkip;
+                @HoldToSkip.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnHoldToSkip;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -3826,6 +3863,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @ToggleLegend.started += instance.OnToggleLegend;
                 @ToggleLegend.performed += instance.OnToggleLegend;
                 @ToggleLegend.canceled += instance.OnToggleLegend;
+                @HoldToSkip.started += instance.OnHoldToSkip;
+                @HoldToSkip.performed += instance.OnHoldToSkip;
+                @HoldToSkip.canceled += instance.OnHoldToSkip;
             }
         }
     }
@@ -4007,6 +4047,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnCycleTab(InputAction.CallbackContext context);
         void OnCycleSubTab(InputAction.CallbackContext context);
         void OnToggleLegend(InputAction.CallbackContext context);
+        void OnHoldToSkip(InputAction.CallbackContext context);
     }
     public interface IArmyBattleActions
     {
