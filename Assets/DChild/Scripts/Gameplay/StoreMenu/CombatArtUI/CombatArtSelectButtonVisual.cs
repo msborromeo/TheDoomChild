@@ -53,7 +53,7 @@ namespace DChild.Gameplay.UI.CombatArts
                     break;
 
                 case CombatArtUnlockState.Unlocked:
-                    m_buttonUIProgressor.ForceAsComplete();
+                    m_buttonUIProgressor.DisplayProgress(1f);
                     m_unlockedUIAnimations.SetActive(true);
                     EnableAnimator(m_unlockedUIAnimators);
                     UseAnimator(m_unlockedUIAnimators, stateType);
