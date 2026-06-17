@@ -224,6 +224,10 @@ namespace DChild.Inputs
         {
             m_reader.OnToggleMapLegend(context);
         }
+        public void OnHoldToSkip(InputAction.CallbackContext context)
+        {
+            m_reader.OnHoldToSkip(context);
+        }
 
         #endregion
 
