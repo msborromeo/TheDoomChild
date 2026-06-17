@@ -33,10 +33,10 @@ namespace DChild.Gameplay.Systems.Lore
 
         public void Interact(Character character)
         {
-            GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(UI.StoreNotificationType.Lore,m_data.codexData.GetInstanceID());
+            GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(UI.StoreNotificationType.Lore, m_data.codexData.id);
+            GameplaySystem.playerManager.player.loreTracker.RecordLoreToCodex(m_data.codexData);
             gameObject.SetActive(false);
             onInteract?.Invoke();
-
         }
 
         public void SetAsPickedUp()
