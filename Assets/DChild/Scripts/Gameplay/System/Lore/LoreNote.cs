@@ -33,7 +33,7 @@ namespace DChild.Gameplay.Systems.Lore
 
         public void Interact(Character character)
         {
-            GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(UI.StoreNotificationType.Lore,m_data.GetInstanceID());
+            GameplaySystem.gamplayUIHandle.notificationManager.QueueNotification(UI.StoreNotificationType.Lore,m_data.codexData.GetInstanceID());
             gameObject.SetActive(false);
             onInteract?.Invoke();
 
