@@ -37,6 +37,7 @@ namespace DChild.Gameplay.UI.Controller
             m_inputReader.UISubmitPerformedEvent += OnUISubmitPerformed;
             m_inputReader.UICancelPerformedEvent += OnUICancelPerformed;
             m_inputReader.UIToggleMapLegendEvent += OnUIToggleMapLegendEvent;
+            m_inputReader.UIHoldToSkipPerformedEvent += OnUIHoldToSkipPerformed;
 
             m_storeNavigator.OnStoreTabClicked += OnStoreTabClicked;
         }
@@ -49,6 +50,7 @@ namespace DChild.Gameplay.UI.Controller
             m_inputReader.UIClickPerformedEvent -= OnUIClickPerformed;
             m_inputReader.UISubmitPerformedEvent -= OnUISubmitPerformed;
             m_inputReader.UICancelPerformedEvent -= OnUICancelPerformed;
+            m_inputReader.UIHoldToSkipPerformedEvent -= OnUIHoldToSkipPerformed;
 
             m_storeNavigator.OnStoreTabClicked -= OnStoreTabClicked;
 
@@ -173,6 +175,10 @@ namespace DChild.Gameplay.UI.Controller
         {
             m_toggleMap = !m_toggleMap;
             UnderworldGameplaySystem.gameplayUIHandle.ToggleMapLegend(m_toggleMap);
+        }
+        private void OnUIHoldToSkipPerformed()
+        {
+           
         }
         #endregion
 

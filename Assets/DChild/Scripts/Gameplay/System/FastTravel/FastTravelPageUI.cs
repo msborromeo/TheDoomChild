@@ -67,7 +67,8 @@ namespace DChild.Gameplay.FastTravel
             button.ToggleCurrentLocationIcon(travelData == m_currentLocation);
 
             //button.SetButtonLabel(travelData.pointName);
-            button.SetButtonLabel(!isOverworld ? $"Town Gate #{gateNumber}" : "Overworld");
+            //button.SetButtonLabel(!isOverworld ? $"Town Gate #{gateNumber}" : "Overworld");
+            button.SetButtonLabel(!isOverworld ? travelData.pointName : "Overworld");
 
             string varName = FastTravelUtility.GenerateActivationVariableName(travelData);
             bool isActivated = DialogueLua.GetVariable(varName).asBool;
@@ -87,6 +88,7 @@ namespace DChild.Gameplay.FastTravel
             }
 
             m_showcaseImage.sprite = button.data.image;
+            m_townGateLabel.text = button.label.text;
         }
 
         private void ResetButtons(FastTravelPageData locationList)
