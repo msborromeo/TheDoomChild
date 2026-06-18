@@ -23,8 +23,8 @@ namespace DChild.Gameplay.FastTravel
             if (playerLocation != null)
                 m_locationPage.SetCurrentPlayerPosition(playerLocation);
 
-            if (GameplaySystem.GetCurrentWorldType() == Systems.WorldType.Overworld)
-                return;
+            //if (GameplaySystem.GetCurrentWorldType() == Systems.WorldType.Overworld)
+                //return;
 
             var toggles = m_tabGroup.toggles;
             for (int i = 0; i < toggles.Count; i++)
