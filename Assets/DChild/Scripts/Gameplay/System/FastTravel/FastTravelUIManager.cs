@@ -23,8 +23,8 @@ namespace DChild.Gameplay.FastTravel
             if (playerLocation != null)
                 m_locationPage.SetCurrentPlayerPosition(playerLocation);
 
-            if (GameplaySystem.GetCurrentWorldType() == Systems.WorldType.Overworld)
-                return;
+            //if (GameplaySystem.GetCurrentWorldType() == Systems.WorldType.Overworld)
+                //return;
 
             var toggles = m_tabGroup.toggles;
             for (int i = 0; i < toggles.Count; i++)
@@ -32,9 +32,12 @@ namespace DChild.Gameplay.FastTravel
                 var tab = toggles[i].GetComponent<FastTravelLocationTab>();
                 tab.OnDataChange();
 
-                if (tab.locationList.location == startingLocation)
+                var isFromOverworld = tab.locationList.overworldTravelData == playerLocation;
+
+                if (tab.locationList.location == startingLocation || isFromOverworld)
                 {
                     toggles[i].SetIsOn(true);
+                    toggles[i].Select();
                     SelectLocationTab(tab);
                 }
             }
