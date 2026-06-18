@@ -32,9 +32,12 @@ namespace DChild.Gameplay.FastTravel
                 var tab = toggles[i].GetComponent<FastTravelLocationTab>();
                 tab.OnDataChange();
 
-                if (tab.locationList.location == startingLocation)
+                var isFromOverworld = tab.locationList.overworldTravelData == playerLocation;
+
+                if (tab.locationList.location == startingLocation || isFromOverworld)
                 {
                     toggles[i].SetIsOn(true);
+                    toggles[i].Select();
                     SelectLocationTab(tab);
                 }
             }
