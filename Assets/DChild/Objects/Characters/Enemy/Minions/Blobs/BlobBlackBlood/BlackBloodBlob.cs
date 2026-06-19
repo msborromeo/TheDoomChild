@@ -172,6 +172,7 @@ public class BlackBloodBlob : MonoBehaviour
         var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_deathFX, gameObject.scene);
         instance.SpawnAt(new Vector2(transform.position.x, transform.position.y), transform.rotation);
         Debug.Log("Death");
+        Die();
     }
 
     public void CallDeathFX()

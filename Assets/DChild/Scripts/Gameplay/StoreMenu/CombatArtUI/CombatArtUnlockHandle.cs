@@ -41,9 +41,11 @@ namespace DChild.Gameplay.UI.CombatArts
             StopAllCoroutines();
             m_unlockProgress = 0;
             m_progressor.DisplayProgress(0f);
+        }
 
-            if (m_selectableProgressor != null)
-                m_selectableProgressor.DisplayProgress(0f);
+        public void ResetBranchingUIProgressors()
+        {
+            m_selectableProgressor.DisplayProgress(0f);
         }
 
         public void StartUnlockProgress()
@@ -87,7 +89,7 @@ namespace DChild.Gameplay.UI.CombatArts
             } while (m_unlockProgress < m_holdToUnlockDuration);
 
             UnlockCombatArt(m_artToUnlock, m_levelToUnlock);
-            m_selectableProgressor.ForceAsComplete();
+            m_selectableProgressor.DisplayProgress(1f);
             UnlockSuccessful?.Invoke();
         }
     }
