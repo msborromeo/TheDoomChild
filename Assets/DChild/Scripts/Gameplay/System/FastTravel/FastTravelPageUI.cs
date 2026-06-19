@@ -43,10 +43,12 @@ namespace DChild.Gameplay.FastTravel
                 var isActivated = SetupTownGateButton(button, data);
 
                 if (isActivated)
+                {
                     m_activatedButtons.Add(button);
 
-                if (!hasSelectedFirst)
-                {
+                    if (hasSelectedFirst)
+                        continue;
+                    
                     button.Select();
                     hasSelectedFirst = true;
                 }
@@ -56,7 +58,7 @@ namespace DChild.Gameplay.FastTravel
             if (unlockedOverworld)
             {
                 m_activatedButtons.Add(m_overworldTownGateButtons);
-                
+
                 if (!hasSelectedFirst)
                 {
                     m_overworldTownGateButtons.Select();
