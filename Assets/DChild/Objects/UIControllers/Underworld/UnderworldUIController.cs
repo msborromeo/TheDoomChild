@@ -74,11 +74,13 @@ namespace DChild.Gameplay.UI.Controller
         {
             //Might not be cleanest solution but should handle banter continuing on click during UI controls issue
             if (BaseGameplaySystem.gamplayUIHandle.gameplayUIStateObserver.isInDialogue)
-            {
                 BaseGameplaySystem.gamplayUIHandle.ContinueDialogue();
-            }
 
-            m_necroTabIndex = (int)UnderworldGameplaySystem.gameplayUIHandle.GetActiveStorePage();
+            if (IsFastTravelOpen())
+                m_fastTravelIndex = GetFastTravelActiveTab();
+            
+            else if (m_storeNavigator.IsStoreOpen())
+                m_necroTabIndex = (int)GetActiveStorePage();
         }
 
         private void OnUINavigatePerformed(Vector2 vector)
@@ -158,7 +160,6 @@ namespace DChild.Gameplay.UI.Controller
         }
         #endregion
 
-        #region Input Listener UI Sections
         #region Fast Travel Handling
         private void HandleFastTravelNavigation(int direction)
         {
@@ -189,14 +190,14 @@ namespace DChild.Gameplay.UI.Controller
                 BaseGameplaySystem.gamplayUIHandle.OnFastTravelTabChanged(m_fastTravelIndex);
             }
         }
+        public int GetFastTravelActiveTab() => BaseGameplaySystem.gamplayUIHandle.GetFastTravelActiveTab();
+
         private bool IsFastTravelOpen() => BaseGameplaySystem.gamplayUIHandle.IsFastTravelOpen();
         #endregion
 
         #region Store Tab Index Handling
-        private void OnStoreTabClicked(StorePage page)
-        {
-            m_necroTabIndex = (int)page;
-        }
+        private void OnStoreTabClicked(StorePage page) => m_necroTabIndex = (int)page;
+        private StorePage GetActiveStorePage() => UnderworldGameplaySystem.gameplayUIHandle.GetActiveStorePage();
 
         private void OpenStoreAtPage(StorePage page)
         {
@@ -268,7 +269,6 @@ namespace DChild.Gameplay.UI.Controller
                 }
             }
         }
-        #endregion
         #endregion
     }
 }

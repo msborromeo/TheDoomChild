@@ -66,7 +66,7 @@ namespace DChild.Gameplay.FastTravel
             bool hasAvailableTownGates = m_activatedButtons.Count > 0;
             SetShowCaseImageVisibility(hasAvailableTownGates);
 
-            if (hasAvailableTownGates)
+            if (!hasAvailableTownGates)
                 ShowCase(m_activatedButtons[0]);
         }
 

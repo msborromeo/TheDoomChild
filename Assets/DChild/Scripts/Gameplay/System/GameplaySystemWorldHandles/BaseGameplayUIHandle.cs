@@ -150,12 +150,17 @@ namespace DChild.Gameplay.Systems
 
         public bool IsFastTravelOpen()
         {
-            return m_fastTravelUI.IsFastTravelOpen();
+            return m_fastTravelUI.isOpen;
         }
 
         public void OnFastTravelTabChanged(int locationTabIndex)
         {
             m_fastTravelUI.SelectLocationTab(locationTabIndex);
+        }
+
+        public int GetFastTravelActiveTab()
+        {
+            return m_fastTravelUI.currentTabIndex;
         }
 
         public void ShowGameOverScreen()

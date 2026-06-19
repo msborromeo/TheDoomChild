@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.Environment;
 using Doozy.Runtime.UIManager.Components;
+using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
@@ -17,29 +18,58 @@ namespace DChild.Gameplay.FastTravel
         [SerializeField]
         private FastTravelPageUI m_locationPage;
         [ReadOnly] private bool m_isOpen = false;
-        public bool IsFastTravelOpen() => m_isOpen;
-        public List<UIToggle> GetFastTravelLocationTabs() => m_tabGroup.toggles;
 
-        public void ForceOpenPage(Location startingLocation, FastTravelData playerLocation)
+        public List<UIToggle> GetFastTravelLocationTabs() => m_tabGroup.toggles;
+        public bool isOpen => m_isOpen;
+        private int m_currentTabIndex = 0;
+        public int currentTabIndex => m_currentTabIndex;
+
+        public void ForceOpenPage(Environment.Location startingLocation, FastTravelData playerLocation)
         {
             if (playerLocation != null)
                 m_locationPage.SetCurrentPlayerPosition(playerLocation);
 
+            SetupLocationTabs(startingLocation, playerLocation);
+
+            m_isOpen = true;
+        }
+        private void SetupLocationTabs(Environment.Location startingLocation, FastTravelData playerLocation)
+        {
             var toggles = m_tabGroup.toggles;
             for (int i = 0; i < toggles.Count; i++)
             {
-                var tab = toggles[i].GetComponent<FastTravelLocationTab>();
-                tab.OnDataChange();
+                var locationTab = toggles[i].GetComponent<FastTravelLocationTab>();
+                locationTab.OnDataChange();
 
-                var isFromOverworld = tab.locationList.overworldTravelData == playerLocation;
+                CheckUnlockedTownGates(locationTab);
 
-                if (tab.locationList.location == startingLocation || isFromOverworld)
+                var isFromOverworld = locationTab.locationList.overworldTravelData == playerLocation;
+                if (locationTab.locationList.location == startingLocation || isFromOverworld)
                 {
                     SelectLocationTab(i);
-                    OpenLocationList(tab);
+                    OpenLocationList(locationTab);
                 }
             }
-            m_isOpen = true;
+        }
+
+        private void CheckUnlockedTownGates(FastTravelLocationTab locationTab)
+        {
+            bool unlockedOneGate = false;
+
+            for (int i = 0; i < locationTab.locationList.count; i++)
+            {
+                var travelData = locationTab.locationList.GetUnderworldTravelData(i);
+                string varName = FastTravelUtility.GenerateActivationVariableName(travelData);
+                bool isActivated = DialogueLua.GetVariable(varName).asBool;
+
+                if(isActivated)
+                {
+                    unlockedOneGate = true;
+                    break;
+                }
+            }
+
+            locationTab.toggle.interactable = unlockedOneGate;
         }
 
         public void SelectLocationTab(int tabIndex)
@@ -48,7 +78,19 @@ namespace DChild.Gameplay.FastTravel
             updatedLocation.SetIsOn(true);
         }
 
-        public void OpenLocationList(FastTravelLocationTab locationTab) => m_locationPage.ShowPage(locationTab.locationList);
+        public void OpenLocationList(FastTravelLocationTab locationTab)
+        {
+            m_currentTabIndex = GetTabIndexFromParentGroup(locationTab);
+            m_locationPage.ShowPage(locationTab.locationList);
+        }
+
         public void FastTravelTo(FastTravelOptionButton travelButton) => m_handle.TransferPlayerTo(travelButton.data.fastTravelPoint);
+
+        private int GetTabIndexFromParentGroup(FastTravelLocationTab locationTab)
+        {
+            return m_tabGroup.toggles.IndexOf(locationTab.toggle);
+        }
+
+        public void Reset() => m_isOpen = false;
     }
 }
