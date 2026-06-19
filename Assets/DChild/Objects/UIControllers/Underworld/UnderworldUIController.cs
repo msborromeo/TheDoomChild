@@ -78,7 +78,7 @@ namespace DChild.Gameplay.UI.Controller
                 BaseGameplaySystem.gamplayUIHandle.ContinueDialogue();
             }
 
-            m_necroTabIndex = (int) UnderworldGameplaySystem.gameplayUIHandle.GetActiveStorePage();
+            m_necroTabIndex = (int)UnderworldGameplaySystem.gameplayUIHandle.GetActiveStorePage();
         }
 
         private void OnUINavigatePerformed(Vector2 vector)
@@ -88,11 +88,17 @@ namespace DChild.Gameplay.UI.Controller
 
         private void OnUICycleTabsPerformed(float obj)
         {
+            var fastTravelLocationCount = BaseGameplaySystem.gamplayUIHandle.GetFastTravelLocationCount();
+
             if (obj > 0)
             {
-                m_fastTravelIndex++;
+                //FastTravel Handling
+                m_fastTravelIndex = m_fastTravelIndex != fastTravelLocationCount - 1
+                    ? m_fastTravelIndex++
+                    : 0;
                 BaseGameplaySystem.gamplayUIHandle.OnFastTravelTabChanged(m_fastTravelIndex);
 
+                
                 //to achieve cycle back on end
                 if (m_necroTabIndex == m_necroPageOrders.Count - 1)
                 {
@@ -106,10 +112,14 @@ namespace DChild.Gameplay.UI.Controller
             }
             else if (obj < 0)
             {
-                m_fastTravelIndex--;
+                //FastTravel Handling
+                m_fastTravelIndex = m_fastTravelIndex != 0
+                    ? m_fastTravelIndex--
+                    : fastTravelLocationCount - 1;
                 BaseGameplaySystem.gamplayUIHandle.OnFastTravelTabChanged(m_fastTravelIndex);
 
-
+                
+                //necro Handling
                 if (m_necroTabIndex == 0)
                 {
                     m_necroTabIndex = m_necroPageOrders.Count - 1;
@@ -185,7 +195,7 @@ namespace DChild.Gameplay.UI.Controller
         }
         private void OnUIHoldToSkipPerformed()
         {
-           
+
         }
         #endregion
 

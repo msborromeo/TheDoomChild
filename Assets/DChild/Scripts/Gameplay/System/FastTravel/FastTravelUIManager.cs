@@ -24,7 +24,7 @@ namespace DChild.Gameplay.FastTravel
                 m_locationPage.SetCurrentPlayerPosition(playerLocation);
 
             //if (GameplaySystem.GetCurrentWorldType() == Systems.WorldType.Overworld)
-                //return;
+            //return;
 
             var toggles = m_tabGroup.toggles;
             for (int i = 0; i < toggles.Count; i++)
@@ -45,22 +45,10 @@ namespace DChild.Gameplay.FastTravel
         public void SelectLocationTab(int tabIndex)
         {
             var updatedLocation = m_tabGroup.toggles[tabIndex];
-            while (!updatedLocation.interactable)
-            {
-                if (tabIndex < 0)
-                tabIndex = m_tabGroup.toggles.Count - 1;
-
-                else if (tabIndex == m_tabGroup.toggles.Count)
-                    tabIndex = 0;
-            }
-
             updatedLocation.SetIsOn(true);
             updatedLocation.Select();
         }
 
-        private void CheckLocationAvailability()
-        {
-
-        }
+        public int GetFastTravelLocationCount() => m_tabGroup.toggles.Count;
     }
 }
