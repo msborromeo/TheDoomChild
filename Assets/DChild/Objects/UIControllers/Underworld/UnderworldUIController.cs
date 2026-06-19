@@ -18,8 +18,8 @@ namespace DChild.Gameplay.UI.Controller
         [SerializeField]
         private StoreNavigator m_storeNavigator;
 
-        [SerializeField, MinValue(0)]
-        private int m_necroTabIndex = 0;
+        [SerializeField, MinValue(0)] private int m_necroTabIndex = 0;
+        [SerializeField, MinValue(0)] private int m_fastTravelIndex = 0;
 
         private bool m_toggleMap = true;
         private bool m_toggleMapIcons = true;
@@ -90,6 +90,9 @@ namespace DChild.Gameplay.UI.Controller
         {
             if (obj > 0)
             {
+                m_fastTravelIndex--;
+                BaseGameplaySystem.gamplayUIHandle.OnFastTravelTabChanged(m_fastTravelIndex);
+
                 //to achieve cycle back on end
                 if (m_necroTabIndex == m_necroPageOrders.Count - 1)
                 {
@@ -103,6 +106,10 @@ namespace DChild.Gameplay.UI.Controller
             }
             else if (obj < 0)
             {
+                m_fastTravelIndex++;
+                BaseGameplaySystem.gamplayUIHandle.OnFastTravelTabChanged(m_fastTravelIndex);
+
+
                 if (m_necroTabIndex == 0)
                 {
                     m_necroTabIndex = m_necroPageOrders.Count - 1;

@@ -14,7 +14,7 @@ namespace DChild.Gameplay.FastTravel
         [SerializeField]
         private FastTravelPageUI m_locationPage;
 
-        public void SelectLocationTab(FastTravelLocationTab locationTab) => m_locationPage.ShowPage(locationTab.locationList);
+        public void OpenLocationList(FastTravelLocationTab locationTab) => m_locationPage.ShowPage(locationTab.locationList);
         public void FastTravelTo(FastTravelOptionButton travelButton) => m_handle.TransferPlayerTo(travelButton.data.fastTravelPoint);
 
 
@@ -36,11 +36,19 @@ namespace DChild.Gameplay.FastTravel
 
                 if (tab.locationList.location == startingLocation || isFromOverworld)
                 {
-                    toggles[i].SetIsOn(true);
-                    toggles[i].Select();
-                    SelectLocationTab(tab);
+                    SelectLocationTab(i);
+                    OpenLocationList(tab);
                 }
             }
+        }
+
+        public void SelectLocationTab(int tabIndex)
+        {
+            if (tabIndex < 0) tabIndex = m_tabGroup.toggles.Count - 1;
+            else if (tabIndex == m_tabGroup.toggles.Count) tabIndex = 0;
+
+            m_tabGroup.toggles[tabIndex].SetIsOn(true);
+            m_tabGroup.toggles[tabIndex].Select();
         }
     }
 }

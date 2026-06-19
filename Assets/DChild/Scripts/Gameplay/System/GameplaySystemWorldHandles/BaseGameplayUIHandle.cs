@@ -142,6 +142,10 @@ namespace DChild.Gameplay.Systems
             m_levelFinishedSignal.SendSignal();
         }
 
+        public void OnFastTravelTabChanged(int locationTabIndex)
+        {
+            m_fastTravelUI.SelectLocationTab(locationTabIndex);
+        }
 
         public void ShowGameOverScreen()
         {
