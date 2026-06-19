@@ -225,16 +225,12 @@ namespace DChild.Gameplay.ArmyBattle
                     var quickItemCheck = GameplaySystem.playerManager.player.inventory.quickItemInventory;
                     if (x == 0 || x < m_ItemAmount)
                     {
-                        if(quickItemCheck != null)
-                        {
-                            var quickItemInventory = quickItemCheck.GetItem(m_hasItem).count;
-                            if(quickItemInventory == 0 || quickItemInventory < m_ItemAmount)
-                                return false;
-                        }
-                        else
+                        var quickItemInventory = quickItemCheck.GetItem(m_hasItem)?.count ?? 0;
+                          if(quickItemInventory == 0 || quickItemInventory < m_ItemAmount)
                         {
                             return false;
-                        }                
+                        }
+                                         
                     }
                         
                     break;
