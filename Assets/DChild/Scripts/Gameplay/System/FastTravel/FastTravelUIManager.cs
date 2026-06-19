@@ -83,6 +83,8 @@ namespace DChild.Gameplay.FastTravel
 
         public void OpenLocationList(FastTravelLocationTab locationTab)
         {
+            if (locationTab == null) return;
+
             m_currentTabIndex = GetTabIndexFromParentGroup(locationTab);
             m_locationPage.ShowPage(locationTab.locationList);
         }
