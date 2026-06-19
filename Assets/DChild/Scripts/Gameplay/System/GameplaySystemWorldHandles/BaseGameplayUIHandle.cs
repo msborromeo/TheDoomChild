@@ -15,6 +15,7 @@ using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Video;
@@ -142,9 +143,14 @@ namespace DChild.Gameplay.Systems
             m_levelFinishedSignal.SendSignal();
         }
 
-        public int GetFastTravelLocationCount()
+        public List<UIToggle> GetFastTravelLocationTabs()
         {
-            return m_fastTravelUI.GetFastTravelLocationCount();
+            return m_fastTravelUI.GetFastTravelLocationTabs();
+        }
+
+        public bool IsFastTravelOpen()
+        {
+            return m_fastTravelUI.IsFastTravelOpen();
         }
 
         public void OnFastTravelTabChanged(int locationTabIndex)

@@ -88,56 +88,15 @@ namespace DChild.Gameplay.UI.Controller
 
         private void OnUICycleTabsPerformed(float obj)
         {
-            var fastTravelLocationCount = BaseGameplaySystem.gamplayUIHandle.GetFastTravelLocationCount();
+            int direction = obj > 0 ? 1 : (obj < 0 ? -1 : 0);
+            if (direction == 0) return;
 
-            if (obj > 0)
-            {
-                //FastTravel Handling
-                m_fastTravelIndex = m_fastTravelIndex != fastTravelLocationCount - 1
-                    ? m_fastTravelIndex++
-                    : 0;
-                BaseGameplaySystem.gamplayUIHandle.OnFastTravelTabChanged(m_fastTravelIndex);
+            if (IsFastTravelOpen())
+                HandleFastTravelNavigation(direction);
 
-                
-                //to achieve cycle back on end
-                if (m_necroTabIndex == m_necroPageOrders.Count - 1)
-                {
-                    OpenStoreAtPage(m_necroPageOrders[0]);
-                    m_necroTabIndex = 0;
-                    return;
-                }
-
-                m_necroTabIndex += 1;
-                OpenStoreAtPage(m_necroPageOrders[m_necroTabIndex]);
-            }
-            else if (obj < 0)
-            {
-                //FastTravel Handling
-                m_fastTravelIndex = m_fastTravelIndex != 0
-                    ? m_fastTravelIndex--
-                    : fastTravelLocationCount - 1;
-                BaseGameplaySystem.gamplayUIHandle.OnFastTravelTabChanged(m_fastTravelIndex);
-
-                
-                //necro Handling
-                if (m_necroTabIndex == 0)
-                {
-                    m_necroTabIndex = m_necroPageOrders.Count - 1;
-                    OpenStoreAtPage(m_necroPageOrders[m_necroTabIndex]);
-                    return;
-                }
-
-                m_necroTabIndex -= 1;
-                OpenStoreAtPage(m_necroPageOrders[m_necroTabIndex]);
-            }
+            else if (m_storeNavigator.IsStoreOpen())
+                HandleNecroNavigation(direction);
         }
-
-        private void OpenStoreAtPage(StorePage page)
-        {
-            m_storeNavigator.SetPage(page);
-            m_storeNavigator.OpenPage();
-        }
-
         private void OnUICycleSubtabsPerformed(float obj)
         {
             var currentNecroPage = (StorePage)m_necroTabIndex;
@@ -199,11 +158,63 @@ namespace DChild.Gameplay.UI.Controller
         }
         #endregion
 
+        #region Input Listener UI Sections
+        #region Fast Travel Handling
+        private void HandleFastTravelNavigation(int direction)
+        {
+            var toggles = BaseGameplaySystem.gamplayUIHandle.GetFastTravelLocationTabs();
+
+            int totalCount = toggles.Count;
+            if (totalCount <= 0) return;
+
+            int nextIndex = m_fastTravelIndex;
+            int checkedCount = 0;
+            bool foundValidTab = false;
+
+            while (checkedCount < totalCount)
+            {
+                nextIndex = (nextIndex + direction + totalCount) % totalCount;
+                checkedCount++;
+
+                if (toggles[nextIndex] != null && toggles[nextIndex].interactable)
+                {
+                    foundValidTab = true;
+                    break;
+                }
+            }
+
+            if (foundValidTab)
+            {
+                m_fastTravelIndex = nextIndex;
+                BaseGameplaySystem.gamplayUIHandle.OnFastTravelTabChanged(m_fastTravelIndex);
+            }
+        }
+        private bool IsFastTravelOpen() => BaseGameplaySystem.gamplayUIHandle.IsFastTravelOpen();
+        #endregion
+
         #region Store Tab Index Handling
         private void OnStoreTabClicked(StorePage page)
         {
             m_necroTabIndex = (int)page;
         }
+
+        private void OpenStoreAtPage(StorePage page)
+        {
+            m_storeNavigator.SetPage(page);
+            m_storeNavigator.OpenPage();
+        }
+
+        private void HandleNecroNavigation(int direction)
+        {
+            int totalPages = m_necroPageOrders.Count;
+            if (totalPages <= 0) return;
+
+            m_necroTabIndex = (m_necroTabIndex + direction + totalPages) % totalPages;
+
+            OpenStoreAtPage(m_necroPageOrders[m_necroTabIndex]);
+        }
+
+
         #endregion
 
         #region Codex Navigation Handling
@@ -257,6 +268,7 @@ namespace DChild.Gameplay.UI.Controller
                 }
             }
         }
+        #endregion
         #endregion
     }
 }

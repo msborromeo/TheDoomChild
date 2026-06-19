@@ -109,7 +109,6 @@ namespace DChild.Gameplay.FastTravel
                     continue;
 
                 m_townGateButtons[i].ToggleCurrentLocationIcon(false);
-
             }
 
             m_activatedButtons.Clear();
