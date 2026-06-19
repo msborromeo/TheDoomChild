@@ -44,11 +44,23 @@ namespace DChild.Gameplay.FastTravel
 
         public void SelectLocationTab(int tabIndex)
         {
-            if (tabIndex < 0) tabIndex = m_tabGroup.toggles.Count - 1;
-            else if (tabIndex == m_tabGroup.toggles.Count) tabIndex = 0;
+            var updatedLocation = m_tabGroup.toggles[tabIndex];
+            while (!updatedLocation.interactable)
+            {
+                if (tabIndex < 0)
+                tabIndex = m_tabGroup.toggles.Count - 1;
 
-            m_tabGroup.toggles[tabIndex].SetIsOn(true);
-            m_tabGroup.toggles[tabIndex].Select();
+                else if (tabIndex == m_tabGroup.toggles.Count)
+                    tabIndex = 0;
+            }
+
+            updatedLocation.SetIsOn(true);
+            updatedLocation.Select();
+        }
+
+        private void CheckLocationAvailability()
+        {
+
         }
     }
 }

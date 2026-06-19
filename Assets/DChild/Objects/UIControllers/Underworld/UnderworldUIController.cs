@@ -90,7 +90,7 @@ namespace DChild.Gameplay.UI.Controller
         {
             if (obj > 0)
             {
-                m_fastTravelIndex--;
+                m_fastTravelIndex++;
                 BaseGameplaySystem.gamplayUIHandle.OnFastTravelTabChanged(m_fastTravelIndex);
 
                 //to achieve cycle back on end
@@ -106,7 +106,7 @@ namespace DChild.Gameplay.UI.Controller
             }
             else if (obj < 0)
             {
-                m_fastTravelIndex++;
+                m_fastTravelIndex--;
                 BaseGameplaySystem.gamplayUIHandle.OnFastTravelTabChanged(m_fastTravelIndex);
 
 
