@@ -7,6 +7,7 @@ using System;
 
 namespace DChild.Gameplay.UI.CombatArts
 {
+    [RequireComponent(typeof(UIButton))]
     public class CombatArtSelectButton : MonoBehaviour
     {
         [SerializeField, HideInPrefabAssets, OnValueChanged("OnConfigurationChanged")]
@@ -18,11 +19,19 @@ namespace DChild.Gameplay.UI.CombatArts
         [SerializeField]
         private CombatArtSelectButtonVisual m_visuals;
 
-        public event Action<CombatArtSelectButton> Selected;
+        public event Action<CombatArtSelectButton> OnButtonSelected;
 
         public CombatArt skillUnlock => m_toUnlock;
         public int unlockLevel => m_unlockLevel;
         public CombatArtUnlockState currentState => m_currentState;
+
+        private UIButton m_button;
+        public UIButton uiButton => m_button;
+
+        private void EnsureReference()
+        {
+            m_button = GetComponent<UIButton>();
+        }
 
         public void SetState(CombatArtUnlockState state)
         {
@@ -30,21 +39,19 @@ namespace DChild.Gameplay.UI.CombatArts
             m_visuals.SetState(state);
         }
 
-        public void ForceVisualSync()
-        {
-            m_visuals.SetState(m_currentState);
-        }
+        public void ForceVisualSync() => m_visuals.SetState(m_currentState);
 
         public void Select()
         {
-            Selected?.Invoke(this);
+            OnButtonSelected?.Invoke(this);
         }
 
         public void DisplayAs(CombatArtLevelData artLevelData) => m_visuals.DisplayAs(artLevelData);
 
         private void Awake()
         {
-            m_visuals.Initialize(GetComponent<UIButton>());
+            EnsureReference();
+            m_visuals.Initialize(m_button);
         }
 
 #if UNITY_EDITOR

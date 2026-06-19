@@ -25,7 +25,7 @@ namespace DChild.Gameplay.Systems.Lore
         public void SetInfo(LoreData loreData)
         {
             m_topicImage.sprite = loreData.topic;
-            m_alphabethLabel.text = loreData.alphabethName;
+            m_alphabethLabel.text = loreData.alphabetName;
             m_baybayinLabel.text = loreData.baybayinName;
             m_messageLabel.text = loreData.message;
             m_authorLabel.text = loreData.author;

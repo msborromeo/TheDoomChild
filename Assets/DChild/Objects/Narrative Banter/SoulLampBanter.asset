@@ -266,12 +266,6 @@ MonoBehaviour:
       - originConversationID: 236
         originDialogueID: 0
         destinationConversationID: 236
-        destinationDialogueID: 5
-        isConnector: 0
-        priority: 2
-      - originConversationID: 236
-        originDialogueID: 0
-        destinationConversationID: 236
         destinationDialogueID: 8
         isConnector: 0
         priority: 2
@@ -311,6 +305,12 @@ MonoBehaviour:
         destinationDialogueID: 29
         isConnector: 0
         priority: 2
+      - originConversationID: 236
+        originDialogueID: 0
+        destinationConversationID: 236
+        destinationDialogueID: 5
+        isConnector: 0
+        priority: 2
       conditionsString: 
       userScript: 
       onExecute:
@@ -318,8 +318,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 23.478271
-        y: 20.000015
+        x: 22.379364
+        y: 18.901115
         width: 160
         height: 30
     - id: 1
@@ -558,7 +558,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: Audio(DChildVoice/COTD/SoulLamp/5th N1,null)
+        value: AudioWait(DChildVoice/COTD/SoulLamp/5th N1)
         type: 0
         typeString: 
       conversationID: 236
@@ -582,8 +582,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 21.465538
-        y: 294.08627
+        x: 27.01606
+        y: 297.05203
         width: 160
         height: 30
     - id: 6
@@ -1092,8 +1092,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Tell me, what makes you so certain that I am incapable of reaching
-          enlightenment?
+        value: Tell me, what makes you certain that I am incapable of reaching enlightenment?
         type: 0
         typeString: 
       - title: Sequence
@@ -1122,7 +1121,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 20.300095
-        y: 588.74664
+        y: 589.8455
         width: 160
         height: 30
     - id: 24
@@ -2517,9 +2516,168 @@ MonoBehaviour:
         y: 915.71936
         width: 160
         height: 30
+    - id: 69
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: In this light you look perfect!
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: AudioWait(DChildVoice/COTD/SoulLamp/5th N1)
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 236
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 236
+        originDialogueID: 69
+        destinationConversationID: 236
+        destinationDialogueID: 70
+        isConnector: 0
+        priority: 2
+      conditionsString: Variable["LightsOff"] == 5
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 339.29047
+        y: 32.04138
+        width: 160
+        height: 30
+    - id: 70
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: "Our friend just doused the lamp\u2014what do you mean?"
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: AudioWait(DChildVoice/COTD/SoulLamp/5th CK1,null)
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 236
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 236
+        originDialogueID: 70
+        destinationConversationID: 236
+        destinationDialogueID: 71
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 526.7905
+        y: 34.31411
+        width: 160
+        height: 30
+    - id: 71
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: EXACTLY! Simply perfect.
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: AudioWait(DChildVoice/COTD/SoulLamp/5th N2,null)
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 236
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 716.1886
+        y: 35.450478
+        width: 160
+        height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1.1199998
+    canvasZoom: 0.85
   syncInfo:
     syncActors: 0
     syncItems: 0
