@@ -15,6 +15,13 @@ using PlayerNew;
 using DChild.Gameplay.SoulSkills;
 using DChild.Gameplay.Items;
 using DChild.Gameplay.Characters.Player.Skins;
+using DChild.Menu.Codex;
+using DChild.Codex.Lore;
+using Doozy.Runtime.Reactor;
+using DChild.Codex.Characters;
+using DChild.Menu.Codex.Bestiary;
+using DChild.Codex.Tutorial;
+using DChild.Codex.LocationCodex;
 
 namespace DChild.Gameplay.Characters.Players
 {
@@ -91,6 +98,18 @@ namespace DChild.Gameplay.Characters.Players
         [Title("Serialzables")]
         [SerializeField]
         private PlayerCharacterSerializer m_serializer;
+        
+        [Title("Codex Trackers")]
+        [SerializeField] private BestiaryCodexProgressTracker m_bestiaryTracker;
+        [SerializeField] private CharacterCodexProgressTracker m_characterTracker;
+        [SerializeField] private LoreCodexProgressTracker m_loreTracker;
+        [SerializeField] private LocationCodexProgressTracker m_locationTracker;
+        [SerializeField] private TutorialCodexProgressTracker m_tutorialTracker;
+        public BestiaryCodexProgressTracker bestiaryTracker => m_bestiaryTracker;
+        public CharacterCodexProgressTracker characterTracker => m_characterTracker;
+        public LoreCodexProgressTracker loreTracker => m_loreTracker;
+        public LocationCodexProgressTracker locationTracker => m_locationTracker;
+        public TutorialCodexProgressTracker tutorialTracker => m_tutorialTracker;
 
         [Title("Model")]
         [SerializeField]

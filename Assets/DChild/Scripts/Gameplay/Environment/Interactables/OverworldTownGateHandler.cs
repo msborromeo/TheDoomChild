@@ -40,6 +40,7 @@ namespace DChild.Gameplay.Environment.Interractables
         [Button, HideInEditorMode]
         public void Interact(Character character)
         {
+            //DialogueLua.SetVariable(m_serializationReference, true);
             GameplaySystem.gamplayUIHandle.OpenFastTravel(m_poster.data.location, m_UIData);
         }
 
