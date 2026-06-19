@@ -54,6 +54,9 @@ namespace DChild.Gameplay.FastTravel
 
         private void CheckUnlockedTownGates(FastTravelLocationTab locationTab)
         {
+            if (locationTab.locationList == null)
+                return;
+
             bool unlockedOneGate = false;
 
             for (int i = 0; i < locationTab.locationList.count; i++)
@@ -62,7 +65,7 @@ namespace DChild.Gameplay.FastTravel
                 string varName = FastTravelUtility.GenerateActivationVariableName(travelData);
                 bool isActivated = DialogueLua.GetVariable(varName).asBool;
 
-                if(isActivated)
+                if (isActivated)
                 {
                     unlockedOneGate = true;
                     break;
