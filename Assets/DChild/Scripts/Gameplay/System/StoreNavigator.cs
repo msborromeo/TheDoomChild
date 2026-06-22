@@ -23,15 +23,17 @@ namespace DChild.Gameplay.Systems
         private CodexPageHandler m_codexHandler;
         public CodexPageHandler codexHandler => m_codexHandler;
 
-        [HideInInspector]
-        public Action<StorePage> OnStoreTabClicked;
+        [HideInInspector] public Action<StorePage> OnStoreTabClicked;
+        [ReadOnly] private bool m_isOpen = false;
 
         public void SetPage(StorePage page) => m_currentPage = page;
         public void SetPage(int page) => m_currentPage = (StorePage)page;
 
         public void OpenStore()
         {
+            m_isOpen = true;
             m_openStoreSignal.SendSignal();
+            m_currentPage = 0;
         }
 
         public void OpenPage()
@@ -42,6 +44,9 @@ namespace DChild.Gameplay.Systems
         public void Reset()
         {
             OnStoreTabClicked.Invoke(0);
+            m_isOpen = false;
         }
+
+        public bool IsStoreOpen() => m_isOpen;
     }
 }
