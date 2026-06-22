@@ -46,7 +46,7 @@ namespace DChild.Gameplay.ArmyBattle
         private bool m_isFree;
         [SerializeField, TabGroup("Main", "Requirements"),HideIf("m_isFree")]
         private RequirementType m_Requirement;
-        [SerializeField, TabGroup("Main", "Requirements"), Tooltip("Takes the item from the player's invintory if possible"), HideIf("m_isFree"),ShowIf("m_Requirement", RequirementType.SoulEssence),ShowIf("m_Requirement", RequirementType.Item)]
+        [SerializeField, TabGroup("Main", "Requirements"), Tooltip("Takes the item from the player's invintory if possible"), HideIf("m_isFree")]
         private bool m_TakeRequiredItemFromInvintory;
         [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"),ShowIf("m_Requirement",RequirementType.SoulEssence)]
             private int m_requiredSoulEssence;
@@ -183,6 +183,18 @@ namespace DChild.Gameplay.ArmyBattle
                                 GameplaySystem.playerManager.player.inventory.AddSoulEssence(-m_requiredSoulEssence);
                                 break;
                             case RequirementType.Item:
+                                var quickItem = GameplaySystem.playerManager.player.inventory.quickItemInventory;
+                                if(quickItem != null)
+                                {
+                                    if(quickItem.GetItem(m_hasItem) != null)
+                                    {
+                                        if (quickItem.GetItem(m_hasItem).count >= m_ItemAmount)
+                                        {
+                                            quickItem.RemoveItem(m_hasItem, m_ItemAmount);
+                                        }
+                                    }
+                                  
+                                }
                                 GameplaySystem.playerManager.player.inventory.RemoveItem(m_hasItem, m_ItemAmount);
                                 break;
                         }
@@ -214,8 +226,17 @@ namespace DChild.Gameplay.ArmyBattle
 
                 case RequirementType.Item:
                     int x = GameplaySystem.playerManager.player.inventory.GetCurrentAmount(m_hasItem);
+                    var quickItemCheck = GameplaySystem.playerManager.player.inventory.quickItemInventory;
                     if (x == 0 || x < m_ItemAmount)
-                        return false;
+                    {
+                        var quickItemInventory = quickItemCheck.GetItem(m_hasItem)?.count ?? 0;
+                          if(quickItemInventory == 0 || quickItemInventory < m_ItemAmount)
+                        {
+                            return false;
+                        }
+                                         
+                    }
+                        
                     break;
 
                 case RequirementType.CombatArt:
