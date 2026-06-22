@@ -186,10 +186,14 @@ namespace DChild.Gameplay.ArmyBattle
                                 var quickItem = GameplaySystem.playerManager.player.inventory.quickItemInventory;
                                 if(quickItem != null)
                                 {
-                                    if (quickItem.GetItem(m_hasItem).count >= m_ItemAmount)
+                                    if(quickItem.GetItem(m_hasItem) != null)
                                     {
-                                        quickItem.RemoveItem(m_hasItem,m_ItemAmount);
+                                        if (quickItem.GetItem(m_hasItem).count >= m_ItemAmount)
+                                        {
+                                            quickItem.RemoveItem(m_hasItem, m_ItemAmount);
+                                        }
                                     }
+                                  
                                 }
                                 GameplaySystem.playerManager.player.inventory.RemoveItem(m_hasItem, m_ItemAmount);
                                 break;
