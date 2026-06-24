@@ -18,8 +18,8 @@ namespace DChild.Gameplay.UI.Controller
         [SerializeField]
         private StoreNavigator m_storeNavigator;
 
-        [SerializeField, MinValue(0)]
-        private int m_necroTabIndex = 0;
+        [SerializeField, MinValue(0)] private int m_necroTabIndex = 0;
+        [SerializeField, MinValue(0)] private int m_fastTravelIndex = 0;
 
         private bool m_toggleMap = true;
         private bool m_toggleMapIcons = true;
@@ -37,6 +37,7 @@ namespace DChild.Gameplay.UI.Controller
             m_inputReader.UISubmitPerformedEvent += OnUISubmitPerformed;
             m_inputReader.UICancelPerformedEvent += OnUICancelPerformed;
             m_inputReader.UIToggleMapLegendEvent += OnUIToggleMapLegendEvent;
+            m_inputReader.UIHoldToSkipPerformedEvent += OnUIHoldToSkipPerformed;
 
             m_storeNavigator.OnStoreTabClicked += OnStoreTabClicked;
         }
@@ -49,6 +50,7 @@ namespace DChild.Gameplay.UI.Controller
             m_inputReader.UIClickPerformedEvent -= OnUIClickPerformed;
             m_inputReader.UISubmitPerformedEvent -= OnUISubmitPerformed;
             m_inputReader.UICancelPerformedEvent -= OnUICancelPerformed;
+            m_inputReader.UIHoldToSkipPerformedEvent -= OnUIHoldToSkipPerformed;
 
             m_storeNavigator.OnStoreTabClicked -= OnStoreTabClicked;
 
@@ -72,11 +74,13 @@ namespace DChild.Gameplay.UI.Controller
         {
             //Might not be cleanest solution but should handle banter continuing on click during UI controls issue
             if (BaseGameplaySystem.gamplayUIHandle.gameplayUIStateObserver.isInDialogue)
-            {
                 BaseGameplaySystem.gamplayUIHandle.ContinueDialogue();
-            }
 
-            m_necroTabIndex = (int) UnderworldGameplaySystem.gameplayUIHandle.GetActiveStorePage();
+            if (IsFastTravelOpen())
+                m_fastTravelIndex = GetFastTravelActiveTab();
+            
+            else if (m_storeNavigator.IsStoreOpen())
+                m_necroTabIndex = (int)GetActiveStorePage();
         }
 
         private void OnUINavigatePerformed(Vector2 vector)
@@ -86,39 +90,15 @@ namespace DChild.Gameplay.UI.Controller
 
         private void OnUICycleTabsPerformed(float obj)
         {
-            if (obj > 0)
-            {
-                //to achieve cycle back on end
-                if (m_necroTabIndex == m_necroPageOrders.Count - 1)
-                {
-                    OpenStoreAtPage(m_necroPageOrders[0]);
-                    m_necroTabIndex = 0;
-                    return;
-                }
+            int direction = obj > 0 ? 1 : (obj < 0 ? -1 : 0);
+            if (direction == 0) return;
 
-                m_necroTabIndex += 1;
-                OpenStoreAtPage(m_necroPageOrders[m_necroTabIndex]);
-            }
-            else if (obj < 0)
-            {
-                if (m_necroTabIndex == 0)
-                {
-                    m_necroTabIndex = m_necroPageOrders.Count - 1;
-                    OpenStoreAtPage(m_necroPageOrders[m_necroTabIndex]);
-                    return;
-                }
+            if (IsFastTravelOpen())
+                HandleFastTravelNavigation(direction);
 
-                m_necroTabIndex -= 1;
-                OpenStoreAtPage(m_necroPageOrders[m_necroTabIndex]);
-            }
+            else if (m_storeNavigator.IsStoreOpen())
+                HandleNecroNavigation(direction);
         }
-
-        private void OpenStoreAtPage(StorePage page)
-        {
-            m_storeNavigator.SetPage(page);
-            m_storeNavigator.OpenPage();
-        }
-
         private void OnUICycleSubtabsPerformed(float obj)
         {
             var currentNecroPage = (StorePage)m_necroTabIndex;
@@ -174,13 +154,68 @@ namespace DChild.Gameplay.UI.Controller
             m_toggleMap = !m_toggleMap;
             UnderworldGameplaySystem.gameplayUIHandle.ToggleMapLegend(m_toggleMap);
         }
+        private void OnUIHoldToSkipPerformed()
+        {
+
+        }
+        #endregion
+
+        #region Fast Travel Handling
+        private void HandleFastTravelNavigation(int direction)
+        {
+            var toggles = BaseGameplaySystem.gamplayUIHandle.GetFastTravelLocationTabs();
+
+            int totalCount = toggles.Count;
+            if (totalCount <= 0) return;
+
+            int nextIndex = m_fastTravelIndex;
+            int checkedCount = 0;
+            bool foundValidTab = false;
+
+            while (checkedCount < totalCount)
+            {
+                nextIndex = (nextIndex + direction + totalCount) % totalCount;
+                checkedCount++;
+
+                if (toggles[nextIndex] != null && toggles[nextIndex].interactable)
+                {
+                    foundValidTab = true;
+                    break;
+                }
+            }
+
+            if (foundValidTab)
+            {
+                m_fastTravelIndex = nextIndex;
+                BaseGameplaySystem.gamplayUIHandle.OnFastTravelTabChanged(m_fastTravelIndex);
+            }
+        }
+        public int GetFastTravelActiveTab() => BaseGameplaySystem.gamplayUIHandle.GetFastTravelActiveTab();
+
+        private bool IsFastTravelOpen() => BaseGameplaySystem.gamplayUIHandle.IsFastTravelOpen();
         #endregion
 
         #region Store Tab Index Handling
-        private void OnStoreTabClicked(StorePage page)
+        private void OnStoreTabClicked(StorePage page) => m_necroTabIndex = (int)page;
+        private StorePage GetActiveStorePage() => UnderworldGameplaySystem.gameplayUIHandle.GetActiveStorePage();
+
+        private void OpenStoreAtPage(StorePage page)
         {
-            m_necroTabIndex = (int)page;
+            m_storeNavigator.SetPage(page);
+            m_storeNavigator.OpenPage();
         }
+
+        private void HandleNecroNavigation(int direction)
+        {
+            int totalPages = m_necroPageOrders.Count;
+            if (totalPages <= 0) return;
+
+            m_necroTabIndex = (m_necroTabIndex + direction + totalPages) % totalPages;
+
+            OpenStoreAtPage(m_necroPageOrders[m_necroTabIndex]);
+        }
+
+
         #endregion
 
         #region Codex Navigation Handling
