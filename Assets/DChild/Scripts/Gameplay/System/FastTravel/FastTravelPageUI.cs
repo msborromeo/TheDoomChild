@@ -40,34 +40,43 @@ namespace DChild.Gameplay.FastTravel
             {
                 var button = m_townGateButtons[i];
                 var data = locationList.GetUnderworldTravelData(i);
-                var isActivated = SetupTownGateButton(button, data, gateNumber: i + 1);
+                var isActivated = SetupTownGateButton(button, data);
 
                 if (isActivated)
+                {
                     m_activatedButtons.Add(button);
 
-                if (!hasSelectedFirst)
-                {
+                    if (hasSelectedFirst)
+                        continue;
+                    
                     button.Select();
                     hasSelectedFirst = true;
                 }
             }
 
-            SetupTownGateButton(m_overworldTownGateButtons, locationList.overworldTravelData, isOverworld: true);
+            var unlockedOverworld = SetupTownGateButton(m_overworldTownGateButtons, locationList.overworldTravelData, isOverworld: true);
+            if (unlockedOverworld)
+            {
+                m_activatedButtons.Add(m_overworldTownGateButtons);
+
+                if (!hasSelectedFirst)
+                {
+                    m_overworldTownGateButtons.Select();
+                }
+            }
 
             bool hasAvailableTownGates = m_activatedButtons.Count > 0;
             SetShowCaseImageVisibility(hasAvailableTownGates);
 
-            if (hasAvailableTownGates)
+            if (!hasAvailableTownGates)
                 ShowCase(m_activatedButtons[0]);
         }
 
-        private bool SetupTownGateButton(FastTravelOptionButton button, FastTravelData travelData, bool isOverworld = false, int gateNumber = 1)
+        private bool SetupTownGateButton(FastTravelOptionButton button, FastTravelData travelData, bool isOverworld = false)
         {
             button.SetData(travelData);
             button.ToggleCurrentLocationIcon(travelData == m_currentLocation);
 
-            //button.SetButtonLabel(travelData.pointName);
-            //button.SetButtonLabel(!isOverworld ? $"Town Gate #{gateNumber}" : "Overworld");
             button.SetButtonLabel(!isOverworld ? travelData.pointName : "Overworld");
 
             string varName = FastTravelUtility.GenerateActivationVariableName(travelData);
@@ -102,7 +111,6 @@ namespace DChild.Gameplay.FastTravel
                     continue;
 
                 m_townGateButtons[i].ToggleCurrentLocationIcon(false);
-
             }
 
             m_activatedButtons.Clear();

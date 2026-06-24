@@ -163,10 +163,12 @@ public class BlackBloodBlob : MonoBehaviour
 
     private void Awake()
     {
-        m_damageable.health.Death += Health_Death;
+        //m_damageable.health.Death += Health_Death;
     }
 
-    private void Health_Death(object sender, Holysoft.Event.EventActionArgs eventArgs)
+    
+
+    public void Health_Death(object sender, Holysoft.Event.EventActionArgs eventArgs)
     {
         
         var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_deathFX, gameObject.scene);
