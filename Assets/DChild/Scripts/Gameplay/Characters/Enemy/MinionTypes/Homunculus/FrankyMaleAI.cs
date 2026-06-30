@@ -14,6 +14,7 @@ using DChild;
 using DChild.Gameplay.Characters.Enemies;
 using System.Linq;
 using DChild.Gameplay.Environment;
+using Sirenix.Utilities;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
@@ -392,6 +393,10 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private Vector3 RandomTeleportPoint(Vector3 transformPos)
         {
+            if(m_randomSpawnColliders.IsNullOrEmpty())
+            {
+                return transform.position;
+            }
             Vector3 randomPos = transformPos;
             List<float> m_targetDistances = new List<float>();
             for (int i = 0; i < m_randomSpawnColliders.Count; i++)
