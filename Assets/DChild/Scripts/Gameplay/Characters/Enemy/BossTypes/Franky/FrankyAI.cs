@@ -1,12 +1,17 @@
-﻿using System;
+﻿using DChild.Gameplay.Characters.AI;
 using DChild.Gameplay.Combat;
+using DChild.Gameplay.Pooling;
 using Holysoft.Event;
-using DChild.Gameplay.Characters.AI;
-using UnityEngine;
-using Spine.Unity;
 using Sirenix.OdinInspector;
+using Spine.Unity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Policy;
+using Unity.Mathematics;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 
 namespace DChild.Gameplay.Characters.Enemies
@@ -271,6 +276,7 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, ValueDropdown("GetEvents")]
             private string m_chainedBashRootStart;
             public string chainedBashRootStart => m_chainedBashRootStart;
+            
 
             public override void Initialize()
             {
@@ -406,6 +412,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private Collider2D m_runningAttackBB;
         [SerializeField, TabGroup("Colliders")]
         private Collider2D m_shockRampageBB;
+        [SerializeField, TabGroup("Colliders")]
+        private Collider2D m_bodyCollider;
+        [SerializeField, TabGroup("EnvironmentColliders")]
+        private GameObject[] m_arenaPlayerDetectorColliders;
         /*[SerializeField, TabGroup("Reference")]
         private Collider2D m_punchComboLastHitBB;
         [SerializeField, TabGroup("Reference")]
@@ -490,6 +500,16 @@ namespace DChild.Gameplay.Characters.Enemies
         private Transform m_CenterOfTheArena;
         [SerializeField, TabGroup("Spawn Points")]
         private Transform m_chainBashStarting;
+        [SerializeField, TabGroup("Spawn Points")]
+        private Transform m_nearEdgePositionLeft;
+        [SerializeField, TabGroup("Spawn Points")]
+        private Transform m_nearEdgePositionRight;
+        [SerializeField, TabGroup("Spawn Points")]
+        private Transform m_centerPositionLeft;
+        [SerializeField, TabGroup("Spawn Points")]
+        private Transform m_centerPositionRight;
+        [SerializeField, TabGroup("Spawn Points")]
+        private Transform m_chainBashIK;
         [SerializeField, TabGroup("Chain")]
         private BoxCollider2D m_chainHurtBox;
         [SerializeField, TabGroup("Chain")]
@@ -802,67 +822,175 @@ namespace DChild.Gameplay.Characters.Enemies
             m_isBuffed = false;
             yield return null;
         }
-        private GameObject SpawnFX(GameObject fxPrefab, Vector2 position)
+        private GameObject SpawnFX(GameObject fxPrefab, Transform spawnPos, bool flipObject = false)
         {
-            var fx = GameSystem.poolManager.GetPool<FXPool>().GetOrCreateItem(fxPrefab);
-            fx.transform.rotation = Quaternion.Euler(0, 0, transform.localScale.x > 0 ? 90 : 270);
-            fx.transform.position = position;
-            return fxPrefab;
+            Quaternion rotationHandler = fxPrefab.transform.rotation;
+            Vector2 spawnObjectPos =  new Vector2(spawnPos.position.x + 4f, spawnPos.position.y);
+            if (flipObject)
+            {
+                rotationHandler = Quaternion.Euler(0, 0, -fxPrefab.transform.eulerAngles.z);
+                spawnObjectPos = new Vector2(spawnPos.position.x - 4f, spawnPos.position.y);
+            }
+            
+            var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(fxPrefab, gameObject.scene);
+            instance.SpawnAt(spawnObjectPos, rotationHandler);
+            return instance.gameObject;
         }
-        [SerializeField]
-        private GameObject m_generalMoveBone;
-        [SerializeField]
-        private GameObject m_punchMoveBone;
-        [SerializeField]
-        private RaySensor m_punchBoneRayCast;
-        [SerializeField]
-        private ParticleFX m_puchWallLoopFX;
-        [SerializeField]
-        private ParticleFX m_puchWallEndFX;
-        [SerializeField]
-        private RaySensor m_bodyRaySensor;
-        [SerializeField]
-        private Transform m_nearEdgePositionLeft;
-        [SerializeField]
-        private Transform m_nearEdgePositionRight;
+       
+        
+
         [Button]
         public void ChainBash1Test()
         {
             StartCoroutine(ChainBash());
-        } 
+        }
+        [Button]
         public void ChainBash2Test()
         {
-            StartCoroutine(ChainBash2());
+            StartCoroutine(ChainBashII());
         }
+        private GameObject m_wallImpactStartVFX;
+        private Transform m_runTowardsPositionAfterCheck;
+        private void ChainBashImpactVFX()
+        {
+            bool reverseSpawnRotation = false;
+            if(m_character.facing == HorizontalDirection.Left)
+            {
+                reverseSpawnRotation = true;
 
+            }
+            m_wallImpactStartVFX = SpawnFX(m_wallStickStartFX.gameObject, m_chainBashIK, reverseSpawnRotation);
+            
+
+
+        }
+        private void ChainBashRootStartEvent()
+        {
+            m_chainHandVFX.Play();
+            m_animation.EnableRootMotion(true, false);
+        }
+        private void ChainBashImpactPunch()
+        {
+            m_chainHandVFX.Stop();
+            m_chainHandVFX2.Play();
+            m_chainBashChargeFistCollider.enabled = false;
+        }
+        private void ChainBashCharge()
+        {
+            m_chainBashChargeFistCollider.enabled = true;
+        }   
+        
+        public void ChainBashDone()
+        {
+            m_animation.DisableRootMotion();
+        }
+        private FrankyPlayerDetector.PlayerPosition m_currentPlayerPosition;
+        private Transform m_sideToFace;
+        IAIAnimationInfo animationNameChain;
+        [SerializeField]
+        private ParticleSystem m_chainHandVFX;
+        [SerializeField]
+        private ParticleSystem m_chainHandVFX2;
+        [SerializeField]
+        Rigidbody2D m_rigidbody2D;
+        [SerializeField]
+        private Collider2D m_chainBashChargeFistCollider;
         private IEnumerator ChainBash()
         {
-            m_chainBashBB[0].enabled = true;
-            var chainBashEdgeAnim = m_info.chainBashNearEdge;
-            var chainBashMiddleAnim = m_info.chainBashMiddle;
-            var centerPosition = m_CenterOfTheArena.position;
-            var edgePositionLeft = m_nearEdgePositionLeft;
-            var edgePositionRight = m_nearEdgePositionRight;
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            m_bodyCollider.enabled = false;
             
-            while (Vector2.Distance(transform.position, m_CenterOfTheArena.position) > 2f)
+            FrankyPlayerDetector.OnPlayerEnteredArea += FrankyPlayerDetector_OnPlayerEnteredArea;
+            m_spineListener.Subscribe(m_info.chainedBashChargeContactWall, ChainBashImpactVFX);
+            m_spineListener.Subscribe(m_info.chainedBashImpact, ChainBashImpactPunch);
+            m_spineListener.Subscribe(m_info.chainedBashCharge, ChainBashCharge);
+            m_spineListener.Subscribe(m_info.chainedBashRootStart, ChainBashRootStartEvent);
+            yield return new WaitForSeconds(0.3f);
+            
+            for (int i = 0; i < m_arenaPlayerDetectorColliders.Length; i++)
             {
-                
-                if (!IsFacing(m_CenterOfTheArena.position)) { CustomTurn(); }
-                m_animation.SetAnimation(0, m_info.move.animation, true);
-                m_movement.MoveTowards(new Vector2(m_CenterOfTheArena.position.x - transform.position.x, 0f).normalized, m_info.move.speed);
-                yield return null;
-            }//movement center or near edge
-            CustomTurn(); // to look opposite 
+                m_arenaPlayerDetectorColliders[i].gameObject.SetActive(true);
+            }
+            yield return new WaitForFixedUpdate();
+            m_chainBashBB[0].enabled = true;
+            var randomNumber = UnityEngine.Random.Range(0, 2);
+            Debug.Log(randomNumber.ToString());
+            Debug.Log(m_currentPlayerPosition);         
+            switch (m_currentPlayerPosition)
+            {
+                case FrankyPlayerDetector.PlayerPosition.Left:
+                    var randomPositionLeft = randomNumber == 0 ? m_centerPositionRight : m_nearEdgePositionRight;
+                    animationNameChain = randomNumber == 0 ? m_info.chainBashMiddle : m_info.chainBashNearEdge;
+                    m_runTowardsPositionAfterCheck = randomPositionLeft;      
 
-            m_animation.SetAnimation(0, m_info.chainBashMiddle, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.chainBashMiddle);
+                    m_sideToFace = m_arenaLeftSide;
+                    break;
+                case FrankyPlayerDetector.PlayerPosition.Right:
+                    var randomPositionRight = randomNumber == 0 ? m_centerPositionLeft : m_nearEdgePositionLeft;
+                    animationNameChain = randomNumber == 0 ? m_info.chainBashMiddle : m_info.chainBashNearEdge;
+                    m_runTowardsPositionAfterCheck = randomPositionRight;
+                    m_sideToFace = m_arenaRightSide;
+                    break;
+            }
+            FrankyPlayerDetector.OnPlayerEnteredArea -= FrankyPlayerDetector_OnPlayerEnteredArea;
+            yield return new WaitForSeconds(0.2f);
+            for (int i = 0; i < m_arenaPlayerDetectorColliders.Length; i++)
+            {
+                m_arenaPlayerDetectorColliders[i].gameObject.SetActive(false);
+            }
+            Debug.Log(m_currentPlayerPosition);
+            if (!IsFacing(m_runTowardsPositionAfterCheck.position)) { CustomTurn(); }
+
+            
+            m_animation.SetAnimation(0, m_info.runAttackStartAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.runAttackStartAnimation);
+            while (Vector2.Distance(transform.position, m_runTowardsPositionAfterCheck.position) > 2f)
+            {
+                m_animation.SetAnimation(
+                    0,
+                    m_info.runAttackAnimation.animation,
+                    true
+                );
+
+                Vector2 direction =
+                    new Vector2(
+                        m_runTowardsPositionAfterCheck.position.x - transform.position.x,
+                        0f
+                    ).normalized;
+
+                transform.position +=
+                    (Vector3)(
+                        direction *
+                        m_info.move.speed *
+                        1f *
+                        Time.deltaTime
+                    );
+
+                yield return null;
+            }
+
+            // snap exactly to target
+            
+            yield return new WaitForFixedUpdate();
+            m_animation.SetAnimation(0, m_info.runAttackEndAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.runAttackEndAnimation);
+           
+            if (!IsFacing(m_sideToFace.position)) { CustomTurn(); }
+            transform.position = new Vector2(
+               m_runTowardsPositionAfterCheck.position.x,
+               transform.position.y
+           );
+            yield return new WaitForFixedUpdate();
+            m_animation.SetAnimation(0, animationNameChain, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, animationNameChain);
             m_animation.SetAnimation(0, m_info.chainBashPullingLoop, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.chainBashPullingLoop);
             m_animation.SetAnimation(0, m_info.chainBashPullingOut, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.chainBashPullingOut);
-            yield return null;
-
-
+            m_chainHandVFX2.Stop(); m_chainHandVFX2.Stop();
+            m_bodyCollider.enabled = true;
+            m_animation.DisableRootMotion();
+            m_stateHandle.ApplyQueuedState();
             #region old attack
             //m_puchWallLoopFX.Play();
             //m_animation.SetAnimation(0, m_info.chainBash1AnimationEnd.animation, false);
@@ -932,6 +1060,14 @@ namespace DChild.Gameplay.Characters.Enemies
 
             #endregion
         }
+
+        private void FrankyPlayerDetector_OnPlayerEnteredArea(FrankyPlayerDetector.PlayerPosition playerPos)
+        {
+            m_currentPlayerPosition = playerPos;
+           
+            Debug.Log("Player pos: "+ playerPos.ToString());
+        }
+
         [SerializeField]
         private Transform m_arenaLeftSide;
         [SerializeField]
@@ -979,40 +1115,94 @@ namespace DChild.Gameplay.Characters.Enemies
             m_shockRampageBB.enabled = false;
             yield return null;
         }
-        private IEnumerator ChainBash2()
+        private IEnumerator ChainBashII()
         {
-           
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            m_bodyCollider.enabled = false;
 
-            yield return null;
-            /*m_animation.SetAnimation(0, m_info.chainBash1AnimationStart.animation, false);
-            m_chainBashBB[0].enabled = true;
-            yield return new WaitForSeconds(1f);
-            RaycastHit2D hit = Physics2D.Raycast(m_chainBashStarting.position, Vector2.right * transform.localScale.x, 1000, DChildUtility.GetEnvironmentMask());
+            FrankyPlayerDetector.OnPlayerEnteredArea += FrankyPlayerDetector_OnPlayerEnteredArea;
+            m_spineListener.Subscribe(m_info.chainedBashChargeContactWall, ChainBashImpactVFX);
+            m_spineListener.Subscribe(m_info.chainedBashImpact, ChainBashImpactPunch);
+            m_spineListener.Subscribe(m_info.chainedBashCharge, ChainBashCharge);
+            m_spineListener.Subscribe(m_info.chainedBashRootStart, ChainBashRootStartEvent);
+            yield return new WaitForSeconds(0.3f);
 
-            if (!hit.collider)
+            for (int i = 0; i < m_arenaPlayerDetectorColliders.Length; i++)
             {
-                yield break;
+                m_arenaPlayerDetectorColliders[i].gameObject.SetActive(true);
             }
-            var fistBone = m_fistPoint.GetComponent<SkeletonUtilityBone>();
-            fistBone.enabled = true;
-            fistBone.mode = SkeletonUtilityBone.Mode.Override;
-            Vector2 targetPos = hit.point;
-            m_fistPoint.position = targetPos;
-            m_wallPosPoint.position = new Vector2(targetPos.x, targetPos.y);
-            m_wallPosPoint.localScale = m_character.facing == HorizontalDirection.Right ? new Vector3(2, 2, 2) : new Vector3(-2, 2, 2);
-            m_wallPosPoint.gameObject.SetActive(true);
-            Vector2 fxPos = new Vector2(targetPos.x + (5f * transform.localScale.x), targetPos.y);
-            SpawnFX(m_wallStickStartFX, fxPos);
-            var loopFX = SpawnFX(m_wallStickLoopFX, fxPos);
-            yield return new WaitForSeconds(0.5f);
-            m_animation.SetAnimation(0, m_info.hookTravelLoopAnimation, true);
-            float stopDistance = 23f;
-            m_chainBashBB[1].enabled = true;
-            while (Vector2.Distance(transform.position, m_wallPosPoint.position) > stopDistance)
+            yield return new WaitForFixedUpdate();
+            m_chainBashBB[0].enabled = true;
+            var randomNumber = UnityEngine.Random.Range(0, 2);
+            Debug.Log(randomNumber.ToString());
+            Debug.Log(m_currentPlayerPosition);
+            switch (m_currentPlayerPosition)
             {
-                m_movement.MoveTowards(Vector2.one * transform.localScale.x, m_info.shoulderBashReelSpeed);
+                case FrankyPlayerDetector.PlayerPosition.Left:
+                    var randomPositionLeft = randomNumber == 0 ? m_centerPositionRight : m_nearEdgePositionRight;
+                    animationNameChain = randomNumber == 0 ? m_info.chainBashMiddle : m_info.chainBashNearEdge;
+                    m_runTowardsPositionAfterCheck = randomPositionLeft;
+
+                    m_sideToFace = m_arenaLeftSide;
+                    break;
+                case FrankyPlayerDetector.PlayerPosition.Right:
+                    var randomPositionRight = randomNumber == 0 ? m_centerPositionLeft : m_nearEdgePositionLeft;
+                    animationNameChain = randomNumber == 0 ? m_info.chainBashMiddle : m_info.chainBashNearEdge;
+                    m_runTowardsPositionAfterCheck = randomPositionRight;
+                    m_sideToFace = m_arenaRightSide;
+                    break;
+            }
+            FrankyPlayerDetector.OnPlayerEnteredArea -= FrankyPlayerDetector_OnPlayerEnteredArea;
+            yield return new WaitForSeconds(0.2f);
+            for (int i = 0; i < m_arenaPlayerDetectorColliders.Length; i++)
+            {
+                m_arenaPlayerDetectorColliders[i].gameObject.SetActive(false);
+            }
+            Debug.Log(m_currentPlayerPosition);
+            if (!IsFacing(m_runTowardsPositionAfterCheck.position)) { CustomTurn(); }
+
+
+            m_animation.SetAnimation(0, m_info.runAttackStartAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.runAttackStartAnimation);
+            while (Vector2.Distance(transform.position, m_runTowardsPositionAfterCheck.position) > 2f)
+            {
+                m_animation.SetAnimation(
+                    0,
+                    m_info.runAttackAnimation.animation,
+                    true
+                );
+
+                Vector2 direction =
+                    new Vector2(
+                        m_runTowardsPositionAfterCheck.position.x - transform.position.x,
+                        0f
+                    ).normalized;
+
+                transform.position +=
+                    (Vector3)(
+                        direction *
+                        m_info.move.speed *
+                        1f *
+                        Time.deltaTime
+                    );
+
                 yield return null;
             }
+
+            // snap exactly to target
+
+            yield return new WaitForFixedUpdate();
+            m_animation.SetAnimation(0, m_info.runAttackEndAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.runAttackEndAnimation);
+
+            if (!IsFacing(m_sideToFace.position)) { CustomTurn(); }
+            transform.position = new Vector2(
+               m_runTowardsPositionAfterCheck.position.x,
+               transform.position.y
+           );
+            yield return new WaitForFixedUpdate();
+            m_animation.SetAnimation(0, animationNameChain, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, animationNameChain);
             if (m_character.facing == HorizontalDirection.Left)
             {
                 ElectricPushLeft?.Invoke(this, EventActionArgs.Empty);
@@ -1021,22 +1211,38 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 ElectricPushRight?.Invoke(this, EventActionArgs.Empty);
             }
-            if (loopFX != null) loopFX.GetComponent<FX>().Stop();
-            m_wallPosPoint.gameObject.SetActive(false);
+            m_animation.SetAnimation(0, m_info.chainBashPullingLoop, true);
+            yield return new WaitForSeconds(3f);    
+            m_animation.SetAnimation(0, m_info.chainBashPullingOut, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.chainBashPullingOut);
+            m_chainHandVFX2.Stop(); m_chainHandVFX2.Stop();
+            m_bodyCollider.enabled = true;
+            m_animation.DisableRootMotion();
+            m_stateHandle.ApplyQueuedState();
+        }
+        private IEnumerator ChainBash2()
+        {
+           
+            m_animation.SetAnimation(0, m_info.chainBashMiddle.animation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.chainBashMiddle);
+            m_chainBashBB[0].enabled = true;
+            m_chainBashBB[1].enabled = true;
+            if (m_character.facing == HorizontalDirection.Left)
+            {
+                ElectricPushLeft?.Invoke(this, EventActionArgs.Empty);
+            }
+            else
+            {
+                ElectricPushRight?.Invoke(this, EventActionArgs.Empty);
+            }
             m_chainBashBB[0].enabled = false;
             m_chainBashBB[1].enabled = false;
-            var bashLoopAnim = m_animation.SetAnimation(0, m_info.chainBash1AnimationLoop, true);
-            yield return new WaitForSeconds(m_info.ChainBashDuration);
-            yield return new WaitForSpineAnimationComplete(bashLoopAnim);
-            m_animation.SetAnimation(0, m_info.chainBash1AnimationEnd, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.chainBash1AnimationEnd);
-            m_fistPoint.GetComponent<SkeletonUtilityBone>().mode = SkeletonUtilityBone.Mode.Follow;
-            m_fistPoint.GetComponent<SkeletonUtilityBone>().enabled = false;
-            m_wallPosPoint.localPosition = Vector2.zero;
-            *//*m_animation.SetAnimation(0, m_info.idleAnimation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleAnimation);*//*
-            CustomTurn();
-            yield return null;*/
+            m_animation.SetAnimation(0, m_info.chainBashPullingLoop, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.chainBashPullingLoop);
+            m_animation.SetAnimation(0, m_info.chainBashPullingOut, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.chainBashPullingOut);
+            m_animation.SetAnimation(0, m_info.idleAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idleAnimation);
         }
         private IEnumerator ElectricStomp()
         {
@@ -1315,8 +1521,18 @@ namespace DChild.Gameplay.Characters.Enemies
             m_spineListener.Subscribe(m_info.stopRoarEvent, PhaseFXStop);
             m_spineListener.Subscribe(m_info.stompEvent, LaunchProjectile);
             m_spineListener.Subscribe(m_info.shoulderBashEventAttack, ActivateShoulderBashCollider);
+            m_spineListener.Subscribe(m_info.chainedBashCharge, ChainBashCharge);
+            m_spineListener.Subscribe(m_info.chainedBashChargeContactWall, ChainBashImpactVFX);
+            //m_spineListener.Subscribe(m_info.chainedBashHitboxOff, ChainBashImpactVFX);
+            //m_spineListener.Subscribe(m_info.chainedBashHitboxOn, ChainBashImpactVFX);
+            m_spineListener.Subscribe(m_info.chainedBashImpact, ChainBashImpactPunch);
+            m_spineListener.Subscribe(m_info.chainedBashPullSuccess, ChainBashDone);
+            m_spineListener.Subscribe(m_info.chainedBashRootStart, ChainBashRootStartEvent);
+
+
+
             //m_spineListener.Subscribe(m_info.aimChainBash, AimChainBash);
-            m_animation.DisableRootMotion();
+            // m_animation.DisableRootMotion();
             m_fistRefPoint.GetComponent<CircleCollider2D>().enabled = false;
             m_phaseHandle = new PhaseHandle<Phase, PhaseInfo>();
             m_phaseHandle.Initialize(Phase.PhaseOne, m_info.phaseInfo, m_character, ChangeState, ApplyPhaseData);
@@ -1384,7 +1600,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     switch (m_attackDecider.chosenAttack.attack)
                     {
                         case Attack.Phase1Pattern1:
-                            StartCoroutine(Phase1Pattern1Routine());
+                            StartCoroutine(ChainBash());
                             break;
                         case Attack.Phase2Pattern1:
                             StartCoroutine(Phase2Pattern1Routine());
