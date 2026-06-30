@@ -43,10 +43,12 @@ namespace DChild.Gameplay.FastTravel
                 var isActivated = SetupTownGateButton(button, data);
 
                 if (isActivated)
+                {
                     m_activatedButtons.Add(button);
 
-                if (!hasSelectedFirst)
-                {
+                    if (hasSelectedFirst)
+                        continue;
+                    
                     button.Select();
                     hasSelectedFirst = true;
                 }
@@ -56,7 +58,7 @@ namespace DChild.Gameplay.FastTravel
             if (unlockedOverworld)
             {
                 m_activatedButtons.Add(m_overworldTownGateButtons);
-                
+
                 if (!hasSelectedFirst)
                 {
                     m_overworldTownGateButtons.Select();
@@ -66,7 +68,7 @@ namespace DChild.Gameplay.FastTravel
             bool hasAvailableTownGates = m_activatedButtons.Count > 0;
             SetShowCaseImageVisibility(hasAvailableTownGates);
 
-            if (hasAvailableTownGates)
+            if (!hasAvailableTownGates)
                 ShowCase(m_activatedButtons[0]);
         }
 
@@ -109,7 +111,6 @@ namespace DChild.Gameplay.FastTravel
                     continue;
 
                 m_townGateButtons[i].ToggleCurrentLocationIcon(false);
-
             }
 
             m_activatedButtons.Clear();
