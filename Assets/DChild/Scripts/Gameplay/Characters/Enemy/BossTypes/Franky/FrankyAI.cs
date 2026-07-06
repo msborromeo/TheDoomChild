@@ -122,6 +122,15 @@ namespace DChild.Gameplay.Characters.Enemies
             private BasicAnimationInfo m_chainBashPullingOut;
             public BasicAnimationInfo chainBashPullingOut => m_chainBashPullingOut;
             [SerializeField]
+            private BasicAnimationInfo m_chainBashIILightningReleaseStart;
+            public BasicAnimationInfo chainBashIILightningReleaseStart => m_chainBashIILightningReleaseStart;
+            [SerializeField]
+            private BasicAnimationInfo m_chainBashIILightningReleaseLoop;
+            public BasicAnimationInfo chainBashIILightningReleaseLoop => m_chainBashIILightningReleaseLoop;
+            [SerializeField]
+            private BasicAnimationInfo m_chainBashIILightningReleaseEnd;
+            public BasicAnimationInfo chainBashIILightningReleaseEnd => m_chainBashIILightningReleaseEnd;
+            [SerializeField]
             private float m_chainBashDuration;
             public float ChainBashDuration => m_chainBashDuration;
             #endregion
@@ -244,6 +253,13 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, ValueDropdown("GetEvents")]
             private string m_phaseEvent;
             public string phaseEvent => m_phaseEvent;
+            [Title("Events")]
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_shockRampageColliderEventOn;
+            public string shockRampageColliderEventOn => m_shockRampageColliderEventOn;
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_shockRampageColliderEventOff;
+            public string shockRampageColliderEventOff => m_shockRampageColliderEventOff;
             [SerializeField, ValueDropdown("GetEvents")]
             private string m_stopRoarEvent;
             public string stopRoarEvent => m_stopRoarEvent;
@@ -280,7 +296,10 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, ValueDropdown("GetEvents")]
             private string m_chainedBashRootStart;
             public string chainedBashRootStart => m_chainedBashRootStart;
-            
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_chainBashLightningRelease;
+            public string chainBashLightningRelease => m_chainBashLightningRelease;
+
 
             public override void Initialize()
             {
@@ -323,6 +342,9 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_chainBashMiddle.SetData(m_skeletonDataAsset);
                 m_chainBashPullingLoop.SetData(m_skeletonDataAsset);
                 m_chainBashPullingOut.SetData(m_skeletonDataAsset);
+                m_chainBashIILightningReleaseEnd.SetData(m_skeletonDataAsset);
+                m_chainBashIILightningReleaseLoop.SetData(m_skeletonDataAsset);
+                m_chainBashIILightningReleaseStart.SetData(m_skeletonDataAsset);
 
 #endif
             }
@@ -396,6 +418,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Hitbox m_hitbox;
         [SerializeField, TabGroup("Reference")]
         private GameObject m_spriteMask;
+        [SerializeField, TabGroup("Reference")]
+        private Animator m_glowAnimFranky;
         /*[SerializeField, TabGroup("Reference")]
         private Collider2D m_aoeBB;
         [SerializeField, TabGroup("Reference")]
@@ -591,12 +615,14 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator ChangePhaseRoutine()
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
-            m_hitbox.SetInvulnerability(Invulnerability.MAX);
             m_animation.SetAnimation(0, m_info.roarAnimation, false);
             m_isBuffed = false;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.roarAnimation.animation);
             m_hasPhaseChanged = false;
             DecidedOnAttack(false);
+            ChangePhaseDeactivator();
+            OnOrOffDamagetModifier(1.1f);
+            m_buffedEffects.Play();
             switch (m_phaseHandle.currentPhase)
             {
                 case Phase.PhaseTwo:
@@ -609,7 +635,8 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
             }
-            m_hitbox.SetInvulnerability(Invulnerability.None);
+            m_buffedEffects.Stop();
+            OnOrOffDamagetModifier(1f);
             m_stateHandle.ApplyQueuedState();
         }
         private void LaunchProjectile()
@@ -749,6 +776,14 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             yield return null;
         }
+        private void ChangePhaseDeactivator()
+        {
+            m_chainHandVFX.Stop();
+            m_chainHandVFX2.Stop();
+            m_wallImpactVFX.Stop();
+            m_chainBashChargeFistCollider.enabled = false;
+            m_leapAttackBB.enabled = false;
+        }
         private IEnumerator PhaseDistarge1()
         {
             while(Vector2.Distance(transform.position, m_CenterOfTheArena.position) > 2f)
@@ -764,7 +799,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_orbLightningFX.Play();
             PhaseDischargeAction?.Invoke(this, EventActionArgs.Empty);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.phaseDischarge);
-            m_orbLightningFX.Stop();
+            m_glowAnimFranky.SetBool("isRaging", true);
             m_attackCounter = 0;
             m_isBuffed = true;
             /*m_animation.SetAnimation(0, m_info.idle2Animation, false);
@@ -782,6 +817,8 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return ChainFist();
                 yield return PunchCombo();
             }
+            m_glowAnimFranky.SetBool("isRaging", false);
+            m_orbLightningFX.Stop();
             m_isBuffed = false;
             yield return null;
         }
@@ -800,7 +837,8 @@ namespace DChild.Gameplay.Characters.Enemies
             m_orbLightningFX.Play();
             PhaseDischargeAction?.Invoke(this, EventActionArgs.Empty);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.phaseDischarge);
-            m_orbLightningFX.Stop();
+            m_glowAnimFranky.SetBool("isRaging", true);
+            
             m_attackCounter = 0;
             m_isBuffed = true;
             /*m_animation.SetAnimation(0, m_info.idle2Animation, false);
@@ -823,6 +861,8 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return RunningAttack();
                 yield return ShockRampage();
             }
+            m_glowAnimFranky.SetBool("isRaging", false);
+            m_orbLightningFX.Stop();
             m_isBuffed = false;
             yield return null;
         }
@@ -899,6 +939,25 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_animation.DisableRootMotion();
             m_chainHandVFX2.Stop();
+        }
+        private void ShockRampageColliderOff()
+        {
+            m_shockRampageBB.enabled = false;
+        }
+        private void ShockRampageColliderOn()
+        {
+            m_shockRampageBB.enabled = true;
+        }
+        public void ChainBashIILightningReleaseEvent()
+        {
+            if (m_character.facing == HorizontalDirection.Left)
+            {
+                ElectricPushLeft?.Invoke(this, EventActionArgs.Empty);
+            }
+            else
+            {
+                ElectricPushRight?.Invoke(this, EventActionArgs.Empty);
+            }
         }
         private FrankyPlayerDetector.PlayerPosition m_currentPlayerPosition;
         private Transform m_sideToFace;
@@ -1116,11 +1175,10 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         private IEnumerator ShockRampage()
         {
-            m_shockRampageBB.enabled = true;
+            
             m_animation.SetAnimation(0, m_info.shockRampageAttack, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.shockRampageAttack);
-            m_shockRampageBB.enabled = false;
-            yield return null;
+          
         }
         private IEnumerator ChainBashII()
         {
@@ -1202,19 +1260,14 @@ namespace DChild.Gameplay.Characters.Enemies
            );
             yield return new WaitForFixedUpdate();
             m_animation.SetAnimation(0, animationNameChain, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, animationNameChain);
-            if (m_character.facing == HorizontalDirection.Left)
-            {
-                ElectricPushLeft?.Invoke(this, EventActionArgs.Empty);
-            }
-            else
-            {
-                ElectricPushRight?.Invoke(this, EventActionArgs.Empty);
-            }
-            m_animation.SetAnimation(0, m_info.chainBashPullingLoop, true);
-            yield return new WaitForSeconds(3f);    
-            m_animation.SetAnimation(0, m_info.chainBashPullingOut, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.chainBashPullingOut);
+            yield return new WaitForAnimationComplete(m_animation.animationState, animationNameChain);     
+            m_animation.SetAnimation(0, m_info.chainBashIILightningReleaseStart, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.chainBashIILightningReleaseStart);
+            m_animation.SetAnimation(0, m_info.chainBashIILightningReleaseLoop, true);
+            yield return new WaitForSeconds(3f);
+            m_animation.SetAnimation(0, m_info.chainBashIILightningReleaseEnd, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.chainBashIILightningReleaseEnd);
+
         }
         private IEnumerator ChainBash2()
         {
@@ -1296,7 +1349,6 @@ namespace DChild.Gameplay.Characters.Enemies
             DecidedOnAttack(false);
             m_animation.DisableRootMotion();
             m_stateHandle.ApplyQueuedState();
-            yield return null;
         }
         private IEnumerator Phase2Pattern2Routine()
         {
@@ -1491,13 +1543,19 @@ namespace DChild.Gameplay.Characters.Enemies
             //m_aoeBB.enabled = false;
             m_orbLightningFX.Stop();
         }
+        private IEnumerator LeapColliderController()
+        {
+            m_leapAttackBB.enabled = true;
+            yield return new WaitForSeconds(0.4f);
+            m_leapAttackBB.enabled = false;
+        }
 
         private void LeapEvent()
         {
             //if (!IsFacingTarget()) { CustomTurn(); }
             var fxPool = GameSystem.poolManager.GetPool<FXPool>().GetOrCreateItem(m_leapFX);
             fxPool.Play();
-            m_leapAttackBB.enabled = true;
+            StartCoroutine(LeapColliderController());
             fxPool.transform.position = new Vector2(transform.position.x + (23f * transform.localScale.x), transform.position.y - 1.5f);
         }
         [SerializeField]
@@ -1523,7 +1581,9 @@ namespace DChild.Gameplay.Characters.Enemies
             m_spineListener.Subscribe(m_info.chainedBashImpact, ChainBashImpactPunch);
             m_spineListener.Subscribe(m_info.chainedBashPullSuccess, ChainBashDone);
             m_spineListener.Subscribe(m_info.chainedBashRootStart, ChainBashRootStartEvent);
-
+            m_spineListener.Subscribe(m_info.chainBashLightningRelease, ChainBashIILightningReleaseEvent);
+            m_spineListener.Subscribe(m_info.shockRampageColliderEventOn, ShockRampageColliderOn);
+            m_spineListener.Subscribe(m_info.shockRampageColliderEventOff, ShockRampageColliderOff);
 
 
             //m_spineListener.Subscribe(m_info.aimChainBash, AimChainBash);
@@ -1538,7 +1598,7 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField]
         private float m_glowBrightness;
         private float healthy = 0.5f;
-        private IEnumerator OnOrOffDamagetModifier(float damage)
+        private void OnOrOffDamagetModifier(float damage)
         {
             m_chainedBashAttacker.SetDamageModifier(damage);
             m_punchComboAttacker.SetDamageModifier(damage);
@@ -1546,7 +1606,6 @@ namespace DChild.Gameplay.Characters.Enemies
             m_LeapAttackAttacker.SetDamageModifier(damage);
             m_runningAttack.SetDamageModifier(damage);
             m_shockRampage.SetDamageModifier(damage);
-            yield return null;
         }
         private void Update()
         {
@@ -1554,13 +1613,13 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 m_tommi.SetFloat("_Color_Brightness", m_glowBrightness);
                 m_buffedEffects.Play();
-                StartCoroutine(OnOrOffDamagetModifier(1.1f));
+               // StartCoroutine(OnOrOffDamagetModifier(1.1f));
             }
             else
             {
                 m_tommi.SetFloat("_Color_Brightness", healthy);
                 m_buffedEffects.Stop();
-                StartCoroutine(OnOrOffDamagetModifier(1f));
+              //  StartCoroutine(OnOrOffDamagetModifier(1f));
             }
             m_phaseHandle.MonitorPhase();
             switch (m_stateHandle.currentState)
