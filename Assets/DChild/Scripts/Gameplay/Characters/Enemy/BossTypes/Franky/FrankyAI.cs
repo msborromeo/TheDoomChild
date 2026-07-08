@@ -441,6 +441,8 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField, TabGroup("Colliders")]
         private Collider2D m_shockRampageBB;
         [SerializeField, TabGroup("Colliders")]
+        private Collider2D m_BodyLightningCollider;
+        [SerializeField, TabGroup("Colliders")]
         private Collider2D m_bodyCollider;
         [SerializeField, TabGroup("EnvironmentColliders")]
         private GameObject[] m_arenaPlayerDetectorColliders;
@@ -532,6 +534,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private Transform m_nearEdgePositionLeft;
         [SerializeField, TabGroup("Spawn Points")]
         private Transform m_nearEdgePositionRight;
+        [SerializeField, TabGroup("Spawn Points")]
+        private Transform m_nearEdgePositionLeftRampage;
+        [SerializeField, TabGroup("Spawn Points")]
+        private Transform m_nearEdgePositionRightRampage;
         [SerializeField, TabGroup("Spawn Points")]
         private Transform m_centerPositionLeft;
         [SerializeField, TabGroup("Spawn Points")]
@@ -708,16 +714,22 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             yield return null;
         }
+        [Button]
+        private void ShoulderBashStart()
+        {
+            StartCoroutine(ShoulderBash());
+        }
         private IEnumerator ShoulderBash()
         {
-            while (Vector2.Distance(transform.position, m_targetInfo.position) > 10f)
+            if (!IsFacingTarget())
             {
-                m_animation.SetAnimation(0, m_info.move.animation, true);
-                m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0f).normalized, m_info.walkSpeed);
-                if (!IsFacingTarget())
-                {
-                    CustomTurn();
-                }
+                CustomTurn();
+            }
+            m_animation.SetAnimation(0, m_info.move.animation, true);
+            while (Vector2.Distance(transform.position, m_targetInfo.position) > 15f)
+            {
+                
+                m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0f).normalized, m_info.walkSpeed); 
                 yield return null;
             }
             //animation.EnableRootMotion(true, false);
@@ -727,7 +739,6 @@ namespace DChild.Gameplay.Characters.Enemies
            //_animation.EnableRootMotion(false, false);
            //_animation.DisableRootMotion();
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
-            
             yield return new WaitForSeconds(0.3f);
             m_attackCounter++;
         }
@@ -794,11 +805,15 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_movement.MoveTowards(new Vector2(m_CenterOfTheArena.position.x - transform.position.x, 0f).normalized, m_info.walkSpeed);
                 yield return null;
             }
+           
             m_animation.SetAnimation(0, m_info.phaseDischarge, false);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.8f);
+            m_bodyLightningFX.Play();
             m_orbLightningFX.Play();
-            PhaseDischargeAction?.Invoke(this, EventActionArgs.Empty);
+            m_BodyLightningCollider.enabled = true;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.phaseDischarge);
+            m_BodyLightningCollider.enabled = false;
+            m_orbLightningFX.Stop();
             m_glowAnimFranky.SetBool("isRaging", true);
             m_attackCounter = 0;
             m_isBuffed = true;
@@ -818,7 +833,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return PunchCombo();
             }
             m_glowAnimFranky.SetBool("isRaging", false);
-            m_orbLightningFX.Stop();
+            m_bodyLightningFX.Stop();
             m_isBuffed = false;
             yield return null;
         }
@@ -833,10 +848,15 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return null;
             }
             m_animation.SetAnimation(0, m_info.phaseDischarge, false);
-            yield return new WaitForSeconds(0.5f);
-            m_orbLightningFX.Play();
+            yield return new WaitForSeconds(0.8f);
             PhaseDischargeAction?.Invoke(this, EventActionArgs.Empty);
+            m_orbLightningFX.Play();
+            m_bodyLightningFX.Play();
+            m_BodyLightningCollider.enabled = true; 
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.phaseDischarge);
+            m_orbLightningFX.Stop();
+            m_BodyLightningCollider.enabled = false;
+   
             m_glowAnimFranky.SetBool("isRaging", true);
             
             m_attackCounter = 0;
@@ -862,7 +882,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return ShockRampage();
             }
             m_glowAnimFranky.SetBool("isRaging", false);
-            m_orbLightningFX.Stop();
+            m_bodyLightningFX.Stop();
             m_isBuffed = false;
             yield return null;
         }
@@ -1173,12 +1193,62 @@ namespace DChild.Gameplay.Characters.Enemies
             m_attackCounter++;
             yield return null;
         }
+        [Button]
+        private void ShockRampageTest()
+        {
+            StartCoroutine(ShockRampage());
+        }
+
         private IEnumerator ShockRampage()
         {
-            
+            m_spineListener.Subscribe(m_info.shockRampageColliderEventOn, ShockRampageColliderOn);
+            m_spineListener.Subscribe(m_info.shockRampageColliderEventOff, ShockRampageColliderOff);
+            m_bodyCollider.enabled = false;
+            FrankyPlayerDetector.OnPlayerEnteredArea += FrankyPlayerDetector_OnPlayerEnteredArea;
+            yield return new WaitForSeconds(0.3f);
+
+            for (int i = 0; i < m_arenaPlayerDetectorColliders.Length; i++)
+            {
+                m_arenaPlayerDetectorColliders[i].gameObject.SetActive(true);
+            }
+            yield return new WaitForFixedUpdate();
+
+            switch (m_currentPlayerPosition)
+            {
+                case FrankyPlayerDetector.PlayerPosition.Left:
+                    var PositionRight = m_nearEdgePositionRightRampage;
+                    m_runTowardsPositionAfterCheck = PositionRight;
+                    m_sideToFace = m_arenaLeftSide;
+                    break;
+                case FrankyPlayerDetector.PlayerPosition.Right:
+                    var PositionLeft = m_nearEdgePositionLeftRampage;
+                    m_runTowardsPositionAfterCheck = PositionLeft;
+                    m_sideToFace = m_arenaRightSide;
+                    break;
+            }
+            FrankyPlayerDetector.OnPlayerEnteredArea -= FrankyPlayerDetector_OnPlayerEnteredArea;
+            yield return new WaitForSeconds(0.2f);
+            for (int i = 0; i < m_arenaPlayerDetectorColliders.Length; i++)
+            {
+                m_arenaPlayerDetectorColliders[i].gameObject.SetActive(false);
+            }
+            Debug.Log(m_currentPlayerPosition);
+            if (!IsFacing(m_runTowardsPositionAfterCheck.position)) { CustomTurn(); }
+            m_animation.SetAnimation(0, m_info.runAttackStartAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.runAttackStartAnimation);
+            while (Vector2.Distance(transform.position, m_runTowardsPositionAfterCheck.position) > 2f)
+            {
+                m_animation.SetAnimation(0, m_info.runAttackAnimation.animation, true);
+                Vector2 direction = new Vector2(m_runTowardsPositionAfterCheck.position.x - transform.position.x, 0).normalized;
+                transform.position += (Vector3)(direction * m_info.move.speed * 1f * Time.deltaTime);
+                yield return null;
+            }
+            if (!IsFacing(m_sideToFace.position)) { CustomTurn(); }
+
             m_animation.SetAnimation(0, m_info.shockRampageAttack, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.shockRampageAttack);
-          
+            m_bodyCollider.enabled = true;
+
         }
         private IEnumerator ChainBashII()
         {
@@ -1609,18 +1679,18 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         private void Update()
         {
-            if (m_isBuffed)
-            {
-                m_tommi.SetFloat("_Color_Brightness", m_glowBrightness);
-                m_buffedEffects.Play();
-               // StartCoroutine(OnOrOffDamagetModifier(1.1f));
-            }
-            else
-            {
-                m_tommi.SetFloat("_Color_Brightness", healthy);
-                m_buffedEffects.Stop();
-              //  StartCoroutine(OnOrOffDamagetModifier(1f));
-            }
+            //if (m_isBuffed)
+            //{
+            //    m_tommi.SetFloat("_Color_Brightness", m_glowBrightness);
+            //    m_buffedEffects.Play();
+            //   // StartCoroutine(OnOrOffDamagetModifier(1.1f));
+            //}
+            //else
+            //{
+            //    m_tommi.SetFloat("_Color_Brightness", healthy);
+            //    m_buffedEffects.Stop();
+            //  //  StartCoroutine(OnOrOffDamagetModifier(1f));
+            //}
             m_phaseHandle.MonitorPhase();
             switch (m_stateHandle.currentState)
             {
