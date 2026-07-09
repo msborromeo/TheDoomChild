@@ -88,6 +88,9 @@ namespace DChild.Gameplay.Characters.Enemies
             private MovementInfo m_leapAttackStartAnimation;
             public MovementInfo leapAttackStartAnimation => m_leapAttackStartAnimation;
             [SerializeField]
+            private BasicAnimationInfo m_leapAnticipation;
+            public BasicAnimationInfo leapAnticipation => m_leapAnticipation;
+            [SerializeField]
             private BasicAnimationInfo m_leapLoopAnimation;
             public BasicAnimationInfo leapLoopAnimation => m_leapLoopAnimation;
             [SerializeField]
@@ -299,6 +302,9 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, ValueDropdown("GetEvents")]
             private string m_chainBashLightningRelease;
             public string chainBashLightningRelease => m_chainBashLightningRelease;
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_frankyGustWindReleaseFX;
+            public string frankyGustWindReleaseFX => m_frankyGustWindReleaseFX;
 
 
             public override void Initialize()
@@ -321,6 +327,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_shoulderBashAnimation.SetData(m_skeletonDataAsset);
                 m_punchComboAnimation.SetData(m_skeletonDataAsset);
                 m_chainFistPunchUpperAnimation.SetData(m_skeletonDataAsset);
+                m_leapAnticipation.SetData(m_skeletonDataAsset);
                 m_leapLoopAnimation.SetData(m_skeletonDataAsset);
                 m_leapLoopAnimation2.SetData(m_skeletonDataAsset);
                 //m_leapTransitionAnimation.SetData(m_skeletonDataAsset);
@@ -484,6 +491,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private GameObject m_wallStickLoopFX;
         [SerializeField, TabGroup("Effects")]
         private GameObject m_wallStickEndFX;
+        [SerializeField, TabGroup("Effects")]
+        private ParticleSystem m_gustWindVFX;
         [SerializeField, TabGroup("Effects")]
         private GameObject m_leapFX;
         [SerializeField, TabGroup("Effects")]
@@ -753,15 +762,19 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator LeapAttack()
         {
             if(!IsFacingTarget()){ CustomTurn(); }
+            m_animation.SetAnimation(0, m_info.leapAnticipation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapAnticipation);
             m_animation.SetAnimation(0, m_info.leapAttackStartAnimation, false);
             if(Vector2.Distance(transform.position, m_targetInfo.position) > 20f)
                 m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0).normalized, m_info.leapAttackStartAnimation.speed);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapAttackStartAnimation);
+
             if (!IsFacingTarget()){ CustomTurn(); }
             m_animation.SetAnimation(0, m_info.leapLoopAnimation, false);
             if(Vector2.Distance(transform.position, m_targetInfo.position) > 20f)
                 m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0).normalized, m_info.leapAttackStartAnimation.speed);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapLoopAnimation);
+
             if (!IsFacingTarget()) { CustomTurn(); }
             m_animation.SetEmptyAnimation(0, 0);
             m_animation.SetAnimation(0, m_info.leapLoopAnimation2, false);
@@ -770,6 +783,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapLoopAnimation2);
             m_animation.SetAnimation(0, m_info.leapAttackEndAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapAttackEndAnimation);
+
             if (!IsFacingTarget()){ CustomTurn(); }
             m_leapAttackBB.enabled = false;
             /*m_animation.SetAnimation(0, m_info.idle2Animation, false);
@@ -812,6 +826,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_orbLightningFX.Play();
             m_BodyLightningCollider.enabled = true;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.phaseDischarge);
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
             m_BodyLightningCollider.enabled = false;
             m_orbLightningFX.Stop();
             m_glowAnimFranky.SetBool("isRaging", true);
@@ -856,7 +871,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.phaseDischarge);
             m_orbLightningFX.Stop();
             m_BodyLightningCollider.enabled = false;
-   
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
             m_glowAnimFranky.SetBool("isRaging", true);
             
             m_attackCounter = 0;
@@ -959,6 +974,11 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_animation.DisableRootMotion();
             m_chainHandVFX2.Stop();
+        }
+
+        private void GustWindVFX()
+        {
+            m_gustWindVFX.Play();
         }
         private void ShockRampageColliderOff()
         {
@@ -1077,6 +1097,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.chainBashPullingLoop);
             m_animation.SetAnimation(0, m_info.chainBashPullingOut, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.chainBashPullingOut);
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
             #region old attack
             //m_puchWallLoopFX.Play();
             //m_animation.SetAnimation(0, m_info.chainBash1AnimationEnd.animation, false);
@@ -1178,6 +1199,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_movement.MoveTowards(new Vector2(runTowards.position.x - transform.position.x, 0f).normalized, m_info.walkSpeed * 1);
             m_animation.SetAnimation(0, m_info.runAttackEndAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.runAttackEndAnimation);
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
             m_movement.Stop();
             m_runningAttackBB.enabled = false;
             /*if (m_phaseHandle.currentPhase == Phase.PhaseThree)
@@ -1654,6 +1676,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_spineListener.Subscribe(m_info.chainBashLightningRelease, ChainBashIILightningReleaseEvent);
             m_spineListener.Subscribe(m_info.shockRampageColliderEventOn, ShockRampageColliderOn);
             m_spineListener.Subscribe(m_info.shockRampageColliderEventOff, ShockRampageColliderOff);
+            m_spineListener.Subscribe(m_info.frankyGustWindReleaseFX, GustWindVFX);
 
 
             //m_spineListener.Subscribe(m_info.aimChainBash, AimChainBash);
