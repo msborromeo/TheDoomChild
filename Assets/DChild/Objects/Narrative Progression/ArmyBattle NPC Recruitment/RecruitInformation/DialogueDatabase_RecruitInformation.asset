@@ -40,7 +40,7 @@ MonoBehaviour:
     - title: Name
       value: Player
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Pictures
       value: '[]'
       type: 3
@@ -48,15 +48,27 @@ MonoBehaviour:
     - title: Description
       value: 
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: IsPlayer
       value: True
       type: 2
       typeString: CustomFieldType_Boolean
+    - title: Display Name
+      value: Doomed Knight
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: BanterColor
+      value: '#6ff2ffff'
+      type: 0
+      typeString: CustomFieldType_HexColor
     portrait: {fileID: 0}
-    spritePortrait: {fileID: 0}
+    spritePortrait: {fileID: 21300000, guid: cc54d334afa0741439bbb5cea47e783e, type: 3}
     alternatePortraits: []
-    spritePortraits: []
+    spritePortraits:
+    - {fileID: 21300000, guid: 0c5d10bd380924e499c631f58dcdc3db, type: 3}
+    - {fileID: 21300000, guid: e93dfcfa2b7e17d4095918e9831147d9, type: 3}
+    - {fileID: 21300000, guid: bafeaa54201a91f4b872069d3ee1b6a8, type: 3}
+    - {fileID: 21300000, guid: 27f67ef7063014a459b5265a29849f27, type: 3}
   - id: 150
     fields:
     - title: Name
@@ -75,10 +87,83 @@ MonoBehaviour:
       value: False
       type: 2
       typeString: CustomFieldType_Boolean
+    - title: Display Name
+      value: Inos
+      type: 0
+      typeString: 
     portrait: {fileID: 0}
     spritePortrait: {fileID: 21300000, guid: 000fb528de84160409ffcdfb49e67814, type: 3}
     alternatePortraits: []
     spritePortraits: []
+  - id: 41
+    fields:
+    - title: Name
+      value: Necro
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: IsPlayer
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Display Name
+      value: Necronomicon
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: BanterColor
+      value: '#ffd46fff'
+      type: 0
+      typeString: CustomFieldType_HexColor
+    portrait: {fileID: 0}
+    spritePortrait: {fileID: 21300000, guid: 9952ee69002ed4a45abfc229c485cbf1, type: 3}
+    alternatePortraits: []
+    spritePortraits:
+    - {fileID: 21300000, guid: 345f66caeb572e049ae9d400231d88ee, type: 3}
+    - {fileID: 21300000, guid: cbf91baf72fe03b4f8fd114bc8daea3c, type: 3}
+    - {fileID: 21300000, guid: a7d4cc27f7fb3d749b00dce88b5de008, type: 3}
+    - {fileID: 21300000, guid: 9f36e058fe733404caeaa3f6f9061cd9, type: 3}
+    - {fileID: 21300000, guid: 51cbf42c3d8c69d4b829bf1d70bd7042, type: 3}
+  - id: 55
+    fields:
+    - title: Name
+      value: Crazy Knight
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: IsPlayer
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Display Name
+      value: Crazy Knight
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: BanterColor
+      value: '#a26fffff'
+      type: 0
+      typeString: CustomFieldType_HexColor
+    portrait: {fileID: 0}
+    spritePortrait: {fileID: 21300000, guid: 10bedd6d278c4d5468d680f07713fa27, type: 3}
+    alternatePortraits: []
+    spritePortraits:
+    - {fileID: 21300000, guid: 6e1f584d8dda43740a2bba6b108efbb5, type: 3}
+    - {fileID: 21300000, guid: ed20d7c85b151714d8745799a7fd64ac, type: 3}
+    - {fileID: 21300000, guid: ca6a33640f80d2344b1e1b7bea7fa239, type: 3}
+    - {fileID: 21300000, guid: b6e6f3f6a3a27ba45862bc127531e6d0, type: 3}
   items:
   - id: 118
     fields:
@@ -166,7 +251,7 @@ MonoBehaviour:
   - id: 566
     fields:
     - title: Title
-      value: IntroDialogueInformation
+      value: Information_BR
       type: 0
       typeString: 
     - title: Description
@@ -275,7 +360,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 149
+        value: 150
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -287,7 +372,118 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Intro Dialogue
+        value: Hello, traveler. Have you seen an old lady with scars on her face
+          wearing a brown dress?
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 566
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 566
+        originDialogueID: 1
+        destinationConversationID: 566
+        destinationDialogueID: 2
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 71
+        width: 160
+        height: 30
+    - id: 2
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 150
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: No.
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 566
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 566
+        originDialogueID: 2
+        destinationConversationID: 566
+        destinationDialogueID: 3
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 121
+        width: 160
+        height: 30
+    - id: 3
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 150
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: '(Disappointed) Ah. I see. If you find her, do tell me. '
         type: 0
         typeString: 
       - title: Sequence
@@ -310,16 +506,16 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 30
-        y: 70
+        y: 171
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasScrollPosition: {x: 0, y: 139.08511}
+    canvasZoom: 0.94000006
   - id: 1925
     fields:
     - title: Title
-      value: Recruit/RequirementInformation/Met
+      value: Information_AR
       type: 0
       typeString: 
     - title: Actor
@@ -436,7 +632,450 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Requirements Met
+        value: Excuse me, traveler. Have you seen an old lady with scars on her face
+          wearing a brown dress?
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 1925
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1925
+        originDialogueID: 1
+        destinationConversationID: 1925
+        destinationDialogueID: 2
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 70
+        width: 160
+        height: 30
+    - id: 2
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 150
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: Yes. In fact we have seen an old lady.
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 1925
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1925
+        originDialogueID: 2
+        destinationConversationID: 1925
+        destinationDialogueID: 3
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 120
+        width: 160
+        height: 30
+    - id: 3
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 150
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: Was her name Talia, perchance?
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 1925
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1925
+        originDialogueID: 3
+        destinationConversationID: 1925
+        destinationDialogueID: 4
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 170
+        width: 160
+        height: 30
+    - id: 4
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 150
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: Yes! Yes! Exactly! Where is she?
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 1925
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1925
+        originDialogueID: 4
+        destinationConversationID: 1925
+        destinationDialogueID: 5
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 220
+        width: 160
+        height: 30
+    - id: 5
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 150
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "She\u2019s safe and sound in Morden."
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 1925
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1925
+        originDialogueID: 5
+        destinationConversationID: 1925
+        destinationDialogueID: 6
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 270
+        width: 160
+        height: 30
+    - id: 6
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 150
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: Did she join your army in fighting against Black Death, perhaps?
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 1925
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1925
+        originDialogueID: 6
+        destinationConversationID: 1925
+        destinationDialogueID: 7
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 26
+        y: 322
+        width: 160
+        height: 30
+    - id: 7
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 150
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "(Astounded) Ye\u2026 Yes. How did you know?"
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 1925
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1925
+        originDialogueID: 7
+        destinationConversationID: 1925
+        destinationDialogueID: 8
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 26
+        y: 372
+        width: 160
+        height: 30
+    - id: 8
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 150
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: She told me many moons ago. In her vision, she joined an army that
+          would help turn the tides of fate and she advised me to join it as well.
+          So, may I have the pleasure to be part of this?
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 1925
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1925
+        originDialogueID: 8
+        destinationConversationID: 1925
+        destinationDialogueID: 9
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 26
+        y: 422
+        width: 160
+        height: 30
+    - id: 9
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 150
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: Sure. (Shocked) See you in Morden as well, I guess.
         type: 0
         typeString: 
       - title: Sequence
@@ -458,17 +1097,17 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 70
+        x: 26
+        y: 472
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasScrollPosition: {x: 0, y: 437.9091}
+    canvasZoom: 0.8800001
   - id: 563
     fields:
     - title: Title
-      value: Recruit/RequirementInformation/UnMet
+      value: Information_LP
       type: 0
       typeString: 
     - title: Actor
@@ -585,7 +1224,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Requirements UnMet
+        value: Talia. Where are you?
         type: 0
         typeString: 
       - title: Sequence
@@ -913,7 +1552,7 @@ MonoBehaviour:
     canvasScrollPosition: {x: 0, y: 0}
     canvasZoom: 1
   syncInfo:
-    syncActors: 0
+    syncActors: 1
     syncItems: 0
     syncLocations: 0
     syncVariables: 0
