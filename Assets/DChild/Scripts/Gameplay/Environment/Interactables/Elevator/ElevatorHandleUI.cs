@@ -40,9 +40,9 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         [Button(ButtonSizes.Large)]
         public void HandleElevatorEvent()
         {
-            GameplaySystem.PauseGame();
             GameplaySystem.gamplayUIHandle.ShowMordenElevatorUI(m_location, m_infos, m_elevator);
             m_elevatorSignal.SendSignal();
+            GameplaySystem.PauseGame();
         }
 
         private void Awake()
