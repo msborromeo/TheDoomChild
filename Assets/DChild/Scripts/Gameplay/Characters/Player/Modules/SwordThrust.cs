@@ -66,27 +66,28 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.isChargingAttack = true;
             m_animator.SetBool(m_swordThrustAnimationParameter, true);
             m_animator.SetBool(m_chargingAnimationParameter, true);
-            m_attacker.SetDamageModifier(m_thrust.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage), m_thrust.critChance, 
-                m_thrust.critModifier, 
+            m_attacker.SetDamageModifier(m_thrust.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage), m_thrust.critChance,
+                m_thrust.critModifier,
                 m_thrust.critFX);
         }
 
         public override void Cancel()
         {
-            if (m_state.isAttacking)
-            {
-                m_animator.SetBool(m_animationParameter, false);
-                m_state.isAttacking = false;
-                m_state.canAttack = true;
-            }
+            m_animator.SetBool(m_animationParameter, false);
 
+            m_state.isAttacking = false;
+            m_state.canAttack = true;
             m_state.waitForBehaviour = false;
-            m_rigidBody.velocity = Vector2.zero;
-            m_thrust.ShowCollider(false);
             m_state.isChargingAttack = false;
+            m_state.isDoingSwordThrust = false;
+
+            m_rigidBody.velocity = Vector2.zero;
+
+            m_thrust.ShowCollider(false);
             m_chargeFX?.Stop(true);
             m_thrust.PlayFX(false);
             m_finishedChargeFX?.Stop(true);
+
             m_animator.SetBool(m_swordThrustAnimationParameter, false);
             m_animator.SetBool(m_chargingAnimationParameter, false);
 

@@ -336,12 +336,12 @@ namespace DChild.Inputs
         {
             if (context.phase == InputActionPhase.Performed)
             {
-                if(context.interaction is HoldInteraction)
+                if (context.interaction is HoldInteraction)
                 {
                     UseQuickItemHeldEvent?.Invoke();
                 }
 
-                if(context.interaction is TapInteraction)
+                if (context.interaction is TapInteraction)
                 {
                     UseQuickItemTappedEvent?.Invoke();
                 }
@@ -423,14 +423,14 @@ namespace DChild.Inputs
                 ProjectileThrowStartedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Performed)
+            if (context.phase == InputActionPhase.Performed)
             {
-                if(context.interaction is HoldInteraction)
+                if (context.interaction is HoldInteraction)
                 {
                     ProjectileThrowHeldEvent?.Invoke();
                 }
 
-                if(context.interaction is TapInteraction)
+                if (context.interaction is TapInteraction)
                 {
                     ProjectileThrowTappedEvent?.Invoke();
                 }
@@ -464,7 +464,10 @@ namespace DChild.Inputs
         {
             if (context.phase == InputActionPhase.Performed)
             {
-                SwordThrustPerformedEvent?.Invoke();
+                if (context.interaction is HoldInteraction)
+                {
+                    SwordThrustPerformedEvent?.Invoke();
+                }
             }
 
             if (context.phase == InputActionPhase.Canceled)
@@ -826,7 +829,7 @@ namespace DChild.Inputs
         {
             if (context.phase == InputActionPhase.Performed)
             {
-                UICycleTabsPerformedEvent?.Invoke(context.ReadValue<float>());  
+                UICycleTabsPerformedEvent?.Invoke(context.ReadValue<float>());
             }
         }
 
@@ -852,7 +855,7 @@ namespace DChild.Inputs
                 UIToggleMapLegendEvent?.Invoke();
             }
         }
-        
+
         public void OnHoldToSkip(InputAction.CallbackContext context)
         {
             if (context.phase == InputActionPhase.Performed)
