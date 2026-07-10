@@ -14,6 +14,7 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         [SerializeField] private TextMeshProUGUI m_locationLabel;
         [SerializeField] private LocationHighlighterUI m_locationHighlight;
         [SerializeField] private List<ElevatorLevelButtonUI> m_elevatorButtons;
+        [SerializeField] private ElevatorLocationLevelsUI m_pillarUI;
         //[SerializeField] private RectTransform m_pillarRect;
 
         private MovingPlatform m_elevator;
@@ -28,19 +29,14 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
 
         private void SetupFloorLevels(ElevatorLocation location, ElevatorLevelInfo[] labels)
         {
-            int levelCount;
-
-            switch (location)
+            var levelCount = location switch
             {
-                case ElevatorLocation.East:
-                case ElevatorLocation.Upper_West:
-                    levelCount = 4;
-                    break;
-                default:
-                    levelCount = m_elevatorButtons.Count;
-                    break;
-            }
+                ElevatorLocation.East or ElevatorLocation.Upper_West => 4,
+                _ => m_elevatorButtons.Count,
+            };
+
             //AdjustPillarHeight(levelCount);
+            m_pillarUI.SetLevelsImage(location);
 
             for (int i = 0; i < labels.Length; i++)
             {
