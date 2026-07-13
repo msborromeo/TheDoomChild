@@ -55,10 +55,10 @@ MonoBehaviour:
     luaWizardIndex: -1
     lastEvaluationValue: 0
   setQuestState: 1
-  questName: DestroyGhostJar
+  questName: The Ghost In The Jar
   questState: 4
   setQuestEntryState: 1
-  questEntryNumber: 0
+  questEntryNumber: 1
   questEntryState: 4
   setAnotherQuestEntryState: 0
   anotherQuestEntryNumber: 1
@@ -296,6 +296,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  m_Firstjar:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3744070141197272959}
+        m_TargetAssemblyTypeName: PixelCrushers.DialogueSystem.DialogueSystemTrigger,
+          Assembly-CSharp-firstpass
+        m_MethodName: OnUse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_jarCounterDatabaseVariable: DestroyedCounter
 --- !u!1001 &414029215350077185
 PrefabInstance:
@@ -463,6 +479,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c106d3ee04e320140b205c0d1ae65bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3744070141197272959 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3912351081201856638, guid: 8473b8bc407ab0e4a91ab9ec7bd6e5c5,
+    type: 3}
+  m_PrefabInstance: {fileID: 414029215350077185}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5783548753515204906 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6196292909214361131, guid: 8473b8bc407ab0e4a91ab9ec7bd6e5c5,
@@ -496,7 +524,7 @@ MonoBehaviour:
     luaWizardIndex: -1
     lastEvaluationValue: 0
   setQuestState: 1
-  questName: The Ghost In The Jar
+  questName: 
   questState: 2
   setQuestEntryState: 1
   questEntryNumber: 1
@@ -657,6 +685,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2145830567453488498, guid: 36b19d72040c4684d858a267c48d6ff0,
         type: 3}
+      propertyPath: m_onInteraction.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145830567453488498, guid: 36b19d72040c4684d858a267c48d6ff0,
+        type: 3}
       propertyPath: m_onInteraction.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2407977219516595281}
@@ -672,7 +705,17 @@ PrefabInstance:
       objectReference: {fileID: 8795001564356036335}
     - target: {fileID: 2145830567453488498, guid: 36b19d72040c4684d858a267c48d6ff0,
         type: 3}
+      propertyPath: m_onInteraction.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 2595601770137541863}
+    - target: {fileID: 2145830567453488498, guid: 36b19d72040c4684d858a267c48d6ff0,
+        type: 3}
       propertyPath: m_onInteraction.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145830567453488498, guid: 36b19d72040c4684d858a267c48d6ff0,
+        type: 3}
+      propertyPath: m_onInteraction.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2145830567453488498, guid: 36b19d72040c4684d858a267c48d6ff0,
@@ -692,6 +735,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2145830567453488498, guid: 36b19d72040c4684d858a267c48d6ff0,
         type: 3}
+      propertyPath: m_onInteraction.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: OnUse
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145830567453488498, guid: 36b19d72040c4684d858a267c48d6ff0,
+        type: 3}
       propertyPath: m_onInteraction.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: DChild.Gameplay.Items.ItemGiver, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -707,12 +755,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2145830567453488498, guid: 36b19d72040c4684d858a267c48d6ff0,
         type: 3}
+      propertyPath: m_onInteraction.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: PixelCrushers.DialogueSystem.DialogueSystemTrigger, Assembly-CSharp-firstpass
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145830567453488498, guid: 36b19d72040c4684d858a267c48d6ff0,
+        type: 3}
       propertyPath: m_onInteraction.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2145830567453488498, guid: 36b19d72040c4684d858a267c48d6ff0,
         type: 3}
       propertyPath: m_onInteraction.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145830567453488498, guid: 36b19d72040c4684d858a267c48d6ff0,
+        type: 3}
+      propertyPath: m_onInteraction.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3975664449941986311, guid: 36b19d72040c4684d858a267c48d6ff0,

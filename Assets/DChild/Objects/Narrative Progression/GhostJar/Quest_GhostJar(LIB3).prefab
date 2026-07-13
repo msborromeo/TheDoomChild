@@ -55,10 +55,10 @@ MonoBehaviour:
     luaWizardIndex: -1
     lastEvaluationValue: 0
   setQuestState: 1
-  questName: DestroyGhostJar
+  questName: The Ghost In The Jar
   questState: 4
   setQuestEntryState: 1
-  questEntryNumber: 0
+  questEntryNumber: 1
   questEntryState: 4
   setAnotherQuestEntryState: 0
   anotherQuestEntryNumber: 1
@@ -296,6 +296,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  m_Firstjar:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1126106517374680331}
+        m_TargetAssemblyTypeName: PixelCrushers.DialogueSystem.DialogueSystemTrigger,
+          Assembly-CSharp-firstpass
+        m_MethodName: OnUse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_jarCounterDatabaseVariable: DestroyedCounter
 --- !u!1001 &4173655417197972853
 PrefabInstance:
@@ -441,6 +457,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8473b8bc407ab0e4a91ab9ec7bd6e5c5, type: 3}
+--- !u!114 &1126106517374680331 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3912351081201856638, guid: 8473b8bc407ab0e4a91ab9ec7bd6e5c5,
+    type: 3}
+  m_PrefabInstance: {fileID: 4173655417197972853}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2852912479625075651 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2196729355523888822, guid: 8473b8bc407ab0e4a91ab9ec7bd6e5c5,
@@ -480,7 +508,7 @@ MonoBehaviour:
     luaWizardIndex: -1
     lastEvaluationValue: 0
   setQuestState: 1
-  questName: The Ghost In The Jar
+  questName: 
   questState: 2
   setQuestEntryState: 1
   questEntryNumber: 1
