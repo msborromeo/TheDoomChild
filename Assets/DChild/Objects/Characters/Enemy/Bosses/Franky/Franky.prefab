@@ -964,7 +964,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.3652811, y: 0.2102806}
+  m_Offset: {x: 1.2530632, y: 0.047849655}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -975,7 +975,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7273731, y: 1.7653016}
+  m_Size: {x: 2.064702, y: 2.4882703}
   m_EdgeRadius: 0
 --- !u!114 &49977516315748963
 MonoBehaviour:
@@ -1492,7 +1492,7 @@ PrefabInstance:
     - target: {fileID: 748729144771621780, guid: 581273cea94d1294a9c56f1ba54042dc,
         type: 3}
       propertyPath: m_maxHealth
-      value: 2250
+      value: 3350
       objectReference: {fileID: 0}
     - target: {fileID: 3756872488131836482, guid: 581273cea94d1294a9c56f1ba54042dc,
         type: 3}
@@ -1722,7 +1722,47 @@ MonoBehaviour:
   m_movement: {fileID: 4569944036121508132}
   m_deathHandle: {fileID: 8782186230795851509}
   m_groundSensor: {fileID: 7860846515016871620}
+  m_attackDataDefault:
+  - {fileID: 11400000, guid: fa427eea73ac9a64f81663ea67e041a3, type: 2}
+  - {fileID: 11400000, guid: 0a3f33e8fd8817b4ea8698eb1fa6274c, type: 2}
+  - {fileID: 11400000, guid: aa1b9d4c0bb939d41bf9882bedb91d3a, type: 2}
+  - {fileID: 11400000, guid: 15808a797b8103f44ad88b4b1353bfad, type: 2}
+  - {fileID: 11400000, guid: 568541bb356c44f428e1c65f18f0296f, type: 2}
+  m_attackDataDefault2:
+  - {fileID: 11400000, guid: fa427eea73ac9a64f81663ea67e041a3, type: 2}
+  - {fileID: 11400000, guid: 568541bb356c44f428e1c65f18f0296f, type: 2}
+  - {fileID: 11400000, guid: aa1b9d4c0bb939d41bf9882bedb91d3a, type: 2}
+  - {fileID: 11400000, guid: 3feda08804813e84daff154fe924d869, type: 2}
+  - {fileID: 11400000, guid: 9b470ec44931bde44a486b641a476b50, type: 2}
+  - {fileID: 11400000, guid: 172621742585cc8489b99a2d4e646a31, type: 2}
+  m_attackDataBuffed:
+  - {fileID: 11400000, guid: 1fd76bc11afe01b48ba3de4d6e67cb9c, type: 2}
+  - {fileID: 11400000, guid: 5e086f9114414fb4599ba900bbd29f15, type: 2}
+  - {fileID: 11400000, guid: 2514e9b7fa1659445bd4a517fc10859f, type: 2}
+  - {fileID: 11400000, guid: bfb8c419bb8e2cc4d9e9afbecf5eab7b, type: 2}
+  - {fileID: 11400000, guid: 065e5b1555a2ac846a123adbadaf547c, type: 2}
+  m_attackDataBuffed2:
+  - {fileID: 11400000, guid: 065e5b1555a2ac846a123adbadaf547c, type: 2}
+  - {fileID: 11400000, guid: 1fd76bc11afe01b48ba3de4d6e67cb9c, type: 2}
+  - {fileID: 11400000, guid: 2514e9b7fa1659445bd4a517fc10859f, type: 2}
+  - {fileID: 11400000, guid: 15808a797b8103f44ad88b4b1353bfad, type: 2}
+  - {fileID: 11400000, guid: 09c0d403ec125e44295ca4412c778d54, type: 2}
+  - {fileID: 11400000, guid: 4419a6d02591e3347a151c575e411cfe, type: 2}
+  m_attackerDischarge1:
+  - {fileID: 3879299334606186938}
+  - {fileID: 2493005188266803936}
+  - {fileID: 5755250274025312509}
+  - {fileID: 2915280971892305355}
+  - {fileID: 9140576155959463291}
+  m_attackerDisharge2:
+  - {fileID: 3879299334606186938}
+  - {fileID: 9140576155959463291}
+  - {fileID: 5755250274025312509}
+  - {fileID: 2915280971892305355}
+  - {fileID: 6737698226590326213}
+  - {fileID: 2614044525908893917}
   m_punchComboAttacker: {fileID: 5755250274025312509}
+  m_chainBashAttacker: {fileID: 3879299334606186938}
   m_punchComboLastHitAttacker: {fileID: 2915280971892305355}
   m_LeapAttackAttacker: {fileID: 9140576155959463291}
   m_chainFistAttacker: {fileID: 2493005188266803936}
@@ -1731,6 +1771,8 @@ MonoBehaviour:
   m_shockRampage: {fileID: 3475340902835216723}
   m_wallStickStartFX: {fileID: 4922630314914522146, guid: 18423c28d714fac4c9c8ca7b33659a0a,
     type: 3}
+  m_wallStickStartFXEnvironmentLeft: {fileID: 0}
+  m_wallStickStartFXEnvironmentRight: {fileID: 0}
   m_wallStickLoopFX: {fileID: 4579797882854292158, guid: b8242cbeff9851c4e90d21b65591008c,
     type: 3}
   m_wallStickEndFX: {fileID: 3893609105540730396, guid: 360f81898309b584e9cf83553ad740c1,
@@ -2636,12 +2678,12 @@ PrefabInstance:
     - target: {fileID: 2625401887125880724, guid: 6ceecd07745aac24d901fb599fefbe67,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.67
+      value: 6.6
       objectReference: {fileID: 0}
     - target: {fileID: 2625401887125880724, guid: 6ceecd07745aac24d901fb599fefbe67,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.28
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 2625401887125880724, guid: 6ceecd07745aac24d901fb599fefbe67,
         type: 3}
@@ -3416,7 +3458,7 @@ PrefabInstance:
     - target: {fileID: 6154502117981427534, guid: 6ceecd07745aac24d901fb599fefbe67,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6155742353752886228, guid: 6ceecd07745aac24d901fb599fefbe67,
         type: 3}
@@ -3431,7 +3473,7 @@ PrefabInstance:
     - target: {fileID: 6237064819542316486, guid: 6ceecd07745aac24d901fb599fefbe67,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6297252071180208891, guid: 6ceecd07745aac24d901fb599fefbe67,
         type: 3}
@@ -4288,7 +4330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_centerMass: {fileID: 0}
-  m_data: {fileID: 11400000, guid: 5a5818e323d22e84fa99760e5d6a1395, type: 2}
+  m_data: {fileID: 11400000, guid: 99c47127c12d649429a88082e7e41314, type: 2}
   m_currentAttackInfo:
     damage:
       m_type: 1
@@ -4299,6 +4341,19 @@ MonoBehaviour:
     ignoreInvulnerability: 0
     ignoresBlock: 0
     isCrit: 0
+--- !u!114 &4208242066954256572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2409415989772341521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4914fa10fe1f74fbac7bbe8b95c9b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_data: {fileID: 11400000, guid: 0995d2dc5d84d6f44b13b1da9010c355, type: 2}
 --- !u!114 &7426215363132462975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4316,19 +4371,6 @@ MonoBehaviour:
   m_collisionRegistrator: {fileID: 0}
   m_ignoreColliderList: []
   m_damageInterval: 0.5
---- !u!114 &4208242066954256572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2409415989772341521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d4914fa10fe1f74fbac7bbe8b95c9b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_data: {fileID: 11400000, guid: 0995d2dc5d84d6f44b13b1da9010c355, type: 2}
 --- !u!1 &2418690553227559322 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6154502117981427534, guid: 6ceecd07745aac24d901fb599fefbe67,
