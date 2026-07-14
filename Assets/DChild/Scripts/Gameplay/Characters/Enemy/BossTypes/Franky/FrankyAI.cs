@@ -858,9 +858,6 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.idle2Animation, true);
             yield return new WaitForSeconds(0.5f);
             yield return new WaitForFixedUpdate();
-            if (!IsFacingTarget()){ CustomTurn(); }
-            m_animation.SetAnimation(0, m_info.leapAnticipation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapAnticipation);
             if (!IsFacingTarget()) { CustomTurn(); }
             m_animation.SetAnimation(0, m_info.leapLoopAnimation, false);
             if(Vector2.Distance(transform.position, m_targetInfo.position) > 20f)
@@ -869,9 +866,6 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.idle2Animation, true);
             yield return new WaitForSeconds(0.5f);
             yield return new WaitForFixedUpdate();
-            if (!IsFacingTarget()) { CustomTurn(); }
-            m_animation.SetAnimation(0, m_info.leapAnticipation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapAnticipation);
             if (!IsFacingTarget()) { CustomTurn(); }
             m_animation.SetEmptyAnimation(0, 0);
             m_animation.SetAnimation(0, m_info.leapLoopAnimation2, false);
