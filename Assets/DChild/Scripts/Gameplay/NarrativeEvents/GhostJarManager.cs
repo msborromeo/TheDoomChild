@@ -16,6 +16,8 @@ public class GhostJarManager : MonoBehaviour
     private Damageable m_entity;
     [SerializeField]
     private UnityEvent m_afterfinaljar;
+    [SerializeField]
+    private UnityEvent m_Firstjar;
     [SerializeField, VariablePopup(true)]
     private string m_jarCounterDatabaseVariable;
     // Start is called before the first frame update
@@ -26,6 +28,11 @@ public class GhostJarManager : MonoBehaviour
         if (m_destroyedCounter == m_totalDestroyed)
         {
             m_afterfinaljar?.Invoke();
+            return;
+        }
+        if(m_destroyedCounter==1)
+        { 
+            m_Firstjar?.Invoke();
         }
 
     }
