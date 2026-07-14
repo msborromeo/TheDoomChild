@@ -103,7 +103,7 @@ MonoBehaviour:
       - m_Target: {fileID: 4913341456314344082}
         m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.ArmyBattleCharacterReward,
           Assembly-CSharp
-        m_MethodName: AttemptGiveReward
+        m_MethodName: RecruitmentConfirmation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -198,7 +198,7 @@ MonoBehaviour:
   allowBarksDuringConversations: 0
   skipBarkIfNoValidEntries: 0
   cacheBarkLines: 0
-  conversation: Recruit/RequirementInformation/Met
+  conversation: Information_AR
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
@@ -303,7 +303,7 @@ MonoBehaviour:
   allowBarksDuringConversations: 0
   skipBarkIfNoValidEntries: 0
   cacheBarkLines: 0
-  conversation: IntroDialogueInformation
+  conversation: Information_BR
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
@@ -688,7 +688,7 @@ MonoBehaviour:
       - m_Target: {fileID: 4913341456314344082}
         m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.ArmyBattleCharacterReward,
           Assembly-CSharp
-        m_MethodName: AttemptGiveReward
+        m_MethodName: RecruitmentConfirmation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -781,14 +781,15 @@ MonoBehaviour:
   m_CharacterReward:
   - {fileID: 11400000, guid: 46655fb16e2741b4c8a39a033babd974, type: 2}
   m_isFree: 0
-  m_Requirement: 0
+  m_Requirement: 4
   m_TakeRequiredItemFromInvintory: 0
   m_requiredSoulEssence: 200
   m_hasItem: {fileID: 0}
   m_ItemAmount: 0
   m_CombatArt: 0
   m_PrimarySkill: 0
-  armyCharacterData: {fileID: 0}
+  armyCharacterData:
+  - {fileID: 11400000, guid: f96a393d61739404a81849e070913c80, type: 2}
   neededNPCsRecruited: 0
 --- !u!114 &742825404882225316
 MonoBehaviour:
@@ -986,7 +987,7 @@ MonoBehaviour:
   allowBarksDuringConversations: 0
   skipBarkIfNoValidEntries: 0
   cacheBarkLines: 0
-  conversation: Recruit/RequirementInformation/UnMet
+  conversation: Information_LP
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
