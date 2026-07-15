@@ -86,20 +86,48 @@ MonoBehaviour:
   items: []
   locations: []
   variables:
-  - id: 4
+  - id: 7
     fields:
     - title: Name
-      value: Alert
+      value: PlayerWeaponLevel
       type: 0
       typeString: CustomFieldType_Text
     - title: Initial Value
-      value: 
-      type: 0
-      typeString: CustomFieldType_Text
+      value: 1
+      type: 1
+      typeString: CustomFieldType_Number
     - title: Description
       value: 
       type: 0
       typeString: CustomFieldType_Text
+  - id: 1959
+    fields:
+    - title: Name
+      value: MaxWeaponLevelReached
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 6
+    fields:
+    - title: Name
+      value: hasBrokenSword
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: has gladiator broken sword
+      type: 0
+      typeString: 
   conversations:
   - id: 161
     fields:
@@ -116,7 +144,7 @@ MonoBehaviour:
       type: 5
       typeString: CustomFieldType_Actor
     - title: Conversant
-      value: 54
+      value: 53
       type: 5
       typeString: CustomFieldType_Actor
     overrideSettings:
@@ -162,7 +190,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 54
+        value: 53
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -191,6 +219,12 @@ MonoBehaviour:
         destinationDialogueID: 1
         isConnector: 0
         priority: 2
+      - originConversationID: 161
+        originDialogueID: 0
+        destinationConversationID: 161
+        destinationDialogueID: 3
+        isConnector: 0
+        priority: 2
       conditionsString: 
       userScript: 
       onExecute:
@@ -213,7 +247,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 54
+        value: 53
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -246,15 +280,15 @@ MonoBehaviour:
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
-      conditionsString: 
+      conditionsString: Variable["hasBrokenSword"] == false
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 288
-        y: 100
+        x: 96
+        y: 153
         width: 160
         height: 30
     - id: 2
@@ -268,7 +302,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 54
+        value: 53
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -302,8 +336,113 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 288
-        y: 173
+        x: 83
+        y: 266
+        width: 160
+        height: 30
+    - id: 3
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 53
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: you have broken pointy stick me give you better stab stab for  broken
+          pointy stick
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 161
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 161
+        originDialogueID: 3
+        destinationConversationID: 161
+        destinationDialogueID: 4
+        isConnector: 0
+        priority: 2
+      conditionsString: Variable["hasBrokenSword"] == true
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 465
+        y: 105
+        width: 160
+        height: 30
+    - id: 4
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 53
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: ok
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 161
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 556
+        y: 233
         width: 160
         height: 30
     entryGroups: []
@@ -792,7 +931,7 @@ MonoBehaviour:
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasZoom: 0.8800001
   - id: 158
     fields:
     - title: Title
