@@ -803,8 +803,11 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.move.animation, true);
             while (Vector2.Distance(transform.position, m_targetInfo.position) > 15f)
             {
-                
-                m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0f).normalized, m_info.walkSpeed); 
+                m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0f).normalized, m_info.walkSpeed);
+                if (!IsFacingTarget())
+                {
+                    CustomTurn();
+                }
                 yield return null;
             }
             //animation.EnableRootMotion(true, false);
@@ -908,7 +911,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_attackerDischarge1[i].SetData(m_attackDataBuffed[i]);
 
             }
-
+            if (!IsFacing(m_CenterOfTheArena.position)) { CustomTurn(); }
             m_animation.SetAnimation(0, m_info.runAttackStartAnimation.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.runAttackStartAnimation);
             while (Vector2.Distance(transform.position, m_CenterOfTheArena.position) > 2f)
