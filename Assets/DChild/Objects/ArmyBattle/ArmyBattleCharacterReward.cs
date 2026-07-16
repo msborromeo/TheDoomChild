@@ -7,6 +7,7 @@ using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using static DChild.Gameplay.UnlockableEvent;
@@ -46,7 +47,7 @@ namespace DChild.Gameplay.ArmyBattle
         private bool m_isFree;
         [SerializeField, TabGroup("Main", "Requirements"),HideIf("m_isFree")]
         private RequirementType m_Requirement;
-        [SerializeField, TabGroup("Main", "Requirements"), Tooltip("Takes the item from the player's invintory if possible"), HideIf("m_isFree"),ShowIf("m_Requirement", RequirementType.SoulEssence),ShowIf("m_Requirement", RequirementType.Item)]
+        [SerializeField, TabGroup("Main", "Requirements"), Tooltip("Takes the item from the player's invintory if possible"), HideIf("m_isFree")]
         private bool m_TakeRequiredItemFromInvintory;
         [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"),ShowIf("m_Requirement",RequirementType.SoulEssence)]
             private int m_requiredSoulEssence;
@@ -63,7 +64,7 @@ namespace DChild.Gameplay.ArmyBattle
             private PrimarySkill m_PrimarySkill;
 
         [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.SpecificRecruit)]
-            private ArmyCharacterData armyCharacterData;
+            private ArmyCharacterData[] armyCharacterData;
 
         [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.ArmySize)]
             private int neededNPCsRecruited;
@@ -142,7 +143,18 @@ namespace DChild.Gameplay.ArmyBattle
                         break;
 
                     case RequirementType.SpecificRecruit:
-                        ui.AddNPCRecruitedReq(armyCharacterData);
+                        if (armyCharacterData.Count() >= 1)
+                        {
+                            foreach (ArmyCharacterData army in armyCharacterData)
+                            {
+                                ui.AddNPCRecruitedReq(army);
+                            }
+                        }
+                        else
+                        {
+                            ui.AddNPCRecruitedReq(armyCharacterData[0]);
+                        }
+                        //ui.AddNPCRecruitedReq(armyCharacterData);
                         break;
 
                     case RequirementType.ArmySize:
@@ -183,6 +195,18 @@ namespace DChild.Gameplay.ArmyBattle
                                 GameplaySystem.playerManager.player.inventory.AddSoulEssence(-m_requiredSoulEssence);
                                 break;
                             case RequirementType.Item:
+                                var quickItem = GameplaySystem.playerManager.player.inventory.quickItemInventory;
+                                if(quickItem != null)
+                                {
+                                    if(quickItem.GetItem(m_hasItem) != null)
+                                    {
+                                        if (quickItem.GetItem(m_hasItem).count >= m_ItemAmount)
+                                        {
+                                            quickItem.RemoveItem(m_hasItem, m_ItemAmount);
+                                        }
+                                    }
+                                  
+                                }
                                 GameplaySystem.playerManager.player.inventory.RemoveItem(m_hasItem, m_ItemAmount);
                                 break;
                         }
@@ -214,8 +238,17 @@ namespace DChild.Gameplay.ArmyBattle
 
                 case RequirementType.Item:
                     int x = GameplaySystem.playerManager.player.inventory.GetCurrentAmount(m_hasItem);
+                    var quickItemCheck = GameplaySystem.playerManager.player.inventory.quickItemInventory;
                     if (x == 0 || x < m_ItemAmount)
-                        return false;
+                    {
+                        var quickItemInventory = quickItemCheck.GetItem(m_hasItem)?.count ?? 0;
+                          if(quickItemInventory == 0 || quickItemInventory < m_ItemAmount)
+                        {
+                            return false;
+                        }
+                                         
+                    }
+                        
                     break;
 
                 case RequirementType.CombatArt:
@@ -229,8 +262,19 @@ namespace DChild.Gameplay.ArmyBattle
                     break;
 
                 case RequirementType.SpecificRecruit:
-                    if (!GameplaySystem.playerManager.armyBattleCharacterRecruiter.HasRecruitedCharacter(armyCharacterData))
-                        return false;
+                    if (armyCharacterData.Count() >= 1)
+                    { 
+                        foreach(ArmyCharacterData army in armyCharacterData)
+                        {
+                            if (!GameplaySystem.playerManager.armyBattleCharacterRecruiter.HasRecruitedCharacter(army))
+                                return false;
+                        }
+                    }else
+                    {
+                        if (!GameplaySystem.playerManager.armyBattleCharacterRecruiter.HasRecruitedCharacter(armyCharacterData[0]))
+                            return false;
+                    }
+                    
                     break;
 
                 case RequirementType.ArmySize:
