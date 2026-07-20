@@ -10,6 +10,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace DChild.Gameplay.Characters
 {
@@ -30,6 +31,9 @@ namespace DChild.Gameplay.Characters
         private Vector3 m_promptOffset;
         [SerializeField]
         private bool m_hasDialogue;
+        [SerializeField, TabGroup("Main/Reference", "Actions")]
+        private UnityEvent m_Upgradefinished, m_UpdgradeNotPossible,m_MaxUpgrade,m_MaxUpgradeAfterUpgrade,m_Refuse;
+        /*
         [SerializeField]
         private DialogueSystemTrigger m_upgradeFinishedDialogueTrigger;
         [SerializeField]
@@ -38,6 +42,7 @@ namespace DChild.Gameplay.Characters
         private DialogueSystemTrigger m_maxUpgradeTrigger;
         [SerializeField]
         private DialogueSystemTrigger m_maxUpgradeNotificationTrigger;
+        */
         private bool m_playerMaxUpgradeAchieved = false;
         [SerializeField]
         private WeaponLevel m_maxWeaponLevel;
@@ -58,7 +63,8 @@ namespace DChild.Gameplay.Characters
             if (GameplaySystem.playerManager.player.weapon?.GetWeaponLevel() == m_maxWeaponLevel)
             {
                 m_playerMaxUpgradeAchieved = true;
-                m_maxUpgradeNotificationTrigger.OnUse();
+                //m_maxUpgradeNotificationTrigger.OnUse();
+                m_MaxUpgradeAfterUpgrade?.Invoke();
             }
             
         }
@@ -110,7 +116,7 @@ namespace DChild.Gameplay.Characters
 
 
             ui.SetAcceptOffer(AcceptOffer);
-            ui.SetDeclineOffer(null);
+            ui.SetDeclineOffer(DeclineOffer);
             ui.SetupUI("Upgrade Weapon to level:" + (m_currentWeaponLevel + 1));
             //CHANGE THIS ^^^^^^^^^^^^ 
 
@@ -120,6 +126,7 @@ namespace DChild.Gameplay.Characters
         public void FreeUpgrade()
         {
             m_playerstats.SetBaseStat(PlayerStat.Attack, m_playerAttackStat + 15);
+            Refuse();
         }
 
         [Button]
@@ -149,6 +156,11 @@ namespace DChild.Gameplay.Characters
 
         }
 
+        private void DeclineOffer(object sender, EventActionArgs eventActionArgs)
+        {
+            Refuse();
+        }
+
         private int CalculateDamageIncrease(int weaponlevel)
         {
             return (int)(m_InitalAttackUp + (m_UpgradeValueIncrease * weaponlevel));
@@ -157,17 +169,25 @@ namespace DChild.Gameplay.Characters
         public void UpgradeFinished()
         {
             MaxWeaponLevelReachedCheck();
-            m_upgradeFinishedDialogueTrigger.OnUse();
+            //m_upgradeFinishedDialogueTrigger.OnUse();
+            m_Upgradefinished?.Invoke();
         }
 
         public void UpgradeFailed()
         {
-            m_upgradeNotPossibleTrigger.OnUse();
+            //m_upgradeNotPossibleTrigger.OnUse();
+            m_UpdgradeNotPossible?.Invoke();
         }
 
         public void MaxUpgrade()
         {
-            m_maxUpgradeTrigger.OnUse();
+            //m_maxUpgradeTrigger.OnUse();
+            m_MaxUpgrade?.Invoke();
+        }
+
+        public void Refuse()
+        {
+            m_Refuse?.Invoke();
         }
 
     }
