@@ -859,6 +859,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0).normalized, m_info.leapAttackStartAnimation.speed);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapAttackStartAnimation);
             m_animation.SetAnimation(0, m_info.idle2Animation, true);
+            m_gustWindVFX.Stop();
             yield return new WaitForSeconds(0.5f);
             yield return new WaitForFixedUpdate();
             if (!IsFacingTarget()) { CustomTurn(); }
@@ -867,6 +868,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0).normalized, m_info.leapAttackStartAnimation.speed);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapLoopAnimation);
             m_animation.SetAnimation(0, m_info.idle2Animation, true);
+            m_gustWindVFX.Stop();
             yield return new WaitForSeconds(0.5f);
             yield return new WaitForFixedUpdate();
             if (!IsFacingTarget()) { CustomTurn(); }
@@ -900,7 +902,8 @@ namespace DChild.Gameplay.Characters.Enemies
             m_chainHandVFX.Stop();
             m_chainHandVFX2.Stop();
             m_wallImpactVFX.Stop();
-            
+            m_gustWindVFX.Stop();
+
             m_chainBashChargeFistCollider.enabled = false;
             m_leapAttackBB.enabled = false;
         }
