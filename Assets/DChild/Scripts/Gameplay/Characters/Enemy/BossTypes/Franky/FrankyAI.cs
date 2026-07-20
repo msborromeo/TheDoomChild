@@ -858,32 +858,31 @@ namespace DChild.Gameplay.Characters.Enemies
             if(Vector2.Distance(transform.position, m_targetInfo.position) > 20f)
                 m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0).normalized, m_info.leapAttackStartAnimation.speed);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapAttackStartAnimation);
-            m_animation.SetAnimation(0, m_info.idle2Animation, true);
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
             m_gustWindVFX.Stop();
             yield return new WaitForSeconds(0.5f);
+           
             yield return new WaitForFixedUpdate();
             if (!IsFacingTarget()) { CustomTurn(); }
-            m_animation.SetAnimation(0, m_info.leapLoopAnimation, false);
+            m_animation.SetAnimation(0, m_info.leapAttackStartAnimation, false);
             if(Vector2.Distance(transform.position, m_targetInfo.position) > 20f)
                 m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0).normalized, m_info.leapAttackStartAnimation.speed);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapLoopAnimation);
-            m_animation.SetAnimation(0, m_info.idle2Animation, true);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapAttackStartAnimation);
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
             m_gustWindVFX.Stop();
             yield return new WaitForSeconds(0.5f);
             yield return new WaitForFixedUpdate();
             if (!IsFacingTarget()) { CustomTurn(); }
-            m_animation.SetEmptyAnimation(0, 0);
-            m_animation.SetAnimation(0, m_info.leapLoopAnimation2, false);
+            
+            m_animation.SetAnimation(0, m_info.leapAttackStartAnimation, false);
             if (Vector2.Distance(transform.position, m_targetInfo.position) > 20f)
                 m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0).normalized, m_info.leapAttackStartAnimation.speed);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapLoopAnimation2);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapAttackStartAnimation);
             m_animation.SetAnimation(0, m_info.leapAttackEndAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapAttackEndAnimation);
-            m_animation.SetAnimation(0, m_info.idle2Animation, true);
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
 
             m_leapAttackBB.enabled = false;
-            /*m_animation.SetAnimation(0, m_info.idle2Animation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.idle2Animation);*/
             if(m_phaseHandle.currentPhase == Phase.PhaseOne)
             {
                 m_attackCounter = 0;
@@ -1766,7 +1765,7 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         protected override void Start()
         {
-            //base.Start();
+            base.Start();
             m_spineListener.Subscribe(m_info.phaseEvent, PhaseFX);
             m_spineListener.Subscribe(m_info.leapEvent, LeapEvent);
             m_spineListener.Subscribe(m_info.stopRoarEvent, PhaseFXStop);
