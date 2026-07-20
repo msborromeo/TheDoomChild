@@ -656,14 +656,13 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator ChangePhaseRoutine()
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
+            ChangePhaseDeactivator();
             m_movement.Stop();
             m_animation.SetAnimation(0, m_info.roarAnimation, false);
             m_isBuffed = false;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.roarAnimation.animation);
             m_hasPhaseChanged = false;
-            DecidedOnAttack(false);
-            ChangePhaseDeactivator();
-          
+            DecidedOnAttack(false);     
             m_buffedEffects.Play();
             switch (m_phaseHandle.currentPhase)
             {
@@ -858,7 +857,7 @@ namespace DChild.Gameplay.Characters.Enemies
             if(Vector2.Distance(transform.position, m_targetInfo.position) > 20f)
                 m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0).normalized, m_info.leapAttackStartAnimation.speed);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapAttackStartAnimation);
-            m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            m_animation.SetAnimation(0, m_info.idle2Animation, true);
             m_gustWindVFX.Stop();
             yield return new WaitForSeconds(0.5f);
            
@@ -868,7 +867,7 @@ namespace DChild.Gameplay.Characters.Enemies
             if(Vector2.Distance(transform.position, m_targetInfo.position) > 20f)
                 m_movement.MoveTowards(new Vector2(m_targetInfo.position.x - transform.position.x, 0).normalized, m_info.leapAttackStartAnimation.speed);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapAttackStartAnimation);
-            m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            m_animation.SetAnimation(0, m_info.idle2Animation, true);
             m_gustWindVFX.Stop();
             yield return new WaitForSeconds(0.5f);
             yield return new WaitForFixedUpdate();
@@ -880,7 +879,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapAttackStartAnimation);
             m_animation.SetAnimation(0, m_info.leapAttackEndAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.leapAttackEndAnimation);
-            m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            m_animation.SetAnimation(0, m_info.idle2Animation, true);
 
             m_leapAttackBB.enabled = false;
             if(m_phaseHandle.currentPhase == Phase.PhaseOne)
@@ -898,13 +897,30 @@ namespace DChild.Gameplay.Characters.Enemies
         }
         private void ChangePhaseDeactivator()
         {
+            //fx
             m_chainHandVFX.Stop();
             m_chainHandVFX2.Stop();
             m_wallImpactVFX.Stop();
             m_gustWindVFX.Stop();
+            m_bodyLightningFX.Stop();
+            m_phase3FX.Stop();
 
-            m_chainBashChargeFistCollider.enabled = false;
+
+            //collider
+            m_chainFistBB.enabled = false;
             m_leapAttackBB.enabled = false;
+            m_punchLeftComboBB.enabled = false;
+            m_punchRightComboBB.enabled = false;
+            m_runningAttackBB.enabled = false;
+            m_shockRampageBB.enabled = false;
+            m_shoulderBashBB.enabled = false;
+            m_chainBashChargeFistCollider.enabled = false;
+            m_BodyLightningCollider.enabled = false;
+            m_leapAttackBB.enabled = false;
+            for (int i = 0; i < m_chainBashBB.Length; i++)
+            {
+                m_chainBashBB[i].enabled = false;
+            }
         }
         private IEnumerator PhaseDistarge1()
         {
