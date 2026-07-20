@@ -441,7 +441,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_foregroundController.Awaken();
                 //m_animation.EnableRootMotion(true, true);
                 //m_animation.SetAnimation(0, m_info.awakenAnimation, false);
-                m_animation.SetAnimation(0, m_info.idleAnimation, true).MixDuration = 0;
+                
                 m_animation.DisableRootMotion();
                 yield return new WaitForSeconds(m_info.awakenTime);
                 //m_foregroundController.gameObject.SetActive(false);
@@ -451,6 +451,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 //transform.position = new Vector2(transform.position.x, CielingPos().y - 5f);
                 var initialPos = transform.position;
                 transform.position = new Vector2(transform.position.x, transform.position.y + 25f);
+                m_animation.SetAnimation(0, m_info.idleAnimation, true).MixDuration = 0;
                 var scrollSpeed = 1f;
                 while (Vector2.Distance(initialPos, transform.position) > 1f)
                 {
