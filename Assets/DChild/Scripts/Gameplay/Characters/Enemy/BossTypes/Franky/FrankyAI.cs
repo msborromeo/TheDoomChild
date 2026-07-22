@@ -660,9 +660,11 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.ReevaluateSituation);
             ChangePhaseDeactivator();
             m_movement.Stop();
+            m_hitbox.SetInvulnerability(Invulnerability.MAX);  
             m_animation.SetAnimation(0, m_info.roarAnimation, false);
             m_isBuffed = false;
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.roarAnimation.animation);
+            m_hitbox.SetInvulnerability(Invulnerability.None);
             m_hasPhaseChanged = false;
             DecidedOnAttack(false);     
             m_buffedEffects.Play();
