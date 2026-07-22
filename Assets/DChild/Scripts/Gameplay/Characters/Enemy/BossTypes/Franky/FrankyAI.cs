@@ -455,6 +455,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Collider2D m_BodyLightningCollider;
         [SerializeField, TabGroup("Colliders")]
         private Collider2D m_bodyCollider;
+        [SerializeField, TabGroup("Colliders")]
+        private Collider2D m_bodyColliderForChainBash;
         [SerializeField, TabGroup("EnvironmentColliders")]
         private GameObject[] m_arenaPlayerDetectorColliders;
         /*[SerializeField, TabGroup("Reference")]
@@ -1098,11 +1100,13 @@ namespace DChild.Gameplay.Characters.Enemies
         private void ChainBashOffHitBoxEvent()
         {
             m_chainBashBB[0].enabled = false;
+            m_bodyColliderForChainBash.enabled = false;
             m_bodyCollider.enabled = true;
         }
         private void ChainBashRootStartEvent()
         {
             m_chainHandVFX.Play();
+            m_bodyColliderForChainBash.enabled = true;
             m_animation.EnableRootMotion(true, false);
         }
         private void ChainBashImpactPunch()
