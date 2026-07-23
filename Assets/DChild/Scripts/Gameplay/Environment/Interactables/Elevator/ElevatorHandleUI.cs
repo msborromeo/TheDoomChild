@@ -23,7 +23,6 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         public string leftLabel => m_leftLabel;
         public string rightLabel => m_rightLabel;
     }
-
     public class ElevatorHandleUI : MonoBehaviour
     {
         [SerializeField] private ElevatorLevelInfo[] m_infos;
@@ -41,9 +40,9 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         [Button(ButtonSizes.Large)]
         public void HandleElevatorEvent()
         {
-
             GameplaySystem.gamplayUIHandle.ShowMordenElevatorUI(m_location, m_infos, m_elevator);
             m_elevatorSignal.SendSignal();
+            GameplaySystem.PauseGame();
         }
 
         private void Awake()
