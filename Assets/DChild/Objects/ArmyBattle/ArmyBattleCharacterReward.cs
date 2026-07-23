@@ -7,6 +7,7 @@ using Holysoft.Event;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using static DChild.Gameplay.UnlockableEvent;
@@ -23,10 +24,11 @@ namespace DChild.Gameplay.ArmyBattle
         ArmySize,
         Other
     }
+
     public class ArmyBattleCharacterReward : MonoBehaviour
     {
        
-        [TabGroup("Main","Reference")]
+        //[TabGroup("Main","Reference")]
         //[SerializeField, TabGroup("Main/Reference", "General References")]
         //private SpriteRenderer m_Graphics;
         //[SerializeField, TabGroup("Main/Reference", "General References")]
@@ -45,7 +47,7 @@ namespace DChild.Gameplay.ArmyBattle
         private bool m_isFree;
         [SerializeField, TabGroup("Main", "Requirements"),HideIf("m_isFree")]
         private RequirementType m_Requirement;
-        [SerializeField, TabGroup("Main", "Requirements"), Tooltip("Takes the item from the player's invintory if possible"), HideIf("m_isFree"),ShowIf("m_Requirement", RequirementType.SoulEssence),ShowIf("m_Requirement", RequirementType.Item)]
+        [SerializeField, TabGroup("Main", "Requirements"), Tooltip("Takes the item from the player's invintory if possible"), HideIf("m_isFree")]
         private bool m_TakeRequiredItemFromInvintory;
         [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"),ShowIf("m_Requirement",RequirementType.SoulEssence)]
             private int m_requiredSoulEssence;
@@ -62,32 +64,24 @@ namespace DChild.Gameplay.ArmyBattle
             private PrimarySkill m_PrimarySkill;
 
         [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.SpecificRecruit)]
-            private ArmyCharacterData armyCharacterData;
+            private ArmyCharacterData[] armyCharacterData;
 
         [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.ArmySize)]
             private int neededNPCsRecruited;
-
-        
 
         private bool m_OtherConditions;
 
         private bool m_RequirementAchieved;
 
-
         public event EventAction<EventActionArgs> InteractionOptionChange;
 
-        [Button]
-        public void GiveReward()
+        public void SendRecruitmentConfirmationUI()
         {
             CharacterRecruitmentUI ui = GameplaySystem.gamplayUIHandle.ConfirmationRequest();
             ui.SetAcceptOffer(AcceptOffer);
-            ui.SetDeclineOffer(OnDecline);
+            ui.SetDeclineOffer(null);
             ui.SetupUI(m_CharacterReward[0].name);
             BaseGameplaySystem.gamplayUIHandle.SendconfirmationSignal();
-            //GameplaySystem.PauseGame();
-
-
-
         }
 
         public void RequirementMet(bool isAchieved)
@@ -103,7 +97,7 @@ namespace DChild.Gameplay.ArmyBattle
         public void SetupConfirmationUI()
         {
             CharacterRecruitmentUI ui = GameplaySystem.gamplayUIHandle.ConfirmationRequest();
-            if(!m_isFree)
+            if (!m_isFree)
             {
                 /*
                 if(m_requiresSoulEssence)
@@ -149,7 +143,18 @@ namespace DChild.Gameplay.ArmyBattle
                         break;
 
                     case RequirementType.SpecificRecruit:
-                        ui.AddNPCRecruitedReq(armyCharacterData);
+                        if (armyCharacterData.Count() >= 1)
+                        {
+                            foreach (ArmyCharacterData army in armyCharacterData)
+                            {
+                                ui.AddNPCRecruitedReq(army);
+                            }
+                        }
+                        else
+                        {
+                            ui.AddNPCRecruitedReq(armyCharacterData[0]);
+                        }
+                        //ui.AddNPCRecruitedReq(armyCharacterData);
                         break;
 
                     case RequirementType.ArmySize:
@@ -163,160 +168,132 @@ namespace DChild.Gameplay.ArmyBattle
                 }
             }
         }
-        public void AttemptGiveReward()
+
+        [Button]
+        public void RecruitmentConfirmation()
         {
-            GameplaySystem.PauseGame();
             SetupConfirmationUI();
-            GiveReward();
-            //m_GiveReward?.Invoke();
+            SendRecruitmentConfirmationUI();
         }
 
         private void AcceptOffer(object sender, EventActionArgs eventActionArgs)
-        {
+        { 
             if (!m_isFree)
             {
-                /*
-                if (m_requiresSoulEssence)
+                if(EvaluateRequirements() == false)
                 {
-                    if (GameplaySystem.playerManager.player.inventory.GetCurrencyAmount(CurrencyType.SoulEssence) < m_requiredSoulEssence && m_requiredSoulEssence != 0)
-                    {
-                        RequirementFailed();
-                        return;
-                    }
-                    else if (m_TakeRequiredItemFromInvintory)
-                    {
-                        GameplaySystem.playerManager.player.inventory.AddSoulEssence(-m_requiredSoulEssence);
-                    }
-
+                    RequirementFailed();
+                    return; //return guard here to prevent rewarding character
                 }
-
-                if (m_requiresItem)
+                else //if player meets requirements, check if you need to remove items from him
                 {
-                    int x = GameplaySystem.playerManager.player.inventory.GetCurrentAmount(m_hasItem);
-                    if (x == 0 || x < m_ItemAmount)
+                    if (m_TakeRequiredItemFromInvintory)
                     {
-                        RequirementFailed();
-                        return;
-                    }
-                    else if (m_TakeRequiredItemFromInvintory)
-                    {
-                        GameplaySystem.playerManager.player.inventory.RemoveItem(m_hasItem, m_ItemAmount);
-                    }
-                }
-
-                if (m_requiresPrimarySkill)
-                {
-                    if (!GameplaySystem.playerManager.player.skills.IsSkillUnlocked(m_PrimarySkill))
-                    {
-                        RequirementFailed();
-                        return;
-                    }
-                }
-
-                if (m_requiresCombatArt)
-                {
-                    if (!GameplaySystem.playerManager.player.combatArts.IsAbilityActivated(m_CombatArt))
-                    {
-                        RequirementFailed();
-                        return;
-                    }
-                }
-
-                if (m_requiresSpecificNPC)
-                {
-                    if (!GameplaySystem.playerManager.armyBattleCharacterRecruiter.HasRecruitedCharacter(armyCharacterData))
-                    {
-                        RequirementFailed();
-                        return;
-                    }
-                }
-
-                if (m_requiresMinimumNPCsRecruited)
-                {
-                    if (GameplaySystem.playerManager.armyBattleCharacterRecruiter.ArmySize() < neededNPCsRecruited)
-                    {
-                        RequirementFailed();
-                        return;
-                    }
-                }
-                */
-                switch (m_Requirement)
-                {
-                    case RequirementType.SoulEssence:
-                        if (GameplaySystem.playerManager.player.inventory.GetCurrencyAmount(CurrencyType.SoulEssence) < m_requiredSoulEssence && m_requiredSoulEssence != 0)
+                        switch (m_Requirement)
                         {
-                            RequirementFailed();
+                            case RequirementType.SoulEssence:
+                                GameplaySystem.playerManager.player.inventory.AddSoulEssence(-m_requiredSoulEssence);
+                                break;
+                            case RequirementType.Item:
+                                var quickItem = GameplaySystem.playerManager.player.inventory.quickItemInventory;
+                                if(quickItem != null)
+                                {
+                                    if(quickItem.GetItem(m_hasItem) != null)
+                                    {
+                                        if (quickItem.GetItem(m_hasItem).count >= m_ItemAmount)
+                                        {
+                                            quickItem.RemoveItem(m_hasItem, m_ItemAmount);
+                                        }
+                                    }
+                                  
+                                }
+                                GameplaySystem.playerManager.player.inventory.RemoveItem(m_hasItem, m_ItemAmount);
+                                break;
                         }
-                        else if (m_TakeRequiredItemFromInvintory)
-                        {
-                            GameplaySystem.playerManager.player.inventory.AddSoulEssence(-m_requiredSoulEssence);
-                        }
-                        break;
-
-                    case RequirementType.Item:
-                        int x = GameplaySystem.playerManager.player.inventory.GetCurrentAmount(m_hasItem);
-                        if (x == 0 || x < m_ItemAmount)
-                        {
-                            RequirementFailed();
-                        }
-                        else if (m_TakeRequiredItemFromInvintory)
-                        {
-                            GameplaySystem.playerManager.player.inventory.RemoveItem(m_hasItem, m_ItemAmount);
-                        }
-                        break;
-
-                    case RequirementType.CombatArt:
-                        if (!GameplaySystem.playerManager.player.combatArts.IsAbilityActivated(m_CombatArt))
-                        {
-                            RequirementFailed();
-                        }
-                        break;
-
-                    case RequirementType.PrimarySkill:
-                        if (!GameplaySystem.playerManager.player.skills.IsSkillUnlocked(m_PrimarySkill))
-                        {
-                            RequirementFailed();
-                        }
-                        break;
-
-                    case RequirementType.SpecificRecruit:
-                        if (!GameplaySystem.playerManager.armyBattleCharacterRecruiter.HasRecruitedCharacter(armyCharacterData))
-                        {
-                            RequirementFailed();
-                        }
-                        break;
-
-                    case RequirementType.ArmySize:
-                        if (GameplaySystem.playerManager.armyBattleCharacterRecruiter.ArmySize() < neededNPCsRecruited)
-                        {
-                            RequirementFailed();
-                        }
-                        break;
-                }
-                if (m_OtherConditions)
-                {
-                    if (!m_RequirementAchieved)
-                    {
-                        RequirementFailed();
-                        return;
                     }
                 }
             }
 
-            GameplaySystem.ResumeGame();
-            m_GiveReward?.Invoke();
-            m_CharacterGiver?.RecruitCharacter(m_CharacterReward);
-            //Because Characters are usually recieved at isolated maps where save points do not exists
-            //and Underworld data is lost upon exiting due to changing into Overworld Data 
-            GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Quest);
-
-
+            GiveRewardNow();
         }
+
+        private bool EvaluateRequirements()
+        {
+            //Check other conditions first  because they are unique and should have more priority
+            if (m_OtherConditions)
+            {
+                if (!m_RequirementAchieved)
+                {
+                    return false;
+                }
+            }
+
+            //if there are no other special conditions, check standard conditions
+            switch (m_Requirement)
+            {
+                case RequirementType.SoulEssence:
+                    if (GameplaySystem.playerManager.player.inventory.GetCurrencyAmount(CurrencyType.SoulEssence) < m_requiredSoulEssence && m_requiredSoulEssence != 0)
+                        return false;
+                    break;
+
+                case RequirementType.Item:
+                    int x = GameplaySystem.playerManager.player.inventory.GetCurrentAmount(m_hasItem);
+                    var quickItemCheck = GameplaySystem.playerManager.player.inventory.quickItemInventory;
+                    if (x == 0 || x < m_ItemAmount)
+                    {
+                        var quickItemInventory = quickItemCheck.GetItem(m_hasItem)?.count ?? 0;
+                          if(quickItemInventory == 0 || quickItemInventory < m_ItemAmount)
+                        {
+                            return false;
+                        }
+                                         
+                    }
+                        
+                    break;
+
+                case RequirementType.CombatArt:
+                    if (!GameplaySystem.playerManager.player.combatArts.IsAbilityActivated(m_CombatArt))
+                        return false;
+                    break;
+
+                case RequirementType.PrimarySkill:
+                    if (!GameplaySystem.playerManager.player.skills.IsSkillUnlocked(m_PrimarySkill))
+                        return false;
+                    break;
+
+                case RequirementType.SpecificRecruit:
+                    if (armyCharacterData.Count() >= 1)
+                    { 
+                        foreach(ArmyCharacterData army in armyCharacterData)
+                        {
+                            if (!GameplaySystem.playerManager.armyBattleCharacterRecruiter.HasRecruitedCharacter(army))
+                                return false;
+                        }
+                    }else
+                    {
+                        if (!GameplaySystem.playerManager.armyBattleCharacterRecruiter.HasRecruitedCharacter(armyCharacterData[0]))
+                            return false;
+                    }
+                    
+                    break;
+
+                case RequirementType.ArmySize:
+                    if (GameplaySystem.playerManager.armyBattleCharacterRecruiter.ArmySize() < neededNPCsRecruited)
+                        return false;
+                    break;
+                default:
+                    break;
+            }
+
+            //if none of the cases above return false, assume that requirements are mets return true
+            return true;
+        }
+
         private void RequirementFailed()
         {
-            GameplaySystem.ResumeGame();
             m_RequirementFailed?.Invoke();
         }
+
         /*
         private string ConstructRequirement()
         {
@@ -352,10 +329,18 @@ namespace DChild.Gameplay.ArmyBattle
             m_RequirementsText += "\n Accept?";
             return m_RequirementsText;
         }*/
-
+        [Button]
+        public void GiveRewardNow()
+        {
+            m_GiveReward?.Invoke();
+            m_CharacterGiver?.RecruitCharacter(m_CharacterReward);
+            //Because Characters are usually recieved at isolated maps where save points do not exists
+            //and Underworld data is lost upon exiting due to changing into Overworld Data 
+            GameplaySystem.campaignSerializer.UpdateData(SerializationScope.Quest);
+        }
         private void OnDecline(object sender, EventActionArgs eventActionArgs)
         {
-            GameplaySystem.ResumeGame();
+
         }
 
     }

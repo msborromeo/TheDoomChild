@@ -15,6 +15,7 @@ using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Video;
@@ -142,6 +143,25 @@ namespace DChild.Gameplay.Systems
             m_levelFinishedSignal.SendSignal();
         }
 
+        public List<UIToggle> GetFastTravelLocationTabs()
+        {
+            return m_fastTravelUI.GetFastTravelLocationTabs();
+        }
+
+        public bool IsFastTravelOpen()
+        {
+            return m_fastTravelUI.isOpen;
+        }
+
+        public void OnFastTravelTabChanged(int locationTabIndex)
+        {
+            m_fastTravelUI.SelectLocationTab(locationTabIndex);
+        }
+
+        public int GetFastTravelActiveTab()
+        {
+            return m_fastTravelUI.currentTabIndex;
+        }
 
         public void ShowGameOverScreen()
         {
@@ -200,9 +220,9 @@ namespace DChild.Gameplay.Systems
             m_cinematicVideoHandle.ForceStopCinematicVideo();
         }
 
-        public void OpenFastTravel(DLocation startingLocation)
+        public void OpenFastTravel(DLocation startingLocation, FastTravelData playerLocation)
         {
-            m_fastTravelUI.ForceOpenPage(startingLocation);
+            m_fastTravelUI.ForceOpenPage(startingLocation, playerLocation);
             m_fastTravelSignal?.SendSignal();
         }
 
@@ -220,7 +240,7 @@ namespace DChild.Gameplay.Systems
 
         public void OverrideCurrentUIState(GameplayUIState state)
         {
-            m_gameplayUIStateObserver.SetCurrentUnderworldUIState(state);
+            m_gameplayUIStateObserver.SetCurrentUIState(state);
         }
 
         private void Awake()
@@ -237,7 +257,7 @@ namespace DChild.Gameplay.Systems
 
         private void OnDestroy()
         {
-            if (Instance != null)
+            if (Instance == this)
             {
                 Instance = null;
             }

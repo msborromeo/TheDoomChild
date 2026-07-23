@@ -157,6 +157,8 @@ namespace DChild.Inputs
         public event Action<float> UICycleTabsPerformedEvent;
         public event Action<float> UICycleSubTabsPerformedEvent;
         public event Action UIDeleteSaveEvent;
+        public event Action UIToggleMapLegendEvent;
+        public event Action UIHoldToSkipPerformedEvent;
         #endregion
         #region Army Battle Input
         public event Action ArmyBattleSelectCommandPerformedEvent;
@@ -177,7 +179,7 @@ namespace DChild.Inputs
             ActiveActionMapChanged?.Invoke();
         }
 
-        public void SetInputModeTOverworldGameplay()
+        public void SetInputModeToOverworldGameplay()
         {
             m_playerControls.Overworld.Enable();
             m_playerControls.Underworld.Disable();
@@ -211,9 +213,6 @@ namespace DChild.Inputs
         //Underworld Actions
         public void OnVector2(InputAction.CallbackContext context)
         {
-            if (m_playerControls.Underworld.enabled == false)
-                return;
-
             OnVector2(context.phase, context.ReadValue<Vector2>());
         }
 
@@ -337,12 +336,12 @@ namespace DChild.Inputs
         {
             if (context.phase == InputActionPhase.Performed)
             {
-                if(context.interaction is HoldInteraction)
+                if (context.interaction is HoldInteraction)
                 {
                     UseQuickItemHeldEvent?.Invoke();
                 }
 
-                if(context.interaction is TapInteraction)
+                if (context.interaction is TapInteraction)
                 {
                     UseQuickItemTappedEvent?.Invoke();
                 }
@@ -424,14 +423,14 @@ namespace DChild.Inputs
                 ProjectileThrowStartedEvent?.Invoke();
             }
 
-            if(context.phase == InputActionPhase.Performed)
+            if (context.phase == InputActionPhase.Performed)
             {
-                if(context.interaction is HoldInteraction)
+                if (context.interaction is HoldInteraction)
                 {
                     ProjectileThrowHeldEvent?.Invoke();
                 }
 
-                if(context.interaction is TapInteraction)
+                if (context.interaction is TapInteraction)
                 {
                     ProjectileThrowTappedEvent?.Invoke();
                 }
@@ -465,7 +464,10 @@ namespace DChild.Inputs
         {
             if (context.phase == InputActionPhase.Performed)
             {
-                SwordThrustPerformedEvent?.Invoke();
+                if (context.interaction is HoldInteraction)
+                {
+                    SwordThrustPerformedEvent?.Invoke();
+                }
             }
 
             if (context.phase == InputActionPhase.Canceled)
@@ -827,7 +829,7 @@ namespace DChild.Inputs
         {
             if (context.phase == InputActionPhase.Performed)
             {
-                UICycleTabsPerformedEvent?.Invoke(context.ReadValue<float>());  
+                UICycleTabsPerformedEvent?.Invoke(context.ReadValue<float>());
             }
         }
 
@@ -844,6 +846,21 @@ namespace DChild.Inputs
             if (context.phase == InputActionPhase.Performed)
             {
                 UIDeleteSaveEvent?.Invoke();
+            }
+        }
+        public void OnToggleMapLegend(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Performed)
+            {
+                UIToggleMapLegendEvent?.Invoke();
+            }
+        }
+
+        public void OnHoldToSkip(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Performed)
+            {
+                UIHoldToSkipPerformedEvent?.Invoke();
             }
         }
         #endregion

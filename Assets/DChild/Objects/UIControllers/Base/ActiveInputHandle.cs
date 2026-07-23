@@ -25,6 +25,25 @@ namespace DChild.Inputs
 
         private PlayerInput m_playerInput;
 
+        [SerializeField, BoxGroup("EDITOR ONLY"), Tooltip("Check if this is Editor Only version of BaseGameplay")]
+        private bool m_isEditorOnly;
+        [SerializeField, BoxGroup("EDITOR ONLY"), Tooltip("Only need to manually reference player's Player Input if dealing with Editor Only version of BaseGameplay")]
+        private PlayerInput m_editorOnlyPlayerInput;
+
+        private void Start()
+        {
+            //Hacky fix because there is no base gameplay system to
+            //handle ui states when there is no Scene_System
+            // This assumes testing in an underworld scene
+            if (m_isEditorOnly)
+            {
+                m_playerInput = m_editorOnlyPlayerInput;
+
+                m_inputReader.SetInputModeToUnderworldGameplay();
+                m_playerInput.SwitchCurrentActionMap("Underworld");
+                m_currentActionMap = "Underworld";
+            }
+        }
         private void OnEnable()
         {
             m_gameplayUIStateObserver.GameplayUIStateChanged += OnUIStateChanged;
@@ -69,7 +88,7 @@ namespace DChild.Inputs
                     break;
                 case WorldType.Overworld:
                     {
-                        m_inputReader.SetInputModeTOverworldGameplay();
+                        m_inputReader.SetInputModeToOverworldGameplay();
                         m_playerInput.SwitchCurrentActionMap("Overworld");
                         m_currentActionMap = "Overworld";
                     }

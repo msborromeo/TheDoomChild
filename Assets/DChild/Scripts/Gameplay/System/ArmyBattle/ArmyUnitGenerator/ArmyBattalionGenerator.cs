@@ -48,6 +48,7 @@ namespace DChild.Gameplay.ArmyBattle.Battalion
                 var instance = Instantiate(configuration.GetRandomUnitTemplate());
                 instance.gameObject.name += $"[{i}]";
                 instance.transform.position = position;
+                instance.GetComponentInChildren<MeshRenderer>().sortingOrder = (int)(-position.y);
                 spawnedUnits.Add(instance.GetComponent<ArmyUnit>());
             }
 

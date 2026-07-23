@@ -36,6 +36,9 @@ namespace DChild.UI
         [SerializeField, ReadOnly]
         private List<SignalReceiver> m_CinematicSignalReceivers = new List<SignalReceiver>();
 
+
+        [SerializeField, BoxGroup("Doozy Signals")] private List<GameplayUIStateSignalGroup> m_signalCategories;
+
         //Specific conditions to check
         [SerializeField, ReadOnly]
         private bool m_isInDialogue;
@@ -43,30 +46,45 @@ namespace DChild.UI
 
         private void Awake()
         {
-            //initialize number of signal receivers for UI and Gameplay Signals
-            InitializeSignalReceivers(m_doozyUISignalNames, m_UISignalReceivers);
-            InitializeSignalReceivers(m_doozyGameplaySignalNames, m_GameplaySignalReceivers);
-            InitializeSignalReceivers(m_doozyCinematicSignalNames, m_CinematicSignalReceivers);
+            ////initialize number of signal receivers for UI and Gameplay Signals
+            //InitializeSignalReceivers(m_doozyUISignalNames, m_UISignalReceivers);
+            //InitializeSignalReceivers(m_doozyGameplaySignalNames, m_GameplaySignalReceivers);
+            //InitializeSignalReceivers(m_doozyCinematicSignalNames, m_CinematicSignalReceivers);
 
+
+            foreach (var signalGroup in m_signalCategories)
+            {
+                signalGroup.DialogueSignalValueReceived -= SetDialogueStatus;
+                signalGroup.DialogueSignalValueReceived += SetDialogueStatus;
+                
+                signalGroup.OnSignalReceived -= SetCurrentUIState;
+                signalGroup.OnSignalReceived += SetCurrentUIState;
+            }
         }
+
+        public void SetDialogueStatus(bool value) => m_isInDialogue = value;
+
 
         private void OnEnable()
         {
-            //Subscribe each signal receiver to corresponding function
-            for (int i = 0; i < m_UISignalReceivers.Count; i++)
-            {
-                m_UISignalReceivers[i].onSignal += OnUISignalReceived;
-            }
+            ////Subscribe each signal receiver to corresponding function
+            //for (int i = 0; i < m_UISignalReceivers.Count; i++)
+            //{
+            //    m_UISignalReceivers[i].onSignal -= OnUISignalReceived;
+            //    m_UISignalReceivers[i].onSignal += OnUISignalReceived;
+            //}
 
-            for (int i = 0; i < m_GameplaySignalReceivers.Count; i++)
-            {
-                m_GameplaySignalReceivers[i].onSignal += OnGameplaySignalReceived;
-            }
+            //for (int i = 0; i < m_GameplaySignalReceivers.Count; i++)
+            //{
+            //    m_GameplaySignalReceivers[i].onSignal -= OnGameplaySignalReceived;
+            //    m_GameplaySignalReceivers[i].onSignal += OnGameplaySignalReceived;
+            //}
 
-            for (int i = 0; i < m_CinematicSignalReceivers.Count; i++)
-            {
-                m_CinematicSignalReceivers[i].onSignal += OnCinematicSignalReceived;
-            }
+            //for (int i = 0; i < m_CinematicSignalReceivers.Count; i++)
+            //{
+            //    m_CinematicSignalReceivers[i].onSignal -= OnCinematicSignalReceived;
+            //    m_CinematicSignalReceivers[i].onSignal += OnCinematicSignalReceived;
+            //}
         }
 
         private void OnCinematicSignalReceived(Signal signal)
@@ -90,13 +108,13 @@ namespace DChild.UI
                 }
             }
 
-            SetCurrentUnderworldUIState(GameplayUIState.Cinematic);
+            SetCurrentUIState(GameplayUIState.Cinematic);
             Debug.Log($"Received signal: \nCategory: {signal.stream.category}\nName: {signal.stream.name}");
         }
 
         private void OnGameplaySignalReceived(Signal signal)
         {
-            SetCurrentUnderworldUIState(GameplayUIState.GameplayHUD);
+            SetCurrentUIState(GameplayUIState.GameplayHUD);
             Debug.Log($"Received signal: \nCategory: {signal.stream.category}\nName: {signal.stream.name}");
         }
 
@@ -117,7 +135,7 @@ namespace DChild.UI
                 }
             }
 
-            SetCurrentUnderworldUIState(GameplayUIState.InteractableUI);
+            SetCurrentUIState(GameplayUIState.InteractableUI);
             Debug.Log($"Received signal: \nCategory: {signal.stream.category}\nName: {signal.stream.name}");
         }
 
@@ -129,7 +147,7 @@ namespace DChild.UI
             DisconnectSignalReceivers(m_CinematicSignalReceivers);
         }
 
-        public void SetCurrentUnderworldUIState(GameplayUIState gameplayUIState)
+        public void SetCurrentUIState(GameplayUIState gameplayUIState)
         {
             m_currentUIState = gameplayUIState;
 

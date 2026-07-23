@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Enemies
 {
-    public class HomunculusFemaleAI : CombatAIBrain<HomunculusFemaleAI.Info>, IAmbushingAI
+    public class HomunculusFemaleAI : CombatAIBrain<HomunculusFemaleAI.Info>, IAmbushingAI , IResetableAIBrain
     {
         [System.Serializable]
         public class Info : BaseInfo
@@ -213,18 +213,19 @@ namespace DChild.Gameplay.Characters.Enemies
         public override void ReturnToSpawnPoint()
         {
             transform.position = m_startPoint;
+            ResetAI();
         }
 
         protected override void OnForbidFromAttackTarget()
         {
             m_targetInfo.Set(null, null);
-            StopAllCoroutines();
-            m_animation.EnableRootMotion(true, false);
+            StopAllCoroutines(); 
             LightningShieldDeactivate();
             LightningShieldSmallDeactivate();
             m_coreburstFX.Stop();
             m_corebustBB.enabled = false;
             m_stateHandle.SetState(State.Patrol);
+            ResetAI();
         }
 
         protected override void OnTargetDisappeared()
@@ -634,6 +635,7 @@ namespace DChild.Gameplay.Characters.Enemies
                         {
                             if (!m_wallSensor.isDetecting && m_edgeSensor.isDetecting && m_groundSensor.isDetecting)
                             {
+                                m_animation.DisableRootMotion();
                                 m_moveHandle.MoveTowards(toTarget.normalized, m_info.lightningArmorWalkInfo.speed);
                                 m_animation.SetAnimation(0, !m_isInRageMode ? m_info.walkInfo.animation : m_info.lightningArmorWalkInfo.animation, true);
                             }
@@ -708,6 +710,14 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                 }
             }
+        }
+
+        public void ResetAI()
+        {
+            m_targetInfo.Set(null, null);
+            //          m_animation.EnableRootMotion(true, false);
+            m_stateHandle.OverrideState(State.Patrol);
+            enabled = true;
         }
     }
 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 
   author: 
-  description: 
+  description: May 20, 2026
   globalUserScript: 
   emphasisSettings:
   - color: {r: 1, g: 1, b: 1, a: 1}
@@ -126,6 +126,20 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: 
+  - id: 364
+    fields:
+    - title: Name
+      value: isPrisonDoorBanterTriggered
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
   - id: 359
     fields:
     - title: Name
@@ -238,7 +252,7 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: CustomFieldType_Text
-  - id: 363
+  - id: 214
     fields:
     - title: Name
       value: necroTalkingExpression
@@ -252,7 +266,7 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: CustomFieldType_Text
-  - id: 364
+  - id: 216
     fields:
     - title: Name
       value: playerThinkingExpression
@@ -266,7 +280,7 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: CustomFieldType_Text
-  - id: 365
+  - id: 208
     fields:
     - title: Name
       value: playerFacingAwayExpression
@@ -280,7 +294,7 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: CustomFieldType_Text
-  - id: 366
+  - id: 209
     fields:
     - title: Name
       value: playerExcitedExpression
@@ -294,7 +308,7 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: CustomFieldType_Text
-  - id: 367
+  - id: 217
     fields:
     - title: Name
       value: crazyKnightDoubtful
@@ -308,7 +322,7 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: CustomFieldType_Text
-  - id: 368
+  - id: 218
     fields:
     - title: Name
       value: crazyKnightGoofy
@@ -322,7 +336,7 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: CustomFieldType_Text
-  - id: 369
+  - id: 219
     fields:
     - title: Name
       value: crazyKnightInLove
@@ -336,7 +350,7 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: CustomFieldType_Text
-  - id: 370
+  - id: 220
     fields:
     - title: Name
       value: crazyKnightLaughing
@@ -344,6 +358,20 @@ MonoBehaviour:
       typeString: CustomFieldType_Text
     - title: Initial Value
       value: 4
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+  - id: 363
+    fields:
+    - title: Name
+      value: vaultDoorCount
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: 0
       type: 1
       typeString: CustomFieldType_Number
     - title: Description
@@ -442,7 +470,7 @@ MonoBehaviour:
       - originConversationID: 216
         originDialogueID: 0
         destinationConversationID: 216
-        destinationDialogueID: 1
+        destinationDialogueID: 9
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -456,278 +484,7 @@ MonoBehaviour:
         y: 20
         width: 160
         height: 30
-    - id: 1
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 55
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 41
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: "[pic=crazyKnightDoubtful] It\u2019s really sinister and dark in here!\r"
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      conversationID: 216
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 216
-        originDialogueID: 1
-        destinationConversationID: 216
-        destinationDialogueID: 2
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 217
-        y: 65.10715
-        width: 160
-        height: 30
-    - id: 2
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Pictures
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 41
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 55
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: '[pic=necroTalkingExpression] I think you''d need to hit the machine
-          over there to open the door...'
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Parenthetical
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Audio Files
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Video File
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      conversationID: 216
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 216
-        originDialogueID: 2
-        destinationConversationID: 216
-        destinationDialogueID: 3
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 217
-        y: 116
-        width: 160
-        height: 30
-    - id: 3
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Pictures
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 55
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 41
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: "[pic=crazyKnightInLove] Wahhh! Look over there\u2014 an eye that's
-          staring at me!"
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Parenthetical
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Audio Files
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Video File
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      conversationID: 216
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 216
-        originDialogueID: 3
-        destinationConversationID: 216
-        destinationDialogueID: 8
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 217
-        y: 166
-        width: 160
-        height: 30
-    - id: 4
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Pictures
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 41
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 55
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: '[pic=necroFrustratedExpression] I don''t think that''s a good sign,
-          we''ve probably been noticed!'
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Parenthetical
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Audio Files
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Video File
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      conversationID: 216
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 216
-        originDialogueID: 4
-        destinationConversationID: 216
-        destinationDialogueID: 5
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 217
-        y: 216
-        width: 160
-        height: 30
-    - id: 5
+    - id: 9
       fields:
       - title: Title
         value: 
@@ -754,8 +511,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "[pic=crazyKnightLaughing] HAHA! That\u2019s good! If they are coming,
-          tell them to bring lights and some fun!"
+        value: "[pic=crazyKnightDoubtful] It\u2019s sinister and dark here!"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -783,9 +539,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 216
-        originDialogueID: 5
+        originDialogueID: 9
         destinationConversationID: 216
-        destinationDialogueID: 6
+        destinationDialogueID: 10
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -795,11 +551,11 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 217
-        y: 266
+        x: 29.107147
+        y: 70
         width: 160
         height: 30
-    - id: 6
+    - id: 10
       fields:
       - title: Title
         value: 
@@ -814,11 +570,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 55
+        value: 41
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 41
+        value: 55
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -826,8 +582,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "[pic=crazyKnightGoofy] After all, it doesn\u2019t look very welcoming
-          in here!"
+        value: "[pic=necroTalkingExpression]Hmmm\u2026 I believe that mechanism there
+          could open the door."
         type: 0
         typeString: 
       - title: Parenthetical
@@ -855,9 +611,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 216
-        originDialogueID: 6
+        originDialogueID: 10
         destinationConversationID: 216
-        destinationDialogueID: 7
+        destinationDialogueID: 11
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -867,16 +623,16 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 217
-        y: 316
+        x: 30
+        y: 120
         width: 160
         height: 30
-    - id: 7
+    - id: 11
       fields:
       - title: Title
         value: 
         type: 0
-        typeString: CustomFieldType_Text
+        typeString: 
       - title: Pictures
         value: '[]'
         type: 3
@@ -884,28 +640,27 @@ MonoBehaviour:
       - title: Description
         value: 
         type: 0
-        typeString: CustomFieldType_Text
+        typeString: 
       - title: Actor
-        value: 41
+        value: 55
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 55
+        value: 41
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
         value: 
         type: 0
-        typeString: CustomFieldType_Text
+        typeString: 
       - title: Dialogue Text
-        value: '[pic=necroFrustratedExpression] We''re in a prison, it''s not meant
-          to be welcoming!'
+        value: "[pic=crazyKnightGoofy]Great! Let\u2019s get moving gentlemen!"
         type: 0
-        typeString: CustomFieldType_Text
+        typeString: 
       - title: Parenthetical
         value: 
         type: 0
-        typeString: CustomFieldType_Text
+        typeString: 
       - title: Audio Files
         value: '[]'
         type: 3
@@ -913,11 +668,11 @@ MonoBehaviour:
       - title: Video File
         value: 
         type: 0
-        typeString: CustomFieldType_Text
+        typeString: 
       - title: Sequence
         value: 
         type: 0
-        typeString: CustomFieldType_Text
+        typeString: 
       conversationID: 216
       isRoot: 0
       isGroup: 0
@@ -933,85 +688,14 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 215.82352
-        y: 366
-        width: 160
-        height: 30
-    - id: 8
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: 
-      - title: Pictures
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 55
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 41
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: '[pic=crazyKnightInLove] Am I REAAALLLLYYYY that flattering!?'
-        type: 0
-        typeString: 
-      - title: Parenthetical
-        value: 
-        type: 0
-        typeString: 
-      - title: Audio Files
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Video File
-        value: 
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      conversationID: 216
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 216
-        originDialogueID: 8
-        destinationConversationID: 216
-        destinationDialogueID: 4
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 433.96436
-        y: 164.21426
+        x: 30
+        y: 170
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0.8928528, y: 41.964264}
-    canvasZoom: 1.12
-  - id: 213
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 1.0300001
+  - id: 217
     fields:
     - title: Title
       value: After running around a while through prison
@@ -1111,7 +795,7 @@ MonoBehaviour:
         value: None()
         type: 0
         typeString: CustomFieldType_Text
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1119,9 +803,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 0
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 1
         isConnector: 0
         priority: 2
@@ -1163,7 +847,8 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: "I\u2019ve never imagined this place to be so big!"
+        value: "[pic=crazyKnightGoofy] I\u2019ve never imagined this place to be
+          so big!"
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -1182,7 +867,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: CustomFieldType_Text
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1190,9 +875,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 1
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
@@ -1204,7 +889,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 30
-        y: 70
+        y: 73.63638
         width: 160
         height: 30
     - id: 2
@@ -1234,7 +919,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "Never forget the rules of the underworld and the realm of death.\r"
+        value: "[pic=necroTalkingExpression] Never forget the rules of the underworld
+          and the realm of death.\r"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1253,7 +939,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1261,9 +947,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 2
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 3
         isConnector: 0
         priority: 2
@@ -1305,8 +991,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Souls create space, the more souls you have at a location the bigger
-          it gets.
+        value: '[pic=necroTalkingExpression] Souls create space, the more souls you
+          have at a location the bigger it gets.'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1325,7 +1011,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1333,9 +1019,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 3
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 4
         isConnector: 0
         priority: 2
@@ -1377,7 +1063,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: The souls themselves influence the location
+        value: '[pic=necroSmirkingExpression] The souls themselves influence the
+          location.'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1396,7 +1083,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1404,9 +1091,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 4
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 5
         isConnector: 0
         priority: 2
@@ -1448,8 +1135,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "If that\u2019s so, why is it emanating this desperate and pitiful
-          atmosphere?"
+        value: "[pic=crazyKnightDoubtful] If that\u2019s so, why is it emanating
+          this desperate and pitiful atmosphere?"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1468,7 +1155,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1476,9 +1163,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 5
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 6
         isConnector: 0
         priority: 2
@@ -1490,7 +1177,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 30
-        y: 270
+        y: 271.92307
         width: 160
         height: 30
     - id: 6
@@ -1520,7 +1207,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: It is how the souls are feeling.
+        value: '[pic=necroFrustratedExpression] It is how the souls are feeling.'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1539,7 +1226,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1547,9 +1234,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 6
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 7
         isConnector: 0
         priority: 2
@@ -1591,7 +1278,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Then we should make them feel better.
+        value: '[pic=crazyKnightGoofy] Then we should make them feel better.'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1610,7 +1297,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1618,9 +1305,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 7
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 8
         isConnector: 0
         priority: 2
@@ -1662,8 +1349,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "That\u2019s kind of a nice thing to say, maybe you aren\u2019t as
-          twisted as I thought!\r"
+        value: "[pic=necroSmirkingExpression] That\u2019s kind of a nice thing to
+          say, maybe you aren\u2019t as twisted as I thought!\r"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1682,7 +1369,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1690,9 +1377,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 8
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 9
         isConnector: 0
         priority: 2
@@ -1734,7 +1421,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "How do you\u2026 No\u2026 No\u2026 No\u2026"
+        value: "[pic=necroFrustratedExpression] How do you\u2026 No\u2026 No\u2026
+          No\u2026"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1753,7 +1441,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1761,9 +1449,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 9
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 10
         isConnector: 0
         priority: 2
@@ -1805,7 +1493,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "Yes\u2026 yes\u2026 Yes\u2026 Yes\u2026\r"
+        value: '[pic=crazyKnightGoofy] (For each of Necro''s "no" comes Crazy Knight''s
+          "yes") Yes... yes... yes... yes....'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1824,7 +1513,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1832,9 +1521,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 10
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 11
         isConnector: 0
         priority: 2
@@ -1876,8 +1565,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: I am gonna tell some jokes! I think that should help liven up the
-          mood!
+        value: '[pic=crazyKnightLaughing] I am gonna tell some jokes! I think that
+          should help liven up the mood!'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1896,7 +1585,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1904,9 +1593,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 11
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 12
         isConnector: 0
         priority: 2
@@ -1948,7 +1637,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: At least let them be good then!
+        value: '[pic=necroFrustratedExpression] At least let them be good then!'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -1967,7 +1656,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -1975,9 +1664,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 12
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 13
         isConnector: 0
         priority: 2
@@ -2019,8 +1708,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: My jokes have always been good, and this place needs a whole lot of
-          them!
+        value: '[pic=crazyKnightGoofy] My jokes have always been good, and this place
+          needs a whole lot of them!'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -2039,7 +1728,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2047,9 +1736,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 13
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 14
         isConnector: 0
         priority: 2
@@ -2091,7 +1780,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: What is a Vulcano doing in the prison? Breaking out!
+        value: "[pic=crazyKnightLaughing] What's a Vulcano doing in the Prison?\u2014
+          Breaking out!"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -2110,7 +1800,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2118,9 +1808,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 14
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 15
         isConnector: 0
         priority: 2
@@ -2131,7 +1821,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
+        x: 28.07692
         y: 720
         width: 160
         height: 30
@@ -2162,7 +1852,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: What is a horse in the prison? A ZEBRA! Hahahahaha!
+        value: "[pic=crazyKnightLaughing] What do you call a horse in Prison?\u2014
+          A Zebra! HAHAHA!"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -2181,7 +1872,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2189,9 +1880,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 15
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 16
         isConnector: 0
         priority: 2
@@ -2202,8 +1893,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 768.93616
+        x: 31.92308
+        y: 767.0132
         width: 160
         height: 30
     - id: 16
@@ -2233,8 +1924,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "\u201CDad, I was imprisoned for attempted murder!\u201D \nFather:
-          \u201CCan\u2019t you do anything, right?\u201D"
+        value: '[pic=crazyKnightLaughing] "Dad, I was imprisoned for attempted murder!",
+          the Father replied "Son, can''t you do anything right?"'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -2253,7 +1944,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2261,9 +1952,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 16
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 17
         isConnector: 0
         priority: 2
@@ -2305,8 +1996,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "In school, the teacher asks: \u201CWhat is the future form of I steal\u201D
-          Thereupon David: I go to prison!"
+        value: '[pic=crazyKnightLaughing] In school, a teacher asks "What is the
+          future form of "I steal", David replies, "Me going to jail!"'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -2325,7 +2016,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2333,9 +2024,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 17
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 18
         isConnector: 0
         priority: 2
@@ -2377,7 +2068,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: What does a biologist do in prison? He counts cells!
+        value: "[pic=crazyKnightLaughing] What does a Biologist do in prison?\u2014
+          He counts cells!"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -2396,7 +2088,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2404,9 +2096,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 18
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 19
         isConnector: 0
         priority: 2
@@ -2418,7 +2110,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 30
-        y: 918.93616
+        y: 917.01306
         width: 160
         height: 30
     - id: 19
@@ -2448,8 +2140,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: I asked the clairvoyant if I would go to prison one day, she replies
-          with a no and then I robbed her
+        value: '[pic=crazyKnightLaughing] I asked a clairvoyant if I would go to
+          Prison one day, she said no so I decided to rob her!'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -2468,7 +2160,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2476,9 +2168,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 213
+      - originConversationID: 217
         originDialogueID: 19
-        destinationConversationID: 213
+        destinationConversationID: 217
         destinationDialogueID: 20
         isConnector: 0
         priority: 2
@@ -2489,8 +2181,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 968.93616
+        x: 31.639343
+        y: 965.65735
         width: 160
         height: 30
     - id: 20
@@ -2520,10 +2212,9 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: "One prison inmate asks the other: \u201CHow did you end up here?\u201D
-          \u201CWell,\u201D says the other, \u201Ceverything went well for years
-          until the day my son had to write an essay at school about his father\u2019s
-          job\u2026\u201D"
+        value: '[pic=crazyKnightLaughing] One Prison inmate asks the other "How''d
+          you end up here?" He replies, "Well, everything went well for years until
+          the day my son had to write an essay about my job..."'
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -2542,7 +2233,7 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: CustomFieldType_Text
-      conversationID: 213
+      conversationID: 217
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -2562,8 +2253,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 555.1373}
-    canvasZoom: 0.5500002
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 0.76
   - id: 214
     fields:
     - title: Title
@@ -2720,8 +2411,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "This is really tricky! In order to get to the other side, you have
-          to use your climbing skills.\r"
+        value: '[pic=necroTalkingExpression] This is really tricky! In order to get
+          to the other side, you''d need to climb.'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -2792,8 +2483,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: You then let yourself fall and use your wings to get past and then
-          jump to the other side!
+        value: '[pic=necroFrustratedExpression] You then let yourself fall and use
+          your wings to get past and then jump to the other side!'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -2864,8 +2555,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "Do it in that order otherwise crossing this obstacle is going to
-          be difficult.\r"
+        value: "[pic=necroSmirkingExpression] Do it in that order otherwise crossing
+          this obstacle is going to be difficult.\r"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -3058,7 +2749,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "That\u2019s a hot welcome!"
+        value: "[pic=crazyKnightGoofy] That\u2019s a hot welcome!"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -3129,7 +2820,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: It's more like a way of never saying goodbye ever again!
+        value: '[pic=necroFrustratedExpression] It''s more like a way of never saying
+          goodbye ever again!'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -3200,7 +2892,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Once you're trapped here, there's no way to escape!
+        value: '[pic=necroTalkingExpression] Once you''re trapped here, there''s
+          no way to escape!'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -3240,7 +2933,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
+        x: 29
         y: 170
         width: 160
         height: 30
@@ -3271,7 +2964,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: I know, but that was never the intention, right?
+        value: '[pic=crazyKnightDoubtful] I know, but that was never the intention,
+          right?'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -3342,7 +3036,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: No, in this prison people had time to repent.
+        value: '[pic=necroFrustratedExpression] No, in this prison people had time
+          to repent.'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -3413,8 +3108,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Sometimes, if souls are reborn they live their old life and damage
-          other souls which is why they cannot be left alone to roam free.
+        value: '[pic=necroTalkingExpression] Sometimes, if souls are reborn they
+          live their old life and damage other souls which is why they cannot be
+          left alone to roam free.'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -3485,7 +3181,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: In this prison they had time to change.
+        value: '[pic=necroFrustratedExpression] In this prison they had time to change.'
         type: 0
         typeString: 
       - title: Parenthetical
@@ -3556,7 +3252,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "But I feel it! I feel\u2026 that\u2026"
+        value: "[pic=crazyKnightGoofy] But I feel it! I feel\u2026 that\u2026"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -3627,7 +3323,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "Yes\u2026 You feel it, I see it. Even innocent souls are being tortured!"
+        value: "[pic=necroFrustratedExpression] Yes\u2026 You feel it, I see it.
+          Even innocent souls are being tortured!"
         type: 0
         typeString: 
       - title: Parenthetical
@@ -3698,7 +3395,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "Not even, almost only innocent souls! We\u2019re going to end this."
+        value: "[pic=playerFacingAwayExpression] Not even, almost only innocent souls!
+          We\u2019re going to end this."
         type: 0
         typeString: 
       - title: Parenthetical
@@ -3737,8 +3435,421 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 296.00006}
-    canvasZoom: 0.9999999
+    canvasScrollPosition: {x: 0, y: 259.4742}
+    canvasZoom: 0.9699999
+  - id: 218
+    fields:
+    - title: Title
+      value: Prison Door Banter
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Actor
+      value: 1
+      type: 5
+      typeString: CustomFieldType_Actor
+    - title: Conversant
+      value: 55
+      type: 5
+      typeString: CustomFieldType_Actor
+    - title: IsBanter
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: IsSkippable
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
+    overrideSettings:
+      useOverrides: 0
+      overrideSubtitleSettings: 0
+      showNPCSubtitlesDuringLine: 1
+      showNPCSubtitlesWithResponses: 1
+      showPCSubtitlesDuringLine: 0
+      skipPCSubtitleAfterResponseMenu: 0
+      subtitleCharsPerSecond: 30
+      minSubtitleSeconds: 2
+      continueButton: 0
+      overrideSequenceSettings: 0
+      defaultSequence: 
+      defaultPlayerSequence: 
+      defaultResponseMenuSequence: 
+      overrideInputSettings: 0
+      alwaysForceResponseMenu: 1
+      includeInvalidEntries: 0
+      responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
+      cancelSubtitle:
+        key: 27
+        buttonName: 
+      cancelConversation:
+        key: 27
+        buttonName: 
+    nodeColor: 
+    dialogueEntries:
+    - id: 0
+      fields:
+      - title: Title
+        value: START
+        type: 0
+        typeString: 
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: 
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: None()
+        type: 0
+        typeString: 
+      conversationID: 218
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 218
+        originDialogueID: 0
+        destinationConversationID: 218
+        destinationDialogueID: 1
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 20
+        width: 160
+        height: 30
+    - id: 1
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "That eye\u2014the way it looked was flattering! It may have been
+          in awe of you, Doomed Knight\u2026 or me\u2026"
+        type: 0
+        typeString: 
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: 
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 218
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 218
+        originDialogueID: 1
+        destinationConversationID: 218
+        destinationDialogueID: 2
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 70
+        width: 160
+        height: 30
+    - id: 2
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: That's not a good sign, we've probably been noticed.
+        type: 0
+        typeString: 
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: 
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 218
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 218
+        originDialogueID: 2
+        destinationConversationID: 218
+        destinationDialogueID: 3
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 120
+        width: 160
+        height: 30
+    - id: 3
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "Good! I wish they would bring torches when they come to get us. That\u2019d
+          sure make this place look more welcoming."
+        type: 0
+        typeString: 
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: 
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 218
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 218
+        originDialogueID: 3
+        destinationConversationID: 218
+        destinationDialogueID: 4
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 170
+        width: 160
+        height: 30
+    - id: 4
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 41
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 55
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "We're in a prison, a torch at every corner won\u2019t make this place
+          more welcoming than a morgue."
+        type: 0
+        typeString: 
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: 
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 218
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 220
+        width: 160
+        height: 30
+    entryGroups: []
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 1
   syncInfo:
     syncActors: 0
     syncItems: 0
