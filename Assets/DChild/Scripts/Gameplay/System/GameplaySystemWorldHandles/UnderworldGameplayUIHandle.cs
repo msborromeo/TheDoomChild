@@ -288,6 +288,7 @@ namespace DChild.Gameplay.Systems
 
         public void OpenWeaponUpgradeConfirmationWindow()
         {
+            GameplaySystem.PauseGame();
             m_weaponUpgradeSignal.SendSignal();
             m_upgradeWeaponHandler.RequestUpgrade();
         }
