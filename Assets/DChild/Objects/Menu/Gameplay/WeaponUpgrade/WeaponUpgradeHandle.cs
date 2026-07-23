@@ -6,6 +6,7 @@ using DChild.Gameplay.Inventories;
 using DChild.Gameplay.Items;
 using DChild.Gameplay.Systems;
 using DChild.Menu;
+using DChild.UI;
 using Doozy.Runtime.UIManager.Containers;
 using Holysoft.Event;
 using PixelCrushers.DialogueSystem;
@@ -17,10 +18,14 @@ using UnityEngine;
 
 public class WeaponUpgradeHandle : MonoBehaviour
 {
+
     [SerializeField]
     private WeaponUpgradeData[] m_weaponUpgradeData;
-    [SerializeField]
-    private ConfirmationRequestHandle m_confirmationRequest;
+    //[SerializeField]
+    //private ConfirmationRequestHandle m_confirmationRequest;
+
+    [SerializeField] private BlacksmithUI m_ui;
+
     [SerializeField]
     private PlayerInventory m_playerInventory;
     [SerializeField]
@@ -34,13 +39,13 @@ public class WeaponUpgradeHandle : MonoBehaviour
         IsViableForUpgrade(m_playerWeapon, m_playerInventory);
 
         //Hack Solution for COnfirmation
-        m_confirmationRequest.ShowView();
-        m_confirmationRequest.Execute(OnUpgradeConfirm);
+        //m_confirmationRequest.ShowView();
+        //m_confirmationRequest.Execute(OnUpgradeConfirm);
     }
     private void OnUpgradeConfirm(object sender, EventActionArgs eventArgs)
     {
         ExecuteUpgrade(m_playerWeapon, m_playerInventory);
-        m_confirmationRequest.HideView();
+        //m_confirmationRequest.HideView();
     }
 
     public bool IsViableForUpgrade(PlayerWeapon playerWeapon, PlayerInventory playerInventory)
@@ -48,12 +53,20 @@ public class WeaponUpgradeHandle : MonoBehaviour
         WeaponLevel nextWeaponLevel = playerWeapon.GetWeaponLevel() + 1;
         bool hasRequirements = false;
 
-        for (int i = 0; i < m_weaponUpgradeData[(int)nextWeaponLevel].info.weaponUpgradeRequirement.Length; i++)
-        {
-            ItemData currentRequiredItem = m_weaponUpgradeData[(int)nextWeaponLevel].info.weaponUpgradeRequirement[i].item;
-            int currentRequiredItemAmount = m_weaponUpgradeData[(int)nextWeaponLevel].info.weaponUpgradeRequirement[i].amount;
+        var upgradeRequirements = m_weaponUpgradeData[(int)nextWeaponLevel].info.weaponUpgradeRequirement;
+        m_ui.SetSubHeaderLabel(nextWeaponLevel);
 
-            if (playerInventory.GetCurrentAmount(currentRequiredItem) >= currentRequiredItemAmount)
+        for (int i = 0; i < upgradeRequirements.Length; i++)
+        {
+            ItemData currentRequiredItem = upgradeRequirements[i].item;
+            int currentRequiredItemAmount = upgradeRequirements[i].amount;
+
+            var inventoryQuantity = playerInventory.GetCurrentAmount(currentRequiredItem);
+            
+            var requirementUI = m_ui.requirementsUI[i];
+            requirementUI.SetDynamicVisuals(currentRequiredItem, inventoryQuantity, currentRequiredItemAmount);
+
+            if (inventoryQuantity >= currentRequiredItemAmount)
             {
                 hasRequirements = true;
             }
@@ -117,6 +130,9 @@ public class WeaponUpgradeHandle : MonoBehaviour
     private void Awake()
     {
         GameplaySystem.campaignSerializer.PostDeserialization += OnGameplayLoad;
+
+        m_ui.OnUpgradeConfirmed -= OnUpgradeConfirm;
+        m_ui.OnUpgradeConfirmed += OnUpgradeConfirm;
     }
 
     private void OnGameplayLoad(object sender, CampaignSlotUpdateEventArgs eventArgs)
