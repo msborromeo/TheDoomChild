@@ -11,9 +11,9 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
     {
         [SerializeField] private ElevatorLabelUI m_leftLabel;
         [SerializeField] private ElevatorLabelUI m_rightLabel;
-        [SerializeField] private TextMeshProUGUI m_levelNumber;
+        //[SerializeField] private TextMeshProUGUI m_levelNumber;
 
-        [BoxGroup("Current Floor Icon"), SerializeField] private Image m_elevatorIcon;
+        [BoxGroup("Current Floor Icon"), SerializeField] private Image m_playerMarkerIcon;
 
 
         private MovingPlatform m_elevator;
@@ -30,7 +30,7 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
         {
             m_leftLabel.Display(info.leftLabel);
             m_rightLabel.Display(info.rightLabel);
-            m_levelNumber.text = $"{m_level + 1}";
+            //m_levelNumber.text = $"{m_level + 1}";
         }
 
         public void Display(ElevatorLevelInfo info, bool isCurrentValue = false)
@@ -43,7 +43,7 @@ namespace DChild.Scripts.Gameplay.Environment.Interactables.Elevator
                 SetPathLabel(info);
             }
 
-            m_elevatorIcon.enabled = isCurrentValue;
+            m_playerMarkerIcon.enabled = isCurrentValue;
             
             if (isCurrentValue)
                 gameObject.GetComponent<UIButton>().Select();
