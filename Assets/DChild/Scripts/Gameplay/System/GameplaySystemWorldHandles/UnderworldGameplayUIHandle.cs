@@ -290,7 +290,6 @@ namespace DChild.Gameplay.Systems
         {
             m_weaponUpgradeSignal.SendSignal();
             m_upgradeWeaponHandler.RequestUpgrade();
-            GameplaySystem.PauseGame();
         }
 
         private void OnPostDeserialization(object sender, CampaignSlotUpdateEventArgs eventArgs)

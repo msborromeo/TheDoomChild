@@ -50,36 +50,86 @@ public class WeaponUpgradeHandle : MonoBehaviour
 
     public bool IsViableForUpgrade(PlayerWeapon playerWeapon, PlayerInventory playerInventory)
     {
-        WeaponLevel nextWeaponLevel = playerWeapon.GetWeaponLevel() + 1;
-        bool hasRequirements = false;
+        WeaponLevel nextLevel = playerWeapon.GetWeaponLevel() + 1;
+        int levelIndex = (int)nextLevel;
 
-        var upgradeRequirements = m_weaponUpgradeData[(int)nextWeaponLevel].info.weaponUpgradeRequirement;
-        m_ui.SetSubHeaderLabel(nextWeaponLevel);
-
-        for (int i = 0; i < upgradeRequirements.Length; i++)
+        if (levelIndex < 0 || levelIndex >= m_weaponUpgradeData.Length)
         {
-            ItemData currentRequiredItem = upgradeRequirements[i].item;
-            int currentRequiredItemAmount = upgradeRequirements[i].amount;
+            Debug.LogWarning($"No upgrade data exists for {nextLevel}.");
+            return false;
+        }
 
-            var inventoryQuantity = playerInventory.GetCurrentAmount(currentRequiredItem);
-            
-            var requirementUI = m_ui.requirementsUI[i];
-            requirementUI.SetDynamicVisuals(currentRequiredItem, inventoryQuantity, currentRequiredItemAmount);
+        WeaponUpgradeInfo upgradeInfo =
+            m_weaponUpgradeData[levelIndex].info;
 
-            if (inventoryQuantity >= currentRequiredItemAmount)
+        WeaponUpgradeRequirement[] requirements =
+            upgradeInfo.weaponUpgradeRequirement ?? Array.Empty<WeaponUpgradeRequirement>();
+
+        List<BlacksmithRequirementUI> uiRows =
+            m_ui.requirementsUI;
+
+        m_ui.SetSubHeaderLabel(nextLevel);
+
+        bool hasAllRequirements = true;
+        bool canDisplayAllRequirements =
+            requirements.Length <= uiRows.Count;
+        int visibleRequirementCount =
+            Mathf.Min(requirements.Length, uiRows.Count);
+
+        for (int i = 0; i < requirements.Length; i++)
+        {
+            WeaponUpgradeRequirement requirement = requirements[i];
+
+            if (requirement?.item == null)
             {
-                hasRequirements = true;
+                Debug.LogError(
+                    $"Requirement {i} for {nextLevel} has no item assigned.");
+                hasAllRequirements = false;
+
+                if (i < visibleRequirementCount)
+                {
+                    uiRows[i].gameObject.SetActive(false);
+                }
+
+                continue;
             }
-            else
+
+            int inventoryQuantity =
+                playerInventory.GetCurrentAmount(requirement.item);
+
+            hasAllRequirements &=
+                inventoryQuantity >= requirement.amount;
+
+            if (i < visibleRequirementCount)
             {
-                hasRequirements = false;
-                break;
+                BlacksmithRequirementUI row = uiRows[i];
+
+                row.gameObject.SetActive(true);
+                row.SetDynamicVisuals(
+                    requirement.item,
+                    inventoryQuantity,
+                    requirement.amount);
             }
         }
 
-        m_weaponUpgradeData[(int)nextWeaponLevel].info.hasUpgradeRequirements = hasRequirements;
-        Debug.Log("Player has all requirements for next level " + m_weaponUpgradeData[(int)nextWeaponLevel].info.hasUpgradeRequirements);
-        return hasRequirements;
+        // Hide leftover UI rows from the previous upgrade level.
+        for (int i = visibleRequirementCount; i < uiRows.Count; i++)
+        {
+            uiRows[i].gameObject.SetActive(false);
+        }
+
+        if (!canDisplayAllRequirements)
+        {
+            Debug.LogError(
+                $"{nextLevel} has {requirements.Length} requirements, " +
+                $"but the UI only has {uiRows.Count} rows.");
+        }
+
+        bool isViable =
+            hasAllRequirements && canDisplayAllRequirements;
+
+        upgradeInfo.hasUpgradeRequirements = isViable;
+        return isViable;
     }
 
     //Effectively this is where we uh when ang item ang mga items needed turns into the actual upgrade
