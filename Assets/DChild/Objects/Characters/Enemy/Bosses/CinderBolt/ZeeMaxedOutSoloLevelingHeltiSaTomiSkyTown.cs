@@ -9,6 +9,7 @@ using UnityEngine;
 public class ZeeMaxedOutSoloLevelingHeltiSaTomiSkyTown : MonoBehaviour
 {
     private BasicHealth m_zeeHealth;
+    private Magic m_shadowGauge;
     private PlayerSkills m_skills;
     private CombatArts m_combatSkills;
     private List<CombatArt> m_allCombatSkills = new List<CombatArt>();
@@ -37,7 +38,9 @@ public class ZeeMaxedOutSoloLevelingHeltiSaTomiSkyTown : MonoBehaviour
         m_skills = playerSkills.GetComponent<PlayerSkills>();
         m_combatSkills = playerSkills.GetComponentInChildren<CombatArts>();
         var zeeHealth = GameObject.Find("Zee").GetComponentInChildren<BasicHealth>();
+        var zeeGauge = GameObject.Find("Zee").GetComponentInChildren<Magic>();
         m_zeeHealth = zeeHealth;
+        m_shadowGauge = zeeGauge;
     }
     private void Start()
     {
@@ -48,6 +51,7 @@ public class ZeeMaxedOutSoloLevelingHeltiSaTomiSkyTown : MonoBehaviour
             m_combatSkills.SetAbilityLevel(m_allCombatSkills[i], 200);
         }
         StartCoroutine(SetZeeHealthWithDelay());
+        StartCoroutine(SetZeeGaugeWithDelay());
     }
     private void InitializeCombatArts()
     {
@@ -59,5 +63,11 @@ public class ZeeMaxedOutSoloLevelingHeltiSaTomiSkyTown : MonoBehaviour
         yield return new WaitForEndOfFrame();
         m_zeeHealth.SetMaxValue(2147483647);
         m_zeeHealth.ResetValueToMax();
+    }
+    private IEnumerator SetZeeGaugeWithDelay()
+    {
+        yield return new WaitForEndOfFrame();
+        m_shadowGauge.SetMaxValue(2147483647);
+        m_shadowGauge.ResetValueToMax();
     }
 }
