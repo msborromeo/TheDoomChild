@@ -1,3 +1,4 @@
+using DChild.Gameplay;
 using DChild.Gameplay.Characters.Players;
 using DChild.Gameplay.Inventories;
 using DChild.Gameplay.Systems;
@@ -28,6 +29,9 @@ namespace DChild.UI
         {
             OnUpgradeConfirmed?.Invoke(this, EventActionArgs.Empty);
         }
+
+        public void ForceSetUIControls() => GameplaySystem.gamplayUIHandle.OverrideCurrentUIState(
+    DChild.UI.GameplayUIState.InteractableUI);
     }
 
 }

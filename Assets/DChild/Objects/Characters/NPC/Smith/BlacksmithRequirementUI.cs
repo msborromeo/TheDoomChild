@@ -17,18 +17,31 @@ namespace DChild.UI
         [BoxGroup("Sprites"), SerializeField] private Sprite m_insufficientSprite;
         [BoxGroup("Sprites"), SerializeField] private Sprite m_completeSprite;
 
-        public void UpdateBackground( int current, int required)
+        private void UpdateBackground(int current, int required)
         {
+            Sprite targetSprite;
+
             if (current <= 0)
-                m_background.sprite = current <= 0
-                    ? m_missingSprite
-                    : current < required
-                        ? m_insufficientSprite
-                        : m_completeSprite;
+            {
+                targetSprite = m_missingSprite;
+            }
+            else if (current < required)
+            {
+                targetSprite = m_insufficientSprite;
+            }
+            else
+            {
+                targetSprite = m_completeSprite;
+            }
+
+            if (m_background.sprite != targetSprite)
+            {
+                m_background.sprite = targetSprite;
+            }
         }
 
         public void SetIcon(Sprite value) => m_requirementIcon.sprite = value;
-        public void SetLabel(ItemData currentItem, int current, int required)
+        public void SetLabel(int current, int required)
         {
             m_currentCount.text = $"{current} of {required}";
         }
@@ -36,7 +49,7 @@ namespace DChild.UI
         public void SetDynamicVisuals(ItemData item, int inventoryQuantity, int required)
         {
             SetIcon(item.icon);
-            SetLabel(item, inventoryQuantity, required);
+            SetLabel(inventoryQuantity, required);
             UpdateBackground(inventoryQuantity, required);
         }    
 
