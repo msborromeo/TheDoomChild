@@ -19,6 +19,8 @@ namespace DChild.UI
 
         private void UpdateBackground(int current, int required)
         {
+            m_requirementIcon.color = current < required ? new Color(77, 77, 77) : Color.white;
+
             Sprite targetSprite;
 
             if (current <= 0)
