@@ -393,6 +393,7 @@ GameObject:
   - component: {fileID: 618207168023080015}
   - component: {fileID: 4860543419363520922}
   - component: {fileID: 3739847938778457364}
+  - component: {fileID: 8347291056182309471}
   m_Layer: 5
   m_Name: View - WeaponUpgrade
   m_TagString: Untagged
@@ -543,7 +544,7 @@ MonoBehaviour:
   UseCustomStartPosition: 1
   AutoHideAfterShow: 0
   AutoHideAfterShowDelay: 0
-  DisableGameObjectWhenHidden: 0
+  DisableGameObjectWhenHidden: 1
   DisableCanvasWhenHidden: 1
   DisableGraphicRaycasterWhenHidden: 1
   ClearSelectedOnShow: 0
@@ -1123,6 +1124,42 @@ MonoBehaviour:
   m_requirementsUI:
   - {fileID: 7350256171484179363}
   - {fileID: 4293797842469904297}
+--- !u!114 &8347291056182309471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020552594529556706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420ae4a59c20428f9889251f18433a4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Callback:
+    Enabled: 1
+    EventName: Callback
+    Runners: []
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3739847938778457364}
+          m_TargetAssemblyTypeName: DChild.UI.BlacksmithUI, Assembly-CSharp
+          m_MethodName: OnConfirmationSuccess
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  ButtonId:
+    Category: General
+    Name: Yes
+    Custom: 0
+  MultiplayerInfo: {fileID: 0}
 --- !u!1 &1476322894829086470
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,69 +2384,7 @@ MonoBehaviour:
         m_PersistentCalls:
           m_Calls: []
   Behaviours:
-    Behaviours:
-    - EventName: PointerLeftClick
-      Runners: []
-      Event:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 3739847938778457364}
-            m_TargetAssemblyTypeName: DChild.UI.BlacksmithUI, Assembly-CSharp
-            m_MethodName: OnConfirmationSuccess
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-      BehaviourName: 7
-      Receiver:
-        ConnectionMode: 1
-        SignalProviderId:
-          Type: 0
-          Category: Pointer
-          Name: LeftClick
-        ProviderReference: {fileID: 0}
-        StreamId:
-          Category: None
-          Name: None
-          Custom: 0
-      Cooldown: 0
-      Selectable: {fileID: 5163101215660646409}
-    - EventName: Submit
-      Runners: []
-      Event:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 3739847938778457364}
-            m_TargetAssemblyTypeName: DChild.UI.BlacksmithUI, Assembly-CSharp
-            m_MethodName: OnConfirmationSuccess
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-      BehaviourName: 12
-      Receiver:
-        ConnectionMode: 1
-        SignalProviderId:
-          Type: 0
-          Category: UI
-          Name: Submit
-        ProviderReference: {fileID: 0}
-        StreamId:
-          Category: None
-          Name: None
-          Custom: 0
-      Cooldown: 0
-      Selectable: {fileID: 5163101215660646409}
+    Behaviours: []
     SignalSource: {fileID: 4181664955314150590}
     Selectable: {fileID: 5163101215660646409}
   Id:
@@ -4139,71 +4114,7 @@ MonoBehaviour:
         m_PersistentCalls:
           m_Calls: []
   Behaviours:
-    Behaviours:
-    - EventName: PointerLeftClick
-      Runners: []
-      Event:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 618207168023080015}
-            m_TargetAssemblyTypeName: Doozy.Runtime.UIManager.Containers.UIContainer,
-              Assembly-CSharp
-            m_MethodName: Hide
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-      BehaviourName: 7
-      Receiver:
-        ConnectionMode: 1
-        SignalProviderId:
-          Type: 0
-          Category: Pointer
-          Name: LeftClick
-        ProviderReference: {fileID: 0}
-        StreamId:
-          Category: None
-          Name: None
-          Custom: 0
-      Cooldown: 0
-      Selectable: {fileID: 7224040259363788108}
-    - EventName: Submit
-      Runners: []
-      Event:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 618207168023080015}
-            m_TargetAssemblyTypeName: Doozy.Runtime.UIManager.Containers.UIContainer,
-              Assembly-CSharp
-            m_MethodName: Hide
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-      BehaviourName: 12
-      Receiver:
-        ConnectionMode: 1
-        SignalProviderId:
-          Type: 0
-          Category: UI
-          Name: Submit
-        ProviderReference: {fileID: 0}
-        StreamId:
-          Category: None
-          Name: None
-          Custom: 0
-      Cooldown: 0
-      Selectable: {fileID: 7224040259363788108}
+    Behaviours: []
     SignalSource: {fileID: 7760007265200216485}
     Selectable: {fileID: 7224040259363788108}
   Id:
