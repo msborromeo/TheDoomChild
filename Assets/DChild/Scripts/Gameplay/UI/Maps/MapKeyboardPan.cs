@@ -15,7 +15,7 @@ namespace DChild.Gameplay.UI.Map
         [SerializeField]
         private InputActionReference m_panActionReference;
         [SerializeField, Min(0f)]
-        private float m_speed = 500f;
+        private float m_speed = 2000f;
 
         private InputAction m_panAction;
 
@@ -55,10 +55,11 @@ namespace DChild.Gameplay.UI.Map
 
             var scaleX = Mathf.Abs(content.lossyScale.x / viewport.lossyScale.x);
             var scaleY = Mathf.Abs(content.lossyScale.y / viewport.lossyScale.y);
+            var zoomRatio = (scaleX + scaleY) * 0.5f;
             var horizontalRange = (content.rect.width * scaleX) - viewport.rect.width;
             var verticalRange = (content.rect.height * scaleY) - viewport.rect.height;
             var normalizedPosition = m_scrollRect.normalizedPosition;
-            var distance = m_speed * Time.unscaledDeltaTime;
+            var distance = m_speed * zoomRatio * Time.unscaledDeltaTime;
 
             if (m_scrollRect.horizontal && horizontalRange > 0f)
             {
