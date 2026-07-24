@@ -31,6 +31,7 @@ namespace DChild.Gameplay.NavigationMap
         [SerializeField, BoxGroup("Map Legend")] private SetTextToTextBox m_toggleIconsPrompt;
 
         private NavigationMapIconManager m_iconManager;
+        private MapKeyboardPan m_keyboardPan;
 
         public event EventAction<EventActionArgs> OnMapZoom;
 
@@ -84,6 +85,8 @@ namespace DChild.Gameplay.NavigationMap
 
         public void OpenMap()
         {
+            m_keyboardPan.enabled = true;
+
             if (m_mapNeedsCompleteUpdate)
             {
                 m_mapInstance?.UpdateFogOfWar();
@@ -119,14 +122,29 @@ namespace DChild.Gameplay.NavigationMap
 
         public void HideNavigationMap()
         {
+            m_keyboardPan.enabled = false;
             var showMap = m_currentMap.GetComponent<UIContainer>();
             m_zoomHandler.OnMapZoom -= m_iconManager.OnMapZoom;
             showMap.Hide();
         }
         public void ShowNavigationMap()
         {
+            m_keyboardPan.enabled = true;
             var showMap = m_currentMap.GetComponent<UIContainer>();
             showMap.Show();
+        }
+
+        private void Awake()
+        {
+            var scrollRect = m_instantiator.scrollRect;
+            m_keyboardPan = scrollRect.GetComponent<MapKeyboardPan>();
+            if (m_keyboardPan == null)
+            {
+                m_keyboardPan = scrollRect.gameObject.AddComponent<MapKeyboardPan>();
+            }
+
+            m_keyboardPan.Initialize(scrollRect);
+            m_keyboardPan.enabled = false;
         }
     }
 }
