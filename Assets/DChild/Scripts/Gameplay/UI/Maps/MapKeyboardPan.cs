@@ -7,7 +7,6 @@ namespace DChild.Gameplay.UI.Map
     [DisallowMultipleComponent]
     public sealed class MapKeyboardPan : MonoBehaviour
     {
-        private const string PAN_ACTION_PATH = "UI/Navigate";
         private const float INPUT_EPSILON = 0.001f;
 
         [SerializeField]
@@ -19,10 +18,28 @@ namespace DChild.Gameplay.UI.Map
 
         private InputAction m_panAction;
 
-        public void Initialize(ScrollRect scrollRect)
+        public bool BindInput(PlayerInput playerInput)
         {
-            m_scrollRect = scrollRect;
-            ResolvePanAction();
+            m_panAction = null;
+
+            if (playerInput == null || m_panActionReference?.action == null)
+            {
+                return false;
+            }
+
+            var actions = playerInput.actions;
+            if (actions == null)
+            {
+                return false;
+            }
+
+            m_panAction = actions.FindAction(m_panActionReference.action.id);
+            return m_panAction != null;
+        }
+
+        public void UnbindInput()
+        {
+            m_panAction = null;
         }
 
         private void Update()
@@ -30,11 +47,6 @@ namespace DChild.Gameplay.UI.Map
             if (m_scrollRect == null || m_scrollRect.content == null)
             {
                 return;
-            }
-
-            if (m_panAction == null || !m_panAction.enabled)
-            {
-                ResolvePanAction();
             }
 
             if (m_panAction == null || !m_panAction.enabled)
@@ -76,26 +88,6 @@ namespace DChild.Gameplay.UI.Map
 
             m_scrollRect.StopMovement();
             m_scrollRect.normalizedPosition = normalizedPosition;
-        }
-
-        private void ResolvePanAction()
-        {
-            if (m_panActionReference != null)
-            {
-                m_panAction = m_panActionReference.action;
-                return;
-            }
-
-            var playerInputs = FindObjectsOfType<PlayerInput>();
-            for (var i = 0; i < playerInputs.Length; i++)
-            {
-                var action = playerInputs[i].actions?.FindAction(PAN_ACTION_PATH, false);
-                if (action != null && action.enabled)
-                {
-                    m_panAction = action;
-                    return;
-                }
-            }
         }
     }
 }

@@ -29,9 +29,9 @@ namespace DChild.Gameplay.NavigationMap
 
         [SerializeField, BoxGroup("Map Legend")] private UIContainerUIAnimator m_legendSection;
         [SerializeField, BoxGroup("Map Legend")] private SetTextToTextBox m_toggleIconsPrompt;
+        [SerializeField, BoxGroup("Map Legend")] private MapKeyboardPan m_keyboardPan;
 
         private NavigationMapIconManager m_iconManager;
-        private MapKeyboardPan m_keyboardPan;
 
         public event EventAction<EventActionArgs> OnMapZoom;
 
@@ -85,7 +85,7 @@ namespace DChild.Gameplay.NavigationMap
 
         public void OpenMap()
         {
-            m_keyboardPan.enabled = true;
+            EnableKeyboardPan();
 
             if (m_mapNeedsCompleteUpdate)
             {
@@ -122,29 +122,52 @@ namespace DChild.Gameplay.NavigationMap
 
         public void HideNavigationMap()
         {
-            m_keyboardPan.enabled = false;
+            DisableKeyboardPan();
+
+            if (m_currentMap == null)
+            {
+                return;
+            }
+
             var showMap = m_currentMap.GetComponent<UIContainer>();
             m_zoomHandler.OnMapZoom -= m_iconManager.OnMapZoom;
             showMap.Hide();
         }
+
         public void ShowNavigationMap()
         {
-            m_keyboardPan.enabled = true;
+            EnableKeyboardPan();
+
+            if (m_currentMap == null)
+            {
+                return;
+            }
+
             var showMap = m_currentMap.GetComponent<UIContainer>();
             showMap.Show();
         }
 
-        private void Awake()
+        private void EnableKeyboardPan()
         {
-            var scrollRect = m_instantiator.scrollRect;
-            m_keyboardPan = scrollRect.GetComponent<MapKeyboardPan>();
             if (m_keyboardPan == null)
             {
-                m_keyboardPan = scrollRect.gameObject.AddComponent<MapKeyboardPan>();
+                return;
             }
 
-            m_keyboardPan.Initialize(scrollRect);
+            var playerManager = GameplaySystem.playerManager;
+            var playerInput = playerManager?.PlayerInput;
+            m_keyboardPan.enabled = m_keyboardPan.BindInput(playerInput);
+        }
+
+        private void DisableKeyboardPan()
+        {
+            if (m_keyboardPan == null)
+            {
+                return;
+            }
+
             m_keyboardPan.enabled = false;
+            m_keyboardPan.UnbindInput();
         }
     }
 }
