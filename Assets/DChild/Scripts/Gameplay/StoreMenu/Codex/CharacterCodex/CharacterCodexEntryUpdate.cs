@@ -9,7 +9,7 @@ namespace DChild.Codex.Characters
 
         public void UpdateCharacterCodex()
         {
-            var tracker = GameplaySystem.playerManager.player.GetComponentInChildren<CharacterCodexProgressTracker>();
+            var tracker = GameplaySystem.playerManager.player.characterTracker;
 
             for (int i = 0; i < m_charactersForUpdate.Length; i++)
                 tracker.RecordCharacterToCodex(m_charactersForUpdate[i]);
