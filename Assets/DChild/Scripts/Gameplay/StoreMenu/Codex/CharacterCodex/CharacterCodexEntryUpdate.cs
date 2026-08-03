@@ -24,12 +24,12 @@ namespace DChild.Codex.Characters
                     m_charactersForUpdate[i].firstInteract = true;
                 }
 
-                if (!m_charactersForUpdate[i].doomedKnightComment == false)
+                if (m_charactersForUpdate[i].doomedKnightComment == false)
                 {
                     m_charactersForUpdate[i].doomedKnightComment = true;
                 }
 
-                if (!m_charactersForUpdate[i].secondInteract == false)
+                if (m_charactersForUpdate[i].secondInteract == false)
                 {
                     m_charactersForUpdate[i].secondInteract = true;
                 }
