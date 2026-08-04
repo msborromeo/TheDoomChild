@@ -10,13 +10,6 @@ namespace DChild.Gameplay.ArmyBattle.UI
 {
     public class AttackingGroupSelectableOptionUI : AttackingGroupOptionUI
     {
-        [FoldoutGroup("NULLIFY SELECTABLES")]
-        [SerializeField, FoldoutGroup("NULLIFY SELECTABLES/ASSETS")]
-        private List<Sprite> m_NullAssets;
-        [SerializeField, FoldoutGroup("NULLIFY SELECTABLES/ASSETS")]
-        private List<Sprite> m_GroupAssets;
-        [SerializeField, FoldoutGroup("NULLIFY SELECTABLES")]
-        private List<Image> m_targetAssets;
         [SerializeField]
         private Image m_targetCommandIcon;
         public Image targetCommandIcon => m_targetCommandIcon;
@@ -32,9 +25,10 @@ namespace DChild.Gameplay.ArmyBattle.UI
         [SerializeField]
         private Image m_highlightGlow;
 
-
+        private IAttackingGroup m_group;
         private int m_selectionIndex;
 
+        public IAttackingGroup group => m_group;
         public virtual int selectionIndex => m_selectionIndex;
 
         public void SetSelectionIndex(int index)
@@ -44,58 +38,13 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         public override void Display(IAttackingGroup group)
         {
+            gameObject.SetActive(group != null);
             if (group == null)
-            {
-                NullifyArmyGroupUI();
                 return;
-            }
 
-            if (m_targetCommandIcon.enabled == false)
-            {
-                RestoreArmyGroupUI();
-            }
-            base.Display(group);
-        }
-        protected void RestoreArmyGroupUI()
-        {
-            for (int i = 0; i < m_GroupAssets.Count; i++)
-            {
-                RestoreGroupElement(i, m_targetAssets[i]);
-            }
+            m_group = group;
             m_armyRow.interactable = true;
-            m_highlightGlow.enabled = true;
-            m_targetCommandIcon.enabled = true;
-            m_targetPartyName.enabled = true;
-            m_targetPowerLabel.color = new Color32(233, 204, 36, 255);
-            m_targetPowerValue.enabled = true;
-        }
-
-
-        protected void NullifyArmyGroupUI()
-        {
-            m_armyRow.interactable = false;
-            m_highlightGlow.enabled = false;
-            m_targetCommandIcon.enabled = false;
-            m_targetPartyName.enabled = false;
-            m_targetPowerLabel.color = new Color32(130, 164, 199, 255);
-            m_targetPowerValue.enabled = false;
-            
-
-            for (int i = 0; i < m_NullAssets.Count; i++)
-            {
-                NullifyGroupElement(i, m_targetAssets[i]);
-            }
-        }
-
-        private void RestoreGroupElement(int index, Image target)
-        {
-            target.sprite = m_GroupAssets[index];
-
-        }
-
-        private void NullifyGroupElement(int index, Image target)
-        {
-            target.sprite = m_NullAssets[index];
+            base.Display(group);
         }
     }
 }
