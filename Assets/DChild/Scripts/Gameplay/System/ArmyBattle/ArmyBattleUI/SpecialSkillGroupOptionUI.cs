@@ -27,7 +27,6 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
             if (group != null)
             {
-                SelectGlow(m_specialGlow);
                 selectedSkill.DisplaySpecialIcon();
                 characterGroupUI.Display(group.GetCharacterGroup() ?? null);
                 partyName.Display(group);
@@ -42,11 +41,6 @@ namespace DChild.Gameplay.ArmyBattle.UI
                 return;
             }
             gameObject.SetActive(false);
-
-            //if (targetCommandIcon.enabled == false)
-            //{
-            //    RestoreArmyGroupUI();
-            //}
         }
     }
 }
