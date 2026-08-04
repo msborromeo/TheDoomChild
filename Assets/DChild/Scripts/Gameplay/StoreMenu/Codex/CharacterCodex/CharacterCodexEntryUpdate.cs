@@ -17,23 +17,33 @@ namespace DChild.Codex.Characters
 
         public void CharacterInteractionUpdate()
         {
-            for (int i = 0;i < m_charactersForUpdate.Length; i++)
+            //incase people forgot to populate list or something happens along the way
+            if(m_charactersForUpdate != null)
             {
-                if (m_charactersForUpdate[i].firstInteract == false)
+                for (int i = 0; i < m_charactersForUpdate.Length; i++)
                 {
-                    m_charactersForUpdate[i].firstInteract = true;
-                }
+                    // will optimize branching if statements on a future update
+                    if (m_charactersForUpdate[i].specialCharacter)
+                    {
+                        if (m_charactersForUpdate[i].firstInteract == false)
+                        {
+                            m_charactersForUpdate[i].firstInteract = true;
+                        }
 
-                if (m_charactersForUpdate[i].doomedKnightComment == false)
-                {
-                    m_charactersForUpdate[i].doomedKnightComment = true;
-                }
+                        if (m_charactersForUpdate[i].doomedKnightComment == false)
+                        {
+                            m_charactersForUpdate[i].doomedKnightComment = true;
+                        }
 
-                if (m_charactersForUpdate[i].secondInteract == false)
-                {
-                    m_charactersForUpdate[i].secondInteract = true;
+                        if (m_charactersForUpdate[i].secondInteract == false)
+                        {
+                            m_charactersForUpdate[i].secondInteract = true;
+                        }
+                    }
+                    
                 }
             }
+           
         }
     }
 }

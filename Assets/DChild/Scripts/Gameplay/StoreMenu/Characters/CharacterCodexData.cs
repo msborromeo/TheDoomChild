@@ -129,7 +129,7 @@ namespace DChild.Codex.Characters
 
         public bool specialCharacter => m_specialCharacter;
         public bool firstInteract { get => m_firstInteract; set { m_firstInteract = value; } }
-        public bool doomedKnightComment { get => m_doomedKnightComment; set { doomedKnightComment = value; } }
+        public bool doomedKnightComment { get => m_doomedKnightComment; set { m_doomedKnightComment = value; } }
         public bool secondInteract { get => m_secondInteract; set { m_secondInteract = value; } }
 
         public string doomedknightRemarks => m_doomedKnightRemarks;
