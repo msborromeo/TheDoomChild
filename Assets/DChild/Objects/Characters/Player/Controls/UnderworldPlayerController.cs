@@ -1428,6 +1428,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
                 return;
+            if (m_state.isInShadowMode)
+                return;
             if (m_state.isGrounded == false)
                 return;
             if (m_state.waitForBehaviour)
@@ -1446,6 +1448,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnProjectileThrowTappedInput()
         {
             if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
+                return;
+            if (m_state.isInShadowMode)
                 return;
             if (m_state.isGrounded == false)
                 return;
@@ -1479,7 +1483,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
                 return;
-
+            if (m_state.isInShadowMode)
+                return;
             if (m_state.isAimingProjectile == false)
                 return;
 
