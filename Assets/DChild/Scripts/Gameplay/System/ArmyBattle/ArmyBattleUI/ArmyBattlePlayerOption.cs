@@ -15,8 +15,6 @@ namespace DChild.Gameplay.ArmyBattle.UI
         [SerializeField]
         private UIButton m_specialSkillButton;
         [SerializeField]
-        private ArmyBattleAttackGroupSelection m_groupSelection;
-        [SerializeField]
         private ArmyBattleSpecialSkillSelection m_specialSelection;
 
         [SerializeField]
@@ -24,11 +22,15 @@ namespace DChild.Gameplay.ArmyBattle.UI
         [SerializeField]
         private SpecialGroupIndexHandle m_specialIndex;
 
+        private IAttackingGroup m_selectedAttackingGroup;
 
         public void Initialize(PlayerArmyController player)
         {
             m_player = player;
             m_damageSelection.Initialize(player.controlledArmy);
+
+            m_groupIndex.GroupSelected -= SetSelectedAttackingGroup;
+            m_groupIndex.GroupSelected += SetSelectedAttackingGroup;
         }
 
         public void UpdateOptions()
@@ -43,11 +45,8 @@ namespace DChild.Gameplay.ArmyBattle.UI
             var damageType = option.damageType;
             var playerGroups = m_player.controlledArmy.GetAvailableGroups(damageType);
 
-            m_groupSelection.SetSelectionIcon(damageType);
-            m_groupSelection.SetPanelLabel(damageType);
-            m_groupSelection.SetSelectionList(playerGroups);
-            m_groupIndex.SetAvailableGroups(playerGroups);
-            SelectCurrentAttackingGroup();
+            m_selectedAttackingGroup = null;
+            m_groupIndex.SetAvailableGroups(damageType, playerGroups);
         }
 
         public void SetSpecialSkillSelection()
@@ -59,10 +58,33 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
         public void SelectCurrentAttackingGroup()
         {
-            m_player.UseThisTurn(m_groupSelection.GetSelectedAttackGroup());
-            Debug.Log($"Selecting To Attack With {m_groupSelection.GetSelectedAttackGroup().GetCharacterGroup().name}");
+            TrySelectCurrentAttackingGroup();
         }
 
+        public bool TrySelectCurrentAttackingGroup()
+        {
+            if (m_selectedAttackingGroup == null)
+            {
+                Debug.LogWarning("Cannot select an attacking group because no group was chosen in More Groups.");
+                return false;
+            }
 
+            m_player.UseThisTurn(m_selectedAttackingGroup);
+            Debug.Log($"Selecting To Attack With {m_selectedAttackingGroup.GetCharacterGroup().name}");
+            return true;
+        }
+
+        private void SetSelectedAttackingGroup(IAttackingGroup group)
+        {
+            m_selectedAttackingGroup = group;
+        }
+
+        private void OnDestroy()
+        {
+            if (m_groupIndex != null)
+            {
+                m_groupIndex.GroupSelected -= SetSelectedAttackingGroup;
+            }
+        }
     }
 }
