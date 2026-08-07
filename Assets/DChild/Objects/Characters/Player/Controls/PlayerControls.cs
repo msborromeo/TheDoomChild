@@ -2981,6 +2981,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""6c9c608b-4d95-4b01-b56b-5d98bc016ca2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -3280,6 +3289,39 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Camera_Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b253aab1-d5d3-4d02-9080-66fd452b85f2"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7a7d8f41-d188-46a7-ac96-123524b619dd"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77e134e3-e3c3-4834-9552-9b316bf16207"",
+                    ""path"": ""<DualShockGamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -3380,6 +3422,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_DebugCamera_Camera_Horizontal = m_DebugCamera.FindAction("Camera_Horizontal", throwIfNotFound: true);
         m_DebugCamera_Camera_Vertical = m_DebugCamera.FindAction("Camera_Vertical", throwIfNotFound: true);
         m_DebugCamera_Camera_Zoom = m_DebugCamera.FindAction("Camera_Zoom", throwIfNotFound: true);
+        m_DebugCamera_Back = m_DebugCamera.FindAction("Back", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -3926,6 +3969,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_DebugCamera_Camera_Horizontal;
     private readonly InputAction m_DebugCamera_Camera_Vertical;
     private readonly InputAction m_DebugCamera_Camera_Zoom;
+    private readonly InputAction m_DebugCamera_Back;
     public struct DebugCameraActions
     {
         private @PlayerControls m_Wrapper;
@@ -3933,6 +3977,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Camera_Horizontal => m_Wrapper.m_DebugCamera_Camera_Horizontal;
         public InputAction @Camera_Vertical => m_Wrapper.m_DebugCamera_Camera_Vertical;
         public InputAction @Camera_Zoom => m_Wrapper.m_DebugCamera_Camera_Zoom;
+        public InputAction @Back => m_Wrapper.m_DebugCamera_Back;
         public InputActionMap Get() { return m_Wrapper.m_DebugCamera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -3951,6 +3996,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Camera_Zoom.started -= m_Wrapper.m_DebugCameraActionsCallbackInterface.OnCamera_Zoom;
                 @Camera_Zoom.performed -= m_Wrapper.m_DebugCameraActionsCallbackInterface.OnCamera_Zoom;
                 @Camera_Zoom.canceled -= m_Wrapper.m_DebugCameraActionsCallbackInterface.OnCamera_Zoom;
+                @Back.started -= m_Wrapper.m_DebugCameraActionsCallbackInterface.OnBack;
+                @Back.performed -= m_Wrapper.m_DebugCameraActionsCallbackInterface.OnBack;
+                @Back.canceled -= m_Wrapper.m_DebugCameraActionsCallbackInterface.OnBack;
             }
             m_Wrapper.m_DebugCameraActionsCallbackInterface = instance;
             if (instance != null)
@@ -3964,6 +4012,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Camera_Zoom.started += instance.OnCamera_Zoom;
                 @Camera_Zoom.performed += instance.OnCamera_Zoom;
                 @Camera_Zoom.canceled += instance.OnCamera_Zoom;
+                @Back.started += instance.OnBack;
+                @Back.performed += instance.OnBack;
+                @Back.canceled += instance.OnBack;
             }
         }
     }
@@ -4060,5 +4111,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnCamera_Horizontal(InputAction.CallbackContext context);
         void OnCamera_Vertical(InputAction.CallbackContext context);
         void OnCamera_Zoom(InputAction.CallbackContext context);
+        void OnBack(InputAction.CallbackContext context);
     }
 }
