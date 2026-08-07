@@ -72,6 +72,12 @@ namespace DChild.Gameplay.ArmyBattle.UI
             m_scrollBar.value = 0;
 
             SetPage(0);
+        }   
+
+        private void EnsureReferenceAndSelect(AttackingGroupSelectableOptionUI entryButton)
+        {
+            var button = entryButton.GetComponent<UIButton>();
+            button.Select();
         }
 
         public void Display(List<IAttackingGroup> attackingGroups)
@@ -170,6 +176,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
             {
                 SetPage(updatedPage);
             }
+            EnsureReferenceAndSelect(m_selectableGroups[0]);
         }
 
         private void Awake()

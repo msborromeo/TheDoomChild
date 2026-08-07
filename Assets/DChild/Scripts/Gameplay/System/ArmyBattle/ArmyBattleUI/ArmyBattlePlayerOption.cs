@@ -77,6 +77,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         private void SetSelectedAttackingGroup(IAttackingGroup group)
         {
             m_selectedAttackingGroup = group;
+            SelectCurrentAttackingGroup();
         }
 
         private void OnDestroy()
