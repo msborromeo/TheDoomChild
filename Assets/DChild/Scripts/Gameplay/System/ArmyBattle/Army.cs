@@ -125,6 +125,12 @@ namespace DChild.Gameplay.ArmyBattle
                 }
             }
         }
+        public List<IAttackingGroup> GetUsedGroups(DamageType damageType)
+        {
+            return m_usedAttackingGroups
+                .Where(group => group.GetDamageType() == damageType)
+                .ToList();
+        }
 
         public void SetAttackingGroupAvailability(IAttackingGroup attackingGroup, bool isAvailable)
         {

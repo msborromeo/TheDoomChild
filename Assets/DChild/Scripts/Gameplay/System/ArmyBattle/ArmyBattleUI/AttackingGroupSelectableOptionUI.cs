@@ -19,11 +19,19 @@ namespace DChild.Gameplay.ArmyBattle.UI
         private TextMeshProUGUI m_targetPowerLabel;
         [SerializeField]
         private TextMeshProUGUI m_targetPowerValue;
-
+       
         [SerializeField]
         private UIButton m_armyRow;
+        public UIButton selectable => m_armyRow;
         [SerializeField]
         private Image m_highlightGlow;
+        [SerializeField] private GameObject m_usedOverlay;
+
+        public void SetUsed(bool isUsed)
+        {
+            m_usedOverlay.SetActive(isUsed);
+            m_armyRow.interactable = !isUsed;
+        }
 
         private IAttackingGroup m_group;
         private int m_selectionIndex;
