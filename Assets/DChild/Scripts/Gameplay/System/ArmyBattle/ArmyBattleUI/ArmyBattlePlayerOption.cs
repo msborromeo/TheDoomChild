@@ -1,5 +1,6 @@
 ﻿using Doozy.Runtime.UIManager.Components;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace DChild.Gameplay.ArmyBattle.UI
@@ -43,10 +44,22 @@ namespace DChild.Gameplay.ArmyBattle.UI
         public void SetAttackGroupSelection(ArmyDamageTypeOptionUI option)
         {
             var damageType = option.damageType;
-            var playerGroups = m_player.controlledArmy.GetAvailableGroups(damageType);
+            var availableGroups =
+      m_player.controlledArmy.GetAvailableGroups(damageType);
+
+            var usedGroups =
+                m_player.controlledArmy.GetUsedGroups(damageType);
+
+            var selectionGroups = availableGroups
+                .Concat(usedGroups)
+                .ToList();
 
             m_selectedAttackingGroup = null;
-            m_groupIndex.SetAvailableGroups(damageType, playerGroups);
+
+            m_groupIndex.SetGroups(
+                damageType,
+                selectionGroups,
+                availableGroups.Count);
         }
 
         public void SetSpecialSkillSelection()
@@ -77,6 +90,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
         private void SetSelectedAttackingGroup(IAttackingGroup group)
         {
             m_selectedAttackingGroup = group;
+            SelectCurrentAttackingGroup();
         }
 
         private void OnDestroy()
