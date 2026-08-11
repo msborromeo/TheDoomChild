@@ -47,6 +47,19 @@ namespace DChild.Gameplay.ArmyBattle.UI
         public event EventAction<EventActionArgs> PageChange;
         public event Action<IAttackingGroup> GroupSelected;
 
+        private int m_availableGroupCount;
+
+        public void SetGroups(
+            DamageType damageType,
+            List<IAttackingGroup> groups,
+            int availableGroupCount)
+        {
+            m_panelLabel?.SetPanelLabel(damageType);
+            m_groups = groups ?? new List<IAttackingGroup>();
+            m_availableGroupCount = availableGroupCount;
+
+            Initialize();
+        }
 
         public void Select(AttackingGroupSelectableOptionUI selectable)
         {
@@ -72,6 +85,12 @@ namespace DChild.Gameplay.ArmyBattle.UI
             m_scrollBar.value = 0;
 
             SetPage(0);
+        }   
+
+        private void EnsureReferenceAndSelect(AttackingGroupSelectableOptionUI entryButton)
+        {
+            var button = entryButton.GetComponent<UIButton>();
+            button.Select();
         }
 
         public void Display(List<IAttackingGroup> attackingGroups)
@@ -82,10 +101,15 @@ namespace DChild.Gameplay.ArmyBattle.UI
 
                 if (i < attackingGroups.Count)
                 {
-                    selectableGroup.SetSelectionIndex(m_startingIndex + i);
+                    int absoluteIndex = m_startingIndex + i;
+                    bool isUsed = absoluteIndex >= m_availableGroupCount;
+
+                    selectableGroup.SetSelectionIndex(absoluteIndex);
                     selectableGroup.Display(attackingGroups[i]);
+                    selectableGroup.SetUsed(isUsed);
                     continue;
                 }
+
                 selectableGroup.Display(null);
             }
         }
@@ -170,6 +194,7 @@ namespace DChild.Gameplay.ArmyBattle.UI
             {
                 SetPage(updatedPage);
             }
+            EnsureReferenceAndSelect(m_selectableGroups[0]);
         }
 
         private void Awake()
