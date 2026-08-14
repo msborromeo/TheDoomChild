@@ -2380,6 +2380,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     {
                         m_shadowMorph?.Cancel();
                     }
+                    else if (m_state.isAimingProjectile)
+                    {
+                        m_projectileThrow?.Cancel();
+                    }
                     else
                     {
                         m_shadowGaugeRegen?.Enable(true);
