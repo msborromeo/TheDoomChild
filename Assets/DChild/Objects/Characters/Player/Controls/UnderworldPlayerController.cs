@@ -1578,18 +1578,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isAttacking)
                 return;
-            if (m_abilities.IsAbilityActivated(CombatArt.LightningSpear))
-            {
-                if (m_state.isGrounded == false && m_lightningSpear.CanLightningSpear())
-                {
-                    PrepareForMidairAttack();
-                    m_currentCombatArt = m_lightningSpear;
-                    m_lightningSpear.Execute();
-                    return;
-                }
-            }
-
-            if (m_abilities.IsAbilityActivated(CombatArt.AirSlashRange))
+            if (m_abilities.IsAbilityActivated(CombatArt.AirSlashRange) && !(m_abilities.IsAbilityActivated(CombatArt.LightningSpear)))
             {
                 if (m_state.isGrounded == false)
                 {
@@ -1603,6 +1592,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
                             return;
                         }
                     }
+                }
+            }
+            if (m_abilities.IsAbilityActivated(CombatArt.LightningSpear) && (m_abilities.IsAbilityActivated(CombatArt.AirSlashRange)))
+            {
+                if (m_state.isGrounded == false && m_lightningSpear.CanLightningSpear())
+                {
+                    PrepareForMidairAttack();
+                    m_currentCombatArt = m_lightningSpear;
+                    m_lightningSpear.Execute();
+                    return;
                 }
             }
         }
