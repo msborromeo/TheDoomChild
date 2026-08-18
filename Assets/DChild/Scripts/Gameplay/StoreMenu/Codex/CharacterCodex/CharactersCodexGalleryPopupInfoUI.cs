@@ -44,18 +44,23 @@ namespace DChild.Menu.Codex.Characters
 
             if (m_showDataOf.specialCharacter)
             {
+                m_description.text = "";
                 if (m_showDataOf.doomedKnightComment)
                 {
+                    m_doomknightRemarks.gameObject.SetActive(true);
                     m_doomknightRemarks.text = m_showDataOf.doomedknightRemarks;
                 }
                 if (m_showDataOf.secondInteract)
                 {
+                    m_necroRemarks.gameObject.SetActive(true);
                     m_necroRemarks.text = m_showDataOf.necroRemarks;
                 }
             }
             else
             {
-                m_description.text = m_showDataOf.description;
+                m_description.text = m_showDataOf.description;      
+                m_doomknightRemarks.gameObject.SetActive(false);
+                m_necroRemarks.gameObject.SetActive(false);
             }
             
         }
