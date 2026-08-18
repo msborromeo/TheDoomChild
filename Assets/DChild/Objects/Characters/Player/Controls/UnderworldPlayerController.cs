@@ -243,6 +243,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.BarrierStartedEvent += OnBarrierStartedInput;
             m_inputReader.BarrierPerformedEvent += OnBarrierPerformedInput;
             m_inputReader.BarrierCancelledEvent += OnBarrierCancelledInput;
+            m_inputReader.EarthShakerStartedEvent += OnEarthShakerStartedInput;
+            m_inputReader.EarthShakerPerformedEvent += OnEarthShakerPerformedInput;
+            m_inputReader.EarthShakerCancelledEvent += OnEarthShakerCancelledInput;
             m_inputReader.AirSlashStartedEvent += OnAirSlashStartedInput;
             m_inputReader.AirSlashCancelledEvent += OnAirSlashCancelledInput;
             m_inputReader.AirSlashPerformedEvent += OnAirSlashPerformedInput;
@@ -330,6 +333,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.BarrierStartedEvent -= OnBarrierStartedInput;
             m_inputReader.BarrierPerformedEvent -= OnBarrierPerformedInput;
             m_inputReader.BarrierCancelledEvent -= OnBarrierCancelledInput;
+            m_inputReader.EarthShakerStartedEvent -= OnEarthShakerStartedInput;
+            m_inputReader.EarthShakerPerformedEvent -= OnEarthShakerPerformedInput;
+            m_inputReader.EarthShakerCancelledEvent -= OnEarthShakerCancelledInput;
             m_inputReader.AirSlashStartedEvent -= OnAirSlashStartedInput;
             m_inputReader.AirSlashCancelledEvent -= OnAirSlashCancelledInput;
             m_inputReader.AirSlashPerformedEvent -= OnAirSlashPerformedInput;
@@ -1168,6 +1174,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 if (m_basicSlashes.CanAirAttack())
                 {
                     PrepareForMidairAttack();
+                    m_diagonalSwordDash?.Cancel();
                     m_devilWings?.EnableLevitate();
                     m_extraJump?.Cancel();
 
@@ -1184,14 +1191,17 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                 }
 
-                if (m_vector2Input.y < 0)
+                /*if (m_vector2Input.y < 0)
                 {
-                    if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
+                    if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker() 
+                        && m_state.isExecutingCombatArt == false)
                     {
-                        m_earthShaker.StartExecution();
+                        m_earthShaker?.Reset();
+                        m_diagonalSwordDash?.Cancel();
+                        m_earthShaker?.StartExecution();
                         return;
                     }
-                }
+                }*/
             }
         }
 
@@ -1562,6 +1572,43 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         }
 
+        private void OnEarthShakerStartedInput()
+        {
+
+        }
+
+        private void OnEarthShakerCancelledInput()
+        {
+
+        }
+
+        private void OnEarthShakerPerformedInput()
+        {
+            if (m_state.isExecutingCombatArt) { return; }
+            if (m_state.isInShadowMode) { return; }
+            /*if (m_state.isDoingEarthShaker)
+            {
+                if (m_earthShaker != null)
+                    m_earthShaker?.EndExecution();
+            }*/
+            else
+            {
+                if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
+                {
+                    if (m_state.isGrounded == false)
+                    {
+                        m_earthShaker?.Reset();
+                        PrepareForMidairAttack();
+                        m_diagonalSwordDash?.Cancel();
+                        m_icarusWings?.Cancel();
+                        m_devilWings?.Cancel();
+                        m_earthShaker?.StartExecution();
+                        return;
+                    }
+                }
+            }
+        }
+
         private void OnAirSlashStartedInput()
         {
 
@@ -1750,22 +1797,27 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnDiagonalSwordDashPerformedInput()
         {
-            if (m_state.isExecutingCombatArt)
-                return;
-            if (m_abilities.IsAbilityActivated(CombatArt.DiagonalSwordDash))
+            if (m_state.isExecutingCombatArt){ return; }
+            if (m_state.isInShadowMode) { return; }
+            if (m_state.isDoingEarthShaker)
             {
-                if (m_state.isGrounded == false)
+                m_diagonalSwordDash?.EndExecution();
+            }
+            else
+            {
+                if (m_abilities.IsAbilityActivated(CombatArt.DiagonalSwordDash) && m_diagonalSwordDash.CanDiagonalSwordDash())
                 {
-                    if (m_diagonalSwordDash.CanDiagonalSwordDash())
+                    if (m_state.isGrounded == false)
                     {
+                        m_diagonalSwordDash?.Reset();
                         PrepareForMidairAttack();
+                        m_earthShaker?.Cancel();
                         m_devilWings?.Cancel();
                         m_extraJump?.Cancel();
                         m_currentCombatArt = m_diagonalSwordDash;
-                        m_diagonalSwordDash.Execute();
+                        m_diagonalSwordDash?.Execute();
                         return;
                     }
-
                 }
             }
         }
@@ -1853,26 +1905,27 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnIcarusWingsCancelledInput()
         {
-            m_state.isExecutingCombatArt = false;
+            /*m_state.isExecutingCombatArt = false;*/
         }
 
         private void OnIcarusWingsPerformedInput()
         {
+            //if (m_state.isExecutingCombatArt) { return; }
             if (m_state.isGrounded == false)
                 return;
             if (m_state.isChargingAttack)
                 return;
             if (m_vector2Input.x != 0)
                 return;
-            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
-                return;
-
-            m_basicSlashes.Cancel();
-
-            PrepareForGroundAttack();
-            m_currentCombatArt = m_icarusWings;
-
-            m_icarusWings.Execute();
+            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) && m_icarusWings.CanIcarusWings())
+            {
+                m_basicSlashes.Cancel();
+                PrepareForGroundAttack();
+                m_earthShaker?.Cancel();
+                m_diagonalSwordDash?.Cancel();
+                m_currentCombatArt = m_icarusWings;
+                m_icarusWings.Execute();
+            }
         }
 
         private void OnTeleportingSkullStartedInput()
