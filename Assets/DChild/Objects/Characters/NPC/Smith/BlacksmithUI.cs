@@ -31,7 +31,7 @@ namespace DChild.UI
         public void SelectYesWhenShown() => StartCoroutine(SelectYesAfterDelay());
         private IEnumerator SelectYesAfterDelay()
         {
-            yield return new WaitForSecondsRealtime(0.35f);
+            yield return new WaitForSecondsRealtime(0.225f);
 
             if (EventSystem.current == null ||
                 m_yesButton == null ||
