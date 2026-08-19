@@ -159,6 +159,11 @@ namespace DChild.Gameplay.ArmyBattle
             return m_availableSpecialSkills;
         }
 
+        public List<ISpecialSkillGroup> GetUsedSkills()
+        {
+            return m_usedSpecialSkills;
+        }
+
         public void SetSpecialSkillAvailability(ISpecialSkillGroup group, bool isAvailable)
         {
             if (isAvailable)
