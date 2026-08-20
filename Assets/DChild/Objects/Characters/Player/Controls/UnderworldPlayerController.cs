@@ -577,6 +577,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 m_lightningSpear.HandleMovementTimer();
             }
+            if (m_diagonalSwordDash.CanReset() == true)
+            {
+                m_diagonalSwordDash.HandleResetTimer();
+            }
+
+            if (m_diagonalSwordDash.CanMove() == false)
+            {
+                m_diagonalSwordDash.HandleMovementTimer();
+            }
 
             if (m_reaperHarvest.CanReaperHarvest() == false)
             {
@@ -1586,25 +1595,21 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isExecutingCombatArt) { return; }
             if (m_state.isInShadowMode) { return; }
-            /*if (m_state.isDoingEarthShaker)
+            if (m_state.isDoingEarthShaker)
             {
-                if (m_earthShaker != null)
-                    m_earthShaker?.EndExecution();
-            }*/
-            else
+                m_diagonalSwordDash?.Cancel();
+            }
+            if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
             {
-                if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
+                if (m_state.isGrounded == false)
                 {
-                    if (m_state.isGrounded == false)
-                    {
-                        m_earthShaker?.Reset();
-                        PrepareForMidairAttack();
-                        m_diagonalSwordDash?.Cancel();
-                        m_icarusWings?.Cancel();
-                        m_devilWings?.Cancel();
-                        m_earthShaker?.StartExecution();
-                        return;
-                    }
+                    m_earthShaker?.Reset();
+                    PrepareForMidairAttack();
+                    m_diagonalSwordDash?.Cancel();
+                    m_icarusWings?.Cancel();
+                    m_devilWings?.Cancel();
+                    m_earthShaker?.StartExecution();
+                    return;
                 }
             }
         }
@@ -1798,26 +1803,20 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnDiagonalSwordDashPerformedInput()
         {
             if (m_state.isExecutingCombatArt){ return; }
-            if (m_state.isInShadowMode) { return; }
-            if (m_state.isDoingEarthShaker)
+            if (m_state.isAttacking) { return; }
+            if (m_state.isDoingEarthShaker){ return; }
+            if (m_abilities.IsAbilityActivated(CombatArt.DiagonalSwordDash) && m_diagonalSwordDash.CanDiagonalSwordDash())
             {
-                m_diagonalSwordDash?.EndExecution();
-            }
-            else
-            {
-                if (m_abilities.IsAbilityActivated(CombatArt.DiagonalSwordDash) && m_diagonalSwordDash.CanDiagonalSwordDash())
+                if (m_state.isGrounded == false)
                 {
-                    if (m_state.isGrounded == false)
-                    {
-                        m_diagonalSwordDash?.Reset();
-                        PrepareForMidairAttack();
-                        m_earthShaker?.Cancel();
-                        m_devilWings?.Cancel();
-                        m_extraJump?.Cancel();
-                        m_currentCombatArt = m_diagonalSwordDash;
-                        m_diagonalSwordDash?.Execute();
-                        return;
-                    }
+                    m_diagonalSwordDash?.Reset();
+                    PrepareForMidairAttack();
+                    m_earthShaker?.Cancel();
+                    m_devilWings?.Cancel();
+                    m_extraJump?.Cancel();
+                    m_currentCombatArt = m_diagonalSwordDash;
+                    m_diagonalSwordDash?.Execute();
+                    return;
                 }
             }
         }
@@ -2349,6 +2348,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 if (m_currentCombatArt != null)
                 {
                     m_lightningSpear?.Cancel();
+                    m_diagonalSwordDash?.Cancel();
 
                     m_currentCombatArt = null;
                 }

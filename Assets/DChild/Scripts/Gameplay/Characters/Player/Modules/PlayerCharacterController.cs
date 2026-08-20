@@ -681,6 +681,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_lightningSpear.HandleMovementTimer();
             }
 
+            if (m_diagonalSwordDash.CanReset() == true)
+            {
+                m_diagonalSwordDash.HandleResetTimer();
+            }
+
+            if (m_diagonalSwordDash.CanMove() == false)
+            {
+                m_diagonalSwordDash.HandleMovementTimer();
+            }
+
             if (m_icarusWings.CanIcarusWings() == false)
             {
                 m_icarusWings.HandleAttackTimer();

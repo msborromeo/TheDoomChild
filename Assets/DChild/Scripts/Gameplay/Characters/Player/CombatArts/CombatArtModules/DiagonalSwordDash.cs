@@ -50,6 +50,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 
         private bool m_canDiagonalSwordDash;
         private bool m_canMove;
+        private bool m_canReset;
         private IPlayerModifer m_modifier;
         private int m_diagonalSwordDashStateAnimationParameter;
         private float m_diagonalSwordDashCooldownTimer;
@@ -60,7 +61,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 
         public bool CanDiagonalSwordDash() => m_canDiagonalSwordDash;
         public bool CanMove() => m_canMove;
-
+        public bool CanReset() => m_canReset;
         private Coroutine m_checkImpactCoroutine;
 
         public override void Initialize(ComplexCharacterInfo info)
@@ -85,16 +86,20 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 
         public override void Reset()
         {
-            base.Reset();
+            m_state.waitForBehaviour = false;
+            m_state.isAttacking = false;
+            m_canDiagonalSwordDash = true;
             m_diagonalSwordDashInfo.ShowCollider(false);
             m_animator.SetBool(m_diagonalSwordDashStateAnimationParameter, false);
+            base.Reset();
         }
 
         public void Execute()
         {
             m_state.waitForBehaviour = true;
             m_state.isExecutingCombatArt = true;
-            StopAllCoroutines();
+            //StopAllCoroutines();
+            m_canReset = false;
             m_state.isAttacking = true;
             m_state.canAttack = false;
             m_canDiagonalSwordDash = false;
@@ -107,25 +112,24 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_cacheGravity = m_physics.gravityScale;
             m_physics.gravityScale = 0;
             m_diagonalSwordDashFXAnimator.SetTrigger("ActiveTrigger");
-            if (m_checkImpactCoroutine != null)
+            /*if (m_checkImpactCoroutine != null)
             {
                 StopCoroutine(m_checkImpactCoroutine);
                 m_checkImpactCoroutine = null;
-            }
+            }*/
         }
 
         public void EndExecution()
         {
             m_diagonalSwordDashInfo.ShowCollider(false);
-            m_canMove = true;
             m_physics.gravityScale = m_cacheGravity;
             m_animator.SetBool(m_diagonalSwordDashStateAnimationParameter, false);
             m_diagonalSwordDashFXAnimator.SetTrigger("EndTrigger");
-            if (m_checkImpactCoroutine != null)
+            /*if (m_checkImpactCoroutine != null)
             {
                 StopCoroutine(m_checkImpactCoroutine);
                 m_checkImpactCoroutine = null;
-            }
+            }*/
             m_state.isExecutingCombatArt = false;
             base.AttackOver();
         }
@@ -133,17 +137,16 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         public override void Cancel()
         {
             m_diagonalSwordDashInfo.ShowCollider(false);
-            m_canMove = true;
             m_fxAnimator.Play("Buffer");
             StopAllCoroutines();
             m_physics.gravityScale = m_cacheGravity;
             m_animator.SetBool(m_diagonalSwordDashStateAnimationParameter, false);
             m_diagonalSwordDashFXAnimator.SetTrigger("EndTrigger");
-            if (m_checkImpactCoroutine != null)
+            /*if (m_checkImpactCoroutine != null)
             {
                 StopCoroutine(m_checkImpactCoroutine);
                 m_checkImpactCoroutine = null;
-            }
+            }*/
             m_state.isExecutingCombatArt = false;
             base.Cancel();
         }
@@ -234,6 +237,35 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             }
         }
 
+        public void HandleMovementTimer()
+        {
+            if (m_diagonalSwordDashCooldownTimer > 0)
+            {
+                m_diagonalSwordDashCooldownTimer -= GameplaySystem.time.deltaTime;
+                m_canMove = false;
+            }
+            else
+            {
+                m_diagonalSwordDashCooldownTimer = m_diagonalSwordDashCooldown;
+                m_canMove = true;
+            }
+        }
+
+        public void HandleResetTimer()
+        {
+            if (m_diagonalSwordDashCooldownTimer > 0)
+            {
+                m_diagonalSwordDashCooldownTimer -= GameplaySystem.time.deltaTime;
+                m_canReset = true;
+            }
+            else
+            {
+                m_diagonalSwordDashCooldownTimer = m_diagonalSwordDashCooldown;
+                m_canReset = false;
+                EndExecution();
+            }
+        }
+
         private IEnumerator DashRoutine()
         {
             m_state.waitForBehaviour = true;
@@ -248,7 +280,6 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 timer -= Time.deltaTime;
                 yield return null;
             }
-            m_animator.SetBool(m_diagonalSwordDashStateAnimationParameter, false);
             //Debug.Log("End Diagon Sword Dash");
             m_physics.gravityScale = m_cacheGravity;
             m_physics.velocity = new Vector2(m_character.facing == HorizontalDirection.Right ? -m_backForce.x : m_backForce.x, m_backForce.y);
