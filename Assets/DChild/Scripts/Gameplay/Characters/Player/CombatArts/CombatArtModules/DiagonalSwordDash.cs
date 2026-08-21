@@ -125,6 +125,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_physics.gravityScale = m_cacheGravity;
             m_animator.SetBool(m_diagonalSwordDashStateAnimationParameter, false);
             m_diagonalSwordDashFXAnimator.SetTrigger("EndTrigger");
+            m_canMove = true;
             /*if (m_checkImpactCoroutine != null)
             {
                 StopCoroutine(m_checkImpactCoroutine);
@@ -142,6 +143,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_physics.gravityScale = m_cacheGravity;
             m_animator.SetBool(m_diagonalSwordDashStateAnimationParameter, false);
             m_diagonalSwordDashFXAnimator.SetTrigger("EndTrigger");
+            m_canMove = true;
             /*if (m_checkImpactCoroutine != null)
             {
                 StopCoroutine(m_checkImpactCoroutine);
@@ -266,6 +268,12 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             }
         }
 
+        public bool CanExecuteDash()
+        {
+            m_groundSensor.Cast();
+            return !m_groundSensor.isDetecting;
+        }
+
         private IEnumerator DashRoutine()
         {
             m_state.waitForBehaviour = true;
@@ -274,11 +282,11 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_groundSensor.Cast();
             while (/*timer >= 0 &&*/ !m_wallSensor.isDetecting && !m_groundSensor.isDetecting)
             {
-                m_wallSensor.Cast();
-                m_groundSensor.Cast();
                 m_physics.velocity = new Vector2(m_character.facing == HorizontalDirection.Right ? m_pushForce.x : -m_pushForce.x, m_pushForce.y);
                 timer -= Time.deltaTime;
                 yield return null;
+                m_wallSensor.Cast();
+                m_groundSensor.Cast();
             }
             //Debug.Log("End Diagon Sword Dash");
             m_physics.gravityScale = m_cacheGravity;

@@ -1809,6 +1809,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 if (m_state.isGrounded == false)
                 {
+                    if (m_diagonalSwordDash.CanExecuteDash() == false) { m_diagonalSwordDash?.Cancel(); }
                     m_diagonalSwordDash?.Reset();
                     PrepareForMidairAttack();
                     m_earthShaker?.Cancel();
@@ -2349,6 +2350,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 {
                     m_lightningSpear?.Cancel();
                     m_diagonalSwordDash?.Cancel();
+                    m_earthShaker?.Cancel();
 
                     m_currentCombatArt = null;
                 }
