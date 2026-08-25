@@ -99,6 +99,9 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_state.waitForBehaviour = true;
             m_state.isExecutingCombatArt = true;
             //StopAllCoroutines();
+            //m_physics.velocity = Vector2.zero;
+            m_cacheGravity = m_physics.gravityScale;
+            m_physics.gravityScale = 0;
             m_canReset = false;
             m_state.isAttacking = true;
             m_state.canAttack = false;
@@ -108,48 +111,45 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_animator.SetBool(m_diagonalSwordDashStateAnimationParameter, true);
             m_diagonalSwordDashCooldownTimer = m_diagonalSwordDashCooldown;
             m_diagonalSwordDashMovementCooldownTimer = m_diagonalSwordDashMovementCooldown;
-            m_physics.velocity = Vector2.zero;
-            m_cacheGravity = m_physics.gravityScale;
-            m_physics.gravityScale = 0;
             m_diagonalSwordDashFXAnimator.SetTrigger("ActiveTrigger");
-            /*if (m_checkImpactCoroutine != null)
+            if (m_checkImpactCoroutine != null)
             {
                 StopCoroutine(m_checkImpactCoroutine);
                 m_checkImpactCoroutine = null;
-            }*/
+            }
         }
 
         public void EndExecution()
         {
             m_diagonalSwordDashInfo.ShowCollider(false);
-            m_physics.gravityScale = m_cacheGravity;
-            m_animator.SetBool(m_diagonalSwordDashStateAnimationParameter, false);
             m_diagonalSwordDashFXAnimator.SetTrigger("EndTrigger");
+            m_state.isExecutingCombatArt = false;
+            //m_physics.gravityScale = m_cacheGravity;
+            m_animator.SetBool(m_diagonalSwordDashStateAnimationParameter, false);
             m_canMove = true;
-            /*if (m_checkImpactCoroutine != null)
+            if (m_checkImpactCoroutine != null)
             {
                 StopCoroutine(m_checkImpactCoroutine);
                 m_checkImpactCoroutine = null;
-            }*/
-            m_state.isExecutingCombatArt = false;
+            }
             base.AttackOver();
         }
 
         public override void Cancel()
         {
             m_diagonalSwordDashInfo.ShowCollider(false);
+            m_diagonalSwordDashFXAnimator.SetTrigger("EndTrigger");
+            m_state.isExecutingCombatArt = false;
+            m_physics.gravityScale = m_cacheGravity;
             m_fxAnimator.Play("Buffer");
             StopAllCoroutines();
-            m_physics.gravityScale = m_cacheGravity;
             m_animator.SetBool(m_diagonalSwordDashStateAnimationParameter, false);
-            m_diagonalSwordDashFXAnimator.SetTrigger("EndTrigger");
             m_canMove = true;
-            /*if (m_checkImpactCoroutine != null)
+            if (m_checkImpactCoroutine != null)
             {
                 StopCoroutine(m_checkImpactCoroutine);
                 m_checkImpactCoroutine = null;
-            }*/
-            m_state.isExecutingCombatArt = false;
+            }
             base.Cancel();
         }
 

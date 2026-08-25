@@ -1803,7 +1803,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnDiagonalSwordDashPerformedInput()
         {
             if (m_state.isExecutingCombatArt){ return; }
-            if (m_state.isAttacking) { return; }
+            //if (m_state.isAttacking) { return; }
             if (m_state.isDoingEarthShaker){ return; }
             if (m_abilities.IsAbilityActivated(CombatArt.DiagonalSwordDash) && m_diagonalSwordDash.CanDiagonalSwordDash())
             {
@@ -1812,12 +1812,17 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     if (m_diagonalSwordDash.CanExecuteDash() == false) { m_diagonalSwordDash?.Cancel(); }
                     m_diagonalSwordDash?.Reset();
                     PrepareForMidairAttack();
+                    m_basicSlashes?.Cancel();
                     m_earthShaker?.Cancel();
                     m_devilWings?.Cancel();
                     m_extraJump?.Cancel();
                     m_currentCombatArt = m_diagonalSwordDash;
                     m_diagonalSwordDash?.Execute();
                     return;
+                }
+                else
+                {
+                    m_currentCombatArt = null;
                 }
             }
         }
