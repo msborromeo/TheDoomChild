@@ -21,6 +21,7 @@ using DG.Tweening;
 using Unity.Mathematics;
 using System;
 using System.Linq;
+using Language.Lua;
 namespace DChild.Gameplay.Characters.Enemies
 {
     [AddComponentMenu("DChild/Gameplay/Enemies/Boss/TheOneFirstForm")]
@@ -169,6 +170,18 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, BoxGroup("Sword Change")]
             private BasicAnimationInfo m_swordChangeAnimation;
             public BasicAnimationInfo swordChangeAnimation => m_swordChangeAnimation;
+            [SerializeField, BoxGroup("Sword Change")]
+            private BasicAnimationInfo m_swordChangeAnimationToGreen;
+            public BasicAnimationInfo swordChangeAnimationToGreen => m_swordChangeAnimationToGreen;
+            [SerializeField, BoxGroup("Sword Change")]
+            private BasicAnimationInfo m_swordChangeAnimationToPurple;
+            public BasicAnimationInfo swordChangeAnimationToPurple => m_swordChangeAnimationToPurple;
+            [SerializeField, BoxGroup("Sword Change")]
+            private BasicAnimationInfo m_swordChangeAnimationToRed;
+            public BasicAnimationInfo swordChangeAnimationToRed => m_swordChangeAnimationToRed;
+            [SerializeField, BoxGroup("Sword Change")]
+            private BasicAnimationInfo m_swordChangeAnimationToNormal;
+            public BasicAnimationInfo swordChangeAnimationToNormal => m_swordChangeAnimationToNormal;
             [SerializeField, BoxGroup("Summon Swords")]
             private BasicAnimationInfo m_summonSwordsAnimation;
             public BasicAnimationInfo summonSwordsAnimation => m_summonSwordsAnimation;
@@ -249,6 +262,9 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField]
             private int m_fakeBlinkHitCount;
             public int fakeBlinkHitCount => m_fakeBlinkHitCount;
+            [SerializeField]
+            private int m_geyserBurstCD;
+            public int geyserBurstCD => m_geyserBurstCD;
 
             [TitleGroup("Animations")]
             [SerializeField]
@@ -340,6 +356,18 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, ValueDropdown("GetEvents")]
             private string m_dustLandEvent;
             public string dustLandEvent => m_dustLandEvent;
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_geyserStartNormal;
+            public string geyserStartNormal => m_geyserStartNormal;
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_geyserStartRed;
+            public string geyserStartRed => m_geyserStartRed;
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_geyserStartGreen;
+            public string geyserStartGreen => m_geyserStartGreen;
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_geyserStartPurple;
+            public string geyserStartPurple => m_geyserStartPurple;
 
             public override void Initialize()
             {
@@ -371,7 +399,10 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_scytheWavePoisonProjectile.SetData(m_skeletonDataAsset);
                 m_scytheWaveAcidProjectile.SetData(m_skeletonDataAsset);
 
-
+                m_swordChangeAnimationToGreen.SetData(m_skeletonDataAsset);
+                m_swordChangeAnimationToNormal.SetData(m_skeletonDataAsset);
+                m_swordChangeAnimationToPurple.SetData(m_skeletonDataAsset);
+                m_swordChangeAnimationToRed.SetData(m_skeletonDataAsset);
                 m_drillNormalMixAnimation.SetData(m_skeletonDataAsset);
                 m_drillGreenMixAnimation.SetData(m_skeletonDataAsset);
                 m_drillPurpleMixAnimation.SetData(m_skeletonDataAsset);
@@ -711,6 +742,8 @@ namespace DChild.Gameplay.Characters.Enemies
                         break;
                 }
             }*/
+
+
         }
 
         private IEnumerator StaggerRoutine()
@@ -1044,34 +1077,7 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             blinkCount = 0;
         }
-        private IEnumerator EvadeRoutine()
-        {
-            Debug.Log("evading");
-            if (/*IsTargetInRange(m_info.projectilWaveSlashGround1Attack.range) &&*/ m_blinkCount < 2)
-            {
-                yield return BlinkRoutine(BlinkState.DisappearBackward, BlinkState.AppearBackward, 60, m_info.midAirHeight, m_blinkCount == 1 ? true : false, true, false);
-            }
-            else
-            {
-                yield return BlinkRoutine(BlinkState.DisappearBackward, BlinkState.AppearBackward, 60, m_info.midAirHeight, m_blinkCount == 1 ? true : false, true, false);
-                m_blinkCount = 0;
-                var chosenBehavior = UnityEngine.Random.Range(0, 2) == 1 ? 0 : 1;
-
-                switch (chosenBehavior)
-                {
-                    case 0:
-                        yield return ChooseScytheWaveSpawn();
-                        m_animation.SetAnimation(0, m_info.scytheWaveAttack.animation, false);
-                        yield return new WaitForAnimationComplete(m_animation.animationState, m_info.scytheWaveAttack.animation);
-                        break;
-                    case 1:
-                        yield return DualSwordComboAttackPattern1();
-                        break;
-                }
-
-            }
-            Debug.Log("evading done");
-        }
+       
 
         private IEnumerator FakeBlinkRoutine()
         {
@@ -1205,13 +1211,13 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator DrillDashComboRoutine()
         {
 
-                    yield return BlinkRoutine(BlinkState.DisappearUpward, BlinkState.AppearUpward, 60, 50,false, false, true);
+                    yield return BlinkRoutine(BlinkState.DisappearUpward, BlinkState.AppearUpward, 10 ,0,false, false, false);
                     m_lastTargetPos = m_targetInfo.position;
                     m_hitbox.Disable();
                     m_animation.DisableRootMotion();
                     if (!IsFacingTarget())
                         CustomTurn();
-                    m_animation.SetAnimation(0, m_info.fallAnimation, true);
+                    //m_animation.SetAnimation(0, m_info.fallAnimation, true);
                     yield return new WaitForSeconds(0.25f);
                     m_character.physics.simulateGravity = false;
                     m_animation.SetAnimation(4, m_drillMixAnimation, false);
@@ -1347,7 +1353,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 CustomTurn(); 
             if (!IsTargetInRange(m_info.dualSwordComboAttackRange))
             {
-                yield return BlinkRoutine(BlinkState.DisappearForward, BlinkState.AppearForward, 25, m_info.midAirHeight, false, false, false);
+                yield return BlinkRoutine(BlinkState.DisappearForward, BlinkState.AppearForward, 10, m_info.midAirHeight, false, false, false);
                 Debug.Log("Not in range, before downward slash");
             }
             if (!IsFacingTarget())
@@ -1515,8 +1521,46 @@ namespace DChild.Gameplay.Characters.Enemies
             Debug.Log("phase1pattern3 done");
         }
 
+        private void GeyserBurstSpawnEvent()
+        {
+            GameObject geyserToSpawn = null;
+            m_canGeyserBurst = false;
+            switch (m_currentSwordState)
+            {
+                case SwordState.BlackBlood:
+                    geyserToSpawn = m_info.geyserRed;
+                    break;
+                case SwordState.Poison:
+                    geyserToSpawn = m_info.geyserPurple;
+                    break;
+                case SwordState.Acid:
+                    geyserToSpawn = m_info.geyserGreen;
+                    break;
+            }
+            int pattern = UnityEngine.Random.Range(0, 2);
+
+            switch (pattern)
+            {
+                case 0:
+                    {
+                        SpawnGeysers(m_geyserPatternOne, geyserToSpawn);
+                    }
+                    break;
+                case 1:
+                    {
+                        SpawnGeysers(m_geyserPatternTwo, geyserToSpawn);
+                    }
+                    break;
+                default:
+                    {
+                        SpawnGeysers(m_geyserPatternTwo, geyserToSpawn);
+                    }
+                    break;
+            }
+        }
         private IEnumerator GeyserBurstPhase1Pattern4()
         {
+            m_stateHandle.Wait(State.ReevaluateSituation);
             Debug.Log("phase1pattern4");
                 var geyserAnimation = "";
                 GameObject geyserToSpawn = null;
@@ -1538,28 +1582,6 @@ namespace DChild.Gameplay.Characters.Enemies
 
                 m_animation.AddAnimation(0, geyserAnimation, false, 0);
                 yield return new WaitForAnimationComplete(m_animation.animationState, geyserAnimation);
-
-                int pattern = UnityEngine.Random.Range(0, 2);
-
-                switch (pattern)
-                {
-                    case 0:
-                        {
-                            SpawnGeysers(m_geyserPatternOne, geyserToSpawn);
-                        }
-                        break;
-                    case 1:
-                        {
-                            SpawnGeysers(m_geyserPatternTwo, geyserToSpawn);
-                        }
-                        break;
-                    default:
-                        {
-                            SpawnGeysers(m_geyserPatternTwo, geyserToSpawn);
-                        }
-                        break;
-                }
-
                 m_attackDecider.hasDecidedOnAttack = false;
                 m_stateHandle.ApplyQueuedState();
 
@@ -2199,7 +2221,7 @@ namespace DChild.Gameplay.Characters.Enemies
         #endregion
 
         #region Cooldown Monitors
-        private bool m_canUseAlternateSwordState = true;
+        [SerializeField] private bool m_canUseAlternateSwordState = true;
         private int m_alterBladeCounterToActivate = 0;
         private readonly SwordState[] m_alternateSwordStates =
         {
@@ -2216,9 +2238,8 @@ namespace DChild.Gameplay.Characters.Enemies
             if (availableStates.Count == 0)
             {
                 m_usedSwordStates.Clear();
-                m_canUseAlternateSwordState = false;
+
                 return SwordState.Normal;
-                
             }
 
             var selectedState = availableStates[
@@ -2229,17 +2250,21 @@ namespace DChild.Gameplay.Characters.Enemies
 
             return selectedState;
         }
+        [SerializeField] private int m_alternateBladeAttackCounter = 3;
+
+        private int m_currentAlternateBladeAttackCounter;
         private IEnumerator AlterBladeMonitorRoutine()
         {
             Debug.Log("altermonitor");
             m_stateHandle.Wait(State.Attacking);
             m_currentSwordState = GetNextRandomSwordState();
             yield return AlterBladeRoutine(m_currentSwordState);
+            m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
             Debug.Log("altermonitor done");
         }
 
-
+        private IAIAnimationInfo animationChangeSwordString;
         private IEnumerator AlterBladeRoutine(SwordState swordState)
         {
             Debug.Log("alterblade");
@@ -2256,33 +2281,37 @@ namespace DChild.Gameplay.Characters.Enemies
             switch (swordState)
             {
                 case SwordState.Normal:
+                    animationChangeSwordString = m_info.swordChangeAnimationToNormal;
                     m_swordMixAnimation = m_info.swordNormalMixAnimation.animation;
                     m_drillMixAnimation = m_info.drillNormalMixAnimation.animation;
                     m_projectileLauncher = new ProjectileLauncher(m_info.slashNormalProjectile.projectileInfo, m_projectilePoint);
                     m_scytheWaveLauncher = new ProjectileLauncher(m_info.scytheWaveNormalProjectile.projectileInfo, m_scytheWavePoint);
                     break;
                 case SwordState.BlackBlood:
+                    animationChangeSwordString = m_info.swordChangeAnimationToRed;
                     m_swordMixAnimation = m_info.swordRedMixAnimation.animation;
                     m_drillMixAnimation = m_info.drillRedMixAnimation.animation;
                     m_projectileLauncher = new ProjectileLauncher(m_info.slashBlackbloodProjectile.projectileInfo, m_projectilePoint);
                     m_scytheWaveLauncher = new ProjectileLauncher(m_info.scytheWaveBlackbloodProjectile.projectileInfo, m_scytheWavePoint);
                     break;
                 case SwordState.Poison:
+                    animationChangeSwordString = m_info.swordChangeAnimationToPurple;
                     m_swordMixAnimation = m_info.swordPurpleMixAnimation.animation;
                     m_drillMixAnimation = m_info.drillPurpleMixAnimation.animation;
                     m_projectileLauncher = new ProjectileLauncher(m_info.slashPoisonProjectile.projectileInfo, m_projectilePoint);
                     m_scytheWaveLauncher = new ProjectileLauncher(m_info.scytheWavePoisonProjectile.projectileInfo, m_scytheWavePoint);
                     break;
                 case SwordState.Acid:
+                    animationChangeSwordString = m_info.swordChangeAnimationToGreen;
                     m_swordMixAnimation = m_info.swordGreenMixAnimation.animation;
                     m_drillMixAnimation = m_info.drillGreenMixAnimation.animation;
                     m_projectileLauncher = new ProjectileLauncher(m_info.slashAcidProjectile.projectileInfo, m_projectilePoint);
                     m_scytheWaveLauncher = new ProjectileLauncher(m_info.scytheWaveAcidProjectile.projectileInfo, m_scytheWavePoint);
                     break;
             }
-            m_animation.SetAnimation(0, m_info.swordChangeAnimation, false);
+            m_animation.SetAnimation(0, animationChangeSwordString.animation, false);
             m_animation.SetAnimation(5, m_swordMixAnimation, false).MixBlend = MixBlend.First;
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.swordChangeAnimation);
+            yield return new WaitForAnimationComplete(m_animation.animationState, animationChangeSwordString.animation);
             Debug.Log("alterblade done");
         }
         #endregion 
@@ -2292,7 +2321,8 @@ namespace DChild.Gameplay.Characters.Enemies
             switch (m_phaseHandle.currentPhase)
             {
                 case Phase.PhaseOne:
-                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase2Pattern5, m_info.phase1Pattern1Range));
+                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase1Pattern4, m_info.phase1Pattern1Range), 
+                        new AttackInfo<Attack>(Attack.Phase1Pattern1, m_info.phase1Pattern1Range));
                     break;
                 case Phase.PhaseTwo:
                     m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase1Pattern2, m_info.phase1Pattern1Range));
@@ -2331,6 +2361,9 @@ namespace DChild.Gameplay.Characters.Enemies
             base.Start();
             m_spineListener.Subscribe(m_info.slashNormalProjectile.launchOnEvent, LaunchProjectile);
             m_spineListener.Subscribe(m_info.scytheWaveNormalProjectile.launchOnEvent, LaunchScytheWave);
+            m_spineListener.Subscribe(m_info.geyserStartRed, GeyserBurstSpawnEvent);
+            m_spineListener.Subscribe(m_info.geyserStartGreen, GeyserBurstSpawnEvent);
+            m_spineListener.Subscribe(m_info.geyserStartPurple, GeyserBurstSpawnEvent);
             m_animation.DisableRootMotion();
             m_phaseHandle = new PhaseHandle<Phase, PhaseInfo>();
             m_phaseHandle.Initialize(Phase.PhaseOne, m_info.phaseInfo, m_character, ChangeState, ApplyPhaseData);
@@ -2344,7 +2377,9 @@ namespace DChild.Gameplay.Characters.Enemies
             m_blinkAppearAnimation = m_info.blinkAppearForwardAnimation.animation;
             
         }
-        
+
+        private int geyserBurstCurrentCount;
+        private bool m_canGeyserBurst = true;
         private void Update()
         {
             m_phaseHandle.MonitorPhase();
@@ -2369,24 +2404,13 @@ namespace DChild.Gameplay.Characters.Enemies
                 #endregion
                 case State.Attacking:
                     m_lastTargetPos = m_targetInfo.position;
+                    StopAllCoroutines();
                     Debug.Log("CURRENT ATTACK PATTERN " + m_currentAttack);
+                    
                     if (m_attackDecider.hasDecidedOnAttack == false)
                     {
                         m_attackDecider.DecideOnAttack();
 
-                    }
-
-                    if (m_currentSwordState == SwordState.Normal)
-                    {
-                        m_alterBladeCounterToActivate++;
-
-                        if (m_canUseAlternateSwordState &&
-                            m_alterBladeCounterToActivate >= m_info.normalBladeCounter)
-                        {
-                            m_alterBladeCounterToActivate = 0;
-
-                            StartCoroutine(AlterBladeMonitorRoutine());
-                        }
                     }
                     switch (m_attackDecider.chosenAttack.attack)
                         {
@@ -2401,7 +2425,8 @@ namespace DChild.Gameplay.Characters.Enemies
                                 StartCoroutine(DrillDashPhase1Pattern3());
                                 break;
                             case Attack.Phase1Pattern4:
-                                if (m_currentSwordState != SwordState.Normal)
+                            
+                                if (m_currentSwordState != SwordState.Normal && m_canGeyserBurst)
                                 {
                                     StartCoroutine(GeyserBurstPhase1Pattern4());
 
@@ -2523,7 +2548,39 @@ namespace DChild.Gameplay.Characters.Enemies
                 case State.ReevaluateSituation:
                     if (m_targetInfo.isValid)
                     {
-                        m_stateHandle.SetState(State.Attacking);
+                        if (m_currentSwordState == SwordState.Normal)
+                        {
+                            m_alterBladeCounterToActivate++;
+
+                            if (m_canUseAlternateSwordState &&
+                                m_alterBladeCounterToActivate >= m_info.normalBladeCounter)
+                            {
+                                m_alterBladeCounterToActivate = 0;
+
+                                StartCoroutine(AlterBladeMonitorRoutine());
+                            }
+                        }
+                        else
+                        {
+                            m_currentAlternateBladeAttackCounter++;
+
+                            if (m_currentAlternateBladeAttackCounter >= m_alternateBladeAttackCounter)
+                            {
+                                m_currentAlternateBladeAttackCounter = 0;
+
+                                StartCoroutine(AlterBladeMonitorRoutine());
+                            }
+                        }
+                        if (geyserBurstCurrentCount >= m_info.geyserBurstCD)
+                        {
+                            geyserBurstCurrentCount = 0;
+                            m_canGeyserBurst = true;
+                        }
+                        else if (!m_canGeyserBurst)
+                        {
+                            geyserBurstCurrentCount++;
+                        }
+                            m_stateHandle.SetState(State.Attacking);
                     }
                     else
                     {
@@ -2559,6 +2616,7 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void OnTargetDisappeared()
         {
             //m_currentCD = 0;
+            
         }
 
         public override void ReturnToSpawnPoint()
