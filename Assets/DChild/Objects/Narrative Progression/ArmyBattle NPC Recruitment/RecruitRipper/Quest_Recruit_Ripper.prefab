@@ -185,7 +185,7 @@ MonoBehaviour:
   allowBarksDuringConversations: 0
   skipBarkIfNoValidEntries: 0
   cacheBarkLines: 0
-  conversation: Recruit/RequirementRipper/Met
+  conversation: RipperAR
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
@@ -312,7 +312,7 @@ MonoBehaviour:
       - m_Target: {fileID: 6883612618424819113}
         m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.ArmyBattleCharacterReward,
           Assembly-CSharp
-        m_MethodName: AttemptGiveReward
+        m_MethodName: RecruitmentConfirmation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -409,14 +409,15 @@ MonoBehaviour:
   m_CharacterReward:
   - {fileID: 11400000, guid: a5d143f3dce18b8439510fdc065c20f4, type: 2}
   m_isFree: 0
-  m_Requirement: 0
-  m_TakeRequiredItemFromInvintory: 0
+  m_Requirement: 1
+  m_TakeRequiredItemFromInvintory: 1
   m_requiredSoulEssence: 200
-  m_hasItem: {fileID: 0}
-  m_ItemAmount: 0
+  m_hasItem: {fileID: 11400000, guid: 5f82fb4b9d9751241b9a83f844646f4f, type: 2}
+  m_ItemAmount: 1
   m_CombatArt: 0
   m_PrimarySkill: 0
-  armyCharacterData: {fileID: 0}
+  armyCharacterData:
+  - {fileID: 0}
   neededNPCsRecruited: 0
 --- !u!114 &5893802120578359961
 MonoBehaviour:
@@ -618,7 +619,7 @@ MonoBehaviour:
       - m_Target: {fileID: 6883612618424819113}
         m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.ArmyBattleCharacterReward,
           Assembly-CSharp
-        m_MethodName: AttemptGiveReward
+        m_MethodName: RecruitmentConfirmation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -708,7 +709,7 @@ MonoBehaviour:
   allowBarksDuringConversations: 0
   skipBarkIfNoValidEntries: 0
   cacheBarkLines: 0
-  conversation: Recruit/RequirementRipper/UnMet
+  conversation: RipperLP
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
@@ -986,7 +987,7 @@ MonoBehaviour:
   allowBarksDuringConversations: 0
   skipBarkIfNoValidEntries: 0
   cacheBarkLines: 0
-  conversation: IntroDialogueRipper
+  conversation: RipperBR
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
