@@ -287,6 +287,9 @@ namespace DChild.Gameplay.Characters.Enemies
             private BasicAnimationInfo m_drillDashDiagonal;
             public BasicAnimationInfo drillDashDiagonal => m_drillDashDiagonal;
             [SerializeField]
+            private BasicAnimationInfo m_airTodrillDashDiagonal;
+            public BasicAnimationInfo airTodrillDashDiagonal => m_airTodrillDashDiagonal;
+            [SerializeField]
             private BasicAnimationInfo m_landAnimation;
             public BasicAnimationInfo landAnimation => m_landAnimation;
             [SerializeField]
@@ -375,6 +378,12 @@ namespace DChild.Gameplay.Characters.Enemies
             [SerializeField, ValueDropdown("GetEvents")]
             private string m_drillDiagonalEvent;
             public string drillDiagonalEvent => m_drillDiagonalEvent;
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_rootStartEvent;
+            public string rootStartEvent => m_rootStartEvent;
+            [SerializeField, ValueDropdown("GetEvents")]
+            private string m_rootEndEvent;
+            public string rootEndEvent => m_rootEndEvent;
 
             public override void Initialize()
             {
@@ -406,6 +415,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_scytheWavePoisonProjectile.SetData(m_skeletonDataAsset);
                 m_scytheWaveAcidProjectile.SetData(m_skeletonDataAsset);
 
+                m_airTodrillDashDiagonal.SetData(m_skeletonDataAsset);
                 m_drillDashDiagonal.SetData(m_skeletonDataAsset);
                 m_swordChangeAnimationToGreen.SetData(m_skeletonDataAsset);
                 m_swordChangeAnimationToNormal.SetData(m_skeletonDataAsset);
@@ -1224,61 +1234,64 @@ namespace DChild.Gameplay.Characters.Enemies
         private RaySensor m_drillPointSensor;
         private IEnumerator DrillDashComboRoutine()
         {
-            yield return BlinkRoutineWithFakeBlink(BlinkState.DisappearUpward, BlinkState.AppearUpward, new Vector2(20,40) ,20,false, false, false);
-            m_lastTargetPos = m_targetInfo.position;
-            m_drillPointSensor.gameObject.SetActive(true);
-            m_hitbox.Disable();
-            if (!IsFacingTarget())
+            yield return BlinkRoutineWithFakeBlink(BlinkState.DisappearUpward, BlinkState.AppearUpward, new Vector2(30,30) ,20,false, false, false);
+            Vector3 targetPos = m_lastTargetPos;
+            Vector3 drillDirection = (targetPos - transform.position).normalized;
+            if (!IsFacing(targetPos))
                 CustomTurn();
-            m_animation.SetAnimation(4, m_drillMixAnimation, false);
+            m_animation.SetAnimation(0, m_info.airTodrillDashDiagonal.animation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.airTodrillDashDiagonal);
             m_animation.SetAnimation(0, m_info.drillDashDiagonal.animation, true);
-            while (!m_drillPointSensor.isDetecting)
+            while (!m_groundSensor.isDetecting)
             {
-                transform.position = Vector3.MoveTowards(transform.position, m_lastTargetPos, 100f * Time.deltaTime);
+                transform.position += drillDirection * 150f * Time.deltaTime;
                 yield return null;
             }
-            m_drillPointSensor.gameObject.SetActive(false);
-                    //m_character.physics.simulateGravity = true;
-                    m_model.transform.rotation = Quaternion.identity;
-                    m_animation.SetEmptyAnimation(4, 0);
-                    m_hitbox.Enable();
-                    m_movement.Stop();
-                    m_animation.DisableRootMotion();
-                    m_animation.SetAnimation(0, m_info.drillToGroundAnimation, false);
-                    m_drillDamage.SetActive(false);
-                    yield return new WaitForAnimationComplete(m_animation.animationState, m_info.drillToGroundAnimation);
-                    if (!m_groundSensor.isDetecting)
-                    {
-                        m_animation.SetAnimation(0, m_info.fallAnimation, true);
-                        yield return new WaitUntil(() => m_groundSensor.isDetecting);
-                        m_animation.SetAnimation(0, m_info.landAnimation, false);
-                        yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landAnimation);
-                    }
-                    if (!IsFacingTarget())
-                        CustomTurn();
+            m_hitbox.Disable();
 
-                    m_animation.SetAnimation(0, m_info.groundToDrillAnimation, false);
-                    var waitTime = m_animation.animationState.GetCurrent(0).AnimationEnd * 0.75f;
-                    m_drillDamage.SetActive(true);
-                    yield return new WaitForSeconds(waitTime);
-                    m_hitbox.Disable();
-                    m_animation.SetAnimation(4, m_drillMixAnimation, false);
-                    m_character.physics.SetVelocity(m_info.drillDashSpeed * transform.localScale.x, 0);
-                    m_animation.SetAnimation(0, m_info.drillDash1Attack.animation, false);
-                    yield return new WaitForAnimationComplete(m_animation.animationState, m_info.drillDash1Attack.animation);
-                    m_animation.SetEmptyAnimation(4, 0);
-                    m_hitbox.Enable();
-                    m_movement.Stop();
-                    m_animation.SetAnimation(0, m_info.drillToGroundAnimation, false);
-                    m_drillDamage.SetActive(false);
-                    yield return new WaitForAnimationComplete(m_animation.animationState, m_info.drillToGroundAnimation);
-                    m_animation.SetAnimation(0, m_info.idleAnimation, true);
-                    StopComboCounts();
-                    
-                    m_fakeBlinkCount = 0;
-                    m_hitbox.SetCanBlockDamageState(false);  
-                
-            
+            m_animation.SetAnimation(0, m_info.drillToGroundAnimation.animation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.drillToGroundAnimation.animation);
+            m_character.physics.simulateGravity = true;
+            m_model.transform.rotation = Quaternion.identity;
+            m_animation.SetEmptyAnimation(4, 0);
+            m_hitbox.Enable();
+            m_movement.Stop();
+            m_animation.DisableRootMotion();
+            m_animation.SetAnimation(0, m_info.drillToGroundAnimation, false);
+            m_drillDamage.SetActive(false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.drillToGroundAnimation);
+            if (!m_groundSensor.isDetecting)
+            {
+                m_animation.SetAnimation(0, m_info.fallAnimation, true);
+                yield return new WaitUntil(() => m_groundSensor.isDetecting);
+                m_animation.SetAnimation(0, m_info.landAnimation, false);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landAnimation);
+            }
+            if (!IsFacingTarget())
+               CustomTurn();
+
+            m_animation.SetAnimation(0, m_info.groundToDrillAnimation, false);
+            var waitTime = m_animation.animationState.GetCurrent(0).AnimationEnd * 0.75f;
+            m_drillDamage.SetActive(true);
+            yield return new WaitForSeconds(waitTime);
+            m_hitbox.Disable();
+            m_animation.SetAnimation(4, m_drillMixAnimation, false);
+            m_character.physics.SetVelocity(m_info.drillDashSpeed * transform.localScale.x, 0);
+            m_animation.SetAnimation(0, m_info.drillDash1Attack.animation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.drillDash1Attack.animation);
+            m_animation.SetEmptyAnimation(4, 0);
+            m_hitbox.Enable();
+            m_movement.Stop();
+            m_animation.SetAnimation(0, m_info.drillToGroundAnimation, false);
+            m_drillDamage.SetActive(false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.drillToGroundAnimation);
+            m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            StopComboCounts();
+
+            m_fakeBlinkCount = 0;
+            m_hitbox.SetCanBlockDamageState(false);
+
+
             Debug.Log("drilldashcombo done");
         }
         [SerializeField]
@@ -2106,6 +2119,8 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_blinkAppearAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_blinkAppearAnimation);
             m_animation.SetAnimation(0, m_info.idleCombatAnimation, true);
+            if (!IsFacingTarget())
+                CustomTurn();
             m_hitbox.SetCanBlockDamageState(false);
             Debug.Log("blinkroutine done");
         }
@@ -2418,7 +2433,6 @@ namespace DChild.Gameplay.Characters.Enemies
             m_spineListener.Subscribe(m_info.geyserStartRed, GeyserBurstSpawnEvent);
             m_spineListener.Subscribe(m_info.geyserStartGreen, GeyserBurstSpawnEvent);
             m_spineListener.Subscribe(m_info.geyserStartPurple, GeyserBurstSpawnEvent);
-            m_spineListener.Subscribe(m_info.drillDiagonalEvent, DrillDiagonalEvent);
             m_animation.DisableRootMotion();
             m_phaseHandle = new PhaseHandle<Phase, PhaseInfo>();
             m_phaseHandle.Initialize(Phase.PhaseOne, m_info.phaseInfo, m_character, ChangeState, ApplyPhaseData);
@@ -2527,82 +2541,6 @@ namespace DChild.Gameplay.Characters.Enemies
                                 break;
                         }
                     break;
-                #region Old Code
-
-
-                //case State.Cooldown:
-                //    if (!IsFacingTarget())
-                //    {
-                //        m_turnState = State.Cooldown;
-                //        if (m_alterBladeCoroutine == null)
-                //            m_stateHandle.SetState(State.Turning);
-                //    }
-                //    else
-                //    {
-                //        m_animation.SetAnimation(0, m_idleAnimation, true).TimeScale = 1;
-                //    }
-
-                //    if (m_currentCooldown <= m_pickedCooldown)
-                //    {
-                //        m_currentCooldown += Time.deltaTime;
-                //    }
-                //    else
-                //    {
-                //        ChooseAttack();
-                //        m_currentCooldown = 0;
-                //        m_stateHandle.OverrideState(State.ReevaluateSituation);
-                //    }
-
-                //    break;
-
-                //case State.Chasing:
-                //    if (IsFacingTarget())
-                //    {
-                //        //ChooseAttack();
-                //        if (IsTargetInRange(m_currentAttackRange) && /*m_currentAttackCoroutine == null &&*/ !m_hitbox.canBlockDamage)
-                //        {
-                //            m_attackDecider.hasDecidedOnAttack = false;
-                //            m_stateHandle.SetState(State.Attacking);
-                //        }
-                //        else
-                //        {
-                //            MoveToTarget(m_currentAttackRange);
-                //        }
-                //        /*else
-                //        {
-                //            m_turnState = State.Attacking;
-                //            if (m_alterBladeCoroutine == null)
-                //                m_stateHandle.SetState(State.Turning);
-                //        }*//*
-                //        m_turnState = State.Attacking;
-                //        *//*if (m_alterBladeCoroutine == null)
-                //            m_stateHandle.SetState(State.Turning);*//*
-                //    }*/
-                //        /*if (IsFacingTarget())
-                //        {
-                //            if (IsTargetInRange(m_currentAttackRange) && m_currentAttackCoroutine == null && !m_hitbox.canBlockDamage)
-                //            {
-                //                m_attackDecider.hasDecidedOnAttack = false;
-                //                m_stateHandle.SetState(State.Attacking);
-                //            }
-                //            else
-                //            {
-                //                MoveToTarget(m_currentAttackRange);
-                //            }
-                //        }
-                //        else
-                //        {
-                //            m_turnState = State.Attacking;
-                //            *//*if (m_animation.GetCurrentAnimation(0).ToString() != m_info.turnAnimation.animation)
-                //                m_stateHandle.SetState(State.Turning);*/
-                //    }
-                //    else
-                //    {
-                //        m_stateHandle.SetState(State.Turning);
-                //        m_turnState = State.Attacking;
-                //    }
-                //    break;
-                #endregion
                 case State.ReevaluateSituation:
                     if (m_targetInfo.isValid)
                     {
@@ -2649,26 +2587,6 @@ namespace DChild.Gameplay.Characters.Enemies
                     return;
             }
         }
-        #region ForceReeavluateCode
-        //private float m_waitTime = 5f;
-        //private IEnumerator ForceReevaluate()
-        //{
-        //    Debug.Log("force");
-        //    m_waitTime = 5f;
-        //    do
-        //    {
-        //        m_waitTime -= Time.deltaTime;
-        //        if (m_waitTime <= 0)
-        //        {
-        //            m_stateHandle.OverrideState(State.ReevaluateSituation);
-        //        }
-        //        yield return null;
-        //    }
-        //    while (m_stateHandle.currentState == State.WaitBehaviourEnd);
-        //    Debug.Log("force done");
-        //}
-        #endregion
-        //temporary fix
 
 
         protected override void OnTargetDisappeared()
