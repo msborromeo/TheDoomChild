@@ -887,48 +887,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.DisableRootMotion();
             m_stateHandle.OverrideState(State.Phasing);
         }
-        #region StopCurrentBehaviorRoutine
-        //private void StopCurrentBehaviorRoutine()
-        //{
-        //    if (m_currentAttackCoroutine != null)
-        //    {
-        //        StopCoroutine(m_currentAttackCoroutine);
-        //        m_currentAttackCoroutine = null;
-        //        m_attackDecider.hasDecidedOnAttack = false;
-        //    }
-        //    if (m_staggerCoroutine != null)
-        //    {
-        //        StopCoroutine(m_staggerCoroutine);
-        //        m_staggerCoroutine = null;
-        //    }
-        //    if (m_drillDashCounterCoroutine != null)
-        //    {
-        //        StopCoroutine(m_drillDashCounterCoroutine);
-        //        m_drillDashCounterCoroutine = null;
-        //    }
-        //    if (m_fakeBlinkRoutine != null)
-        //    {
-        //        StopCoroutine(m_fakeBlinkRoutine);
-        //        m_fakeBlinkRoutine = null;
-        //    }
-        //    if (m_blinkCoroutine != null)
-        //    {
-        //        StopCoroutine(m_blinkCoroutine);
-        //        m_blinkCoroutine = null;
-        //    }
-        //    if (m_alterBladeMonitorCoroutine != null)
-        //    {
-        //        StopCoroutine(m_alterBladeMonitorCoroutine);
-        //        m_alterBladeMonitorCoroutine = null;
-        //    }
-        //    if (m_alterBladeCoroutine != null)
-        //    {
-        //        StopCoroutine(m_alterBladeCoroutine);
-        //        m_alterBladeCoroutine = null;
-        //    }
-        //}
-        #endregion
-
+       
 
         private void StopComboCounts()
         {
@@ -1020,12 +979,12 @@ namespace DChild.Gameplay.Characters.Enemies
             Debug.Log("choose wave spawn");
             var chosenPosition = GetPointFarthestFromPlayer(m_scytheWaveLeftSpawnPosition.position,  m_scytheWaveRightSpawnPosition.position);
             m_animation.SetAnimation(0, m_blinkDisappearAnimation, false);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_blinkDisappearAnimation);
-            if (!IsFacingTarget())
-                CustomTurn();
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_blinkDisappearAnimation);      
             transform.position = chosenPosition;
             m_animation.SetAnimation(0, m_blinkAppearAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_blinkAppearAnimation);
+            if (!IsFacingTarget())
+                CustomTurn();
             Debug.Log("choose wave spawn done");
         }
 
@@ -1064,13 +1023,43 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator EvadePlayerRoutine()
         {
             float blinkCount = 0;
+            float walkDuration = 2f;
+            float elapsedTime = 0f;
             while (true)
             {
-                if (IsTargetInRange(m_info.evadeRangeToFunction) && blinkCount <= 2)
+                if (IsTargetInRange(m_info.evadeRangeToFunction))
                 {
-                    yield return BlinkRoutine(BlinkState.DisappearBackward, BlinkState.AppearBackward, new Vector2(60,0), m_info.midAirHeight, false, true, false);
+                    
+                    yield return BlinkOut(BlinkState.DisappearBackward);
+                    if (blinkCount >= 2)
+                    {
+                        yield return BlinkIn(BlinkState.AppearForward, new Vector2(20, 0));
+                        yield return DualSwordComboForEvadeRoutine();
+                        Debug.Log("Blink count 2");
+                        yield break;
+                    }
+                    yield return BlinkIn(BlinkState.AppearForward, new Vector2(20, 0));
+                    m_animation.SetAnimation(0, m_info.walk.animation, true);
+                    while (elapsedTime < walkDuration)
+                    {
+                        Vector2 direction = new Vector2(
+                            m_targetInfo.position.x - transform.position.x,
+                            0f
+                        ).normalized;
+
+                        m_movement.MoveTowards(direction, m_info.walk.speed);
+
+                        if (!IsFacingTarget())
+                        {
+                            CustomTurn();
+                        }
+
+                        elapsedTime += Time.deltaTime;
+
+                        yield return null;
+                    }
                     blinkCount++;
-                    Debug.Log("blinking");
+                    yield return null;
                 }
                 else
                 {
@@ -1081,22 +1070,21 @@ namespace DChild.Gameplay.Characters.Enemies
                         case 0:
                             Debug.Log("scytheWave");
                             yield return ChooseScytheWaveSpawn();
-                            if (!IsFacingTarget())
-                                CustomTurn();
                             m_animation.SetAnimation(0, m_info.scytheWaveAttack.animation, false);
                             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.scytheWaveAttack.animation);
                             break;
                         case 1:
                             Debug.Log("DualSwordCombo");
-                            yield return BlinkRoutine(BlinkState.DisappearBackward, BlinkState.AppearForward, new Vector2(20,0), m_info.midAirHeight, false, true, false);
+                            yield return BlinkRoutine(BlinkState.DisappearBackward, BlinkState.AppearForward, new Vector2(20, 0), m_info.midAirHeight, false, true, false);
                             yield return DualSwordComboForEvadeRoutine();
                             break;
                     }
-                    break;
+                    yield break;
                 }
                 yield return null;
+                Debug.Log("done while loop");
             }
-            blinkCount = 0;
+            
         }
        
 
@@ -1318,6 +1306,7 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             if (!IsFacingTarget())
                 CustomTurn();
+            m_animation.EnableRootMotion(true, false);
             m_animation.SetAnimation(0, m_info.downwardSlash1Attack.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.downwardSlash1Attack.animation);
             Debug.Log("Done DownWardSlash");
@@ -1337,6 +1326,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.heavySwordStabAttack.animation);
                 if (IsTargetInRange(m_info.dualSwordComboAttackRange))
                 {
+                    m_animation.EnableRootMotion(true, false);
                     m_animation.SetAnimation(0, m_info.downwardSlash2Attack.animation, false);
                     yield return new WaitForAnimationComplete(m_animation.animationState, m_info.downwardSlash2Attack.animation);
                     var animTwinSlash = m_animation.SetAnimation(0, m_info.twinSlash1Attack.animation, false);
@@ -1345,6 +1335,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     yield return new WaitForSeconds(.1f);
                     m_twinSlash.SetActive(false);
                     yield return new WaitForSpineAnimationComplete(animTwinSlash);
+                    
                 }
 
             }
@@ -1356,9 +1347,18 @@ namespace DChild.Gameplay.Characters.Enemies
                 yield return ProjectileWaveSlashForDualSwordPattern();
 
             }
+            m_animation.DisableAnimation();
             m_animation.SetAnimation(0, m_info.idleCombatAnimation.animation, true);
             yield return new WaitForSeconds(m_info.defaultIdleTime);
             Debug.Log("DualSwordComboEvadeRoutine(): Done");
+        }
+        public void EnableRootMotion()
+        {
+            m_animation.EnableRootMotion(true, false);
+        }
+        public void DisableRootMotion()
+        {
+            m_animation.DisableRootMotion();
         }
         private IEnumerator  DualSwordComboAttackPattern1()// 
         {
@@ -1373,8 +1373,10 @@ namespace DChild.Gameplay.Characters.Enemies
             }
             if (!IsFacingTarget())
                 CustomTurn();
+            m_animation.EnableRootMotion(true, false);
             m_animation.SetAnimation(0, m_info.downwardSlash1Attack.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.downwardSlash1Attack.animation);
+            m_animation.DisableRootMotion();
             Debug.Log("Done DownWardSlash");
             if (IsTargetInRange(m_info.dualSwordComboAttackRange))
             {
@@ -1403,6 +1405,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     yield return new WaitForSeconds(.1f);
                     m_twinSlash.SetActive(false);
                     yield return new WaitForSpineAnimationComplete(animTwinSlash);
+
                   
                 }
                 
@@ -1514,7 +1517,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_attackDecider.hasDecidedOnAttack = false;
                 m_stateHandle.ApplyQueuedState();
                 yield break;
-                
+
             }
             yield return BlinkRoutine(BlinkState.DisappearForward, BlinkState.AppearForward, new Vector2(25, 0), m_info.midAirHeight, false, false, false);
             m_animation.SetAnimation(0, m_info.groundToDrillAnimation, false);
@@ -1535,8 +1538,6 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             yield return new WaitForSeconds(m_info.phase1Pattern3IdleTime);
             yield return EvadePlayerRoutine();
-
-
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
             Debug.Log("phase1pattern3 done");
@@ -2125,6 +2126,80 @@ namespace DChild.Gameplay.Characters.Enemies
             Debug.Log("blinkroutine done");
         }
 
+        private IEnumerator BlinkOut(BlinkState disappearState)
+        {
+            Debug.Log("blink out routine");
+            m_blinkCount++;
+            m_character.physics.SetVelocity(0f, 0f);
+            m_drillDamage.SetActive(false);
+            m_heavySwordStab.SetActive(false);
+            m_swordStab.SetActive(false);
+            m_twinSlash.SetActive(false);
+            m_legCollider.enabled = false;
+            m_hitbox.Disable();
+            m_movement.Stop();
+            m_character.physics.simulateGravity = false;
+            m_bodyCollider.enabled = false;
+            m_model.transform.rotation = Quaternion.identity;
+            switch (disappearState)
+            {
+                case BlinkState.DisappearForward:
+                    m_blinkDisappearAnimation = m_info.blinkDisappearForwardAnimation.animation;
+                    break;
+                case BlinkState.DisappearBackward:
+                    m_blinkDisappearAnimation = m_info.blinkDisappearBackwardAnimation.animation;
+                    break;
+                case BlinkState.DisappearUpward:
+                    m_blinkDisappearAnimation = m_info.blinkDisappearUpwardAnimation.animation;
+                    break;
+            }
+            m_animation.SetAnimation(0, m_blinkDisappearAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_blinkDisappearAnimation);
+            yield return null;
+            Debug.Log("BlinkOutDone");
+        }
+        private IEnumerator BlinkIn( BlinkState appearState, Vector2 positionOffset)
+        {
+            Debug.Log("blinkIn");
+            var lastPos = transform.position;
+            lastPos = new Vector2(m_targetInfo.position.x + (m_targetInfo.transform.GetComponent<Character>().facing == HorizontalDirection.Right ? -positionOffset.x : positionOffset.x), m_targetInfo.position.y + positionOffset.y);
+            transform.position = lastPos;
+            m_blinkFX.Play();
+            yield return new WaitForSeconds(m_info.blinkDuration);
+            
+            m_model.SetActive(true);
+            if (!IsFacingTarget())
+                CustomTurn();
+            switch (appearState)
+            {
+                case BlinkState.AppearForward:
+                    m_blinkAppearAnimation = m_info.blinkAppearForwardAnimation.animation;
+                    break;
+                case BlinkState.AppearBackward:
+                    m_blinkAppearAnimation = m_info.blinkAppearBackwardAnimation.animation;
+                    break;
+                case BlinkState.AppearUpward:
+                    m_blinkAppearAnimation = m_info.blinkAppearUpwardAnimation.animation;
+                    break;
+            }
+
+
+            yield return new WaitForSeconds(.1f);
+            m_legCollider.enabled = true;
+            m_bodyCollider.enabled = true;
+            m_character.physics.simulateGravity = true;
+            m_animation.SetAnimation(0, m_blinkAppearAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_blinkAppearAnimation);
+            if (!m_groundSensor.isDetecting)
+            {
+                m_animation.SetAnimation(0, m_info.fallAnimation, true);
+                yield return new WaitUntil(() => m_groundSensor.isDetecting);
+                m_animation.SetAnimation(0, m_info.landAnimation, false);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landAnimation);
+            }
+            m_hitbox.SetCanBlockDamageState(false);
+            Debug.Log("blinkInroutine done");
+        }
         private IEnumerator BlinkRoutine(BlinkState disappearState, BlinkState appearState, Vector2 positionOffset, float midAirHeight, bool fakeBlink, bool evadeBlink, bool isMidAir, bool oppositeSide = false)
         {
             Debug.Log("blinkroutine");
@@ -2213,8 +2288,11 @@ namespace DChild.Gameplay.Characters.Enemies
                 
 
                 yield return new WaitForSeconds(.1f);
-                 m_animation.SetAnimation(0, m_blinkAppearAnimation, false);
-                yield return new WaitForAnimationComplete(m_animation.animationState, m_blinkAppearAnimation);
+            m_legCollider.enabled = true;
+            m_bodyCollider.enabled = true;
+            m_character.physics.simulateGravity = true;
+            m_animation.SetAnimation(0, m_blinkAppearAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_blinkAppearAnimation);   
             if (!m_groundSensor.isDetecting)
             {
                 m_animation.SetAnimation(0, m_info.fallAnimation, true);
@@ -2222,15 +2300,6 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_animation.SetAnimation(0, m_info.landAnimation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landAnimation);
             }
-            m_legCollider.enabled = true;
-            m_bodyCollider.enabled = true;
-            //yield return FakeBlinkRoutine();
-
-            //if (evadeBlink)
-            //{
-            //    m_animation.SetAnimation(0, m_idleAnimation, true);
-            //    yield return EvadeRoutine();
-            //}
             m_hitbox.SetCanBlockDamageState(false);
             Debug.Log("blinkroutine done");
         }
@@ -2391,7 +2460,7 @@ namespace DChild.Gameplay.Characters.Enemies
             switch (m_phaseHandle.currentPhase)
             {
                 case Phase.PhaseOne:
-                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase1Pattern5, m_info.phase1Pattern1Range));
+                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase1Pattern3, m_info.phase1Pattern1Range));
                     break;
                 case Phase.PhaseTwo:
                     m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase1Pattern2, m_info.phase1Pattern1Range));
