@@ -1149,6 +1149,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                 }
 
+                m_diagonalSwordDash.Cancel();
                 PrepareForGroundAttack();
                 m_whip.Cancel();
                 m_whipCombo.Cancel();
@@ -1182,8 +1183,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                 if (m_basicSlashes.CanAirAttack())
                 {
+                    m_diagonalSwordDash.Cancel();
                     PrepareForMidairAttack();
-                    m_diagonalSwordDash?.Cancel();
                     m_devilWings?.EnableLevitate();
                     m_extraJump?.Cancel();
 
@@ -1595,10 +1596,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isExecutingCombatArt) { return; }
             if (m_state.isInShadowMode) { return; }
-            if (m_state.isDoingEarthShaker)
-            {
-                m_diagonalSwordDash?.Cancel();
-            }
             if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
             {
                 if (m_state.isGrounded == false)
@@ -1803,14 +1800,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private void OnDiagonalSwordDashPerformedInput()
         {
             if (m_state.isExecutingCombatArt){ return; }
-            //if (m_state.isAttacking) { return; }
+            if (m_state.isAttacking) { return; }
             if (m_state.isDoingEarthShaker){ return; }
             if (m_abilities.IsAbilityActivated(CombatArt.DiagonalSwordDash) && m_diagonalSwordDash.CanDiagonalSwordDash())
             {
                 if (m_state.isGrounded == false)
                 {
-                    if (m_diagonalSwordDash.CanExecuteDash() == false) { m_diagonalSwordDash?.Cancel(); }
-                    m_diagonalSwordDash?.Reset();
+                    //if (m_diagonalSwordDash.CanExecuteDash() == false) { m_diagonalSwordDash?.Cancel(); }
+                    m_diagonalSwordDash.Reset();
                     PrepareForMidairAttack();
                     m_basicSlashes?.Cancel();
                     m_earthShaker?.Cancel();

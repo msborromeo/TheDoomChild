@@ -1,4 +1,4 @@
-﻿using DChild.Gameplay.Characters.Players.BattleAbilityModule;
+﻿/*using DChild.Gameplay.Characters.Players.BattleAbilityModule;
 using DChild.Gameplay.Combat;
 using Holysoft.Event;
 using System;
@@ -530,7 +530,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         m_shadowBladeFX.DisableShadowblade();
                     }
 
-                    if ((int)m_character.facing == m_input.horizontalInput /*&& m_earthShaker.CanEarthShaker()*/)
+                    if ((int)m_character.facing == m_input.horizontalInput *//*&& m_earthShaker.CanEarthShaker()*//*)
                     {
                         if (m_state.waitForBehaviour)
                             return;
@@ -592,7 +592,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
             }
 
-            if (m_state.waitForBehaviour /*|| !m_earthShaker.CanEarthShaker()*/)
+            if (m_state.waitForBehaviour *//*|| !m_earthShaker.CanEarthShaker()*//*)
                 return;
 
             if (m_state.isCombatReady)
@@ -1112,7 +1112,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         }
                     }
                 }
-                else if (((m_input.levitatePressed && m_state.isLevitating == false) /*|| (m_input.levitateHeld && m_state.isLevitating == false)*/) && m_devilWings.CanLevitate() && !m_input.backDiverPressed)
+                else if (((m_input.levitatePressed && m_state.isLevitating == false) *//*|| (m_input.levitateHeld && m_state.isLevitating == false)*//*) && m_devilWings.CanLevitate() && !m_input.backDiverPressed)
                 {
                     if (m_state.isInShadowMode == false)
                     {
@@ -1412,7 +1412,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                 if (m_state.canAttack)
                 {
-                    if (m_input.slashPressed && !m_input.reaperHarvestPressed /*!(m_input.levitateHeld && m_input.slashHeld)*/)
+                    if (m_input.slashPressed && !m_input.reaperHarvestPressed *//*!(m_input.levitateHeld && m_input.slashHeld)*//*)
                     {
                         m_activeDash?.Cancel();
 
@@ -1683,7 +1683,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                         return;
                     }
-                    else if (m_input.barrierPressed /*&& m_abilities.IsAbilityActivated(CombatArt.Barrier)*/)
+                    else if (m_input.barrierPressed *//*&& m_abilities.IsAbilityActivated(CombatArt.Barrier)*//*)
                     {
                         if (m_state.isInShadowMode == false)
                         {
@@ -1720,7 +1720,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     {
                         if (m_skills.IsModuleActive(PrimarySkill.SwordThrust))
                         {
-                            if (m_input.slashHeld && !m_input.reaperHarvestPressed/*!(m_input.levitateHeld && m_input.slashHeld)*/)
+                            if (m_input.slashHeld && !m_input.reaperHarvestPressed*//*!(m_input.levitateHeld && m_input.slashHeld)*//*)
                             {
                                 PrepareForGroundAttack();
                                 m_chargeAttackHandle.Set(m_swordThrust, () => m_input.slashHeld);
@@ -2062,3 +2062,4 @@ namespace DChild.Gameplay.Characters.Players.Modules
         #endregion
     }
 }
+*/
