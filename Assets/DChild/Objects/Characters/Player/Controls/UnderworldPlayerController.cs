@@ -2351,8 +2351,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 if (m_currentCombatArt != null)
                 {
                     m_lightningSpear?.Cancel();
-                    m_diagonalSwordDash?.Cancel();
+                    m_diagonalSwordDash?.Cancel();/*
                     m_earthShaker?.Cancel();
+                    m_icarusWings?.Cancel();*/
 
                     m_currentCombatArt = null;
                 }
