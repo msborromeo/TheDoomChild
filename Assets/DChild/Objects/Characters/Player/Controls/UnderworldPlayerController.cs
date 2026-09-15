@@ -1605,7 +1605,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_earthShaker?.Reset();
                     PrepareForMidairAttack();
                     m_diagonalSwordDash?.Cancel();
-                    m_icarusWings?.Cancel();
+                    //m_icarusWings?.Cancel();
                     m_devilWings?.Cancel();
                     m_earthShaker?.StartExecution();
                     return;
@@ -1910,27 +1910,24 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnIcarusWingsCancelledInput()
         {
-            /*m_state.isExecutingCombatArt = false;*/
+            m_state.isExecutingCombatArt = false;
         }
 
         private void OnIcarusWingsPerformedInput()
         {
-            //if (m_state.isExecutingCombatArt) { return; }
             if (m_state.isGrounded == false)
                 return;
             if (m_state.isChargingAttack)
                 return;
             if (m_vector2Input.x != 0)
                 return;
-            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) && m_icarusWings.CanIcarusWings())
-            {
-                m_basicSlashes.Cancel();
-                PrepareForGroundAttack();
-                m_earthShaker?.Cancel();
-                m_diagonalSwordDash?.Cancel();
-                m_currentCombatArt = m_icarusWings;
-                m_icarusWings.Execute();
-            }
+            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false) { return; }
+            m_basicSlashes.Cancel();
+            PrepareForGroundAttack();
+            m_earthShaker?.Cancel();
+            m_diagonalSwordDash?.Cancel();
+            m_currentCombatArt = m_icarusWings;
+            m_icarusWings.Execute();
         }
 
         private void OnTeleportingSkullStartedInput()
@@ -2354,8 +2351,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 if (m_currentCombatArt != null)
                 {
                     m_lightningSpear?.Cancel();
-                    m_diagonalSwordDash?.Cancel();
+                    m_diagonalSwordDash?.Cancel();/*
                     m_earthShaker?.Cancel();
+                    m_icarusWings?.Cancel();*/
 
                     m_currentCombatArt = null;
                 }
@@ -2642,7 +2640,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_diagonalSwordDash?.Cancel();
             m_championsUprising?.Cancel();
             m_lightningSpear?.Cancel();
-            m_icarusWings?.Cancel();
+            //m_icarusWings?.Cancel();
             m_airSlashRange?.Cancel();
             m_teleportingSkull?.Cancel();
 
