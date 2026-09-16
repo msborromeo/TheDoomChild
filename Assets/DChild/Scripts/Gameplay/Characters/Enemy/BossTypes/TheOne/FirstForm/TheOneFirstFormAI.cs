@@ -1600,11 +1600,22 @@ namespace DChild.Gameplay.Characters.Enemies
             Debug.Log("DoneDownWardSlash2Attack");
             if (!m_targetInfo.isCharacterGrounded)
             {
+                Debug.Log("start of twinslash2");
                 Debug.Log("target is not grounded");
-                yield return BlinkRoutine(BlinkState.DisappearForward, BlinkState.AppearForward, new Vector2(20, 0), m_info.midAirHeight, false, false, false);
-                m_animation.EnableRootMotion(true, false);
+                // yield return BlinkRoutine(BlinkState.DisappearForward, BlinkState.AppearForward, new Vector2(20, 0), m_info.midAirHeight, false, false, false);
+                yield return BlinkOut(BlinkState.DisappearForward);
+                yield return BlinkInForTwinSlash(BlinkState.AppearForward,new Vector2(5,5));
+               // m_animation.EnableRootMotion(false, true);
                 m_animation.SetAnimation(0, m_info.twinSlash2Attack.animation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.twinSlash2Attack.animation);
+                m_character.physics.simulateGravity = true;
+                if (!m_groundSensor.isDetecting)
+                {
+                    m_animation.SetAnimation(0, m_info.fallAnimation, true);
+                    yield return new WaitUntil(() => m_groundSensor.isDetecting);
+                    m_animation.SetAnimation(0, m_info.landAnimation, false);
+                    yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landAnimation);
+                }
                 m_animation.DisableRootMotion();
             }
             else
@@ -1736,10 +1747,18 @@ namespace DChild.Gameplay.Characters.Enemies
             if (!m_targetInfo.isCharacterGrounded)
             {
                 Debug.Log("target is not grounded");
-                yield return BlinkRoutine(BlinkState.DisappearForward, BlinkState.AppearForward, new Vector2(20, 0), m_info.midAirHeight, false, false, false);
-                m_animation.EnableRootMotion(true, false);
+                yield return BlinkOut(BlinkState.DisappearForward);
+                yield return BlinkInForTwinSlash(BlinkState.AppearForward, new Vector2(5, 5));
                 m_animation.SetAnimation(0, m_info.twinSlash2Attack.animation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.twinSlash2Attack.animation);
+                m_character.physics.simulateGravity = true;
+                if (!m_groundSensor.isDetecting)
+                {
+                    m_animation.SetAnimation(0, m_info.fallAnimation, true);
+                    yield return new WaitUntil(() => m_groundSensor.isDetecting);
+                    m_animation.SetAnimation(0, m_info.landAnimation, false);
+                    yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landAnimation);
+                }
                 m_animation.DisableRootMotion();
             }
             else
@@ -1998,6 +2017,41 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_animation.SetAnimation(0, m_info.landAnimation, false);
                 yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landAnimation);
             }
+            m_hitbox.Enable();
+            m_hitbox.SetCanBlockDamageState(false);
+            Debug.Log("blinkInroutine done");
+        }
+        private IEnumerator BlinkInForTwinSlash(BlinkState appearState, Vector2 positionOffset)
+        {
+            Debug.Log("blinkIn");
+            var lastPos = transform.position;
+            lastPos = new Vector2(m_targetInfo.position.x + (m_targetInfo.transform.GetComponent<Character>().facing == HorizontalDirection.Right ? -positionOffset.x : positionOffset.x), m_targetInfo.position.y + positionOffset.y);
+            transform.position = lastPos;
+            m_blinkFX.Play();
+            yield return new WaitForSeconds(m_info.blinkDuration);
+
+            m_model.SetActive(true);
+            if (!IsFacingTarget())
+                CustomTurn();
+            switch (appearState)
+            {
+                case BlinkState.AppearForward:
+                    m_blinkAppearAnimation = m_info.blinkAppearForwardAnimation.animation;
+                    break;
+                case BlinkState.AppearBackward:
+                    m_blinkAppearAnimation = m_info.blinkAppearBackwardAnimation.animation;
+                    break;
+                case BlinkState.AppearUpward:
+                    m_blinkAppearAnimation = m_info.blinkAppearUpwardAnimation.animation;
+                    break;
+            }
+
+
+            yield return new WaitForSeconds(.1f);
+            m_legCollider.enabled = true;
+            m_bodyCollider.enabled = true;
+            m_animation.SetAnimation(0, m_blinkAppearAnimation, false);
+            yield return new WaitForAnimationComplete(m_animation.animationState, m_blinkAppearAnimation);
             m_hitbox.Enable();
             m_hitbox.SetCanBlockDamageState(false);
             Debug.Log("blinkInroutine done");
@@ -2300,7 +2354,7 @@ namespace DChild.Gameplay.Characters.Enemies
             {
                 case Phase.PhaseOne:
                     m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase1Pattern1, m_info.phase1Pattern1Range),
-                        new AttackInfo<Attack>(Attack.Phase1Pattern2, m_info.phase1Pattern1Range),
+                    new AttackInfo<Attack>(Attack.Phase1Pattern2, m_info.phase1Pattern1Range),
                         new AttackInfo<Attack>(Attack.Phase1Pattern3, m_info.phase1Pattern1Range),
                         new AttackInfo<Attack>(Attack.Phase1Pattern4, m_info.phase1Pattern1Range),
                         new AttackInfo<Attack>(Attack.Phase1Pattern5, m_info.phase1Pattern1Range));
