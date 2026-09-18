@@ -346,6 +346,9 @@ namespace DChild.Gameplay.Characters.Enemies
             private SimpleProjectileAttackInfo m_scytheWaveBlackbloodProjectile;
             public SimpleProjectileAttackInfo scytheWaveBlackbloodProjectile => m_scytheWaveNormalProjectile;
             [SerializeField, BoxGroup("Scythe Wave Projectile")]
+            private SimpleProjectileAttackInfo m_WaveBlackbloodProjectile;
+            public SimpleProjectileAttackInfo WaveBlackbloodProjectile => m_WaveBlackbloodProjectile;
+            [SerializeField, BoxGroup("Scythe Wave Projectile")]
             private SimpleProjectileAttackInfo m_scytheWavePoisonProjectile;
             public SimpleProjectileAttackInfo scytheWavePoisonProjectile => m_scytheWavePoisonProjectile;
             [SerializeField, BoxGroup("Scythe Wave Projectile")]
@@ -418,6 +421,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_slashNormalProjectile.SetData(m_skeletonDataAsset);
                 m_slashBlackbloodProjectile.SetData(m_skeletonDataAsset);
                 m_slashPoisonProjectile.SetData(m_skeletonDataAsset);
+                m_WaveBlackbloodProjectile.SetData (m_skeletonDataAsset);
                 m_slashAcidProjectile.SetData(m_skeletonDataAsset);
                 m_scytheWaveNormalProjectile.SetData(m_skeletonDataAsset);
                 m_scytheWaveBlackbloodProjectile.SetData(m_skeletonDataAsset);
@@ -489,7 +493,7 @@ namespace DChild.Gameplay.Characters.Enemies
             ReevaluateSituation,
             WaitBehaviourEnd,
         }
-
+        [ShowInInspector]
         private enum SwordState
         {
             Normal,
@@ -507,14 +511,6 @@ namespace DChild.Gameplay.Characters.Enemies
             DisappearBackward,
             DisappearUpward,
         }
-
-        //private enum Pattern
-        //{
-        //    AttackPattern1,
-        //    AttackPattern2,
-        //    AttackPattern3,
-        //    WaitAttackEnd,
-        //}
 
         private enum Attack
         {
@@ -728,30 +724,9 @@ namespace DChild.Gameplay.Characters.Enemies
             m_movement.Stop();
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
             //m_cinematic.PlayCinematic(1, false);
-            m_animation.animationState.TimeScale = 1;
-            
-            m_hitbox.SetInvulnerability(Invulnerability.None);
-            
-            //m_animation.SetAnimation(0, m_info.walk.animation, true);
-            //while (elapsedTime < walkDuration)
-            //{
-            //    Vector2 direction = new Vector2(
-            //        m_targetInfo.position.x - transform.position.x,
-            //        0f
-            //    ).normalized;
-
-            //    m_movement.MoveTowards(direction, m_info.walk.speed);
-
-            //    if (!IsFacingTarget())
-            //    {
-            //        CustomTurn();
-            //    }
-
-            //    elapsedTime += Time.deltaTime;
-
-            //    yield return null;
-            //}
+            m_animation.animationState.TimeScale = 1;       
             yield return AlterBladeMonitorRoutine();
+            m_hitbox.SetInvulnerability(Invulnerability.None);
             m_hitbox.Enable();
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
@@ -2224,8 +2199,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private readonly SwordState[] m_alternateSwordStates =
         {
         SwordState.BlackBlood,
-        SwordState.Poison,
-        SwordState.Acid
+        //SwordState.Poison,
+        //SwordState.Acid
         };
         private SwordState GetNextRandomSwordState()
         {
@@ -2291,6 +2266,8 @@ namespace DChild.Gameplay.Characters.Enemies
             switch (swordState)
             {
                 case SwordState.Normal:
+                    m_spineListener.Subscribe(m_info.slashNormalProjectile.launchOnEvent, LaunchProjectile);
+                    m_spineListener.Subscribe(m_info.scytheWaveNormalProjectile.launchOnEvent, LaunchScytheWave);
                     animationChangeSwordString = m_info.swordChangeAnimationToNormal;
                     m_swordMixAnimation = m_info.swordNormalMixAnimation.animation;
                     m_drillMixAnimation = m_info.drillNormalMixAnimation.animation;
@@ -2304,11 +2281,13 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     break;
                 case SwordState.BlackBlood:
+                    m_spineListener.Subscribe(m_info.slashBlackbloodProjectile.launchOnEvent, LaunchProjectile);
+                    m_spineListener.Subscribe(m_info.WaveBlackbloodProjectile.launchOnEvent, LaunchScytheWave);
                     animationChangeSwordString = m_info.swordChangeAnimationToRed;
                     m_swordMixAnimation = m_info.swordRedMixAnimation.animation;
                     m_drillMixAnimation = m_info.drillRedMixAnimation.animation;
                     m_projectileLauncher = new ProjectileLauncher(m_info.slashBlackbloodProjectile.projectileInfo, m_projectilePoint);
-                    m_scytheWaveLauncher = new ProjectileLauncher(m_info.scytheWaveBlackbloodProjectile.projectileInfo, m_scytheWavePoint);
+                    m_scytheWaveLauncher = new ProjectileLauncher(m_info.WaveBlackbloodProjectile.projectileInfo, m_scytheWavePoint);
 
                     for (int i = 0; i < m_statusInflictors.Length; i++)
                     {
@@ -2316,6 +2295,8 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     break;
                 case SwordState.Poison:
+                    m_spineListener.Subscribe(m_info.slashPoisonProjectile.launchOnEvent, LaunchProjectile);
+                    m_spineListener.Subscribe(m_info.scytheWavePoisonProjectile.launchOnEvent, LaunchScytheWave);
                     animationChangeSwordString = m_info.swordChangeAnimationToPurple;
                     m_swordMixAnimation = m_info.swordPurpleMixAnimation.animation;
                     m_drillMixAnimation = m_info.drillPurpleMixAnimation.animation;
@@ -2328,6 +2309,8 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     break;
                 case SwordState.Acid:
+                    m_spineListener.Subscribe(m_info.slashAcidProjectile.launchOnEvent, LaunchProjectile);
+                    m_spineListener.Subscribe(m_info.scytheWaveAcidProjectile.launchOnEvent, LaunchScytheWave);
                     animationChangeSwordString = m_info.swordChangeAnimationToGreen;
                     m_swordMixAnimation = m_info.swordGreenMixAnimation.animation;
                     m_drillMixAnimation = m_info.drillGreenMixAnimation.animation;
@@ -2353,11 +2336,11 @@ namespace DChild.Gameplay.Characters.Enemies
             switch (m_phaseHandle.currentPhase)
             {
                 case Phase.PhaseOne:
-                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase1Pattern1, m_info.phase1Pattern1Range),
-                    new AttackInfo<Attack>(Attack.Phase1Pattern2, m_info.phase1Pattern1Range),
-                        new AttackInfo<Attack>(Attack.Phase1Pattern3, m_info.phase1Pattern1Range),
-                        new AttackInfo<Attack>(Attack.Phase1Pattern4, m_info.phase1Pattern1Range),
-                        new AttackInfo<Attack>(Attack.Phase1Pattern5, m_info.phase1Pattern1Range));
+                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase2Pattern3, m_info.phase1Pattern1Range));
+                    //new AttackInfo<Attack>(Attack.Phase1Pattern2, m_info.phase1Pattern1Range),
+                    //    new AttackInfo<Attack>(Attack.Phase1Pattern3, m_info.phase1Pattern1Range),
+                    //    new AttackInfo<Attack>(Attack.Phase1Pattern4, m_info.phase1Pattern1Range),
+                    //    new AttackInfo<Attack>(Attack.Phase1Pattern5, m_info.phase1Pattern1Range));
                     break;
                 case Phase.PhaseTwo:
                     m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase2Pattern1, m_info.phase1Pattern1Range), 
@@ -2388,8 +2371,8 @@ namespace DChild.Gameplay.Characters.Enemies
             
             base.Awake();
             m_damageable.DamageTaken += OnDamageTaken;
-            m_projectileLauncher = new ProjectileLauncher(m_info.slashNormalProjectile.projectileInfo, m_projectilePoint);
-            m_scytheWaveLauncher = new ProjectileLauncher(m_info.scytheWaveNormalProjectile.projectileInfo, m_scytheWavePoint);
+            //m_projectileLauncher = new ProjectileLauncher(m_info.slashNormalProjectile.projectileInfo, m_projectilePoint);
+            //m_scytheWaveLauncher = new ProjectileLauncher(m_info.scytheWaveNormalProjectile.projectileInfo, m_scytheWavePoint);
             m_attackDecider = new RandomAttackDecider<Attack>();
             m_stateHandle = new StateHandle<State>(State.Idle, State.WaitBehaviourEnd);
             UpdateAttackDeciderList();
@@ -2399,8 +2382,7 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void Start()
         {
             base.Start();
-            m_spineListener.Subscribe(m_info.slashNormalProjectile.launchOnEvent, LaunchProjectile);
-            m_spineListener.Subscribe(m_info.scytheWaveNormalProjectile.launchOnEvent, LaunchScytheWave);
+            
             m_spineListener.Subscribe(m_info.geyserStartRed, GeyserBurstSpawnEvent);
             m_spineListener.Subscribe(m_info.geyserStartGreen, GeyserBurstSpawnEvent);
             m_spineListener.Subscribe(m_info.geyserStartPurple, GeyserBurstSpawnEvent);
@@ -2409,8 +2391,8 @@ namespace DChild.Gameplay.Characters.Enemies
             m_phaseHandle.Initialize(Phase.PhaseOne, m_info.phaseInfo, m_character, ChangeState, ApplyPhaseData);
             m_phaseHandle.ApplyChange();
 
-            m_currentSwordState = SwordState.Normal;
-            m_cachedSwordState = SwordState.Normal;
+            //m_currentSwordState = SwordState.Normal;
+           // m_cachedSwordState = SwordState.Normal;
             m_drillMixAnimation = m_info.drillNormalMixAnimation.animation;
 
             m_blinkDisappearAnimation = m_info.blinkDisappearForwardAnimation.animation;
@@ -2527,7 +2509,7 @@ namespace DChild.Gameplay.Characters.Enemies
                         if (m_currentSwordState == SwordState.Normal)
                         {
                             m_alterBladeCounterToActivate++;
-
+                            Debug.Log("ha???");
                             if (m_canUseAlternateSwordState &&
                                 m_alterBladeCounterToActivate > m_info.normalBladeCounter)
                             {
