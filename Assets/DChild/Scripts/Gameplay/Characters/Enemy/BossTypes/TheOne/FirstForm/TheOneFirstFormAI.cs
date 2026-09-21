@@ -722,11 +722,11 @@ namespace DChild.Gameplay.Characters.Enemies
             float walkDuration = 3f;
             float elapsedTime = 0f;
             m_movement.Stop();
-            m_hitbox.SetInvulnerability(Invulnerability.MAX);
+           // m_hitbox.SetInvulnerability(Invulnerability.MAX);
             //m_cinematic.PlayCinematic(1, false);
             m_animation.animationState.TimeScale = 1;       
             yield return AlterBladeMonitorRoutine();
-            m_hitbox.SetInvulnerability(Invulnerability.None);
+          //  m_hitbox.SetInvulnerability(Invulnerability.None);
             m_hitbox.Enable();
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
@@ -790,12 +790,12 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.rageQuakForPhaseChange, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.rageQuakForPhaseChange);
             m_animation.SetAnimation(0, m_info.idleCombatAnimation, true);
+            m_hitbox.SetInvulnerability(Invulnerability.None);
             m_hitbox.Enable();
-            m_hitbox.SetCanBlockDamageState(false);
-            yield return new WaitForSeconds(m_info.defaultIdleTime);
+           // m_hitbox.SetCanBlockDamageState(false);
             yield return AlterBladeMonitorRoutine();
             yield return BlinkRoutine(BlinkState.DisappearForward, BlinkState.AppearForward, new Vector2(25,0), m_info.midAirHeight, true, false, false);
-            m_hitbox.SetInvulnerability(Invulnerability.None);
+            yield return new WaitForSeconds(m_info.defaultIdleTime);
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
            
@@ -2242,7 +2242,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private StatusEffectChanceData m_effectChanceAcid;
         [SerializeField]
         private StatusEffectChanceData m_effectChanceBlackBlood;
-
+        [SerializeField]
+        private StatusEffectChanceData m_normalStatusEffectChanceData;
         private int m_currentAlternateBladeAttackCounter;
         private IEnumerator AlterBladeMonitorRoutine()
         {
@@ -2286,8 +2287,8 @@ namespace DChild.Gameplay.Characters.Enemies
                     
                     for (int i = 0; i < m_statusInflictors.Length; i++)
                     {
-                       
-                        m_statusInflictors[i].SetData(null);
+
+                        m_statusInflictors[i].SetData(m_normalStatusEffectChanceData);
                     }
                     break;
                 case SwordState.BlackBlood:
