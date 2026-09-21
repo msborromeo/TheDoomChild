@@ -741,10 +741,10 @@ namespace DChild.Gameplay.Characters.Enemies
         }
 
         private void SetAIToPhasing()
-        {
-            m_phaseHandle.ApplyChange();
+        { 
             m_animation.DisableRootMotion();
-            m_stateHandle.OverrideState(State.Phasing);
+            m_stateHandle.SetState(State.Phasing);
+            m_phaseHandle.ApplyChange();
         }
        
 
@@ -767,7 +767,16 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator ChangePhaseRoutine()
         {
             Debug.Log("changing routine");
-            m_stateHandle.Wait(State.ReevaluateSituation); 
+            m_stateHandle.Wait(State.ReevaluateSituation);
+            m_hitbox.SetInvulnerability(Invulnerability.MAX);
+            m_character.physics.simulateGravity = true;
+            if (!m_groundSensor.isDetecting)
+            {
+                m_animation.SetAnimation(0, m_info.fallAnimation, true);
+                yield return new WaitUntil(() => m_groundSensor.isDetecting);
+                m_animation.SetAnimation(0, m_info.landAnimation, false);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.landAnimation);
+            }
             m_drillDamage.SetActive(false);
             m_heavySwordStab.SetActive(false);
             m_swordStab.SetActive(false);
@@ -786,6 +795,7 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return new WaitForSeconds(m_info.defaultIdleTime);
             yield return AlterBladeMonitorRoutine();
             yield return BlinkRoutine(BlinkState.DisappearForward, BlinkState.AppearForward, new Vector2(25,0), m_info.midAirHeight, true, false, false);
+            m_hitbox.SetInvulnerability(Invulnerability.None);
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
            
@@ -884,7 +894,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator EvadePlayerRoutine()
         {
             float blinkCount = 0;
-            float walkDuration = 2f;
+            float walkDuration = 1f;
             float elapsedTime = 0f;
             while (true)
             {
@@ -1049,7 +1059,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.drillToGroundAnimation.animation, false);
             m_drillDamage.SetActive(false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.drillToGroundAnimation.animation);
-            m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            m_animation.SetAnimation(0, m_info.idleCombatAnimation, true);
             StopComboCounts();
 
             m_fakeBlinkCount = 0;
@@ -1108,7 +1118,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.drillToGroundAnimation.animation, false);
             m_drillDamage.SetActive(false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.drillToGroundAnimation.animation);
-            m_animation.SetAnimation(0, m_info.idleAnimation, true);
+            m_animation.SetAnimation(0, m_info.idleCombatAnimation, true);
             StopComboCounts();
 
             m_fakeBlinkCount = 0;
@@ -1258,7 +1268,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator ProjectileWaveSlashForDualSwordPattern()//ProjectileWaveSlash
         {
             Debug.Log("phase1pattern2");
-            float walkDuration = 1.5f;
+            float walkDuration = 1f;
             float elapsedTime = 0f;
             if (IsTargetInRange(m_info.downwardSlash1Attack.range))
             {
@@ -1298,7 +1308,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             Debug.Log("phase1pattern2");
             m_stateHandle.Wait(State.ReevaluateSituation);
-            float walkDuration = 1.5f;
+            float walkDuration = 1f;
             float elapsedTime = 0f;
             if (IsTargetInRange(m_info.projectileWaveSlashAttackRange))
             {
@@ -1458,7 +1468,7 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
             Debug.Log("phase1pattern4");
-            float walkDuration = 1.5f;
+            float walkDuration = 1f;
             float elapsedTime = 0f;
             var geyserAnimation = "";
                 GameObject geyserToSpawn = null;
@@ -2199,8 +2209,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private readonly SwordState[] m_alternateSwordStates =
         {
         SwordState.BlackBlood,
-        //SwordState.Poison,
-        //SwordState.Acid
+        SwordState.Poison,
+        SwordState.Acid
         };
         private SwordState GetNextRandomSwordState()
         {
@@ -2336,7 +2346,7 @@ namespace DChild.Gameplay.Characters.Enemies
             switch (m_phaseHandle.currentPhase)
             {
                 case Phase.PhaseOne:
-                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase1Pattern1, m_info.phase1Pattern1Range)
+                    m_attackDecider.SetList(new AttackInfo<Attack>(Attack.Phase1Pattern1, m_info.phase1Pattern1Range),
                         new AttackInfo<Attack>(Attack.Phase1Pattern2, m_info.phase1Pattern1Range),
                         new AttackInfo<Attack>(Attack.Phase1Pattern3, m_info.phase1Pattern1Range),
                         new AttackInfo<Attack>(Attack.Phase1Pattern4, m_info.phase1Pattern1Range),
