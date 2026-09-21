@@ -1,32 +1,29 @@
 ﻿using DChild.UI;
-using Doozy.Runtime.UIManager.Components;
 using Doozy.Runtime.UIManager.Events;
 using Holysoft.Event;
 using System;
-using UnityEngine;
 using UnityEngine.Events;
 
 namespace DChild.Menu.UI
 {
+    using UnityEngine;
     public abstract class ToggleField : MonoBehaviour, IValueUI
     {
         protected abstract bool value { get; set; }
 
         [SerializeField]
-        private UIToggle m_toggle;
+        private ToggleButton m_toggle;
 
         private bool m_isSettingState;
 
         public void UpdateUI()
         {
             m_isSettingState = true;
-            m_toggle.SetIsOn(value);
         }
 
         private void Start()
         {
             m_isSettingState = false;
-            m_toggle.onToggleValueChangedCallback = OnToggle;
         }
 
         private void OnToggle(ToggleValueChangedEvent arg0)
@@ -54,7 +51,7 @@ namespace DChild.Menu.UI
             {
                 if (m_toggle == null)
                 {
-                    m_toggle = GetComponentInChildren<UIToggle>();
+                    m_toggle = GetComponentInChildren<ToggleButton>();
                 }
                 if (m_toggle != null)
                 {
