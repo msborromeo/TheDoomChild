@@ -2276,9 +2276,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_animation.SetAnimation(0, m_info.idleCombatAnimation, true);
             switch (swordState)
             {
-                case SwordState.Normal:
-                    m_spineListener.Subscribe(m_info.slashNormalProjectile.launchOnEvent, LaunchProjectile);
-                    m_spineListener.Subscribe(m_info.scytheWaveNormalProjectile.launchOnEvent, LaunchScytheWave);
+                case SwordState.Normal:     
                     animationChangeSwordString = m_info.swordChangeAnimationToNormal;
                     m_swordMixAnimation = m_info.swordNormalMixAnimation.animation;
                     m_drillMixAnimation = m_info.drillNormalMixAnimation.animation;
@@ -2292,8 +2290,8 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     break;
                 case SwordState.BlackBlood:
-                    m_spineListener.Subscribe(m_info.slashBlackbloodProjectile.launchOnEvent, LaunchProjectile);
-                    m_spineListener.Subscribe(m_info.WaveBlackbloodProjectile.launchOnEvent, LaunchScytheWave);
+                    //m_spineListener.Subscribe(m_info.slashBlackbloodProjectile.launchOnEvent, LaunchProjectile);
+                    //m_spineListener.Subscribe(m_info.WaveBlackbloodProjectile.launchOnEvent, LaunchScytheWave);
                     animationChangeSwordString = m_info.swordChangeAnimationToRed;
                     m_swordMixAnimation = m_info.swordRedMixAnimation.animation;
                     m_drillMixAnimation = m_info.drillRedMixAnimation.animation;
@@ -2306,8 +2304,8 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     break;
                 case SwordState.Poison:
-                    m_spineListener.Subscribe(m_info.slashPoisonProjectile.launchOnEvent, LaunchProjectile);
-                    m_spineListener.Subscribe(m_info.scytheWavePoisonProjectile.launchOnEvent, LaunchScytheWave);
+                   // m_spineListener.Subscribe(m_info.slashPoisonProjectile.launchOnEvent, LaunchProjectile);
+                    //m_spineListener.Subscribe(m_info.scytheWavePoisonProjectile.launchOnEvent, LaunchScytheWave);
                     animationChangeSwordString = m_info.swordChangeAnimationToPurple;
                     m_swordMixAnimation = m_info.swordPurpleMixAnimation.animation;
                     m_drillMixAnimation = m_info.drillPurpleMixAnimation.animation;
@@ -2320,8 +2318,8 @@ namespace DChild.Gameplay.Characters.Enemies
                     }
                     break;
                 case SwordState.Acid:
-                    m_spineListener.Subscribe(m_info.slashAcidProjectile.launchOnEvent, LaunchProjectile);
-                    m_spineListener.Subscribe(m_info.scytheWaveAcidProjectile.launchOnEvent, LaunchScytheWave);
+                   // m_spineListener.Subscribe(m_info.slashAcidProjectile.launchOnEvent, LaunchProjectile);
+                   // m_spineListener.Subscribe(m_info.scytheWaveAcidProjectile.launchOnEvent, LaunchScytheWave);
                     animationChangeSwordString = m_info.swordChangeAnimationToGreen;
                     m_swordMixAnimation = m_info.swordGreenMixAnimation.animation;
                     m_drillMixAnimation = m_info.drillGreenMixAnimation.animation;
@@ -2393,7 +2391,8 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void Start()
         {
             base.Start();
-            
+            m_spineListener.Subscribe(m_info.slashNormalProjectile.launchOnEvent, LaunchProjectile);
+            m_spineListener.Subscribe(m_info.scytheWaveNormalProjectile.launchOnEvent, LaunchScytheWave);
             m_spineListener.Subscribe(m_info.geyserStartRed, GeyserBurstSpawnEvent);
             m_spineListener.Subscribe(m_info.geyserStartGreen, GeyserBurstSpawnEvent);
             m_spineListener.Subscribe(m_info.geyserStartPurple, GeyserBurstSpawnEvent);
