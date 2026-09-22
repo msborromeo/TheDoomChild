@@ -1269,6 +1269,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             /*m_slashHeld = false;
             m_ignoreSlashHeldUntilReleased = false;*/
+            //m_hellTrident?.Cancel();
+            //m_reaperHarvest?.Cancel();
             if (m_skills.IsModuleActive(PrimarySkill.SwordThrust) == false)
                 return;
 
@@ -1299,7 +1301,32 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSwordThrustPerformedInput()
         {
+            /*if (m_skills.IsModuleActive(PrimarySkill.SwordThrust) == false)
+                return;
 
+            if (m_state.isChargingAttack && m_skills.IsModuleActive(PrimarySkill.SwordThrust))
+            {
+                m_chargeAttackHandle.Set(m_swordThrust, () => false);
+                if (m_swordThrust.IsChargeComplete())
+                {
+                    PrepareForGroundAttack();
+                    m_groundJump?.Cancel();
+                    m_extraJump?.Cancel();
+                    m_devilWings?.Cancel();
+                    m_whip?.Cancel();
+                    m_whipCombo?.Cancel();
+                    //m_swordThrust?.ResetDurationTimer();
+                    m_swordThrust?.Execute();
+                }
+                else
+                {
+                    m_swordThrust?.EndSwordThrust();
+                    m_swordThrust?.ResetCooldownTimer();
+                    m_swordThrust?.ResetDurationTimer();
+                    m_swordThrust?.Cancel();
+                    m_idle?.Execute(m_state.allowExtendedIdle);
+                }
+            }*/
         }
 
         private void OnSwordThrustCancelledInput()
@@ -1672,7 +1699,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isExecutingCombatArt)
                 return;
             if (m_state.isAimingProjectile) { return; }
-            if (m_abilities.IsAbilityActivated(CombatArt.HellTrident))
+            if (m_state.isAttacking) { return; }
+            if (m_state.isChargingAttack) { return; }
+            if (m_teleportingSkull.m_isTeleporting) {  return; }
+            if (m_abilities.IsAbilityActivated(CombatArt.HellTrident) && m_hellTrident.CanHellTrident())
             {
                 if (m_state.isInShadowMode == false)
                 {
@@ -1708,6 +1738,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isExecutingCombatArt)
                 return;
+            if (m_teleportingSkull.m_isTeleporting) { return; }
             if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast))
             {
                 if (m_state.isGrounded == false)
@@ -1875,6 +1906,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isHighJumping) //sometimes you're still grounded while jumping [fast fingers]
                 return;
+            if (m_state.isChargingAttack) { return; }
+            if (m_teleportingSkull.m_isTeleporting) { return; }
             if (m_abilities.IsAbilityActivated(CombatArt.ReaperHarvest))
             {
                 m_state.waitForBehaviour = true;
@@ -1934,7 +1967,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
 
         }
-
         private void OnTeleportingSkullPerformedInput()
         {
             if (m_state.isExecutingCombatArt)
@@ -1947,7 +1979,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_teleportingSkull.TeleportToProjectile();
                 return;
             }
-
             m_projectileThrow.SetProjectileInfo(m_teleportingSkull.projectile);
             m_projectileThrow.WillResetProjectile();
             m_teleportingSkull.Execute();
