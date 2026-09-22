@@ -1014,7 +1014,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator DrillDashComboPhase2Pattern4Routine()
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
-            yield return BlinkRoutineWithFakeBlink(BlinkState.DisappearUpward, BlinkState.AppearUpward, new Vector2(30, 30), 20, false, false, false);
+            yield return BlinkRoutineWithFakeBlink(BlinkState.DisappearUpward, BlinkState.AppearUpward, new Vector2(30, 30), 20, true, false, false);
             Vector3 drillDirection = m_character.facing == HorizontalDirection.Right ? new Vector3(1f, -1f, 0f).normalized : new Vector3(-1f, -1f, 0f).normalized;
             m_animation.SetAnimation(4, m_drillMixAnimation, false);
             m_animation.SetAnimation(0, m_info.airTodrillDashDiagonal.animation, false);
