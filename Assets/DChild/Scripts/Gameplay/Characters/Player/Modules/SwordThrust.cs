@@ -62,7 +62,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_chargeTimer = m_configuration.chargeDuration;
             m_chargeFX?.Play(true);
-            m_state.isAttacking = true;
+            //m_state.isAttacking = true;
             m_state.isChargingAttack = true;
             m_animator.SetBool(m_swordThrustAnimationParameter, true);
             m_animator.SetBool(m_chargingAnimationParameter, true);
@@ -75,7 +75,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_animator.SetBool(m_animationParameter, false);
 
-            m_state.isAttacking = false;
+            //m_state.isAttacking = false;
             m_state.canAttack = true;
             m_state.waitForBehaviour = false;
             m_state.isChargingAttack = false;
