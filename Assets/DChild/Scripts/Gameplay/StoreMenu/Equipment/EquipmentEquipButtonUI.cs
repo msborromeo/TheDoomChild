@@ -28,7 +28,7 @@ namespace DChild.Menu.Equipment.UI
 
         private void SetLabel(EquipButtonLabel label)
         {
-            m_labelText.SetText($"BUTTONPROMPT{label}");
+            m_labelText.SetText($"BUTTONPROMPT {label}");
         }
 
         public void UpdateButtonLabel(EquipmentCurrentItemUI itemSlot)
