@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Doozy.Runtime.UIManager.Components;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,16 +10,12 @@ namespace DChild.Menu.UI
     public abstract class ReferenceSlider : MonoBehaviour
     {
         [SerializeField]
-        protected Slider m_slider;
+        protected UISlider m_slider;
         protected abstract float value { get; set; }
 
         protected virtual void OnValueChange(float arg0) => value = arg0;
 
-        private void Awake() => m_slider = GetComponentInChildren<Slider>();
-
-        private void OnEnable() => m_slider.onValueChanged.AddListener(OnValueChange);
-
-        private void OnDisable() => m_slider.onValueChanged.RemoveListener(OnValueChange);
+        private void Awake() => m_slider = GetComponentInChildren<UISlider>();
 
 #if UNITY_EDITOR
         [SerializeField]
@@ -33,7 +30,7 @@ namespace DChild.Menu.UI
             {
                 if (m_slider == null)
                 {
-                    m_slider = GetComponentInChildren<Slider>();
+                    m_slider = GetComponentInChildren<UISlider>();
                 }
                 if (m_slider != null)
                 {
