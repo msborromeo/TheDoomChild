@@ -1769,7 +1769,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_earthShaker?.Reset();
                     PrepareForMidairAttack();
                     m_diagonalSwordDash?.Cancel();
-                    //m_icarusWings?.Cancel();
+                    m_icarusWings?.Cancel();
                     m_devilWings?.Cancel();
                     m_earthShaker?.StartExecution();
                     return;
@@ -2093,6 +2093,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isChargingAttack)
                 return;
             if (m_vector2Input.x != 0)
+                return;
+            if (m_state.isDoingEarthShaker)
                 return;
             if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false) { return; }
             m_basicSlashes.Cancel();
