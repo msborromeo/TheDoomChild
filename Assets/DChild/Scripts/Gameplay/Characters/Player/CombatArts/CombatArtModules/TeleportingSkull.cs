@@ -84,7 +84,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_spawnedProjectile.Impacted += TeleportToImpactPoint;
             }
         }
-
+        public bool m_isTeleporting;
         public void TeleportToProjectile()
         {
             if (m_spawnedProjectile != null && m_canTeleport)
@@ -103,12 +103,14 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_spawnedProjectile.CallPoolRequest();
                 m_spineRootAnimation.animationState.GetCurrent(0).MixDuration = 0f;
                 m_teleportingSkullRoutine = StartCoroutine(TeleportingSkullRoutine());
+
             }
         }
 
         public void Execute()
         {
             m_canTeleport = true;
+            m_isTeleporting = true;
         }
 
         public void EndExecution()
@@ -139,6 +141,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             }
             base.AttackOver();
             m_animator.SetBool(m_teleportingSkullStateAnimationParameter, false);
+            m_isTeleporting = false;
         }
 
         public override void Cancel()
