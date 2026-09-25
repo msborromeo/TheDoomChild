@@ -21585,8 +21585,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 793211963}
   - {fileID: 2140961355}
+  - {fileID: 793211963}
   - {fileID: 832078549}
   - {fileID: 1554029361}
   - {fileID: 1560206311}
@@ -47539,6 +47539,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_id.m_showHandle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6712359710508313429, guid: 88007e2a5421be448a9dca24447bb8fd,
+        type: 3}
+      propertyPath: luaCode
+      value: Variable["Realm_Of_Nightmare_Scene2_Soul_Skill_Chests_SoulSkillChest"]
+        = true
       objectReference: {fileID: 0}
     - target: {fileID: 6714748411735772568, guid: 88007e2a5421be448a9dca24447bb8fd,
         type: 3}
@@ -142954,6 +142960,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &734832410 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2404395551184138944, guid: e77910b70161abe4c8e0fed189d5fdea,
+    type: 3}
+  m_PrefabInstance: {fileID: 898952018}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &736447973
 GameObject:
   m_ObjectHideFlags: 0
@@ -148212,6 +148230,11 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 3.32
       objectReference: {fileID: 0}
+    - target: {fileID: 8422741932913352314, guid: d6aea39ff64603949b08b61bb6873eb3,
+        type: 3}
+      propertyPath: luaCode
+      value: Variable["Realm_Of_Nightmare_Scene2_BreakableStoneFloor_3"] = true
+      objectReference: {fileID: 0}
     - target: {fileID: 8694947888027868524, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
       propertyPath: m_id.m_ID
@@ -150394,7 +150417,7 @@ PrefabInstance:
     - target: {fileID: 4022004297023543521, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4022004297023543521, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
@@ -150476,6 +150499,11 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 4.88
       objectReference: {fileID: 0}
+    - target: {fileID: 8422741932913352314, guid: d6aea39ff64603949b08b61bb6873eb3,
+        type: 3}
+      propertyPath: luaCode
+      value: Variable["Realm_Of_Nightmare_Scene2_BreakableStoneFloor_2"] = true
+      objectReference: {fileID: 0}
     - target: {fileID: 8577879441410689008, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
       propertyPath: m_placeHolderFX
@@ -150500,7 +150528,7 @@ PrefabInstance:
     - target: {fileID: 8975078787935656207, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
       propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8975078787935656207, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
@@ -150524,6 +150552,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8975078787935656207, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
+      propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8975078787935656207, guid: d6aea39ff64603949b08b61bb6873eb3,
+        type: 3}
       propertyPath: m_onFix.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -150532,6 +150565,11 @@ PrefabInstance:
       propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 484191163}
+    - target: {fileID: 8975078787935656207, guid: d6aea39ff64603949b08b61bb6873eb3,
+        type: 3}
+      propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 793211964}
     - target: {fileID: 8975078787935656207, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
       propertyPath: m_onFix.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -150544,8 +150582,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8975078787935656207, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
+      propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8975078787935656207, guid: d6aea39ff64603949b08b61bb6873eb3,
+        type: 3}
       propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: EnableCam
+      objectReference: {fileID: 0}
+    - target: {fileID: 8975078787935656207, guid: d6aea39ff64603949b08b61bb6873eb3,
+        type: 3}
+      propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: OnUse
       objectReference: {fileID: 0}
     - target: {fileID: 8975078787935656207, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
@@ -150584,6 +150632,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8975078787935656207, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
+      propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: PixelCrushers.DialogueSystem.DialogueSystemTrigger, Assembly-CSharp-firstpass
+      objectReference: {fileID: 0}
+    - target: {fileID: 8975078787935656207, guid: d6aea39ff64603949b08b61bb6873eb3,
+        type: 3}
       propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 1
       objectReference: {fileID: 0}
@@ -150609,6 +150662,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8975078787935656207, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
+      propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8975078787935656207, guid: d6aea39ff64603949b08b61bb6873eb3,
+        type: 3}
       propertyPath: m_onAlreadyDestroyed.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -150620,6 +150678,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 793211962}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &793211964 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8422741932913352314, guid: d6aea39ff64603949b08b61bb6873eb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 793211962}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &794330566
 GameObject:
   m_ObjectHideFlags: 0
@@ -168261,6 +168331,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 416014454}
     m_Modifications:
+    - target: {fileID: 2404395551184138944, guid: e77910b70161abe4c8e0fed189d5fdea,
+        type: 3}
+      propertyPath: luaCode
+      value: Variable["Realm_Of_Nightmare_Scene2_BreakableWoodSupport_1"] = true
+      objectReference: {fileID: 0}
     - target: {fileID: 3876566356776836488, guid: e77910b70161abe4c8e0fed189d5fdea,
         type: 3}
       propertyPath: m_suspendedLocalPosition.x
@@ -168863,12 +168938,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6474852823615978683, guid: e77910b70161abe4c8e0fed189d5fdea,
         type: 3}
+      propertyPath: m_onAllObjectsDestroyed.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6474852823615978683, guid: e77910b70161abe4c8e0fed189d5fdea,
+        type: 3}
       propertyPath: m_onAllObjectsDestroyed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 898952021}
     - target: {fileID: 6474852823615978683, guid: e77910b70161abe4c8e0fed189d5fdea,
         type: 3}
+      propertyPath: m_onAllObjectsDestroyed.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 734832410}
+    - target: {fileID: 6474852823615978683, guid: e77910b70161abe4c8e0fed189d5fdea,
+        type: 3}
       propertyPath: m_onAllObjectsDestroyed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6474852823615978683, guid: e77910b70161abe4c8e0fed189d5fdea,
+        type: 3}
+      propertyPath: m_onAllObjectsDestroyed.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6474852823615978683, guid: e77910b70161abe4c8e0fed189d5fdea,
@@ -168878,7 +168968,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6474852823615978683, guid: e77910b70161abe4c8e0fed189d5fdea,
         type: 3}
+      propertyPath: m_onAllObjectsDestroyed.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnUse
+      objectReference: {fileID: 0}
+    - target: {fileID: 6474852823615978683, guid: e77910b70161abe4c8e0fed189d5fdea,
+        type: 3}
+      propertyPath: m_onAllObjectsDestroyed.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PixelCrushers.DialogueSystem.DialogueSystemTrigger, Assembly-CSharp-firstpass
+      objectReference: {fileID: 0}
+    - target: {fileID: 6474852823615978683, guid: e77910b70161abe4c8e0fed189d5fdea,
+        type: 3}
       propertyPath: m_onAllObjectsDestroyed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6474852823615978683, guid: e77910b70161abe4c8e0fed189d5fdea,
+        type: 3}
+      propertyPath: m_onAllObjectsDestroyed.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -225849,6 +225954,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: NormalLootChest (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2188227310773286300, guid: 441232b8e36afa948a08495a018f43a0,
+        type: 3}
+      propertyPath: luaCode
+      value: Variable["Realm_Of_Nightmare_Scene2_Loot_Chests_NormalLootChest__1_"]
+        = true
+      objectReference: {fileID: 0}
     - target: {fileID: 2906831029210399978, guid: 441232b8e36afa948a08495a018f43a0,
         type: 3}
       propertyPath: m_RootOrder
@@ -233902,6 +234013,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NormalLootChest
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188227310773286300, guid: 441232b8e36afa948a08495a018f43a0,
+        type: 3}
+      propertyPath: luaCode
+      value: Variable["Realm_Of_Nightmare_Scene2_Loot_Chests_NormalLootChest"] =
+        true
       objectReference: {fileID: 0}
     - target: {fileID: 2906831029210399978, guid: 441232b8e36afa948a08495a018f43a0,
         type: 3}
@@ -283207,6 +283324,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: NormalLootChest (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2188227310773286300, guid: 441232b8e36afa948a08495a018f43a0,
+        type: 3}
+      propertyPath: luaCode
+      value: Variable["Realm_Of_Nightmare_Scene2_Loot_Chests_NormalLootChest__2_"]
+        = true
+      objectReference: {fileID: 0}
     - target: {fileID: 2906831029210399978, guid: 441232b8e36afa948a08495a018f43a0,
         type: 3}
       propertyPath: m_RootOrder
@@ -313933,7 +314056,7 @@ PrefabInstance:
     - target: {fileID: 4026428361675502945, guid: bceed7f368e3e8e4f903526200ae696a,
         type: 3}
       propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4026428361675502945, guid: bceed7f368e3e8e4f903526200ae696a,
         type: 3}
@@ -313957,6 +314080,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4026428361675502945, guid: bceed7f368e3e8e4f903526200ae696a,
         type: 3}
+      propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026428361675502945, guid: bceed7f368e3e8e4f903526200ae696a,
+        type: 3}
       propertyPath: m_onFix.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -313965,6 +314093,11 @@ PrefabInstance:
       propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 339529086}
+    - target: {fileID: 4026428361675502945, guid: bceed7f368e3e8e4f903526200ae696a,
+        type: 3}
+      propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1554029363}
     - target: {fileID: 4026428361675502945, guid: bceed7f368e3e8e4f903526200ae696a,
         type: 3}
       propertyPath: m_onFix.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -313977,8 +314110,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4026428361675502945, guid: bceed7f368e3e8e4f903526200ae696a,
         type: 3}
+      propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026428361675502945, guid: bceed7f368e3e8e4f903526200ae696a,
+        type: 3}
       propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: EnableCam
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026428361675502945, guid: bceed7f368e3e8e4f903526200ae696a,
+        type: 3}
+      propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: OnUse
       objectReference: {fileID: 0}
     - target: {fileID: 4026428361675502945, guid: bceed7f368e3e8e4f903526200ae696a,
         type: 3}
@@ -314017,6 +314160,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4026428361675502945, guid: bceed7f368e3e8e4f903526200ae696a,
         type: 3}
+      propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: PixelCrushers.DialogueSystem.DialogueSystemTrigger, Assembly-CSharp-firstpass
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026428361675502945, guid: bceed7f368e3e8e4f903526200ae696a,
+        type: 3}
       propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 1
       objectReference: {fileID: 0}
@@ -314042,6 +314190,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4026428361675502945, guid: bceed7f368e3e8e4f903526200ae696a,
         type: 3}
+      propertyPath: m_onDestroy.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026428361675502945, guid: bceed7f368e3e8e4f903526200ae696a,
+        type: 3}
       propertyPath: m_onAlreadyDestroyed.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -314049,6 +314202,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4579821009852690964, guid: bceed7f368e3e8e4f903526200ae696a,
+        type: 3}
+      propertyPath: luaCode
+      value: Variable["Realm_Of_Nightmare_Scene2_BreakableStoneWall_1"] = true
       objectReference: {fileID: 0}
     - target: {fileID: 5737433183742221374, guid: bceed7f368e3e8e4f903526200ae696a,
         type: 3}
@@ -314145,6 +314303,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1554029360}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1554029363 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4579821009852690964, guid: bceed7f368e3e8e4f903526200ae696a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1554029360}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1554039509
 GameObject:
   m_ObjectHideFlags: 0
@@ -315164,6 +315334,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 9.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340703963300067421, guid: 354732a6681b41743be4899f1969fe48,
+        type: 3}
+      propertyPath: luaCode
+      value: Variable["Realm_Of_Nightmare_Scene2_BreakableWoodSupport_1"] = true
       objectReference: {fileID: 0}
     - target: {fileID: 6608903295481166667, guid: 354732a6681b41743be4899f1969fe48,
         type: 3}
@@ -424071,7 +424246,7 @@ PrefabInstance:
     - target: {fileID: 4022004297023543521, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4022004297023543521, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
@@ -424152,6 +424327,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 3.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 8422741932913352314, guid: d6aea39ff64603949b08b61bb6873eb3,
+        type: 3}
+      propertyPath: luaCode
+      value: Variable["Realm_Of_Nightmare_Scene2_BreakableStoneFloor_1"] = true
       objectReference: {fileID: 0}
     - target: {fileID: 8694947888027868524, guid: d6aea39ff64603949b08b61bb6873eb3,
         type: 3}
