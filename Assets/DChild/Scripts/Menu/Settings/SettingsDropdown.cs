@@ -11,11 +11,12 @@ namespace DChild.Menu.UI
 
         public Canvas blocker { get => m_blocker; }
         public GameObject dropDownList { get => m_dropDownList; }
+        public int lastCancelFrame { get; private set; } = -1;
 
-        public override void OnPointerClick(PointerEventData eventData)
+        public override void OnCancel(BaseEventData eventData)
         {
-            base.OnPointerClick(eventData);
-            m_dropDownList.transform.parent = m_blocker.transform;
+            lastCancelFrame = Time.frameCount;
+            base.OnCancel(eventData);
         }
 
         protected override GameObject CreateBlocker(Canvas rootCanvas)
@@ -24,6 +25,8 @@ namespace DChild.Menu.UI
             transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
             m_blocker = blocker.GetComponent<Canvas>();
             m_blocker.overrideSorting = false;
+            if (m_dropDownList != null)
+                m_dropDownList.transform.SetParent(m_blocker.transform, true);
             return blocker;
         }
 
