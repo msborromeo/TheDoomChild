@@ -85,6 +85,7 @@ namespace DChild.Inputs
         public event Action GrabStartedEvent;
         public event Action GrabCancelledEvent;
         public event Action<Vector2> MouseDeltaPerformedEvent;
+        public event Action SwordThrustStartedEvent;
         public event Action SwordThrustPerformedEvent;
         public event Action SwordThrustCancelledEvent;
         public event Action TeleportToOverworld;
