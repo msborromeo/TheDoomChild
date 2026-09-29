@@ -1859,7 +1859,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isExecutingCombatArt)
                 return;
-            if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast))
+            if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast) && m_soulFireBlast.CanSoulFireBlast())
             {
                 m_devilWings?.Cancel();
                 m_extraJump?.Cancel();
@@ -1876,7 +1876,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isExecutingCombatArt)
                 return;
             if (m_teleportingSkull.m_isTeleporting) { return; }
-            if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast))
+            if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast) && m_soulFireBlast.CanSoulFireBlast())
             {
                 if (m_state.isGrounded == false)
                 {
