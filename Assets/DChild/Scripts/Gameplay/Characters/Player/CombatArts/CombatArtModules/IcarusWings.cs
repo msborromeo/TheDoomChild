@@ -74,9 +74,10 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_animator.SetBool(m_icarusWingsStateAnimationParameter, false);
             base.Reset();
         }
-
+        public bool m_isDoingIcarus = false;
         public void Execute()
         {
+            m_isDoingIcarus = true;
             m_state.waitForBehaviour = true;
             m_state.isExecutingCombatArt = true;
             m_state.isAttacking = true;
@@ -105,6 +106,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             }
             m_animator.SetBool(m_icarusWingsStateAnimationParameter, false);
             m_state.isExecutingCombatArt = false;
+            m_isDoingIcarus = false;
             base.AttackOver();
         }
 
@@ -116,10 +118,12 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                 m_cielingCheckRoutine = null;
             }
             m_icarusWingsInfo.PlayFX(false);
+            m_physics.velocity = Vector2.zero;
             //m_icarusWingsInfo.ShowCollider(false);
             m_fxAnimator.Play("Buffer");
             m_animator.SetBool(m_icarusWingsStateAnimationParameter, false);
             m_state.isExecutingCombatArt = false;
+            m_isDoingIcarus = false;
             base.Cancel();
         }
 
