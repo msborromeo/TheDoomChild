@@ -1398,6 +1398,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSwordThrustPerformedInput()
         {
+            m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Ground);
             if (m_ignoreSlashHeldUntilReleased)
                 return;
             if (m_state.isExecutingCombatArt)
@@ -1413,6 +1414,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isAimingProjectile)
                 return;
             if (m_state.isDoingSwordThrust)
+                return;
+            if (m_icarusWings.m_isDoingIcarus)
                 return;
 
             if (m_state.isGrounded)
@@ -1769,7 +1772,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_earthShaker?.Reset();
                     PrepareForMidairAttack();
                     m_diagonalSwordDash?.Cancel();
-                    //m_icarusWings?.Cancel();
+                    m_icarusWings?.Cancel();
                     m_devilWings?.Cancel();
                     m_earthShaker?.StartExecution();
                     return;
@@ -1876,11 +1879,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isExecutingCombatArt)
                 return;
             if (m_teleportingSkull.m_isTeleporting) { return; }
+            if (m_icarusWings.m_isDoingIcarus) { return; }
             if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast) && m_soulFireBlast.CanSoulFireBlast())
             {
                 if (m_state.isGrounded == false)
                 {
                     PrepareForMidairAttack();
+                    m_devilWings?.Cancel();
                     m_currentCombatArt = m_soulFireBlast;
                     m_soulFireBlast.Execute();
                     return;
@@ -2064,20 +2069,22 @@ namespace DChild.Gameplay.Characters.Players.Modules
             }
             m_isDoingReaper = false;
         }
-
         private void OnIcarusWingsStartedInput()
         {
             //is grounded guard is not viable because jump input is being called before this function is called which automatically makes you ungrounded
             //if (m_state.isGrounded == false)
             //    return;
-
             if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
                 return;
 
             if (m_state.isHighJumping)
                 m_groundJump.Cancel();
-
+            if (m_state.isChargingAttack)
+                return;
+            if (m_icarusWings.m_isDoingIcarus)
+                return;
             m_state.isExecutingCombatArt = true;
+            m_swordThrust?.Cancel();
             //m_extraJump.Cancel();
         }
 
@@ -2085,7 +2092,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_state.isExecutingCombatArt = false;
         }
-
         private void OnIcarusWingsPerformedInput()
         {
             if (m_state.isGrounded == false)
@@ -2094,10 +2100,13 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_vector2Input.x != 0)
                 return;
+            if (m_state.isDoingEarthShaker)
+                return;
             if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false) { return; }
-            m_basicSlashes.Cancel();
             PrepareForGroundAttack();
+            m_swordThrust?.Cancel();
             m_earthShaker?.Cancel();
+            m_swordThrust?.Cancel();
             m_diagonalSwordDash?.Cancel();
             m_currentCombatArt = m_icarusWings;
             m_icarusWings.Execute();
