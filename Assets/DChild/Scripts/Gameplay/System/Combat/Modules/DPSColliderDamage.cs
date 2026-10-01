@@ -97,11 +97,7 @@ namespace DChild.Gameplay.Combat
 
         private void LateUpdate()
         {
-            if(m_infos.Count<=0)
-            {
-                return;
-            }
-            for (int i = m_infos.Count - 1; i > 0; i--)
+            for (int i = m_infos.Count - 1; i >= 0; i--)
             {
                 var info = m_infos[i];
                 info.damageTimer -= GameplaySystem.time.deltaTime;
