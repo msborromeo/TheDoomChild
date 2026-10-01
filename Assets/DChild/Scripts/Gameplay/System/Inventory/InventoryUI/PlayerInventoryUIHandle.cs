@@ -3,7 +3,6 @@ using Doozy.Runtime.UIManager.Components;
 using Holysoft.Event;
 using Holysoft.UI;
 using Sirenix.OdinInspector;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,8 +18,6 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField] private InventoryItemActionHandle m_itemActionsHandle;
         [SerializeField] private InventoryUISwapHandle m_swapHandle;
         [SerializeField] private InventoryCategoryToggleUI[] m_filterToggles;
-
-        private Coroutine m_selectInitialSlotRoutine;
 
         public InventoryItemUI firstSelectedItem => m_firstSelectedItemUI as InventoryItemUI;
 
@@ -167,28 +164,21 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void Initialize()
         {
+            m_swapHandle.ResetInteraction();
             m_swapHandle.BindCancelInput();
             m_listUI.Reset();
             SetQuickSelectionMode(false);
             UpdateInventorySlots();
             SetupFilterToggles();
-            SelectFirstSlot();
-
-            if (m_selectInitialSlotRoutine != null)
-                StopCoroutine(m_selectInitialSlotRoutine);
-            m_selectInitialSlotRoutine = StartCoroutine(SelectInitialSlotNextFrame());
-        }
-
-        private IEnumerator SelectInitialSlotNextFrame()
-        {
-            yield return null;
-            m_selectInitialSlotRoutine = null;
-            SelectFirstSlot();
         }
 
         private void OnListOverallChange(object sender, EventActionArgs eventArgs)
         {
-            m_detailedUI.ShowDetails(m_firstSelectedItemUI.reference);
+            var selected = m_swapHandle.itemOne;
+            if (selected != null)
+                PresentSelection(selected);
+            else
+                m_detailedUI.ShowDetails(null);
         }
 
         private void OnItemCountReduced(ItemData itemData, bool isQuickItem, int remainingCount)
@@ -212,13 +202,10 @@ namespace DChild.Gameplay.Inventories.UI
             m_usableInventoryItemHandle.OnItemCountReduced += OnItemCountReduced;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
-            if (m_selectInitialSlotRoutine == null)
-                return;
-
-            StopCoroutine(m_selectInitialSlotRoutine);
-            m_selectInitialSlotRoutine = null;
+            m_listUI.ListOverallChange -= OnListOverallChange;
+            m_usableInventoryItemHandle.OnItemCountReduced -= OnItemCountReduced;
         }
     }
 }
