@@ -373,7 +373,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void ThrowStraightEndVisuals()
         {
             m_animator.SetBool(m_aimingProjectileAnimationParameter, false);
-            m_animator.SetBool(m_skullThrowAnimationParameter, true);
+            //m_animator.SetBool(m_skullThrowAnimationParameter, true);
             m_throwState.isAimingProjectile = false;
             m_isStraightThrow = false;
         }
