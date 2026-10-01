@@ -42,7 +42,15 @@ namespace DChild.Gameplay.Inventories.UI
 
         public override void Show()
         {
+            bool wasDisabled = !m_toggle.interactable ||
+                m_toggle.currentUISelectionState == UISelectionState.Disabled;
             m_toggle.interactable = true;
+            if (!wasDisabled)
+                return;
+
+            var state = m_toggle.IsOn ? UISelectionState.Selected : UISelectionState.Normal;
+            m_toggle.SetState(state);
+            CompleteDetailsAnimation(state);
         }
 
         protected override void ShowDetailsOf(IStoredItem reference)
@@ -65,11 +73,16 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void CompleteDisabledAnimation()
         {
-            if (!m_detailsAnimator.IsStateEnabled(UISelectionState.Disabled))
+            CompleteDetailsAnimation(UISelectionState.Disabled);
+        }
+
+        private void CompleteDetailsAnimation(UISelectionState state)
+        {
+            if (m_detailsAnimator == null || !m_detailsAnimator.IsStateEnabled(state))
                 return;
 
             m_detailsAnimator.StopAllReactions();
-            m_detailsAnimator.disabledAnimation.SetProgressAtOne();
+            m_detailsAnimator.GetAnimation(state).SetProgressAtOne();
         }
     }
 }

@@ -118,9 +118,8 @@ namespace DChild.Gameplay.Inventories.UI
 
             var toggle = itemUI.GetComponent<UIToggle>();
 
-            // Reset state only if it's not in a persistent state (Selected/Disabled)
-            if (toggle.currentUISelectionState != UISelectionState.Selected &&
-                toggle.currentUISelectionState != UISelectionState.Disabled)
+            // A populated slot must not retain the empty slot's disabled state.
+            if (toggle.currentUISelectionState != UISelectionState.Selected)
             {
                 toggle.SetState(UISelectionState.Normal);
             }
