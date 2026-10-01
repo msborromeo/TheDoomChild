@@ -361,7 +361,7 @@ namespace DChild.Gameplay.Inventories.UI
             // The Items prefab cannot serialize a reference to the scene's player.
             // Keep an assigned service; resolve the active player's service otherwise.
             if (m_systemSwapHandle == null && GameplaySystem.playerManager?.player != null)
-                m_systemSwapHandle = GameplaySystem.playerManager.player.GetComponent<InventorySwapHandle>();
+                m_systemSwapHandle = GameplaySystem.playerManager.player.inventory.GetComponent<InventorySwapHandle>();
 
             var inputModule = EventSystem.current?.currentInputModule as InputSystemUIInputModule;
             if (inputModule == null)
