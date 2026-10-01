@@ -184,7 +184,8 @@ namespace DChild.Gameplay.Inventories.UI
         private void OnItemCountReduced(ItemData itemData, bool isQuickItem, int remainingCount)
         {
             var previousSlot = m_swapHandle.itemOne;
-            var restoreActionFocus = m_swapHandle.isActionFocused;
+            var restoreActionFocus = m_swapHandle.isActionFocused ||
+                IsActionButton(EventSystem.current?.currentSelectedGameObject);
             UpdateInventorySlots();
 
             var focusItem = FindSlot(itemData, isQuickItem);

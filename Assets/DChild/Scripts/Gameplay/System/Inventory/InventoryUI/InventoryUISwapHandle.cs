@@ -179,7 +179,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public bool isActionFocused => m_actionFocusOrigin != null;
 
-        private void HandleSlotActivated(InventoryItemUI slotUI, bool focusQuickItemActions)
+        private void HandleSlotActivated(InventoryItemUI slotUI, bool focusItemActions)
         {
             switch (m_mode)
             {
@@ -191,8 +191,8 @@ namespace DChild.Gameplay.Inventories.UI
                     }
 
                     SelectForBrowse(slotUI, false);
-                    if (focusQuickItemActions)
-                        TryFocusQuickItemActions(slotUI);
+                    if (focusItemActions)
+                        TryFocusItemActions(slotUI);
                     break;
 
                 case InventoryInteractionMode.AssignQuickItem:
@@ -435,11 +435,11 @@ namespace DChild.Gameplay.Inventories.UI
             CancelPendingAction(true);
         }
 
-        private void TryFocusQuickItemActions(InventoryItemUI slotUI)
+        private void TryFocusItemActions(InventoryItemUI slotUI)
         {
             ClearActionFocus();
 
-            if (!slotUI.isQuickItem || slotUI.reference == null)
+            if (slotUI.reference == null)
                 return;
 
             if (!m_handle.TryFocusFirstAction())

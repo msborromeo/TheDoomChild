@@ -63,7 +63,7 @@ namespace DChild.Gameplay.Inventories.UI
                     return m_itemSlots[i];
             }
 
-            return origin;
+            return null;
         }
 
         public void RemoveQuickItem(ItemUI itemUI)
