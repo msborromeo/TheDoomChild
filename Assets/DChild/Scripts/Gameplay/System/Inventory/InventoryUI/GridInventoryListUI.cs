@@ -71,6 +71,16 @@ namespace DChild.Gameplay.Inventories.UI
             return null;
         }
 
+        public InventoryItemUI FindFirstOccupiedSlot()
+        {
+            foreach (var itemUI in m_itemUIs)
+            {
+                if (itemUI.reference != null)
+                    return itemUI as InventoryItemUI;
+            }
+            return null;
+        }
+
         public InventoryItemUI FindNearestOccupiedSlot(InventoryItemUI origin)
         {
             var originIndex = System.Array.IndexOf(m_itemUIs, origin);

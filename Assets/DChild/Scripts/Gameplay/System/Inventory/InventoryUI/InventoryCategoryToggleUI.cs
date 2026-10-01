@@ -8,12 +8,16 @@ namespace DChild.Gameplay.Inventories.UI
     public class InventoryCategoryToggleUI : InventoryFilterToggleUI
     {
         [SerializeField] private GridInventoryListUI m_attachedInventory;
+        [SerializeField] private InventoryFilterNavigationController m_navigation;
 
 
         public override void SelectFilter()
         {
+            m_navigation?.BeforeFilterChange();
+            m_attachedInventory.SetPage(1);
             m_attachedInventory.SetFilter(m_category);
             base.SelectFilter();
+            m_navigation?.OnFilterChanged();
         }
 
         public override bool HasItemsOfCategory()
