@@ -1,5 +1,6 @@
 using DChild.Gameplay.Items;
 using Doozy.Runtime.UIManager.Input;
+using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
@@ -40,6 +41,17 @@ namespace DChild.Gameplay.Inventories.UI
         private InputAction m_submitAction;
         private bool m_backButtonBlocked;
         private Coroutine m_releaseBackButtonRoutine;
+        private UIContainer m_view;
+
+        public bool ownsInput
+        {
+            get
+            {
+                var selected = EventSystem.current?.currentSelectedGameObject;
+                return m_view != null && m_view.isVisible && selected != null &&
+                    selected.transform.IsChildOf(m_handle.transform);
+            }
+        }
 
         public static bool CanAssignToQuickItems(InventoryItemUI slotUI)
         {
@@ -109,12 +121,27 @@ namespace DChild.Gameplay.Inventories.UI
             if (slotUI == null || !slotUI.isQuickItem || slotUI.reference != null)
                 return;
 
-            EnterMode(InventoryInteractionMode.AssignQuickItem, m_handle.FindFirstEmptyQuickSlot() ?? slotUI);
+            EnterMode(InventoryInteractionMode.AssignQuickItem, slotUI);
         }
 
         public void CancelPendingAction()
         {
             CancelPendingAction(false);
+        }
+
+        public void ResetInteraction()
+        {
+            UnbindInput();
+            CancelPendingToggleOff();
+            if (m_submitRoutine != null)
+                StopCoroutine(m_submitRoutine);
+            m_submitRoutine = null;
+            if (m_releaseBackButtonRoutine != null)
+                StopCoroutine(m_releaseBackButtonRoutine);
+            m_releaseBackButtonRoutine = null;
+            ClearOperation(false);
+            m_selectedItem = null;
+            m_handle.SetQuickSelectionMode(false);
         }
 
         public void MoveQuickItemToInventory(InventoryItemUI slotUI)
@@ -329,6 +356,8 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void BindCancelInput()
         {
+            if (m_view == null)
+                m_view = GetComponentInParent<UIContainer>();
             // The Items prefab cannot serialize a reference to the scene's player.
             // Keep an assigned service; resolve the active player's service otherwise.
             if (m_systemSwapHandle == null && GameplaySystem.playerManager?.player != null)
@@ -370,6 +399,9 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void OnSubmitPerformed(InputAction.CallbackContext context)
         {
+            if (!ownsInput)
+                return;
+
             var selectedObject = EventSystem.current?.currentSelectedGameObject;
             var slotUI = selectedObject?.GetComponent<InventoryItemUI>();
             if (slotUI == null)
@@ -385,6 +417,9 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void OnCancelPerformed(InputAction.CallbackContext context)
         {
+            if (!ownsInput)
+                return;
+
             if (m_mode == InventoryInteractionMode.Browse && m_actionFocusOrigin != null)
             {
                 var focusItem = m_actionFocusOrigin;
@@ -456,6 +491,12 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void BlockBackButton()
         {
+            if (m_releaseBackButtonRoutine != null)
+            {
+                StopCoroutine(m_releaseBackButtonRoutine);
+                m_releaseBackButtonRoutine = null;
+            }
+
             if (m_backButtonBlocked)
                 return;
 
@@ -481,6 +522,13 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void LateUpdate()
         {
+            if (m_view != null && (m_view.isHidden || m_view.isHiding))
+            {
+                if (m_mode != InventoryInteractionMode.Browse || m_actionFocusOrigin != null || m_backButtonBlocked)
+                    ResetInteraction();
+                return;
+            }
+
             if (m_actionFocusOrigin == null)
                 return;
 
@@ -498,29 +546,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void OnDisable()
         {
-            UnbindInput();
-            CancelPendingToggleOff();
-
-            if (m_submitRoutine != null)
-            {
-                StopCoroutine(m_submitRoutine);
-                m_submitRoutine = null;
-            }
-
-            if (m_releaseBackButtonRoutine != null)
-            {
-                StopCoroutine(m_releaseBackButtonRoutine);
-                m_releaseBackButtonRoutine = null;
-            }
-
-            m_mode = InventoryInteractionMode.Browse;
-            m_selectedItem = null;
-            m_operationOrigin = null;
-            m_actionFocusOrigin = null;
-            m_suppressedActivation = null;
-            if (m_quickItemSectionBlocker != null)
-                m_quickItemSectionBlocker.SetActive(false);
-            ReleaseBackButton();
+            ResetInteraction();
         }
     }
 }
