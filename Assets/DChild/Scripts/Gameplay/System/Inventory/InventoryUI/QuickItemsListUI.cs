@@ -7,6 +7,12 @@ namespace DChild.Gameplay.Inventories.UI
     {
         [SerializeField] private List<InventoryItemUI> m_itemSlots;
 
+        public void SetInteractionAllowed(bool allowed)
+        {
+            foreach (var slot in m_itemSlots)
+                slot.SetInteractionAllowed(allowed);
+        }
+
         public override void UpdateUIList()
         {
             for (int i = 0; i < m_itemSlots.Count; i++)
@@ -27,7 +33,7 @@ namespace DChild.Gameplay.Inventories.UI
         {
             for (int i = 0; i < m_itemSlots.Count; i++)
             {
-                if (m_itemSlots[i].reference?.data == itemData)
+                if (m_itemSlots[i].isAvailable && m_itemSlots[i].reference?.data == itemData)
                     return m_itemSlots[i];
             }
 
@@ -38,7 +44,7 @@ namespace DChild.Gameplay.Inventories.UI
         {
             for (int i = 0; i < m_itemSlots.Count; i++)
             {
-                if (m_itemSlots[i].reference == null)
+                if (m_itemSlots[i].isAvailable && m_itemSlots[i].reference == null)
                     return m_itemSlots[i];
             }
 
@@ -53,13 +59,13 @@ namespace DChild.Gameplay.Inventories.UI
 
             for (int i = originIndex; i < m_itemSlots.Count; i++)
             {
-                if (m_itemSlots[i].reference != null)
+                if (m_itemSlots[i].isAvailable && m_itemSlots[i].reference != null)
                     return m_itemSlots[i];
             }
 
             for (int i = originIndex - 1; i >= 0; i--)
             {
-                if (m_itemSlots[i].reference != null)
+                if (m_itemSlots[i].isAvailable && m_itemSlots[i].reference != null)
                     return m_itemSlots[i];
             }
 
