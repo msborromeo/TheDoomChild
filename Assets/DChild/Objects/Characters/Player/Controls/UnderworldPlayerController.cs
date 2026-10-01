@@ -623,7 +623,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
             }
             #endregion
-
+            m_projectileThrow.HandleNextAttackDelay();
             if (m_state.canAttack == true)
             {
                 m_slashCombo.HandleComboResetTimer();
@@ -637,7 +637,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_slashCombo.HandleComboAttackDelay();
                     m_whip.HandleNextAttackDelay();
                     m_whipCombo.HandleComboAttackDelay();
-                    m_projectileThrow.HandleNextAttackDelay();
+                    //m_projectileThrow.HandleNextAttackDelay();
                 }
             }
 
@@ -1613,7 +1613,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnProjectileThrowHeldInput()
         {
-            if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
+            if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false || m_projectileThrow.CanProjectileThrow() == false)
                 return;
             if (m_state.isExecutingCombatArt) { return; }
             if (m_state.isInShadowMode)
@@ -1635,7 +1635,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnProjectileThrowTappedInput()
         {
-            if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
+            if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false || m_projectileThrow.CanProjectileThrow() == false)
                 return;
             if (m_state.isExecutingCombatArt) { return; }
             if (m_state.isInShadowMode)
