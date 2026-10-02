@@ -1,6 +1,10 @@
 using DChild.Gameplay.Items;
+using Doozy.Runtime.UIManager.Containers;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace DChild.Gameplay.Inventories.UI
 {
@@ -12,9 +16,32 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField] private InventoryCategoryToggleUI[] m_filterToggles;
         [SerializeField] private InputActionReference m_cycleSubTabInput;
 
+        private UIContainer m_view;
         private InventoryItemUI m_previousSlot;
         private ItemData m_previousItem;
         private bool m_previousIsQuickItem;
+
+        private bool ownsFilterInput
+        {
+            get
+            {
+                if (EventSystem.current == null || m_view == null || !m_view.isVisible ||
+                    m_handle.isInitializing || UIPopup.visiblePopups.Any())
+                    return false;
+
+                var selected = EventSystem.current.currentSelectedGameObject;
+                if (selected != null && !selected.transform.IsChildOf(m_handle.transform))
+                    return false;
+
+                foreach (var filter in m_filterToggles)
+                {
+                    if (filter.isAvailable && filter.GetComponent<Selectable>().IsInteractable())
+                        return true;
+                }
+
+                return false;
+            }
+        }
 
         public void PreviousFilter() => CycleFilter(-1);
         public void NextFilter() => CycleFilter(1);
@@ -33,14 +60,14 @@ namespace DChild.Gameplay.Inventories.UI
                 filter.UpdateToggleVisuals();
 
             // Initial category setup runs before the view's visible callback.
-            if (m_handle.isInitializing || !m_swapHandle.ownsInput)
+            if (!ownsFilterInput)
                 return;
 
             var focusItem = m_handle.FindSlot(m_previousItem, m_previousIsQuickItem);
             if (focusItem == null && m_previousIsQuickItem && m_previousItem == null)
                 focusItem = m_previousSlot;
             if (focusItem == null || !focusItem.gameObject.activeInHierarchy ||
-                !focusItem.GetComponent<UnityEngine.UI.Selectable>().IsInteractable())
+                !focusItem.GetComponent<Selectable>().IsInteractable())
                 focusItem = m_inventoryUI.FindFirstInteractableOccupiedSlot();
 
             if (focusItem == null)
@@ -54,7 +81,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void CycleFilter(int direction)
         {
-            if (!m_swapHandle.ownsInput || m_filterToggles.Length == 0)
+            if (!ownsFilterInput || m_filterToggles.Length == 0)
                 return;
 
             int currentIndex = System.Array.FindIndex(m_filterToggles, filter => filter.isSelected);
@@ -64,7 +91,8 @@ namespace DChild.Gameplay.Inventories.UI
             for (int offset = 1; offset <= m_filterToggles.Length; offset++)
             {
                 int index = (currentIndex + direction * offset + m_filterToggles.Length) % m_filterToggles.Length;
-                if (!m_filterToggles[index].isAvailable)
+                if (!m_filterToggles[index].isAvailable ||
+                    !m_filterToggles[index].GetComponent<Selectable>().IsInteractable())
                     continue;
 
                 m_filterToggles[index].Select();
@@ -81,6 +109,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void OnEnable()
         {
+            m_view = GetComponent<UIContainer>();
             if (m_cycleSubTabInput != null)
                 m_cycleSubTabInput.action.performed += OnCycleSubTab;
         }

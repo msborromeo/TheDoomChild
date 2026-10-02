@@ -137,16 +137,7 @@ namespace DChild.Gameplay.Inventories.UI
             }
 
             m_swapHandle.ClearBrowseSelection();
-            foreach (var filter in m_filterToggles)
-            {
-                if (!filter.isSelected || !filter.isAvailable)
-                    continue;
-
-                m_isSelecting = true;
-                filter.GetComponent<Selectable>().Select();
-                m_isSelecting = false;
-                return;
-            }
+            EventSystem.current?.SetSelectedGameObject(null);
         }
 
         private static bool IsEligibleSlot(InventoryItemUI slot)
