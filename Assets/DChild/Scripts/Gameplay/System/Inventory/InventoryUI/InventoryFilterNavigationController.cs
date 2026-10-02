@@ -33,16 +33,21 @@ namespace DChild.Gameplay.Inventories.UI
                 filter.UpdateToggleVisuals();
 
             // Initial category setup runs before the view's visible callback.
-            if (!m_swapHandle.ownsInput)
+            if (m_handle.isInitializing || !m_swapHandle.ownsInput)
                 return;
 
             var focusItem = m_handle.FindSlot(m_previousItem, m_previousIsQuickItem);
             if (focusItem == null && m_previousIsQuickItem && m_previousItem == null)
                 focusItem = m_previousSlot;
+            if (focusItem == null || !focusItem.gameObject.activeInHierarchy ||
+                !focusItem.GetComponent<UnityEngine.UI.Selectable>().IsInteractable())
+                focusItem = m_inventoryUI.FindFirstInteractableOccupiedSlot();
+
             if (focusItem == null)
-                focusItem = m_inventoryUI.FindFirstOccupiedSlot();
-            if (focusItem == null)
-                focusItem = m_handle.firstSelectedItem;
+            {
+                m_handle.FocusBrowseFallback();
+                return;
+            }
 
             m_swapHandle.SelectForBrowse(focusItem, false);
         }

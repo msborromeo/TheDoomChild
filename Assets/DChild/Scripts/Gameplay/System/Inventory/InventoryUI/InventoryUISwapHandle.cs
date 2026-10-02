@@ -44,6 +44,9 @@ namespace DChild.Gameplay.Inventories.UI
         private Coroutine m_releaseBackButtonRoutine;
         private UIContainer m_view;
 
+        private bool interactionBlocked => m_handle.isInitializing || m_handle.isSelecting ||
+            m_view == null || !m_view.isVisible;
+
         public bool ownsInput
         {
             get
@@ -70,7 +73,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void SelectForBrowse(InventoryItemUI slotUI, bool suppressNextActivation)
         {
-            if (!IsInteractable(slotUI))
+            if (m_handle.isSelecting || !IsInteractable(slotUI))
                 return;
 
             if (m_mode != InventoryInteractionMode.Browse)
@@ -89,7 +92,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void OnSlotToggleChanged(InventoryItemUI slotUI, bool isOn)
         {
-            if (!IsInteractable(slotUI))
+            if (interactionBlocked || !IsInteractable(slotUI))
                 return;
 
             if (m_suppressedActivation == slotUI)
@@ -119,7 +122,8 @@ namespace DChild.Gameplay.Inventories.UI
                 return;
             }
 
-            BeginSwap();
+            if (!interactionBlocked)
+                BeginSwap();
         }
 
         private void BeginQuickItemAssignment(InventoryItemUI slotUI)
@@ -138,10 +142,7 @@ namespace DChild.Gameplay.Inventories.UI
         public void ResetInteraction()
         {
             UnbindInput();
-            CancelPendingToggleOff();
-            if (m_submitRoutine != null)
-                StopCoroutine(m_submitRoutine);
-            m_submitRoutine = null;
+            CancelPendingActivations();
             if (m_releaseBackButtonRoutine != null)
                 StopCoroutine(m_releaseBackButtonRoutine);
             m_releaseBackButtonRoutine = null;
@@ -150,9 +151,25 @@ namespace DChild.Gameplay.Inventories.UI
             m_handle.SetQuickSelectionMode(false);
         }
 
+        public void CancelPendingActivations()
+        {
+            CancelPendingToggleOff();
+            if (m_submitRoutine != null)
+                StopCoroutine(m_submitRoutine);
+            m_submitRoutine = null;
+            m_suppressedActivation = null;
+        }
+
+        public void ClearBrowseSelection()
+        {
+            ClearActionFocus();
+            m_selectedItem = null;
+            m_handle.PresentSelection(null);
+        }
+
         public void MoveQuickItemToInventory(InventoryItemUI slotUI)
         {
-            if (slotUI?.reference?.data == null || !IsInteractable(slotUI) || !slotUI.isQuickItem || m_systemSwapHandle == null)
+            if (interactionBlocked || slotUI?.reference?.data == null || !IsInteractable(slotUI) || !slotUI.isQuickItem || m_systemSwapHandle == null)
                 return;
 
             var focusItem = slotUI;
@@ -187,7 +204,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void HandleSlotActivated(InventoryItemUI slotUI, bool focusItemActions)
         {
-            if (!IsInteractable(slotUI))
+            if (interactionBlocked || !IsInteractable(slotUI))
                 return;
 
             switch (m_mode)
@@ -408,7 +425,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void OnSubmitPerformed(InputAction.CallbackContext context)
         {
-            if (!ownsInput)
+            if (interactionBlocked || !ownsInput)
                 return;
 
             var selectedObject = EventSystem.current?.currentSelectedGameObject;
@@ -533,6 +550,7 @@ namespace DChild.Gameplay.Inventories.UI
         {
             if (m_view != null && (m_view.isHidden || m_view.isHiding))
             {
+                m_handle.CancelInitialSelection();
                 if (m_mode != InventoryInteractionMode.Browse || m_actionFocusOrigin != null || m_backButtonBlocked)
                     ResetInteraction();
                 return;
@@ -555,6 +573,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void OnDisable()
         {
+            m_handle.CancelInitialSelection();
             ResetInteraction();
         }
     }

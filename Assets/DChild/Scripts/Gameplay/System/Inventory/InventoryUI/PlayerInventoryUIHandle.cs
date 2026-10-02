@@ -1,8 +1,10 @@
 using DChild.Gameplay.Items;
 using Doozy.Runtime.UIManager.Components;
+using Doozy.Runtime.UIManager.Containers;
 using Holysoft.Event;
 using Holysoft.UI;
 using Sirenix.OdinInspector;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -20,12 +22,21 @@ namespace DChild.Gameplay.Inventories.UI
         [SerializeField] private InventoryUISwapHandle m_swapHandle;
         [SerializeField] private InventoryCategoryToggleUI[] m_filterToggles;
 
+        private UIContainer m_view;
+        private Coroutine m_initialSelectionRoutine;
+        private bool m_isInitializing;
+        private bool m_isSelecting;
+
+        public bool isInitializing => m_isInitializing;
+        public bool isSelecting => m_isSelecting;
+
         public InventoryItemUI firstSelectedItem => m_firstSelectedItemUI as InventoryItemUI;
 
         public void Select(ItemUI itemUI)
         {
             var inventoryItem = itemUI as InventoryItemUI;
-            if (inventoryItem == null)
+            if (inventoryItem == null || m_isInitializing || m_isSelecting ||
+                m_view == null || !m_view.isVisible)
                 return;
 
             m_swapHandle.SelectForBrowse(inventoryItem, true);
@@ -34,7 +45,12 @@ namespace DChild.Gameplay.Inventories.UI
         public void PresentSelection(InventoryItemUI inventoryItem)
         {
             if (inventoryItem == null)
+            {
+                m_detailedUI.ShowDetails(null);
+                m_itemActionsHandle.ShowButtonActions(null);
+                m_usableInventoryItemHandle.Hide();
                 return;
+            }
 
             m_detailedUI.ShowDetails(inventoryItem.reference);
             m_itemActionsHandle.ShowButtonActions(inventoryItem);
@@ -51,13 +67,15 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void FocusAndPresent(InventoryItemUI inventoryItem)
         {
-            if (inventoryItem == null || !inventoryItem.GetComponent<Selectable>().IsInteractable())
+            if (m_isSelecting || !IsEligibleSlot(inventoryItem))
                 return;
 
+            m_isSelecting = true;
             PresentSelection(inventoryItem);
             var toggle = inventoryItem.GetComponent<UIToggle>();
             toggle.SetIsOn(true, true, false);
             toggle.Select();
+            m_isSelecting = false;
         }
 
         public bool TryFocusFirstAction()
@@ -95,12 +113,71 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void SelectFirstSlot()
         {
-            var firstItem = firstSelectedItem;
-            if (firstItem == null)
+            if (m_view == null || !m_view.isVisible)
                 return;
 
-            EventSystem.current?.SetSelectedGameObject(null);
-            m_swapHandle.SelectForBrowse(firstItem, false);
+            if (m_initialSelectionRoutine != null)
+                StopCoroutine(m_initialSelectionRoutine);
+            m_isInitializing = true;
+            m_swapHandle.CancelPendingActivations();
+            FocusBrowseFallback();
+            m_initialSelectionRoutine = StartCoroutine(FinishInitialSelection());
+        }
+
+        public void FocusBrowseFallback()
+        {
+            var firstItem = m_quickItemListUI.firstSlot;
+            if (!IsEligibleSlot(firstItem))
+                firstItem = (m_listUI as GridInventoryListUI)?.FindFirstInteractableOccupiedSlot();
+
+            if (IsEligibleSlot(firstItem))
+            {
+                m_swapHandle.SelectForBrowse(firstItem, false);
+                return;
+            }
+
+            m_swapHandle.ClearBrowseSelection();
+            foreach (var filter in m_filterToggles)
+            {
+                if (!filter.isSelected || !filter.isAvailable)
+                    continue;
+
+                m_isSelecting = true;
+                filter.GetComponent<Selectable>().Select();
+                m_isSelecting = false;
+                return;
+            }
+        }
+
+        private static bool IsEligibleSlot(InventoryItemUI slot)
+        {
+            return slot != null && slot.gameObject.activeInHierarchy &&
+                slot.GetComponent<Selectable>().IsInteractable();
+        }
+
+        private IEnumerator FinishInitialSelection()
+        {
+            yield return null;
+            yield return new WaitForEndOfFrame();
+            m_initialSelectionRoutine = null;
+            if (m_view == null || !m_view.isVisible)
+            {
+                CancelInitialSelection();
+                yield break;
+            }
+
+            m_swapHandle.CancelPendingActivations();
+            FocusBrowseFallback();
+            m_isInitializing = false;
+        }
+
+        public void CancelInitialSelection()
+        {
+            if (m_initialSelectionRoutine != null)
+                StopCoroutine(m_initialSelectionRoutine);
+            m_initialSelectionRoutine = null;
+            m_isInitializing = false;
+            m_isSelecting = false;
         }
 
         public void SetQuickSelectionMode(bool enabled)
@@ -165,6 +242,8 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void Initialize()
         {
+            CancelInitialSelection();
+            m_isInitializing = true;
             m_swapHandle.ResetInteraction();
             m_swapHandle.BindCancelInput();
             m_listUI.Reset();
@@ -200,8 +279,19 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void Awake()
         {
+            m_view = GetComponent<UIContainer>();
             m_listUI.ListOverallChange += OnListOverallChange;
             m_usableInventoryItemHandle.OnItemCountReduced += OnItemCountReduced;
+        }
+
+        private void OnEnable()
+        {
+            m_isInitializing = true;
+        }
+
+        private void OnDisable()
+        {
+            CancelInitialSelection();
         }
 
         private void OnDestroy()
