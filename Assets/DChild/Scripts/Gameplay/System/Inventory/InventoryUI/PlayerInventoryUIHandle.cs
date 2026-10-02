@@ -5,6 +5,7 @@ using Holysoft.UI;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace DChild.Gameplay.Inventories.UI
 {
@@ -24,7 +25,7 @@ namespace DChild.Gameplay.Inventories.UI
         public void Select(ItemUI itemUI)
         {
             var inventoryItem = itemUI as InventoryItemUI;
-            if (inventoryItem == null || !inventoryItem.isAvailable)
+            if (inventoryItem == null)
                 return;
 
             m_swapHandle.SelectForBrowse(inventoryItem, true);
@@ -32,7 +33,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void PresentSelection(InventoryItemUI inventoryItem)
         {
-            if (inventoryItem == null || !inventoryItem.isAvailable)
+            if (inventoryItem == null)
                 return;
 
             m_detailedUI.ShowDetails(inventoryItem.reference);
@@ -50,7 +51,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void FocusAndPresent(InventoryItemUI inventoryItem)
         {
-            if (inventoryItem == null || !inventoryItem.isAvailable)
+            if (inventoryItem == null || !inventoryItem.GetComponent<Selectable>().IsInteractable())
                 return;
 
             PresentSelection(inventoryItem);
@@ -73,23 +74,10 @@ namespace DChild.Gameplay.Inventories.UI
                 m_itemActionsHandle.IsActionButton(target);
         }
 
-        public void ClearPresentation()
-        {
-            m_detailedUI.ShowDetails(null);
-            m_itemActionsHandle.ShowButtonActions(null);
-            m_usableInventoryItemHandle.Hide();
-        }
-
-        public void SetQuickItemInteractionAllowed(bool allowed)
-        {
-            m_quickItemListUI.SetInteractionAllowed(allowed);
-        }
-
         [Button]
         public void SwapItems(ItemUI itemOne, ItemUI itemTwo)
         {
-            if (!(itemOne is InventoryItemUI firstSlot) || !(itemTwo is InventoryItemUI secondSlot) ||
-                !firstSlot.isAvailable || !secondSlot.isAvailable)
+            if (itemOne == null || itemTwo == null)
                 return;
 
             if (IsEitherSlotQuickItem(itemOne, itemTwo))
@@ -107,14 +95,9 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void SelectFirstSlot()
         {
-            var navigation = GetComponent<InventoryFilterNavigationController>();
-            navigation?.RefreshInteractionPolicy();
             var firstItem = firstSelectedItem;
-            if (firstItem == null || !firstItem.isAvailable)
-            {
-                navigation?.FocusAvailableSlot();
+            if (firstItem == null)
                 return;
-            }
 
             EventSystem.current?.SetSelectedGameObject(null);
             m_swapHandle.SelectForBrowse(firstItem, false);
@@ -128,7 +111,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public bool MoveInventoryItemToQuickItems(InventoryItemUI itemUI)
         {
-            if (itemUI?.reference?.data == null || !itemUI.isAvailable || itemUI.isQuickItem || m_quickItemListUI.inventory.isInventoryFull)
+            if (itemUI?.reference?.data == null || itemUI.isQuickItem || m_quickItemListUI.inventory.isInventoryFull)
                 return false;
 
             m_quickItemListUI.MoveInventoryItemToQuickItems(itemUI);
@@ -193,10 +176,10 @@ namespace DChild.Gameplay.Inventories.UI
         private void OnListOverallChange(object sender, EventActionArgs eventArgs)
         {
             var selected = m_swapHandle.itemOne;
-            if (selected != null && selected.isAvailable)
+            if (selected != null)
                 PresentSelection(selected);
             else
-                ClearPresentation();
+                m_detailedUI.ShowDetails(null);
         }
 
         private void OnItemCountReduced(ItemData itemData, bool isQuickItem, int remainingCount)

@@ -10,7 +10,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void ShowButtonActions(InventoryItemUI inventoryitemUI)
         {
-            if (inventoryitemUI == null || !inventoryitemUI.isAvailable || inventoryitemUI.reference == null)
+            if (inventoryitemUI.reference == null)
             {
                 Reset();
                 return;

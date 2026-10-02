@@ -1,5 +1,4 @@
 using DChild.Gameplay.Items;
-using Doozy.Runtime.UIManager.Components;
 using Doozy.Runtime.UIManager.Input;
 using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
@@ -8,6 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.UI;
 
 namespace DChild.Gameplay.Inventories.UI
 {
@@ -43,40 +43,13 @@ namespace DChild.Gameplay.Inventories.UI
         private bool m_backButtonBlocked;
         private Coroutine m_releaseBackButtonRoutine;
         private UIContainer m_view;
-        private bool m_quickItemsBlockedByFilter;
-        private bool m_quickItemsBlocked;
-
-        public bool quickItemsBlocked => m_quickItemsBlocked;
-        public bool isViewVisible => m_view != null && m_view.isVisible;
-        public event System.Action QuickItemInteractionChanged;
-
-        public void SetQuickItemsBlockedByFilter(bool blocked)
-        {
-            m_quickItemsBlockedByFilter = blocked;
-            RefreshQuickItemInteraction();
-        }
-
-        private void RefreshQuickItemInteraction()
-        {
-            var category = m_operationOrigin?.reference?.data?.category;
-            bool blocked = m_quickItemsBlockedByFilter ||
-                (m_mode == InventoryInteractionMode.SwapItem &&
-                 (category == ItemCategory.Key || category == ItemCategory.Quest));
-            bool changed = m_quickItemsBlocked != blocked;
-            m_quickItemsBlocked = blocked;
-            m_handle.SetQuickItemInteractionAllowed(!blocked);
-            if (m_quickItemSectionBlocker != null)
-                m_quickItemSectionBlocker.SetActive(blocked);
-            if (changed)
-                QuickItemInteractionChanged?.Invoke();
-        }
 
         public bool ownsInput
         {
             get
             {
                 var selected = EventSystem.current?.currentSelectedGameObject;
-                return isViewVisible && selected != null &&
+                return m_view != null && m_view.isVisible && selected != null &&
                     selected.transform.IsChildOf(m_handle.transform);
             }
         }
@@ -90,9 +63,14 @@ namespace DChild.Gameplay.Inventories.UI
             return category == ItemCategory.Consumable || category == ItemCategory.Throwable;
         }
 
+        private static bool IsInteractable(InventoryItemUI slotUI)
+        {
+            return slotUI != null && slotUI.GetComponent<Selectable>().IsInteractable();
+        }
+
         public void SelectForBrowse(InventoryItemUI slotUI, bool suppressNextActivation)
         {
-            if (slotUI == null || !slotUI.isAvailable)
+            if (!IsInteractable(slotUI))
                 return;
 
             if (m_mode != InventoryInteractionMode.Browse)
@@ -111,14 +89,8 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void OnSlotToggleChanged(InventoryItemUI slotUI, bool isOn)
         {
-            if (slotUI == null)
+            if (!IsInteractable(slotUI))
                 return;
-
-            if (!slotUI.isAvailable)
-            {
-                slotUI.GetComponent<UIToggle>().SetIsOn(false, true, false);
-                return;
-            }
 
             if (m_suppressedActivation == slotUI)
             {
@@ -152,7 +124,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void BeginQuickItemAssignment(InventoryItemUI slotUI)
         {
-            if (slotUI == null || !slotUI.isAvailable || !slotUI.isQuickItem || slotUI.reference != null)
+            if (slotUI == null || !slotUI.isQuickItem || slotUI.reference != null)
                 return;
 
             EnterMode(InventoryInteractionMode.AssignQuickItem, slotUI);
@@ -161,20 +133,6 @@ namespace DChild.Gameplay.Inventories.UI
         public void CancelPendingAction()
         {
             CancelPendingAction(false);
-        }
-
-        public void ClearSelection()
-        {
-            CancelPendingAction();
-            CancelPendingToggleOff();
-            if (m_submitRoutine != null)
-                StopCoroutine(m_submitRoutine);
-            m_submitRoutine = null;
-            m_selectedItem?.GetComponent<UIToggle>().SetIsOn(false, true, false);
-            m_selectedItem = null;
-            m_suppressedActivation = null;
-            ClearActionFocus();
-            m_handle.ClearPresentation();
         }
 
         public void ResetInteraction()
@@ -187,7 +145,6 @@ namespace DChild.Gameplay.Inventories.UI
             if (m_releaseBackButtonRoutine != null)
                 StopCoroutine(m_releaseBackButtonRoutine);
             m_releaseBackButtonRoutine = null;
-            m_quickItemsBlockedByFilter = false;
             ClearOperation(false);
             m_selectedItem = null;
             m_handle.SetQuickSelectionMode(false);
@@ -195,7 +152,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void MoveQuickItemToInventory(InventoryItemUI slotUI)
         {
-            if (slotUI?.reference?.data == null || !slotUI.isAvailable || !slotUI.isQuickItem || m_systemSwapHandle == null)
+            if (slotUI?.reference?.data == null || !IsInteractable(slotUI) || !slotUI.isQuickItem || m_systemSwapHandle == null)
                 return;
 
             var focusItem = slotUI;
@@ -210,7 +167,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void RestoreAfterItemUse(InventoryItemUI slotUI, bool restoreActionFocus)
         {
-            if (slotUI == null || !slotUI.isAvailable)
+            if (slotUI == null)
                 return;
 
             m_selectedItem = slotUI;
@@ -230,7 +187,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void HandleSlotActivated(InventoryItemUI slotUI, bool focusItemActions)
         {
-            if (slotUI == null || !slotUI.isAvailable)
+            if (!IsInteractable(slotUI))
                 return;
 
             switch (m_mode)
@@ -259,7 +216,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void BeginSwap()
         {
-            if (m_mode != InventoryInteractionMode.Browse || m_selectedItem?.reference?.data == null || !m_selectedItem.isAvailable)
+            if (m_mode != InventoryInteractionMode.Browse || m_selectedItem?.reference?.data == null || !IsInteractable(m_selectedItem))
                 return;
 
             EnterMode(InventoryInteractionMode.SwapItem, m_selectedItem);
@@ -267,7 +224,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void EnterMode(InventoryInteractionMode mode, InventoryItemUI origin)
         {
-            if (origin == null || !origin.isAvailable)
+            if (origin == null)
                 return;
 
             m_mode = mode;
@@ -277,7 +234,11 @@ namespace DChild.Gameplay.Inventories.UI
             var restrictInventory = mode == InventoryInteractionMode.AssignQuickItem || origin.isQuickItem;
             m_handle.SetQuickSelectionMode(restrictInventory);
 
-            RefreshQuickItemInteraction();
+            var category = origin.reference?.data?.category;
+            var blockQuickItems = mode == InventoryInteractionMode.SwapItem &&
+                (category == ItemCategory.Key || category == ItemCategory.Quest);
+            if (m_quickItemSectionBlocker != null)
+                m_quickItemSectionBlocker.SetActive(blockQuickItems);
 
             BlockBackButton();
             m_handle.UpdateInventorySlots();
@@ -373,7 +334,8 @@ namespace DChild.Gameplay.Inventories.UI
             m_suppressedActivation = null;
             CancelPendingToggleOff();
 
-            RefreshQuickItemInteraction();
+            if (m_quickItemSectionBlocker != null)
+                m_quickItemSectionBlocker.SetActive(false);
 
             if (deferBackButtonRelease)
             {
@@ -451,7 +413,7 @@ namespace DChild.Gameplay.Inventories.UI
 
             var selectedObject = EventSystem.current?.currentSelectedGameObject;
             var slotUI = selectedObject?.GetComponent<InventoryItemUI>();
-            if (slotUI == null || !slotUI.isAvailable)
+            if (!IsInteractable(slotUI))
                 return;
 
             m_suppressedActivation = slotUI;

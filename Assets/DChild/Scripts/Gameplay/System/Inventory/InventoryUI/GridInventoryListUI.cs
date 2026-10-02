@@ -64,7 +64,7 @@ namespace DChild.Gameplay.Inventories.UI
             foreach (var itemUI in m_itemUIs)
             {
                 var inventoryItemUI = itemUI as InventoryItemUI;
-                if (inventoryItemUI != null && inventoryItemUI.isAvailable && inventoryItemUI.reference?.data == itemData)
+                if (inventoryItemUI?.reference?.data == itemData)
                     return inventoryItemUI;
             }
 
@@ -75,8 +75,8 @@ namespace DChild.Gameplay.Inventories.UI
         {
             foreach (var itemUI in m_itemUIs)
             {
-                if (itemUI is InventoryItemUI slot && slot.isAvailable && slot.reference != null)
-                    return slot;
+                if (itemUI.reference != null)
+                    return itemUI as InventoryItemUI;
             }
             return null;
         }
@@ -89,14 +89,14 @@ namespace DChild.Gameplay.Inventories.UI
 
             for (int i = originIndex; i < m_itemUIs.Length; i++)
             {
-                if (m_itemUIs[i] is InventoryItemUI slot && slot.isAvailable && slot.reference != null)
-                    return slot;
+                if (m_itemUIs[i].reference != null)
+                    return m_itemUIs[i] as InventoryItemUI;
             }
 
             for (int i = originIndex - 1; i >= 0; i--)
             {
-                if (m_itemUIs[i] is InventoryItemUI slot && slot.isAvailable && slot.reference != null)
-                    return slot;
+                if (m_itemUIs[i].reference != null)
+                    return m_itemUIs[i] as InventoryItemUI;
             }
 
             return null;
