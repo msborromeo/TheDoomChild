@@ -4,11 +4,12 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using static DChild.Gameplay.UI.CombatArts.CombatArtSelectButton;
 using System;
+using UnityEngine.EventSystems;
 
 namespace DChild.Gameplay.UI.CombatArts
 {
     [RequireComponent(typeof(UIButton))]
-    public class CombatArtSelectButton : MonoBehaviour
+    public class CombatArtSelectButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler
     {
         [SerializeField, HideInPrefabAssets, OnValueChanged("OnConfigurationChanged")]
         private CombatArt m_toUnlock;
@@ -20,6 +21,7 @@ namespace DChild.Gameplay.UI.CombatArts
         private CombatArtSelectButtonVisual m_visuals;
 
         public event Action<CombatArtSelectButton> OnButtonSelected;
+        public event Action<CombatArtSelectButton> OnButtonPreviewed;
 
         public CombatArt skillUnlock => m_toUnlock;
         public int unlockLevel => m_unlockLevel;
@@ -44,6 +46,15 @@ namespace DChild.Gameplay.UI.CombatArts
         public void Select()
         {
             OnButtonSelected?.Invoke(this);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData) => Preview();
+        public void OnSelect(BaseEventData eventData) => Preview();
+
+        private void Preview()
+        {
+            if (isActiveAndEnabled && m_button != null && m_button.interactable)
+                OnButtonPreviewed?.Invoke(this);
         }
 
         public void DisplayAs(CombatArtLevelData artLevelData) => m_visuals.DisplayAs(artLevelData);
