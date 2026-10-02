@@ -71,7 +71,7 @@ MonoBehaviour:
       - m_Target: {fileID: 6072495051746684350}
         m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.ArmyBattleCharacterReward,
           Assembly-CSharp
-        m_MethodName: AttemptGiveReward
+        m_MethodName: RecruitmentConfirmation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -162,7 +162,7 @@ MonoBehaviour:
   allowBarksDuringConversations: 0
   skipBarkIfNoValidEntries: 0
   cacheBarkLines: 0
-  conversation: IntroDialogueCarbon
+  conversation: CarbonRockBR
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
@@ -385,15 +385,17 @@ MonoBehaviour:
         m_CallState: 2
   m_CharacterReward:
   - {fileID: 11400000, guid: 768e5ac3bc1c19746b66104b78697e97, type: 2}
+  - {fileID: 11400000, guid: a84a1390fd11716408a3ae720ca39e8c, type: 2}
   m_isFree: 0
-  m_Requirement: 0
-  m_TakeRequiredItemFromInvintory: 0
+  m_Requirement: 1
+  m_TakeRequiredItemFromInvintory: 1
   m_requiredSoulEssence: 200
-  m_hasItem: {fileID: 0}
-  m_ItemAmount: 0
+  m_hasItem: {fileID: 11400000, guid: 6f69b69d9bd2b6549adddeb45fbaf758, type: 2}
+  m_ItemAmount: 2
   m_CombatArt: 0
   m_PrimarySkill: 0
-  armyCharacterData: {fileID: 0}
+  armyCharacterData:
+  - {fileID: 0}
   neededNPCsRecruited: 0
 --- !u!114 &3561304999418868426
 MonoBehaviour:
@@ -488,7 +490,7 @@ MonoBehaviour:
   allowBarksDuringConversations: 0
   skipBarkIfNoValidEntries: 0
   cacheBarkLines: 0
-  conversation: Recruit/RequirementCarbon/Met
+  conversation: CarbonRockAR
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
@@ -592,7 +594,7 @@ MonoBehaviour:
   allowBarksDuringConversations: 0
   skipBarkIfNoValidEntries: 0
   cacheBarkLines: 0
-  conversation: Recruit/RequirementCarbon/UnMet
+  conversation: CarbonRockLP
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
@@ -892,7 +894,7 @@ MonoBehaviour:
       - m_Target: {fileID: 6072495051746684350}
         m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.ArmyBattleCharacterReward,
           Assembly-CSharp
-        m_MethodName: AttemptGiveReward
+        m_MethodName: RecruitmentConfirmation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1142,6 +1144,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.y
       value: 2.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6175918643516812669, guid: 013d50b5ff497b44285fbd7738e6e30c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6175918643516812669, guid: 013d50b5ff497b44285fbd7738e6e30c,
         type: 3}
