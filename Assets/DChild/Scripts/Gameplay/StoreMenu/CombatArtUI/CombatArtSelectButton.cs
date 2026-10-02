@@ -22,6 +22,7 @@ namespace DChild.Gameplay.UI.CombatArts
 
         public event Action<CombatArtSelectButton> OnButtonSelected;
         public event Action<CombatArtSelectButton> OnButtonPreviewed;
+        public event Action<CombatArtSelectButton> OnButtonSubmitted;
 
         public CombatArt skillUnlock => m_toUnlock;
         public int unlockLevel => m_unlockLevel;
@@ -46,6 +47,12 @@ namespace DChild.Gameplay.UI.CombatArts
         public void Select()
         {
             OnButtonSelected?.Invoke(this);
+        }
+
+        public void Submit()
+        {
+            Select();
+            OnButtonSubmitted?.Invoke(this);
         }
 
         public void OnPointerEnter(PointerEventData eventData) => Preview();
