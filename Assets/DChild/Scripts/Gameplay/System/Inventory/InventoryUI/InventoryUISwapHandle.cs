@@ -1,11 +1,13 @@
 using DChild.Gameplay.Items;
 using Doozy.Runtime.UIManager.Input;
+using Doozy.Runtime.UIManager.Containers;
 using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.UI;
 
 namespace DChild.Gameplay.Inventories.UI
 {
@@ -40,6 +42,20 @@ namespace DChild.Gameplay.Inventories.UI
         private InputAction m_submitAction;
         private bool m_backButtonBlocked;
         private Coroutine m_releaseBackButtonRoutine;
+        private UIContainer m_view;
+
+        private bool interactionBlocked => m_handle.isInitializing || m_handle.isSelecting ||
+            m_view == null || !m_view.isVisible;
+
+        public bool ownsInput
+        {
+            get
+            {
+                var selected = EventSystem.current?.currentSelectedGameObject;
+                return m_view != null && m_view.isVisible && selected != null &&
+                    selected.transform.IsChildOf(m_handle.transform);
+            }
+        }
 
         public static bool CanAssignToQuickItems(InventoryItemUI slotUI)
         {
@@ -50,9 +66,14 @@ namespace DChild.Gameplay.Inventories.UI
             return category == ItemCategory.Consumable || category == ItemCategory.Throwable;
         }
 
+        private static bool IsInteractable(InventoryItemUI slotUI)
+        {
+            return slotUI != null && slotUI.GetComponent<Selectable>().IsInteractable();
+        }
+
         public void SelectForBrowse(InventoryItemUI slotUI, bool suppressNextActivation)
         {
-            if (slotUI == null)
+            if (m_handle.isSelecting || !IsInteractable(slotUI))
                 return;
 
             if (m_mode != InventoryInteractionMode.Browse)
@@ -71,7 +92,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void OnSlotToggleChanged(InventoryItemUI slotUI, bool isOn)
         {
-            if (slotUI == null)
+            if (interactionBlocked || !IsInteractable(slotUI))
                 return;
 
             if (m_suppressedActivation == slotUI)
@@ -101,7 +122,8 @@ namespace DChild.Gameplay.Inventories.UI
                 return;
             }
 
-            BeginSwap();
+            if (!interactionBlocked)
+                BeginSwap();
         }
 
         private void BeginQuickItemAssignment(InventoryItemUI slotUI)
@@ -109,7 +131,7 @@ namespace DChild.Gameplay.Inventories.UI
             if (slotUI == null || !slotUI.isQuickItem || slotUI.reference != null)
                 return;
 
-            EnterMode(InventoryInteractionMode.AssignQuickItem, m_handle.FindFirstEmptyQuickSlot() ?? slotUI);
+            EnterMode(InventoryInteractionMode.AssignQuickItem, slotUI);
         }
 
         public void CancelPendingAction()
@@ -117,9 +139,37 @@ namespace DChild.Gameplay.Inventories.UI
             CancelPendingAction(false);
         }
 
+        public void ResetInteraction()
+        {
+            UnbindInput();
+            CancelPendingActivations();
+            if (m_releaseBackButtonRoutine != null)
+                StopCoroutine(m_releaseBackButtonRoutine);
+            m_releaseBackButtonRoutine = null;
+            ClearOperation(false);
+            m_selectedItem = null;
+            m_handle.SetQuickSelectionMode(false);
+        }
+
+        public void CancelPendingActivations()
+        {
+            CancelPendingToggleOff();
+            if (m_submitRoutine != null)
+                StopCoroutine(m_submitRoutine);
+            m_submitRoutine = null;
+            m_suppressedActivation = null;
+        }
+
+        public void ClearBrowseSelection()
+        {
+            ClearActionFocus();
+            m_selectedItem = null;
+            m_handle.PresentSelection(null);
+        }
+
         public void MoveQuickItemToInventory(InventoryItemUI slotUI)
         {
-            if (slotUI?.reference?.data == null || !slotUI.isQuickItem || m_systemSwapHandle == null)
+            if (interactionBlocked || slotUI?.reference?.data == null || !IsInteractable(slotUI) || !slotUI.isQuickItem || m_systemSwapHandle == null)
                 return;
 
             var focusItem = slotUI;
@@ -152,8 +202,11 @@ namespace DChild.Gameplay.Inventories.UI
 
         public bool isActionFocused => m_actionFocusOrigin != null;
 
-        private void HandleSlotActivated(InventoryItemUI slotUI, bool focusQuickItemActions)
+        private void HandleSlotActivated(InventoryItemUI slotUI, bool focusItemActions)
         {
+            if (interactionBlocked || !IsInteractable(slotUI))
+                return;
+
             switch (m_mode)
             {
                 case InventoryInteractionMode.Browse:
@@ -164,8 +217,8 @@ namespace DChild.Gameplay.Inventories.UI
                     }
 
                     SelectForBrowse(slotUI, false);
-                    if (focusQuickItemActions)
-                        TryFocusQuickItemActions(slotUI);
+                    if (focusItemActions)
+                        TryFocusItemActions(slotUI);
                     break;
 
                 case InventoryInteractionMode.AssignQuickItem:
@@ -180,7 +233,7 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void BeginSwap()
         {
-            if (m_mode != InventoryInteractionMode.Browse || m_selectedItem?.reference?.data == null)
+            if (m_mode != InventoryInteractionMode.Browse || m_selectedItem?.reference?.data == null || !IsInteractable(m_selectedItem))
                 return;
 
             EnterMode(InventoryInteractionMode.SwapItem, m_selectedItem);
@@ -329,6 +382,13 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void BindCancelInput()
         {
+            if (m_view == null)
+                m_view = GetComponentInParent<UIContainer>();
+            // The Items prefab cannot serialize a reference to the scene's player.
+            // Keep an assigned service; resolve the active player's service otherwise.
+            if (m_systemSwapHandle == null && GameplaySystem.playerManager?.player != null)
+                m_systemSwapHandle = GameplaySystem.playerManager.player.inventory.GetComponent<InventorySwapHandle>();
+
             var inputModule = EventSystem.current?.currentInputModule as InputSystemUIInputModule;
             if (inputModule == null)
                 return;
@@ -365,9 +425,12 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void OnSubmitPerformed(InputAction.CallbackContext context)
         {
+            if (interactionBlocked || !ownsInput)
+                return;
+
             var selectedObject = EventSystem.current?.currentSelectedGameObject;
             var slotUI = selectedObject?.GetComponent<InventoryItemUI>();
-            if (slotUI == null)
+            if (!IsInteractable(slotUI))
                 return;
 
             m_suppressedActivation = slotUI;
@@ -380,6 +443,9 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void OnCancelPerformed(InputAction.CallbackContext context)
         {
+            if (!ownsInput)
+                return;
+
             if (m_mode == InventoryInteractionMode.Browse && m_actionFocusOrigin != null)
             {
                 var focusItem = m_actionFocusOrigin;
@@ -395,11 +461,11 @@ namespace DChild.Gameplay.Inventories.UI
             CancelPendingAction(true);
         }
 
-        private void TryFocusQuickItemActions(InventoryItemUI slotUI)
+        private void TryFocusItemActions(InventoryItemUI slotUI)
         {
             ClearActionFocus();
 
-            if (!slotUI.isQuickItem || slotUI.reference == null)
+            if (slotUI.reference == null)
                 return;
 
             if (!m_handle.TryFocusFirstAction())
@@ -451,6 +517,12 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void BlockBackButton()
         {
+            if (m_releaseBackButtonRoutine != null)
+            {
+                StopCoroutine(m_releaseBackButtonRoutine);
+                m_releaseBackButtonRoutine = null;
+            }
+
             if (m_backButtonBlocked)
                 return;
 
@@ -476,6 +548,14 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void LateUpdate()
         {
+            if (m_view != null && (m_view.isHidden || m_view.isHiding))
+            {
+                m_handle.CancelInitialSelection();
+                if (m_mode != InventoryInteractionMode.Browse || m_actionFocusOrigin != null || m_backButtonBlocked)
+                    ResetInteraction();
+                return;
+            }
+
             if (m_actionFocusOrigin == null)
                 return;
 
@@ -493,29 +573,8 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void OnDisable()
         {
-            UnbindInput();
-            CancelPendingToggleOff();
-
-            if (m_submitRoutine != null)
-            {
-                StopCoroutine(m_submitRoutine);
-                m_submitRoutine = null;
-            }
-
-            if (m_releaseBackButtonRoutine != null)
-            {
-                StopCoroutine(m_releaseBackButtonRoutine);
-                m_releaseBackButtonRoutine = null;
-            }
-
-            m_mode = InventoryInteractionMode.Browse;
-            m_selectedItem = null;
-            m_operationOrigin = null;
-            m_actionFocusOrigin = null;
-            m_suppressedActivation = null;
-            if (m_quickItemSectionBlocker != null)
-                m_quickItemSectionBlocker.SetActive(false);
-            ReleaseBackButton();
+            m_handle.CancelInitialSelection();
+            ResetInteraction();
         }
     }
 }
