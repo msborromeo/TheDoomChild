@@ -175,6 +175,32 @@ namespace DChild.Gameplay.Inventories
         public IStoredItem GetItem(int index) => m_inventory.GetStoredItem(index);
         public int GetCurrentAmount(ItemData item) => m_inventory.GetItem(item)?.count ?? 0;
 
+        public int GetOwnedItemCount(ItemData item)
+        {
+            if (item == null)
+                return 0;
+
+            int ownedCount = 0;
+            for (int i = 0; i < m_inventory.storedItemCount; i++)
+            {
+                var storedItem = m_inventory.GetStoredItem(i);
+                if (storedItem != null && storedItem.data == item)
+                    ownedCount += storedItem.count;
+            }
+
+            if (m_quickItemInventory != null)
+            {
+                for (int i = 0; i < m_quickItemInventory.storedItemCount; i++)
+                {
+                    var storedItem = m_quickItemInventory.GetItem(i);
+                    if (storedItem != null && storedItem.data == item)
+                        ownedCount += storedItem.count;
+                }
+            }
+
+            return ownedCount;
+        }
+
         public bool HasSpaceFor(ItemData item) => m_inventory.HasSpaceFor(item, 1);
 
         public void AddSoulEssence(int value)

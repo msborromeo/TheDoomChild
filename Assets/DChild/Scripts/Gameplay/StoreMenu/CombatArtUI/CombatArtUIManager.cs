@@ -1,6 +1,7 @@
 using DChild.Gameplay.Characters.Player.CombatArt.Leveling;
 using DChild.Gameplay.Characters.Players;
 using DChild.Menu.Inputs;
+using Doozy.Runtime.UIManager.Containers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,12 +33,18 @@ namespace DChild.Gameplay.UI.CombatArts
         private Dictionary<CombatArt, CombatArtSelectButton[]> m_abilityButtonPair;
         private CombatArtSelectRequirements[] m_artRequirements;
 
-        private CombatArtSelectButton m_currentSelectedButton;
+        private CombatArtSelectButton m_previewedButton;
+        private CombatArtSelectButton m_unlockingButton;
+        private CombatArtSelectButton[] m_buttons;
+        private UIView m_view;
         private InputAction m_submitAction;
         private bool m_controllerUnlockHeld;
+        private bool m_canUnlockPreview;
+        private bool m_isInitialized;
 
         public void Initialize()
         {
+            ClearInteractionState();
             ValidateButtonVisuals();
 
             m_selectorHighlight.Initialize();
@@ -46,7 +53,9 @@ namespace DChild.Gameplay.UI.CombatArts
             m_unlockArtHandler.InitializeReferences(m_progressionReference, m_referenceList);
             m_unlockArtHandler.ResetUnlockProgress();
             BindSubmitInput();
-            Select(m_firstSelected, false);
+            m_isInitialized = true;
+            Preview(m_firstSelected);
+            m_firstSelected?.uiButton.Select();
 
         }
 
@@ -54,59 +63,98 @@ namespace DChild.Gameplay.UI.CombatArts
         {
             //InitializeButtonStates();
             ValidateButtonVisuals();
+            RefreshUnlockFunction();
+        }
+
+        private void Preview(CombatArtSelectButton button)
+        {
+            if (!m_isInitialized || button == null)
+                return;
+
+            if (button != m_previewedButton)
+            {
+                CancelUnlockProgress();
+                m_previewedButton = button;
+                var combatArtData = m_referenceList.GetCombatArtData(button.skillUnlock);
+                m_uiDetail.Display(combatArtData, button.unlockLevel);
+            }
+
+            RefreshUnlockFunction();
         }
 
         public void Select(CombatArtSelectButton button)
         {
-            Select(button, InputIconHandle.useGamepad);
+            if (!m_isInitialized || button == null || button != m_previewedButton)
+                return;
+
+            m_selectorHighlight.Highlight(button);
         }
 
-        private void Select(CombatArtSelectButton button, bool selectUnlockButton)
+        private void OnButtonSubmitted(CombatArtSelectButton button)
         {
-            if (button == m_currentSelectedButton)
-            {
-                if (selectUnlockButton)
-                    m_unlockArtHandler.SelectUnlockButton();
+            if (!m_isInitialized || button == null || button != m_previewedButton || !m_canUnlockPreview)
                 return;
-            }
 
-            m_currentSelectedButton = button;
-            var combatArtData = m_referenceList.GetCombatArtData(m_currentSelectedButton.skillUnlock);
-            m_uiDetail.Display(combatArtData, m_currentSelectedButton.unlockLevel);
-            m_selectorHighlight.Highlight(button);
-
-            m_unlockArtHandler.ResetUnlockProgress();
-
-            var availableSkillPoints = m_progressionReference.skillPoints.points;
-            var combatArtCost = combatArtData.GetCombatArtLevelData(m_currentSelectedButton.unlockLevel).cost;
-            m_unlockArtHandler.VerifyUnlockFunction(m_currentSelectedButton, availableSkillPoints >= combatArtCost);
-            if (selectUnlockButton)
-                m_unlockArtHandler.SelectUnlockButton();
-            //static bool CanAfford(CombatSkillPoints points, CombatArtLevelData combatArtLevelData) => points.points >= combatArtLevelData.cost;
+            m_unlockArtHandler.SelectUnlockButton();
         }
 
         public void StartUnlockSelectedCombatArt()
         {
-            if (!CanUnlockSelectedCombatArt())
+            if (!CanUnlockPreviewedCombatArt())
                 return;
 
+            m_unlockingButton = m_previewedButton;
             m_unlockArtHandler.StartUnlockProgress();
         }
 
-        private bool CanUnlockSelectedCombatArt()
+        private bool CanUnlockPreviewedCombatArt()
         {
-            if (m_currentSelectedButton == null || m_currentSelectedButton.currentState != CombatArtUnlockState.Unlockable)
+            if (!m_isInitialized || m_previewedButton == null ||
+                m_previewedButton.currentState != CombatArtUnlockState.Unlockable)
                 return false;
 
-            var combatArtData = m_referenceList.GetCombatArtData(m_currentSelectedButton.skillUnlock);
-            var combatArtCost = combatArtData.GetCombatArtLevelData(m_currentSelectedButton.unlockLevel).cost;
+            var combatArtData = m_referenceList.GetCombatArtData(m_previewedButton.skillUnlock);
+            var combatArtCost = combatArtData.GetCombatArtLevelData(m_previewedButton.unlockLevel).cost;
             return m_progressionReference.skillPoints.points >= combatArtCost;
+        }
+
+        private void RefreshUnlockFunction()
+        {
+            if (!m_isInitialized || m_previewedButton == null)
+            {
+                m_canUnlockPreview = false;
+                m_unlockArtHandler.DisableUnlockFunction();
+                return;
+            }
+
+            m_canUnlockPreview = CanUnlockPreviewedCombatArt();
+            if (!m_canUnlockPreview && m_unlockingButton != null)
+                CancelUnlockProgress();
+            m_unlockArtHandler.VerifyUnlockFunction(m_previewedButton, m_canUnlockPreview);
+        }
+
+        private void CancelUnlockProgress()
+        {
+            m_controllerUnlockHeld = false;
+            m_unlockArtHandler.ResetUnlockProgress();
+            if (m_previewedButton != null && m_previewedButton.currentState == CombatArtUnlockState.Unlockable)
+                m_unlockArtHandler.ResetBranchingUIProgressors();
+            m_unlockingButton = null;
+        }
+
+        private void ClearInteractionState()
+        {
+            m_isInitialized = false;
+            CancelUnlockProgress();
+            m_canUnlockPreview = false;
+            m_previewedButton = null;
+            m_unlockArtHandler.DisableUnlockFunction();
+            m_selectorHighlight.Clear();
         }
 
         public void ResetUnlock()
         {
-            m_unlockArtHandler.ResetUnlockProgress();
-            m_unlockArtHandler.ResetBranchingUIProgressors();
+            CancelUnlockProgress();
         }
 
         private void BindSubmitInput()
@@ -135,7 +183,7 @@ namespace DChild.Gameplay.UI.CombatArts
 
         private void OnSubmitStarted(InputAction.CallbackContext context)
         {
-            if (!(context.control.device is Gamepad) || !m_unlockArtHandler.isUnlockButtonSelected || !CanUnlockSelectedCombatArt())
+            if (!(context.control.device is Gamepad) || !m_unlockArtHandler.isUnlockButtonSelected || !CanUnlockPreviewedCombatArt())
                 return;
 
             m_controllerUnlockHeld = true;
@@ -153,16 +201,20 @@ namespace DChild.Gameplay.UI.CombatArts
 
         private void OnUnlockSuccessFull()
         {
+            var unlockedButton = m_unlockingButton;
+            m_unlockingButton = null;
             m_controllerUnlockHeld = false;
-            m_unlockArtHandler.DisableUnlockFunction();
-            ValidateButtonVisuals();
+            if (unlockedButton == null)
+                return;
 
-            var combatArtData = m_referenceList.GetCombatArtData(m_currentSelectedButton.skillUnlock);
-            var combatArtLevelData = combatArtData.GetCombatArtLevelData(m_currentSelectedButton.unlockLevel);
+            var combatArtData = m_referenceList.GetCombatArtData(unlockedButton.skillUnlock);
+            var combatArtLevelData = combatArtData.GetCombatArtLevelData(unlockedButton.unlockLevel);
             m_progressionReference.skillPoints.AddPoint(-combatArtLevelData.cost);
-            m_currentSelectedButton.SetState(CombatArtUnlockState.Unlocked);
+            ValidateButtonVisuals();
+            unlockedButton.SetState(CombatArtUnlockState.Unlocked);
+            RefreshUnlockFunction();
             if (InputIconHandle.useGamepad)
-                m_currentSelectedButton.uiButton.Select();
+                unlockedButton.uiButton.Select();
         }
 
         private void PopulateCombatArtList(CombatArtSelectButton[] buttons)
@@ -172,6 +224,8 @@ namespace DChild.Gameplay.UI.CombatArts
                 var button = buttons[i];
 
                 button.OnButtonSelected += Select;
+                button.OnButtonPreviewed += Preview;
+                button.OnButtonSubmitted += OnButtonSubmitted;
 
                 if (m_abilityButtonPair.TryGetValue(button.skillUnlock, out CombatArtSelectButton[] array))
                 {
@@ -254,9 +308,11 @@ namespace DChild.Gameplay.UI.CombatArts
         private void Awake()
         {
             m_abilityButtonPair = new Dictionary<CombatArt, CombatArtSelectButton[]>();
-            var buttons = GetComponentsInChildren<CombatArtSelectButton>();
-            PopulateCombatArtList(buttons);
+            m_buttons = GetComponentsInChildren<CombatArtSelectButton>();
+            PopulateCombatArtList(m_buttons);
             m_artRequirements = GetComponentsInChildren<CombatArtSelectRequirements>();
+            m_view = GetComponent<UIView>();
+            m_view?.OnHideCallback.Event.AddListener(ClearInteractionState);
         }
 
         private void OnEnable()
@@ -266,9 +322,25 @@ namespace DChild.Gameplay.UI.CombatArts
 
         private void OnDisable()
         {
-            m_controllerUnlockHeld = false;
-            m_unlockArtHandler.ResetUnlockProgress();
+            ClearInteractionState();
             UnbindSubmitInput();
+        }
+
+        private void OnDestroy()
+        {
+            m_view?.OnHideCallback.Event.RemoveListener(ClearInteractionState);
+            m_unlockArtHandler.UnlockSuccessful -= OnUnlockSuccessFull;
+            if (m_buttons == null)
+                return;
+
+            foreach (var button in m_buttons)
+            {
+                if (button == null)
+                    continue;
+                button.OnButtonSelected -= Select;
+                button.OnButtonPreviewed -= Preview;
+                button.OnButtonSubmitted -= OnButtonSubmitted;
+            }
         }
     }
         #endregion
