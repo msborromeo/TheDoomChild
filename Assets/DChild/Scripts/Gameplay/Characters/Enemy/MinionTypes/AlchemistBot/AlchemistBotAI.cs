@@ -420,7 +420,7 @@ namespace DChild.Gameplay.Characters.Enemies
             //m_character.physics.SetVelocity(Vector2.zero);
             m_bodyCollider.enabled = true;
             //m_selfCollider.SetActive(true);
-            m_rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+            m_rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
             switch (m_attack)
             {
                 case Attack.Attack1:
