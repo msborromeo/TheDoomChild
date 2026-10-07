@@ -528,6 +528,8 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         }
         Vector2 fixedDropPos = locationDrop;
         m_animation.SetAnimation(1, m_info.slamRollToIdle, false);
+        yield return new WaitForSeconds(2f);    
+        //this is where you create the rest state, no need to create a new actual "State"   
         while (Vector2.Distance(fixedDropPos, transform.position) > 0.1f)
         {
             transform.position = Vector2.MoveTowards(transform.position, fixedDropPos, m_returnAbovePlayer * Time.deltaTime);
