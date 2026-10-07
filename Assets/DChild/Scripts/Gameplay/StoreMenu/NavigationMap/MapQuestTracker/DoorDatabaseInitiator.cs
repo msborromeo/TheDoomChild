@@ -28,7 +28,7 @@ namespace DChild.QuestHints.DoorMapTracker
         private int _NumberOfDoors;
 
         [Button]
-        private void GenerateChestsVariablesFromScene()
+        private void AddVariablesToDatabase()
         {
             Template template = new Template();
             for (int i = 1; i <= _NumberOfDoors; i++)

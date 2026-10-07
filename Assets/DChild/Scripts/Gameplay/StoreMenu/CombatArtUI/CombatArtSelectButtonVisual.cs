@@ -36,7 +36,7 @@ namespace DChild.Gameplay.UI.CombatArts
         public void SetState(CombatArtUnlockState state)
         {
             DisableAllAnimations();
-            var stateType = m_button.selectedState.stateType;
+            var stateType = m_button.currentUISelectionState;
 
             switch (state)
             {
@@ -64,16 +64,18 @@ namespace DChild.Gameplay.UI.CombatArts
         public void Initialize(UIButton uIButton)
         {
             m_button = uIButton;
-            m_lockedUIAnimators = m_lockedUIAnimations.GetComponentsInChildren<BaseUISelectableAnimator>();
-            m_unlockableUIAnimators = m_unlockableUIAnimations.GetComponentsInChildren<BaseUISelectableAnimator>();
-            m_unlockedUIAnimators = m_unlockedUIAnimations.GetComponentsInChildren<BaseUISelectableAnimator>();
+            m_lockedUIAnimators = m_lockedUIAnimations.GetComponentsInChildren<BaseUISelectableAnimator>(true);
+            m_unlockableUIAnimators = m_unlockableUIAnimations.GetComponentsInChildren<BaseUISelectableAnimator>(true);
+            m_unlockedUIAnimators = m_unlockedUIAnimations.GetComponentsInChildren<BaseUISelectableAnimator>(true);
         }
 
         private void UseAnimator(BaseUISelectableAnimator[] animators, UISelectionState buttonState)
         {
             for (int i = 0; i < animators.Length; i++)
             {
-                animators[i].Play(buttonState);
+                animators[i].StopAllReactions();
+                if (animators[i].IsStateEnabled(buttonState))
+                    animators[i].Play(buttonState);
             }
         }
 
@@ -81,6 +83,7 @@ namespace DChild.Gameplay.UI.CombatArts
         {
             for (int i = 0; i < animators.Length; i++)
             {
+                animators[i].StopAllReactions();
                 animators[i].SetController(null);
             }
         }
