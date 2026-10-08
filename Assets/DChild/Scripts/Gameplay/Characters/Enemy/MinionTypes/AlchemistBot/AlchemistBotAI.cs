@@ -420,7 +420,7 @@ namespace DChild.Gameplay.Characters.Enemies
             //m_character.physics.SetVelocity(Vector2.zero);
             m_bodyCollider.enabled = true;
             //m_selfCollider.SetActive(true);
-            m_rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+            m_rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
             switch (m_attack)
             {
                 case Attack.Attack1:
@@ -576,13 +576,13 @@ namespace DChild.Gameplay.Characters.Enemies
             /*Vector2.Distance(transform.position, target) > m_info.spearMeleeAttack.range*/ //old target in range condition
             var moveSpeed = m_info.move.speed - UnityEngine.Random.Range(0, 3);
             var newPos = Vector2.zero;
-            var randXPos = UnityEngine.Random.Range(-2f, 2f);
-            var randYPos = UnityEngine.Random.Range(10f, 15f); ;
+            var randXPos = UnityEngine.Random.Range(-(attackRange+1f), (attackRange + 1f));
+            var randYPos = UnityEngine.Random.Range(10f, 15f);
             while (!inRange || TargetBlocked())
             {
                 newPos = new Vector2(m_targetInfo.position.x + randXPos, m_targetInfo.position.y + randYPos);
                 bool xTargetInRange = Mathf.Abs(/*m_targetInfo.position.x*/newPos.x - transform.position.x) < attackRange ? true : false;
-                bool yTargetInRange = Mathf.Abs(/*m_targetInfo.position.y*/newPos.y - transform.position.y) < 1 ? true : false;
+                bool yTargetInRange = Mathf.Abs(/*m_targetInfo.position.y*/newPos.y - transform.position.y) < 3 ? true : false;
                 if (xTargetInRange && yTargetInRange)
                 {
                     inRange = true;
