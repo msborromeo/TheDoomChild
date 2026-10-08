@@ -55,6 +55,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         [SerializeField]
         private Vector2 m_pushForce;
 
+        private Damageable m_damageable;
         private bool m_isDoingBarrier;
         private bool m_canMove;
         private IPlayerModifer m_modifier;
@@ -75,7 +76,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         public override void Initialize(ComplexCharacterInfo info)
         {
             base.Initialize(info);
-
+            m_damageable = info.damageable;
             m_source = info.magic;
             m_modifier = info.modifier;
             m_barrierStateAnimationParameter = info.animationParametersData.GetParameterLabel(AnimationParametersData.Parameter.Barrier);
@@ -116,6 +117,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_state.canAttack = false;
             m_animator.SetBool(m_animationParameter, true);
             m_animator.SetBool(m_barrierStateAnimationParameter, true);
+            m_damageable.SetInvulnerability(Invulnerability.Level_2);
             m_barrierMovementCooldownTimer = m_barrierMovementCooldown;
             m_isDoingBarrier = true;
             //m_attacker.SetDamageModifier(m_slashComboInfo[m_currentSlashState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
@@ -127,6 +129,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_state.waitForBehaviour = false;
             m_state.isAttacking = false;
             m_barrierFX.SetBool("BarrierIsOn", false);
+            m_damageable.SetInvulnerability(Invulnerability.None);
             //m_materialReplacement.replacementEnabled = false;
             m_isDoingBarrier = false;
             m_animator.SetBool(m_barrierStateAnimationParameter, false);
@@ -150,6 +153,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             //m_barrierInfo.ShowCollider(false);
 
             m_barrierFX.SetBool("BarrierIsOn", false);
+            m_damageable.SetInvulnerability(Invulnerability.None);
             //m_materialReplacement.replacementEnabled = false;
             m_isDoingBarrier = false;
             m_animator.SetBool(m_barrierStateAnimationParameter, false);
