@@ -130,6 +130,9 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         [SerializeField, ValueDropdown("GetAnimations")]
         private string m_slamRollToIdle;
         public string slamRollToIdle => m_slamRollToIdle;
+        [SerializeField, ValueDropdown("GetAnimations")]
+        private string m_rollToRest;
+        public string rollToRest => m_rollToRest;
         public override void Initialize()
         {
         }
@@ -260,6 +263,14 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private float m_flightSpeed;
     [SerializeField, TabGroup("Small Adran")]
     private float m_flightSpeedReturn;
+    [TabGroup("Small Adran")]
+    public static AdranAI AdranInstance { get; private set; }
+    [SerializeField, TabGroup("Small Adran")]
+    private ParticleSystem m_returnExplosionVFX;
+    [SerializeField]
+    private Transform m_returnVFXPoint;
+
+    public Transform ReturnVFXPoint => m_returnVFXPoint;
     [TabGroup("Reference")]
     public HealthLevel m_healthLevel { get; private set; }
     [SerializeField, TabGroup("HealthReference")]
@@ -331,8 +342,8 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     protected override void Awake()
     {
         base.Awake();
+        AdranInstance = this;
         m_damageable.health.Death += Health_Death;
-
         m_attackDecider = new RandomAttackDecider<Attack>();
         m_stateHandle = new StateHandle<State>(State.Intro, State.WaitBehaviourEnd);
         m_smallAdrans = new List<Projectile>();
@@ -471,6 +482,8 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     }
     [SerializeField]
     private float m_returnAbovePlayer;
+    [SerializeField]
+    private bool m_chooseNewPattern = false ;
     private IEnumerator RollAttack()
     {
         #region bitchass code
@@ -496,7 +509,6 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         // var rollInitializeAnim = m_startAtPointA ? m_info.slamRollLeft : m_info.slamRollRight;
         // var rollLoopAnim_2 = movingRight ? m_info.slamRollRightLoop : m_info.slamRollLeftLoop;
         #endregion
-        // m_animation.EnableRootMotion(false,false);
         Debug.Log(m_currentPlayerArea.ToString());
         var returnToTop = new Vector2(0, 0);
         switch (m_currentPlayerArea)
@@ -506,17 +518,34 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
                 yield return LoopingRoutine(m_totalRollCount, true, false, m_maxRollSpeed, m_Area1Point, m_Area2Point);
                 locationDrop = m_Area1.position;
                 break;
-
             case PlayerAreaDetection.Area.Area2NiToto:
-                Debug.Log("in: " + m_currentPlayerArea.ToString());
-                yield return LoopingRoutine(m_totalRollCount, true, false, m_maxRollSpeed, m_Area2Point, m_Area3Point);
-                locationDrop = m_Area2.position;
-                break;
-
+                if (m_chooseNewPattern)
+                {
+                    Debug.Log("in: " + m_currentPlayerArea.ToString());
+                    yield return LoopingRoutine(m_totalRollCount, true, false, m_maxRollSpeed, m_Area2Point, m_Area3Point);
+                    locationDrop = m_Area2.position;
+                }
+                else
+                {
+                    Debug.Log("in: " + m_currentPlayerArea.ToString());
+                    yield return LoopingRoutine2(m_totalRollCount, true, m_maxRollSpeed, m_Area2Point, m_Area4Point,m_Area1Point);
+                    locationDrop = m_Area2.position;
+                }
+                    break;
             case PlayerAreaDetection.Area.Area3NiTommi:
                 Debug.Log("in: " + m_currentPlayerArea.ToString());
-                yield return LoopingRoutine(m_totalRollCount, false, true, m_maxRollSpeed, m_Area3Point, m_Area2Point);
-                locationDrop = m_Area3.position;
+                if (m_chooseNewPattern)
+                {
+                    Debug.Log("in: " + m_currentPlayerArea.ToString());
+                    yield return LoopingRoutine(m_totalRollCount, false, false, m_maxRollSpeed, m_Area3Point, m_Area2Point);
+                    locationDrop = m_Area3.position;
+                }
+                else
+                {
+                    Debug.Log("in: " + m_currentPlayerArea.ToString());
+                    yield return LoopingRoutine2(m_totalRollCount, false, m_maxRollSpeed, m_Area3Point, m_Area1Point, m_Area4Point);
+                    locationDrop = m_Area3.position;
+                }
                 break;
 
             case PlayerAreaDetection.Area.Area4NiStephen:
@@ -528,6 +557,8 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         }
         Vector2 fixedDropPos = locationDrop;
         m_animation.SetAnimation(1, m_info.slamRollToIdle, false);
+        yield return new WaitForAnimationComplete(m_animation.animationState, m_info.slamRollToIdle);
+        m_animation.SetAnimation(1, m_info.rollToRest, false);
         yield return new WaitForSeconds(2f);    
         //this is where you create the rest state, no need to create a new actual "State"   
         while (Vector2.Distance(fixedDropPos, transform.position) > 0.1f)
@@ -598,6 +629,74 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
 
             BackToStartPoint = !BackToStartPoint;
             BackToStartPointRight = !BackToStartPointRight;
+            InitRollCount++;
+
+            //m_animation.SetAnimation(1, rollLoopAnim, true);     
+
+        }
+
+        m_animation.AddAnimation(1, m_info.idleFive, true, 0);
+        m_animation.SetAnimation(0, m_info.idle, true);
+        Debug.Log("Finished rolling after " + m_totalRollCount + " cycles.");
+    }
+
+    private IEnumerator LoopingRoutine2(int totalRollCount, bool StartMovingRight,float rollSpeed, 
+        Transform startingPoint, Transform targetPoint, Transform targetPoint2)
+    {
+
+        var InitRollCount = 0;
+        var rollInitializeAnim = StartMovingRight ? m_info.slamRollRight : m_info.slamRollLeft;
+        var rollLoopAnim = StartMovingRight ? m_info.slamRollRightLoop : m_info.slamRollLeftLoop;
+        var rollLoopStopAnim = StartMovingRight ? m_info.slamRollRightStop : m_info.slamRollLeftStop;
+        var vfxRoll = StartMovingRight ? m_rollVFXLeft : m_rollVFXRight;
+
+        var rollInitSpineAnim = m_animation.SetAnimation(1, rollInitializeAnim, false);
+        yield return new WaitForSpineAnimationComplete(rollInitSpineAnim);
+        if (!vfxRoll.isPlaying)
+            vfxRoll.Play();
+        m_animation.SetAnimation(1, rollLoopAnim, true);
+        while (Mathf.Abs(transform.position.x - targetPoint.position.x) >= 0.1f)
+        {
+            float newX = Mathf.MoveTowards(transform.position.x, targetPoint.position.x, rollSpeed * Time.deltaTime);
+            transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+            yield return null;
+
+        }
+        var rollStopSpineAnim = m_animation.SetAnimation(1, rollLoopStopAnim, false);
+        yield return new WaitForSpineAnimationComplete(rollInitSpineAnim);
+        InitRollCount++;
+        StartMovingRight = true;
+
+        while (InitRollCount < totalRollCount)
+        {
+            vfxRoll.Stop();
+            var rollInitializeAnim2 = StartMovingRight ? m_info.slamRollRightToLeft : m_info.slamRollLeftToRight;
+            var rollLoopStopAnim2 = StartMovingRight ? m_info.slamRollRightStop : m_info.slamRollLeftStop;
+            var vfxRoll2 = StartMovingRight ? m_rollVFXLeft : m_rollVFXRight;
+            var rollInitSpineAnim2 = m_animation.SetAnimation(1, rollInitializeAnim2, false);
+            yield return new WaitForSpineAnimationComplete(rollInitSpineAnim2);
+            if (!vfxRoll2.isPlaying)
+                vfxRoll2.Play();
+            var rollLoopAnim_2 = StartMovingRight ? m_info.slamRollRightLoop : m_info.slamRollLeftLoop;
+            m_animation.SetAnimation(1, rollLoopAnim_2, true);
+
+            Vector2 targetPos = StartMovingRight ? targetPoint2.position : targetPoint.position;
+
+
+
+            while (Mathf.Abs(transform.position.x - targetPos.x) > 0.1f)
+            {
+                float newX = Mathf.MoveTowards(transform.position.x, targetPos.x, rollSpeed * Time.deltaTime);
+                transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+                yield return null;
+            }
+
+            var rollStopSpineAnim2 = m_animation.SetAnimation(1, rollLoopStopAnim2, false);
+            yield return new WaitForSpineAnimationComplete(rollStopSpineAnim2);
+            vfxRoll2.Stop();
+
+            StartMovingRight = !StartMovingRight;
+            //StartMovingRight = !StartMovingRight;
             InitRollCount++;
 
             //m_animation.SetAnimation(1, rollLoopAnim, true);     
@@ -801,8 +900,8 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
 
         if (m_healthLevel == HealthLevel.LevelOne)
         {
-            var randomInstance = UnityEngine.Random.Range(0, 4);
-            var randomProjectiles = UnityEngine.Random.Range(0, 4);
+            var randomInstance = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+            var randomProjectiles = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
             m_summonFX[randomInstance].Play();
             //yield return new WaitForSeconds(1f);
             var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectiles], gameObject.scene);
@@ -835,11 +934,11 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         }
         else if (m_healthLevel == HealthLevel.LevelTwo || m_healthLevel == HealthLevel.LevelFour)
         {
-            var randomInstance = UnityEngine.Random.Range(0, 4);
+            var randomInstance = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
             int randomInstance_2;
             do
             {
-                randomInstance_2 = UnityEngine.Random.Range(0, 4);
+                randomInstance_2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
             } while (randomInstance_2 == randomInstance);
 
             int randomProjectile1 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
@@ -889,17 +988,17 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         }
         else if (m_healthLevel == HealthLevel.LevelThree)
         {
-            var randomInstance = UnityEngine.Random.Range(0, 4);
+            var randomInstance = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
             int randomInstance_2;
             int randomInstance_3;
             do
             {
-                randomInstance_2 = UnityEngine.Random.Range(0, 4);
+                randomInstance_2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
             } while (randomInstance_2 == randomInstance);
 
             do
             {
-                randomInstance_3 = UnityEngine.Random.Range(0, 4);
+                randomInstance_3 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
             } while (randomInstance_3 == randomInstance || randomInstance_3 == randomInstance_2);
 
             int randomProjectile1 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
@@ -965,11 +1064,11 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         }
         else if (m_healthLevel == HealthLevel.LevelFour)
         {
-            var randomInstance = UnityEngine.Random.Range(0, 4);
+            var randomInstance = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
             int randomInstance_2;
             do
             {
-                randomInstance_2 = UnityEngine.Random.Range(0, 4);
+                randomInstance_2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
             } while (randomInstance_2 == randomInstance);
 
             int randomProjectile1 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);

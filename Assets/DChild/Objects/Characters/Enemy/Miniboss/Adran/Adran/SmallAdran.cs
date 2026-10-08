@@ -34,6 +34,8 @@ public class SmallAdran : MonoBehaviour
     private Collider2D m_AttackCollider;
     [SerializeField]
     private GameObject m_deathVfx;
+    [SerializeField]
+    private GameObject m_deathParticleGoBackToAdran;
     public Vector2 startingPosition;
     [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
     private string m_turnAnimation;
@@ -107,7 +109,11 @@ public class SmallAdran : MonoBehaviour
     {
         var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().
             GetOrCreateItem(m_deathVfx, gameObject.scene);
+        var instance2 = GameSystem.poolManager.GetPool<PoolableObjectPool>().
+            GetOrCreateItem(m_deathParticleGoBackToAdran, gameObject.scene);
         instance1.SpawnAt(new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+        instance2.SpawnAt(new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+        instance2.GetComponent<AdranReturnParticle>().StartReturn(AdranAI.AdranInstance);
         Destroy(gameObject);
     }
     
