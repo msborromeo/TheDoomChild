@@ -699,7 +699,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_turnHandle.TurnDone += OnTurnDone;
             //m_deathHandle.SetAnimation(m_info.deathFallImpact1Animation);
             //m_stateHandle = new StateHandle<State>(m_willPatrol ? State.Patrol : State.Dormant, State.WaitBehaviourEnd);
-            m_stateHandle = new StateHandle<State>(State.Patrol, State.WaitBehaviourEnd);
+            m_stateHandle = new StateHandle<State>(State.Dormant, State.WaitBehaviourEnd);
             m_attackDecider = new RandomAttackDecider<Attack>();
             UpdateAttackDeciderList();
 
@@ -842,6 +842,12 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
                 case State.ReevaluateSituation:
+                    if (!m_willPatrol)
+                    {
+                        m_hitbox.Disable();
+                        m_stateHandle.OverrideState(State.Dormant);
+                        break;
+                    }
                     //How far is target, is it worth it to chase or go back to patrol
                     if (m_targetInfo.isValid)
                     {
