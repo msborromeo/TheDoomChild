@@ -842,12 +842,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     break;
 
                 case State.ReevaluateSituation:
-                    if (!m_willPatrol)
-                    {
-                        m_hitbox.Disable();
-                        m_stateHandle.OverrideState(State.Dormant);
-                        break;
-                    }
+
                     //How far is target, is it worth it to chase or go back to patrol
                     if (m_targetInfo.isValid)
                     {
@@ -886,6 +881,10 @@ namespace DChild.Gameplay.Characters.Enemies
 
         public void ResetAI()
         {
+            if(m_stateHandle.currentState == State.Dormant)
+            {
+                return;
+            }
             m_selfCollider.enabled = false;
             m_targetInfo.Set(null, null);
             m_isDetecting = false;
