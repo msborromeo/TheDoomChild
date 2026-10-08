@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 935899b62f48ae5498594680ed17d133, type: 3}
-  m_Name: DialogueDatabase_RecruitWeapons
+  m_Name: DialogueDatabase_RecruitWeapons (Auto-Backup)
   m_EditorClassIdentifier: 
   version: 
   author: Kenbe Yeung
@@ -149,7 +149,7 @@ MonoBehaviour:
       type: 3
       typeString: CustomFieldType_Files
     - title: Description
-      value: Garrett
+      value: Weapons
       type: 0
       typeString: 
     - title: IsPlayer
@@ -209,6 +209,76 @@ MonoBehaviour:
       typeString: 
   locations: []
   variables:
+  - id: 1602
+    fields:
+    - title: Name
+      value: HasRecruited_Weapons
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 2011
+    fields:
+    - title: Name
+      value: Weapons(Garrett)_BeforeRecruitment
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 1598
+    fields:
+    - title: Name
+      value: Weapons(Garrett)_ConditionLoop
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 1599
+    fields:
+    - title: Name
+      value: Weapons(Garrett)_MordenRemarks
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 1600
+    fields:
+    - title: Name
+      value: Weapons(Garrett)_MordenLoops
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
   - id: 1601
     fields:
     - title: Name
@@ -230,26 +300,8 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: Initial Value
-      value: False
+      value: True
       type: 2
-      typeString: CustomFieldType_Boolean
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-  - id: 1602
-    fields:
-    - title: Name
-      value: HasRecruited_Weapons
-      type: 0
-      typeString: 
-    - title: Initial Value
-      value: False
-      type: 2
-      typeString: CustomFieldType_Boolean
-    - title: Description
-      value: 
-      type: 0
       typeString: 
   conversations:
   - id: 1765
@@ -486,7 +538,7 @@ MonoBehaviour:
       isGroup: 0
       nodeColor: 
       delaySimStatus: 0
-      falseConditionAction: Block
+      falseConditionAction: 
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 2122
@@ -503,7 +555,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 30
-        y: 18.823532
+        y: 20
         width: 160
         height: 30
     - id: 1
@@ -688,7 +740,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 307
+        value: -1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
