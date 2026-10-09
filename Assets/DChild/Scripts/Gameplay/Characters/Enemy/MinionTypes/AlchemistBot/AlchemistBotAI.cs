@@ -699,7 +699,7 @@ namespace DChild.Gameplay.Characters.Enemies
             m_turnHandle.TurnDone += OnTurnDone;
             //m_deathHandle.SetAnimation(m_info.deathFallImpact1Animation);
             //m_stateHandle = new StateHandle<State>(m_willPatrol ? State.Patrol : State.Dormant, State.WaitBehaviourEnd);
-            m_stateHandle = new StateHandle<State>(State.Dormant, State.WaitBehaviourEnd);
+            m_stateHandle = new StateHandle<State>(State.Patrol, State.WaitBehaviourEnd);
             m_attackDecider = new RandomAttackDecider<Attack>();
             UpdateAttackDeciderList();
 
@@ -907,14 +907,14 @@ namespace DChild.Gameplay.Characters.Enemies
         {
             enabled = true;
             m_aggroCollider.enabled = true;
-            if (m_instant)
+            /*if (m_instant)
             {
                 m_stateHandle.OverrideState(State.Patrol);
             }
             else
-            {
+            {*/
                 m_stateHandle.OverrideState(State.Dormant);
-            }
+            //}
             //StartCoroutine(ActivateRoutine(m_instant));
         }
 
