@@ -243,6 +243,7 @@ public class AdranReturnParticle : MonoBehaviour
         }
 
         m_isReturning = false;
+        PlayFlinchAdran();
         Destroy(gameObject);
         /*
          * Return to your object pool here.
@@ -287,6 +288,17 @@ public class AdranReturnParticle : MonoBehaviour
         DrawCurve();
     }
 
+    private void PlayFlinchAdran()
+    {
+        if (m_isLeftSide)
+        {
+            AdranAI.AdranInstance.FlinchleftSide();
+        }
+        else
+        {
+            AdranAI.AdranInstance.FlinchRightSide();
+        }
+    }
 
     private void DrawCurve()
     {

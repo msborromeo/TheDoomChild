@@ -133,6 +133,12 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         [SerializeField, ValueDropdown("GetAnimations")]
         private string m_rollToRest;
         public string rollToRest => m_rollToRest;
+        [SerializeField, ValueDropdown("GetAnimations")]
+        private string m_flinchToLeftSide;
+        public string flinchToLeftSide => m_flinchToLeftSide;
+        [SerializeField, ValueDropdown("GetAnimations")]
+        private string m_flinchToRightSide;
+        public string flinchToRightSide => m_flinchToRightSide;
         public override void Initialize()
         {
         }
@@ -422,7 +428,16 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         m_stateHandle.OverrideState(State.Attacking);
         yield return null;
     }
-
+    public void FlinchleftSide()
+    {
+        m_returnExplosionVFX.Play();
+        m_animation.SetAnimation(1, m_info.flinchToLeftSide, false);
+    }   
+    public void FlinchRightSide()
+    {
+        m_returnExplosionVFX.Play();
+        m_animation.SetAnimation(1, m_info.flinchToRightSide, false);
+    }
     private void ChangeState()
     {
         m_stateHandle.SetState(State.Phasing);
