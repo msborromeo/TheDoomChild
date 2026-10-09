@@ -212,7 +212,7 @@ public class SmallAdran : MonoBehaviour
         if (isFacingTarget(playerPos) == false && !hasTurned)
         {
             TurnAnimationSetter();
-            Debug.Log("Turning to player poss");
+            //Debug.Log("Turning to player poss");
             hasTurned = true;
         }
         else if (isFacingTarget(playerPos))
@@ -240,7 +240,7 @@ public class SmallAdran : MonoBehaviour
 
         var randomNumer = UnityEngine.Random.Range(0.2f, 0.3f);
         yield return new WaitForSeconds(randomNumer);
-        Debug.Log(randomNumer);
+       // Debug.Log(randomNumer);
         m_reachedAreaToActivate = true;
         m_startFaceDetection = true;
         m_spine.SetAnimation(0, m_idle, true);
