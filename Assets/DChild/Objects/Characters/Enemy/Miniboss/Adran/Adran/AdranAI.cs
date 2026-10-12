@@ -252,6 +252,10 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private ParticleSystem m_rollVFXRight;
     [SerializeField, TabGroup("Slam Roll Attack")]
     private ParticleSystem m_rollVFXLeft;
+    [SerializeField, TabGroup("Slam Roll Attack")]
+    private FlinchHandler m_flinchLeft;
+    [SerializeField, TabGroup("Slam Roll Attack")]
+    private FlinchHandler m_flinchRight;
 
     [SerializeField, TabGroup("Small Adran")]
     private Transform m_SummonVfxSize;
@@ -430,17 +434,17 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         m_stateHandle.OverrideState(State.Attacking);
         yield return null;
     }
+
     public void FlinchleftSide()
     {
         m_returnExplosionVFX.Play();
-        m_animation.SetAnimation(0, m_info.idle, false);
-        m_animation.SetAnimation(0, m_info.flinchToLeftSide, false);
+        m_flinchLeft.Flinch();
     }   
     public void FlinchRightSide()
     {
         m_returnExplosionVFX.Play();
-        m_animation.SetAnimation(0, m_info.idle, false);
-        m_animation.SetAnimation(0, m_info.flinchToRightSide, false);
+        m_flinchRight.Flinch();
+
     }
     private void ChangeState()
     {
