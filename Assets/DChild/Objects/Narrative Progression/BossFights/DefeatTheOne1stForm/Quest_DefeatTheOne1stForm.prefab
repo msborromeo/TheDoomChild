@@ -1354,6 +1354,7 @@ MonoBehaviour:
   useY: 0
   rb: {fileID: 0}
   siblingBoneNames: []
+  pinBoneName: 
 --- !u!114 &4119460900774555512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2658,6 +2659,7 @@ MonoBehaviour:
   useY: 0
   rb: {fileID: 0}
   siblingBoneNames: []
+  pinBoneName: 
 --- !u!95 &4119460901238351621
 Animator:
   serializedVersion: 4
@@ -4544,6 +4546,8 @@ Transform:
   - {fileID: 4119460900668691622}
   - {fileID: 4119460901900858953}
   - {fileID: 7951542106867103761}
+  - {fileID: 746094236966352194}
+  - {fileID: 8013005271371788904}
   m_Father: {fileID: 2801506669330161880}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6501,6 +6505,113 @@ MonoBehaviour:
       m_Calls: []
   m_DelaySeconds: 1
   m_collider: {fileID: 0}
+--- !u!1 &7190191498276102499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8013005271371788904}
+  - component: {fileID: 5302089942400168477}
+  m_Layer: 0
+  m_Name: DoorTracker(Open)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8013005271371788904
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7190191498276102499}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4119460902046720706}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5302089942400168477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7190191498276102499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 32
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 1
+  questName: 
+  questState: 0
+  setQuestEntryState: 0
+  questEntryNumber: 1
+  questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: 'Variable["Temple_Of_The_One_Scene2_BlackBloodWall_3"] = false;
+
+    Variable["Temple_Of_The_One_Scene2_BlackBloodWall_3"]
+    = true'
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: 
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 0
+  replace: 0
+  skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: ac16140410a31ac4aabb0ef6a82fa461, type: 2}
 --- !u!1 &7215376046830126800
 GameObject:
   m_ObjectHideFlags: 0
@@ -6972,6 +7083,110 @@ MonoBehaviour:
   useBarkTitlePicker: 1
   useQuestNamePicker: 1
   selectedDatabase: {fileID: 11400000, guid: 8654556dc5d7ae74181cd1dd1149e24c, type: 2}
+--- !u!1 &8200656929496240845
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 746094236966352194}
+  - component: {fileID: 218748131120130597}
+  m_Layer: 0
+  m_Name: DoorTracker(Closed)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &746094236966352194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8200656929496240845}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4119460902046720706}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &218748131120130597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8200656929496240845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 32
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 1
+  questName: 
+  questState: 0
+  setQuestEntryState: 0
+  questEntryNumber: 1
+  questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: Variable["Temple_Of_The_One_Scene2_BlackBloodWall_3"] = false
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: 
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 0
+  replace: 0
+  skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: ac16140410a31ac4aabb0ef6a82fa461, type: 2}
 --- !u!1 &8550324492149276612
 GameObject:
   m_ObjectHideFlags: 0
@@ -7493,12 +7708,12 @@ PrefabInstance:
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
@@ -7527,6 +7742,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4119460902046720707}
@@ -7547,6 +7767,11 @@ PrefabInstance:
       objectReference: {fileID: 5740886546058846019}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 5302089942400168477}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
       propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 6
       objectReference: {fileID: 0}
@@ -7557,12 +7782,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
+      propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[4].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
@@ -7580,6 +7815,11 @@ PrefabInstance:
       propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 5740886546058846019}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 218748131120130597}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -7602,6 +7842,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
+      value: OnUse
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
       propertyPath: m_alreadyDefeated.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 6
       objectReference: {fileID: 0}
@@ -7613,6 +7858,11 @@ PrefabInstance:
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
@@ -7639,6 +7889,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: EnableCam
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: OnUse
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
@@ -7682,6 +7937,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
+      value: PixelCrushers.DialogueSystem.DialogueSystemTrigger, Assembly-CSharp-firstpass
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
       propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
@@ -7694,6 +7954,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: DChild.Gameplay.Cinematics.Cameras.VirtualCameraSwitcher, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: PixelCrushers.DialogueSystem.DialogueSystemTrigger, Assembly-CSharp-firstpass
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
@@ -7713,6 +7978,11 @@ PrefabInstance:
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
@@ -7742,12 +8012,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
+      propertyPath: m_onDefeat.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
       propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
         type: 3}
       propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,
+        type: 3}
+      propertyPath: m_uponTrigger.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 920715635346599692, guid: dcd6b858842dd2741866a5a9a3db829e,

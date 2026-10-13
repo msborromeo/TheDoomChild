@@ -103,7 +103,7 @@ MonoBehaviour:
       - m_Target: {fileID: 8062982916972952532}
         m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.ArmyBattleCharacterReward,
           Assembly-CSharp
-        m_MethodName: AttemptGiveReward
+        m_MethodName: RecruitmentConfirmation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -199,7 +199,7 @@ MonoBehaviour:
         m_CallState: 2
   m_CharacterReward:
   - {fileID: 11400000, guid: 8854e8080ba0c5742803098a4c26453d, type: 2}
-  m_isFree: 0
+  m_isFree: 1
   m_Requirement: 0
   m_TakeRequiredItemFromInvintory: 0
   m_requiredSoulEssence: 200
@@ -207,7 +207,8 @@ MonoBehaviour:
   m_ItemAmount: 0
   m_CombatArt: 0
   m_PrimarySkill: 0
-  armyCharacterData: {fileID: 0}
+  armyCharacterData:
+  - {fileID: 0}
   neededNPCsRecruited: 0
 --- !u!114 &1370681694068214581
 MonoBehaviour:
@@ -768,7 +769,7 @@ MonoBehaviour:
   allowBarksDuringConversations: 0
   skipBarkIfNoValidEntries: 0
   cacheBarkLines: 0
-  conversation: Recruit/RequirementMelchar/UnMet
+  conversation: 'Melchar MechanicusCL '
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
@@ -873,7 +874,7 @@ MonoBehaviour:
   allowBarksDuringConversations: 0
   skipBarkIfNoValidEntries: 0
   cacheBarkLines: 0
-  conversation: Recruit/RequirementMelchar/Met
+  conversation: Melchar MechanicusAR
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
@@ -968,7 +969,7 @@ MonoBehaviour:
       - m_Target: {fileID: 8062982916972952532}
         m_TargetAssemblyTypeName: DChild.Gameplay.ArmyBattle.ArmyBattleCharacterReward,
           Assembly-CSharp
-        m_MethodName: AttemptGiveReward
+        m_MethodName: RecruitmentConfirmation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

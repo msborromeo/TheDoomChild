@@ -71055,6 +71055,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8782304085246022529, guid: 54f703662517f334b9904f4c9abddc5a,
+        type: 3}
+      propertyPath: m_promptOffset.x
+      value: -0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8782304085246022529, guid: 54f703662517f334b9904f4c9abddc5a,
+        type: 3}
+      propertyPath: m_promptOffset.y
+      value: -3.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54f703662517f334b9904f4c9abddc5a, type: 3}
 --- !u!4 &1358022735 stripped
@@ -368064,6 +368074,7 @@ MonoBehaviour:
     type: 2}
   m_maxActivatedSoulSkill: 9
   m_maxSoulCapacity: 1
+  m_soulskillHandleOnload: 0
 --- !u!164 &639186053368309643
 AudioReverbFilter:
   m_ObjectHideFlags: 0
@@ -369950,7 +369961,7 @@ MonoBehaviour:
   m_character: {fileID: 4378560548610450113}
   m_state: {fileID: 4968134791172639921}
   m_playerInput: {fileID: 0}
-  m_handle: {fileID: 0}
+  m_quickItemHandle: {fileID: 0}
   m_vector2Input: {x: 0, y: 0}
   m_mouseDelta: {x: 0, y: 0}
 --- !u!61 &827579687303584380
@@ -463273,6 +463284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_attackFX: {fileID: 5057778233162567587}
   m_edgedFuryCooldown: 0.1
+  m_executionDuration: 2.5
   m_edgedFuryInfo:
     m_fx: {fileID: 3506995435173476785}
     m_fxPosition: {fileID: 4378560548610450112}
@@ -463287,7 +463299,6 @@ MonoBehaviour:
   m_fx: {fileID: 3506995435173476785}
   m_fxGO: {fileID: 8528286742276448975}
   m_pushForce: {x: 10, y: 0}
-  m_edgedFuryCamera: {fileID: 2557380229066791119}
 --- !u!114 &980278773048327502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475995,6 +476006,7 @@ MonoBehaviour:
   useY: 0
   rb: {fileID: 4378560548610450116}
   siblingBoneNames: []
+  pinBoneName: 
 --- !u!4 &1509804746325543952
 Transform:
   m_ObjectHideFlags: 0
@@ -481149,9 +481161,7 @@ MonoBehaviour:
   maximumGhosts: 5
   fadeSpeed: 10
   ghostShader: {fileID: 4800000, guid: 3873d4699ee8a4b4da8fa6b8c229b94d, type: 3}
-  color:
-    serializedVersion: 2
-    rgba: 2186875451
+  color: {r: 1, g: 1, b: 1, a: 0}
   additive: 1
   textureFade: 1
   sortWithDistanceOnly: 0
@@ -569200,7 +569210,7 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    m_ColorMin: {r: 5.9272187e-32, g: 2.38e-43, b: 5.9271105e-32, a: 2.38e-43}
+    m_ColorMin: {r: -105917.875, g: 1.35e-43, b: -105916.44, a: 1.35e-43}
     m_ColorMax: {r: 1, g: 1, b: 1, a: 1}
   isBurst: 1
   minNumberOfParticles: 1
@@ -574111,7 +574121,7 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    m_ColorMin: {r: 5.9272187e-32, g: 2.38e-43, b: 5.9271105e-32, a: 2.38e-43}
+    m_ColorMin: {r: -105917.875, g: 1.35e-43, b: -105916.44, a: 1.35e-43}
     m_ColorMax: {r: 1, g: 1, b: 1, a: 1}
   isBurst: 0
   minNumberOfParticles: 10
@@ -689255,6 +689265,11 @@ MonoBehaviour:
   m_moduleConfigurator: {fileID: 6819739348658738577}
   m_skinHandle: {fileID: 0}
   m_serializer: {fileID: 8522392650425872817}
+  m_bestiaryTracker: {fileID: 0}
+  m_characterTracker: {fileID: 0}
+  m_loreTracker: {fileID: 0}
+  m_locationTracker: {fileID: 0}
+  m_tutorialTracker: {fileID: 0}
   m_controlledCharacter: {fileID: 4378560548610450113}
   m_state: {fileID: 4968134791172639921}
   m_damageable: {fileID: 5840394415699317071}
@@ -2276619,6 +2276634,7 @@ MonoBehaviour:
   m_availableSoulCapacity: {fileID: 0}
   m_availableListUI: {fileID: 0}
   m_infoUI: {fileID: 0}
+  m_skillOriginLookup: {fileID: 0}
   m_forceSoulSkillActivation: 1
 --- !u!4 &7486572687193472170
 Transform:
@@ -2359940,6 +2359956,7 @@ MonoBehaviour:
   m_cielingSensor: {fileID: 0}
   m_dustFeedbackFX: {fileID: 8215841646050713235}
   m_pushForce: {x: 0, y: 150}
+  m_isDoingIcarus: 0
 --- !u!114 &7604272552266788254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2523323,6 +2523340,7 @@ MonoBehaviour:
       type: 3}
     m_speed: 80
   m_materialReplacement: {fileID: 9044403806140013592}
+  m_isTeleporting: 0
 --- !u!4 &8061735355065495874
 Transform:
   m_ObjectHideFlags: 0
@@ -2621754,10 +2621772,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2e4b8930130a4f34bae73f8a5f35c43a, type: 2}
   - {fileID: 11400000, guid: 806a42711d7741c428d192adadf8c3ea, type: 2}
   - {fileID: 11400000, guid: c8d4734bc2690e84db5f06449d588eab, type: 2}
-  m_confirmationRequest:
-    m_confirmation: {fileID: 0}
-    m_confirmationHeader: 
-    m_confirmationMessage: Upgrade weapon?
+  m_ui: {fileID: 0}
   m_playerInventory: {fileID: 6222542578689227367}
   m_playerWeapon: {fileID: 2102721692239377587}
 --- !u!1 &8244753856400138614
@@ -2621989,10 +2622004,12 @@ MonoBehaviour:
   m_regen: {fileID: 0}
   m_elevator: {fileID: 0}
   m_teleportHandle: {fileID: 0}
+  m_questManager: {fileID: 0}
   m_journalNotification: {fileID: 0}
   m_playerHUD: {fileID: 0}
   m_interactablePrompt: {fileID: 0}
   m_movableObjectPrompt: {fileID: 0}
+  m_weaponUpgradeSignal: {fileID: 0}
   m_upgradeWeaponHandler: {fileID: 8244753856400138600}
   m_BossHealth: {fileID: 0}
   m_QuickItems: {fileID: 0}

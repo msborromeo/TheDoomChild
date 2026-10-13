@@ -14,12 +14,16 @@ namespace DChild.Gameplay.UI.CombatArts
             m_highlightRect.SetParent(combatArtSelectButton.transform);
             m_highlightRect.anchoredPosition = Vector2.zero;
             m_highlightRect.SetParent(m_originalHighlightRectParent);
+            m_highlightRect.gameObject.SetActive(true);
         }
 
         public void Initialize()
         {
             m_originalHighlightRectParent = m_highlightRect.parent;
+            Clear();
         }
+
+        public void Clear() => m_highlightRect.gameObject.SetActive(false);
     }
 
 }

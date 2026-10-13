@@ -834,6 +834,8 @@ Transform:
   m_Children:
   - {fileID: 4622763717564863721}
   - {fileID: 4622763718010034993}
+  - {fileID: 6110545144342044327}
+  - {fileID: 4496870037839959204}
   m_Father: {fileID: 6831990793276181524}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1174,6 +1176,7 @@ MonoBehaviour:
   removeTrigger: 1024
   databases:
   - {fileID: 11400000, guid: 1d092c0783279d54d8dbf4b175ed26f7, type: 2}
+  - {fileID: 11400000, guid: ac16140410a31ac4aabb0ef6a82fa461, type: 2}
   condition:
     luaConditions: []
     questConditions: []
@@ -1313,6 +1316,19 @@ MonoBehaviour:
       - m_Target: {fileID: 8979974352131493816}
         m_TargetAssemblyTypeName: DChild.Gameplay.SavePoint, Assembly-CSharp
         m_MethodName: SaveGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1950222752315987846}
+        m_TargetAssemblyTypeName: PixelCrushers.DialogueSystem.DialogueSystemTrigger,
+          Assembly-CSharp-firstpass
+        m_MethodName: OnUse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3247,6 +3263,110 @@ MonoBehaviour:
   m_AmplitudeGain: 1
   m_FrequencyGain: 1
   mNoiseOffsets: {x: 483.57602, y: -918.9429, z: -240.88135}
+--- !u!1 &5638632274924265457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4496870037839959204}
+  - component: {fileID: 1950222752315987846}
+  m_Layer: 0
+  m_Name: DoorTracker(Open)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4496870037839959204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5638632274924265457}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2704645955218800970}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1950222752315987846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5638632274924265457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 32
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 1
+  questName: 
+  questState: 0
+  setQuestEntryState: 0
+  questEntryNumber: 1
+  questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: Variable["Realm_Of_Nightmare_Scene7_BlackBloodWall_1"] = true
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: 
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 0
+  replace: 0
+  skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: ac16140410a31ac4aabb0ef6a82fa461, type: 2}
 --- !u!1 &5916085323357986136
 GameObject:
   m_ObjectHideFlags: 0
@@ -3343,6 +3463,110 @@ Transform:
   m_Father: {fileID: 279141105794469894}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6848189204025451916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6110545144342044327}
+  - component: {fileID: 7392641580370262338}
+  m_Layer: 0
+  m_Name: DoorTracker(Closed)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6110545144342044327
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6848189204025451916}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2704645955218800970}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7392641580370262338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6848189204025451916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 32
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 1
+  questName: 
+  questState: 0
+  setQuestEntryState: 0
+  questEntryNumber: 1
+  questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: Variable["Realm_Of_Nightmare_Scene7_BlackBloodWall_1"] = false
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: 
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 0
+  replace: 0
+  skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: ac16140410a31ac4aabb0ef6a82fa461, type: 2}
 --- !u!1 &6864644311993327360
 GameObject:
   m_ObjectHideFlags: 0
@@ -4137,6 +4361,19 @@ MonoBehaviour:
       - m_Target: {fileID: 2976840695485489820}
         m_TargetAssemblyTypeName: DChild.Gameplay.Combat.BossFightTrigger, Assembly-CSharp
         m_MethodName: StartCombat
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7392641580370262338}
+        m_TargetAssemblyTypeName: PixelCrushers.DialogueSystem.DialogueSystemTrigger,
+          Assembly-CSharp-firstpass
+        m_MethodName: OnUse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5981,12 +6218,12 @@ PrefabInstance:
     - target: {fileID: 210783534689702772, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.1093924
+      value: -3.1093922
       objectReference: {fileID: 0}
     - target: {fileID: 210783534689702772, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.9755335
+      value: 11.975533
       objectReference: {fileID: 0}
     - target: {fileID: 561562984352172455, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
@@ -6101,12 +6338,12 @@ PrefabInstance:
     - target: {fileID: 780527281567109376, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.12084961
+      value: -0.1208496
       objectReference: {fileID: 0}
     - target: {fileID: 780527281567109376, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16.872036
+      value: 16.872034
       objectReference: {fileID: 0}
     - target: {fileID: 803821546973463767, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
@@ -6171,12 +6408,12 @@ PrefabInstance:
     - target: {fileID: 1036015865626851636, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.66214424
+      value: 0.6621442
       objectReference: {fileID: 0}
     - target: {fileID: 1036015865626851636, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.787336
+      value: 14.787335
       objectReference: {fileID: 0}
     - target: {fileID: 1173023682476166697, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
@@ -6626,12 +6863,12 @@ PrefabInstance:
     - target: {fileID: 3152850201226563681, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.4397147
+      value: -0.43971467
       objectReference: {fileID: 0}
     - target: {fileID: 3152850201226563681, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.879464
+      value: 12.879463
       objectReference: {fileID: 0}
     - target: {fileID: 3182880964961792730, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
@@ -6761,12 +6998,12 @@ PrefabInstance:
     - target: {fileID: 4389469633617109076, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.27417
+      value: -2.2741697
       objectReference: {fileID: 0}
     - target: {fileID: 4389469633617109076, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.954398
+      value: 14.954397
       objectReference: {fileID: 0}
     - target: {fileID: 4428240871847385190, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
@@ -7451,12 +7688,12 @@ PrefabInstance:
     - target: {fileID: 8037707079234333599, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.3151158
+      value: -0.31511578
       objectReference: {fileID: 0}
     - target: {fileID: 8037707079234333599, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.862479
+      value: 8.862478
       objectReference: {fileID: 0}
     - target: {fileID: 8096585300528298218, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
@@ -7701,12 +7938,12 @@ PrefabInstance:
     - target: {fileID: 8794392611607618570, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.6629639
+      value: 2.6629636
       objectReference: {fileID: 0}
     - target: {fileID: 8794392611607618570, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.586322
+      value: 12.58632
       objectReference: {fileID: 0}
     - target: {fileID: 8827636211337073472, guid: 984f0bf21c50ba84eaa0fcfb4fe609a2,
         type: 3}

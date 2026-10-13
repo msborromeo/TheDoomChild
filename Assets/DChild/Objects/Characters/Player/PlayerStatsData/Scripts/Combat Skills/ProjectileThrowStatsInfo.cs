@@ -28,7 +28,7 @@ public struct ProjectileThrowStatsInfo
 
     public void CopyInfo(ProjectileThrowStatsInfo reference)
     {
-        m_skullThrowCooldown = reference.skullThrowCooldown;
+        m_skullThrowCooldown = /*reference.skullThrowCooldown*/1f; //change this in the future, for now bruteforce
         m_defaultAim = reference.defaultAim;
         m_horizontalThreshold = reference.horizontalThreshold;
         m_verticalThreshold = reference.verticalThreshold;

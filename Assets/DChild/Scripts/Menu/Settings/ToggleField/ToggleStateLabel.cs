@@ -14,18 +14,14 @@ namespace DChild.Menu.UI
         {
             [SerializeField]
             private string m_label;
-            [SerializeField]
-            private Color m_color;
 
             public LabelSettings(string m_label)
             {
                 this.m_label = m_label;
-                m_color = Color.white;
             }
 
             public string label => m_label;
 
-            public Color color => m_color;
         }
 
         [SerializeField]
@@ -45,7 +41,6 @@ namespace DChild.Menu.UI
         private void ChangeTest(LabelSettings settings)
         {
             m_label.text = settings.label;
-            m_label.color = settings.color;
         }
     }
 

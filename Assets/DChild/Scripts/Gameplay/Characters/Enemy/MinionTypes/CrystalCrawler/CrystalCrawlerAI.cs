@@ -383,10 +383,13 @@ namespace DChild.Gameplay.Characters.Enemies
                 m_spikeEdgeSensor.transform.position = Vector2.MoveTowards(m_spikeEdgeSensor.transform.position, target, 5);
                 yield return null;
             }
-            yield return new WaitForSeconds(1f);
-            Instantiate(m_info.spikeGO, target, Quaternion.identity);
-            yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack.animation);
-            m_spikeEdgeSensor.transform.localPosition = new Vector2(7.5f, 2f); 
+            if(m_spikeEdgeSensor.isDetecting)
+            {
+                yield return new WaitForSeconds(1f);
+                Instantiate(m_info.spikeGO, target, Quaternion.identity);
+                yield return new WaitForAnimationComplete(m_animation.animationState, m_info.attack.animation);
+            }
+            m_spikeEdgeSensor.transform.localPosition = new Vector2(7.5f, 2f);
             m_animation.SetAnimation(0, m_info.idleAnimation, true);
             //yield return new WaitUntil(() => !m_spike.gameObject.activeSelf);
             //m_spike.transform.SetParent(m_model);
