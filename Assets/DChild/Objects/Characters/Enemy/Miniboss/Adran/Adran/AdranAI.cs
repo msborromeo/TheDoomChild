@@ -823,7 +823,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     {
         m_stateHandle.Wait(State.ReevaluateSituation);
         Pause();
-        yield return HomingMissilleAnimation();
+        
         yield return HomingMissileProjectile();
         m_attackDecider.hasDecidedOnAttack = false;
         m_stateHandle.ApplyQueuedState();
@@ -902,7 +902,8 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private int m_adranReturned;
     [SerializeField]
     private float m_delayAdranSpawn;
-
+    [SerializeField, ReadOnly]
+    private int m_currentAdranCount;
     private void UnsubscribeEvents(PoolableObject instance)
     {
         if (instance == null)
@@ -913,302 +914,444 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         instance.GetComponent<SmallAdran>().SmallAdranGotDestroyed -= SmallAdranGotDestroyed;
         instance.GetComponent<SmallAdran>().SmallAdranReachedZone -= SmallAdranReachedZoneEvent;
     }
+
+    private int GetInitialAdranCount()
+    {
+        switch (m_healthLevel)
+        {
+            case HealthLevel.LevelOne:
+                return 2;
+
+            case HealthLevel.LevelTwo:
+                return 2;
+            case HealthLevel.LevelFour:
+                return 2;
+
+            case HealthLevel.LevelThree:
+                return 3;
+
+            default:
+                return 1;
+        }
+    }
+
     private IEnumerator HomingMissileProjectile()
     {
         hasReachedDropZone = false;
 
         HealthTracker();
 
-        if (m_healthLevel == HealthLevel.LevelOne)
+        // Only determine the initial amount once.
+        if (m_currentAdranCount <= 0)
         {
-            var randomInstance = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            var randomProjectiles = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            m_summonFX[randomInstance].Play();
-            //yield return new WaitForSeconds(1f);
-            var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectiles], gameObject.scene);
-            instance1.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
-            instance1.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
-            instance1.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
-            yield return new WaitForSeconds(m_delayAdranSpawn);
-            instance1.SpawnAt(new Vector2(m_summonSpot[randomInstance].position.x, m_summonSpot[randomInstance].position.y), Quaternion.identity);
-            instance1.transform.rotation = Quaternion.identity;
-            StartCoroutine(GoToReachableXY(instance1));
-            while (instance1 != null)
-                yield return null;
-
-            Debug.Log("done destroyed all 1");
-            if (m_killedAdran == 1)
-            {
-                DamageCheck();
-                UnsubscribeEvents(instance1);
-                yield return new WaitForSeconds(1f);
-                m_adranReturned = 0;
-                m_killedAdran = 0;
-                yield break;
-
-            }
-
-            yield return HomingMissileReturnAnimation();
-
-
-
+            m_currentAdranCount = GetInitialAdranCount();
         }
-        else if (m_healthLevel == HealthLevel.LevelTwo || m_healthLevel == HealthLevel.LevelFour)
+
+        while (m_currentAdranCount > 0)
         {
-            var randomInstance = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            int randomInstance_2;
-            do
-            {
-                randomInstance_2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            } while (randomInstance_2 == randomInstance);
+            yield return HomingMissilleAnimation();
+            m_killedAdran = 0;
+            m_adranReturned = 0;
+            int spawnCount = m_currentAdranCount;
 
-            int randomProjectile1 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            int randomProjectile2;
-            do
+            List<int> availableProjectiles = new List<int>();
+
+            for (int i = 0; i < m_adranProjectiles.Length; i++)
             {
-                randomProjectile2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+                availableProjectiles.Add(i);
             }
-            while (randomProjectile2 == randomProjectile1);
-            var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectile1], gameObject.scene);
-            instance1.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
-            instance1.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
-            instance1.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
-            var instance2 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectile2], gameObject.scene);
-            instance2.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
-            instance2.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
-            instance2.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
-            m_summonFX[randomInstance].Play();
-            m_summonFX[randomInstance_2].Play();
-            yield return new WaitForSeconds(m_delayAdranSpawn);
-            instance1.SpawnAt(new Vector2(m_summonSpot[randomInstance].position.x, m_summonSpot[randomInstance].position.y), Quaternion.identity);
-            instance1.transform.rotation = Quaternion.identity;
-            instance2.SpawnAt(new Vector2(m_summonSpot[randomInstance_2].position.x, m_summonSpot[randomInstance_2].position.y), Quaternion.identity);
-            instance2.transform.rotation = Quaternion.identity;
-            StartCoroutine(GoToReachableXY(instance1));
-            StartCoroutine(GoToReachableXY(instance2));
 
-            while (instance1 != null ||
-               instance2 != null)
-                yield return null;
-            Debug.Log("done destroyed all 2");
-            if (m_killedAdran == 2)
+            List<int> availableSpots = new List<int>();
+
+            for (int i = 0; i < m_summonSpot.Length; i++)
             {
-                DamageCheck();
-                UnsubscribeEvents(instance1);
-                UnsubscribeEvents(instance2);
+                availableSpots.Add(i);
+            }
+
+            List<PoolableObject> instances = new List<PoolableObject>();
+            List<int> selectedSpots = new List<int>(); 
+            // for instances projectiles and spots where it should summon initalization
+            for (int i = 0; i < spawnCount; i++)
+            {
+                // projectile adran small 
+                int projectileRandomIndex =
+                    UnityEngine.Random.Range(
+                        0,
+                        availableProjectiles.Count);
+                int projectileIndex =
+                    availableProjectiles[projectileRandomIndex];
+
+                availableProjectiles.RemoveAt(projectileRandomIndex);
+                // projectile summon random spot
+                int spotRandomIndex =UnityEngine.Random.Range(0,availableSpots.Count);
+                int spotIndex = availableSpots[spotRandomIndex];
+                availableSpots.RemoveAt(spotRandomIndex);
+                //creating instance actual small adran
+                var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[projectileIndex],
+                            gameObject.scene);
+                SmallAdran smallAdran = instance.GetComponent<SmallAdran>();
+                // subs to events regardless sa kadamo na instance
+                smallAdran.GotDamagedByPlayer +=AdranAI_GotDamagedByPlayer;
+                smallAdran.SmallAdranGotDestroyed +=SmallAdranGotDestroyed;
+                smallAdran.SmallAdranReachedZone += SmallAdranReachedZoneEvent;
+                // store it and summon FX
+                instances.Add(instance);
+                selectedSpots.Add(spotIndex);
+                m_summonFX[spotIndex].Play();
+            }
+            yield return new WaitForSeconds(m_delayAdranSpawn);
+
+            //actual spawning to the world
+
+            for (int i = 0; i < instances.Count; i++)
+            {
+                PoolableObject instance = instances[i];
+
+                int spotIndex = selectedSpots[i];
+
+                instance.SpawnAt(
+                    new Vector2(
+                        m_summonSpot[spotIndex].position.x,
+                        m_summonSpot[spotIndex].position.y),
+                    Quaternion.identity);
+
+                instance.transform.rotation = Quaternion.identity;
+
+                StartCoroutine(
+                    GoToReachableXY(instance));
+            }
+            //looping untill reached or killed
+            while (m_killedAdran + m_adranReturned < spawnCount)
+            {
+                yield return null;
+            }
+
+            Debug.Log(   $"Wave finished. Spawned: {spawnCount}, " + $"Killed: {m_killedAdran}, " +
+                $"Returned: {m_adranReturned}");
+
+            // this is where we remove adran in the next wave
+            m_currentAdranCount -= m_killedAdran;
+            for (int i = 0; i < instances.Count; i++)
+            {
+                UnsubscribeEvents(instances[i]);
+            }
+            if (m_currentAdranCount <= 0)
+            {
+               // DamageCheck();
                 yield return new WaitForSeconds(0.5f);
                 m_adranReturned = 0;
                 m_killedAdran = 0;
+                m_currentAdranCount = 0;
                 yield break;
-
             }
+
+            // if some returned
+
+            m_adranReturned = 0;
+            m_killedAdran = 0;
             yield return HomingMissileReturnAnimation();
-
-
-
+            // Loop automatically starts the next wave.
         }
-        else if (m_healthLevel == HealthLevel.LevelThree)
-        {
-            var randomInstance = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            int randomInstance_2;
-            int randomInstance_3;
-            do
-            {
-                randomInstance_2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            } while (randomInstance_2 == randomInstance);
-
-            do
-            {
-                randomInstance_3 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            } while (randomInstance_3 == randomInstance || randomInstance_3 == randomInstance_2);
-
-            int randomProjectile1 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            int randomProjectile2;
-            do
-            {
-                randomProjectile2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            }
-            while (randomProjectile2 == randomProjectile1);
-
-            int randomProjectile3;
-            do
-            {
-                randomProjectile3 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            }
-            while (randomProjectile3 == randomProjectile1 ||
-                   randomProjectile3 == randomProjectile2);
-
-            var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectile1], gameObject.scene);
-            instance1.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
-            instance1.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
-            var instance2 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectile2], gameObject.scene);
-            instance2.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
-            instance2.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
-            var instance3 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectile3], gameObject.scene);
-            instance3.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
-            instance3.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
-            instance1.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
-            instance2.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
-            instance3.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
-            m_summonFX[randomInstance].Play();
-            m_summonFX[randomInstance_2].Play();
-            m_summonFX[randomInstance_3].Play();
-            yield return new WaitForSeconds(m_delayAdranSpawn);
-            instance1.SpawnAt(new Vector2(m_summonSpot[randomInstance].position.x, m_summonSpot[randomInstance].position.y), Quaternion.identity);
-            instance1.transform.rotation = Quaternion.identity;
-            instance2.SpawnAt(new Vector2(m_summonSpot[randomInstance_2].position.x, m_summonSpot[randomInstance_2].position.y), Quaternion.identity);
-            instance2.transform.rotation = Quaternion.identity;
-            instance3.SpawnAt(new Vector2(m_summonSpot[randomInstance_3].position.x, m_summonSpot[randomInstance_3].position.y), Quaternion.identity);
-            instance3.transform.rotation = Quaternion.identity;
-            StartCoroutine(GoToReachableXY(instance1));
-            StartCoroutine(GoToReachableXY(instance2));
-            StartCoroutine(GoToReachableXY(instance3));
-            while (instance1 != null || instance2 != null || instance3 != null)
-                yield return null;
-
-            Debug.Log("done destroyed all 3 ");
-            if (m_killedAdran == 3)
-            {
-                DamageCheck();
-                UnsubscribeEvents(instance1);
-                UnsubscribeEvents(instance2);
-                UnsubscribeEvents(instance3);
-                yield return new WaitForSeconds(1f);
-                m_adranReturned = 0;
-                m_killedAdran = 0;
-                yield break;
-
-            }
-
-            yield return HomingMissileReturnAnimation();
-
-        }
-        else if (m_healthLevel == HealthLevel.LevelFour)
-        {
-            var randomInstance = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            int randomInstance_2;
-            do
-            {
-                randomInstance_2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            } while (randomInstance_2 == randomInstance);
-
-            int randomProjectile1 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            int randomProjectile2;
-            do
-            {
-                randomProjectile2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
-            }
-            while (randomProjectile2 == randomProjectile1);
-            var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectile1], gameObject.scene);
-            instance1.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
-            instance1.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
-            var instance2 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectile2], gameObject.scene);
-            instance2.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
-            instance2.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
-            instance1.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
-            instance2.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
-            m_summonFX[randomInstance].Play();
-            m_summonFX[randomInstance_2].Play();
-            yield return new WaitForSeconds(m_delayAdranSpawn);
-            instance1.SpawnAt(new Vector2(m_summonSpot[randomInstance].position.x, m_summonSpot[randomInstance].position.y), Quaternion.identity);
-            instance1.transform.rotation = Quaternion.identity;
-            instance2.SpawnAt(new Vector2(m_summonSpot[randomInstance_2].position.x, m_summonSpot[randomInstance_2].position.y), Quaternion.identity);
-            instance2.transform.rotation = Quaternion.identity;
-
-            StartCoroutine(GoToReachableXY(instance1));
-            StartCoroutine(GoToReachableXY(instance2));
-
-            while (instance1 != null || instance2 != null)
-                yield return null;
-
-            Debug.Log("done destroyed all 2");
-            if (m_killedAdran == 2)
-            {
-                DamageCheck();
-                UnsubscribeEvents(instance1);
-                UnsubscribeEvents(instance2);
-                yield return new WaitForSeconds(1f);
-                m_adranReturned = 0;
-                m_killedAdran = 0;
-                yield break;
-
-            }
-            yield return HomingMissileReturnAnimation();
-
-        }
-
-
-        #region old ass code
-        //if (m_healthLevel == HealthLevel.LevelTwo)
-        //{
-        //        var randomInstance = UnityEngine.Random.Range(0, 4);
-        //        int randomInstance_2;
-        //        do
-        //        {
-        //            randomInstance_2 = UnityEngine.Random.Range(0, 4);
-        //        } while (randomInstance_2 == randomInstance);
-        //        var randomProjectiles = UnityEngine.Random.Range(0, 4);
-        //        m_summonFX[randomInstance].Play();
-        //        yield return new WaitForSeconds(1f);
-        //        var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectiles], gameObject.scene);
-        //        instance1.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
-        //        instance1.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
-        //        instance1.SpawnAt(new Vector2(m_summonSpot[randomInstance].position.x, m_summonSpot[randomInstance].position.y), Quaternion.identity);
-        //        yield return new WaitForSeconds(.3f);
-        //        instance1.transform.rotation = Quaternion.identity;
-        //        m_summonFX[randomInstance_2].Play();
-        //        yield return new WaitForSeconds(1f);
-        //        var instance2 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectiles], gameObject.scene);               
-        //        instance2.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
-        //        instance2.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
-        //        instance2.SpawnAt(new Vector2(m_summonSpot[randomInstance_2].position.x, m_summonSpot[randomInstance_2].position.y), Quaternion.identity);
-        //        yield return new WaitForSeconds(.3f);
-        //        instance2.transform.rotation = Quaternion.identity;
-
-        //        StartCoroutine(SpawningOfHomingMissiles(instance1));
-        //        yield return SpawningOfHomingMissiles(instance2);
-
-        //        if (instance1 != null)
-        //        {
-        //            instance1.GetComponent<SmallAdran>().GotDamagedByPlayer -= AdranAI_GotDamagedByPlayer;
-        //            instance1.GetComponent<SmallAdran>().SmallAdranGotDestroyed -= AdranAI_GotDamagedByPlayer;
-        //            yield return HomingMissileReturnAnimation();
-        //        }
-        //        if (instance2 != null)
-        //        {
-        //            instance2.GetComponent<SmallAdran>().GotDamagedByPlayer -= AdranAI_GotDamagedByPlayer;
-        //            instance2.GetComponent<SmallAdran>().SmallAdranGotDestroyed -= AdranAI_GotDamagedByPlayer;
-        //            yield return HomingMissileReturnAnimation();
-        //        }
-        //}
-        //else
-        //{
-        //    var randomProjectiles = UnityEngine.Random.Range(0, 4);
-        //    var randomSummonSpot = UnityEngine.Random.Range(0, 4);
-        //    m_summonFX[randomSummonSpot].Play();
-        //    yield return new WaitForSeconds(1);
-        //    var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectiles], gameObject.scene);
-        //    instance.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
-        //    instance.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
-        //    instance.SpawnAt(new Vector2(m_summonSpot[randomSummonSpot].position.x, m_summonSpot[randomSummonSpot].position.y), Quaternion.identity);
-        //    yield return new WaitForSeconds(.3f);
-        //    instance.transform.rotation = Quaternion.identity;
-        //    yield return SpawningOfHomingMissiles(instance);
-
-        //    if (instance != null)
-        //    {
-        //        instance.GetComponent<SmallAdran>().GotDamagedByPlayer -= AdranAI_GotDamagedByPlayer;
-        //        instance.GetComponent<SmallAdran>().SmallAdranGotDestroyed -= SmallAdranGotDestroyed;
-        //        yield return HomingMissileReturnAnimation();
-        //    }
-        //}
-        #endregion
-
-        yield return new WaitForSeconds(0.5f);
         m_adranReturned = 0;
         m_killedAdran = 0;
-
+        m_currentAdranCount = 0;
     }
+    /* private IEnumerator HomingMissileProjectile()
+     {
+         hasReachedDropZone = false;
+
+         HealthTracker();
+
+         if (m_healthLevel == HealthLevel.LevelOne)
+         {
+             var randomInstance = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             var randomProjectiles = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             m_summonFX[randomInstance].Play();
+             //yield return new WaitForSeconds(1f);
+             var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectiles], gameObject.scene);
+             instance1.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
+             instance1.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
+             instance1.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
+             yield return new WaitForSeconds(m_delayAdranSpawn);
+             instance1.SpawnAt(new Vector2(m_summonSpot[randomInstance].position.x, m_summonSpot[randomInstance].position.y), Quaternion.identity);
+             instance1.transform.rotation = Quaternion.identity;
+             StartCoroutine(GoToReachableXY(instance1));
+             while (instance1 != null)
+                 yield return null;
+
+             Debug.Log("done destroyed all 1");
+             if (m_killedAdran == 1)
+             {
+                 DamageCheck();
+                 UnsubscribeEvents(instance1);
+                 yield return new WaitForSeconds(1f);
+                 m_adranReturned = 0;
+                 m_killedAdran = 0;
+                 yield break;
+
+             }// need kakson for the new design
+
+             yield return HomingMissileReturnAnimation();
+
+
+
+         }
+         else if (m_healthLevel == HealthLevel.LevelTwo || m_healthLevel == HealthLevel.LevelFour)
+         {
+             var randomInstance = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             int randomInstance_2;
+             do
+             {
+                 randomInstance_2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             } while (randomInstance_2 == randomInstance);
+
+             int randomProjectile1 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             int randomProjectile2;
+             do
+             {
+                 randomProjectile2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             }
+             while (randomProjectile2 == randomProjectile1);
+             var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectile1], gameObject.scene);
+             instance1.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
+             instance1.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
+             instance1.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
+             var instance2 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectile2], gameObject.scene);
+             instance2.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
+             instance2.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
+             instance2.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
+             m_summonFX[randomInstance].Play();
+             m_summonFX[randomInstance_2].Play();
+             yield return new WaitForSeconds(m_delayAdranSpawn);
+             instance1.SpawnAt(new Vector2(m_summonSpot[randomInstance].position.x, m_summonSpot[randomInstance].position.y), Quaternion.identity);
+             instance1.transform.rotation = Quaternion.identity;
+             instance2.SpawnAt(new Vector2(m_summonSpot[randomInstance_2].position.x, m_summonSpot[randomInstance_2].position.y), Quaternion.identity);
+             instance2.transform.rotation = Quaternion.identity;
+             StartCoroutine(GoToReachableXY(instance1));
+             StartCoroutine(GoToReachableXY(instance2));
+
+             while (instance1 != null ||
+                instance2 != null)
+                 yield return null;
+             Debug.Log("done destroyed all 2");
+             if (m_killedAdran == 2)
+             {
+                 DamageCheck();
+                 UnsubscribeEvents(instance1);
+                 UnsubscribeEvents(instance2);
+                 yield return new WaitForSeconds(0.5f);
+                 m_adranReturned = 0;
+                 m_killedAdran = 0;
+                 yield break;
+
+             }// need kakson for the new design
+             yield return HomingMissileReturnAnimation();
+
+
+
+         }
+         else if (m_healthLevel == HealthLevel.LevelThree)
+         {
+             var randomInstance = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             int randomInstance_2;
+             int randomInstance_3;
+             do
+             {
+                 randomInstance_2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             } while (randomInstance_2 == randomInstance);
+
+             do
+             {
+                 randomInstance_3 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             } while (randomInstance_3 == randomInstance || randomInstance_3 == randomInstance_2);
+
+             int randomProjectile1 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             int randomProjectile2;
+             do
+             {
+                 randomProjectile2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             }
+             while (randomProjectile2 == randomProjectile1);
+
+             int randomProjectile3;
+             do
+             {
+                 randomProjectile3 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             }
+             while (randomProjectile3 == randomProjectile1 ||
+                    randomProjectile3 == randomProjectile2);
+
+             var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectile1], gameObject.scene);
+             instance1.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
+             instance1.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
+             var instance2 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectile2], gameObject.scene);
+             instance2.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
+             instance2.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
+             var instance3 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectile3], gameObject.scene);
+             instance3.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
+             instance3.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
+             instance1.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
+             instance2.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
+             instance3.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
+             m_summonFX[randomInstance].Play();
+             m_summonFX[randomInstance_2].Play();
+             m_summonFX[randomInstance_3].Play();
+             yield return new WaitForSeconds(m_delayAdranSpawn);
+             instance1.SpawnAt(new Vector2(m_summonSpot[randomInstance].position.x, m_summonSpot[randomInstance].position.y), Quaternion.identity);
+             instance1.transform.rotation = Quaternion.identity;
+             instance2.SpawnAt(new Vector2(m_summonSpot[randomInstance_2].position.x, m_summonSpot[randomInstance_2].position.y), Quaternion.identity);
+             instance2.transform.rotation = Quaternion.identity;
+             instance3.SpawnAt(new Vector2(m_summonSpot[randomInstance_3].position.x, m_summonSpot[randomInstance_3].position.y), Quaternion.identity);
+             instance3.transform.rotation = Quaternion.identity;
+             StartCoroutine(GoToReachableXY(instance1));
+             StartCoroutine(GoToReachableXY(instance2));
+             StartCoroutine(GoToReachableXY(instance3));
+             while (instance1 != null || instance2 != null || instance3 != null)
+                 yield return null;
+
+             Debug.Log("done destroyed all 3 ");
+             if (m_killedAdran == 3)
+             {
+                 DamageCheck();
+                 UnsubscribeEvents(instance1);
+                 UnsubscribeEvents(instance2);
+                 UnsubscribeEvents(instance3);
+                 yield return new WaitForSeconds(1f);
+                 m_adranReturned = 0;
+                 m_killedAdran = 0;
+                 yield break;
+
+             }// need kakson for the new design
+
+             yield return HomingMissileReturnAnimation();
+
+         }
+         else if (m_healthLevel == HealthLevel.LevelFour)
+         {
+             var randomInstance = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             int randomInstance_2;
+             do
+             {
+                 randomInstance_2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             } while (randomInstance_2 == randomInstance);
+
+             int randomProjectile1 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             int randomProjectile2;
+             do
+             {
+                 randomProjectile2 = UnityEngine.Random.Range(0, m_adranProjectiles.Length);
+             }
+             while (randomProjectile2 == randomProjectile1);
+             var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectile1], gameObject.scene);
+             instance1.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
+             instance1.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
+             var instance2 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectile2], gameObject.scene);
+             instance2.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
+             instance2.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
+             instance1.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
+             instance2.GetComponent<SmallAdran>().SmallAdranReachedZone += SmallAdranReachedZoneEvent;
+             m_summonFX[randomInstance].Play();
+             m_summonFX[randomInstance_2].Play();
+             yield return new WaitForSeconds(m_delayAdranSpawn);
+             instance1.SpawnAt(new Vector2(m_summonSpot[randomInstance].position.x, m_summonSpot[randomInstance].position.y), Quaternion.identity);
+             instance1.transform.rotation = Quaternion.identity;
+             instance2.SpawnAt(new Vector2(m_summonSpot[randomInstance_2].position.x, m_summonSpot[randomInstance_2].position.y), Quaternion.identity);
+             instance2.transform.rotation = Quaternion.identity;
+
+             StartCoroutine(GoToReachableXY(instance1));
+             StartCoroutine(GoToReachableXY(instance2));
+
+             while (instance1 != null || instance2 != null)
+                 yield return null;
+
+             Debug.Log("done destroyed all 2");
+             if (m_killedAdran == 2)
+             {
+                 DamageCheck();
+                 UnsubscribeEvents(instance1);
+                 UnsubscribeEvents(instance2);
+                 yield return new WaitForSeconds(1f);
+                 m_adranReturned = 0;
+                 m_killedAdran = 0;
+                 yield break;
+
+             }// need kakson for the new design
+             yield return HomingMissileReturnAnimation();
+
+         }
+
+
+         #region old ass code
+         //if (m_healthLevel == HealthLevel.LevelTwo)
+         //{
+         //        var randomInstance = UnityEngine.Random.Range(0, 4);
+         //        int randomInstance_2;
+         //        do
+         //        {
+         //            randomInstance_2 = UnityEngine.Random.Range(0, 4);
+         //        } while (randomInstance_2 == randomInstance);
+         //        var randomProjectiles = UnityEngine.Random.Range(0, 4);
+         //        m_summonFX[randomInstance].Play();
+         //        yield return new WaitForSeconds(1f);
+         //        var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectiles], gameObject.scene);
+         //        instance1.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
+         //        instance1.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
+         //        instance1.SpawnAt(new Vector2(m_summonSpot[randomInstance].position.x, m_summonSpot[randomInstance].position.y), Quaternion.identity);
+         //        yield return new WaitForSeconds(.3f);
+         //        instance1.transform.rotation = Quaternion.identity;
+         //        m_summonFX[randomInstance_2].Play();
+         //        yield return new WaitForSeconds(1f);
+         //        var instance2 = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectiles], gameObject.scene);               
+         //        instance2.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
+         //        instance2.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
+         //        instance2.SpawnAt(new Vector2(m_summonSpot[randomInstance_2].position.x, m_summonSpot[randomInstance_2].position.y), Quaternion.identity);
+         //        yield return new WaitForSeconds(.3f);
+         //        instance2.transform.rotation = Quaternion.identity;
+
+         //        StartCoroutine(SpawningOfHomingMissiles(instance1));
+         //        yield return SpawningOfHomingMissiles(instance2);
+
+         //        if (instance1 != null)
+         //        {
+         //            instance1.GetComponent<SmallAdran>().GotDamagedByPlayer -= AdranAI_GotDamagedByPlayer;
+         //            instance1.GetComponent<SmallAdran>().SmallAdranGotDestroyed -= AdranAI_GotDamagedByPlayer;
+         //            yield return HomingMissileReturnAnimation();
+         //        }
+         //        if (instance2 != null)
+         //        {
+         //            instance2.GetComponent<SmallAdran>().GotDamagedByPlayer -= AdranAI_GotDamagedByPlayer;
+         //            instance2.GetComponent<SmallAdran>().SmallAdranGotDestroyed -= AdranAI_GotDamagedByPlayer;
+         //            yield return HomingMissileReturnAnimation();
+         //        }
+         //}
+         //else
+         //{
+         //    var randomProjectiles = UnityEngine.Random.Range(0, 4);
+         //    var randomSummonSpot = UnityEngine.Random.Range(0, 4);
+         //    m_summonFX[randomSummonSpot].Play();
+         //    yield return new WaitForSeconds(1);
+         //    var instance = GameSystem.poolManager.GetPool<PoolableObjectPool>().GetOrCreateItem(m_adranProjectiles[randomProjectiles], gameObject.scene);
+         //    instance.GetComponent<SmallAdran>().GotDamagedByPlayer += AdranAI_GotDamagedByPlayer;
+         //    instance.GetComponent<SmallAdran>().SmallAdranGotDestroyed += SmallAdranGotDestroyed;
+         //    instance.SpawnAt(new Vector2(m_summonSpot[randomSummonSpot].position.x, m_summonSpot[randomSummonSpot].position.y), Quaternion.identity);
+         //    yield return new WaitForSeconds(.3f);
+         //    instance.transform.rotation = Quaternion.identity;
+         //    yield return SpawningOfHomingMissiles(instance);
+
+         //    if (instance != null)
+         //    {
+         //        instance.GetComponent<SmallAdran>().GotDamagedByPlayer -= AdranAI_GotDamagedByPlayer;
+         //        instance.GetComponent<SmallAdran>().SmallAdranGotDestroyed -= SmallAdranGotDestroyed;
+         //        yield return HomingMissileReturnAnimation();
+         //    }
+         //}
+         #endregion
+
+         yield return new WaitForSeconds(0.5f);
+         m_adranReturned = 0;
+         m_killedAdran = 0;
+
+     }*/
 
     private void SmallAdranReachedZoneEvent(object sender, EventActionArgs eventArgs)
     {
@@ -1218,8 +1361,9 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private void SmallAdranGotDestroyed(object sender, Holysoft.Event.EventActionArgs eventArgs)
     {
         Debug.Log("Damage adran");
-        m_FakeDamage.value = 0;
+        m_FakeDamage.value = 1000;
         GameplaySystem.combatManager.Damage(m_damageable, m_FakeDamage);
+        //DamageCheck();
         stopHomingMissile = true;
         m_killedAdran++;
     }
@@ -1278,7 +1422,8 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
 
 
     }
-
+    [SerializeField]
+    private Transform m_originalSpot;
     private IEnumerator ReturningToSpawnPointSummonedAdran(PoolableObject instance)
     {
         while (true)
@@ -1310,13 +1455,13 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
                 yield break;
             }
 
-            float distance = Vector2.Distance(instance.transform.position, m_summonSpot[4].position);
+            float distance = Vector2.Distance(instance.transform.position, m_originalSpot.position);
 
             if (distance > 1f)
             {
                 instance.transform.position = Vector2.MoveTowards(
                     instance.transform.position,
-                    m_summonSpot[4].position,
+                    m_originalSpot.position,
                     m_flightSpeedReturn * Time.deltaTime
                 );
 
@@ -1328,10 +1473,11 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
             Debug.Log("Done?");
             m_adranReturned++;
             UnsubscribeEvents(instance);
-
+            instance.GetComponent<SmallAdran>().ReturnSFX();
+            yield return new WaitForSeconds(2f);
             Destroy(instance.gameObject);
             yield break;
-        }
+        }// need kakson for the new design
 
     }
 

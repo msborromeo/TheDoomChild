@@ -35,6 +35,10 @@ public class SmallAdran : MonoBehaviour
     [SerializeField]
     private GameObject m_deathVfx;
     [SerializeField]
+    private GameObject m_spineGameObjectAdran;
+    [SerializeField]
+    private ParticleSystem m_returnFX;
+    [SerializeField]
     private GameObject m_deathParticleGoBackToAdran;
     public Vector2 startingPosition;
     [SerializeField, Spine.Unity.SpineAnimation(dataField = "m_skeletonAnimation")]
@@ -97,6 +101,11 @@ public class SmallAdran : MonoBehaviour
     //        FacingStartingPointUpdate(startingPosition);
     //    }
     //}
+    public void ReturnSFX()
+    {
+        m_spineGameObjectAdran.SetActive(false);
+        m_returnFX.Play();
+    }
     private void OnAttackCollider()
     {
         m_AttackCollider.enabled = true;
