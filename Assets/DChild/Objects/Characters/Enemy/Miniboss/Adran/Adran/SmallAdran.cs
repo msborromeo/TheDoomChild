@@ -12,6 +12,7 @@ using Spine.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Random = System.Random;
@@ -101,11 +102,7 @@ public class SmallAdran : MonoBehaviour
     //        FacingStartingPointUpdate(startingPosition);
     //    }
     //}
-    public void ReturnSFX()
-    {
-        m_spineGameObjectAdran.SetActive(false);
-        m_returnFX.Play();
-    }
+
     private void OnAttackCollider()
     {
         m_AttackCollider.enabled = true;
@@ -117,15 +114,16 @@ public class SmallAdran : MonoBehaviour
     public void DeathVFX()
     {
         var instance1 = GameSystem.poolManager.GetPool<PoolableObjectPool>().
-            GetOrCreateItem(m_deathVfx, gameObject.scene);
-        var instance2 = GameSystem.poolManager.GetPool<PoolableObjectPool>().
-            GetOrCreateItem(m_deathParticleGoBackToAdran, gameObject.scene);
+            GetOrCreateItem(m_deathVfx, gameObject.scene); 
         instance1.SpawnAt(new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+        var instance2 = GameSystem.poolManager.GetPool<PoolableObjectPool>().
+           GetOrCreateItem(m_deathParticleGoBackToAdran, gameObject.scene);
         instance2.SpawnAt(new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
-        instance2.GetComponent<AdranReturnParticle>().StartReturn(AdranAI.AdranInstance);
         Destroy(gameObject);
+       
     }
     
+  
     public void InitializeField(SpineRootAnimation spineRoot)
     {
         m_spine = spineRoot;

@@ -16,6 +16,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Linq.Expressions;
+using JetBrains.Annotations;
+
 #if UNITY_EDITOR
 
 using UnityEditor.Experimental.GraphView;
@@ -281,7 +283,6 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private ParticleSystem m_goingToSmallAdranVFX;
     [SerializeField]
     private Transform m_returnVFXPoint;
-
     public Transform ReturnVFXPoint => m_returnVFXPoint;
     [TabGroup("Reference")]
     public HealthLevel m_healthLevel { get; private set; }
@@ -822,8 +823,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
     private IEnumerator HomingMissileAdranAttack()
     {
         m_stateHandle.Wait(State.ReevaluateSituation);
-        Pause();
-        
+        Pause();    
         yield return HomingMissileProjectile();
         m_attackDecider.hasDecidedOnAttack = false;
         m_stateHandle.ApplyQueuedState();
@@ -949,6 +949,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
 
         while (m_currentAdranCount > 0)
         {
+            Pause();
             yield return HomingMissilleAnimation();
             m_killedAdran = 0;
             m_adranReturned = 0;
@@ -1020,6 +1021,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
                 StartCoroutine(
                     GoToReachableXY(instance));
             }
+            Resume();
             //looping untill reached or killed
             while (m_killedAdran + m_adranReturned < spawnCount)
             {
@@ -1358,14 +1360,20 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         //hasReachedDropZone = true;
     }
     private Damage m_FakeDamage;
+
+   
+    public void DamageOutput()
+    {
+        m_FakeDamage.value = 1000;
+        GameplaySystem.combatManager.Damage(m_damageable, m_FakeDamage);
+        m_killedAdran++;
+    }
     private void SmallAdranGotDestroyed(object sender, Holysoft.Event.EventActionArgs eventArgs)
     {
         Debug.Log("Damage adran");
-        m_FakeDamage.value = 1000;
-        GameplaySystem.combatManager.Damage(m_damageable, m_FakeDamage);
         //DamageCheck();
         stopHomingMissile = true;
-        m_killedAdran++;
+        
     }
 
     private void DamageCheck()
@@ -1418,12 +1426,14 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
         //    m_flinchHandler.SetIdleAnimation(m_info.idleFive);
         //} 
         #endregion
-        m_flinchHandler.Flinch();
+       m_flinchHandler.Flinch();
 
 
     }
     [SerializeField]
     private Transform m_originalSpot;
+    [SerializeField]
+    private ParticleSystem m_returnSmallAdranVFX;
     private IEnumerator ReturningToSpawnPointSummonedAdran(PoolableObject instance)
     {
         while (true)
@@ -1473,8 +1483,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
             Debug.Log("Done?");
             m_adranReturned++;
             UnsubscribeEvents(instance);
-            instance.GetComponent<SmallAdran>().ReturnSFX();
-            yield return new WaitForSeconds(2f);
+            m_returnSmallAdranVFX.Play();
             Destroy(instance.gameObject);
             yield break;
         }// need kakson for the new design
@@ -1647,7 +1656,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
             m_hitboxCollider.radius = 6.85f;
             m_soulOrbSize.localScale = new Vector2(0.65f, 0.65f);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
     }//end of HomingMissileReturnAnimation()
     private IEnumerator HomingMissilleAnimation()
     {
@@ -1692,7 +1701,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
             m_goingToSmallAdranVFX.transform.localScale = new Vector2(0.9f, 0.9f);
             //  m_SummonVfxSize.transform.localScale = new Vector3(0.4f, 0.4f, m_SummonVfxSize.localScale.z);
         }
-        
+        yield return new WaitForSeconds(0.8f);
         //m_animation.SetAnimation(3, m_info.idle, true);
     }//end of HomingMissilleAnimation()
 
@@ -1724,7 +1733,7 @@ public class AdranAI : CombatAIBrain<AdranAI.Info>
             }
         }
 
-        Debug.Log("Current Health Level: " + m_healthLevel);
+       // Debug.Log("Current Health Level: " + m_healthLevel);
     }
 
     private void HorizontalMovement()

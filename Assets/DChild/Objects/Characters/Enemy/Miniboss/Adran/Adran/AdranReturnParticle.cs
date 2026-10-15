@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class AdranReturnParticle : MonoBehaviour
@@ -36,8 +37,16 @@ public class AdranReturnParticle : MonoBehaviour
     // ============================================================
     // RETURN
     // ============================================================
-
-    public void StartReturn(AdranAI target)
+    private void Start()
+    {
+        StartReturnToAdran();
+    }
+    public void StartReturnToAdran()
+    {
+        StartCoroutine(StartReturn(AdranAI.AdranInstance,
+            .8f));
+    }
+    public IEnumerator StartReturn(AdranAI target,float delaySpawn)
     {
         if (target == null)
         {
@@ -45,9 +54,12 @@ public class AdranReturnParticle : MonoBehaviour
                 $"{name}: Cannot return because Adran target is null."
             );
 
-            return;
+            yield return null;
         }
 
+
+        yield return new WaitForSeconds(delaySpawn);
+        
         m_target = target;
 
         // Remember where the particle started.
@@ -290,9 +302,11 @@ public class AdranReturnParticle : MonoBehaviour
 
     private void PlayFlinchAdran()
     {
+        AdranAI.AdranInstance.DamageOutput();
         if (m_isLeftSide)
         {
             AdranAI.AdranInstance.FlinchleftSide();
+           
         }
         else
         {
