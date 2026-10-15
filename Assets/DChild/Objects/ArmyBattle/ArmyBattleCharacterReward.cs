@@ -4,7 +4,9 @@ using DChild.Gameplay.Items;
 using DChild.Gameplay.Systems;
 using DChild.Gameplay.Trade;
 using Holysoft.Event;
+using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,17 +24,14 @@ namespace DChild.Gameplay.ArmyBattle
         PrimarySkill,
         SpecificRecruit,
         ArmySize,
+        QuestStatus,
+        QuestVariable,
         Other
     }
-
+    
     public class ArmyBattleCharacterReward : MonoBehaviour
     {
-       
-        //[TabGroup("Main","Reference")]
-        //[SerializeField, TabGroup("Main/Reference", "General References")]
-        //private SpriteRenderer m_Graphics;
-        //[SerializeField, TabGroup("Main/Reference", "General References")]
-        //private Vector3 m_promptOffset;
+        #region   
         [SerializeField, TabGroup("Main/Reference", "General References")]
         private CharacterGiver m_CharacterGiver;
 
@@ -69,12 +68,47 @@ namespace DChild.Gameplay.ArmyBattle
         [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.ArmySize)]
             private int neededNPCsRecruited;
 
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.QuestStatus), QuestPopup(true)]
+            private string m_Quest;
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.QuestStatus)]
+        private QuestState m_QuestStateNeeded = QuestState.Success;
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.QuestStatus), Tooltip("The Quest NEEDS to be in this state to count")]
+            public bool m_TrackSubQuest;
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.QuestStatus), ShowIf("m_TrackSubQuest"), QuestEntryPopup]
+            private int m_QuestEntry;
+
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.QuestVariable)]
+            private DialogueDatabase database;
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.QuestVariable), ValueDropdown("GetVariables", IsUniqueList = true, SortDropdownItems = true)]
+            private string m_Variable;
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.QuestVariable)]
+            private bool m_ValueIsNumber = true;
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.QuestVariable)]
+            private bool m_BooleanValue;
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.QuestVariable)]
+            private float m_Value;
+
         private bool m_OtherConditions;
 
         private bool m_RequirementAchieved;
 
         public event EventAction<EventActionArgs> InteractionOptionChange;
+        #endregion
 
+        [Button]
+        public void ClearValues()
+        {
+            m_requiredSoulEssence = 0;
+            m_hasItem = null;
+            Array.Clear(armyCharacterData,0, armyCharacterData.Length);
+            neededNPCsRecruited = 0;
+            m_Quest = null;
+            database = null;
+            m_Variable = null;
+            m_Value = 0;
+            m_Requirement = RequirementType.SoulEssence;
+
+        }
         public void SendRecruitmentConfirmationUI()
         {
             CharacterRecruitmentUI ui = GameplaySystem.gamplayUIHandle.ConfirmationRequest();
@@ -159,6 +193,14 @@ namespace DChild.Gameplay.ArmyBattle
 
                     case RequirementType.ArmySize:
                         ui.AddArmySizeReq(neededNPCsRecruited);
+                        break;
+
+                    case RequirementType.QuestStatus:
+                        ui.AddAdditionalText("Complete Quest:"+m_Quest);
+                        break;
+
+                    case RequirementType.QuestVariable:
+                        ui.AddAdditionalText("Army Battle Wins:"+m_Value);
                         break;
                 }
                 
@@ -255,7 +297,6 @@ namespace DChild.Gameplay.ArmyBattle
                         }
                                          
                     }
-                        
                     break;
 
                 case RequirementType.CombatArt:
@@ -288,6 +329,39 @@ namespace DChild.Gameplay.ArmyBattle
                     if (GameplaySystem.playerManager.armyBattleCharacterRecruiter.ArmySize() < neededNPCsRecruited)
                         return false;
                     break;
+
+                case RequirementType.QuestStatus:
+                    if (m_TrackSubQuest)
+                    { 
+                        if(QuestLog.GetQuestEntryState(m_Quest,m_QuestEntry) != m_QuestStateNeeded)
+                        {
+                            return false;
+                        }
+                    }else
+                    {
+                        if (QuestLog.GetQuestState(m_Quest) != m_QuestStateNeeded)
+                        {
+                            return false;
+                        }
+                    }
+                    break;
+
+                case RequirementType.QuestVariable:
+                    if(m_ValueIsNumber)
+                    {
+                        if(DialogueLua.GetVariable(m_Variable).asFloat < m_Value)
+                        {
+                            return false;
+                        }
+                    }else
+                    {
+                        if(DialogueLua.GetVariable(m_Variable).asBool != m_BooleanValue)
+                        {
+                            return false;
+                        }
+                    }
+                    
+                    break;
                 default:
                     break;
             }
@@ -301,41 +375,6 @@ namespace DChild.Gameplay.ArmyBattle
             m_RequirementFailed?.Invoke();
         }
 
-        /*
-        private string ConstructRequirement()
-        {
-            string m_RequirementsText = m_CharacterReward[0].name;
-            if (!m_isFree&&m_TakeRequiredItemFromInvintory)
-            {
-                m_RequirementsText += "\nRequirements:";
-                if(m_requiresSoulEssence)
-                {
-                    m_RequirementsText += "\n•<color=yellow>" + m_requiredSoulEssence + "</color> Soul Essence";
-                }
-                if(m_requiresItem)
-                {
-                    m_RequirementsText += "\n•" + m_ItemAmount.ToString()+ " <color=yellow>" + m_hasItem.itemName+ "</color>";
-                }
-                if(m_requiresPrimarySkill)
-                {
-                    m_RequirementsText += "\n•Aquired:"+ m_PrimarySkill.ToString();
-                }
-                if(m_requiresCombatArt)
-                {
-                    m_RequirementsText += "\n•Learned:" + m_CombatArt.ToString();
-                }
-                if(m_requiresSpecificNPC)
-                {
-                    m_RequirementsText += "\n•Recruited:" + armyCharacterData.name;
-                }
-                if(m_requiresMinimumNPCsRecruited)
-                {
-                    m_RequirementsText += "\n•Has " + neededNPCsRecruited + " recruited";
-                }
-            }
-            m_RequirementsText += "\n Accept?";
-            return m_RequirementsText;
-        }*/
         [Button]
         public void GiveRewardNow()
         {
@@ -348,6 +387,17 @@ namespace DChild.Gameplay.ArmyBattle
         private void OnDecline(object sender, EventActionArgs eventActionArgs)
         {
 
+        }
+        private IEnumerable GetVariables()
+        {
+            ValueDropdownList<string> list = new ValueDropdownList<string>();
+
+            foreach (var variable in database.variables)
+            {
+                list.Add(variable.Name.ToString());
+            }
+
+            return list;
         }
 
     }
