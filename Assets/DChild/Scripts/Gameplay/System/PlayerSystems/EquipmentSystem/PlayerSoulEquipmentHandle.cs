@@ -54,9 +54,9 @@ namespace DChild.Gameplay.EquipmentSystem
         private Dictionary<SoulSlot, SoulEquipmentItem> m_equippedSoulSlotEquipmentPair = new Dictionary<SoulSlot, SoulEquipmentItem>();
 
         [SerializeField]
-        private List<LeveledEquipment> m_acquiredSoulEquipment = new List<LeveledEquipment>();
+        private List<LeveledEquipment> m_acquiredSoulEquipment;
 
-        private List<LeveledEquipment> m_eqiuppedItems = new List<LeveledEquipment>();
+        private List<LeveledEquipment> m_eqiuppedItems;
 
         private void OnEnable()
         {
@@ -142,7 +142,6 @@ namespace DChild.Gameplay.EquipmentSystem
                 m_equippedSoulSlotEquipmentPair.Clear();
                 m_acquiredSoulEquipment.Clear();
                 m_eqiuppedItems.Clear();
-
                 Dictionary<int, LeveledEquipment> equipmentIDPair = new Dictionary<int, LeveledEquipment>();
 
                 for (int i = 0; i < data.acquiredEquipmentID.Length; i++)
@@ -165,6 +164,9 @@ namespace DChild.Gameplay.EquipmentSystem
                     }
                 }
             }
+
+            //Debug Only
+            DebugAcquireAllEquipment(m_data);
         }
 
         public PlayerSoulEquipmentData SaveData()
@@ -218,12 +220,15 @@ namespace DChild.Gameplay.EquipmentSystem
                 }
             }
 
-            //Logic for setting soul skill as activated when equipped
-            foreach (SoulSkill soulSkill in equipment.soulSkillList)
+            if(equipment.soulSkillList != null)
             {
-                m_soulSkillHandle.AddAsActivated(soulSkill, false);
+                //Logic for setting soul skill as activated when equipped
+                foreach (SoulSkill soulSkill in equipment.soulSkillList)
+                {
+                    m_soulSkillHandle.AddAsActivated(soulSkill, false);
+                }
             }
-
+        
             foreach(IEquipmentStatBoostModule statBoost in equipment.statBoostList)
             {
                 statBoost.AttachTo(m_player);
@@ -265,9 +270,14 @@ namespace DChild.Gameplay.EquipmentSystem
             m_equippedSoulSlotEquipmentPair.Remove(equipment.Slot);
             m_eqiuppedItems.RemoveAll(item => item.item == soulEquipment);
 
-            foreach (SoulSkill soulSkill in equipment.soulSkillList)
+            // check if equiped item has soulskill
+            if(soulEquipment.soulEquipment.soulSkillList != null)
             {
-                m_soulSkillHandle.RemoveAsActivated(soulSkill, false);
+                foreach (SoulSkill soulSkill in equipment.soulSkillList)
+                {
+                    m_soulSkillHandle.RemoveAsActivated(soulSkill, false);
+                }
+
             }
 
 
@@ -286,12 +296,33 @@ namespace DChild.Gameplay.EquipmentSystem
 
             var equipment = soulEquipment.soulEquipment;
             m_acquiredSoulEquipment.Add(leveledItem);
-            //Logic to set soul skills in acquired equipment as activated
-            foreach (SoulSkill soulSkill in equipment.soulSkillList)
+            //check whether eqquipment has a soulskill
+            if(equipment.soulSkillList != null)
             {
-                m_soulSkillHandle.AddAsAcquired(soulSkill.id);
-                m_soulSkillHandle.SetActivationRestriction(soulSkill.id, false);
+                //Logic to set soul skills in acquired equipment as activated
+                foreach (SoulSkill soulSkill in equipment.soulSkillList)
+                {
+                    m_soulSkillHandle.AddAsAcquired(soulSkill.id);
+                    m_soulSkillHandle.SetActivationRestriction(soulSkill.id, false);
+                }
             }
+         
+        }
+
+        [Button]
+        public void DebugAcquireAllEquipment(SoulEquipmentList soulEquipmentList)
+        {
+            
+            int[] ids = soulEquipmentList.GetIDs();
+            for (int x = 0; x < ids.Length; x++)
+            {
+                AddAcquiredSoulEquipmentItem(soulEquipmentList.GetInfo(ids[x]));
+            }
+
+            //foreach (int equipment in ids)
+            //{
+            //    AddAcquiredSoulEquipmentItem(m_data.GetInfo(equipment));
+            //}
         }
 
         public List<LeveledEquipment> GetAcquiredSoulEquipment()
@@ -307,6 +338,14 @@ namespace DChild.Gameplay.EquipmentSystem
         public bool TryGetEquippedSoulEquipment(SoulSlot slot, out SoulEquipmentItem equipmentItem)
         {
             return m_equippedSoulSlotEquipmentPair.TryGetValue(slot, out equipmentItem);
+        }
+        public void Initialize()
+        {
+            //initialize equipment for debugging
+            //remove on final iteration of script
+            m_acquiredSoulEquipment = new List<LeveledEquipment>();
+            m_eqiuppedItems = new List<LeveledEquipment>();
+            DebugAcquireAllEquipment(GetFullSoulEquipmentList());
         }
     }
 }
