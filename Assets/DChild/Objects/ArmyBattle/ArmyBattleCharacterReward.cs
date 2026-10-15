@@ -4,6 +4,7 @@ using DChild.Gameplay.Items;
 using DChild.Gameplay.Systems;
 using DChild.Gameplay.Trade;
 using Holysoft.Event;
+using PixelCrushers.DialogueSystem;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace DChild.Gameplay.ArmyBattle
         PrimarySkill,
         SpecificRecruit,
         ArmySize,
+        QuestStatus,
         Other
     }
 
@@ -68,6 +70,15 @@ namespace DChild.Gameplay.ArmyBattle
 
         [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.ArmySize)]
             private int neededNPCsRecruited;
+
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.QuestStatus), QuestPopup(true)]
+            private string m_Quest;
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.QuestStatus)]
+        private QuestState m_QuestStateNeeded = QuestState.Success;
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.QuestStatus), Tooltip("The Quest NEEDS to be in this state to count")]
+            public bool m_TrackSubQuest;
+        [SerializeField, TabGroup("Main", "Requirements"), HideIf("m_isFree"), ShowIf("m_Requirement", RequirementType.QuestStatus), ShowIf("m_TrackSubQuest"), QuestEntryPopup]
+            private int m_QuestEntry;
 
         private bool m_OtherConditions;
 
@@ -255,7 +266,6 @@ namespace DChild.Gameplay.ArmyBattle
                         }
                                          
                     }
-                        
                     break;
 
                 case RequirementType.CombatArt:
@@ -287,6 +297,22 @@ namespace DChild.Gameplay.ArmyBattle
                 case RequirementType.ArmySize:
                     if (GameplaySystem.playerManager.armyBattleCharacterRecruiter.ArmySize() < neededNPCsRecruited)
                         return false;
+                    break;
+
+                case RequirementType.QuestStatus:
+                    if (m_TrackSubQuest)
+                    { 
+                        if(QuestLog.GetQuestEntryState(m_Quest,m_QuestEntry) != m_QuestStateNeeded)
+                        {
+                            return false;
+                        }
+                    }else
+                    {
+                        if (QuestLog.GetQuestState(m_Quest) != m_QuestStateNeeded)
+                        {
+                            return false;
+                        }
+                    }
                     break;
                 default:
                     break;
