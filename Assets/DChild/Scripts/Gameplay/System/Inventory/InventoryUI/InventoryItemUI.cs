@@ -12,6 +12,7 @@ namespace DChild.Gameplay.Inventories.UI
         private UIToggle m_toggle;
 
         [SerializeField] private UISelectableUIAnimator m_detailsAnimator;
+        [SerializeField] private UIToggle m_questFilter;
 
         [SerializeField] private Image m_backgroundFrame;
         [SerializeField] private bool m_isQuickItem;
@@ -42,7 +43,22 @@ namespace DChild.Gameplay.Inventories.UI
 
         public override void Show()
         {
+            // A refresh must not temporarily enable Quick slots under Quest.
+            if (m_isQuickItem && m_questFilter != null && m_questFilter.IsOn)
+            {
+                m_toggle.interactable = false;
+                return;
+            }
+
+            bool wasDisabled = !m_toggle.interactable ||
+                m_toggle.currentUISelectionState == UISelectionState.Disabled;
             m_toggle.interactable = true;
+            if (!wasDisabled)
+                return;
+
+            var state = m_toggle.IsOn ? UISelectionState.Selected : UISelectionState.Normal;
+            m_toggle.SetState(state);
+            CompleteDetailsAnimation(state);
         }
 
         protected override void ShowDetailsOf(IStoredItem reference)
@@ -65,11 +81,16 @@ namespace DChild.Gameplay.Inventories.UI
 
         private void CompleteDisabledAnimation()
         {
-            if (!m_detailsAnimator.IsStateEnabled(UISelectionState.Disabled))
+            CompleteDetailsAnimation(UISelectionState.Disabled);
+        }
+
+        private void CompleteDetailsAnimation(UISelectionState state)
+        {
+            if (m_detailsAnimator == null || !m_detailsAnimator.IsStateEnabled(state))
                 return;
 
             m_detailsAnimator.StopAllReactions();
-            m_detailsAnimator.disabledAnimation.SetProgressAtOne();
+            m_detailsAnimator.GetAnimation(state).SetProgressAtOne();
         }
     }
 }

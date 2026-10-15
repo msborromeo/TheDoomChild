@@ -71,6 +71,28 @@ namespace DChild.Gameplay.Inventories.UI
             return null;
         }
 
+        public InventoryItemUI FindFirstOccupiedSlot()
+        {
+            foreach (var itemUI in m_itemUIs)
+            {
+                if (itemUI.reference != null)
+                    return itemUI as InventoryItemUI;
+            }
+            return null;
+        }
+
+        public InventoryItemUI FindFirstInteractableOccupiedSlot()
+        {
+            foreach (var itemUI in m_itemUIs)
+            {
+                if (itemUI.reference != null && itemUI.gameObject.activeInHierarchy &&
+                    itemUI.GetComponent<Selectable>().IsInteractable())
+                    return itemUI as InventoryItemUI;
+            }
+
+            return null;
+        }
+
         public InventoryItemUI FindNearestOccupiedSlot(InventoryItemUI origin)
         {
             var originIndex = System.Array.IndexOf(m_itemUIs, origin);
@@ -118,9 +140,8 @@ namespace DChild.Gameplay.Inventories.UI
 
             var toggle = itemUI.GetComponent<UIToggle>();
 
-            // Reset state only if it's not in a persistent state (Selected/Disabled)
-            if (toggle.currentUISelectionState != UISelectionState.Selected &&
-                toggle.currentUISelectionState != UISelectionState.Disabled)
+            // A populated slot must not retain the empty slot's disabled state.
+            if (toggle.currentUISelectionState != UISelectionState.Selected)
             {
                 toggle.SetState(UISelectionState.Normal);
             }

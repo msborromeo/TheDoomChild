@@ -22,6 +22,8 @@ namespace DChild.Gameplay.Inventories.UI
         private UsableItemData m_item;
 
         private bool m_isQuickItem;
+        private bool m_isUsing;
+        private int m_lastUseFrame = -1;
 
         public event Action<ItemData, bool, int> OnItemCountReduced;
         public event Action<IStoredItem> ItemConsumed;
@@ -42,7 +44,12 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void UseItemFromInventory(UsableItemData item)
         {
-            if (m_isQuickItem)
+            RemoveItem(item, m_isQuickItem);
+        }
+
+        private void RemoveItem(UsableItemData item, bool isQuickItem)
+        {
+            if (isQuickItem)
             {
                 m_quickInventory.RemoveItem(item);
                 return;
@@ -53,24 +60,45 @@ namespace DChild.Gameplay.Inventories.UI
 
         public void HandleUsageOfItem(ItemData itemData, bool isQuickItem)
         {
-            m_item = (UsableItemData)itemData;
+            m_item = itemData as UsableItemData;
             m_isQuickItem = isQuickItem;
+            RefreshAvailability();
         }
 
         public void UseItemOnPlayer()
         {
-            if (m_item.CanBeUse(m_player))
+            // Submit can also trigger PointerLeftClick in Doozy. Consume once
+            // per activation, even if both configured callbacks run this frame.
+            if (m_isUsing || m_lastUseFrame == Time.frameCount)
+                return;
+
+            var item = m_item;
+            bool isQuickItem = m_isQuickItem;
+            var storedItem = GetStoredItem(item, isQuickItem);
+            if (item == null || storedItem == null || storedItem.count <= 0 || !item.CanBeUse(m_player))
             {
-                m_item.Use(m_player);
-                ItemUsed?.Invoke(m_item.itemName);
+                RefreshAvailability();
+                return;
+            }
+
+            m_isUsing = true;
+            m_lastUseFrame = Time.frameCount;
+            try
+            {
+                item.Use(m_player);
+                ItemUsed?.Invoke(item.itemName);
                 if (m_removeItemCountOnConsume)
                 {
-                    UseItemFromInventory(m_item);
-                    //m_inventory.RemoveItem(m_item);
-                    var remainingCount = GetCurrentAmount();
-                    OnItemCountReduced?.Invoke(m_item, m_isQuickItem, remainingCount);
-                    ItemConsumed?.Invoke((IStoredItem)m_item);
+                    RemoveItem(item, isQuickItem);
+                    int remainingCount = GetStoredItem(item, isQuickItem)?.count ?? 0;
+                    OnItemCountReduced?.Invoke(item, isQuickItem, remainingCount);
+                    ItemConsumed?.Invoke(storedItem);
                 }
+                RefreshAvailability();
+            }
+            finally
+            {
+                m_isUsing = false;
             }
         }
 
@@ -88,12 +116,18 @@ namespace DChild.Gameplay.Inventories.UI
             return target != null && target == m_useItemButton.gameObject;
         }
 
-        private int GetCurrentAmount()
+        private IStoredItem GetStoredItem(UsableItemData item, bool isQuickItem)
         {
-            if (m_isQuickItem)
-                return m_quickInventory.GetItem(m_item)?.count ?? 0;
+            if (item == null)
+                return null;
+            return isQuickItem ? m_quickInventory.GetItem(item) : m_inventory.GetItem(item);
+        }
 
-            return m_inventory.GetCurrentAmount(m_item);
+        public void RefreshAvailability()
+        {
+            var storedItem = GetStoredItem(m_item, m_isQuickItem);
+            m_useItemButton.interactable = storedItem != null && storedItem.count > 0 &&
+                m_item.CanBeUse(m_player);
         }
 
         private void Awake()
