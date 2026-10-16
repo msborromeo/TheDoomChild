@@ -49,6 +49,8 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         private Hitbox m_hitbox;
         [SerializeField, BoxGroup("FX")]
         private Animator m_barrierFX;
+        [SerializeField]
+        private GameObject m_barrierHitbox;
         //[SerializeField, BoxGroup("FX")]
         //private MaterialReplacementExample m_materialReplacement;
 
@@ -117,7 +119,8 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_state.canAttack = false;
             m_animator.SetBool(m_animationParameter, true);
             m_animator.SetBool(m_barrierStateAnimationParameter, true);
-            m_damageable.SetInvulnerability(Invulnerability.Level_2);
+            m_barrierHitbox.SetActive(true);
+            //m_damageable.SetInvulnerability(Invulnerability.Level_2);
             m_barrierMovementCooldownTimer = m_barrierMovementCooldown;
             m_isDoingBarrier = true;
             //m_attacker.SetDamageModifier(m_slashComboInfo[m_currentSlashState].damageModifier * m_modifier.Get(PlayerModifier.AttackDamage));
@@ -129,7 +132,8 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_state.waitForBehaviour = false;
             m_state.isAttacking = false;
             m_barrierFX.SetBool("BarrierIsOn", false);
-            m_damageable.SetInvulnerability(Invulnerability.None);
+            m_barrierHitbox.SetActive(false);
+            //m_damageable.SetInvulnerability(Invulnerability.None);
             //m_materialReplacement.replacementEnabled = false;
             m_isDoingBarrier = false;
             m_animator.SetBool(m_barrierStateAnimationParameter, false);
@@ -153,7 +157,8 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             //m_barrierInfo.ShowCollider(false);
 
             m_barrierFX.SetBool("BarrierIsOn", false);
-            m_damageable.SetInvulnerability(Invulnerability.None);
+            m_barrierHitbox.SetActive(false);
+            //m_damageable.SetInvulnerability(Invulnerability.None);
             //m_materialReplacement.replacementEnabled = false;
             m_isDoingBarrier = false;
             m_animator.SetBool(m_barrierStateAnimationParameter, false);
@@ -173,12 +178,16 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             if (value)
             {
                 m_barrierFX.SetBool("BarrierIsOn", true);
+                m_barrierHitbox.SetActive(true);
+                //m_damageable.SetInvulnerability(Invulnerability.Level_2);
                 //m_materialReplacement.replacementEnabled = true;
                 m_isDoingBarrier = true;
             }
             else
             {
                 m_barrierFX.SetBool("BarrierIsOn", false);
+                m_barrierHitbox.SetActive(false);
+                //m_damageable.SetInvulnerability(Invulnerability.None);
                 //m_materialReplacement.replacementEnabled = false;
                 m_isDoingBarrier = false;
             }
