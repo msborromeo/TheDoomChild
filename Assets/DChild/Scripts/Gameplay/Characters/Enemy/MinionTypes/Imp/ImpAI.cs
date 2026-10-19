@@ -145,6 +145,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private Collider2D m_bodyCollider;
         [SerializeField, TabGroup("Reference")]
         private Hitbox m_hitbox;
+        [SerializeField, TabGroup("Reference")]
+        private RaySensor m_roofSensor;
         [SerializeField, TabGroup("Modules")]
         private TransformTurnHandle m_turnHandle;
         [SerializeField, TabGroup("Modules")]
@@ -368,6 +370,12 @@ namespace DChild.Gameplay.Characters.Enemies
                (UnityEngine.Random.value - 0.5f) * m_randomSpawnCollider.bounds.size.y,
                (UnityEngine.Random.value - 0.5f) * m_randomSpawnCollider.bounds.size.z);
             }
+
+            do
+            {
+                m_agent.MoveTowardsForced(m_targetInfo.position - (Vector2)transform.position, 120); 
+            } while (m_roofSensor.isDetecting);
+
             return randomPos;
         }
 
