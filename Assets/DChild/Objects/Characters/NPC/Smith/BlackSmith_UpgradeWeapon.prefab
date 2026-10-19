@@ -590,7 +590,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 98
+  m_SortingOrder: 123
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &799370249785652945
 MonoBehaviour:
@@ -931,6 +931,7 @@ GameObject:
   - component: {fileID: 3817415898390254862}
   - component: {fileID: 5851844687026717975}
   - component: {fileID: 8090541215332373073}
+  - component: {fileID: 1552072314}
   m_Layer: 11
   m_Name: BlackSmith_UpgradeWeapon
   m_TagString: Character
@@ -1036,7 +1037,7 @@ MonoBehaviour:
   m_InitalAttackUp: 5
   m_UpgradeValueIncrease: 5
   m_BrokenSwordData: {fileID: 11400000, guid: 3501f3bbb3e16964ba79d19d9a41b16d, type: 2}
-  m_promptOffset: {x: -2, y: 20, z: 0}
+  m_promptOffset: {x: 0, y: -8, z: 0}
   m_hasDialogue: 1
   m_Upgradefinished:
     m_PersistentCalls:
@@ -1045,6 +1046,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: PixelCrushers.DialogueSystem.DialogueSystemTrigger,
           Assembly-CSharp-firstpass
         m_MethodName: OnUse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1552072314}
+        m_TargetAssemblyTypeName: Holysoft.DelayedEvent, HolysoftEditor
+        m_MethodName: StartEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1070,6 +1083,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1552072314}
+        m_TargetAssemblyTypeName: Holysoft.DelayedEvent, HolysoftEditor
+        m_MethodName: StartEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_MaxUpgrade:
     m_PersistentCalls:
       m_Calls:
@@ -1077,6 +1102,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: PixelCrushers.DialogueSystem.DialogueSystemTrigger,
           Assembly-CSharp-firstpass
         m_MethodName: OnUse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1552072314}
+        m_TargetAssemblyTypeName: Holysoft.DelayedEvent, HolysoftEditor
+        m_MethodName: StartEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1102,13 +1139,25 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1552072314}
+        m_TargetAssemblyTypeName: Holysoft.DelayedEvent, HolysoftEditor
+        m_MethodName: StartEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_Refuse:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6121708096688927695}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
+      - m_Target: {fileID: 1552072314}
+        m_TargetAssemblyTypeName: Holysoft.DelayedEvent, HolysoftEditor
+        m_MethodName: StartEvent
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1263,7 +1312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6546d1f34e0077748a93d4c356aa9411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  addTrigger: 16
+  addTrigger: 64
   removeTrigger: 1024
   databases:
   - {fileID: 11400000, guid: a411fa01fa740d34f8fbe5a8a46619b4, type: 2}
@@ -1276,6 +1325,36 @@ MonoBehaviour:
     lastEvaluationValue: 0
   once: 0
   onePerFrame: 0
+--- !u!114 &1552072314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8890114116828458437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b27a2c9621250448b4c59cc696a2970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_delay:
+    m_startTime: 4
+  m_startOnAwake: 0
+  m_event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6121708096688927695}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &9027266404354098514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,7 +1394,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9027266404354098514}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
   m_Name: 
