@@ -46,7 +46,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         [SerializeField, BoxGroup("Physics")]
         private Rigidbody2D m_physics;
         [SerializeField]
-        private Hitbox m_hitbox;
+        private GameObject m_hitbox;
         [SerializeField, BoxGroup("FX")]
         private Animator m_barrierFX;
         [SerializeField]
@@ -163,7 +163,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_isDoingBarrier = false;
             m_animator.SetBool(m_barrierStateAnimationParameter, false);
             m_state.isExecutingCombatArt = false;
-            m_hitbox.SetCanBlockDamageState(false);
+            m_hitbox.SetActive(true);
             base.Cancel();
         }
 
@@ -174,7 +174,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_attackFX.transform.position = m_barrierInfo.fxPosition.position;
             m_physics.velocity = Vector2.zero;
 
-            m_hitbox.SetCanBlockDamageState(value);
+            m_hitbox.SetActive(!value);
             if (value)
             {
                 m_barrierFX.SetBool("BarrierIsOn", true);
