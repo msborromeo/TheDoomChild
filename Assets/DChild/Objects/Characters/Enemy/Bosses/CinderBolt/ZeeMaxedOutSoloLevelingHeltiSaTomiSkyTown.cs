@@ -1,5 +1,12 @@
+using DChild.Gameplay;
 using DChild.Gameplay.Characters.Players;
+using DChild.Gameplay.Characters.Players.SoulSkills;
 using DChild.Gameplay.Combat;
+using DChild.Gameplay.Items;
+using DChild.Gameplay.SoulSkills;
+using DChild.Gameplay.SoulSkills.UI;
+using DChildDebug;
+using DChildDebug.Window;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,12 +15,15 @@ using UnityEngine;
 
 public class ZeeMaxedOutSoloLevelingHeltiSaTomiSkyTown : MonoBehaviour
 {
+    private Player m_zee;
     private BasicHealth m_zeeHealth;
     private Magic m_shadowGauge;
     private PlayerSkills m_skills;
     private CombatArts m_combatSkills;
     private List<CombatArt> m_allCombatSkills = new List<CombatArt>();
     private PrimarySkill m_listOfSkills = PrimarySkill.All;
+    [SerializeField]
+    private SoulSkill[] m_soulSkills;
 
     private enum ListOfCombatArt
     {
@@ -39,8 +49,10 @@ public class ZeeMaxedOutSoloLevelingHeltiSaTomiSkyTown : MonoBehaviour
         m_combatSkills = playerSkills.GetComponentInChildren<CombatArts>();
         var zeeHealth = GameObject.Find("Zee").GetComponentInChildren<BasicHealth>();
         var zeeGauge = GameObject.Find("Zee").GetComponentInChildren<Magic>();
+        var zee = GameObject.Find("Player").GetComponentInChildren<Player>();
         m_zeeHealth = zeeHealth;
         m_shadowGauge = zeeGauge;
+        m_zee = zee;
     }
     private void Start()
     {
@@ -48,8 +60,20 @@ public class ZeeMaxedOutSoloLevelingHeltiSaTomiSkyTown : MonoBehaviour
         InitializeCombatArts();
         for (int i = 0; i < m_allCombatSkills.Count; i++)
         {
-            m_combatSkills.SetAbilityLevel(m_allCombatSkills[i], 200);
+            m_combatSkills.SetAbilityLevel(m_allCombatSkills[i], 2);
         }
+        //var handle = GameplaySystem.playerManager.player.soulSkills;
+
+        /*foreach (var skill in m_soulSkills)
+        {
+            if (skill == null)
+                continue;
+
+            skill.SetFullyLearned(true);
+
+            if (!m_zee.soulSkills.HasAcquired(skill))
+                m_zee.soulSkills.AddAsAcquired(skill.id);
+        }*/
         StartCoroutine(SetZeeHealthWithDelay());
         StartCoroutine(SetZeeGaugeWithDelay());
     }
