@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Doozy.Runtime.UIManager;
 using Doozy.Runtime.UIManager.Components;
 using Doozy.Runtime.UIManager.Containers;
 using Doozy.Runtime.UIManager.Input;
@@ -14,7 +15,7 @@ using UnityEngine.UI;
 
 namespace DChild.Menu.Extras
 {
-    [DisallowMultipleComponent, RequireComponent(typeof(UIView))]
+    [DisallowMultipleComponent, RequireComponent(typeof(UIView), typeof(ExtrasTabVisualReset))]
     public class ExtrasNavigationController : MonoBehaviour
     {
         [Serializable]
@@ -33,6 +34,7 @@ namespace DChild.Menu.Extras
         [SerializeField] private ExtrasImageShowcase m_showcase;
         private readonly Dictionary<Selectable, bool> m_blocked = new Dictionary<Selectable, bool>();
         private UIView m_view;
+        private ExtrasTabVisualReset m_visualReset;
         private EventSystem m_eventSystem;
         private InputSystemUIInputModule m_input;
         private Selectable m_viewerFocus;
@@ -44,6 +46,7 @@ namespace DChild.Menu.Extras
         private bool m_session;
         private bool m_inContent;
         private bool m_ready;
+        private bool m_tabsPrepared;
         private bool m_backBlocked;
         private Coroutine m_releaseBack;
         private UIContainer m_restoreContainer;
@@ -56,6 +59,7 @@ namespace DChild.Menu.Extras
         private void Awake()
         {
             m_view = GetComponent<UIView>();
+            m_visualReset = GetComponent<ExtrasTabVisualReset>();
             foreach (var category in m_categories) AddTarget(category.tab);
             if (m_showcase != null)
             {
@@ -68,7 +72,7 @@ namespace DChild.Menu.Extras
 
         private void OnEnable()
         {
-            m_view.OnShowCallback.Event.AddListener(BeginSession);
+            m_view.OnShowCallback.Event.AddListener(PrepareTabs);
             m_view.OnVisibleCallback.Event.AddListener(ResetTabs);
             m_view.OnHideCallback.Event.AddListener(StopNavigation);
             m_view.OnHiddenCallback.Event.AddListener(EndSession);
@@ -77,12 +81,12 @@ namespace DChild.Menu.Extras
                 m_showcase.Opened += OpenViewer;
                 m_showcase.Closed += CloseViewer;
             }
-            if (!m_view.isHidden && !m_view.isHiding) BeginSession();
+            if (!m_view.isHidden && !m_view.isHiding) PrepareTabs();
         }
 
         private void OnDisable()
         {
-            m_view.OnShowCallback.Event.RemoveListener(BeginSession);
+            m_view.OnShowCallback.Event.RemoveListener(PrepareTabs);
             m_view.OnVisibleCallback.Event.RemoveListener(ResetTabs);
             m_view.OnHideCallback.Event.RemoveListener(StopNavigation);
             m_view.OnHiddenCallback.Event.RemoveListener(EndSession);
@@ -119,34 +123,63 @@ namespace DChild.Menu.Extras
             if (m_input != null && m_input.cancel != null) m_input.cancel.action.performed += OnCancel;
         }
 
-        private void ResetTabs()
+        private void PrepareTabs()
         {
             BeginSession();
-            if (!m_session || m_categories.Length == 0) return;
+            if (!m_session || m_categories.Length == 0 || m_tabsPrepared) return;
+            m_tabsPrepared = true;
+            m_ready = false;
+            m_inContent = false;
+            m_enterFrame = -1;
             if (m_showcase != null) m_showcase.Close();
+            RestoreInteraction();
+            if (m_eventSystem.currentSelectedGameObject != null &&
+                m_eventSystem.currentSelectedGameObject.transform.IsChildOf(transform))
+                m_eventSystem.SetSelectedGameObject(null);
             foreach (var category in m_categories)
                 if (category.tab != null) category.tab.AddToToggleGroup(category.tab.toggleGroup);
             m_category = 0;
+            if (m_categories[0].tab != null)
+                m_categories[0].tab.SetIsOn(true, animateChange: false, triggerValueChanged: false);
+            foreach (var category in m_categories)
+            {
+                if (category.tab == null) continue;
+                category.tab.SetState(UISelectionState.Normal);
+            }
+            m_visualReset.BeginReset();
+        }
+
+        private void ResetTabs()
+        {
+            if (!m_tabsPrepared) PrepareTabs();
+            if (!m_session || m_categories.Length == 0 || m_ready) return;
+            if (!m_visualReset.TryCompleteReset()) return;
+            m_category = 0;
+            // Notify the flow only after its listeners can receive the default category signal.
+            if (m_categories[0].tab != null)
+                m_categories[0].tab.SetIsOn(true, animateChange: false, triggerValueChanged: true);
             m_ready = true;
             Canvas.ForceUpdateCanvases();
             RefreshContent();
-            FocusTab(true);
+            FocusTab();
         }
 
-        private void FocusTab(bool notify = false)
+        private void FocusTab()
         {
             m_inContent = false;
             m_enterFrame = -1;
             if (m_categories.Length == 0) return;
             var tab = m_categories[m_category].tab;
             if (!Available(tab)) return;
-            if (notify || !tab.isOn) tab.SetIsOn(true);
+            if (!tab.isOn) tab.SetIsOn(true);
             tab.Select();
         }
 
         private void StopNavigation()
         {
             m_ready = false;
+            m_tabsPrepared = false;
+            m_visualReset.CancelReset();
             m_enterFrame = -1;
             if (m_showcase != null) m_showcase.Close();
             RestoreInteraction();
@@ -365,9 +398,10 @@ namespace DChild.Menu.Extras
 
         private void LateUpdate()
         {
-            if (!m_session && !m_view.isHidden && !m_view.isHiding) BeginSession();
+            if (!m_session && !m_view.isHidden && !m_view.isHiding) PrepareTabs();
             if (!m_session || !m_view.isVisible || HasPopup) return;
             if (!m_ready) ResetTabs();
+            if (!m_ready) return;
             if (m_categories.Length == 0) return;
             if (ViewerOpen)
             {
