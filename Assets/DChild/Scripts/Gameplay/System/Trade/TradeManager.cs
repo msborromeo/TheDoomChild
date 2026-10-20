@@ -198,8 +198,11 @@ namespace DChild.Gameplay.Trade
             if (item == null)
                 return;
 
-            var ownedItem = m_tradeHandle.currentBuyer.GetTradeItem(item.data);
-            m_itemBeingTradedUI.SetOwnedCount(ownedItem?.count ?? 0);
+            var buyer = m_tradeHandle.currentBuyer;
+            var ownedCount = buyer is PlayerInventory playerInventory
+                ? playerInventory.GetOwnedItemCount(item.data)
+                : buyer.GetTradeItem(item.data)?.count ?? 0;
+            m_itemBeingTradedUI.SetOwnedCount(ownedCount);
         }
 
         private void OnCycleSubTab(InputAction.CallbackContext context)
