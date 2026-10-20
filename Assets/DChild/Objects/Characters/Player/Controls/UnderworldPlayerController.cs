@@ -871,6 +871,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isInShadowMode)
                 return;
+            if (m_state.isStickingToWall)
+                return;
             if (m_state.isDashing)
                 return;
             if (m_state.isAttacking)
