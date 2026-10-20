@@ -1338,6 +1338,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_list: {fileID: 11400000, guid: c0a32bd710bced241bd5501301565cd1, type: 2}
   m_image: {fileID: 3126053530050772255}
+  m_next: {fileID: 3126053529625232701}
+  m_previous: {fileID: 3126053529833671413}
 --- !u!1 &3126053528088690867
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,7 +1653,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3126053528508472557}
-  - component: {fileID: 3126053528508472546}
   m_Layer: 5
   m_Name: Navigation
   m_TagString: Untagged
@@ -1681,20 +1682,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 75}
   m_SizeDelta: {x: 196.5, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3126053528508472546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3126053528508472556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88c4f77edfdd08d43b4b625990c51acf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_next: {fileID: 3126053529625232701}
-  m_previous: {fileID: 3126053529833671413}
 --- !u!1 &3126053528516015222
 GameObject:
   m_ObjectHideFlags: 0
@@ -2056,6 +2043,7 @@ GameObject:
   - component: {fileID: 3126053529196021911}
   - component: {fileID: 3126053529196021902}
   - component: {fileID: 3126053529196021897}
+  - component: {fileID: 9200000000000000100}
   m_Layer: 0
   m_Name: View - Extras
   m_TagString: Untagged
@@ -2197,38 +2185,13 @@ MonoBehaviour:
     Runners: []
     Event:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4959124072314043512}
-          m_TargetAssemblyTypeName: Doozy.Runtime.UIManager.Components.UIToggle,
-            Assembly-CSharp
-          m_MethodName: set_isOn
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
+        m_Calls: []
   OnVisibleCallback:
     EventName: OnVisibleCallback
     Runners: []
     Event:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4959124072314043512}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
-          m_MethodName: Select
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
   OnHideCallback:
     EventName: OnHideCallback
     Runners: []
@@ -2240,19 +2203,7 @@ MonoBehaviour:
     Runners: []
     Event:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
-          m_MethodName: Select
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
   OnVisibilityChangedCallback:
     m_PersistentCalls:
       m_Calls: []
@@ -2268,8 +2219,8 @@ MonoBehaviour:
   DisableGraphicRaycasterWhenHidden: 1
   ClearSelectedOnShow: 0
   ClearSelectedOnHide: 0
-  AutoSelectAfterShow: 1
-  AutoSelectTarget: {fileID: 4959124072314043514}
+  AutoSelectAfterShow: 0
+  AutoSelectTarget: {fileID: 0}
   Id:
     Category: MainMenu
     Name: Extras
@@ -7656,7 +7607,7 @@ PrefabInstance:
     - target: {fileID: 8048952944623820889, guid: acf0f57892543854fab63064a8001150,
         type: 3}
       propertyPath: IsOn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8048952944623820889, guid: acf0f57892543854fab63064a8001150,
         type: 3}
@@ -8943,3 +8894,23 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8861026944187472854}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9200000000000000100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3126053529196021905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a4cf1cd08bb2247a2d17eddfff8e98, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  m_categories:
+  - tab: {fileID: 4959124072314043512}
+    content: {fileID: 3126053528516015223}
+  - tab: {fileID: 4959124071426988447}
+    content: {fileID: 3126053528088690864}
+  - tab: {fileID: 4959124072821414844}
+    content: {fileID: 3126053529180972318}
+  m_showcase: {fileID: 3126053528043611735}

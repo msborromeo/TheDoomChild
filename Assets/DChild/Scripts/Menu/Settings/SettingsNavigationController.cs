@@ -103,7 +103,7 @@ namespace DChild.Menu.UI
         private void OnEnable()
         {
             m_view.OnShowCallback.Event.AddListener(BeginSession);
-            m_view.OnVisibleCallback.Event.AddListener(FocusTab);
+            m_view.OnVisibleCallback.Event.AddListener(ResetTabsAndFocus);
             m_view.OnHideCallback.Event.AddListener(StopNavigation);
             m_view.OnHiddenCallback.Event.AddListener(EndSession);
             if (!m_view.isHidden && !m_view.isHiding) BeginSession();
@@ -112,7 +112,7 @@ namespace DChild.Menu.UI
         private void OnDisable()
         {
             m_view.OnShowCallback.Event.RemoveListener(BeginSession);
-            m_view.OnVisibleCallback.Event.RemoveListener(FocusTab);
+            m_view.OnVisibleCallback.Event.RemoveListener(ResetTabsAndFocus);
             m_view.OnHideCallback.Event.RemoveListener(StopNavigation);
             m_view.OnHiddenCallback.Event.RemoveListener(EndSession);
             EndSession();
@@ -135,12 +135,21 @@ namespace DChild.Menu.UI
             m_enterFrame = -1;
             m_lastField = null;
             foreach (var category in m_categories) category.remembered = null;
-            for (int i = 0; i < m_categories.Length; i++)
-                if (m_categories[i].tab != null && m_categories[i].tab.isOn) { m_category = i; break; }
+            m_category = 0;
             if (m_releaseBackRoutine != null) StopCoroutine(m_releaseBackRoutine);
             m_releaseBackRoutine = null;
             if (!m_backBlocked) { BackButton.Disable(); m_backBlocked = true; }
             if (m_input != null && m_input.cancel != null) m_input.cancel.action.performed += OnCancel;
+        }
+
+        private void ResetTabsAndFocus()
+        {
+            if (!m_session || m_categories.Length == 0) return;
+            // Reconcile membership before turning Display on so the group can turn stale tabs off.
+            foreach (var category in m_categories)
+                if (category.tab != null) category.tab.AddToToggleGroup(category.tab.toggleGroup);
+            m_category = 0;
+            FocusTab();
         }
 
         private void FocusTab()
@@ -248,7 +257,8 @@ namespace DChild.Menu.UI
                 {
                     m_category = i;
                     m_inFields = false;
-                    category.tab.SetIsOn(true);
+                    // FocusTab already activates the tab before selecting it.
+                    if (!category.tab.isOn) category.tab.SetIsOn(true);
                     return;
                 }
                 if (Array.IndexOf(category.fields, selectable) >= 0)
