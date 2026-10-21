@@ -377,6 +377,10 @@ namespace DChild.Gameplay.Characters.Enemies
         private ParticleSystem m_RightArmFX;
         [SerializeField, TabGroup("Effects")]
         private ParticleSystem m_LeftArmFX;
+        [SerializeField, TabGroup("Effects")]
+        private ParticleSystem m_queenBeeSwarmLeftToRight;
+        [SerializeField, TabGroup("Effects")]
+        private ParticleSystem m_queenBeeSwarmRightToLeft;
         //Patience Handler
         [SerializeField]
         private SpineEventListener m_spineListener;
@@ -823,20 +827,35 @@ namespace DChild.Gameplay.Characters.Enemies
             m_QBStingerCharge2FX.gameObject.SetActive(true);
             m_QBStingerCharge2FX.Play();
 
-            for (int i = 0; i < /*UnityEngine.Random.Range(1,3)*/ 3; i++)
+            for (int i = 0; i <  3; i++)
             {
+                
                 m_animation.SetAnimation(0, m_info.phase2AtkChargeLoopAnimation, true);
                 //var chargeFXScale = m_QBStingerChargeFX.GetComponentInParent<Transform>();
                 var mainFX = m_QBStingerCharge2FX.main;
                 mainFX.startRotation = transform.localScale.x > 0 ? /*180 * Mathf.Deg2Rad*/ (float)Mathf.PI/*nis*/: 0;
                 //chargeFXScale.localScale = new Vector3(transform.localScale.x > 0 ? -chargeFXScale.localScale.x : chargeFXScale.localScale.x, chargeFXScale.localScale.y, chargeFXScale.localScale.z);
                 GetComponent<IsolatedPhysics2D>().SetVelocity(250 * transform.localScale.x, 0);
-                yield return new WaitForSeconds(i == 0 ? 1.25f : 2f);
+                yield return new WaitForSeconds(i == 0 ? 1.25f : 2.5f);
+                if(i < 2)
+                {
+                    if (m_character.facing == HorizontalDirection.Left)
+                    {
+                        m_queenBeeSwarmLeftToRight.Play();
+                    }
+                    else if(m_character.facing == HorizontalDirection.Right)
+                    {
+                        m_queenBeeSwarmRightToLeft.Play();
+                    }
+                }
+                yield return new WaitForSeconds(.25f);
                 m_animation.SetEmptyAnimation(0, 0);
                 CustomTurn();
                 m_agent.Stop();
                 yield return new WaitForSeconds(.25f);
                 transform.position = new Vector2(transform.position.x, m_targetInfo.position.y);
+
+
             }
             m_hitbox.SetInvulnerability(Invulnerability.None);
 
