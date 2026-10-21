@@ -56,9 +56,16 @@ namespace DChild.Gameplay.UI.CombatArts
         }
 
         public void OnPointerEnter(PointerEventData eventData) => Preview();
-        public void OnSelect(BaseEventData eventData) => Preview();
+        public void OnSelect(BaseEventData eventData) => Selected();
 
         private void Preview()
+        {
+            return;
+            if (isActiveAndEnabled && m_button != null && m_button.interactable)
+                OnButtonPreviewed?.Invoke(this);
+        }
+
+        private void Selected()
         {
             if (isActiveAndEnabled && m_button != null && m_button.interactable)
                 OnButtonPreviewed?.Invoke(this);

@@ -138,7 +138,7 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: 
-  - id: 1944
+  - id: 1943
     fields:
     - title: Name
       value: Wanderer_MordenFirstTimeTalk
@@ -147,22 +147,16 @@ MonoBehaviour:
     - title: Initial Value
       value: True
       type: 2
-      typeString: 
-  - id: 1944
-    fields:
-    - title: Name
-      value: Wanderer_MordenFirstTimeTalk
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
       type: 0
-      typeString: 
-    - title: Initial Value
-      value: True
-      type: 2
       typeString: 
   conversations:
-  - id: 973
+  - id: 1
     fields:
     - title: Title
-      value: Recruit/Wanderer
+      value: WandererBR
       type: 0
       typeString: 
     - title: Description
@@ -174,7 +168,7 @@ MonoBehaviour:
       type: 5
       typeString: CustomFieldType_Actor
     - title: Conversant
-      value: 2
+      value: 182
       type: 5
       typeString: CustomFieldType_Actor
     overrideSettings:
@@ -220,7 +214,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 180
+        value: 182
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -235,7 +229,7 @@ MonoBehaviour:
         value: None()
         type: 0
         typeString: 
-      conversationID: 973
+      conversationID: 1
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -243,9 +237,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 973
+      - originConversationID: 1
         originDialogueID: 0
-        destinationConversationID: 973
+        destinationConversationID: 1
         destinationDialogueID: 1
         isConnector: 0
         priority: 2
@@ -271,7 +265,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 180
+        value: 182
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -283,14 +277,128 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: You can Recruit Me
+        value: "Do you know who I am? That\u2019s fine. Most never know my name or
+          even see me. I don\u2019t usually meddle with the affairs of men and monsters
+          but you need a touch of cosmic wisdom."
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 973
+      conversationID: 1
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1
+        originDialogueID: 1
+        destinationConversationID: 1
+        destinationDialogueID: 2
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 70
+        width: 160
+        height: 30
+    - id: 2
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 182
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "I swear, if you\u2019re one of Black Death\u2019s underlings my sword
+          will do swift work of you."
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 1
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1
+        originDialogueID: 2
+        destinationConversationID: 1
+        destinationDialogueID: 3
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 120
+        width: 160
+        height: 30
+    - id: 3
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 182
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "Mh\u2026 I\u2019m sure it would but I need something before I introduce
+          myself."
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 1
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -306,16 +414,20 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 30
-        y: 70
+        y: 170
         width: 160
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
     canvasZoom: 1
-  - id: 2600
+  - id: 2
     fields:
     - title: Title
-      value: Wanderer_MordenRemarks
+      value: WandererLP
+      type: 0
+      typeString: 
+    - title: Description
+      value: 
       type: 0
       typeString: 
     - title: Actor
@@ -323,7 +435,7 @@ MonoBehaviour:
       type: 5
       typeString: CustomFieldType_Actor
     - title: Conversant
-      value: 181
+      value: 182
       type: 5
       typeString: CustomFieldType_Actor
     overrideSettings:
@@ -369,7 +481,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 181
+        value: 182
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -381,20 +493,20 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: None()
         type: 0
         typeString: 
-      conversationID: 2600
+      conversationID: 2
       isRoot: 0
       isGroup: 0
       nodeColor: 
       delaySimStatus: 0
-      falseConditionAction: 
+      falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 2600
+      - originConversationID: 2
         originDialogueID: 0
-        destinationConversationID: 2600
+        destinationConversationID: 2
         destinationDialogueID: 1
         isConnector: 0
         priority: 2
@@ -420,7 +532,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 181
+        value: 182
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -432,14 +544,14 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Remarks Dialogue
+        value: "To the eyes of a peasant I\u2019m a spectre."
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 2600
+      conversationID: 2
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -461,10 +573,14 @@ MonoBehaviour:
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
     canvasZoom: 1
-  - id: 1990
+  - id: 3
     fields:
     - title: Title
-      value: Wanderer_MordenLoops
+      value: WandererAR
+      type: 0
+      typeString: 
+    - title: Description
+      value: 
       type: 0
       typeString: 
     - title: Actor
@@ -472,7 +588,7 @@ MonoBehaviour:
       type: 5
       typeString: CustomFieldType_Actor
     - title: Conversant
-      value: 180
+      value: 182
       type: 5
       typeString: CustomFieldType_Actor
     overrideSettings:
@@ -518,7 +634,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 180
+        value: 182
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -530,20 +646,20 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: None()
         type: 0
         typeString: 
-      conversationID: 1990
+      conversationID: 3
       isRoot: 0
       isGroup: 0
       nodeColor: 
       delaySimStatus: 0
-      falseConditionAction: 
+      falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 1990
+      - originConversationID: 3
         originDialogueID: 0
-        destinationConversationID: 1990
+        destinationConversationID: 3
         destinationDialogueID: 1
         isConnector: 0
         priority: 2
@@ -569,7 +685,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 180
+        value: 182
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -581,14 +697,16 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Loops Dialogue
+        value: "Impressive. Even with your soul split into pieces, you're still formidable.
+          I am the Wanderer, Doomed Knight, and I\u2019m here to tell you that slaying
+          the eyes of The One is the key to weakening it."
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 1990
+      conversationID: 3
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -605,6 +723,162 @@ MonoBehaviour:
         serializedVersion: 2
         x: 30
         y: 70
+        width: 160
+        height: 30
+    entryGroups: []
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 1
+  - id: 4
+    fields:
+    - title: Title
+      value: WandererML
+      type: 0
+      typeString: 
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Actor
+      value: 1
+      type: 5
+      typeString: CustomFieldType_Actor
+    - title: Conversant
+      value: 182
+      type: 5
+      typeString: CustomFieldType_Actor
+    overrideSettings:
+      useOverrides: 0
+      overrideSubtitleSettings: 0
+      showNPCSubtitlesDuringLine: 1
+      showNPCSubtitlesWithResponses: 1
+      showPCSubtitlesDuringLine: 0
+      skipPCSubtitleAfterResponseMenu: 0
+      subtitleCharsPerSecond: 30
+      minSubtitleSeconds: 2
+      continueButton: 0
+      overrideSequenceSettings: 0
+      defaultSequence: 
+      defaultPlayerSequence: 
+      defaultResponseMenuSequence: 
+      overrideInputSettings: 0
+      alwaysForceResponseMenu: 1
+      includeInvalidEntries: 0
+      responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
+      cancelSubtitle:
+        key: 27
+        buttonName: 
+      cancelConversation:
+        key: 27
+        buttonName: 
+    nodeColor: 
+    dialogueEntries:
+    - id: 0
+      fields:
+      - title: Title
+        value: START
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 182
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: None()
+        type: 0
+        typeString: 
+      conversationID: 4
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 4
+        originDialogueID: 0
+        destinationConversationID: 4
+        destinationDialogueID: 1
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 19
+        width: 160
+        height: 30
+    - id: 1
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 182
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "There\u2019s hardly an army in the realm that\u2019s as large as
+          the one you used to command. Did you drag them all to hell or do their
+          ghosts still linger? No matter. You were the one doing most of the killing
+          anyway."
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 4
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 30
+        y: 69
         width: 160
         height: 30
     entryGroups: []
