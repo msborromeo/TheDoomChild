@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 782547405619976251}
   - component: {fileID: 6614773462728796306}
   - component: {fileID: 1716170344}
+  - component: {fileID: 5987543931416302886}
   m_Layer: 0
   m_Name: Spine GameObject (BodyParts_4)
   m_TagString: Untagged
@@ -331,8 +332,8 @@ MonoBehaviour:
   m_color: {r: 1, g: 1, b: 1, a: 0}
   m_fadeInDuration: 0.025
   m_fadeOutDuration: 0.4
-  animator: {fileID: 0}
-  triggerName: 
+  animator: {fileID: 5987543931416302886}
+  triggerName: whiteFlash
 --- !u!114 &1716170344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,6 +363,26 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!95 &5987543931416302886
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2907897547607461434}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 656cfbfa8fa26e1468e79dea5d480e5d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2907897548827372027
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,7 +474,7 @@ MonoBehaviour:
   m_deathVfx: {fileID: 8240223784966852875, guid: 3e67eed0030dbba4881df8f99433c442,
     type: 3}
   m_spineGameObjectAdran: {fileID: 2907897547607461434}
-  m_returnFX: {fileID: 6902568921048445916}
+  m_returnFX: {fileID: 0}
   m_deathParticleGoBackToAdran: {fileID: 2187951702535999175, guid: 5548b152ac40aff43a63cdd9694a0351,
     type: 3}
   startingPosition: {x: 0, y: 0}
@@ -532,16 +553,22 @@ MonoBehaviour:
   m_fastFactor: 0
   m_fXObjects:
     m_particleSystems:
-    - {fileID: 6902568921048445916}
-    - {fileID: 3452090956675775812}
-    - {fileID: 3755346601307043898}
-    - {fileID: 2038159481817931353}
-    - {fileID: 501699880497923725}
-    - {fileID: 8944469651657663759}
+    - {fileID: 257538997060347694}
+    - {fileID: 483211493479947180}
+    - {fileID: 9146461233427656724}
+    - {fileID: 5246206951898362589}
+    - {fileID: 3497131195885186944}
+    - {fileID: 3974312340079727799}
+    - {fileID: 6097688969110612861}
+    - {fileID: 3136249230703951027}
+    - {fileID: 8464415610670962536}
     - {fileID: 7476547978683687220}
     - {fileID: 3225248504838536003}
     - {fileID: 6535974316960240364}
     m_originalSimulationSpeed:
+    - 1
+    - 1
+    - 1
     - 1
     - 1
     - 1
@@ -1220,27 +1247,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef138e2d12cd27942a122d2ed1ccea4c, type: 3}
---- !u!198 &501699880497923725 stripped
+--- !u!198 &257538997060347694 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1736594896746025574, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+  m_CorrespondingSourceObject: {fileID: 2124868772450104261, guid: ef138e2d12cd27942a122d2ed1ccea4c,
     type: 3}
   m_PrefabInstance: {fileID: 2229276015390282987}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &2038159481817931353 stripped
+--- !u!198 &483211493479947180 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 191128078590200498, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+  m_CorrespondingSourceObject: {fileID: 1755081084336394055, guid: ef138e2d12cd27942a122d2ed1ccea4c,
     type: 3}
   m_PrefabInstance: {fileID: 2229276015390282987}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &3452090956675775812 stripped
+--- !u!198 &3136249230703951027 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3532986869880826287, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+  m_CorrespondingSourceObject: {fileID: 3848828042731432024, guid: ef138e2d12cd27942a122d2ed1ccea4c,
     type: 3}
   m_PrefabInstance: {fileID: 2229276015390282987}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &3755346601307043898 stripped
+--- !u!198 &3497131195885186944 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3094625434776808657, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+  m_CorrespondingSourceObject: {fileID: 3343840203244485483, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2229276015390282987}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3974312340079727799 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3010764917793194076, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2229276015390282987}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5246206951898362589 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6206452682265519670, guid: ef138e2d12cd27942a122d2ed1ccea4c,
     type: 3}
   m_PrefabInstance: {fileID: 2229276015390282987}
   m_PrefabAsset: {fileID: 0}
@@ -1250,15 +1289,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2229276015390282987}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &6902568921048445916 stripped
+--- !u!198 &6097688969110612861 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4694197104562448183, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+  m_CorrespondingSourceObject: {fileID: 5363977882559659926, guid: ef138e2d12cd27942a122d2ed1ccea4c,
     type: 3}
   m_PrefabInstance: {fileID: 2229276015390282987}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &8944469651657663759 stripped
+--- !u!198 &8464415610670962536 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7119867186058097124, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+  m_CorrespondingSourceObject: {fileID: 7753051896145937283, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2229276015390282987}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &9146461233427656724 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6917872838329558271, guid: ef138e2d12cd27942a122d2ed1ccea4c,
     type: 3}
   m_PrefabInstance: {fileID: 2229276015390282987}
   m_PrefabAsset: {fileID: 0}

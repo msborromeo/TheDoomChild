@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 782547405619976251}
   - component: {fileID: 7058013826725329995}
   - component: {fileID: 226211287}
+  - component: {fileID: 3470749321506275152}
   m_Layer: 0
   m_Name: Spine GameObject (BodyParts_4)
   m_TagString: Untagged
@@ -261,8 +262,8 @@ MonoBehaviour:
   m_color: {r: 1, g: 1, b: 1, a: 0}
   m_fadeInDuration: 0.025
   m_fadeOutDuration: 0.4
-  animator: {fileID: 0}
-  triggerName: 
+  animator: {fileID: 3470749321506275152}
+  triggerName: whiteFlash
 --- !u!114 &226211287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,6 +293,26 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!95 &3470749321506275152
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2907897547607461434}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1312a13f3dd7e1b41984c4c2ac8d1c9c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2907897548827372027
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +404,7 @@ MonoBehaviour:
   m_deathVfx: {fileID: 8240223784966852875, guid: 3e67eed0030dbba4881df8f99433c442,
     type: 3}
   m_spineGameObjectAdran: {fileID: 2907897547607461434}
-  m_returnFX: {fileID: 5591545855529209413}
+  m_returnFX: {fileID: 0}
   m_deathParticleGoBackToAdran: {fileID: 2187951702535999175, guid: 5548b152ac40aff43a63cdd9694a0351,
     type: 3}
   startingPosition: {x: 0, y: 0}
@@ -462,16 +483,22 @@ MonoBehaviour:
   m_fastFactor: 0
   m_fXObjects:
     m_particleSystems:
-    - {fileID: 5591545855529209413}
-    - {fileID: 4448354559137497309}
-    - {fileID: 2760244080976741795}
-    - {fileID: 1016423494008972224}
-    - {fileID: 1487760085386099476}
-    - {fileID: 7958655808241080470}
+    - {fileID: 1279311268750662327}
+    - {fileID: 1506250405269218869}
+    - {fileID: 7835474453957447053}
+    - {fileID: 6529575030085914436}
+    - {fileID: 2511810962306257433}
+    - {fileID: 2698897028959267118}
+    - {fileID: 5101636401996879588}
+    - {fileID: 4167450916815716650}
+    - {fileID: 7432159493461273329}
     - {fileID: 7476547978653208713}
     - {fileID: 3225248504801889022}
     - {fileID: 6535974316921381713}
     m_originalSimulationSpeed:
+    - 1
+    - 1
+    - 1
     - 1
     - 1
     - 1
@@ -1225,33 +1252,45 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef138e2d12cd27942a122d2ed1ccea4c, type: 3}
---- !u!198 &1016423494008972224 stripped
+--- !u!198 &1279311268750662327 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 191128078590200498, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+  m_CorrespondingSourceObject: {fileID: 2124868772450104261, guid: ef138e2d12cd27942a122d2ed1ccea4c,
     type: 3}
   m_PrefabInstance: {fileID: 917619633324616050}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &1487760085386099476 stripped
+--- !u!198 &1506250405269218869 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1736594896746025574, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+  m_CorrespondingSourceObject: {fileID: 1755081084336394055, guid: ef138e2d12cd27942a122d2ed1ccea4c,
     type: 3}
   m_PrefabInstance: {fileID: 917619633324616050}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &2760244080976741795 stripped
+--- !u!198 &2511810962306257433 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3094625434776808657, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+  m_CorrespondingSourceObject: {fileID: 3343840203244485483, guid: ef138e2d12cd27942a122d2ed1ccea4c,
     type: 3}
   m_PrefabInstance: {fileID: 917619633324616050}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &4448354559137497309 stripped
+--- !u!198 &2698897028959267118 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3532986869880826287, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+  m_CorrespondingSourceObject: {fileID: 3010764917793194076, guid: ef138e2d12cd27942a122d2ed1ccea4c,
     type: 3}
   m_PrefabInstance: {fileID: 917619633324616050}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &5591545855529209413 stripped
+--- !u!198 &4167450916815716650 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4694197104562448183, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+  m_CorrespondingSourceObject: {fileID: 3848828042731432024, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 917619633324616050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5101636401996879588 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5363977882559659926, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 917619633324616050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6529575030085914436 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6206452682265519670, guid: ef138e2d12cd27942a122d2ed1ccea4c,
     type: 3}
   m_PrefabInstance: {fileID: 917619633324616050}
   m_PrefabAsset: {fileID: 0}
@@ -1261,9 +1300,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 917619633324616050}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &7958655808241080470 stripped
+--- !u!198 &7432159493461273329 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7119867186058097124, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+  m_CorrespondingSourceObject: {fileID: 7753051896145937283, guid: ef138e2d12cd27942a122d2ed1ccea4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 917619633324616050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7835474453957447053 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6917872838329558271, guid: ef138e2d12cd27942a122d2ed1ccea4c,
     type: 3}
   m_PrefabInstance: {fileID: 917619633324616050}
   m_PrefabAsset: {fileID: 0}
