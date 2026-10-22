@@ -126,7 +126,8 @@ namespace DChild.Gameplay.EquipmentSystem
 
         public void LoadData(PlayerSoulEquipmentData data)
         {
-            if(m_eqiuppedItems.Count > 0)
+            ResetAllSoulSkillInEquipment();
+            if (m_eqiuppedItems.Count > 0)
             {
                 for(int i = m_eqiuppedItems.Count - 1; i >= 0; i--)
                 {
@@ -142,6 +143,7 @@ namespace DChild.Gameplay.EquipmentSystem
                 m_equippedSoulSlotEquipmentPair.Clear();
                 m_acquiredSoulEquipment.Clear();
                 m_eqiuppedItems.Clear();
+                
                 Dictionary<int, LeveledEquipment> equipmentIDPair = new Dictionary<int, LeveledEquipment>();
 
                 for (int i = 0; i < data.acquiredEquipmentID.Length; i++)
@@ -152,6 +154,11 @@ namespace DChild.Gameplay.EquipmentSystem
 
                     AddAcquiredSoulEquipmentItem(leveledEquipment.item);
                     equipmentIDPair.Add(item.id, leveledEquipment);
+                    //sets soulskill fully learned after being reset to false on the start of the loading phase.
+                    if(leveledEquipment.exp >= item.soulEquipment.ExpRequired)
+                    {
+                        SetSoulSkillFullyLearned(item.soulEquipment, true);
+                    }
                 }
 
                 for (int i = 0; i < (int)SoulSlot._COUNT; i++)
@@ -219,15 +226,33 @@ namespace DChild.Gameplay.EquipmentSystem
                     m_eqiuppedItems.Add(m_acquiredSoulEquipment[i]);
                 }
             }
-
-            if(equipment.soulSkillList != null)
+            if (equipment.soulSkillList != null)
             {
-                //Logic for setting soul skill as activated when equipped
-                foreach (SoulSkill soulSkill in equipment.soulSkillList)
+                //logic to set soul skills in acquired equipment as activated
+                foreach (SoulSkill soulskill in equipment.soulSkillList)
                 {
-                    m_soulSkillHandle.AddAsActivated(soulSkill, false);
+                    if (soulskill.isFullyLearned)
+                    {
+                       m_soulSkillHandle.SetActivationRestriction(soulskill.id,false);
+                        m_soulSkillHandle.AddAsActivated(soulskill,false);
+                    }
+                    else
+                    {
+                        m_soulSkillHandle.AddAsAcquired(soulskill.id);
+                        m_soulSkillHandle.AddAsActivated(soulskill, false);
+                    }
+                    
                 }
             }
+            //if item has soul skill
+            //if (equipment.soulSkillList != null)
+            //{
+            //    //Logic for setting soul skill as activated when equipped
+            //    foreach (SoulSkill soulSkill in equipment.soulSkillList)
+            //    {
+            //        m_soulSkillHandle.AddAsActivated(soulSkill, false);
+            //    }
+            //}
         
             foreach(IEquipmentStatBoostModule statBoost in equipment.statBoostList)
             {
@@ -275,7 +300,15 @@ namespace DChild.Gameplay.EquipmentSystem
             {
                 foreach (SoulSkill soulSkill in equipment.soulSkillList)
                 {
-                    m_soulSkillHandle.RemoveAsActivated(soulSkill, false);
+                    if (soulSkill.isFullyLearned)
+                    {
+                        m_soulSkillHandle.RemoveAsActivated(soulSkill, false);
+                    }
+                    else
+                    {
+                        m_soulSkillHandle.RemoveAsAcquired(soulSkill.id);
+                    }
+                    
                 }
 
             }
@@ -297,26 +330,39 @@ namespace DChild.Gameplay.EquipmentSystem
             var equipment = soulEquipment.soulEquipment;
             m_acquiredSoulEquipment.Add(leveledItem);
             //check whether eqquipment has a soulskill
-            if(equipment.soulSkillList != null)
-            {
-                //Logic to set soul skills in acquired equipment as activated
-                foreach (SoulSkill soulSkill in equipment.soulSkillList)
-                {
-                    m_soulSkillHandle.AddAsAcquired(soulSkill.id);
-                    m_soulSkillHandle.SetActivationRestriction(soulSkill.id, false);
-                }
-            }
-         
+            //if (equipment.soulSkillList != null)
+            //{
+            //    //logic to set soul skills in acquired equipment as activated
+            //    foreach (SoulSkill soulskill in equipment.soulSkillList)
+            //    {
+            //        m_soulSkillHandle.AddAsAcquired(soulskill.id);
+            //        m_soulSkillHandle.SetActivationRestriction(soulskill.id, false);
+            //    }
+            //}
+
         }
 
         [Button]
         public void DebugAcquireAllEquipment(SoulEquipmentList soulEquipmentList)
         {
-            
+            ResetAllSoulSkillInEquipment();
             int[] ids = soulEquipmentList.GetIDs();
             for (int x = 0; x < ids.Length; x++)
             {
                 AddAcquiredSoulEquipmentItem(soulEquipmentList.GetInfo(ids[x]));
+            }
+
+            foreach(var equipment in m_acquiredSoulEquipment)
+            {
+                var x = equipment.item.soulEquipment.soulSkillList;
+                if(x != null)
+                {
+                    if (equipment.exp >= equipment.item.soulEquipment.ExpRequired)
+                    {
+                        SetSoulSkillFullyLearned(equipment.item.soulEquipment, true);
+                    }
+                    
+                }
             }
 
             //foreach (int equipment in ids)
@@ -334,7 +380,28 @@ namespace DChild.Gameplay.EquipmentSystem
         {
             return m_data;
         }
+        public void SetSoulSkillFullyLearned(SoulEquipment equipment, bool setFullyLearned)
+        {
+            if(equipment.soulSkillList != null)
+            {
+                foreach (SoulSkill skill in equipment.soulSkillList)
+                {
+                    equipment.soulSkillList[0].SetFullyLearned(setFullyLearned);
+                }
+            }
+        }
 
+        public void ResetAllSoulSkillInEquipment()
+        {
+
+            if(m_data != null)
+            {
+                for(int x = 0; x < m_acquiredSoulEquipment.Count; x++) 
+                {
+                    SetSoulSkillFullyLearned(m_acquiredSoulEquipment[x].item.soulEquipment, false);
+                }
+            }
+        }
         public bool TryGetEquippedSoulEquipment(SoulSlot slot, out SoulEquipmentItem equipmentItem)
         {
             return m_equippedSoulSlotEquipmentPair.TryGetValue(slot, out equipmentItem);
@@ -345,6 +412,7 @@ namespace DChild.Gameplay.EquipmentSystem
             //remove on final iteration of script
             m_acquiredSoulEquipment = new List<LeveledEquipment>();
             m_eqiuppedItems = new List<LeveledEquipment>();
+            ResetAllSoulSkillInEquipment();
             DebugAcquireAllEquipment(GetFullSoulEquipmentList());
         }
     }
