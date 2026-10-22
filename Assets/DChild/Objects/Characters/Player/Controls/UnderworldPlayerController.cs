@@ -2238,7 +2238,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_wallMovement?.Move(m_vector2Input.y);
 
                 m_groundedness?.Evaluate();
-
+                if (m_state.isGrounded == false)
+                {
+                    if (m_ledgeGrab?.IsDoable() ?? false)
+                    {
+                        m_wallMovement?.Cancel();
+                        m_wallStick?.Cancel();
+                        m_ledgeGrab?.Execute();
+                    }
+                }
                 if ((m_wallMovement?.IsThereAWall(WallMovement.SensorType.Body) ?? false) == false ||
                     (m_wallMovement?.IsThereAWall(WallMovement.SensorType.Overhead) ?? false) == false)
                 {
@@ -2379,8 +2387,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_idle?.Execute(m_state.allowExtendedIdle);
                 return;
             }
-
-            MoveCharacter(m_state.isGrabbing, m_vector2Input.x);
+            if(!m_state.isStickingToWall)
+                MoveCharacter(m_state.isGrabbing, m_vector2Input.x);
         }
         #endregion
 
