@@ -94,7 +94,14 @@ namespace DChild.Menu.Equipment.UI
         {
             var skills = CollectWornSkills();
             var listRect = (RectTransform)m_listLayout.transform;
-            var availableSize = new Vector2(listRect.rect.width - m_listLayout.padding.horizontal,
+            bool showScrollbar = skills.Count > m_rows.Length;
+            float scrollbarWidth = showScrollbar ? ((RectTransform)m_scrollbar.transform).rect.width : 0f;
+            // Reclaim the scrollbar's space on a single page without changing row typography.
+            listRect.anchorMax = new Vector2(1f, listRect.anchorMax.y);
+            listRect.sizeDelta = new Vector2(-scrollbarWidth, listRect.sizeDelta.y);
+            listRect.anchoredPosition = new Vector2(-scrollbarWidth * listRect.pivot.x,
+                listRect.anchoredPosition.y);
+            var availableSize = new Vector2(m_viewport.rect.width - scrollbarWidth - m_listLayout.padding.horizontal,
                 m_viewport.rect.height - m_listLayout.padding.vertical);
             bool changed = skills.Count != m_skills.Count;
             for (int i = 0; !changed && i < skills.Count; i++)
@@ -112,31 +119,18 @@ namespace DChild.Menu.Equipment.UI
             m_skills.AddRange(skills);
             m_rowHeights.Clear();
             m_pageStarts.Clear();
-            int rowsOnPage = 0;
-            float usedHeight = 0f;
-            foreach (var skill in m_skills)
+            for (int index = 0; index < m_skills.Count; index++)
             {
-                float rowHeight = m_rows[0].MeasureHeight(skill, availableSize.x);
-                float spacing = rowsOnPage > 0 ? m_listLayout.spacing : 0f;
-                if (rowsOnPage > 0 && (rowsOnPage == m_rows.Length ||
-                    usedHeight + spacing + rowHeight > availableSize.y))
-                {
-                    rowsOnPage = 0;
-                    usedHeight = 0f;
-                    spacing = 0f;
-                }
-
-                if (rowsOnPage == 0)
-                    m_pageStarts.Add(m_rowHeights.Count);
-                m_rowHeights.Add(rowHeight);
-                usedHeight += spacing + rowHeight;
-                rowsOnPage++;
+                if (index % m_rows.Length == 0)
+                    m_pageStarts.Add(index);
+                m_rowHeights.Add(m_rows[0].MeasureHeight(m_skills[index], availableSize.x));
             }
 
             int pageIndex = force || changed ? 0 :
                 Mathf.Clamp(m_currentPageIndex, 0, Mathf.Max(0, m_pageStarts.Count - 1));
+            m_scrollbar.gameObject.SetActive(showScrollbar);
             m_navigation.SetupScroll(m_pageStarts.Count, 1);
-            m_scrollbar.interactable = m_pageStarts.Count > 1;
+            m_scrollbar.interactable = showScrollbar;
             m_emptyLabel.gameObject.SetActive(m_skills.Count == 0);
             if (pageIndex > 0)
             {
