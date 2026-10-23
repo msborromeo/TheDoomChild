@@ -58,6 +58,8 @@ namespace DChild.Gameplay.EquipmentSystem
 
         private List<LeveledEquipment> m_eqiuppedItems;
 
+        public event Action EquipmentChanged;
+
         private void OnEnable()
         {
             m_player.inventory.SoulEquipmentAcquired += OnSoulEquipmentAcquired;
@@ -174,6 +176,7 @@ namespace DChild.Gameplay.EquipmentSystem
 
             //Debug Only
             DebugAcquireAllEquipment(m_data);
+            EquipmentChanged?.Invoke();
         }
 
         public PlayerSoulEquipmentData SaveData()
@@ -259,6 +262,7 @@ namespace DChild.Gameplay.EquipmentSystem
                 statBoost.AttachTo(m_player);
             }
 
+            EquipmentChanged?.Invoke();
             return true;
         }
 
@@ -319,6 +323,7 @@ namespace DChild.Gameplay.EquipmentSystem
                 statBoost.DetachFrom(m_player);
             }
 
+            EquipmentChanged?.Invoke();
             return true;
         }
 

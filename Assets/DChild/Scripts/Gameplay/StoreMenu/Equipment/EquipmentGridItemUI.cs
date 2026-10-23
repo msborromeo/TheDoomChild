@@ -32,19 +32,6 @@ namespace DChild.Menu.Equipment.UI
             m_toggle.interactable = hasItem;
         }
 
-        private void OnItemEquipped(object sender, ItemEquipEventArgs eventArgs)
-        {
-            m_equippedIcon.gameObject.SetActive(eventArgs.equipmentItem == m_attachedItem);
-        }
-        private void OnItemRemoved(object sender, ItemEquipEventArgs eventArgs)
-        {
-            if (eventArgs.equipmentItem == m_attachedItem)
-            {
-                m_equippedIcon.gameObject.SetActive(false);
-            }
-                
-        }
-
         public void Display(SoulEquipmentItem item = null)
         {
             m_attachedItem = item;
@@ -60,7 +47,8 @@ namespace DChild.Menu.Equipment.UI
         [Button]
         public void GetEquippedStatus(EquipmentCurrentItemUI currentItem)
         {
-            m_equippedIcon.gameObject.SetActive(currentItem.currentItem == m_attachedItem);
+            m_equippedIcon.gameObject.SetActive(m_attachedItem != null && currentItem != null &&
+                currentItem.currentItem == m_attachedItem);
         }
 
         public void PrepareAttachedItem()
@@ -81,19 +69,6 @@ namespace DChild.Menu.Equipment.UI
             m_toggle = GetComponent<UIToggle>();
         }
 
-        private void OnEnable()
-        {
-            m_selectionUI.equipButtonUI.OnItemEquipped += OnItemEquipped;
-            m_selectionUI.equipButtonUI.OnItemRemoved += OnItemRemoved;
-        }
-
-
-        private void OnDisable()
-        {
-            m_selectionUI.equipButtonUI.OnItemEquipped -= OnItemEquipped;
-            m_selectionUI.equipButtonUI.OnItemRemoved -= OnItemRemoved;
-
-        }
     }
 
 }
