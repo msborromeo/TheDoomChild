@@ -1,3 +1,4 @@
+using DChild.Gameplay;
 using DChild.Gameplay.EquipmentSystem;
 using Doozy.Runtime.UIManager.Components;
 using Holysoft.Event;
@@ -31,11 +32,17 @@ namespace DChild.Menu.Equipment.UI
             m_toggle.interactable = hasItem;
         }
 
-        private void OnItemEquipped(object sender, ItemEquipEventArgs eventArgs) => m_equippedIcon.gameObject.SetActive(eventArgs.equipmentItem == m_attachedItem);
+        private void OnItemEquipped(object sender, ItemEquipEventArgs eventArgs)
+        {
+            m_equippedIcon.gameObject.SetActive(eventArgs.equipmentItem == m_attachedItem);
+        }
         private void OnItemRemoved(object sender, ItemEquipEventArgs eventArgs)
         {
             if (eventArgs.equipmentItem == m_attachedItem)
+            {
                 m_equippedIcon.gameObject.SetActive(false);
+            }
+                
         }
 
         public void Display(SoulEquipmentItem item = null)
