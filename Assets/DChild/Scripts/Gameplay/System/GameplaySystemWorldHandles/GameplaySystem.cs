@@ -186,7 +186,7 @@ namespace DChild.Gameplay
                 {
                     UnderworldGameplaySystem.ListenToNextSceneLoad();
                 }
-                else if (GetCurrentWorldType() == WorldType.Overworld)
+                else /*if (GetCurrentWorldType() == WorldType.Overworld)*/
                 {
                     OverworldGameplaySystem.ListenToNextSceneLoad();
                 }
