@@ -29,12 +29,17 @@ namespace DChild.Menu.Equipment.UI
         [BoxGroup("DETAILS"), SerializeField] private EquipmentDetailsUI m_detailsUI;
         public EquipmentDetailsUI detailsUI => m_detailsUI;
 
+        [SerializeField] private ActiveEquipmentInfoUI m_activeEquipmentInfoUI;
+
         private List<SoulEquipmentItem> m_acquiredItems;
         private EquipmentCategoryToggleUI[] m_categories;
         private EquipmentCategoryToggleUI m_activeCategory;
         private InputAction m_cancelAction;
         private Coroutine m_releaseBackButtonRoutine;
+        private Coroutine m_equipmentRefreshRoutine;
+        private PlayerSoulEquipmentHandle m_boundEquipmentHandle;
         private UIView m_view;
+        private bool m_isOpen;
         private bool m_isItemSelectionActive;
         private bool m_backButtonBlocked;
 
@@ -54,6 +59,10 @@ namespace DChild.Menu.Equipment.UI
         {
             ResetNavigationState();
             BindCancelInput();
+            m_isOpen = true;
+            m_boundEquipmentHandle = m_equipmentHandle;
+            if (m_boundEquipmentHandle != null)
+                m_boundEquipmentHandle.EquipmentChanged += RequestEquipmentRefresh;
 
             //get acquired items list from player data
             //m_equipmentList = m_equipmentHandle.GetFullSoulEquipmentList();
@@ -72,13 +81,54 @@ namespace DChild.Menu.Equipment.UI
 
             var defaultCategory = m_categories.FirstOrDefault(category => category.category == SoulSlot.Head);
             if (defaultCategory == null)
-            {
                 m_detailsUI.Clear();
-                return;
+            else
+            {
+                defaultCategory.InitializeItemGrid();
+                FocusCategory(defaultCategory.category);
             }
 
-            defaultCategory.InitializeItemGrid();
-            FocusCategory(defaultCategory.category);
+            m_activeEquipmentInfoUI?.Initialize(m_boundEquipmentHandle, RequestEquipmentRefresh);
+        }
+
+        private void RequestEquipmentRefresh()
+        {
+            if (m_isOpen && isActiveAndEnabled && m_equipmentRefreshRoutine == null)
+                m_equipmentRefreshRoutine = StartCoroutine(RefreshEquipmentNextFrame());
+        }
+
+        private IEnumerator RefreshEquipmentNextFrame()
+        {
+            // Replacement and loading can emit several changes before their final state is ready.
+            yield return null;
+            try
+            {
+                if (!m_isOpen)
+                    yield break;
+
+                foreach (var category in m_categories)
+                    category.RefreshCurrentItem();
+                m_selectionUI.RefreshEquipmentState();
+                m_activeEquipmentInfoUI?.RefreshFromEquipment();
+            }
+            finally
+            {
+                m_equipmentRefreshRoutine = null;
+            }
+        }
+
+        private void StopEquipmentRefresh()
+        {
+            m_isOpen = false;
+            if (m_boundEquipmentHandle != null)
+                m_boundEquipmentHandle.EquipmentChanged -= RequestEquipmentRefresh;
+            m_boundEquipmentHandle = null;
+            if (m_equipmentRefreshRoutine != null)
+            {
+                StopCoroutine(m_equipmentRefreshRoutine);
+                m_equipmentRefreshRoutine = null;
+            }
+            m_activeEquipmentInfoUI?.Hide();
         }
 
         public void EnterItemSelection(SoulSlot category)
@@ -215,6 +265,7 @@ namespace DChild.Menu.Equipment.UI
 
         private void ResetNavigationState()
         {
+            StopEquipmentRefresh();
             m_isItemSelectionActive = false;
             m_activeCategory = null;
 
@@ -246,6 +297,7 @@ namespace DChild.Menu.Equipment.UI
 
         private void OnDestroy()
         {
+            StopEquipmentRefresh();
             m_view?.OnHideCallback.Event.RemoveListener(ResetNavigationState);
         }
     }
