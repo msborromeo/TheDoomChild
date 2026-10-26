@@ -142,7 +142,10 @@ namespace DChild.Gameplay.SoulSkills
         {
             if(HasActivatedSkill(soulSkill))
             {
-                return;
+                if (asPermanent == false)
+                    m_currentSoulCapacity += soulSkill.capacity;
+                else
+                    return;
             }
 
             if (m_acquiredSkills.Contains(soulSkill.id))
@@ -154,6 +157,9 @@ namespace DChild.Gameplay.SoulSkills
                 //Equipment Skill check to only deduct soul capacity if skill is not equipment skill
                 if (asPermanent == true && m_soulskillHandleOnload == false)
                     m_currentSoulCapacity -= soulSkill.capacity;
+                if (asPermanent == false)
+                    m_currentSoulCapacity -= 0;
+
             }
         }
 
