@@ -330,6 +330,8 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField, TabGroup("Reference")]
         private GameObject m_bodyCollider;
         [SerializeField, TabGroup("Reference")]
+        private GameObject m_colliderForStingerCharge;
+        [SerializeField, TabGroup("Reference")]
         private GameObject m_droneSpointsGO;
         [SerializeField, TabGroup("Reference")]
         private GameObject m_movePointsGO;
@@ -343,6 +345,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private Attacker m_attacker;
         [SerializeField, TabGroup("Reference")]
         private Collider2D m_randomSpawnCollider;
+
         [SerializeField, TabGroup("Attack Datas")]
         private AttackData m_queenBeeSpearChargeAD;
         [SerializeField, TabGroup("Attack Datas")]
@@ -381,6 +384,8 @@ namespace DChild.Gameplay.Characters.Enemies
         private ParticleSystem m_queenBeeSwarmLeftToRight;
         [SerializeField, TabGroup("Effects")]
         private ParticleSystem m_queenBeeSwarmRightToLeft;
+        [SerializeField, TabGroup("Effects")]
+        private ParticleSystem m_queenBeeSwamVFX;
         //Patience Handler
         [SerializeField]
         private SpineEventListener m_spineListener;
@@ -707,7 +712,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator ChangePhaseRoutine()
         {
             m_phaseHandle.ApplyChange();
-            m_bodyCollider.SetActive(false);
+           m_bodyCollider.SetActive(false);
             m_stateHandle.Wait(State.Phasing);
             m_animation.animationState.TimeScale = 1f;
             //m_turnState = State.Phasing;
@@ -819,8 +824,13 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_agent.Stop();
             m_animation.EnableRootMotion(true, false);
+            for (int i = 0; i < m_colliderDetectorStingerCharge.Length; i++)
+            {
+                m_colliderDetectorStingerCharge[i].SetActive(true);
+            }
             m_animation.SetAnimation(0, m_info.phase2AtkChargeStartAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.phase2AtkChargeStartAnimation);
+            m_colliderForStingerCharge.gameObject.SetActive(true);
             m_animation.DisableRootMotion();
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
             m_bodyCollider.SetActive(false);
@@ -829,6 +839,14 @@ namespace DChild.Gameplay.Characters.Enemies
 
             for (int i = 0; i <  3; i++)
             {
+
+                
+                if(i > 0)
+                {
+                    m_queenBeeSwamVFX.Play();
+                    yield return new WaitForSeconds(2f);    
+                }
+                   
                 
                 m_animation.SetAnimation(0, m_info.phase2AtkChargeLoopAnimation, true);
                 //var chargeFXScale = m_QBStingerChargeFX.GetComponentInParent<Transform>();
@@ -837,17 +855,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 //chargeFXScale.localScale = new Vector3(transform.localScale.x > 0 ? -chargeFXScale.localScale.x : chargeFXScale.localScale.x, chargeFXScale.localScale.y, chargeFXScale.localScale.z);
                 GetComponent<IsolatedPhysics2D>().SetVelocity(250 * transform.localScale.x, 0);
                 yield return new WaitForSeconds(i == 0 ? 1.25f : 2.5f);
-                if(i < 2)
-                {
-                    if (m_character.facing == HorizontalDirection.Left)
-                    {
-                        m_queenBeeSwarmLeftToRight.Play();
-                    }
-                    else if(m_character.facing == HorizontalDirection.Right)
-                    {
-                        m_queenBeeSwarmRightToLeft.Play();
-                    }
-                }
+                
                 yield return new WaitForSeconds(.25f);
                 m_animation.SetEmptyAnimation(0, 0);
                 CustomTurn();
@@ -857,8 +865,12 @@ namespace DChild.Gameplay.Characters.Enemies
 
 
             }
+            for (int i = 0; i < m_colliderDetectorStingerCharge.Length; i++)
+            {
+                m_colliderDetectorStingerCharge[i].SetActive(false);
+            }
             m_hitbox.SetInvulnerability(Invulnerability.None);
-
+            m_colliderForStingerCharge.gameObject.SetActive(false);
             transform.position = m_returnPoint.position;
             m_QBStingerCharge2FX.gameObject.SetActive(false);
             m_QBStingerCharge2FX.Stop();
@@ -867,6 +879,14 @@ namespace DChild.Gameplay.Characters.Enemies
             yield return null;
         }
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            collision = m_collider;
+            if (collision.CompareTag("Sensor"))
+            {
+                Debug.Log("HitBoxColliderDetectorOutside");
+            }
+        }
         private IEnumerator SpearMeleeRoutine()
         {
             m_agent.Stop();
@@ -960,7 +980,8 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.ApplyQueuedState();
             yield return null;
         }
-
+        [SerializeField]
+        private GameObject[] m_colliderDetectorStingerCharge;
         private IEnumerator GroundStingerRecoverRoutine()
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
@@ -1030,7 +1051,7 @@ namespace DChild.Gameplay.Characters.Enemies
             //var returnPointCharge = transform.position;
             m_agent.Stop();
             //CustomTurn();
-            m_bodyCollider.SetActive(false);
+           m_bodyCollider.SetActive(false);
             //while (Vector2.Distance(transform.position, m_stingerChargePoint.position) > 1.5)
             //{
             //    DynamicMovement(m_stingerChargePoint.position);
@@ -1041,8 +1062,13 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_agent.Stop();
             m_animation.EnableRootMotion(true, false);
+            for (int i = 0; i < m_colliderDetectorStingerCharge.Length; i++)
+            {
+                m_colliderDetectorStingerCharge[i].SetActive(true);
+            }
             m_animation.SetAnimation(0, m_info.phase4AtkStingerChargeAnticipationAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.phase4AtkStingerChargeAnticipationAnimation);
+            m_colliderForStingerCharge.gameObject.SetActive(true);
             m_stingerChargeCollider.enabled = true;
             m_animation.DisableRootMotion();
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
@@ -1051,6 +1077,9 @@ namespace DChild.Gameplay.Characters.Enemies
 
             for (int i = 0; i < /*UnityEngine.Random.Range(1,3)*/ 3; i++)
             {
+                m_queenBeeSwamVFX.Play();
+                yield return new WaitForSeconds(2f);
+
                 m_animation.SetAnimation(0, m_info.phase4AtkStingerChargeAnimation, true);
                 //var chargeFXScale = m_QBStingerChargeFX.GetComponentInParent<Transform>();
                 var mainFX = m_QBStingerChargeFX.main;
@@ -1065,8 +1094,12 @@ namespace DChild.Gameplay.Characters.Enemies
                 transform.position = new Vector2(transform.position.x, m_targetInfo.position.y - 5f);
                 //returnPointCharge = transform.position;
             }
-
+            for (int i = 0; i < m_colliderDetectorStingerCharge.Length; i++)
+            {
+                m_colliderDetectorStingerCharge[i].SetActive(false);
+            }
             m_stingerChargeCollider.enabled = false;
+            m_colliderForStingerCharge.gameObject.SetActive(false);
             //transform.position = returnPointCharge;
             m_hitbox.SetInvulnerability(Invulnerability.None);
             m_bodyCollider.SetActive(false);
@@ -1273,6 +1306,7 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void Awake()
         {
             base.Awake();
+            QueenBeeDetector.detection += QueenBeeDetector_detection;
             m_patrolHandle.TurnRequest += OnTurnRequest;
             m_flinchHandle.FlinchStart += OnFlinchStart;
             //m_flinchHandle.FlinchEnd += OnFlinchEnd;
@@ -1288,11 +1322,19 @@ namespace DChild.Gameplay.Characters.Enemies
 
 
         }
+        private bool stopQueenBee = false;
+        private void QueenBeeDetector_detection(object sender, EventActionArgs eventArgs)
+        {
+            GetComponent<IsolatedPhysics2D>().SetVelocity(0 * transform.localScale.x, 0);
+            m_agent.Stop();
+            Debug.Log("Successfuly created box detection");
+        }
 
+        private Collider2D m_collider;
         protected override void Start()
         {
             base.Start();
-            
+            m_colliderForStingerCharge.gameObject.SetActive(false);
             m_flinchHandle.m_autoFlinch = false;
             m_spineListener.Subscribe(m_info.spearProjectile.launchOnEvent, LaunchSpearProjectile);
             m_spineListener.Subscribe(m_info.beeProjectile.launchOnEvent, LaunchBeeProjectile);
