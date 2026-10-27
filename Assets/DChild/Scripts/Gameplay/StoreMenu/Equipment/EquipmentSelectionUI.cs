@@ -87,6 +87,15 @@ namespace DChild.Menu.Equipment.UI
             m_equipmentUI.detailsUI.SetHighlightedEquipment(equipmentItem);
         }
 
+        internal void RefreshEquipmentState()
+        {
+            foreach (var item in m_itemGrid)
+                item.GetEquippedStatus(m_currentItem);
+
+            if (m_currentItem != null)
+                m_equipButtonUI.UpdateButtonLabel(m_currentItem);
+        }
+
         private void DisconnectGridItems()
         {
             foreach (EquipmentGridItemUI item in m_itemGrid)

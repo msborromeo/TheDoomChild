@@ -18,7 +18,10 @@ namespace DChild.Gameplay.EquipmentSystem
 
         public void AttachTo(IPlayer player)
         {
-            m_oldMaxHealth = player.health.maxValue;
+            if(player.stats.GetBaseStat(PlayerStat.Health) == m_oldMaxHealth || m_HPModifierValue == 0)
+            {
+                m_oldMaxHealth = player.health.maxValue;
+            }          
             player.health.SetMaxValue(m_HPModifierValue);
             var currentHealthValue = player.health.currentValue;
             player.stats.AddStat(PlayerStat.Health, currentHealthValue);
@@ -28,9 +31,11 @@ namespace DChild.Gameplay.EquipmentSystem
 
         public void DetachFrom(IPlayer player)
         {
-            player.health.SetMaxValue(m_oldMaxHealth);
+            //player.health.SetMaxValue(m_oldMaxHealth);
             var currentHealthValue = player.health.currentValue;
-            player.stats.AddStat(PlayerStat.Health, -currentHealthValue);
+            player.stats.AddStat(PlayerStat.Health, -m_HPModifierValue);
+            //swapped call for set to max because of logic issues
+            player.health.SetMaxValue(m_oldMaxHealth);
             //need to reset to max value?
             player.health.ResetValueToMax();
         }
