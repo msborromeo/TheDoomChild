@@ -536,6 +536,11 @@ namespace DChild.Gameplay.Characters.Enemies
                             m_animation.EnableRootMotion(true, false);
                             m_attackHandle.ExecuteAttack(m_info.attack3.animation, m_info.idleAnimation.animation);
                             break;
+
+                        default:
+                            m_animation.EnableRootMotion(true, false);
+                            m_attackHandle.ExecuteAttack(m_info.attack3.animation, m_info.idleAnimation.animation);
+                            break;
                     }
                     m_attackDecider.hasDecidedOnAttack = false;
 
