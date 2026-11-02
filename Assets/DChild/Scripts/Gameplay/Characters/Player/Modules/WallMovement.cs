@@ -67,6 +67,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_animator.SetBool(m_animationParameter, false);
             m_animator.SetFloat(m_yInputParameter, 0);
             m_rigibody.velocity = Vector2.zero;
+            m_animator.SetBool("CanWallCrawl", false);
         }
         private float m_gravityCache;
         /*public void Move(float direction)
@@ -106,7 +107,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (!m_state.canWallCrawl)
                 return;
-
+            m_animator.SetBool("CanWallCrawl", true);
             if (direction > 0 && IsThereAWall(SensorType.Ceiling))
             {
                 m_rigibody.gravityScale = 0;
