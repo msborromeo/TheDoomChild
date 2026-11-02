@@ -35,11 +35,14 @@ namespace DChild.Menu.Equipment.UI
             if (equipmentItem == null || equipmentItem.soulEquipment.Slot != m_soulSlot)
                 return false;
 
+            if (m_equipmentUI.equipmentHandle == null ||
+                !m_equipmentUI.equipmentHandle.TryEquipSoulEquipment(equipmentItem))
+                return false;
+
             m_currentItem = equipmentItem;
             m_itemImage.sprite = equipmentItem.equippedIcon;
             ToggleItemVisibility(true);
 
-            m_equipmentUI.equipmentHandle.EquipSoulEquipment(equipmentItem);
             return true;
         }
 
@@ -48,7 +51,9 @@ namespace DChild.Menu.Equipment.UI
             if (equipmentItem == null || equipmentItem.soulEquipment.Slot != m_soulSlot || m_currentItem != equipmentItem)
                 return false;
 
-            m_equipmentUI.equipmentHandle.UnequipSoulEquipment(equipmentItem);
+            if (m_equipmentUI.equipmentHandle == null ||
+                !m_equipmentUI.equipmentHandle.TryUnequipSoulEquipment(equipmentItem))
+                return false;
 
             m_currentItem = null;
             m_itemImage.sprite = null;
@@ -58,7 +63,9 @@ namespace DChild.Menu.Equipment.UI
 
         public void Refresh()
         {
-            if (m_equipmentUI.equipmentHandle.TryGetEquippedSoulEquipment(m_soulSlot, out SoulEquipmentItem equipmentItem))
+            if (m_equipmentUI.equipmentHandle != null &&
+                m_equipmentUI.equipmentHandle.TryGetEquippedSoulEquipment(m_soulSlot, out SoulEquipmentItem equipmentItem) &&
+                equipmentItem != null)
             {
                 m_currentItem = equipmentItem;
                 m_itemImage.sprite = equipmentItem.equippedIcon;

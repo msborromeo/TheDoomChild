@@ -370,12 +370,6 @@ namespace DChild.Gameplay.Characters.Enemies
                (UnityEngine.Random.value - 0.5f) * m_randomSpawnCollider.bounds.size.y,
                (UnityEngine.Random.value - 0.5f) * m_randomSpawnCollider.bounds.size.z);
             }
-
-            do
-            {
-                m_agent.MoveTowardsForced(m_targetInfo.position - (Vector2)transform.position, 120); 
-            } while (m_roofSensor.isDetecting);
-
             return randomPos;
         }
 
@@ -407,6 +401,12 @@ namespace DChild.Gameplay.Characters.Enemies
             //transform.position = new Vector2(m_targetInfo.position.x + (random == 0 ? 10 : -10), GroundPosition().y + 20);
             yield return new WaitForSeconds(0.75f);
             transform.position = new Vector2(RandomTeleportPoint(/*transform.position*/m_targetInfo.position).x, m_targetInfo.position.y + 10);
+            float timewaiting = 0f;
+            do
+            {
+                m_agent.MoveTowardsForced((Vector2)transform.position - m_targetInfo.position, 120);
+                timewaiting = WaitTime(timewaiting);
+            } while (m_roofSensor.isDetecting && timewaiting < 0.5f);
             yield return new WaitForSeconds(0.25f);
             if (!IsFacingTarget())
             {
@@ -443,6 +443,12 @@ namespace DChild.Gameplay.Characters.Enemies
             var random = UnityEngine.Random.Range(0, 2);
             //transform.position = new Vector2(m_targetInfo.position.x + (random == 0 ? 10 : -10), GroundPosition().y + 20);
             transform.position = new Vector2(RandomTeleportPoint(/*transform.position*/m_targetInfo.position).x, m_targetInfo.position.y + 10);
+            float timewaiting = 0f;
+            do
+            {
+                m_agent.MoveTowardsForced((Vector2)transform.position - m_targetInfo.position, 120);
+                timewaiting = WaitTime(timewaiting);
+            } while (m_roofSensor.isDetecting && timewaiting < 0.5f);
             if (!IsFacingTarget())
             {
                 CustomTurn();
@@ -510,7 +516,11 @@ namespace DChild.Gameplay.Characters.Enemies
             this.gameObject.SetActive(false);
             yield return null;
         }
-
+        private float WaitTime(float timewaiting)
+        {
+            timewaiting += Time.fixedDeltaTime;
+            return timewaiting;
+        }
         private void ExecuteAttack(Attack m_attack)
         {
             m_agent.Stop();
@@ -531,7 +541,8 @@ namespace DChild.Gameplay.Characters.Enemies
             /*Vector2.Distance(transform.position, target) > m_info.spearMeleeAttack.range*/ //old target in range condition
             var moveSpeed = m_info.move.speed - UnityEngine.Random.Range(0, 3);
             var newPos = Vector2.zero;
-            while (!inRange)
+            float timewaiting = 0f;
+            while (!inRange&& timewaiting <5f)
             {
                 newPos = new Vector2(m_targetInfo.position.x, /*GroundPosition().y + 20*/m_targetInfo.position.y + 10);
                 bool xTargetInRange = Mathf.Abs(/*m_targetInfo.position.x*/newPos.x - transform.position.x) < attackRange ? true : false;
@@ -540,14 +551,15 @@ namespace DChild.Gameplay.Characters.Enemies
                 {
                     inRange = true;
                 }
+                timewaiting = WaitTime(timewaiting);
                 //DynamicMovement(/*new Vector2(m_targetInfo.position.x, m_targetInfo.position.y)*/ newPos);
                 DynamicMovement(newPos, moveSpeed);
                 yield return null;
             }
-            if (!IsFacingTarget())
+            /*if (!IsFacingTarget())
             {
                 CustomTurn();
-            }
+            }*/
             ExecuteAttack(attack);
             yield return null;
         }
