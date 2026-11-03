@@ -18,6 +18,9 @@ namespace DChild.Gameplay.Characters.Players
         SoulAbsorb_Range,
         Levitation_Speed,
         ShadowMagicRegeneration,
+        SkullThrow_Damage,
+        EarthShaker_Damage,
+        SwordThrust_Damage,
         [HideInInspector]
         _COUNT
     }

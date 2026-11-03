@@ -34,6 +34,8 @@ namespace DChild.Gameplay.Projectiles
 
         private Coroutine m_lifetimeRoutine;
 
+        public AttackDamageInfo attackDamageInfo => m_attackDamageInfo;
+
         public void ApplyCritValues(float value, float critChance, float critModifier, ParticleFX critFX)
         {
             var attacker = GetComponent<Attacker>();

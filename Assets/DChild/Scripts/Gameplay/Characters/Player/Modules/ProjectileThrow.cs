@@ -53,13 +53,16 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public event EventAction<EventActionArgs> ExecutionRequested;
         public event EventAction<EventActionArgs> ProjectileThrown;
 
-
+        [SerializeField]
+        private float m_damageModifier;
         [SerializeField, Range(0f, 100f)]
         private float m_critChance;
         [SerializeField, MinValue(0), Tooltip("Multiply modifier by this value on critical hit")]
         private float m_critModifier;
         [SerializeField]
         private ParticleFX m_critFX;
+
+ 
 
         public void RequestExecution()
         {
@@ -395,7 +398,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             var simpleAttackProjectile = m_spawnedProjectile.GetComponent<SimpleAttackProjectile>();
             if (simpleAttackProjectile != null)
             {
-                simpleAttackProjectile.ApplyCritValues(1, m_critChance, m_critModifier, m_critFX);
+                simpleAttackProjectile.ApplyCritValues(m_damageModifier, m_critChance, m_critModifier, m_critFX);
+
             }
          
             //TEST
@@ -528,6 +532,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public override void IncreaseCritDamage(float critDamage)
         {
             m_critModifier += critDamage;
+        }
+
+        public void SetDamageModifier(float damagerModifier)
+        {
+            m_damageModifier = damagerModifier;
         }
     }
 }
