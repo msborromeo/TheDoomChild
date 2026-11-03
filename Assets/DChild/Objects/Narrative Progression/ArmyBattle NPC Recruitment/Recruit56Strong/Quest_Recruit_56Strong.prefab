@@ -46,7 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger: 2
   condition:
-    luaConditions: []
+    luaConditions:
+    - Variable["56Strong_FirstTimeTalk"] == false
     questConditions: []
     acceptedTags: []
     acceptedGameObjects: []
@@ -501,7 +502,7 @@ MonoBehaviour:
   setAnotherQuestEntryState: 0
   anotherQuestEntryNumber: 1
   anotherQuestEntryState: 0
-  luaCode: Variable["56Strong_FirstTimeTalk"] = false
+  luaCode: 
   sequence: 
   sequenceSpeaker: {fileID: 0}
   sequenceListener: {fileID: 0}
@@ -793,6 +794,7 @@ MonoBehaviour:
   removeTrigger: 1024
   databases:
   - {fileID: 11400000, guid: 0a71794da31a358468cf85ad0878799d, type: 2}
+  - {fileID: 11400000, guid: 58f52f9706d1b2a4bba7a67b5e0038a1, type: 2}
   condition:
     luaConditions: []
     questConditions: []
