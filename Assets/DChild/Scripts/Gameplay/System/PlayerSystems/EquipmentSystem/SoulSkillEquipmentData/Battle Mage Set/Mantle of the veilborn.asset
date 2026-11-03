@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9fa09848550dc245a2c058250003405, type: 3}
-  m_Name: Crownhealm
+  m_Name: Mantle of the veilborn
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: e9735a7d580bc0a43acd9f62572f5630, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -26,10 +27,10 @@ MonoBehaviour:
       Data: 0|DChild.Gameplay.EquipmentSystem.SoulEquipment, Assembly-CSharp
     - Name: m_name
       Entry: 1
-      Data: Crownhealm
+      Data: Manle of the veilborn
     - Name: m_slot
       Entry: 3
-      Data: 0
+      Data: 6
     - Name: m_expRequired
       Entry: 3
       Data: 200
@@ -42,19 +43,19 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 7
-      Data: 2|DChild.Gameplay.EquipmentSystem.CritChanceModifier, Assembly-CSharp
-    - Name: m_critChanceValue
-      Entry: 4
+      Data: 2|DChild.Gameplay.EquipmentSystem.MaxSPModifier, Assembly-CSharp
+    - Name: m_SPModifierValue
+      Entry: 3
       Data: 10
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 3|DChild.Gameplay.EquipmentSystem.MaxHPModifier, Assembly-CSharp
-    - Name: m_HPModifierValue
+      Data: 3|DChild.Gameplay.EquipmentSystem.AttackModifier, Assembly-CSharp
+    - Name: m_attackModifierValue
       Entry: 3
-      Data: 20
+      Data: 15
     - Name: 
       Entry: 8
       Data: 
@@ -65,21 +66,34 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: m_soulSkillList
-      Entry: 6
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[DChild.Gameplay.Characters.Players.SoulSkills.SoulSkill,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  m_ID: 216748
-  m_name: Crownhealm
+    - Name: 
+      Entry: 8
+      Data: 
+  m_ID: 108816
+  m_name: Mantle of the veilborn
   m_connectToDatabase: 0
   m_databaseID: -1
-  m_customName: Crownhealm
+  m_customName: Mantle of the veilborn
   m_initialized: 1
   m_category: 32
-  m_icon: {fileID: 21300000, guid: fe2d7ee736e310244a1e4084b13acbf8, type: 3}
-  m_equippedIcon: {fileID: 21300000, guid: a4b18cab6766c1e4cbe43ddd9790951a, type: 3}
-  m_slotIcon: {fileID: 21300000, guid: 68a351297dba50549b96f305a40fd5ed, type: 3}
+  m_icon: {fileID: 21300000, guid: 8ee8dca6251e45548aafb721670fe223, type: 3}
+  m_equippedIcon: {fileID: 21300000, guid: 85fff73bbf17c7544a07e9a9965908cd, type: 3}
+  m_slotIcon: {fileID: 21300000, guid: 4e05fcd7a8741d24aab3a2cba7443880, type: 3}
   m_quantityLimit: 1
   m_cost:
     m_soulEssenceCost: 0

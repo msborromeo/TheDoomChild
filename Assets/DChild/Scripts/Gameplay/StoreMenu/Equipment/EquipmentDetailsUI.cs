@@ -50,8 +50,16 @@ namespace DChild.Menu.Equipment.UI
             m_itemNameLabel.text = m_highlightedEquipment.itemName;
 
             var boostList = m_highlightedEquipment.soulEquipment.statBoostList;
+            var bonusList = m_highlightedEquipment.soulEquipment.soulSkillList;
             if (boostList != null)
                 ShowStatBuffs(boostList);
+
+            if (bonusList != null)
+            {
+                foreach(SoulSkill skill in bonusList)
+                SetSkillBonusLabel(skill);
+            }
+                
         }
 
         public void Clear()
