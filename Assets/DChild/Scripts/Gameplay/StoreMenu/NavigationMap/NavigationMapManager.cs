@@ -116,8 +116,10 @@ namespace DChild.Gameplay.NavigationMap
                     changes.Clear();
                 }
             }
-            m_tracker.UpdateTrackerPosition();
-            MoveTrackerToCenter();
+            if (m_mapInstance != null && m_tracker.TryUpdateTrackerPosition())
+            {
+                MoveTrackerToCenter();
+            }
             m_collectathonManager.ShowCollectathonDetails();
             m_legendSection.GetComponent<MapLegendUI>().SetLegendList(m_iconManager != null ? m_iconManager.legendIcons : null);
             if (m_iconManager != null)
