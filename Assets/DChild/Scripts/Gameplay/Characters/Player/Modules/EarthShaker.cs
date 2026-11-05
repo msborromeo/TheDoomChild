@@ -87,7 +87,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void Impact()
         {
             //m_state.waitForBehaviour = true;
-            m_attacker.SetDamageModifier(/*m_impactDamageModifier*/m_configuration.impactDamageModifier * m_modifier.Get(PlayerModifier.AttackDamage), 
+            m_attacker.SetDamageModifier(/*m_impactDamageModifier*/m_configuration.impactDamageModifier * m_modifier.Get(PlayerModifier.EarthShaker_Damage), 
                 m_critChance,
                 m_critModifier,
                 m_critFX);
@@ -125,7 +125,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void StartExecution()
         {
             m_damageable.SetInvulnerability(Invulnerability.Level_1);
-            m_attacker.SetDamageModifier(/*m_fallDamageModifier*/m_configuration.fallDamageModifier * m_modifier.Get(PlayerModifier.AttackDamage), 
+            m_attacker.SetDamageModifier(/*m_fallDamageModifier*/m_configuration.fallDamageModifier * m_modifier.Get(PlayerModifier.EarthShaker_Damage), 
                 m_critChance, 
                 m_critModifier,
                 m_critFX);

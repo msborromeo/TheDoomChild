@@ -310,6 +310,7 @@ namespace DChild.Gameplay.EquipmentSystem
                     }
                     else
                     {
+                        m_soulSkillHandle.RemoveAsActivated(soulSkill, false);
                         m_soulSkillHandle.RemoveAsAcquired(soulSkill.id);
                     }
                     
