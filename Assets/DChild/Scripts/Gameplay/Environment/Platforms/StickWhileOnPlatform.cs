@@ -231,7 +231,7 @@ namespace DChild.Gameplay.Environment
             if (collision.rigidbody == null)
                 return;
 
-            if (m_checkedMovableObject == collision.rigidbody)
+            if (m_checkedMovableObject == collision.rigidbody && collision.gameObject.tag != "Player")
             {
                 if (m_checkMovableObjectRoutine != null)
                 {
@@ -251,13 +251,14 @@ namespace DChild.Gameplay.Environment
             else
             {
                 var cache = m_originalParentPair[collision.collider];
-                collision.rigidbody.transform.parent = cache.Value.parent;
+                collision.rigidbody.transform.parent = (collision.gameObject.tag == "Character") ? null : cache.Value.parent;
                 if (cache.Value.parent == null)
                 {
                     SceneManager.MoveGameObjectToScene(collision.rigidbody.gameObject, cache.Value.scene);
                 }
                 cache.Release();
                 m_originalParentPair.Remove(collision.collider);
+                
             }
         }
     }
