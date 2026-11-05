@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Doozy.Runtime.UIManager;
+using Doozy.Runtime.UIManager.Animators;
 using Doozy.Runtime.UIManager.Components;
 using Doozy.Runtime.UIManager.Containers;
 using Doozy.Runtime.UIManager.Input;
@@ -44,6 +46,8 @@ namespace DChild.Menu.UI
         private int m_modalFrame = -1;
         private int m_enterFrame = -1;
         private bool m_session;
+        private bool m_tabsPrepared;
+        private bool m_tabsVisible;
         private bool m_inFields;
         private bool m_backBlocked;
         private bool m_navigationSuspended;
@@ -102,17 +106,17 @@ namespace DChild.Menu.UI
 
         private void OnEnable()
         {
-            m_view.OnShowCallback.Event.AddListener(BeginSession);
-            m_view.OnVisibleCallback.Event.AddListener(FocusTab);
+            m_view.OnShowCallback.Event.AddListener(PrepareTabs);
+            m_view.OnVisibleCallback.Event.AddListener(ResetTabsAndFocus);
             m_view.OnHideCallback.Event.AddListener(StopNavigation);
             m_view.OnHiddenCallback.Event.AddListener(EndSession);
-            if (!m_view.isHidden && !m_view.isHiding) BeginSession();
+            if (!m_view.isHidden && !m_view.isHiding) PrepareTabs();
         }
 
         private void OnDisable()
         {
-            m_view.OnShowCallback.Event.RemoveListener(BeginSession);
-            m_view.OnVisibleCallback.Event.RemoveListener(FocusTab);
+            m_view.OnShowCallback.Event.RemoveListener(PrepareTabs);
+            m_view.OnVisibleCallback.Event.RemoveListener(ResetTabsAndFocus);
             m_view.OnHideCallback.Event.RemoveListener(StopNavigation);
             m_view.OnHiddenCallback.Event.RemoveListener(EndSession);
             EndSession();
@@ -135,12 +139,68 @@ namespace DChild.Menu.UI
             m_enterFrame = -1;
             m_lastField = null;
             foreach (var category in m_categories) category.remembered = null;
-            for (int i = 0; i < m_categories.Length; i++)
-                if (m_categories[i].tab != null && m_categories[i].tab.isOn) { m_category = i; break; }
+            m_category = 0;
             if (m_releaseBackRoutine != null) StopCoroutine(m_releaseBackRoutine);
             m_releaseBackRoutine = null;
             if (!m_backBlocked) { BackButton.Disable(); m_backBlocked = true; }
             if (m_input != null && m_input.cancel != null) m_input.cancel.action.performed += OnCancel;
+        }
+
+        private void PrepareTabs()
+        {
+            BeginSession();
+            if (!m_session || m_categories.Length == 0) return;
+            m_tabsPrepared = true;
+            m_tabsVisible = false;
+            m_inFields = false;
+            m_enterFrame = -1;
+            // UIView can auto-select before OnShow; defer actual tab focus until OnVisible.
+            if (m_eventSystem.currentSelectedGameObject != null &&
+                m_eventSystem.currentSelectedGameObject.transform.IsChildOf(transform))
+                m_eventSystem.SetSelectedGameObject(null);
+            // Reconcile membership before turning Display on so the group can turn stale tabs off.
+            foreach (var category in m_categories)
+                if (category.tab != null) category.tab.AddToToggleGroup(category.tab.toggleGroup);
+            m_category = 0;
+            if (m_categories[0].tab != null)
+                m_categories[0].tab.SetIsOn(true, animateChange: false, triggerValueChanged: false);
+            foreach (var category in m_categories)
+            {
+                if (category.tab == null) continue;
+                category.tab.SetState(UISelectionState.Normal);
+                SnapTabVisuals(category.tab);
+            }
+        }
+
+        private static void SnapTabVisuals(UIToggle tab)
+        {
+            var animators = tab.GetComponentsInChildren<BaseUISelectableAnimator>(true);
+            foreach (var animator in animators)
+                if (animator.controller == tab && animator.isActiveAndEnabled) animator.StopAllReactions();
+            foreach (var animator in animators)
+            {
+                if (animator.controller != tab || !animator.isActiveAndEnabled) continue;
+                if (animator.ToggleCommand == CommandToggle.On && !tab.isOn ||
+                    animator.ToggleCommand == CommandToggle.Off && tab.isOn) continue;
+                if (!animator.IsStateEnabled(UISelectionState.Normal)) continue;
+                if (animator is UISelectableUIAnimator ui) ui.GetAnimation(UISelectionState.Normal).SetProgressAtOne();
+                else if (animator is UISelectableColorAnimator color) color.GetAnimation(UISelectionState.Normal).SetProgressAtOne();
+                else if (animator is UISelectableSpriteAnimator sprite) sprite.GetAnimation(UISelectionState.Normal).SetProgressAtOne();
+            }
+        }
+
+        private void ResetTabsAndFocus()
+        {
+            if (!m_tabsPrepared) PrepareTabs();
+            if (!m_session || m_categories.Length == 0 || m_tabsVisible) return;
+            m_category = 0;
+            // Flow listeners are ready now; the silent preparation must not route content early.
+            if (m_categories[0].tab != null)
+                m_categories[0].tab.SetIsOn(true, animateChange: false, triggerValueChanged: true);
+            foreach (var category in m_categories)
+                if (category.tab != null) SnapTabVisuals(category.tab);
+            m_tabsVisible = true;
+            FocusTab();
         }
 
         private void FocusTab()
@@ -150,7 +210,7 @@ namespace DChild.Menu.UI
             m_enterFrame = -1;
             if (Available(m_categories[m_category].tab))
             {
-                m_categories[m_category].tab.SetIsOn(true);
+                if (!m_categories[m_category].tab.isOn) m_categories[m_category].tab.SetIsOn(true);
                 m_categories[m_category].tab.Select();
             }
             else foreach (var category in m_categories)
@@ -159,6 +219,8 @@ namespace DChild.Menu.UI
 
         private void StopNavigation()
         {
+            m_tabsPrepared = false;
+            m_tabsVisible = false;
             m_enterFrame = -1;
             if (m_eventSystem != null && m_eventSystem.currentSelectedGameObject != null &&
                 m_eventSystem.currentSelectedGameObject.transform.IsChildOf(transform))
@@ -176,6 +238,8 @@ namespace DChild.Menu.UI
                 else ReleaseBack();
             }
             m_session = false;
+            m_tabsPrepared = false;
+            m_tabsVisible = false;
             m_rebinding = false;
             m_modalOpener = null;
             if (m_eventSystem != null && m_opener != null)
@@ -240,7 +304,7 @@ namespace DChild.Menu.UI
 
         internal void Selected(Selectable selectable)
         {
-            if (!m_session || HasModal) return;
+            if (!m_session || !m_tabsVisible || HasModal) return;
             for (int i = 0; i < m_categories.Length; i++)
             {
                 var category = m_categories[i];
@@ -248,7 +312,8 @@ namespace DChild.Menu.UI
                 {
                     m_category = i;
                     m_inFields = false;
-                    category.tab.SetIsOn(true);
+                    // FocusTab already activates the tab before selecting it.
+                    if (!category.tab.isOn) category.tab.SetIsOn(true);
                     return;
                 }
                 if (Array.IndexOf(category.fields, selectable) >= 0)
@@ -296,8 +361,9 @@ namespace DChild.Menu.UI
 
         private void LateUpdate()
         {
-            if (!m_session && !m_view.isHidden && !m_view.isHiding) BeginSession();
+            if (!m_session && !m_view.isHidden && !m_view.isHiding) PrepareTabs();
             if (!m_session || !m_view.isVisible || m_eventSystem == null) return;
+            if (!m_tabsVisible) ResetTabsAndFocus();
             if (HasModal) return;
             if (m_navigationSuspended)
             {

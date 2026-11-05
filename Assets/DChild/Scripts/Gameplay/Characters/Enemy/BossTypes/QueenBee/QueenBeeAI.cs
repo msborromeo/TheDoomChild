@@ -330,6 +330,8 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField, TabGroup("Reference")]
         private GameObject m_bodyCollider;
         [SerializeField, TabGroup("Reference")]
+        private GameObject m_colliderForStingerCharge;
+        [SerializeField, TabGroup("Reference")]
         private GameObject m_droneSpointsGO;
         [SerializeField, TabGroup("Reference")]
         private GameObject m_movePointsGO;
@@ -339,6 +341,21 @@ namespace DChild.Gameplay.Characters.Enemies
         private GameObject m_colliderDamageGO;
         [SerializeField, TabGroup("Reference")]
         private Collider2D m_stingerChargeCollider;
+        [SerializeField, TabGroup("Reference")]
+        private Attacker m_attacker;
+        [SerializeField, TabGroup("Reference")]
+        private Collider2D m_randomSpawnCollider;
+
+        [SerializeField, TabGroup("Attack Datas")]
+        private AttackData m_queenBeeSpearChargeAD;
+        [SerializeField, TabGroup("Attack Datas")]
+        private AttackData m_queenBeeSpearDashAD;
+        [SerializeField, TabGroup("Attack Datas")]
+        private AttackData m_queenBeeSpearSwingshAD;
+        [SerializeField, TabGroup("Attack Datas")]
+        private AttackData m_queenBeeStingerChargeAD;
+        [SerializeField, TabGroup("Attack Datas")]
+        private AttackData m_queenBeeDefaultAD;
         [SerializeField, TabGroup("Modules")]
         private AnimatedTurnHandle m_turnHandle;
         [SerializeField, TabGroup("Modules")]
@@ -356,11 +373,19 @@ namespace DChild.Gameplay.Characters.Enemies
         [SerializeField, TabGroup("Effects")]
         private ParticleSystem m_QBStingerChargeFX;
         [SerializeField, TabGroup("Effects")]
+        private ParticleSystem m_QBStingerCharge2FX;
+        [SerializeField, TabGroup("Effects")]
         private ParticleSystem m_QBStingerDiveFX;
         [SerializeField, TabGroup("Effects")]
         private ParticleSystem m_RightArmFX;
         [SerializeField, TabGroup("Effects")]
         private ParticleSystem m_LeftArmFX;
+        [SerializeField, TabGroup("Effects")]
+        private ParticleSystem m_queenBeeSwarmLeftToRight;
+        [SerializeField, TabGroup("Effects")]
+        private ParticleSystem m_queenBeeSwarmRightToLeft;
+        [SerializeField, TabGroup("Effects")]
+        private ParticleSystem m_queenBeeSwamVFX;
         //Patience Handler
         [SerializeField]
         private SpineEventListener m_spineListener;
@@ -516,7 +541,20 @@ namespace DChild.Gameplay.Characters.Enemies
             if (m_stateHandle.currentState != State.Phasing)
                 m_stateHandle.ApplyQueuedState();
         }
-
+        private Vector3 RandomTeleportPoint(Vector3 storedPos)
+        {
+            Debug.Log("randomtp");
+            Vector3 randomPos = storedPos;
+            while (Vector2.Distance(storedPos, randomPos) <= 50f)
+            {
+                randomPos = m_randomSpawnCollider.bounds.center + new Vector3(
+               (UnityEngine.Random.value - 0.5f) * m_randomSpawnCollider.bounds.size.x,
+               (UnityEngine.Random.value - 0.5f) * m_randomSpawnCollider.bounds.size.y,
+               (UnityEngine.Random.value - 0.5f) * m_randomSpawnCollider.bounds.size.z);
+            }
+            return randomPos;
+            Debug.Log("randomtp done");
+        }
         private void MoveToAttackPosition(Attack attack/*, Vector2 target*/)
         {
             //Debug.Log("Triple Attack!");
@@ -531,7 +569,9 @@ namespace DChild.Gameplay.Characters.Enemies
                     //StartCoroutine(SpearThrowRoutine());
                     break;
                 case Attack.SpearCharge:
-                    if(m_currentPhaseIndex == 1 || m_currentPhaseIndex == 2)
+                    m_attacker.SetData(m_queenBeeSpearChargeAD);
+
+                    if (m_currentPhaseIndex == 1 || m_currentPhaseIndex == 2)
                         StartCoroutine(SpearChargeRoutine());
                     else
                         m_stateHandle.ApplyQueuedState();
@@ -539,6 +579,7 @@ namespace DChild.Gameplay.Characters.Enemies
                     //StartCoroutine(SpearThrowRoutine());
                     break;
                 case Attack.SpearMelee:
+                    m_attacker.SetData(m_queenBeeSpearDashAD);
                     if (m_currentPhaseIndex < 3)
                         StartCoroutine(SpearMeleeRoutine());
                     else
@@ -558,6 +599,7 @@ namespace DChild.Gameplay.Characters.Enemies
                 //        m_stateHandle.ApplyQueuedState();
                 //    break;
                     case Attack.StingerCharge:
+                    m_attacker.SetData(m_queenBeeStingerChargeAD);
                     if (m_currentPhaseIndex >= 3)
                         StartCoroutine(StingerChargeRoutine());
                     else
@@ -670,7 +712,7 @@ namespace DChild.Gameplay.Characters.Enemies
         private IEnumerator ChangePhaseRoutine()
         {
             m_phaseHandle.ApplyChange();
-            m_bodyCollider.SetActive(false);
+           m_bodyCollider.SetActive(false);
             m_stateHandle.Wait(State.Phasing);
             m_animation.animationState.TimeScale = 1f;
             //m_turnState = State.Phasing;
@@ -782,39 +824,69 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_agent.Stop();
             m_animation.EnableRootMotion(true, false);
+            for (int i = 0; i < m_colliderDetectorStingerCharge.Length; i++)
+            {
+                m_colliderDetectorStingerCharge[i].SetActive(true);
+            }
             m_animation.SetAnimation(0, m_info.phase2AtkChargeStartAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.phase2AtkChargeStartAnimation);
+            m_colliderForStingerCharge.gameObject.SetActive(true);
             m_animation.DisableRootMotion();
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
             m_bodyCollider.SetActive(false);
-            m_QBStingerChargeFX.gameObject.SetActive(true);
-            m_QBStingerChargeFX.Play();
+            m_QBStingerCharge2FX.gameObject.SetActive(true);
+            m_QBStingerCharge2FX.Play();
 
-            for (int i = 0; i < /*UnityEngine.Random.Range(1,3)*/ 3; i++)
+            for (int i = 0; i <  3; i++)
             {
+
+                
+                if(i > 0)
+                {
+                    m_queenBeeSwamVFX.Play();
+                    yield return new WaitForSeconds(2f);    
+                }
+                   
+                
                 m_animation.SetAnimation(0, m_info.phase2AtkChargeLoopAnimation, true);
                 //var chargeFXScale = m_QBStingerChargeFX.GetComponentInParent<Transform>();
-                var mainFX = m_QBStingerChargeFX.main;
+                var mainFX = m_QBStingerCharge2FX.main;
                 mainFX.startRotation = transform.localScale.x > 0 ? /*180 * Mathf.Deg2Rad*/ (float)Mathf.PI/*nis*/: 0;
                 //chargeFXScale.localScale = new Vector3(transform.localScale.x > 0 ? -chargeFXScale.localScale.x : chargeFXScale.localScale.x, chargeFXScale.localScale.y, chargeFXScale.localScale.z);
                 GetComponent<IsolatedPhysics2D>().SetVelocity(250 * transform.localScale.x, 0);
-                yield return new WaitForSeconds(i == 0 ? 1.25f : 2f);
+                yield return new WaitForSeconds(i == 0 ? 1.25f : 2.5f);
+                
+                yield return new WaitForSeconds(.25f);
                 m_animation.SetEmptyAnimation(0, 0);
                 CustomTurn();
                 m_agent.Stop();
                 yield return new WaitForSeconds(.25f);
                 transform.position = new Vector2(transform.position.x, m_targetInfo.position.y);
+
+
+            }
+            for (int i = 0; i < m_colliderDetectorStingerCharge.Length; i++)
+            {
+                m_colliderDetectorStingerCharge[i].SetActive(false);
             }
             m_hitbox.SetInvulnerability(Invulnerability.None);
-
+            m_colliderForStingerCharge.gameObject.SetActive(false);
             transform.position = m_returnPoint.position;
-            m_QBStingerChargeFX.gameObject.SetActive(false);
-            m_QBStingerChargeFX.Stop();
+            m_QBStingerCharge2FX.gameObject.SetActive(false);
+            m_QBStingerCharge2FX.Stop();
             m_attackDecider.hasDecidedOnAttack = false;
             m_stateHandle.ApplyQueuedState();
             yield return null;
         }
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            collision = m_collider;
+            if (collision.CompareTag("Sensor"))
+            {
+                Debug.Log("HitBoxColliderDetectorOutside");
+            }
+        }
         private IEnumerator SpearMeleeRoutine()
         {
             m_agent.Stop();
@@ -875,27 +947,31 @@ namespace DChild.Gameplay.Characters.Enemies
 
         private IEnumerator SpearThrowRoutine()
         {
+            m_stateHandle.Wait(State.ReevaluateSituation);
             m_agent.Stop();
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
             //CustomTurn();
-            var targetPos = new Vector2(transform.position.x, m_spearThrowPoint.position.y);
-            while (Vector2.Distance(transform.position, targetPos) > 1.5f)
+            //var targetPos = new Vector2(transform.position.x, m_spearThrowPoint.position.y);
+            var targetPos = RandomTeleportPoint(transform.position);
+            while (Vector2.Distance(transform.position, targetPos) > 1f)
             {
                 m_agent.Stop();
-                Vector3 dir = (targetPos - (Vector2)m_rigidbody2D.transform.position).normalized;
+                Vector3 dir = ((Vector2)targetPos - (Vector2)m_rigidbody2D.transform.position).normalized;
                 m_rigidbody2D.MovePosition(m_rigidbody2D.transform.position + dir * m_info.moveForward.speed * Time.fixedDeltaTime);
                 
                 m_animation.SetAnimation(0, m_info.moveAscend.animation, true);
                 yield return null;
             }
-            CustomTurn();
+            
             if (m_phaseHandle.currentPhase != Phase.PhaseThree)
             {
                 m_flinchHandle.m_autoFlinch = true;
             }
-            m_stateHandle.Wait(State.ReevaluateSituation);
+            
             m_agent.Stop();
             m_hitbox.SetInvulnerability(Invulnerability.None);
+            if(!IsFacingTarget())
+                CustomTurn();
             m_animation.SetAnimation(0, m_info.spearThrowAttack.animation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.spearThrowAttack.animation);
             m_flinchHandle.m_autoFlinch = false;
@@ -904,7 +980,8 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.ApplyQueuedState();
             yield return null;
         }
-
+        [SerializeField]
+        private GameObject[] m_colliderDetectorStingerCharge;
         private IEnumerator GroundStingerRecoverRoutine()
         {
             m_stateHandle.Wait(State.ReevaluateSituation);
@@ -974,7 +1051,7 @@ namespace DChild.Gameplay.Characters.Enemies
             //var returnPointCharge = transform.position;
             m_agent.Stop();
             //CustomTurn();
-            m_bodyCollider.SetActive(false);
+           m_bodyCollider.SetActive(false);
             //while (Vector2.Distance(transform.position, m_stingerChargePoint.position) > 1.5)
             //{
             //    DynamicMovement(m_stingerChargePoint.position);
@@ -985,8 +1062,13 @@ namespace DChild.Gameplay.Characters.Enemies
             m_stateHandle.Wait(State.ReevaluateSituation);
             m_agent.Stop();
             m_animation.EnableRootMotion(true, false);
+            for (int i = 0; i < m_colliderDetectorStingerCharge.Length; i++)
+            {
+                m_colliderDetectorStingerCharge[i].SetActive(true);
+            }
             m_animation.SetAnimation(0, m_info.phase4AtkStingerChargeAnticipationAnimation, false);
             yield return new WaitForAnimationComplete(m_animation.animationState, m_info.phase4AtkStingerChargeAnticipationAnimation);
+            m_colliderForStingerCharge.gameObject.SetActive(true);
             m_stingerChargeCollider.enabled = true;
             m_animation.DisableRootMotion();
             m_hitbox.SetInvulnerability(Invulnerability.MAX);
@@ -995,6 +1077,9 @@ namespace DChild.Gameplay.Characters.Enemies
 
             for (int i = 0; i < /*UnityEngine.Random.Range(1,3)*/ 3; i++)
             {
+                m_queenBeeSwamVFX.Play();
+                yield return new WaitForSeconds(2f);
+
                 m_animation.SetAnimation(0, m_info.phase4AtkStingerChargeAnimation, true);
                 //var chargeFXScale = m_QBStingerChargeFX.GetComponentInParent<Transform>();
                 var mainFX = m_QBStingerChargeFX.main;
@@ -1009,8 +1094,12 @@ namespace DChild.Gameplay.Characters.Enemies
                 transform.position = new Vector2(transform.position.x, m_targetInfo.position.y - 5f);
                 //returnPointCharge = transform.position;
             }
-
+            for (int i = 0; i < m_colliderDetectorStingerCharge.Length; i++)
+            {
+                m_colliderDetectorStingerCharge[i].SetActive(false);
+            }
             m_stingerChargeCollider.enabled = false;
+            m_colliderForStingerCharge.gameObject.SetActive(false);
             //transform.position = returnPointCharge;
             m_hitbox.SetInvulnerability(Invulnerability.None);
             m_bodyCollider.SetActive(false);
@@ -1217,6 +1306,7 @@ namespace DChild.Gameplay.Characters.Enemies
         protected override void Awake()
         {
             base.Awake();
+            QueenBeeDetector.detection += QueenBeeDetector_detection;
             m_patrolHandle.TurnRequest += OnTurnRequest;
             m_flinchHandle.FlinchStart += OnFlinchStart;
             //m_flinchHandle.FlinchEnd += OnFlinchEnd;
@@ -1232,11 +1322,19 @@ namespace DChild.Gameplay.Characters.Enemies
 
 
         }
+        private bool stopQueenBee = false;
+        private void QueenBeeDetector_detection(object sender, EventActionArgs eventArgs)
+        {
+            GetComponent<IsolatedPhysics2D>().SetVelocity(0 * transform.localScale.x, 0);
+            m_agent.Stop();
+            Debug.Log("Successfuly created box detection");
+        }
 
+        private Collider2D m_collider;
         protected override void Start()
         {
             base.Start();
-            
+            m_colliderForStingerCharge.gameObject.SetActive(false);
             m_flinchHandle.m_autoFlinch = false;
             m_spineListener.Subscribe(m_info.spearProjectile.launchOnEvent, LaunchSpearProjectile);
             m_spineListener.Subscribe(m_info.beeProjectile.launchOnEvent, LaunchBeeProjectile);
@@ -1339,6 +1437,7 @@ namespace DChild.Gameplay.Characters.Enemies
 
                     //}
                     //m_chosenAttack = m_previousAttack == Attack.SpearMelee ? m_attackDecider.chosenAttack.attack : Attack.SpearMelee;
+                    m_attacker.SetData(m_queenBeeDefaultAD);
                     m_attackDecider.hasDecidedOnAttack = false;
                     ChooseAttack();
 
