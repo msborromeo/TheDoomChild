@@ -12,10 +12,12 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private RaySensor m_bodySensor;
 
         private Rigidbody2D m_rigibody;
+        private Animator m_animator;
 
         public void Initialize(ComplexCharacterInfo info)
         {
             m_rigibody = info.rigidbody;
+            m_animator = info.animator;
         }
 
         public void SetConfiguration(WallSlideStatsInfo info)
@@ -37,6 +39,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void Execute()
         {
             m_rigibody.velocity = new Vector2(m_rigibody.velocity.x, m_configuration.speed * -1);
+            m_animator.SetBool("CanWallCrawl", false);
         }
     }
 }

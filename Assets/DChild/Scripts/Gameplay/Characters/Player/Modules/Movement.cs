@@ -21,6 +21,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private MovementStatsInfo m_configuration;
         [SerializeField]
         private ParticleSystem m_fastFallFX;
+        [SerializeField]
+        private RaySensor m_wallSensor;
 
         private float m_currentSpeed;
         private IPlayerModifer m_modifier;
@@ -116,6 +118,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void GroundMove(float direction, bool faceDirection)
         {
+            m_wallSensor.Cast();
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity, groundLayer);
             var slopeAngle = 0f;
             if (direction == 0)
@@ -132,6 +135,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                 m_animator.SetFloat(m_speedAnimationParameter, 1);
                 m_animator.SetInteger(m_xInputAnimationParameter, direction > 0 ? 1 : -1);
+            }
+            if (m_wallSensor.allRaysDetecting)
+            {
+                m_animator.SetBool("hasWallWhileMoving", true);
+            }
+            else
+            {
+                m_animator.SetBool("hasWallWhileMoving", false);
             }
 
             var xVelocity = speed * direction;
