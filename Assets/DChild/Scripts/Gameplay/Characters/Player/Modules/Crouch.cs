@@ -1,5 +1,6 @@
 ﻿using DChild.Gameplay.Characters.Players.Behaviour;
 using DChild.Gameplay.Characters.Players.State;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 namespace DChild.Gameplay.Characters.Players.Modules
@@ -10,6 +11,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private RaySensor m_ceilingSensor;
         [SerializeField]
         private RaySensor m_crouchHeightSensor;
+        [SerializeField]
+        private RaySensor m_crouchWallSensor;
 
         private Animator m_animator;
         private int m_animationParameter;
@@ -98,9 +101,18 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         public void Execute()
         {
+            m_crouchWallSensor.Cast();
             m_animator.SetBool(m_animationParameter, true);
             //m_animator.Play(m_animationName);
             m_state.isCrouched = true;
+            if (m_state.isCrouched && m_crouchWallSensor.allRaysDetecting)
+            {
+                m_animator.SetBool("hasWallWhileCrouched", true);
+            }
+            else
+            {
+                m_animator.SetBool("hasWallWhileCrouched", false);
+            }
         }
     }
 }
