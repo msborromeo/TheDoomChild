@@ -40,6 +40,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         [SerializeField]
         private PlayerInput m_playerInput;
+        /*[SerializeField]
+        private RaySensor m_wallRaySensor;*/
         #region Modules
         private PlayerStatisticTracker m_tracker;
         private GroundednessHandle m_groundedness;
@@ -471,6 +473,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 //m_groundedness.Evaluate();
             }
+
+            /*if (m_wallRaySensor.isDetecting)
+            {
+
+            }*/
 
             if (m_introController.IsUsingIntroControls())
             {
@@ -2238,7 +2245,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_wallMovement?.Move(m_vector2Input.y);
 
                 m_groundedness?.Evaluate();
-
+                if (m_state.isGrounded == false)
+                {
+                    if (m_ledgeGrab?.IsDoable() ?? false)
+                    {
+                        m_wallMovement?.Cancel();
+                        m_wallStick?.Cancel();
+                        m_ledgeGrab?.Execute();
+                    }
+                }
                 if ((m_wallMovement?.IsThereAWall(WallMovement.SensorType.Body) ?? false) == false ||
                     (m_wallMovement?.IsThereAWall(WallMovement.SensorType.Overhead) ?? false) == false)
                 {
@@ -2379,7 +2394,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_idle?.Execute(m_state.allowExtendedIdle);
                 return;
             }
-
+            /*if(!m_state.isStickingToWall)*/
             MoveCharacter(m_state.isGrabbing, m_vector2Input.x);
         }
         #endregion
