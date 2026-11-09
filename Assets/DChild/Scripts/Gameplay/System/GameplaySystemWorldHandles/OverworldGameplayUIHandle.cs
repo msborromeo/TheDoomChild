@@ -1,3 +1,4 @@
+using DChild.Codex.Quests.UI;
 using DChild.Gameplay.Environment;
 using DChild.Gameplay.NavigationMap;
 using DChild.Gameplay.Systems;
@@ -22,6 +23,8 @@ namespace DChild.Gameplay.UI
         private WorldMapHandler m_worldMap;
         [SerializeField]
         private NavigationMapManager m_navMap;
+        [SerializeField]
+        private QuestLogUIManager m_questManager;
 
         public void ShowInteractionPrompt(bool willshow)
         {
@@ -44,6 +47,31 @@ namespace DChild.Gameplay.UI
         public void OpenStore()
         {
             m_storeNavigator.OpenStore();
+        }
+
+        public StorePage GetActiveStorePage()
+        {
+            return m_storeNavigator.currentPage;
+        }
+
+        public void ToggleMapLegend(bool willshow)
+        {
+            m_navMap.ToggleLegendVisibility(willshow);
+        }
+
+        public void CycleLegendPage()
+        {
+            m_navMap.CycleLegendPage();
+        }
+
+        public void ToggleMapIconsVisibility(bool willShow)
+        {
+            m_navMap.ToggleMapIconsVisibility(willShow);
+        }
+
+        public void ToggleCodexQuests(bool isMain)
+        {
+            m_questManager.ToggleQuests(isMain);
         }
 
         public void UpdateNavMapConfiguration(Location location, int sceneIndex, Transform inGameReference, Vector2 mapReferencePoint, Vector2 calculationOffset)
