@@ -25,6 +25,7 @@ namespace DChild.Gameplay.Systems
         private ArmyBattleCharacterRecruiter m_armyBattleCharacterRecruiter;
         [SerializeField]
         private PlayerInput m_playerInput;
+        private CampaignSerializer m_campaignSerializer;
 
         #region IPlayerManager Stuff
         public Player player => m_player;
@@ -119,8 +120,9 @@ namespace DChild.Gameplay.Systems
             //m_interactableDetector = character.GetComponentInChildren<InteractableDetector>();
 
             m_player.Initialize();
-            GameplaySystem.campaignSerializer.PostDeserialization += OnPostDeserialization;
-            GameplaySystem.campaignSerializer.PreSerialization += OnPreSerialization;
+            m_campaignSerializer = GameplaySystem.campaignSerializer;
+            m_campaignSerializer.PostDeserialization += OnPostDeserialization;
+            m_campaignSerializer.PreSerialization += OnPreSerialization;
             // m_respawnDelay.CountdownEnd += OnRespawnPlayer;
         }
 
@@ -144,6 +146,17 @@ namespace DChild.Gameplay.Systems
         private void Start()
         {
             BaseGameplaySystem.SetCurrentPlayerInput(m_playerInput);
+        }
+
+        private void OnDestroy()
+        {
+            if (m_campaignSerializer == null)
+            {
+                return;
+            }
+
+            m_campaignSerializer.PostDeserialization -= OnPostDeserialization;
+            m_campaignSerializer.PreSerialization -= OnPreSerialization;
         }
 
         public void TeleportPlayer(Vector2 position)
