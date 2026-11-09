@@ -48,6 +48,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         private bool m_isStraightThrow = false;
 
         public bool willResetProjectile => m_willResetProjectile;
+        private bool m_canProjectileThrow;
 
         public event EventAction<EventActionArgs> ExecutionRequested;
         public event EventAction<EventActionArgs> ProjectileThrown;
@@ -237,18 +238,22 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_animator.SetBool(m_skullThrowVariantParameter, skullThrowVariantIndex);
             m_updateProjectileInfo = true;
         }
+        private float m_projectileCooldownRemaining = 0f;
 
         public void HandleNextAttackDelay()
         {
-            if (m_timer >= 0)
+            if (m_projectileCooldownRemaining > 0f)
             {
-                m_timer -= GameplaySystem.time.deltaTime;
-                if (m_timer <= 0)
-                {
-                    m_timer = -1;
-                    m_state.canAttack = true;
-                }
+                m_projectileCooldownRemaining = Mathf.Max(
+                    0f,
+                    m_projectileCooldownRemaining - GameplaySystem.time.deltaTime
+                );
             }
+        }
+
+        public bool CanProjectileThrow()
+        {
+            return m_projectileCooldownRemaining <= 0;
         }
 
         /* public void ThrowProjectile()
@@ -357,6 +362,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_throwState.isAimingProjectile = true;
             m_isStraightThrow = true;
             m_timer = m_configuration.skullThrowCooldown;
+            m_projectileCooldownRemaining = m_configuration.skullThrowCooldown;
             m_state.canAttack = false;
             m_state.isAttacking = true;
            // m_animator.SetBool(m_aimingProjectileAnimationParameter, true);
@@ -367,7 +373,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         public void ThrowStraightEndVisuals()
         {
             m_animator.SetBool(m_aimingProjectileAnimationParameter, false);
-            m_animator.SetBool(m_skullThrowAnimationParameter, true);
+            //m_animator.SetBool(m_skullThrowAnimationParameter, true);
             m_throwState.isAimingProjectile = false;
             m_isStraightThrow = false;
         }

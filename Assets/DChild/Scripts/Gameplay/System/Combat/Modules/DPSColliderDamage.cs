@@ -26,6 +26,8 @@ namespace DChild.Gameplay.Combat
         [SerializeField]
         private float m_damageInterval;
 
+        public float damageInterval => m_damageInterval;
+
         private List<Collider2D> m_affectedColliders;
         private List<Hitbox> m_toDamage;
         private List<Info> m_infos;

@@ -24,9 +24,11 @@ namespace DChild.UI
         public List<BlacksmithRequirementUI> requirementsUI => m_requirementsUI;
 
         public EventAction<EventActionArgs> OnUpgradeConfirmed;
+        public EventAction<EventActionArgs> OnUpgradeDecline;
 
         public void SetSubHeaderLabel(WeaponLevel nextLevel) => m_subHeaderLabel.text = $"Weapon Level: {nextLevel - 1} -> {nextLevel}";
         public void OnConfirmationSuccess() => OnUpgradeConfirmed?.Invoke(this, EventActionArgs.Empty);
+        public void OnDecline() => OnUpgradeDecline?.Invoke(this, EventActionArgs.Empty);
         public void ForceSetUIControls() => GameplaySystem.gamplayUIHandle.OverrideCurrentUIState(GameplayUIState.InteractableUI);
         public void SelectYesWhenShown() => StartCoroutine(SelectYesAfterDelay());
         private IEnumerator SelectYesAfterDelay()

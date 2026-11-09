@@ -7,6 +7,8 @@ namespace DChild.Gameplay.Inventories.UI
     {
         [SerializeField] private List<InventoryItemUI> m_itemSlots;
 
+        public InventoryItemUI firstSlot => m_itemSlots.Count > 0 ? m_itemSlots[0] : null;
+
         public override void UpdateUIList()
         {
             for (int i = 0; i < m_itemSlots.Count; i++)
@@ -21,6 +23,49 @@ namespace DChild.Gameplay.Inventories.UI
         public void MoveInventoryItemToQuickItems(InventoryItemUI itemUI)
         {
             m_inventory.AddItem(itemUI.reference.data, itemUI.reference.count);
+        }
+
+        public InventoryItemUI FindSlot(Items.ItemData itemData)
+        {
+            for (int i = 0; i < m_itemSlots.Count; i++)
+            {
+                if (m_itemSlots[i].reference?.data == itemData)
+                    return m_itemSlots[i];
+            }
+
+            return null;
+        }
+
+        public InventoryItemUI FindFirstEmptySlot()
+        {
+            for (int i = 0; i < m_itemSlots.Count; i++)
+            {
+                if (m_itemSlots[i].reference == null)
+                    return m_itemSlots[i];
+            }
+
+            return null;
+        }
+
+        public InventoryItemUI FindNearestOccupiedSlot(InventoryItemUI origin)
+        {
+            var originIndex = m_itemSlots.IndexOf(origin);
+            if (originIndex < 0)
+                return null;
+
+            for (int i = originIndex; i < m_itemSlots.Count; i++)
+            {
+                if (m_itemSlots[i].reference != null)
+                    return m_itemSlots[i];
+            }
+
+            for (int i = originIndex - 1; i >= 0; i--)
+            {
+                if (m_itemSlots[i].reference != null)
+                    return m_itemSlots[i];
+            }
+
+            return null;
         }
 
         public void RemoveQuickItem(ItemUI itemUI)

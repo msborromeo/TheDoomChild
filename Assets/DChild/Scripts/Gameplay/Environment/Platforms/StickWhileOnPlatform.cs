@@ -1,4 +1,5 @@
-﻿using Sirenix.Utilities;
+﻿using Sirenix.Serialization;
+using Sirenix.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,14 +24,15 @@ namespace DChild.Gameplay.Environment
             public Scene scene => m_scene;
         }
 
-        [SerializeField]
-        private Transform m_toParent;
-
+        [OdinSerialize,SerializeField]
         private Dictionary<Collider2D, Cache<ParentInfo>> m_originalParentPair;
+        [SerializeField]
+        private Transform m_toParent;   
 
         private Rigidbody2D m_checkedMovableObject;
         private Coroutine m_checkMovableObjectRoutine;
         private List<MovableObject> m_movableObjectsToMonitor;
+        [OdinSerialize,SerializeField]
         private Dictionary<MovableObject, Collider2D> m_movableObjectToColliderPair;
         private Coroutine m_monitorMovableObjectsRoutine;
 
@@ -96,6 +98,10 @@ namespace DChild.Gameplay.Environment
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            m_movableObjectToColliderPair.Clear();
+            m_movableObjectsToMonitor.Clear();
+            m_originalParentPair.Clear();
+
             if (collision.enabled == false)
                 return;
 
@@ -119,14 +125,88 @@ namespace DChild.Gameplay.Environment
                     StopCoroutine(m_checkMovableObjectRoutine);
 
                 if (celestialCube != null)
+                {
                     celestialCube.parentPlatform = gameObject.transform;
+                }
+                    
+
 
                 m_checkMovableObjectRoutine = StartCoroutine(AttackRigidbodyToSelfRoutine(movableObject, collision.rigidbody, collision.collider));
             }
             else
             {
                 if (celestialCube != null)
+                {
                     celestialCube.parentPlatform = gameObject.transform;
+                }
+                   
+
+                AttackRigidbodyToSelf(collision.rigidbody, collision.collider);
+            }
+
+            if (m_movableObjectsToMonitor.Contains(movableObject) == false)
+            {
+                m_movableObjectsToMonitor.Add(movableObject);
+                m_movableObjectToColliderPair.Add(movableObject, collision.collider);
+
+                if (celestialCube != null)
+                    celestialCube.parentPlatform = gameObject.transform;
+
+                if (m_monitorMovableObjectsRoutine == null)
+                    m_monitorMovableObjectsRoutine = StartCoroutine(MonitorMovableObjects());
+            }
+        }
+
+        private void OnCollisionStay2D(Collision2D collision)
+        {
+            //if cube stays we clear the list and re add the cube
+            m_movableObjectToColliderPair.Clear();
+            m_movableObjectsToMonitor.Clear();
+            m_originalParentPair.Clear();
+
+            if (collision.enabled == false)
+                return;
+
+            if (collision.rigidbody == null)
+                return;
+
+            if (m_originalParentPair.ContainsKey(collision.collider))
+                return;
+
+            var movableObject = collision.rigidbody.GetComponent<MovableObject>();
+            if (movableObject == null)
+            {
+                AttackRigidbodyToSelf(collision.rigidbody, collision.collider);
+                return;
+            }
+
+            var celestialCube = collision.rigidbody.GetComponent<CelestialCube>();
+            if (movableObject.isGrabbed)
+            {
+                if (m_checkMovableObjectRoutine != null)
+                    StopCoroutine(m_checkMovableObjectRoutine);
+
+                if (celestialCube != null)
+                {
+                    if(celestialCube.transform.parent == null)
+                    {
+                        celestialCube.parentPlatform = gameObject.transform;
+                        celestialCube.AttachSelfToParentPlatform();
+                    }
+                    
+                }
+
+
+
+                m_checkMovableObjectRoutine = StartCoroutine(AttackRigidbodyToSelfRoutine(movableObject, collision.rigidbody, collision.collider));
+            }
+            else
+            {
+                if (celestialCube != null)
+                {
+                    celestialCube.parentPlatform = gameObject.transform;
+                    celestialCube.AttachSelfToParentPlatform();
+                }
 
                 AttackRigidbodyToSelf(collision.rigidbody, collision.collider);
             }
@@ -151,7 +231,7 @@ namespace DChild.Gameplay.Environment
             if (collision.rigidbody == null)
                 return;
 
-            if (m_checkedMovableObject == collision.rigidbody)
+            if (m_checkedMovableObject == collision.rigidbody && collision.gameObject.tag != "Player")
             {
                 if (m_checkMovableObjectRoutine != null)
                 {
@@ -171,13 +251,14 @@ namespace DChild.Gameplay.Environment
             else
             {
                 var cache = m_originalParentPair[collision.collider];
-                collision.rigidbody.transform.parent = cache.Value.parent;
+                collision.rigidbody.transform.parent = (collision.gameObject.tag == "Character") ? null : cache.Value.parent;
                 if (cache.Value.parent == null)
                 {
                     SceneManager.MoveGameObjectToScene(collision.rigidbody.gameObject, cache.Value.scene);
                 }
                 cache.Release();
                 m_originalParentPair.Remove(collision.collider);
+                
             }
         }
     }

@@ -1,9 +1,7 @@
-﻿using DChild.Gameplay.Items;
+using DChild.Gameplay.Items;
+using Doozy.Runtime.UIManager;
+using Doozy.Runtime.UIManager.Animators;
 using Doozy.Runtime.UIManager.Components;
-using Holysoft.Event;
-using Sirenix.OdinInspector;
-using System;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,16 +11,24 @@ namespace DChild.Gameplay.Inventories.UI
     {
         private UIToggle m_toggle;
 
+        [SerializeField] private UISelectableUIAnimator m_detailsAnimator;
+        [SerializeField] private UIToggle m_questFilter;
+
         [SerializeField] private Image m_backgroundFrame;
         [SerializeField] private bool m_isQuickItem;
         public bool isQuickItem => m_isQuickItem;
 
         public override void Hide()
         {
-            m_toggle.SetIsOn(false);
+            m_reference = null;
+            m_detailsUI.ShowDetails(null);
+            m_toggle.SetIsOn(false, true, false);
 
-            if (!m_isQuickItem)
-                m_toggle.interactable = false;
+            if (m_isQuickItem)
+                return;
+
+            m_toggle.interactable = false;
+            CompleteDisabledAnimation();
         }
 
         public override void SetIconColor(bool isModified)
@@ -37,12 +43,27 @@ namespace DChild.Gameplay.Inventories.UI
 
         public override void Show()
         {
+            // A refresh must not temporarily enable Quick slots under Quest.
+            if (m_isQuickItem && m_questFilter != null && m_questFilter.IsOn)
+            {
+                m_toggle.interactable = false;
+                return;
+            }
+
+            bool wasDisabled = !m_toggle.interactable ||
+                m_toggle.currentUISelectionState == UISelectionState.Disabled;
             m_toggle.interactable = true;
+            if (!wasDisabled)
+                return;
+
+            var state = m_toggle.IsOn ? UISelectionState.Selected : UISelectionState.Normal;
+            m_toggle.SetState(state);
+            CompleteDetailsAnimation(state);
         }
 
         protected override void ShowDetailsOf(IStoredItem reference)
         {
-            if (reference == null || reference.data.category == Items.ItemCategory.SoulEssence)
+            if (reference == null || reference.data.category == ItemCategory.SoulEssence)
             {
                 Hide();
                 base.ShowDetailsOf(null);
@@ -58,5 +79,18 @@ namespace DChild.Gameplay.Inventories.UI
             m_toggle = GetComponent<UIToggle>();
         }
 
+        private void CompleteDisabledAnimation()
+        {
+            CompleteDetailsAnimation(UISelectionState.Disabled);
+        }
+
+        private void CompleteDetailsAnimation(UISelectionState state)
+        {
+            if (m_detailsAnimator == null || !m_detailsAnimator.IsStateEnabled(state))
+                return;
+
+            m_detailsAnimator.StopAllReactions();
+            m_detailsAnimator.GetAnimation(state).SetProgressAtOne();
+        }
     }
 }

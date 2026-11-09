@@ -47,9 +47,12 @@ namespace DChild.Gameplay.NavigationMap
                 m_mapInstance = m_currentMap.GetComponentInChildren<NavigationMapInstance>();
                 m_iconManager = m_currentMap.GetComponentInChildren<NavigationMapIconManager>();
                 m_collectathonManager.SetCollectathonDetails(location);
-                m_zoomHandler.SetZoomConstraints(m_mapInstance.minZoom, m_mapInstance.maxZoom);
+                if (m_mapInstance != null)
+                {
+                    m_zoomHandler.SetZoomConstraints(m_mapInstance.minZoom, m_mapInstance.maxZoom);
+                }
 
-                m_legendSection.GetComponent<MapLegendUI>().SetLegendList(m_iconManager.legendIcons);
+                m_legendSection.GetComponent<MapLegendUI>().SetLegendList(m_iconManager != null ? m_iconManager.legendIcons : null);
             }
 
             m_tracker.SetReferencePointPosition(m_currentMap, mapReferencePoint);
@@ -77,6 +80,11 @@ namespace DChild.Gameplay.NavigationMap
 
         public void ToggleMapIconsVisibility(bool willShow)
         {
+            if (m_iconManager == null)
+            {
+                return;
+            }
+
             m_iconManager.ToggleIconVisibility(willShow);
 
             var updatedPromptLabel = !willShow ? "Show" : "Hide";
@@ -89,10 +97,13 @@ namespace DChild.Gameplay.NavigationMap
 
             if (m_mapNeedsCompleteUpdate)
             {
-                m_mapInstance?.UpdateFogOfWar();
+                if (m_mapInstance != null)
+                {
+                    m_mapInstance.UpdateFogOfWar();
+                }
                 m_mapNeedsCompleteUpdate = false;
             }
-            else
+            else if (m_mapInstance != null)
             {
                 var changes = NavigationMapSceneHandle.changes;
                 //Only update the ones that needs update
@@ -105,11 +116,16 @@ namespace DChild.Gameplay.NavigationMap
                     changes.Clear();
                 }
             }
-            m_tracker.UpdateTrackerPosition();
-            MoveTrackerToCenter();
+            if (m_mapInstance != null && m_tracker.TryUpdateTrackerPosition())
+            {
+                MoveTrackerToCenter();
+            }
             m_collectathonManager.ShowCollectathonDetails();
-            m_legendSection.GetComponent<MapLegendUI>().SetLegendList(m_iconManager.legendIcons);
-            m_zoomHandler.OnMapZoom += m_iconManager.OnMapZoom;
+            m_legendSection.GetComponent<MapLegendUI>().SetLegendList(m_iconManager != null ? m_iconManager.legendIcons : null);
+            if (m_iconManager != null)
+            {
+                m_zoomHandler.OnMapZoom += m_iconManager.OnMapZoom;
+            }
         }
 
         private void MoveTrackerToCenter()
@@ -129,9 +145,15 @@ namespace DChild.Gameplay.NavigationMap
                 return;
             }
 
-            var showMap = m_currentMap.GetComponent<UIContainer>();
-            m_zoomHandler.OnMapZoom -= m_iconManager.OnMapZoom;
-            showMap.Hide();
+            if (m_iconManager != null)
+            {
+                m_zoomHandler.OnMapZoom -= m_iconManager.OnMapZoom;
+            }
+
+            if (m_currentMap.TryGetComponent<UIContainer>(out var showMap))
+            {
+                showMap.Hide();
+            }
         }
 
         public void ShowNavigationMap()
@@ -143,8 +165,10 @@ namespace DChild.Gameplay.NavigationMap
                 return;
             }
 
-            var showMap = m_currentMap.GetComponent<UIContainer>();
-            showMap.Show();
+            if (m_currentMap.TryGetComponent<UIContainer>(out var showMap))
+            {
+                showMap.Show();
+            }
         }
 
         private void EnableKeyboardPan()

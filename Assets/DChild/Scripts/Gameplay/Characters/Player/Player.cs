@@ -22,6 +22,7 @@ using DChild.Codex.Characters;
 using DChild.Menu.Codex.Bestiary;
 using DChild.Codex.Tutorial;
 using DChild.Codex.LocationCodex;
+using DChild.Gameplay.EquipmentSystem;
 
 namespace DChild.Gameplay.Characters.Players
 {
@@ -79,6 +80,8 @@ namespace DChild.Gameplay.Characters.Players
         private PlayerSkills m_skills;
         [SerializeField]
         private PlayerSoulSkillHandle m_soulSkills;
+        [SerializeField]
+        private PlayerSoulEquipmentHandle m_soulEquipment;
         [SerializeField]
         private CombatArts m_combatArts;
         [SerializeField]
@@ -163,6 +166,8 @@ namespace DChild.Gameplay.Characters.Players
 
         public ICriticalHitHandle criticalHitHandle => m_criticalHitHandle;
 
+        public PlayerSoulEquipmentHandle soulEquipment => m_soulEquipment;
+
         public PlayerSkinHandle skinHandle => m_skinHandle;
 
         public PlayerCharacterData SaveData()
@@ -192,6 +197,9 @@ namespace DChild.Gameplay.Characters.Players
             m_statusResistance?.Initialize();
             m_modifiers?.Initialize();
             m_soulSkills?.Initialize();
+            //debug purposes only unless required
+            m_soulEquipment?.Initialize();
+            //debug soulequipment end
             m_combatArts?.Initialize();
         }
 

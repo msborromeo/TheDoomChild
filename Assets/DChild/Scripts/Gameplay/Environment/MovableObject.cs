@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace DChild.Gameplay.Environment
 {
@@ -49,6 +50,11 @@ namespace DChild.Gameplay.Environment
         [SerializeField]
         private bool m_useTransform;
 
+        [SerializeField]
+        private Collider2D m_collider;
+        [SerializeField]
+        private RaySensor m_selfsensor;
+        private bool m_nothingInMe;
         private Rigidbody2D m_rigidbody;
         private bool m_isGrabbed = false;
         private bool m_isTouchingPlayer = false;
@@ -66,7 +72,19 @@ namespace DChild.Gameplay.Environment
             m_source.position = saveData.position;
             m_canBeMoved = saveData.canBeMoved;
         }
+        private void FixedUpdate()
+        {
+            if (m_nothingInMe)
+                return;
 
+            if(!m_selfsensor.isDetecting)
+            {
+                m_collider.enabled = true;
+                return;
+            }
+               
+            m_collider.enabled = false;
+        }
         public ISaveData Save() => new SaveData(m_source.position, m_canBeMoved);
         public void Initialize()
         {
@@ -135,6 +153,9 @@ namespace DChild.Gameplay.Environment
         private void Awake()
         {
             m_rigidbody = m_source.GetComponent<Rigidbody2D>();
+            m_collider = m_source.GetComponentInChildren<Collider2D>();
+            if (!m_selfsensor)
+                m_nothingInMe = true;
         }
 
 

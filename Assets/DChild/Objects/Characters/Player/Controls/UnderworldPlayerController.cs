@@ -40,6 +40,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         [SerializeField]
         private PlayerInput m_playerInput;
+        /*[SerializeField]
+        private RaySensor m_wallRaySensor;*/
         #region Modules
         private PlayerStatisticTracker m_tracker;
         private GroundednessHandle m_groundedness;
@@ -225,6 +227,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.SlashPressedEvent += OnSlashPressedInput;
             m_inputReader.SlashCancelledEvent += OnSlashCancelledInput;
             m_inputReader.SlashHeldEvent += OnSlashHeldInput;
+            m_inputReader.SwordThrustStartedEvent += OnSwordThrustStartedInput;
             m_inputReader.SwordThrustPerformedEvent += OnSwordThrustPerformedInput;
             m_inputReader.SwordThrustCancelledEvent += OnSwordThrustCancelledInput;
             m_inputReader.WhipPerformedEvent += OnWhipPerformedInput;
@@ -243,6 +246,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.BarrierStartedEvent += OnBarrierStartedInput;
             m_inputReader.BarrierPerformedEvent += OnBarrierPerformedInput;
             m_inputReader.BarrierCancelledEvent += OnBarrierCancelledInput;
+            m_inputReader.EarthShakerStartedEvent += OnEarthShakerStartedInput;
+            m_inputReader.EarthShakerPerformedEvent += OnEarthShakerPerformedInput;
+            m_inputReader.EarthShakerCancelledEvent += OnEarthShakerCancelledInput;
             m_inputReader.AirSlashStartedEvent += OnAirSlashStartedInput;
             m_inputReader.AirSlashCancelledEvent += OnAirSlashCancelledInput;
             m_inputReader.AirSlashPerformedEvent += OnAirSlashPerformedInput;
@@ -312,6 +318,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.SlashPressedEvent -= OnSlashPressedInput;
             m_inputReader.SlashCancelledEvent -= OnSlashCancelledInput;
             m_inputReader.SlashHeldEvent -= OnSlashHeldInput;
+            m_inputReader.SwordThrustStartedEvent -= OnSwordThrustStartedInput;
             m_inputReader.SwordThrustPerformedEvent -= OnSwordThrustPerformedInput;
             m_inputReader.SwordThrustCancelledEvent -= OnSwordThrustCancelledInput;
             m_inputReader.WhipPerformedEvent -= OnWhipPerformedInput;
@@ -330,6 +337,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_inputReader.BarrierStartedEvent -= OnBarrierStartedInput;
             m_inputReader.BarrierPerformedEvent -= OnBarrierPerformedInput;
             m_inputReader.BarrierCancelledEvent -= OnBarrierCancelledInput;
+            m_inputReader.EarthShakerStartedEvent -= OnEarthShakerStartedInput;
+            m_inputReader.EarthShakerPerformedEvent -= OnEarthShakerPerformedInput;
+            m_inputReader.EarthShakerCancelledEvent -= OnEarthShakerCancelledInput;
             m_inputReader.AirSlashStartedEvent -= OnAirSlashStartedInput;
             m_inputReader.AirSlashCancelledEvent -= OnAirSlashCancelledInput;
             m_inputReader.AirSlashPerformedEvent -= OnAirSlashPerformedInput;
@@ -464,6 +474,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 //m_groundedness.Evaluate();
             }
 
+            /*if (m_wallRaySensor.isDetecting)
+            {
+
+            }*/
+
             if (m_introController.IsUsingIntroControls())
             {
                 m_introController.HandleIntroControls();
@@ -571,6 +586,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
             {
                 m_lightningSpear.HandleMovementTimer();
             }
+            if (m_diagonalSwordDash.CanReset() == true)
+            {
+                m_diagonalSwordDash.HandleResetTimer();
+            }
+
+            if (m_diagonalSwordDash.CanMove() == false)
+            {
+                m_diagonalSwordDash.HandleMovementTimer();
+            }
 
             if (m_reaperHarvest.CanReaperHarvest() == false)
             {
@@ -606,7 +630,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
             }
             #endregion
-
+            m_projectileThrow.HandleNextAttackDelay();
             if (m_state.canAttack == true)
             {
                 m_slashCombo.HandleComboResetTimer();
@@ -620,7 +644,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_slashCombo.HandleComboAttackDelay();
                     m_whip.HandleNextAttackDelay();
                     m_whipCombo.HandleComboAttackDelay();
-                    m_projectileThrow.HandleNextAttackDelay();
+                    //m_projectileThrow.HandleNextAttackDelay();
                 }
             }
 
@@ -853,6 +877,8 @@ namespace DChild.Gameplay.Characters.Players.Modules
             if (m_state.isGrounded)
                 return;
             if (m_state.isInShadowMode)
+                return;
+            if (m_state.isStickingToWall)
                 return;
             if (m_state.isDashing)
                 return;
@@ -1109,7 +1135,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashStartedInput()
         {
-            if (m_playerWokeUp == false)
+            /*if (m_playerWokeUp == false)
                 return;
             if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
                 m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
@@ -1134,6 +1160,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                 }
 
+                m_diagonalSwordDash.Cancel();
                 PrepareForGroundAttack();
                 m_whip.Cancel();
                 m_whipCombo.Cancel();
@@ -1167,6 +1194,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                 if (m_basicSlashes.CanAirAttack())
                 {
+                    m_diagonalSwordDash.Cancel();
                     PrepareForMidairAttack();
                     m_devilWings?.EnableLevitate();
                     m_extraJump?.Cancel();
@@ -1184,15 +1212,18 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     }
                 }
 
-                if (m_vector2Input.y < 0)
+                *//*if (m_vector2Input.y < 0)
                 {
-                    if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
+                    if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker() 
+                        && m_state.isExecutingCombatArt == false)
                     {
-                        m_earthShaker.StartExecution();
+                        m_earthShaker?.Reset();
+                        m_diagonalSwordDash?.Cancel();
+                        m_earthShaker?.StartExecution();
                         return;
                     }
-                }
-            }
+                }*//*
+            }*/
         }
 
         private void OnSlashPressedInput()
@@ -1202,13 +1233,101 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnSlashTappedInput()
         {
+            if (m_playerWokeUp == false)
+                return;
+            if (m_state.isSliding || m_state.canAttack == false || m_state.isStickingToWall ||
+                m_state.isAttacking || m_state.waitForBehaviour || m_state.isExecutingCombatArt)
+                return;
+            if (m_state.isAimingProjectile)
+                return;
 
+            m_idle?.Cancel();
+
+            if (m_state.isGrounded)
+            {
+                if (m_state.isDashing)
+                {
+                    m_activeDash.Cancel();
+                }
+
+                if (m_state.isInShadowMode)
+                {
+                    if (m_shadowMorph.IsAttackAllowed() == false)
+                    {
+                        return;
+                    }
+                }
+
+                m_diagonalSwordDash.Cancel();
+                PrepareForGroundAttack();
+                m_whip.Cancel();
+                m_whipCombo.Cancel();
+                m_whipCombo.Reset();
+
+                if (m_vector2Input.y > 0)
+                {
+                    m_basicSlashes.Execute(BasicSlashes.Type.Ground_Overhead);
+                    return;
+                }
+
+                if (m_state.isCrouched && m_vector2Input.y < 0)
+                {
+                    m_basicSlashes.Execute(BasicSlashes.Type.Crouch);
+                    return;
+                }
+
+                if (m_vector2Input.y == 0)
+                {
+                    m_movement.Cancel();
+                    m_slashCombo.Execute();
+                    return;
+                }
+            }
+            else
+            {
+                if (m_state.isDashing)
+                {
+                    return;
+                }
+
+                if (m_basicSlashes.CanAirAttack())
+                {
+                    m_diagonalSwordDash.Cancel();
+                    PrepareForMidairAttack();
+                    m_devilWings?.EnableLevitate();
+                    m_extraJump?.Cancel();
+
+                    if (m_vector2Input.y > 0)
+                    {
+                        m_basicSlashes.Execute(BasicSlashes.Type.MidAir_Overhead);
+                        return;
+                    }
+
+                    if (m_vector2Input.y == 0)
+                    {
+                        m_basicSlashes.Execute(BasicSlashes.Type.MidAir_Forward);
+                        return;
+                    }
+                }
+
+                /*if (m_vector2Input.y < 0)
+                {
+                    if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker() 
+                        && m_state.isExecutingCombatArt == false)
+                    {
+                        m_earthShaker?.Reset();
+                        m_diagonalSwordDash?.Cancel();
+                        m_earthShaker?.StartExecution();
+                        return;
+                    }
+                }*/
+            }
         }
         private bool m_slashHeld;
         private bool m_ignoreSlashHeldUntilReleased;
         private void OnSlashHeldInput()
         {
-            if (m_ignoreSlashHeldUntilReleased)
+            /*if (m_ignoreSlashHeldUntilReleased)
                 return;
             if (m_state.isChargingAttack)
                 return;
@@ -1222,6 +1341,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_state.isDoingSwordThrust)
                 return;
+            if (m_isDoingReaper) { return; }
 
             if (m_state.isGrounded)
             {
@@ -1242,16 +1362,20 @@ namespace DChild.Gameplay.Characters.Players.Modules
                         m_swordThrust?.StartCharge();
                     }
                 }
-            }
+            }*/
         }
 
         private void OnSlashCancelledInput()
         {
             /*m_slashHeld = false;
-            m_ignoreSlashHeldUntilReleased = false;*/
+            m_ignoreSlashHeldUntilReleased = false;*//*
+            //m_hellTrident?.Cancel();
+            //m_reaperHarvest?.Cancel();
+            */
+            /*if (m_state.isExecutingCombatArt) { return; }
             if (m_skills.IsModuleActive(PrimarySkill.SwordThrust) == false)
                 return;
-
+            if (m_isDoingReaper) { return; }
             if (m_state.isChargingAttack)
             {
                 m_chargeAttackHandle.Set(m_swordThrust, () => false);
@@ -1274,23 +1398,95 @@ namespace DChild.Gameplay.Characters.Players.Modules
                     m_swordThrust?.Cancel();
                     m_idle?.Execute(m_state.allowExtendedIdle);
                 }
-            }
+            }*/
+        }
+        private void OnSwordThrustStartedInput()
+        {
+
         }
 
         private void OnSwordThrustPerformedInput()
         {
+            m_physicsMat.SetPhysicsTo(PlayerPhysicsMatHandle.Type.Ground);
+            if (m_ignoreSlashHeldUntilReleased)
+                return;
+            if (m_state.isExecutingCombatArt)
+                return;
+            if (m_state.isChargingAttack)
+                return;
+            if (m_state.isCrouched)
+                return;
+            if (m_state.isSliding)
+                return;
+            if (m_state.isGrounded == false)
+                return;
+            if (m_state.isAimingProjectile)
+                return;
+            if (m_state.isDoingSwordThrust)
+                return;
+            if (m_icarusWings.m_isDoingIcarus)
+                return;
 
+            if (m_state.isGrounded)
+            {
+                if (m_skills.IsModuleActive(PrimarySkill.SwordThrust))
+                {
+                    if (m_state.isGrounded && m_state.isInShadowMode == false)
+                    {
+                        PrepareForGroundAttack();
+                        m_swordThrust.Reset();
+                        m_groundJump?.Cancel();
+                        m_extraJump?.Cancel();
+                        m_devilWings?.Cancel();
+                        m_whip?.Cancel();
+                        m_whipCombo?.Cancel();
+                        m_activeDash?.Cancel();
+                        m_activeSlide?.Cancel();
+                        m_reaperHarvest?.Cancel();
+                        m_chargeAttackHandle.Set(m_swordThrust, () => true);
+                        m_state.isAttacking = false;
+                        m_swordThrust?.StartCharge();
+                    }
+                }
+            }
         }
 
         private void OnSwordThrustCancelledInput()
         {
-            if (m_state.isChargingAttack)
+            /*if (m_state.isChargingAttack)
             {
                 m_swordThrust?.EndSwordThrust();
                 m_swordThrust?.ResetCooldownTimer();
                 m_swordThrust?.ResetDurationTimer();
                 m_swordThrust?.Cancel();
                 m_idle?.Execute(m_state.allowExtendedIdle);
+            }*/
+            if (m_state.isExecutingCombatArt) { return; }
+            if (m_skills.IsModuleActive(PrimarySkill.SwordThrust) == false)
+                return;
+            if (m_state.isChargingAttack)
+            {
+                m_chargeAttackHandle.Set(m_swordThrust, () => false);
+                if (m_swordThrust.IsChargeComplete())
+                {
+                    PrepareForGroundAttack();
+                    m_groundJump?.Cancel();
+                    m_extraJump?.Cancel();
+                    m_devilWings?.Cancel();
+                    m_whip?.Cancel();
+                    m_whipCombo?.Cancel();
+                    m_reaperHarvest?.Cancel();
+                    //m_swordThrust?.ResetDurationTimer();
+                    m_swordThrust?.Execute();
+                }
+                else
+                {
+                    m_swordThrust?.EndSwordThrust();
+                    m_swordThrust?.ResetCooldownTimer();
+                    m_swordThrust?.ResetDurationTimer();
+                    m_swordThrust?.Cancel();
+                    m_idle?.Execute(m_state.allowExtendedIdle);
+                }
             }
         }
 
@@ -1426,8 +1622,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnProjectileThrowHeldInput()
         {
-            if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
+            if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false || m_projectileThrow.CanProjectileThrow() == false)
                 return;
+            if (m_state.isExecutingCombatArt) { return; }
             if (m_state.isInShadowMode)
                 return;
             if (m_state.isGrounded == false)
@@ -1447,8 +1644,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnProjectileThrowTappedInput()
         {
-            if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false)
+            if (m_skills.IsModuleActive(PrimarySkill.SkullThrow) == false || m_projectileThrow.CanProjectileThrow() == false)
                 return;
+            if (m_state.isExecutingCombatArt) { return; }
             if (m_state.isInShadowMode)
                 return;
             if (m_state.isGrounded == false)
@@ -1562,6 +1760,35 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         }
 
+        private void OnEarthShakerStartedInput()
+        {
+
+        }
+
+        private void OnEarthShakerCancelledInput()
+        {
+
+        }
+
+        private void OnEarthShakerPerformedInput()
+        {
+            if (m_state.isExecutingCombatArt) { return; }
+            if (m_state.isInShadowMode) { return; }
+            if (m_skills.IsModuleActive(PrimarySkill.EarthShaker) && m_earthShaker.CanEarthShaker())
+            {
+                if (m_state.isGrounded == false)
+                {
+                    m_earthShaker?.Reset();
+                    PrepareForMidairAttack();
+                    m_diagonalSwordDash?.Cancel();
+                    m_icarusWings?.Cancel();
+                    m_devilWings?.Cancel();
+                    m_earthShaker?.StartExecution();
+                    return;
+                }
+            }
+        }
+
         private void OnAirSlashStartedInput()
         {
 
@@ -1620,7 +1847,11 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isExecutingCombatArt)
                 return;
-            if (m_abilities.IsAbilityActivated(CombatArt.HellTrident))
+            if (m_state.isAimingProjectile) { return; }
+            if (m_state.isAttacking) { return; }
+            if (m_state.isChargingAttack) { return; }
+            if (m_teleportingSkull.m_isTeleporting) {  return; }
+            if (m_abilities.IsAbilityActivated(CombatArt.HellTrident) && m_hellTrident.CanHellTrident())
             {
                 if (m_state.isInShadowMode == false)
                 {
@@ -1640,7 +1871,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isExecutingCombatArt)
                 return;
-            if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast))
+            if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast) && m_soulFireBlast.CanSoulFireBlast())
             {
                 m_devilWings?.Cancel();
                 m_extraJump?.Cancel();
@@ -1656,11 +1887,14 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             if (m_state.isExecutingCombatArt)
                 return;
-            if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast))
+            if (m_teleportingSkull.m_isTeleporting) { return; }
+            if (m_icarusWings.m_isDoingIcarus) { return; }
+            if (m_abilities.IsAbilityActivated(CombatArt.SoulfireBlast) && m_soulFireBlast.CanSoulFireBlast())
             {
                 if (m_state.isGrounded == false)
                 {
                     PrepareForMidairAttack();
+                    m_devilWings?.Cancel();
                     m_currentCombatArt = m_soulFireBlast;
                     m_soulFireBlast.Execute();
                     return;
@@ -1750,22 +1984,27 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnDiagonalSwordDashPerformedInput()
         {
-            if (m_state.isExecutingCombatArt)
-                return;
-            if (m_abilities.IsAbilityActivated(CombatArt.DiagonalSwordDash))
+            if (m_state.isExecutingCombatArt) { return; }
+            if (m_state.isAttacking) { return; }
+            if (m_state.isDoingEarthShaker) { return; }
+            if (m_abilities.IsAbilityActivated(CombatArt.DiagonalSwordDash) && m_diagonalSwordDash.CanDiagonalSwordDash())
             {
                 if (m_state.isGrounded == false)
                 {
-                    if (m_diagonalSwordDash.CanDiagonalSwordDash())
-                    {
-                        PrepareForMidairAttack();
-                        m_devilWings?.Cancel();
-                        m_extraJump?.Cancel();
-                        m_currentCombatArt = m_diagonalSwordDash;
-                        m_diagonalSwordDash.Execute();
-                        return;
-                    }
-
+                    //if (m_diagonalSwordDash.CanExecuteDash() == false) { m_diagonalSwordDash?.Cancel(); }
+                    m_diagonalSwordDash.Reset();
+                    PrepareForMidairAttack();
+                    m_basicSlashes?.Cancel();
+                    m_earthShaker?.Cancel();
+                    m_devilWings?.Cancel();
+                    m_extraJump?.Cancel();
+                    m_currentCombatArt = m_diagonalSwordDash;
+                    m_diagonalSwordDash?.Execute();
+                    return;
+                }
+                else
+                {
+                    m_currentCombatArt = null;
                 }
             }
         }
@@ -1801,7 +2040,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
             }
         }
-
+        private bool m_isDoingReaper = false;
         private void OnReapersHarvestStartedInput()
         {
 
@@ -1814,10 +2053,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
         private void OnReapersHarvestPerformedInput()
         {
+            m_isDoingReaper = true;
             if (m_state.isExecutingCombatArt)
                 return;
             if (m_state.isHighJumping) //sometimes you're still grounded while jumping [fast fingers]
                 return;
+            if (m_state.isChargingAttack) { return; }
+            if (m_state.isAimingProjectile) { return; }
+            if (m_state.isDoingSwordThrust) { return; }
+            if (m_teleportingSkull.m_isTeleporting) { return; }
             if (m_abilities.IsAbilityActivated(CombatArt.ReaperHarvest))
             {
                 m_state.waitForBehaviour = true;
@@ -1832,22 +2076,24 @@ namespace DChild.Gameplay.Characters.Players.Modules
 
                 }
             }
-
+            m_isDoingReaper = false;
         }
-
         private void OnIcarusWingsStartedInput()
         {
             //is grounded guard is not viable because jump input is being called before this function is called which automatically makes you ungrounded
             //if (m_state.isGrounded == false)
             //    return;
-
             if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
                 return;
 
             if (m_state.isHighJumping)
                 m_groundJump.Cancel();
-
+            if (m_state.isChargingAttack)
+                return;
+            if (m_icarusWings.m_isDoingIcarus)
+                return;
             m_state.isExecutingCombatArt = true;
+            m_swordThrust?.Cancel();
             //m_extraJump.Cancel();
         }
 
@@ -1855,7 +2101,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
             m_state.isExecutingCombatArt = false;
         }
-
         private void OnIcarusWingsPerformedInput()
         {
             if (m_state.isGrounded == false)
@@ -1864,14 +2109,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 return;
             if (m_vector2Input.x != 0)
                 return;
-            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false)
+            if (m_state.isDoingEarthShaker)
                 return;
-
-            m_basicSlashes.Cancel();
-
+            if (m_abilities.IsAbilityActivated(CombatArt.IcarusWings) == false || m_icarusWings.CanIcarusWings() == false) { return; }
             PrepareForGroundAttack();
+            m_swordThrust?.Cancel();
+            m_earthShaker?.Cancel();
+            m_swordThrust?.Cancel();
+            m_diagonalSwordDash?.Cancel();
             m_currentCombatArt = m_icarusWings;
-
             m_icarusWings.Execute();
         }
 
@@ -1879,7 +2125,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
         {
 
         }
-
         private void OnTeleportingSkullPerformedInput()
         {
             if (m_state.isExecutingCombatArt)
@@ -1892,7 +2137,6 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_teleportingSkull.TeleportToProjectile();
                 return;
             }
-
             m_projectileThrow.SetProjectileInfo(m_teleportingSkull.projectile);
             m_projectileThrow.WillResetProjectile();
             m_teleportingSkull.Execute();
@@ -2001,7 +2245,15 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_wallMovement?.Move(m_vector2Input.y);
 
                 m_groundedness?.Evaluate();
-
+                if (m_state.isGrounded == false)
+                {
+                    if (m_ledgeGrab?.IsDoable() ?? false)
+                    {
+                        m_wallMovement?.Cancel();
+                        m_wallStick?.Cancel();
+                        m_ledgeGrab?.Execute();
+                    }
+                }
                 if ((m_wallMovement?.IsThereAWall(WallMovement.SensorType.Body) ?? false) == false ||
                     (m_wallMovement?.IsThereAWall(WallMovement.SensorType.Overhead) ?? false) == false)
                 {
@@ -2142,7 +2394,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 m_idle?.Execute(m_state.allowExtendedIdle);
                 return;
             }
-
+            /*if(!m_state.isStickingToWall)*/
             MoveCharacter(m_state.isGrabbing, m_vector2Input.x);
         }
         #endregion
@@ -2296,6 +2548,9 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 if (m_currentCombatArt != null)
                 {
                     m_lightningSpear?.Cancel();
+                    m_diagonalSwordDash?.Cancel();/*
+                    m_earthShaker?.Cancel();
+                    m_icarusWings?.Cancel();*/
 
                     m_currentCombatArt = null;
                 }
@@ -2582,7 +2837,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_diagonalSwordDash?.Cancel();
             m_championsUprising?.Cancel();
             m_lightningSpear?.Cancel();
-            m_icarusWings?.Cancel();
+            //m_icarusWings?.Cancel();
             m_airSlashRange?.Cancel();
             m_teleportingSkull?.Cancel();
 

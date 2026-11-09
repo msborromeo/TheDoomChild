@@ -56,6 +56,8 @@ namespace DChild.Gameplay
         private UnityEvent m_duringTrigger;
         [SerializeField, TabGroup("post")]
         private UnityEvent m_postTrigger;
+        [SerializeField]
+        private bool m_playerHitboxOnly=true;
 
         public void Execute()
         {
@@ -67,6 +69,8 @@ namespace DChild.Gameplay
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (m_playerHitboxOnly && collision.tag != "Hitbox")
+                return;
             if (m_isTriggered == false)
             {
                 if (collision.CompareTag("Sensor") == false)

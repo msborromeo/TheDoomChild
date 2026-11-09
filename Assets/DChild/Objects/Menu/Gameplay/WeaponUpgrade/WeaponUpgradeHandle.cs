@@ -131,7 +131,10 @@ public class WeaponUpgradeHandle : MonoBehaviour
         upgradeInfo.hasUpgradeRequirements = isViable;
         return isViable;
     }
-
+    public void Decline(object sender, EventActionArgs eventArgs)
+    {
+        FindObjectOfType<Blacksmith>().Refuse();
+    }
     //Effectively this is where we uh when ang item ang mga items needed turns into the actual upgrade
     public void ExecuteUpgrade(PlayerWeapon playerWeapon, PlayerInventory playerInventory)
     {
@@ -183,6 +186,9 @@ public class WeaponUpgradeHandle : MonoBehaviour
 
         m_ui.OnUpgradeConfirmed -= OnUpgradeConfirm;
         m_ui.OnUpgradeConfirmed += OnUpgradeConfirm;
+
+        m_ui.OnUpgradeDecline -= Decline;
+        m_ui.OnUpgradeDecline += Decline;
     }
 
     private void OnGameplayLoad(object sender, CampaignSlotUpdateEventArgs eventArgs)
