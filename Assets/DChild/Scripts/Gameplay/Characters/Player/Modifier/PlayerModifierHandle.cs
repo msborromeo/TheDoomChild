@@ -52,6 +52,7 @@ namespace DChild.Gameplay.Characters.Players
                     m_modifiers.Add(key, 1);
                 }
             }
+            m_modifiers[PlayerModifier.SwordThrust_Damage] = 0;
         }
     }
 }

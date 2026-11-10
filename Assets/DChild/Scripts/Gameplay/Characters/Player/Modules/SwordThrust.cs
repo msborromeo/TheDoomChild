@@ -66,7 +66,7 @@ namespace DChild.Gameplay.Characters.Players.Modules
             m_state.isChargingAttack = true;
             m_animator.SetBool(m_swordThrustAnimationParameter, true);
             m_animator.SetBool(m_chargingAnimationParameter, true);
-            m_attacker.SetDamageModifier(m_thrust.damageModifier * m_modifier.Get(PlayerModifier.AttackDamage), m_thrust.critChance,
+            m_attacker.SetDamageModifier(m_thrust.damageModifier + m_modifier.Get(PlayerModifier.SwordThrust_Damage), m_thrust.critChance,
                 m_thrust.critModifier,
                 m_thrust.critFX);
         }
