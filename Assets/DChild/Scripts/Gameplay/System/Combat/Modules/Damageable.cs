@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 using Holysoft.Gameplay;
 using DChild.Gameplay.Characters.Players;
 using static Cinemachine.DocumentationSortingAttribute;
+using System.Collections.Generic;
 
 namespace DChild.Gameplay.Combat
 {
@@ -62,6 +63,8 @@ namespace DChild.Gameplay.Combat
 
         ICappedStatInfo IDamageable.health => m_health;
 
+        private readonly Dictionary<object, Invulnerability> m_invulnerabilityRequests = new Dictionary<object, Invulnerability>();
+
         public virtual void TakeDamage(int totalDamage, DamageType type)
         {
             if (!isAlive)
@@ -116,6 +119,38 @@ namespace DChild.Gameplay.Combat
             }
 
             InvulnerabilityChanged?.Invoke(this, new InvulnerabilityEventArgs(this, level));
+        }
+        public void RequestInvulnerability(object owner, Invulnerability level)
+        {
+            if (owner == null)
+                throw new System.ArgumentNullException(nameof(owner));
+
+            if (m_hitboxes == null)
+            {
+                m_hitboxes = GetComponentsInChildren<Hitbox>();
+            }
+
+            foreach (Hitbox hitbox in m_hitboxes)
+            {
+                if (hitbox != null)
+                {
+                    hitbox.RequestInvulnerability(owner, level);
+                }
+            }
+        }
+
+        public void ReleaseInvulnerability(object owner)
+        {
+            if (owner == null || m_hitboxes == null)
+                return;
+
+            foreach (Hitbox hitbox in m_hitboxes)
+            {
+                if (hitbox != null)
+                {
+                    hitbox.ReleaseInvulnerability(owner);
+                }
+            }
         }
 
         protected void CallDamageTaken(int totalDamage, DamageType type)

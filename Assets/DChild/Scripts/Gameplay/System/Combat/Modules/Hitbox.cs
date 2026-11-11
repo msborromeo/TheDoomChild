@@ -34,6 +34,9 @@ namespace DChild.Gameplay.Combat
         public BodyDefense defense => new BodyDefense(m_invulnerabilityLevel, m_damageReduction);
         public Invulnerability invulnerabilityLevel => m_invulnerabilityLevel;
 
+        private readonly Dictionary<object, Invulnerability> m_invulnerabilityRequests = new Dictionary<object, Invulnerability>();
+        private Invulnerability m_baseInvulnerability;
+        private bool m_invulnerabilityInitialized;
         public bool canBlockDamage => m_canBlockDamage;
 
         public void Enable()
@@ -55,7 +58,70 @@ namespace DChild.Gameplay.Combat
 
         public virtual bool CanBeDamageBy(params Collider2D[] colliders) => true;
 
-        public void SetInvulnerability(Invulnerability value) => m_invulnerabilityLevel = value;
+        //public void SetInvulnerability(Invulnerability value) => m_invulnerabilityLevel = value;
+        private void InitializeInvulnerability()
+        {
+            if (m_invulnerabilityInitialized)
+                return;
+
+            // Preserve the initial value configured on this hitbox.
+            m_baseInvulnerability = m_invulnerabilityLevel;
+            m_invulnerabilityInitialized = true;
+        }
+
+        public void SetInvulnerability(Invulnerability value)
+        {
+            InitializeInvulnerability();
+
+            // Older callers change the base value only.
+            m_baseInvulnerability = value;
+            RefreshInvulnerability();
+        }
+
+        public void RequestInvulnerability(object owner, Invulnerability level)
+        {
+            if (owner == null)
+                throw new System.ArgumentNullException(nameof(owner));
+
+            InitializeInvulnerability();
+
+            if (level == Invulnerability.None)
+            {
+                ReleaseInvulnerability(owner);
+                return;
+            }
+
+            // Repeated requests from the same ability update its existing entry.
+            m_invulnerabilityRequests[owner] = level;
+            RefreshInvulnerability();
+        }
+
+        public void ReleaseInvulnerability(object owner)
+        {
+            if (owner == null)
+                return;
+
+            // Releasing an already-removed request does nothing.
+            if (m_invulnerabilityRequests.Remove(owner))
+            {
+                RefreshInvulnerability();
+            }
+        }
+
+        private void RefreshInvulnerability()
+        {
+            Invulnerability effectiveLevel = m_baseInvulnerability;
+
+            foreach (Invulnerability level in m_invulnerabilityRequests.Values)
+            {
+                if (level > effectiveLevel)
+                {
+                    effectiveLevel = level;
+                }
+            }
+
+            m_invulnerabilityLevel = effectiveLevel;
+        }
 
         public void SetCanBlockDamageState(bool canBlockDamage) => m_canBlockDamage = canBlockDamage;
 

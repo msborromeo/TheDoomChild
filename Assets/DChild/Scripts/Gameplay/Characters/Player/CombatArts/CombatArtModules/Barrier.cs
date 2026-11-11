@@ -46,7 +46,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         [SerializeField, BoxGroup("Physics")]
         private Rigidbody2D m_physics;
         [SerializeField]
-        private GameObject m_hitbox;
+        private Hitbox m_hitbox;
         [SerializeField, BoxGroup("FX")]
         private Animator m_barrierFX;
         [SerializeField]
@@ -104,6 +104,8 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 
         public override void Reset()
         {
+            m_hitbox.ReleaseInvulnerability(this);
+            m_hitbox.SetCanBlockDamageState(false);
             m_state.waitForBehaviour = false;
             m_state.isAttacking = false;
             //m_barrierInfo.ShowCollider(false);
@@ -128,6 +130,8 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 
         public void EndExecution()
         {
+            m_hitbox.SetCanBlockDamageState(false);
+            m_hitbox.ReleaseInvulnerability(this);
             m_canMove = true;
             m_state.waitForBehaviour = false;
             m_state.isAttacking = false;
@@ -163,7 +167,10 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_isDoingBarrier = false;
             m_animator.SetBool(m_barrierStateAnimationParameter, false);
             m_state.isExecutingCombatArt = false;
-            m_hitbox.SetActive(true);
+            //m_hitbox.SetInvulnerability(Invulnerability.None);
+            m_hitbox.SetCanBlockDamageState(false);
+            m_hitbox.ReleaseInvulnerability(this);
+            //m_hitbox.SetActive(true);
             base.Cancel();
         }
 
@@ -174,11 +181,14 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_attackFX.transform.position = m_barrierInfo.fxPosition.position;
             m_physics.velocity = Vector2.zero;
 
-            m_hitbox.SetActive(!value);
+            //m_hitbox.SetActive(!value);
+            m_hitbox.SetCanBlockDamageState(value);
             if (value)
             {
                 m_barrierFX.SetBool("BarrierIsOn", true);
                 m_barrierHitbox.SetActive(true);
+                //m_hitbox.SetInvulnerability(Invulnerability.MAX);
+                m_hitbox.RequestInvulnerability(this, Invulnerability.MAX);
                 //m_damageable.SetInvulnerability(Invulnerability.Level_2);
                 //m_materialReplacement.replacementEnabled = true;
                 m_isDoingBarrier = true;
@@ -187,13 +197,25 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             {
                 m_barrierFX.SetBool("BarrierIsOn", false);
                 m_barrierHitbox.SetActive(false);
-                //m_damageable.SetInvulnerability(Invulnerability.None);
+                //m_hitbox.SetInvulnerability(Invulnerability.None);
+                m_hitbox.ReleaseInvulnerability(this);
                 //m_materialReplacement.replacementEnabled = false;
                 m_isDoingBarrier = false;
             }
             m_physics.AddForce(new Vector2(m_character.facing == HorizontalDirection.Right ? m_pushForce.x : -m_pushForce.x, m_pushForce.y), ForceMode2D.Impulse);
         }
-
+        /*public void SetPlayerInvulnerability()
+        {
+            while(m_hitbox.invulnerabilityLevel != Invulnerability.MAX)
+            {
+                m_hitbox.SetInvulnerability(Invulnerability.MAX);
+                return;
+            }
+        }*/
+        public void SetPlayerInvulnerability()
+        {
+            m_hitbox.RequestInvulnerability(this, Invulnerability.MAX);
+        }
         public void HandleMovementTimer()
         {
             if (m_barrierMovementCooldownTimer > 0)
@@ -212,7 +234,14 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         {
             m_configuration.CopyInfo(info);
         }
-
+        private void OnDisable()
+        {
+            if (m_hitbox != null)
+            {
+                m_hitbox.SetCanBlockDamageState(false);
+                m_hitbox.ReleaseInvulnerability(this);
+            }
+        }
         private IEnumerator BarrierHoldRoutine()
         {
             while (true)

@@ -1,5 +1,6 @@
 ﻿using Holysoft.Event;
 using Holysoft.Gameplay;
+using System.Collections.Generic;
 using UnityEngine;
 using static DChild.Gameplay.Combat.Damageable;
 
@@ -23,5 +24,7 @@ namespace DChild.Gameplay.Combat
         event EventAction<EventActionArgs> Destroyed;
         int GetInstanceID();
         bool CompareTag(string tag);
+        void RequestInvulnerability(object owner, Invulnerability level);
+        void ReleaseInvulnerability(object owner);
     }
 }
