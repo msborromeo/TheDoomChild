@@ -27,8 +27,6 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         private bool m_removeProjectiles = true;
         [SerializeField, Tooltip("Player root, used to ignore the player's own attacks. Defaults to the nearest Character.")]
         private Transform m_owner;
-        [SerializeField]
-        private IDamageable m_damageable;
 
         private Collider2D m_collider;
         private FXSpawnHandle<FX> m_spawnHandle;
@@ -43,7 +41,6 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 
         private void Awake()
         {
-            m_damageable = GetComponentInParent<IDamageable>();
             m_collider = GetComponent<Collider2D>();
             m_collider.isTrigger = true;
             // ColliderDamage and AttackProjectile explicitly ignore Sensor targets.
@@ -56,12 +53,12 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
                     m_owner = character.transform;
             }
 
-            /*if (GetComponent<Hitbox>() != null)
+            if (GetComponent<Hitbox>() != null)
             {
                 Debug.LogError("BarrierHitReceiver needs a dedicated trigger without a Hitbox component.", this);
                 m_collider.enabled = false;
                 enabled = false;
-            }*/
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
