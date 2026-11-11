@@ -11530,6 +11530,76 @@ MonoBehaviour:
   zPosition: 1
   overrideAlpha: 1
   hierarchy: {fileID: 4966587747696342843}
+--- !u!1 &1067773799477197556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6253259037094696955}
+  - component: {fileID: 1127999565900408762}
+  - component: {fileID: 7987352726291147987}
+  m_Layer: 8
+  m_Name: BarrierHitbox
+  m_TagString: Hitbox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6253259037094696955
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067773799477197556}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7567338640060585523}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1127999565900408762
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067773799477197556}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 5.0031548}
+  serializedVersion: 2
+  m_Radius: 8.682728
+--- !u!114 &7987352726291147987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067773799477197556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84903c5dad032642b0da0363ff845ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_attackLayers:
+    serializedVersion: 2
+    m_Bits: 1140736
+  m_impactFX: {fileID: 6513567724114420804, guid: 0ac3e8508d31d9f4eadb40598a89ac74,
+    type: 3}
+  m_impactLifetime: 1
+  m_hitCooldown: 0
+  m_removeProjectiles: 1
+  m_owner: {fileID: 6253259037094696955}
 --- !u!1 &1096208553105072504
 GameObject:
   m_ObjectHideFlags: 0
@@ -64636,6 +64706,7 @@ Transform:
   - {fileID: 4519113110586138014}
   - {fileID: 1702511588}
   - {fileID: 7896593825340102876}
+  - {fileID: 6253259037094696955}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

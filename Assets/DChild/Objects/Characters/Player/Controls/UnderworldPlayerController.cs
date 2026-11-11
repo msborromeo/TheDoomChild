@@ -1749,6 +1749,10 @@ namespace DChild.Gameplay.Characters.Players.Modules
                 }
                 else if (m_abilities.GetAbilityLevel(CombatArt.Barrier) == 2)
                 {
+                    if (m_state.isInShadowMode)
+                    {
+                        m_barrier.SetPlayerInvulnerability();
+                    }
                     m_barrier?.EnableShield(true);
                     m_barrier?.SetCanMove(true);
                 }

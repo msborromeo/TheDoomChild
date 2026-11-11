@@ -84,6 +84,39 @@ namespace DChild.Gameplay.Characters
             }
         }
 
+        public void RequestInvulnerability(object owner, Invulnerability level)
+        {
+            if (owner == null)
+                throw new System.ArgumentNullException(nameof(owner));
+
+            if (m_hitboxes == null)
+            {
+                m_hitboxes = GetComponentsInChildren<Hitbox>();
+            }
+
+            foreach (Hitbox hitbox in m_hitboxes)
+            {
+                if (hitbox != null)
+                {
+                    hitbox.RequestInvulnerability(owner, level);
+                }
+            }
+        }
+
+        public void ReleaseInvulnerability(object owner)
+        {
+            if (owner == null || m_hitboxes == null)
+                return;
+
+            foreach (Hitbox hitbox in m_hitboxes)
+            {
+                if (hitbox != null)
+                {
+                    hitbox.ReleaseInvulnerability(owner);
+                }
+            }
+        }
+
         protected void CallAttackerAttacked(CombatConclusionEventArgs eventArgs) => TargetDamaged?.Invoke(this, eventArgs);
         protected void CallDamaged() => Damaged?.Invoke(this, EventActionArgs.Empty);
 
