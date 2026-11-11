@@ -105,6 +105,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         public override void Reset()
         {
             m_hitbox.ReleaseInvulnerability(this);
+            m_hitbox.SetCanBlockDamageState(false);
             m_state.waitForBehaviour = false;
             m_state.isAttacking = false;
             //m_barrierInfo.ShowCollider(false);
@@ -129,6 +130,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
 
         public void EndExecution()
         {
+            m_hitbox.SetCanBlockDamageState(false);
             m_hitbox.ReleaseInvulnerability(this);
             m_canMove = true;
             m_state.waitForBehaviour = false;
@@ -166,6 +168,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
             m_animator.SetBool(m_barrierStateAnimationParameter, false);
             m_state.isExecutingCombatArt = false;
             //m_hitbox.SetInvulnerability(Invulnerability.None);
+            m_hitbox.SetCanBlockDamageState(false);
             m_hitbox.ReleaseInvulnerability(this);
             //m_hitbox.SetActive(true);
             base.Cancel();
@@ -235,6 +238,7 @@ namespace DChild.Gameplay.Characters.Players.BattleAbilityModule
         {
             if (m_hitbox != null)
             {
+                m_hitbox.SetCanBlockDamageState(false);
                 m_hitbox.ReleaseInvulnerability(this);
             }
         }
