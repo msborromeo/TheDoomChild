@@ -1,4 +1,5 @@
-﻿using Sirenix.Serialization;
+﻿using DChild.Gameplay.Systems;
+using Sirenix.Serialization;
 using Sirenix.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,13 +36,26 @@ namespace DChild.Gameplay.Environment
         [OdinSerialize,SerializeField]
         private Dictionary<MovableObject, Collider2D> m_movableObjectToColliderPair;
         private Coroutine m_monitorMovableObjectsRoutine;
+        private GameObject _ThePlayer;
 
-
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
+            if(_ThePlayer!= null)
+            {
+                _ThePlayer.transform.parent = null;
+                SceneManager.MoveGameObjectToScene(_ThePlayer, SceneManager.GetSceneByName("_Scene UnderworldGameplaySystem"));
+            }
+        }
         private void AttackRigidbodyToSelf(Rigidbody2D rigidbody, Collider2D collider)
         {
             var cache = Cache<ParentInfo>.Claim();
             cache.Value.Initialize(rigidbody.transform.parent, rigidbody.gameObject.scene);
             m_originalParentPair.Add(collider, cache);
+            if(rigidbody.transform.parent == m_toParent)
+            {
+                return;
+            }
             rigidbody.transform.parent = m_toParent;
             Debug.Log("Stick");
         }
@@ -110,11 +124,15 @@ namespace DChild.Gameplay.Environment
 
             if (m_originalParentPair.ContainsKey(collision.collider))
                 return;
-
+            if (_ThePlayer == null && collision.gameObject.tag == "Character")
+            {
+                _ThePlayer = collision.gameObject;
+            }
             var movableObject = collision.rigidbody.GetComponent<MovableObject>();
             if (movableObject == null)
             {
                 AttackRigidbodyToSelf(collision.rigidbody, collision.collider);
+                
                 return;
             }
 
@@ -231,7 +249,7 @@ namespace DChild.Gameplay.Environment
             if (collision.rigidbody == null)
                 return;
 
-            if (m_checkedMovableObject == collision.rigidbody && collision.gameObject.tag != "Player")
+            if (m_checkedMovableObject == collision.rigidbody && collision.gameObject.tag != "Character")
             {
                 if (m_checkMovableObjectRoutine != null)
                 {
@@ -252,6 +270,11 @@ namespace DChild.Gameplay.Environment
             {
                 var cache = m_originalParentPair[collision.collider];
                 collision.rigidbody.transform.parent = (collision.gameObject.tag == "Character") ? null : cache.Value.parent;
+                if (_ThePlayer != null && collision.gameObject.tag == "Character")
+                {
+                    _ThePlayer = null;
+                    ReturnThePlayerToUnderworldSystem(collision.rigidbody.gameObject);
+                }
                 if (cache.Value.parent == null)
                 {
                     SceneManager.MoveGameObjectToScene(collision.rigidbody.gameObject, cache.Value.scene);
@@ -260,6 +283,29 @@ namespace DChild.Gameplay.Environment
                 m_originalParentPair.Remove(collision.collider);
                 
             }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if(collision.gameObject.tag == "Character")
+            {
+                collision.transform.parent = null;
+                ReturnThePlayerToUnderworldSystem(collision.gameObject);
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if(collision.gameObject.TryGetComponent<LocationSwitcher>(out LocationSwitcher passageway))
+            {
+
+                Destroy(this);
+            }
+        }
+
+        private void ReturnThePlayerToUnderworldSystem(GameObject player)
+        {
+            SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName("_Scene UnderworldGameplaySystem"));
         }
     }
 }
