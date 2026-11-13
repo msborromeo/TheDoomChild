@@ -11,6 +11,7 @@ using Sirenix.Utilities;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DChild.Gameplay.Systems
 {
@@ -78,6 +79,8 @@ namespace DChild.Gameplay.Systems
 
         private IEnumerator DoTransition(Character character, TransitionType type)
         {
+            
+            
             m_handle.DoSceneTransition(character, type);
             if (type == TransitionType.Enter)
             {
@@ -122,6 +125,7 @@ namespace DChild.Gameplay.Systems
             }
             else if (type == TransitionType.Exit)
             {
+                
                 //character.transform.position = m_poster.data.position;
                 GameplaySystem.gamplayUIHandle.TogglePause(true);
 
@@ -145,6 +149,17 @@ namespace DChild.Gameplay.Systems
 
         public void GoToDestination(Character character)
         {
+            if (character.gameObject.scene != SceneManager.GetSceneByName("_Scene UnderworldGameplaySystem"))
+            {
+                StickWhileOnPlatform[] allstick = FindObjectsOfType<StickWhileOnPlatform>();
+                foreach (StickWhileOnPlatform script in allstick)
+                {
+                    Destroy(script);
+                }
+                character.gameObject.transform.parent = null;
+                SceneManager.MoveGameObjectToScene(character.gameObject,SceneManager.GetSceneByName("_Scene UnderworldGameplaySystem"));
+                //Debug.Log(character.transform.parent.ToString());
+            }
             var damageable = character.GetComponent<IDamageable>();
             damageable?.SetHitboxActive(false);
 
